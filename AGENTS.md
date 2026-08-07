@@ -61,6 +61,7 @@ CRITICAL: Never write raw sensitive data to durable artifacts. This includes pas
 Project-specific hazards:
 
 - **Netdata Cloud claim tokens and room IDs** are credentials. They never enter `environment.yaml`, SOWs, specs, docs, test fixtures, or commit history. They are supplied at runtime via env vars or console input only.
+- **LLM provider API keys** (`ANTHROPIC_API_KEY`, `OPENAI_API_KEY`, or whatever `--llm-key-env` names) follow the same rule, and additionally must never reach a child process's argv — argv is world-readable via `ps` for the life of the process. `crates/sim-plugin/src/llm.rs` passes the key to `curl` on stdin for exactly this reason; keep it there.
 - **Prospect and customer names** never appear in committed environment templates, scenario fixtures, hostnames, or SOW text. Use `customer-a`, `[PROSPECT]`, or a generic vertical name.
 - Simulated hostnames, IPs, and labels committed to this repo must be obviously synthetic (RFC 5737 / RFC 3849 documentation ranges, `sim-*` prefixes) so they can never be mistaken for a real customer estate.
 

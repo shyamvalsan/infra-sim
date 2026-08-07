@@ -19,6 +19,7 @@ mod control;
 mod describe;
 mod emitter;
 mod environment;
+mod llm;
 mod reskin;
 
 use environment::Environment;
@@ -54,6 +55,8 @@ struct Args {
     describe: Option<String>,
     /// Environment name and hostname prefix for --describe.
     describe_name: Option<String>,
+    /// Read the description with a real model instead of the keyword parser.
+    llm: Option<llm::Config>,
     /// Re-skin instead of running: rewrite hostnames and labels for a new
     /// prospect while preserving every GUID.
     reskin: Option<ReskinArgs>,
@@ -96,6 +99,9 @@ fn parse_args() -> Result<Args, String> {
     let mut reskin_args: Option<ReskinArgs> = None;
     let mut describe: Option<String> = None;
     let mut describe_name: Option<String> = None;
+    let mut llm_cfg: Option<llm::Config> = None;
+    let mut llm_model: Option<String> = None;
+    let mut llm_key_env: Option<String> = None;
 
     let mut args = std::env::args().skip(1);
     while let Some(arg) = args.next() {
@@ -117,6 +123,23 @@ fn parse_args() -> Result<Args, String> {
                     args.next()
                         .ok_or_else(|| "--name requires a value".to_string())?,
                 );
+            }
+            "--llm" => {
+                let value = args
+                    .next()
+                    .ok_or_else(|| "--llm requires 'anthropic' or 'openai'".to_string())?;
+                llm_cfg = Some(llm::Config::new(llm::Provider::parse(&value)?));
+            }
+            "--llm-model" => {
+                llm_model = Some(
+                    args.next()
+                        .ok_or_else(|| "--llm-model requires a model id".to_string())?,
+                );
+            }
+            "--llm-key-env" => {
+                llm_key_env = Some(args.next().ok_or_else(|| {
+                    "--llm-key-env requires an environment variable name".to_string()
+                })?);
             }
             "--reskin" => {
                 reskin_args.get_or_insert_with(ReskinArgs::default);
@@ -174,6 +197,20 @@ fn parse_args() -> Result<Args, String> {
                        postgres primary and 2 redis caches\" --name acme \\\n\
                        --environment environments/acme.yaml\n\
                      \n\
+                     the description is read by a keyword parser offline. For a \
+                     description written in the prospect's own words, add:\n\
+                     --llm anthropic          read it with Claude \
+                     (needs $ANTHROPIC_API_KEY)\n\
+                     --llm openai             read it with OpenAI \
+                     (needs $OPENAI_API_KEY)\n\
+                     --llm-model MODEL        override the model id\n\
+                     --llm-key-env VAR        read the key from a different \
+                     variable\n\
+                     $ANTHROPIC_BASE_URL / $OPENAI_BASE_URL point at an \
+                     internal gateway.\n\
+                     The model only chooses among roles and service specs that \
+                     exist here; it never writes the environment file.\n\
+                     \n\
                      re-skin a warm environment for a new prospect:\n\
                      --reskin --from-prefix sim- --to-prefix acme- \\\n\
                        [--new-name NAME] [--label key=value]... [--output PATH]\n\
@@ -196,6 +233,25 @@ fn parse_args() -> Result<Args, String> {
         .or_else(|| std::env::var_os(ENV_VAR).map(PathBuf::from))
         .unwrap_or_else(|| PathBuf::from(DEFAULT_ENVIRONMENT));
 
+    // Accepting these silently without --llm would run the keyword parser while
+    // the operator believes a model answered.
+    match &mut llm_cfg {
+        Some(cfg) => {
+            if let Some(m) = llm_model {
+                cfg.model = m;
+            }
+            if let Some(v) = llm_key_env {
+                cfg.key_env = v;
+            }
+        }
+        None if llm_model.is_some() || llm_key_env.is_some() => {
+            return Err("--llm-model and --llm-key-env only apply with --llm; add \
+                 --llm anthropic (or --llm openai)"
+                .into());
+        }
+        None => {}
+    }
+
     Ok(Args {
         update_every,
         environment,
@@ -204,6 +260,7 @@ fn parse_args() -> Result<Args, String> {
         reskin: reskin_args,
         describe,
         describe_name,
+        llm: llm_cfg,
     })
 }
 
@@ -211,7 +268,12 @@ fn run() -> Result<(), String> {
     let args = parse_args()?;
 
     if let Some(text) = &args.describe {
-        return do_describe(text, args.describe_name.as_deref(), &args.environment);
+        return do_describe(
+            text,
+            args.describe_name.as_deref(),
+            &args.environment,
+            args.llm.as_ref(),
+        );
     }
 
     if let Some(r) = &args.reskin {
@@ -364,19 +426,68 @@ fn run() -> Result<(), String> {
 }
 
 /// Build an environment from a text description and write it out.
-fn do_describe(text: &str, name: Option<&str>, output: &Path) -> Result<(), String> {
-    let reading = describe::parse(text);
+fn do_describe(
+    text: &str,
+    name: Option<&str>,
+    output: &Path,
+    llm: Option<&llm::Config>,
+) -> Result<(), String> {
+    // The rendered file points its `specs:` at ../specs, so the model is offered
+    // exactly the specs the resulting environment will be able to load.
+    let specs_dir = output
+        .parent()
+        .unwrap_or(Path::new("."))
+        .join("..")
+        .join("specs");
+
+    let mut suggested_name = None;
+    let reading = match llm {
+        Some(cfg) => {
+            eprintln!(
+                "infra-sim: reading the description with {} ({})...",
+                cfg.model, cfg.key_env
+            );
+            // A failure here is reported, never quietly downgraded to the
+            // keyword parser: an SE who asked for a model reading and silently
+            // got a weaker one has no way to tell.
+            let p = llm::propose(cfg, text, &specs_dir)?;
+            println!("read by {}:\n", p.model);
+            for note in &p.notes {
+                println!("  note: {note}");
+            }
+            for c in &p.corrections {
+                // A plan we had to adjust is not a plan the model produced.
+                println!("  adjusted: {c}");
+            }
+            if !p.notes.is_empty() || !p.corrections.is_empty() {
+                println!();
+            }
+            suggested_name = p.suggested_name;
+            let mut r = p.reading;
+            r.unrecognised = p.unsupported;
+            r
+        }
+        None => describe::parse(text),
+    };
+
     if reading.groups.is_empty() {
         return Err(format!(
             "nothing recognisable in '{text}'.\n\
              Known roles: load balancer, web/app server, database (postgres/mysql), \
              cache (redis), kubernetes control plane, kubernetes worker, edge gateway.\n\
              Try: --describe \"3 web servers behind an nginx load balancer, a postgres \
-             primary and 2 redis caches\""
+             primary and 2 redis caches\"\n\
+             A description in the prospect's own vocabulary reads better with \
+             --llm anthropic."
         ));
     }
 
-    let name = name.unwrap_or("described").to_string();
+    // --name stays authoritative: it fixes the seed, the hostname prefix and
+    // therefore every GUID, so it must not move when a model is re-run.
+    let name = name
+        .map(str::to_string)
+        .or(suggested_name)
+        .unwrap_or_else(|| "described".to_string());
     let prefix = format!("{name}-");
     // Derived from the name, so the same description reproduces the same world
     // rather than a new one each time it is run.
@@ -396,9 +507,10 @@ fn do_describe(text: &str, name: Option<&str>, output: &Path) -> Result<(), Stri
     println!("read {total} node(s) from the description:\n");
     for g in &reading.groups {
         println!(
-            "  {:2} x {:<18} services: {:<24} <- \"{}\"",
+            "  {:>3} x {:<18} {:<26} {:<22} <- \"{}\"",
             g.count,
             g.role,
+            format!("{prefix}{}-NN", g.effective_slug()),
             if g.services.is_empty() {
                 "(base only)".into()
             } else {
@@ -410,7 +522,7 @@ fn do_describe(text: &str, name: Option<&str>, output: &Path) -> Result<(), Stri
     if !reading.unrecognised.is_empty() {
         // Surfaced rather than ignored: a fleet missing what the prospect asked
         // about is worse than one that admits it.
-        println!("\nnot recognised, so nothing was generated for these:");
+        println!("\nnot modelled, so nothing was generated for these:");
         for u in &reading.unrecognised {
             println!("  \"{}\"", u.trim());
         }

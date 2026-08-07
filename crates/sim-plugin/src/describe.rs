@@ -5,17 +5,27 @@
 //! `environment.yaml`. `spec.md` lists this as P1 "LLM-assisted environment
 //! compose".
 //!
-//! This implementation is **deterministic, not an LLM**, for three reasons.
-//! It works offline on a laptop with no API key, which is where SEs actually
-//! prepare. It is reproducible, which the archive-and-replay promise depends
-//! on. And it can say precisely what it did not understand, where a model would
-//! quietly invent something plausible — and a silently wrong fleet is the
-//! failure mode this project can least afford.
+//! There are two front ends and one back end. The keyword parser in this module
+//! is the offline default: no API key, no network, reproducible. `--llm` swaps
+//! in a real model (see [`crate::llm`]) for descriptions written in the
+//! prospect's vocabulary rather than ours — "our checkout tier fronted by an
+//! ALB, an Aurora writer, two ElastiCache nodes" — which keywords read badly.
 //!
-//! Note the boundary `spec.md` draws: describing a stack in your own words is
-//! P1 and fine. *Ingesting customer documents* — RFIs, discovery notes — is an
-//! explicit non-goal, to avoid confidentiality questions entirely. This parses
-//! a sentence the SE typed, never a file the prospect sent.
+//! Both produce a [`Reading`], and a `Reading` is all [`render`] will accept.
+//! That boundary is the point: the model chooses *which* known roles and
+//! services to use and how many, and never writes the YAML. So a model that
+//! misunderstands produces a wrong-but-valid fleet the SE can see and correct,
+//! not an environment referencing a signal no generator defines — which fails
+//! silently, in front of a prospect. It also keeps GUIDs derived, so
+//! regenerating never orphans a running fleet's history.
+//!
+//! `spec.md` puts this on the right side of its own line: LLM-assisted compose
+//! is P1, and the non-goal is per-datapoint LLM generation. Authoring an
+//! environment file offline is not inference in the data path. The other
+//! boundary it draws still holds — describing a stack in your own words is
+//! fine, *ingesting customer documents* (RFIs, discovery notes) is an explicit
+//! non-goal. Both paths take a sentence the SE typed, never a file the prospect
+//! sent.
 
 /// One recognised group of nodes.
 #[derive(Debug, Clone, PartialEq)]
@@ -23,8 +33,22 @@ pub struct Group {
     pub count: usize,
     pub role: String,
     pub services: Vec<String>,
+    /// Hostname element, e.g. `checkout` in `acme-checkout-01`. `None` uses the
+    /// role's own slug. The LLM path sets this so hostnames carry the
+    /// prospect's vocabulary instead of ours.
+    pub slug: Option<String>,
     /// The phrase this came from, echoed back so the SE can check the reading.
     pub source: String,
+}
+
+impl Group {
+    /// Hostname element actually used, after falling back to the role's slug.
+    pub fn effective_slug(&self) -> &str {
+        match &self.slug {
+            Some(s) if !s.is_empty() => s.as_str(),
+            _ => slug_for(&self.role),
+        }
+    }
 }
 
 #[derive(Debug, Clone, Default)]
@@ -34,6 +58,32 @@ pub struct Reading {
     pub unrecognised: Vec<String>,
 }
 
+impl Reading {
+    /// Fold groups that would generate colliding hostnames.
+    ///
+    /// Hostnames are `{prefix}{slug}-{n:02}`, so two groups sharing a slug
+    /// would emit the same hostname twice. Netdata keys a vnode on its GUID and
+    /// the GUID is derived from the hostname, so a collision is not a cosmetic
+    /// duplicate — it is two nodes claiming one identity, interleaving their
+    /// samples into a single corrupted series.
+    pub fn dedupe_slugs(&mut self) {
+        let mut folded: Vec<Group> = Vec::new();
+        for group in std::mem::take(&mut self.groups) {
+            match folded
+                .iter_mut()
+                .find(|g| g.effective_slug() == group.effective_slug())
+            {
+                Some(existing) => {
+                    existing.count += group.count;
+                    existing.source = format!("{}; {}", existing.source, group.source);
+                }
+                None => folded.push(group),
+            }
+        }
+        self.groups = folded;
+    }
+}
+
 /// A role the generator specs know how to model, with the words that select it.
 struct RoleDef {
     role: &'static str,
@@ -41,7 +91,69 @@ struct RoleDef {
     services: &'static [&'static str],
     /// Hostname element, e.g. `web` in `sim-web-01`.
     slug: &'static str,
+    /// What this role models, for a reader that is not a keyword matcher.
+    summary: &'static str,
     keywords: &'static [&'static str],
+}
+
+/// One role, as offered to an LLM.
+pub struct RoleInfo {
+    pub role: &'static str,
+    pub slug: &'static str,
+    pub services: &'static [&'static str],
+    pub summary: &'static str,
+}
+
+/// The roles a plan may use.
+///
+/// This is the same table the keyword parser matches against, exposed rather
+/// than duplicated: a role that drifts out of one path would otherwise stay
+/// silently available in the other.
+pub fn roles() -> Vec<RoleInfo> {
+    ROLES
+        .iter()
+        .map(|r| RoleInfo {
+            role: r.role,
+            slug: r.slug,
+            services: r.services,
+            summary: r.summary,
+        })
+        .collect()
+}
+
+/// Service specs present on disk, which are the only ones a node may name.
+///
+/// Read from the directory rather than hardcoded, so a spec the SE authors
+/// becomes available without touching this file — and one that is missing is
+/// never offered, because `run()` fails at load time on a service with no spec.
+pub fn available_services(specs_dir: &std::path::Path) -> Vec<String> {
+    let Ok(entries) = std::fs::read_dir(specs_dir) else {
+        // No directory to read: offer only what the role table already names,
+        // which is what the deterministic path would have produced anyway.
+        let mut fallback: Vec<String> = ROLES
+            .iter()
+            .flat_map(|r| r.services.iter().map(|s| s.to_string()))
+            .collect();
+        fallback.sort();
+        fallback.dedup();
+        return fallback;
+    };
+    let mut names: Vec<String> = entries
+        .flatten()
+        .filter_map(|e| {
+            let path = e.path();
+            if path.extension().and_then(|x| x.to_str()) != Some("yaml") {
+                return None;
+            }
+            let stem = path.file_stem()?.to_str()?.to_string();
+            // The base spec is composed onto every node already; naming it as a
+            // service would merge it into itself.
+            (stem != "linux-system").then_some(stem)
+        })
+        .collect();
+    names.sort();
+    names.dedup();
+    names
 }
 
 /// Only roles the specs can actually model appear here.
@@ -54,6 +166,8 @@ const ROLES: &[RoleDef] = &[
         role: "lb",
         services: &["nginx"],
         slug: "lb",
+        summary: "edge load balancer or ingress: modest CPU and RAM, one disk, \
+                  high connection counts",
         keywords: &[
             "load balancer",
             "loadbalancer",
@@ -70,6 +184,9 @@ const ROLES: &[RoleDef] = &[
         role: "web",
         services: &["nginx"],
         slug: "web",
+        summary: "application or API tier serving requests: the general-purpose \
+                  compute node, and the tier scenarios treat as downstream of a \
+                  database",
         keywords: &[
             "web server",
             "web servers",
@@ -89,6 +206,10 @@ const ROLES: &[RoleDef] = &[
         role: "db",
         services: &["postgres"],
         slug: "db",
+        summary: "relational database node: large RAM, a dedicated data volume \
+                  at /var/lib/pgsql and a second interface for replication. Use \
+                  for any relational engine - the modelled metrics are \
+                  Postgres-shaped",
         keywords: &[
             "postgres",
             "postgresql",
@@ -105,12 +226,15 @@ const ROLES: &[RoleDef] = &[
         role: "cache",
         services: &["redis"],
         slug: "cache",
+        summary: "in-memory cache node: memory-bound, low disk activity",
         keywords: &["redis", "cache", "caches", "memcached", "valkey"],
     },
     RoleDef {
         role: "k8s-control-plane",
         services: &["kubernetes", "containers"],
         slug: "k8s-cp",
+        summary: "Kubernetes control-plane node: apiserver, etcd, scheduler and \
+                  controller-manager containers",
         keywords: &[
             "control plane",
             "control-plane",
@@ -123,6 +247,8 @@ const ROLES: &[RoleDef] = &[
         role: "k8s-worker",
         services: &["kubernetes", "containers"],
         slug: "k8s-worker",
+        summary: "Kubernetes worker node running containerised workloads: large \
+                  core count, a containerd volume, per-container metrics",
         keywords: &[
             "worker node",
             "worker nodes",
@@ -140,6 +266,9 @@ const ROLES: &[RoleDef] = &[
         role: "edge-gateway",
         services: &["containers"],
         slug: "edge-gw",
+        summary: "small remote device - robot, kiosk, IoT or retail gateway: few \
+                  cores, little RAM, eMMC storage and a flaky cellular \
+                  interface alongside ethernet",
         keywords: &[
             "edge gateway",
             "edge gateways",
@@ -240,6 +369,8 @@ fn match_clause(clause: &str) -> Option<Group> {
         count: extract_count(clause),
         role: def.role.to_string(),
         services: def.services.iter().map(|s| s.to_string()).collect(),
+        // Keyword matching has no evidence for a better name than the role's.
+        slug: None,
         source: clause.to_string(),
     })
 }
@@ -333,7 +464,7 @@ pub fn render(reading: &Reading, name: &str, seed: u64, prefix: &str) -> String 
 
     for group in &reading.groups {
         let (cores, ram_kb, disk, itype) = hardware(&group.role);
-        let slug = slug_for(&group.role);
+        let slug = group.effective_slug();
         for i in 1..=group.count {
             let hostname = format!("{prefix}{slug}-{i:02}");
             let guid = derive_guid(name, &hostname);

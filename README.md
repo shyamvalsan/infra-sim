@@ -97,6 +97,62 @@ sudo systemctl restart netdata
 Simulated nodes persist in the agent's database after removal — a vnode GUID is
 a durable identity, which is what makes the re-skin workflow possible.
 
+## Building an environment from a description
+
+Rather than hand-writing `environment.yaml`, describe the stack:
+
+```bash
+./target/release/infra-sim \
+  --describe "3 web servers behind an nginx load balancer, a postgres primary and 2 redis caches" \
+  --name acme --environment environments/acme.yaml
+```
+
+That runs offline against a keyword parser — no API key, no network. For a
+description written in the prospect's vocabulary rather than ours, add `--llm`:
+
+```bash
+export ANTHROPIC_API_KEY=...   # or OPENAI_API_KEY for --llm openai
+
+./target/release/infra-sim --llm anthropic \
+  --describe "Our checkout tier runs on six boxes fronted by an ALB, with an \
+Aurora writer, two ElastiCache nodes and an SQS queue" \
+  --name acme --environment environments/acme.yaml
+```
+
+```
+   2 x lb                 acme-alb-NN                nginx        <- "fronted by an ALB"
+   6 x web                acme-checkout-NN           nginx        <- "checkout tier on six boxes"
+   1 x db                 acme-aurora-NN             postgres     <- "an Aurora writer"
+   2 x cache              acme-elasticache-NN        redis        <- "two ElastiCache nodes"
+
+not modelled, so nothing was generated for these:
+  "an SQS queue - no generator spec models a message broker"
+```
+
+**The model returns a plan, never YAML.** It chooses among the roles and service
+specs that exist in this repository, says how many of each and what to call
+them; the same deterministic renderer used by the offline path writes the file.
+So a model that misreads produces a wrong-but-visible fleet the SE corrects,
+rather than an environment naming a signal no generator defines — which fails
+silently, mid-demo, with nothing in any log to explain it. Anything it cannot
+map is reported instead of substituted, and GUIDs stay derived from hostnames,
+so regenerating never orphans a running fleet's history.
+
+Whichever path produced it, lint before trusting it:
+
+```bash
+./target/release/infra-sim --environment environments/acme.yaml --lint 72
+```
+
+Options: `--llm anthropic|openai`, `--llm-model MODEL`, `--llm-key-env VAR`.
+`$ANTHROPIC_BASE_URL` / `$OPENAI_BASE_URL` point at an internal gateway. The key
+is read from the environment and handed to `curl` over stdin, so it never
+appears in the process table — and it is never written to the environment file.
+
+This is authoring-time only. `spec.md`'s non-goal is per-datapoint LLM
+generation; the runtime is deterministic code with no inference in the data
+path.
+
 ## Writing generator specs
 
 A spec describes contexts and the signals behind them. The format exists to

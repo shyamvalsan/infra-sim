@@ -191,6 +191,14 @@ Unresolved, not blocking this slice:
 3. P0 "Correlated logs ... attributed to correct vnodes in logs UI" is not achievable as literally worded; logs attribute by source/`_HOSTNAME` facet, not by node view. Proposed rewording recorded in `FINDINGS.md`.
 4. `§3 History` quotes ML config keys that v2.10 marks obsolete. The 72h conclusion holds; the key names need updating before they reach a runbook.
 
+**LLM backend for `--describe` (user-directed, implemented).** The user asked for "full blown claude or openai, with api key wired in". Three implementation decisions were taken inside that instruction and are recorded here rather than left in code comments:
+
+1. **The model returns a plan, not YAML.** It picks from a catalogue of roles (the same table the keyword parser matches) and the service specs actually present in `specs/`, both enforced as JSON-schema enums and re-checked on our side; the existing deterministic renderer writes the file. This keeps GUIDs derived from hostnames, keeps every generated environment lintable, and bounds the blast radius of a misreading to a wrong-but-visible fleet rather than an environment naming a signal no generator defines. That failure mode is silent and surfaces mid-demo, which is the one this project can least afford.
+2. **Transport is `curl`, not an HTTP crate.** Every in-process Rust TLS stack (rustls via `ring`/`aws-lc-rs`, native-tls via OpenSSL) requires a C toolchain or cmake, and `infra-sim` is the binary that ships in the runtime image. Taking ~100 crates and a build-environment dependency into the data-path binary for one authoring-time call is a bad trade; `curl` is present everywhere this runs and inherits the operator's proxy configuration. Revisit if the plugin ever needs HTTPS in the data path.
+3. **No silent fallback.** If `--llm` is given and the call fails, the command fails and says so. Quietly downgrading to the keyword parser would hand the SE a weaker reading with no way to tell.
+
+Also unresolved by the instruction and decided here: `--name` stays authoritative over the model's suggested environment name, because the name fixes the seed, the hostname prefix and therefore every GUID — letting a model move it would orphan a running fleet on a re-run.
+
 ## Plan
 
 See `## Pre-Implementation Gate` → Implementation plan, items 1–9.
@@ -208,6 +216,8 @@ See `## Pre-Implementation Gate` → Implementation plan, items 1–9.
 - Implemented plan items 1-6: Cargo workspace (`sim-spec`, `sim-engine`, `sim-plugin`); generator spec format with `independent`/`partition`/`counters` shapes; deterministic SplitMix64 engine with name-addressed streams; plugins.d emitter; 50-context Linux baseline (`specs/linux-system.yaml`); 5-node web-stack environment (`environments/web-stack.yaml`); `scripts/install-local.sh`; README.
 - Added `--lint HOURS` to the plugin as the first piece of the fidelity harness.
 - Removed the throwaway Python probe and installed the Rust plugin on the live agent.
+- Delivered, after items 1-6, in order: per-instance cardinality and the 70-context baseline; the scenario engine with live trigger and ground-truth manifests; chart labels so stock health templates attach; the control console (item 8); the four remaining hero scenarios; service generator specs and their composition; k8s and robotics-edge templates; clock pinning and the re-skin workflow; the semantic fidelity harness; `--describe` (offline keyword parser).
+- Added an optional LLM backend to `--describe` (`--llm anthropic|openai`) at the user's request. The offline parser stays the default and the fallback.
 
 ### Findings during implementation
 
@@ -243,6 +253,15 @@ Tests or equivalent validation:
 - `cargo test`: 32 passed, 0 failed.
 - `cargo clippy --all-targets`: clean. `cargo fmt --check`: clean.
 - `infra-sim --lint 72`: 0 signals pinned across all 5 nodes over 72 simulated hours (259,200 samples per node).
+
+LLM backend for `--describe` — validated against a local mock speaking each provider's wire format, since no provider key was available in this session:
+
+- `cargo test`: 138 passed, 0 failed. Clippy and fmt clean.
+- Anthropic path end-to-end: the captured request carried the key in an `x-api-key` header (proving the stdin config file reached curl), `anthropic-version: 2023-06-01`, `output_config` with both `effort` and a `json_schema` format, and role/service enums populated from the real on-disk catalogue (`lb, web, db, cache, k8s-control-plane, k8s-worker, edge-gateway` / `containers, kubernetes, nginx, postgres, redis`). The reply's plan was read past a leading `thinking` block.
+- The environment it produced — 11 nodes named in the prospect's vocabulary (`acmetest-checkout-NN`, `acmetest-aurora-01`, `acmetest-elasticache-NN`) — passed `--lint 12` with **no semantic violations and no pinned signals**, and all 5 scenarios resolved against it, meaning the generated `db` node carried the data volume and replication interface the hero scenarios target. This is the safety argument demonstrated rather than asserted: the model chose the plan, the deterministic renderer produced a fleet that lints.
+- OpenAI path end-to-end: `POST /v1/chat/completions`, `authorization: Bearer`, `response_format.json_schema.strict = true`, system+user message pair; plan parsed and rendered.
+- Error paths all fail closed with an actionable message and exit 1: key unset, unknown provider, `--llm-model` without `--llm`, HTTP 401 (provider's own message surfaced), unreachable endpoint. The request-body temp file is removed on every path, including the failures.
+- Not covered: no call was made to a real provider. Model-quality behaviour — how well `claude-opus-5` actually maps an unfamiliar description onto the catalogue — is unverified and needs a run with a live key.
 
 Real-use evidence (live agent `v2.10.0-1022-nightly`):
 
