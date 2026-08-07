@@ -1,0 +1,280 @@
+# SOW-0001 - Infra-Sim vertical slice: plugins.d runtime, Linux baseline generator, web-stack template
+
+## Status
+
+Status: in-progress
+
+Sub-state: Bootstrap and load-bearing verification complete. Rust runtime implementation starting. OTEL sim scoping is an open decision tracked in `SOW-0002` (pending), not a blocker for this slice.
+
+## Requirements
+
+### Purpose
+
+Build the first end-to-end vertical slice of Infra-Sim: a Rust external plugin that executes declarative generator specs, emits a dashboard-complete simulated Linux fleet as Netdata virtual nodes, and can have a scenario injected into it live — with the real Netdata ML/health pipeline processing it untouched.
+
+This slice exists to make every interface real and to expose integration risk early, per user decision 1A.
+
+### User Request
+
+"Build this spec" (`spec.md`), followed by design decisions:
+
+- 1A — vertical slice first (one template, dashboard-complete Linux baseline, ~5 vnodes, 1 scenario, thin console)
+- 2B — dashboard-complete Linux baseline (~60–80 contexts), not full 188-context parity
+- 3C — Rust runtime
+- 4A — per-host journal files in `/var/log/journal/remote/` for log attribution
+- 5A — initialize git + SOW before building
+- 6 — cap local verification at 5 vnodes; scale testing runs later on another machine
+- "also don't forget OTEL sim" — new scope, not present in `spec.md`
+
+### Assistant Understanding
+
+Facts (verified against a live agent, not inferred):
+
+- The plugins.d protocol exposes vnode creation to **external** plugins. `HOST`, `HOST_DEFINE`, `HOST_DEFINE_END`, `HOST_LABEL` carry the `PARSER_INIT_PLUGINSD` flag and `HOST_DEFINE_END` calls `rrdhost_find_or_create(..., NETDATA_VIRTUAL_HOST, ...)`.
+- A plain Python external plugin in `/etc/netdata/custom-plugins.d/` registered three vnodes on a live agent, each queryable at `/host/<hostname>/api/v1/...` with correctly scoped data.
+- Netdata's **real** ML engine trains per vnode with no special casing: `anomaly_detection.ml_running = 1`, `netdata.training_status = 12.6 untrained / 10.4 trained` on a simulated node. The hard rule is satisfied by construction.
+- A vnode carries **only** the charts its plugin emits, plus 8 ML charts Netdata adds itself. There is no automatic node-level dashboard section; dashboard menus are built from the contexts present on the node.
+- The same agent's real Linux node carries **188 OS-baseline contexts / 312 chart instances** (`system/mem/disk/net/ip/ipv4/ipv6/cpu` families), versus 6 on the probe vnode.
+- Netdata's logs pipeline classifies journal **files**, not nodes. `/var/log/journal/remote/remote-<host>.journal` yields source `remote-<host>`; `_HOSTNAME` is a facet. Logs are not nested inside a vnode's node view.
+- Netdata v2.10 renamed the ML config keys `spec.md` quotes: `training window` (6h) and `min training window` (15m); the old names are moved to `obsolete ...`. Values are unchanged, so 18 models × 3h = 54h and the ≥72h warm-up conclusion holds.
+- Netdata's own `otel-plugin` is written in Rust (`src/crates/otel-plugin`), alongside 7 sibling OTEL crates and a `netdata-plugin` crate family (protocol, rt, bridge, charts-derive, schema, types) that implements the plugins.d protocol including `HOST_DEFINE`.
+- Rust 1.97.1 installed user-local at `~/.cargo`.
+
+Inferences:
+
+- The `netdata-plugin` crates are workspace-internal (all dependencies are `workspace = true`), so out-of-tree reuse would require vendoring or upstream publishing. Writing a thin plugins.d emitter in this repo is cheaper than coupling to Netdata's internal workspace, and keeps the standalone-repo posture `spec.md` argues for.
+- "Dashboard-complete" (~60–80 contexts) is defensible precisely because real hosts also lack exotic contexts: a simulated database server with no `amdgpu.*` is realistic, not incomplete.
+
+Unknowns (cannot be resolved by investigation here):
+
+- Exact scope of "OTEL sim" — tracked as an open decision in `SOW-0002`.
+- Cloud API coverage for teardown automation (`spec.md` open question). Needs Cloud API credentials.
+- Vnode scaling ceiling at the 200 target. Deferred to another machine per decision 6.
+
+### Acceptance Criteria
+
+- A Rust external plugin builds clean (`cargo clippy -D warnings`, `cargo fmt --check`) and runs under a live agent. Verified by: agent picks it up on the 60s plugin scan and 5 vnodes appear in `/api/v3/nodes`.
+- Generator specs are declarative files, not hardcoded Rust. Verified by: adding a context to a simulated node requires editing a spec file only, with no recompilation of generator logic.
+- A simulated Linux node presents 60–80 contexts covering every standard dashboard menu section. Verified by: `/host/<hostname>/api/v1/charts` context count and a menu-by-menu comparison against the real localhost node.
+- Cross-metric invariants hold by construction, not by clamping. Verified by: a semantic-lint test asserting `free + used + cached + buffers == total` and counter monotonicity across a simulated run.
+- The `environment.yaml` + seed pair reproduces an identical world. Verified by: two runs with the same seed produce byte-identical emitted output.
+- One scenario can be triggered live and observed to change generator output. Verified by: query evidence before/after trigger on a running agent.
+- Local verification never exceeds 5 vnodes.
+
+## Analysis
+
+Sources checked:
+
+- `spec.md` (user-authored product definition)
+- `prototypes/vnode-probe/FINDINGS.md` and `infra-sim-probe.plugin` (this repo)
+- Live agent: netdata `v2.10.0-1022-nightly` at `localhost:19999`
+
+Open-source reference evidence:
+
+```text
+netdata/netdata @ c23face0bd94
+src/plugins.d/gperf-hashtable.h:139-161      HOST/HOST_DEFINE/HOST_LABEL registered PARSER_INIT_PLUGINSD
+src/plugins.d/pluginsd_parser.c:147-215      HOST_DEFINE -> rrdhost_find_or_create(NETDATA_VIRTUAL_HOST)
+src/plugins.d/pluginsd_parser.c:330-360      HOST switches collection context by GUID
+src/plugins.d/README.md:191-260              documented protocol for HOST_DEFINE / HOST_LABEL / HOST
+src/collectors/systemd-journal.plugin/systemd-journal-files.c:391-421   /remote/ -> source remote-<host>
+src/collectors/systemd-journal.plugin/systemd-journal-files.c:432-433   *.<ns> -> source namespace-<ns>
+src/collectors/systemd-journal.plugin/systemd-journal-files.c:881-893   scanned roots /run/log/journal, /var/log/journal
+src/collectors/systemd-journal.plugin/systemd-journal.c:166             _HOSTNAME registered as a facet
+src/ml/ml_config.cc:81-84                    old ML keys moved to "obsolete ..."
+src/ml/ml_config.cc:131-133                  train every 3h; 18 models per dimension
+src/crates/otel-plugin/                      Netdata's OTEL plugin is Rust
+src/crates/netdata-plugin/protocol/build.rs:31-34   Rust plugins.d tokenizer incl. HostDefine
+```
+
+Current state:
+
+- Repository was a single `spec.md` with no git history. Now git-initialized with SOW installed.
+- Verification probe is installed on the user's live agent at `/etc/netdata/custom-plugins.d/infra-sim-probe.plugin`, running 3 vnodes. It is throwaway and must be removed or superseded before this SOW closes.
+
+Risks:
+
+- **Content volume is the dominant risk, not engineering.** The Linux baseline alone is 60–80 contexts under decision 2B. If generator specs are verbose, authoring cost dominates the schedule. Mitigation: the spec format must support templating/inheritance so one `system.*` family is not 80 hand-written blocks.
+- **Fidelity artifacts are easy to ship and hard to detect.** The throwaway probe produced `system.ram free = 0` within four minutes — a conservation-invariant violation caused by clamping. Mitigation: invariants are declared in the spec format and enforced by construction; semantic lints run in CI.
+- Coupling to Netdata's internal Rust workspace would undermine the standalone-repo posture. Mitigation: implement the emitter locally; treat `netdata-plugin` crates as reference, not dependency.
+- Local agent pollution: the user's working laptop now carries simulated nodes. Mitigation: 5-vnode cap, obviously-synthetic naming, documented removal command.
+
+## Pre-Implementation Gate
+
+Status: ready
+
+Problem / root-cause model:
+
+There is no Infra-Sim implementation. `spec.md` defines a multi-month product whose two load-bearing assumptions were unverified. Both are now verified, and one materially changed scope: vnodes get no dashboard for free, so generator content volume — not plugin plumbing — is the real cost driver. The correct first move is a narrow end-to-end slice that forces every interface to be real and proves the content-authoring loop is affordable.
+
+Evidence reviewed:
+
+See `## Analysis` — `spec.md`, `prototypes/vnode-probe/FINDINGS.md`, live agent queries, and `netdata/netdata @ c23face0bd94` citations above.
+
+Affected contracts and surfaces:
+
+- New: generator spec file format (declarative, versioned) — the most important contract in the project.
+- New: `environment.yaml` + seed as the reproducibility pair.
+- New: scenario definition format and ground-truth manifest.
+- New: Rust workspace layout and the plugins.d emitter.
+- Consumed, not owned: the plugins.d protocol; the agent's `custom-plugins.d` discovery; the `/host/<h>/api/...` query surface.
+- Docs: README, SE quickstart (both new).
+
+Existing patterns to reuse:
+
+- `prototypes/vnode-probe/infra-sim-probe.plugin` — proven emission sequence (HOST_DEFINE block → HOST → CHART/DIMENSION → HOST → BEGIN/SET/END), chart definitions mirroring proc.plugin contexts, and the boundary-aligned tick loop.
+- `netdata/netdata @ c23face0bd94 src/crates/netdata-plugin/protocol/` as a reference implementation of the protocol in Rust (reference only — not a dependency, see Inferences).
+- The special `_os_name`/`_system_cores`/`_virtualization` host-label keys documented at `src/plugins.d/README.md:211-249`, already exercised by the probe.
+
+Risk and blast radius:
+
+See `## Analysis` risks. Blast radius of this slice is limited to this repository plus one plugin file on the user's local agent. No changes to the Netdata agent, no network services, no customer data. The plugin is additive and removable with a single `rm`.
+
+Sensitive data handling plan:
+
+This slice touches no credentials. Claim tokens and room IDs are out of scope until the console's claim flow (a later SOW) and will never be committed. All simulated hostnames/labels committed here are obviously synthetic (`sim-*`). No prospect or customer names appear in templates. Live-agent evidence quoted in this SOW is from the user's own workstation agent and contains no customer identifiers.
+
+Implementation plan:
+
+1. **Workspace skeleton.** Cargo workspace; crates `sim-spec` (spec model + de/serialization + validation), `sim-engine` (deterministic generator execution, seeded), `sim-plugin` (plugins.d emitter + binary). Lint/fmt config. `.gitignore`.
+2. **Generator spec format.** Declarative YAML: per-context metric type, base levels, daily/weekly seasonality, noise model, instance/cardinality model, label templates, and declared cross-metric invariants. Must support family-level templating so 80 contexts are not 80 hand-written blocks.
+3. **Deterministic engine.** Seeded PRNG per (environment seed, vnode GUID, context, dimension) so output is reproducible and independent of iteration order. Counter accumulators with enforced monotonicity. Invariant solver that distributes a conserved total across dimensions instead of clamping.
+4. **plugins.d emitter.** Host definition, chart/dimension declaration, tick loop aligned to `update_every`. Correct quoting of label values containing spaces (the probe's first bug).
+5. **Linux baseline generator specs (~60–80 contexts).** Authored to cover every standard dashboard menu section, cross-checked menu-by-menu against the real localhost node.
+6. **Web-stack environment template + `environment.yaml`.** 5 vnodes with a dependency graph (LB → app → DB).
+7. **Scenario engine, one scenario.** Timeline of effects (ramp/step/drift/oscillate) over generator parameters, live trigger via a control channel, ground-truth manifest emitted alongside.
+8. **Thin console.** Minimal single-binary web UI: environment status, scenario trigger/resolve. Create/claim/preflight/teardown flows are later SOWs.
+9. **Validation pass** against the live agent, 5 vnodes, then remove the throwaway probe.
+
+Validation plan:
+
+- Unit: spec parsing/validation; seeded determinism (same seed ⇒ identical output); counter monotonicity; conservation invariants.
+- Semantic lints: units/ranges sane, rates consistent with their integrals, no `free = 0` clamping artifacts.
+- Real-use: install on the live agent, confirm 5 vnodes register, confirm per-vnode context count and data, confirm ML trains on the simulated nodes, trigger the scenario and capture before/after query evidence.
+- Menu-parity check: compare simulated node dashboard sections against the real localhost node.
+- Same-failure search: grep the generator specs for any other clamped-to-bound expressions of the `free = 0` class.
+
+Artifact impact plan:
+
+- AGENTS.md: expect updates once the generator-authoring loop is concrete (commands, hazards).
+- Runtime project skills: expect the first real `project-*` skill from this slice — the generator-authoring + fidelity loop. Deliberately not created yet (see Open decisions, resolved item 5).
+- Specs: `.agents/sow/specs/` gains the generator spec format contract and the `environment.yaml` contract once stable.
+- End-user/operator docs: README (hard rule first, per `spec.md` disclosure posture) and an SE quickstart.
+- End-user/operator skills: none affected; no output/reference skills exist yet.
+- SOW lifecycle: OTEL split out to `SOW-0002` (pending). Scale test and Cloud-API teardown remain `spec.md` open questions, not deferrals of this SOW.
+
+Open decisions:
+
+Resolved by the user on 2026-08-07:
+
+1. First deliverable — **A**, vertical slice.
+2. Linux baseline completeness — **B**, dashboard-complete (~60–80 contexts).
+3. Runtime language — **C**, Rust. (Assistant had recommended Go on contributor-pool grounds; the user's choice is corroborated by Netdata's own `otel-plugin` and `netdata-plugin` crates being Rust, which negates that concern.)
+4. Log mechanism — **A**, per-host journal files in `/var/log/journal/remote/`.
+5. Process — **A**, git + SOW initialized before building. Project skills deliberately deferred until this slice yields concrete workflow knowledge.
+6. Scale test — capped at 5 vnodes locally; scale testing runs later on another machine.
+
+Unresolved, not blocking this slice:
+
+7. OTEL sim scope — tracked in `SOW-0002` (pending). Does not block items 1–8 above, which are all plugins.d-path work.
+
+## Implications And Decisions
+
+**Correction to `spec.md` scope (for user awareness, not applied).** Per `AGENTS.md`, `spec.md` is user-owned and not edited unilaterally. Three corrections are proposed:
+
+1. P0 "~20 hero collector generators" undercounts: hero collector #1 (Linux system) alone is 60–80 contexts under decision 2B, or 188 at full parity.
+2. The `§Repository` fallback ("contribute a thin go.d module upstream") is dead — external plugins can define vnodes directly. It can be struck.
+3. P0 "Correlated logs ... attributed to correct vnodes in logs UI" is not achievable as literally worded; logs attribute by source/`_HOSTNAME` facet, not by node view. Proposed rewording recorded in `FINDINGS.md`.
+4. `§3 History` quotes ML config keys that v2.10 marks obsolete. The 72h conclusion holds; the key names need updating before they reach a runbook.
+
+## Plan
+
+See `## Pre-Implementation Gate` → Implementation plan, items 1–9.
+
+## Execution Log
+
+### 2026-08-07
+
+- Verified both load-bearing `spec.md` assumptions against live agent `v2.10.0-1022-nightly`; wrote `prototypes/vnode-probe/{infra-sim-probe.plugin,FINDINGS.md}`.
+- Installed throwaway probe to `/etc/netdata/custom-plugins.d/`; 3 vnodes registered and confirmed ML-trained. Probe must be removed before close.
+- Collected user decisions 1A / 2B / 3C / 4A / 5A / 6.
+- `git init`; installed Rust 1.97.1 user-local via rustup.
+- Bootstrapped SOW: `.agents/sow/{specs,pending,current,done}`, project-local `SOW.template.md` + `audit.sh`, `AGENTS.md` with project-specific guardrails, `CLAUDE.md`/`GEMINI.md` symlinks, `.claude/skills -> ../.agents/skills`.
+- Opened `SOW-0002` (pending) for OTEL sim scoping.
+
+## Validation
+
+Acceptance criteria evidence:
+
+- Pending — implementation in progress.
+
+Tests or equivalent validation:
+
+- Pending.
+
+Real-use evidence:
+
+- Partial. Load-bearing protocol assumptions already validated against live agent `v2.10.0-1022-nightly` via `prototypes/vnode-probe/` (3 vnodes registered, per-vnode data queried, ML confirmed training). The Rust runtime itself is not yet validated.
+
+Reviewer findings:
+
+- Pending.
+
+Same-failure scan:
+
+- Pending. Must grep generator specs for clamped-to-bound expressions of the `system.ram free = 0` class found in the probe.
+
+Sensitive data gate:
+
+- Pending final check. Interim: this SOW and `FINDINGS.md` contain no credentials, customer names, or customer-identifying addresses. Live-agent evidence is from the user's own workstation. Simulated hostnames committed so far are obviously synthetic (`sim-*`). Claim tokens and room IDs are out of scope for this slice.
+
+Artifact maintenance gate:
+
+- AGENTS.md: pending.
+- Runtime project skills: pending.
+- Specs: pending.
+- End-user/operator docs: pending.
+- End-user/operator skills: pending.
+- SOW lifecycle: pending.
+
+Specs update:
+
+- Pending.
+
+Project skills update:
+
+- Pending.
+
+End-user/operator docs update:
+
+- Pending.
+
+End-user/operator skills update:
+
+- Pending.
+
+Lessons:
+
+- Pending.
+
+Follow-up mapping:
+
+- Pending.
+
+## Outcome
+
+Pending.
+
+## Lessons Extracted
+
+Pending.
+
+## Followup
+
+- Remove the throwaway probe from the live agent before this SOW closes.
+- `SOW-0002` — OTEL sim scoping (pending, blocked on user decision).
+- `spec.md` open questions not owned by this SOW: Cloud API teardown coverage; vnode scaling ceiling at 200.
+
+## Regression Log
+
+None yet.

@@ -1,0 +1,308 @@
+#!/usr/bin/env python3
+"""
+Infra-Sim vnode verification probe.
+
+Purpose: answer the two load-bearing engineering questions in spec.md before
+any architecture is committed:
+
+  Q1. Do vnodes render complete node-level dashboard sections when every chart
+      is emitted by a single *external* plugin (not go.d)?
+  Q2. Does the plugins.d protocol expose vnode assignment to external plugins,
+      or is HOST_DEFINE go.d-internal?
+
+This is a throwaway probe, not the Infra-Sim runtime. It emits plausible-but-
+crude data; fidelity is explicitly out of scope here. The only thing under test
+is the transport and the resulting dashboard/Cloud rendering.
+
+Protocol reference: src/plugins.d/README.md (HOST_DEFINE / HOST_LABEL /
+HOST_DEFINE_END / HOST).
+"""
+
+import math
+import os
+import random
+import sys
+import time
+
+# Fixed GUIDs: identity must be stable across restarts so history survives.
+# Generated once, hardcoded deliberately - see spec.md "Move, don't clone".
+VNODES = [
+    {
+        "guid": "9c6b1e42-7a3f-4d18-9e57-2b40c8f1a601",
+        "hostname": "sim-web-01",
+        "role": "web",
+        "labels": {
+            "_os_name": "Ubuntu",
+            "_os_version": "24.04.1 LTS",
+            "_kernel_version": "6.8.0-51-generic",
+            "_architecture": "x86_64",
+            "_system_cores": "8",
+            "_system_ram_total": "16777216",
+            "_system_disk_space": "512000",
+            "_virtualization": "kvm",
+            "_virt_detection": "systemd-detect-virt",
+            "_container": "none",
+            "_container_detection": "none",
+            "_cloud_provider_type": "aws",
+            "_cloud_instance_type": "m5.2xlarge",
+            "_cloud_instance_region": "us-east-1",
+            "_install_type": "infra-sim",
+            "simulated": "true",
+            "infra_sim_role": "web",
+            "infra_sim_env": "probe",
+        },
+    },
+    {
+        "guid": "3d81f570-6c24-4a9b-8f13-7e55ab29d4c2",
+        "hostname": "sim-db-01",
+        "role": "db",
+        "labels": {
+            "_os_name": "Rocky Linux",
+            "_os_version": "9.4",
+            "_kernel_version": "5.14.0-427.el9.x86_64",
+            "_architecture": "x86_64",
+            "_system_cores": "16",
+            "_system_ram_total": "67108864",
+            "_system_disk_space": "2048000",
+            "_virtualization": "kvm",
+            "_virt_detection": "systemd-detect-virt",
+            "_container": "none",
+            "_container_detection": "none",
+            "_cloud_provider_type": "aws",
+            "_cloud_instance_type": "r5.4xlarge",
+            "_cloud_instance_region": "us-east-1",
+            "_install_type": "infra-sim",
+            "simulated": "true",
+            "infra_sim_role": "db",
+            "infra_sim_env": "probe",
+        },
+    },
+    {
+        "guid": "b57e2a09-4f16-4c83-a2d7-91c6e0b3f845",
+        "hostname": "sim-cache-01",
+        "role": "cache",
+        "labels": {
+            "_os_name": "Debian GNU/Linux",
+            "_os_version": "12",
+            "_kernel_version": "6.1.0-28-amd64",
+            "_architecture": "x86_64",
+            "_system_cores": "4",
+            "_system_ram_total": "8388608",
+            "_system_disk_space": "128000",
+            "_virtualization": "kvm",
+            "_virt_detection": "systemd-detect-virt",
+            "_container": "none",
+            "_container_detection": "none",
+            "_cloud_provider_type": "aws",
+            "_cloud_instance_type": "r5.large",
+            "_cloud_instance_region": "us-east-1",
+            "_install_type": "infra-sim",
+            "simulated": "true",
+            "infra_sim_role": "cache",
+            "infra_sim_env": "probe",
+        },
+    },
+]
+
+PLUGIN = "infra-sim-probe.plugin"
+MODULE = "probe"
+
+# Chart definitions mirror proc.plugin's contexts exactly. Context is what
+# drives dashboard menu/section construction, so deviating here would
+# invalidate the whole test.
+#
+# (chart_id, title, units, family, context, charttype, priority, [dims])
+# dim = (id, name, algorithm, multiplier, divisor)
+CHARTS = [
+    (
+        "system.cpu", "Total CPU utilization", "percentage", "cpu",
+        "system.cpu", "stacked", 100,
+        [("guest_nice", None, "percentage-of-incremental-row", 1, 1),
+         ("guest", None, "percentage-of-incremental-row", 1, 1),
+         ("steal", None, "percentage-of-incremental-row", 1, 1),
+         ("softirq", None, "percentage-of-incremental-row", 1, 1),
+         ("irq", None, "percentage-of-incremental-row", 1, 1),
+         ("user", None, "percentage-of-incremental-row", 1, 1),
+         ("system", None, "percentage-of-incremental-row", 1, 1),
+         ("nice", None, "percentage-of-incremental-row", 1, 1),
+         ("iowait", None, "percentage-of-incremental-row", 1, 1),
+         ("idle", None, "percentage-of-incremental-row", 1, 1)],
+    ),
+    (
+        "system.load", "System Load Average", "load", "load",
+        "system.load", "line", 100,
+        [("load1", "load1", "absolute", 1, 1000),
+         ("load5", "load5", "absolute", 1, 1000),
+         ("load15", "load15", "absolute", 1, 1000)],
+    ),
+    (
+        "system.ram", "System RAM", "MiB", "ram",
+        "system.ram", "stacked", 200,
+        [("free", None, "absolute", 1, 1024),
+         ("used", None, "absolute", 1, 1024),
+         ("cached", None, "absolute", 1, 1024),
+         ("buffers", None, "absolute", 1, 1024)],
+    ),
+    (
+        "system.io", "Disk I/O", "KiB/s", "disk",
+        "system.io", "area", 150,
+        [("in", "reads", "incremental", 1, 1),
+         ("out", "writes", "incremental", -1, 1)],
+    ),
+    (
+        "system.net", "Physical Network Interfaces Aggregated Bandwidth",
+        "kilobits/s", "network", "system.net", "area", 500,
+        [("received", None, "incremental", 8, 1000),
+         ("sent", None, "incremental", -8, 1000)],
+    ),
+    (
+        "system.processes", "System Processes", "processes", "processes",
+        "system.processes", "line", 600,
+        [("running", None, "absolute", 1, 1),
+         ("blocked", None, "absolute", -1, 1)],
+    ),
+]
+
+
+def out(line):
+    sys.stdout.write(line + "\n")
+
+
+def define_hosts():
+    for vn in VNODES:
+        out("HOST_DEFINE %s %s" % (vn["guid"], vn["hostname"]))
+        for k, v in vn["labels"].items():
+            # Values are quoted: the parser splits on whitespace, so an
+            # unquoted "24.04.1 LTS" silently truncates to "24.04.1".
+            out("HOST_LABEL %s '%s'" % (k, v.replace("'", "")))
+        out("HOST_DEFINE_END")
+
+
+def define_charts(update_every):
+    for vn in VNODES:
+        out("HOST %s" % vn["guid"])
+        for cid, title, units, family, ctx, ctype, prio, dims in CHARTS:
+            out("CHART %s '' '%s' '%s' '%s' '%s' %s %d %d '' '%s' '%s'"
+                % (cid, title, units, family, ctx, ctype, prio, update_every,
+                   PLUGIN, MODULE))
+            for did, dname, algo, mul, div in dims:
+                out("DIMENSION %s '%s' %s %d %d ''"
+                    % (did, dname if dname else did, algo, mul, div))
+
+
+class State:
+    """Per-vnode counter state. Counters must be monotonic - the parser will
+    produce garbage rates otherwise, and non-monotonic counters are exactly
+    the artifact the fidelity harness is meant to catch."""
+
+    def __init__(self, vnode):
+        self.vn = vnode
+        self.cores = int(vnode["labels"]["_system_cores"])
+        self.ram_kb = int(vnode["labels"]["_system_ram_total"])
+        self.rng = random.Random(vnode["guid"])
+        # CPU jiffies accumulators
+        self.cpu = {d[0]: 0.0 for d in CHARTS[0][7]}
+        self.io_in = 0.0
+        self.io_out = 0.0
+        self.net_rx = 0.0
+        self.net_tx = 0.0
+
+    def tick(self, t, update_every):
+        r = self.rng
+        # Crude diurnal shape - fidelity is not what this probe tests.
+        tod = (t % 86400) / 86400.0
+        diurnal = 0.5 + 0.5 * math.sin(2 * math.pi * (tod - 0.25))
+
+        role = self.vn["role"]
+        base = {"web": 25.0, "db": 40.0, "cache": 12.0}[role]
+        busy = min(95.0, max(2.0, base * (0.6 + 0.8 * diurnal)
+                             + r.gauss(0, 3)))
+
+        # Distribute busy% across CPU states, accumulate as jiffies.
+        jiffies = 100.0 * self.cores * update_every
+        share = {
+            "user": busy * 0.60, "system": busy * 0.25,
+            "iowait": busy * 0.08, "softirq": busy * 0.04,
+            "irq": busy * 0.02, "nice": busy * 0.01,
+            "steal": 0.0, "guest": 0.0, "guest_nice": 0.0,
+        }
+        share["idle"] = max(0.0, 100.0 - sum(share.values()))
+        for k, pct in share.items():
+            self.cpu[k] += jiffies * pct / 100.0
+
+        used_frac = {"web": 0.45, "db": 0.72, "cache": 0.80}[role]
+        used_frac += 0.05 * diurnal + r.gauss(0, 0.01)
+        used_frac = min(0.95, max(0.05, used_frac))
+        used = self.ram_kb * used_frac
+        cached = self.ram_kb * 0.15
+        buffers = self.ram_kb * 0.03
+        free = max(0.0, self.ram_kb - used - cached - buffers)
+
+        iops = {"web": 300.0, "db": 2400.0, "cache": 80.0}[role]
+        self.io_in += iops * (0.5 + diurnal) * update_every * r.uniform(.8, 1.2)
+        self.io_out += iops * (0.3 + diurnal) * update_every * r.uniform(.8, 1.2)
+
+        bw = {"web": 40e6, "db": 12e6, "cache": 90e6}[role]
+        self.net_rx += bw * (0.4 + diurnal) * update_every / 8 * r.uniform(.9, 1.1)
+        self.net_tx += bw * (0.6 + diurnal) * update_every / 8 * r.uniform(.9, 1.1)
+
+        load1 = busy / 100.0 * self.cores * r.uniform(0.8, 1.2)
+
+        return {
+            "system.cpu": {k: int(v) for k, v in self.cpu.items()},
+            "system.load": {"load1": int(load1 * 1000),
+                            "load5": int(load1 * 0.9 * 1000),
+                            "load15": int(load1 * 0.8 * 1000)},
+            "system.ram": {"free": int(free), "used": int(used),
+                           "cached": int(cached), "buffers": int(buffers)},
+            "system.io": {"in": int(self.io_in), "out": int(self.io_out)},
+            "system.net": {"received": int(self.net_rx),
+                           "sent": int(self.net_tx)},
+            "system.processes": {
+                "running": max(1, int(self.cores * busy / 100.0 + r.gauss(0, 1))),
+                "blocked": max(0, int(r.gauss(0.5, 1))),
+            },
+        }
+
+
+def main():
+    update_every = 1
+    if len(sys.argv) > 1:
+        try:
+            update_every = max(1, int(sys.argv[1]))
+        except ValueError:
+            pass
+
+    define_hosts()
+    define_charts(update_every)
+
+    states = {vn["guid"]: State(vn) for vn in VNODES}
+
+    now = time.time()
+    # Align to the update_every boundary so BEGIN timestamps stay regular.
+    nxt = now - (now % update_every) + update_every
+
+    while True:
+        sleep_for = nxt - time.time()
+        if sleep_for > 0:
+            time.sleep(sleep_for)
+        t = nxt
+        nxt += update_every
+
+        for vn in VNODES:
+            st = states[vn["guid"]]
+            values = st.tick(t, update_every)
+            out("HOST %s" % vn["guid"])
+            for cid, _, _, _, _, _, _, dims in CHARTS:
+                out("BEGIN %s" % cid)
+                for did, _, _, _, _ in dims:
+                    out("SET %s = %d" % (did, values[cid][did]))
+                out("END")
+        sys.stdout.flush()
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except (BrokenPipeError, KeyboardInterrupt):
+        sys.exit(0)
