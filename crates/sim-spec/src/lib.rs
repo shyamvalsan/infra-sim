@@ -255,8 +255,55 @@ pub struct Context {
     #[serde(default)]
     pub chart_type: ChartType,
     pub priority: u32,
+    /// Expand this context into one chart per node instance (per disk, per
+    /// interface, per mount). Absent means a single chart whose id is the
+    /// context id.
+    #[serde(default)]
+    pub instances: Option<Instancing>,
     #[serde(flatten)]
     pub shape: Shape,
+}
+
+/// Per-instance expansion of a context.
+///
+/// Real collectors emit one chart *instance* per device sharing a context —
+/// `disk.nvme0n1` and `disk.sda` both carry context `disk.io`. A simulated node
+/// with a single unnamed disk chart reads as wrong immediately, so contexts
+/// that are per-device in reality must be per-device here.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct Instancing {
+    /// Which of the node's instance lists to iterate, e.g. `disk`, `net`,
+    /// `mount`. A node without this group simply produces no charts for this
+    /// context, exactly as a host without that hardware would.
+    pub group: String,
+
+    /// Chart-id prefix. Netdata's convention is `<prefix>.<instance>`, where
+    /// the prefix varies per context: `disk.io` yields `disk.nvme0n1` while
+    /// `disk.ops` yields `disk_ops.nvme0n1`.
+    pub chart_prefix: String,
+
+    /// Family for each instance chart. `{instance}` is substituted with the
+    /// instance name. Upstream is not uniform here — disk charts group by
+    /// aspect (`io`, `ops`) while network charts group by interface — so the
+    /// spec states it rather than inferring it.
+    #[serde(default = "default_instance_family")]
+    pub family: String,
+}
+
+fn default_instance_family() -> String {
+    "{instance}".to_string()
+}
+
+impl Instancing {
+    /// Chart id for an instance, following Netdata's `<prefix>.<instance>`.
+    pub fn chart_id(&self, instance: &str) -> String {
+        format!("{}.{}", self.chart_prefix, instance)
+    }
+
+    pub fn family_for(&self, instance: &str) -> String {
+        self.family.replace("{instance}", instance)
+    }
 }
 
 #[derive(Debug, Clone, Copy, Default, PartialEq, Eq, Serialize, Deserialize)]

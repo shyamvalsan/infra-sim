@@ -14,7 +14,7 @@ use std::collections::BTreeMap;
 use std::path::{Path, PathBuf};
 
 use serde::{Deserialize, Serialize};
-use sim_engine::NodeProfile;
+use sim_engine::{Instance, NodeProfile};
 use thiserror::Error;
 
 pub const ENVIRONMENT_VERSION: u32 = 1;
@@ -103,6 +103,62 @@ pub struct NodeDef {
     pub attrs: BTreeMap<String, f64>,
     #[serde(default)]
     pub labels: BTreeMap<String, String>,
+    /// Per-device resources keyed by group: `disk`, `net`, `mount`. Contexts
+    /// declaring instancing expand to one chart per entry. A node omitting a
+    /// group emits no charts for it, exactly as a host without that hardware
+    /// would.
+    #[serde(default)]
+    pub instances: BTreeMap<String, Vec<InstanceDef>>,
+}
+
+/// One device. Accepts either a bare name or a table, so the common case stays
+/// terse: `disk: [nvme0n1, sdb]`.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum InstanceDef {
+    Name(String),
+    Detailed {
+        name: String,
+        /// Scales every signal for this device. A busy root disk and a nearly
+        /// idle secondary are the same spec at different weights.
+        #[serde(default = "default_weight")]
+        weight: f64,
+        /// Attributes shadowing the node's, e.g. a per-mount `disk_total_kb`.
+        #[serde(default)]
+        attrs: BTreeMap<String, f64>,
+    },
+}
+
+fn default_weight() -> f64 {
+    1.0
+}
+
+impl InstanceDef {
+    pub fn name(&self) -> &str {
+        match self {
+            InstanceDef::Name(n) => n,
+            InstanceDef::Detailed { name, .. } => name,
+        }
+    }
+
+    fn to_instance(&self) -> Instance {
+        match self {
+            InstanceDef::Name(n) => Instance {
+                name: n.clone(),
+                weight: 1.0,
+                attrs: BTreeMap::new(),
+            },
+            InstanceDef::Detailed {
+                name,
+                weight,
+                attrs,
+            } => Instance {
+                name: name.clone(),
+                weight: *weight,
+                attrs: attrs.clone(),
+            },
+        }
+    }
 }
 
 impl Environment {
@@ -179,12 +235,23 @@ impl Environment {
             .map(|n| {
                 let mut labels = n.labels.clone();
                 labels.insert(SIMULATED_LABEL.0.to_string(), SIMULATED_LABEL.1.to_string());
+                let instances = n
+                    .instances
+                    .iter()
+                    .map(|(group, defs)| {
+                        (
+                            group.clone(),
+                            defs.iter().map(|d| d.to_instance()).collect(),
+                        )
+                    })
+                    .collect();
                 NodeProfile {
                     guid: n.guid.clone(),
                     hostname: n.hostname.clone(),
                     role: n.role.clone(),
                     attrs: n.attrs.clone(),
                     labels,
+                    instances,
                     utc_offset_secs: n.utc_offset_secs,
                 }
             })

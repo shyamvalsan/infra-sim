@@ -174,6 +174,10 @@ Resolved by the user on 2026-08-07:
 5. Process — **A**, git + SOW initialized before building. Project skills deliberately deferred until this slice yields concrete workflow knowledge.
 6. Scale test — capped at 5 vnodes locally; scale testing runs later on another machine.
 
+Resolved by the user on 2026-08-07 (second round):
+
+9. Next work in this SOW — **B then A**: per-instance cardinality first, then the scenario engine. Reasoning accepted: a scenario injected into a fleet whose disk charts already read as wrong sells nothing; fidelity is the foundation.
+
 Unresolved, not blocking this slice:
 
 7. OTEL sim scope — tracked in `SOW-0002` (pending). Does not block items 1–8 above, which are all plugins.d-path work.

@@ -85,6 +85,9 @@ pub enum SpecError {
 
     #[error("partition context '{context}' total constant {value} must be > 0")]
     NonPositiveTotal { context: String, value: f64 },
+
+    #[error("context '{context}' has instancing with an empty group or chart_prefix")]
+    BadInstancing { context: String },
 }
 
 impl GeneratorSpec {
@@ -142,6 +145,14 @@ impl GeneratorSpec {
             return Err(SpecError::MalformedContextId {
                 id: context.id.clone(),
             });
+        }
+
+        if let Some(inst) = &context.instances {
+            if inst.group.is_empty() || inst.chart_prefix.is_empty() {
+                return Err(SpecError::BadInstancing {
+                    context: context.id.clone(),
+                });
+            }
         }
 
         let ids = context.shape.dimension_ids();

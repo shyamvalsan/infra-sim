@@ -379,6 +379,109 @@ signals:
     max: 400000.0
     max_is_ceiling: true
 
+  # ---- Added for dashboard coverage ----------------------------------------
+  disk_avgsz_kb:
+    base: 28.0
+    min: 0.0
+    max: 4096.0
+    noise: { kind: walk, sigma: 0.06, reversion: 0.1 }
+  disk_svctm_ms:
+    base: 0.35
+    min: 0.0
+    max: 1000.0
+    noise: { kind: walk, sigma: 0.07, reversion: 0.12 }
+  disk_iotime_ms_rate:
+    base: 62.0
+    min: 0.0
+    max: 100000.0
+    seasonality: { daily_amplitude: 0.5, peak_hour: 14.0, weekend_factor: 0.6 }
+    noise: { kind: gauss, sigma: 0.3 }
+  disk_mops_rate:
+    base: 3.4
+    min: 0.0
+    max: 100000.0
+    noise: { kind: gauss, sigma: 0.6 }
+  disk_qops:
+    base: 0.6
+    min: 0.0
+    max: 10000.0
+    noise: { kind: gauss, sigma: 0.9 }
+
+  net_fifo_rate:
+    base: 0.0
+    min: 0.0
+    max: 10000.0
+  net_events_rate:
+    base: 0.0
+    min: 0.0
+    max: 10000.0
+  const_duplex:
+    base: 2.0
+    min: 0.0
+    max: 2.0
+    max_is_ceiling: true
+
+  ipv6_rx_kb_rate:
+    base: 42.0
+    min: 0.0
+    max: 2000000.0
+    seasonality: { daily_amplitude: 0.55, peak_hour: 14.0, weekend_factor: 0.5 }
+    noise: { kind: gauss, sigma: 0.4 }
+  ipv6_tx_kb_rate:
+    base: 38.0
+    min: 0.0
+    max: 2000000.0
+    seasonality: { daily_amplitude: 0.55, peak_hour: 14.0, weekend_factor: 0.5 }
+    noise: { kind: gauss, sigma: 0.4 }
+  ipv6_pkt_rate:
+    base: 64.0
+    min: 0.0
+    max: 2000000.0
+    seasonality: { daily_amplitude: 0.55, peak_hour: 14.0, weekend_factor: 0.5 }
+    noise: { kind: gauss, sigma: 0.35 }
+
+  file_nr_used:
+    base: 6400.0
+    min: 64.0
+    max: 2000000.0
+    seasonality: { daily_amplitude: 0.3, peak_hour: 14.0 }
+    noise: { kind: walk, sigma: 0.02, reversion: 0.05 }
+  file_nr_utilization:
+    base: 0.6
+    min: 0.0
+    max: 100.0
+    noise: { kind: walk, sigma: 0.03, reversion: 0.05 }
+  conntrack_sockets:
+    base: 1900.0
+    min: 0.0
+    max: 262144.0
+    seasonality: { daily_amplitude: 0.55, peak_hour: 14.0, weekend_factor: 0.5 }
+    noise: { kind: walk, sigma: 0.04, reversion: 0.07 }
+  cpufreq_hz:
+    base: 2600000000.0
+    min: 800000000.0
+    max: 4800000000.0
+    seasonality: { daily_amplitude: 0.15, peak_hour: 14.0 }
+    noise: { kind: walk, sigma: 0.03, reversion: 0.1 }
+  shm_segments:
+    base: 14.0
+    min: 0.0
+    max: 8192.0
+    noise: { kind: walk, sigma: 0.04, reversion: 0.1 }
+  shm_bytes:
+    base: 78000.0
+    min: 0.0
+    max: 100000000.0
+    noise: { kind: walk, sigma: 0.03, reversion: 0.08 }
+  # Chrony-style clock offset. Signed, so min is negative and the lint treats
+  # it as a rail on both sides.
+  clock_offset_ms:
+    base: 0.35
+    min: -80.0
+    max: 80.0
+    noise: { kind: walk, sigma: 0.3, reversion: 0.15 }
+
+
 # Roles retune signal parameters only. Every node of this spec has an identical
 # chart set, so a fleet stays visually coherent while behaving differently.
 roles:
@@ -748,15 +851,17 @@ contexts:
       - { id: free, remainder: true, divisor: 1024 }
 
   # ================= Disk =================
-  # Single-instance for now. Real proc.plugin emits one chart instance per
-  # block device sharing these contexts; per-instance cardinality is the next
-  # piece of the generator model and is tracked in the SOW.
+  # One chart instance per block device, matching proc.plugin. Chart ids and
+  # families follow Netdata's own convention, verified against a real node:
+  # disk.io yields `disk.<dev>` in family `io`, disk.ops yields
+  # `disk_ops.<dev>` in family `ops`, and disk_space groups by mount point.
   - id: disk.io
     title: Disk I/O Bandwidth
     units: KiB/s
     family: disk
     chart_type: area
     priority: 2000
+    instances: { group: disk, chart_prefix: disk, family: "io" }
     shape: counters
     dimensions:
       - { id: reads,  rate_signal: disk_read_kb_rate }
@@ -768,6 +873,7 @@ contexts:
     family: disk
     chart_type: line
     priority: 2001
+    instances: { group: disk, chart_prefix: disk_ops, family: "ops" }
     shape: counters
     dimensions:
       - { id: reads,  rate_signal: disk_reads_rate }
@@ -779,6 +885,7 @@ contexts:
     family: utilization
     chart_type: area
     priority: 2004
+    instances: { group: disk, chart_prefix: disk_util, family: "utilization" }
     shape: independent
     dimensions:
       - { id: utilization, signal: disk_busy_ms_rate, divisor: 10 }
@@ -789,6 +896,7 @@ contexts:
     family: latency
     chart_type: line
     priority: 2005
+    instances: { group: disk, chart_prefix: disk_await, family: "latency" }
     shape: independent
     dimensions:
       - { id: reads,  signal: disk_await_read_ms,  divisor: 1000 }
@@ -800,6 +908,7 @@ contexts:
     family: latency
     chart_type: area
     priority: 2006
+    instances: { group: disk, chart_prefix: disk_backlog, family: "latency" }
     shape: independent
     dimensions:
       - { id: backlog, signal: disk_backlog_ms }
@@ -810,6 +919,7 @@ contexts:
     family: utilization
     chart_type: stacked
     priority: 2023
+    instances: { group: mount, chart_prefix: disk_space, family: "{instance}" }
     shape: partition
     total: { from: node_attr, name: disk_total_kb }
     driver: disk_space_used_kb
@@ -824,6 +934,7 @@ contexts:
     family: utilization
     chart_type: stacked
     priority: 2024
+    instances: { group: mount, chart_prefix: disk_inodes, family: "{instance}" }
     shape: partition
     total: { from: node_attr, name: inodes_total }
     driver: disk_inodes_used
@@ -838,6 +949,7 @@ contexts:
     family: net
     chart_type: area
     priority: 3000
+    instances: { group: net, chart_prefix: net, family: "{instance}" }
     shape: counters
     dimensions:
       - { id: received, rate_signal: net_rx_kb_rate, multiplier: 8 }
@@ -849,6 +961,7 @@ contexts:
     family: packets
     chart_type: line
     priority: 3001
+    instances: { group: net, chart_prefix: net_packets, family: "{instance}" }
     shape: counters
     dimensions:
       - { id: received,  rate_signal: net_rx_pkt_rate }
@@ -860,6 +973,7 @@ contexts:
     family: errors
     chart_type: line
     priority: 3002
+    instances: { group: net, chart_prefix: net_errors, family: "{instance}" }
     shape: counters
     dimensions:
       - { id: inbound,  rate_signal: net_err_rate }
@@ -871,6 +985,7 @@ contexts:
     family: drops
     chart_type: line
     priority: 3003
+    instances: { group: net, chart_prefix: net_drops, family: "{instance}" }
     shape: counters
     dimensions:
       - { id: inbound,  rate_signal: net_drop_rate }
@@ -882,6 +997,7 @@ contexts:
     family: carrier
     chart_type: line
     priority: 3004
+    instances: { group: net, chart_prefix: net_carrier, family: "{instance}" }
     shape: independent
     dimensions:
       - { id: up,   signal: const_one }
@@ -893,6 +1009,7 @@ contexts:
     family: mtu
     chart_type: line
     priority: 3005
+    instances: { group: net, chart_prefix: net_mtu, family: "{instance}" }
     shape: independent
     dimensions:
       - { id: mtu, signal: const_mtu }
@@ -903,6 +1020,7 @@ contexts:
     family: speed
     chart_type: line
     priority: 3006
+    instances: { group: net, chart_prefix: net_speed, family: "{instance}" }
     shape: independent
     dimensions:
       - { id: speed, signal: const_link_speed, multiplier: 1000 }
@@ -1014,3 +1132,223 @@ contexts:
     shape: independent
     dimensions:
       - { id: inuse, signal: udp_sockets_inuse }
+
+  # ================= Added for dashboard coverage =================
+  - id: disk.avgsz
+    title: Average Completed I/O Operation Bandwidth
+    units: KiB/operation
+    family: io
+    chart_type: area
+    priority: 2002
+    instances: { group: disk, chart_prefix: disk_avgsz, family: "io" }
+    shape: independent
+    dimensions:
+      - { id: reads,  signal: disk_avgsz_kb }
+      - { id: writes, signal: disk_avgsz_kb, multiplier: -1 }
+
+  - id: disk.svctm
+    title: Average Service Time
+    units: milliseconds/operation
+    family: latency
+    chart_type: line
+    priority: 2007
+    instances: { group: disk, chart_prefix: disk_svctm, family: "latency" }
+    shape: independent
+    dimensions:
+      - { id: svctm, signal: disk_svctm_ms, divisor: 1000 }
+
+  - id: disk.iotime
+    title: Disk Total I/O Time
+    units: milliseconds/s
+    family: utilization
+    chart_type: line
+    priority: 2003
+    instances: { group: disk, chart_prefix: disk_iotime, family: "utilization" }
+    shape: counters
+    dimensions:
+      - { id: reads,  rate_signal: disk_iotime_ms_rate }
+      - { id: writes, rate_signal: disk_iotime_ms_rate, multiplier: -1 }
+
+  - id: disk.mops
+    title: Disk Merged Operations
+    units: merged operations/s
+    family: ops
+    chart_type: line
+    priority: 2008
+    instances: { group: disk, chart_prefix: disk_mops, family: "ops" }
+    shape: counters
+    dimensions:
+      - { id: reads,  rate_signal: disk_mops_rate }
+      - { id: writes, rate_signal: disk_mops_rate, multiplier: -1 }
+
+  - id: disk.qops
+    title: Disk Current I/O Operations
+    units: operations
+    family: ops
+    chart_type: line
+    priority: 2009
+    instances: { group: disk, chart_prefix: disk_qops, family: "ops" }
+    shape: independent
+    dimensions:
+      - { id: operations, signal: disk_qops }
+
+  - id: net.operstate
+    title: Interface Operational State
+    units: state
+    family: operstate
+    chart_type: line
+    priority: 3007
+    instances: { group: net, chart_prefix: net_operstate, family: "{instance}" }
+    shape: independent
+    dimensions:
+      - { id: up,   signal: const_one }
+      - { id: down, signal: net_err_rate }
+
+  - id: net.duplex
+    title: Interface Duplex State
+    units: state
+    family: duplex
+    chart_type: line
+    priority: 3008
+    instances: { group: net, chart_prefix: net_duplex, family: "{instance}" }
+    shape: independent
+    dimensions:
+      - { id: full, signal: const_duplex, divisor: 2 }
+
+  - id: net.events
+    title: Network Interface Events
+    units: events/s
+    family: errors
+    chart_type: line
+    priority: 3009
+    instances: { group: net, chart_prefix: net_events, family: "{instance}" }
+    shape: counters
+    dimensions:
+      - { id: frames,     rate_signal: net_events_rate }
+      - { id: collisions, rate_signal: net_events_rate, multiplier: -1 }
+      - { id: carrier,    rate_signal: net_events_rate, multiplier: -1 }
+
+  - id: net.fifo
+    title: Interface FIFO Buffer Errors
+    units: errors
+    family: errors
+    chart_type: line
+    priority: 3010
+    instances: { group: net, chart_prefix: net_fifo, family: "{instance}" }
+    shape: counters
+    dimensions:
+      - { id: receive,  rate_signal: net_fifo_rate }
+      - { id: transmit, rate_signal: net_fifo_rate, multiplier: -1 }
+
+  - id: system.ipv6
+    title: IPv6 Bandwidth
+    units: kilobits/s
+    family: network
+    chart_type: area
+    priority: 502
+    shape: counters
+    dimensions:
+      - { id: received, rate_signal: ipv6_rx_kb_rate, multiplier: 8 }
+      - { id: sent,     rate_signal: ipv6_tx_kb_rate, multiplier: -8 }
+
+  - id: ipv6.packets
+    title: IPv6 Packets
+    units: packets/s
+    family: packets
+    chart_type: line
+    priority: 4040
+    shape: counters
+    dimensions:
+      - { id: received, rate_signal: ipv6_pkt_rate }
+      - { id: sent,     rate_signal: ipv6_pkt_rate, multiplier: -1 }
+
+  - id: ipv6.errors
+    title: IPv6 Errors
+    units: packets/s
+    family: errors
+    chart_type: line
+    priority: 4041
+    shape: counters
+    dimensions:
+      - { id: InDiscards,  rate_signal: net_drop_rate }
+      - { id: OutDiscards, rate_signal: net_drop_rate, multiplier: -1 }
+
+  - id: system.file_nr_used
+    title: File Descriptors
+    units: files
+    family: files
+    chart_type: line
+    priority: 1020
+    shape: independent
+    dimensions:
+      - { id: used, signal: file_nr_used }
+
+  - id: system.file_nr_utilization
+    title: File Descriptors Utilization
+    units: percentage
+    family: files
+    chart_type: line
+    priority: 1021
+    shape: independent
+    dimensions:
+      - { id: used, signal: file_nr_utilization, divisor: 100 }
+
+  - id: netfilter.conntrack_sockets
+    title: Connection Tracker Connections
+    units: active connections
+    family: conntrack
+    chart_type: line
+    priority: 4050
+    shape: independent
+    dimensions:
+      - { id: connections, signal: conntrack_sockets }
+
+  - id: cpufreq.cpufreq
+    title: Current CPU Frequency
+    units: MHz
+    family: cpufreq
+    chart_type: line
+    priority: 1030
+    shape: independent
+    dimensions:
+      - { id: cpu0, signal: cpufreq_hz, divisor: 1000000 }
+
+  - id: system.shared_memory_segments
+    title: Shared Memory Segments
+    units: segments
+    family: ipc shared memory
+    chart_type: line
+    priority: 1040
+    shape: independent
+    dimensions:
+      - { id: segments, signal: shm_segments }
+
+  - id: system.shared_memory_bytes
+    title: Shared Memory Bytes
+    units: bytes
+    family: ipc shared memory
+    chart_type: line
+    priority: 1041
+    shape: independent
+    dimensions:
+      - { id: bytes, signal: shm_bytes }
+
+  - id: system.clock_sync_state
+    title: System Clock Synchronization State
+    units: state
+    family: clock synchronization
+    chart_type: line
+    priority: 1050
+    shape: independent
+    dimensions:
+      - { id: state, signal: const_one }
+
+  - id: system.clock_sync_offset
+    title: Computed Time Offset Between Local System and Reference Clock
+    units: milliseconds
+    family: clock synchronization
+    chart_type: line
+    priority: 1051
+    shape: independent
+    dimensions:
+      - { id: offset, signal: clock_offset_ms, divisor: 1000 }

@@ -13,7 +13,7 @@
 
 use std::io::{self, Write};
 
-use sim_engine::{NodeProfile, Sample};
+use sim_engine::{NodeEngine, NodeProfile, Sample};
 use sim_spec::{GeneratorSpec, Shape};
 
 /// Plugin name reported on every chart.
@@ -50,36 +50,40 @@ pub fn define_hosts<W: Write>(out: &mut W, profiles: &[NodeProfile]) -> io::Resu
     Ok(())
 }
 
-/// Declare each node's charts and dimensions.
+/// Declare one node's charts and dimensions from its planned chart list.
 ///
 /// A vnode carries exactly the contexts its plugin declares — the agent adds no
 /// node-level dashboard sections on its own — so this call determines how
 /// complete a simulated node's dashboard looks.
+///
+/// The plan comes from the engine rather than being re-derived from the spec.
+/// Deriving it twice would let declaration and emission drift apart, sending
+/// `SET` lines to charts that were never declared — which surfaces as silently
+/// missing data, not an error.
 pub fn declare_charts<W: Write>(
     out: &mut W,
     spec: &GeneratorSpec,
-    profiles: &[NodeProfile],
+    engine: &NodeEngine,
     update_every: i64,
 ) -> io::Result<()> {
-    for p in profiles {
-        writeln!(out, "HOST {}", p.guid)?;
-        for ctx in &spec.contexts {
-            writeln!(
-                out,
-                "CHART {} '' {} {} {} {} {} {} {} '' {} {}",
-                ctx.id,
-                quote(&ctx.title),
-                quote(&ctx.units),
-                quote(&ctx.family),
-                quote(&ctx.id),
-                ctx.chart_type.as_str(),
-                ctx.priority,
-                update_every,
-                quote(PLUGIN_NAME),
-                quote(MODULE_NAME),
-            )?;
-            write_dimensions(out, &ctx.shape)?;
-        }
+    writeln!(out, "HOST {}", engine.profile().guid)?;
+    for chart in engine.charts() {
+        let ctx = &spec.contexts[chart.context_index];
+        writeln!(
+            out,
+            "CHART {} '' {} {} {} {} {} {} {} '' {} {}",
+            chart.chart_id,
+            quote(&ctx.title),
+            quote(&ctx.units),
+            quote(&chart.family),
+            quote(&chart.context_id),
+            ctx.chart_type.as_str(),
+            ctx.priority,
+            update_every,
+            quote(PLUGIN_NAME),
+            quote(MODULE_NAME),
+        )?;
+        write_dimensions(out, &ctx.shape)?;
     }
     Ok(())
 }
@@ -139,7 +143,7 @@ fn write_dimensions<W: Write>(out: &mut W, shape: &Shape) -> io::Result<()> {
 pub fn emit_samples<W: Write>(out: &mut W, guid: &str, samples: &[Sample]) -> io::Result<()> {
     writeln!(out, "HOST {guid}")?;
     for sample in samples {
-        writeln!(out, "BEGIN {}", sample.context_id)?;
+        writeln!(out, "BEGIN {}", sample.chart_id)?;
         for (dim, value) in &sample.values {
             writeln!(out, "SET {dim} = {value}")?;
         }
@@ -165,6 +169,7 @@ mod tests {
                 ("_os_version".to_string(), "24.04.1 LTS".to_string()),
                 ("simulated".to_string(), "true".to_string()),
             ]),
+            instances: BTreeMap::new(),
             utc_offset_secs: 0,
         }
     }
@@ -211,7 +216,7 @@ mod tests {
     #[test]
     fn samples_emit_begin_set_end_per_context() {
         let samples = vec![Sample {
-            context_id: "system.cpu".into(),
+            chart_id: "system.cpu".into(),
             values: vec![("user".into(), 42), ("idle".into(), 58)],
         }];
         let out = render(|w| emit_samples(w, "guid-1", &samples));

@@ -30,8 +30,14 @@ nodes:
       cores: 4
       ram_total_kb: 4194304
       swap_total_kb: 4194304
-      disk_total_kb: 524288000
-      inodes_total: 32768000
+    instances:
+      disk:
+        - { name: sda, weight: 1.0 }
+      mount:
+        - { name: "/",     weight: 1.0,  attrs: { disk_total_kb: 52428800,  inodes_total: 3276800 } }
+        - { name: "/boot", weight: 0.02, attrs: { disk_total_kb: 1048576,   inodes_total: 65536 } }
+      net:
+        - { name: eth0, weight: 1.0 }
     labels:
       _os_name: Debian GNU/Linux
       _os_version: "12"
@@ -59,8 +65,15 @@ nodes:
       cores: 8
       ram_total_kb: 16777216
       swap_total_kb: 4194304
-      disk_total_kb: 524288000
-      inodes_total: 32768000
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+      mount:
+        - { name: "/",     weight: 1.0,  attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/var",  weight: 0.6,  attrs: { disk_total_kb: 209715200, inodes_total: 13107200 } }
+        - { name: "/boot", weight: 0.02, attrs: { disk_total_kb: 1048576,   inodes_total: 65536 } }
+      net:
+        - { name: eth0, weight: 1.0 }
     labels:
       _os_name: Ubuntu
       _os_version: 24.04.1 LTS
@@ -90,8 +103,15 @@ nodes:
       cores: 8
       ram_total_kb: 16777216
       swap_total_kb: 4194304
-      disk_total_kb: 524288000
-      inodes_total: 32768000
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+      mount:
+        - { name: "/",     weight: 1.0,  attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/var",  weight: 0.6,  attrs: { disk_total_kb: 209715200, inodes_total: 13107200 } }
+        - { name: "/boot", weight: 0.02, attrs: { disk_total_kb: 1048576,   inodes_total: 65536 } }
+      net:
+        - { name: eth0, weight: 1.0 }
     labels:
       _os_name: Ubuntu
       _os_version: 24.04.1 LTS
@@ -119,8 +139,19 @@ nodes:
       cores: 16
       ram_total_kb: 67108864
       swap_total_kb: 4194304
-      disk_total_kb: 2097152000
-      inodes_total: 32768000
+    instances:
+      disk:
+        # Data and WAL on separate devices, as a real primary would be.
+        - { name: nvme0n1, weight: 1.0 }
+        - { name: nvme1n1, weight: 0.35 }
+      mount:
+        - { name: "/",         weight: 0.15, attrs: { disk_total_kb: 104857600,  inodes_total: 6553600 } }
+        - { name: "/var/lib/pgsql", weight: 1.0, attrs: { disk_total_kb: 1572864000, inodes_total: 98304000 } }
+        - { name: "/var/log",  weight: 0.2,  attrs: { disk_total_kb: 52428800,   inodes_total: 3276800 } }
+      net:
+        - { name: eth0, weight: 1.0 }
+        # Replication link to the standby.
+        - { name: eth1, weight: 0.45 }
     labels:
       _os_name: Rocky Linux
       _os_version: "9.4"
@@ -148,8 +179,14 @@ nodes:
       cores: 8
       ram_total_kb: 16777216
       swap_total_kb: 4194304
-      disk_total_kb: 524288000
-      inodes_total: 32768000
+    instances:
+      disk:
+        - { name: sda, weight: 1.0 }
+      mount:
+        - { name: "/",     weight: 1.0,  attrs: { disk_total_kb: 52428800, inodes_total: 3276800 } }
+        - { name: "/boot", weight: 0.02, attrs: { disk_total_kb: 1048576,  inodes_total: 65536 } }
+      net:
+        - { name: eth0, weight: 1.0 }
     labels:
       _os_name: Debian GNU/Linux
       _os_version: "12"

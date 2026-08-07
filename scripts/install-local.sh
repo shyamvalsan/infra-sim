@@ -81,6 +81,24 @@ run sudo install -m 0644 "${TMP_ENV}" "${INSTALL_DIR}/environment.yaml"
 # Netdata only runs files it recognises as plugins.
 run sudo install -m 0755 "${BINARY}" "${PLUGIN_DIR}/infra-sim.plugin"
 
+# Replacing the file does NOT replace the running plugin: `install` writes a new
+# inode and the existing process keeps executing the old image, so an upgrade
+# silently does nothing. Netdata restarts a plugin that exits, so killing the
+# old process is what actually deploys the new binary.
+#
+# Matched on the exact installed path, never a bare process name, so this cannot
+# touch an unrelated process.
+OLD_PIDS="$(pgrep -x -f "${PLUGIN_DIR}/infra-sim.plugin.*" 2>/dev/null || \
+            pgrep -f "^${PLUGIN_DIR}/infra-sim\.plugin( |$)" 2>/dev/null || true)"
+if [ -n "${OLD_PIDS}" ]; then
+  echo -e >&2 "${GREEN}==>${NC} Stopping previous plugin process(es) so Netdata restarts the new binary"
+  for pid in ${OLD_PIDS}; do
+    run sudo kill "${pid}"
+  done
+else
+  echo -e >&2 "${GREEN}==>${NC} No previous plugin process running"
+fi
+
 echo -e >&2 "${GREEN}==>${NC} Installed."
 echo -e >&2 "    plugin:      ${PLUGIN_DIR}/infra-sim.plugin"
 echo -e >&2 "    environment: ${INSTALL_DIR}/environment.yaml"

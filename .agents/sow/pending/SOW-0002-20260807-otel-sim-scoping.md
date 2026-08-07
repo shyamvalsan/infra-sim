@@ -88,9 +88,20 @@ Reasoning: B is additive content on an architecture already proven end-to-end, s
 
 **Recommendation: A** — the last time an assumption of this exact shape was tested, the answer reshaped P0. Source-reading was necessary but not sufficient then either.
 
+## Decisions
+
+Resolved by the user on 2026-08-07:
+
+1. **Option B** — simulate an OTel Collector fleet as a monitored service first. Option A (OTLP emitter backend) becomes a separate SOW, scoped only after Decision 2's probe result is known.
+2. **Option A** — verify the OTLP vnode limitation empirically before scoping Option A work.
+
 ## Plan
 
-Blocked pending Decision 1 and Decision 2.
+1. **OTLP vnode probe.** Send OTLP metrics carrying distinct `host.name` resource attributes to the local agent's OTLP receiver and observe whether separate Netdata nodes appear or everything lands on the local host. Record the result here; it determines whether an OTLP emitter backend can ever show a fleet.
+2. **OTel Collector generator spec.** Author `specs/otel-collector.yaml` covering a collector's own internal telemetry — receiver accepted/refused, exporter queue size, enqueue failures and retries, processor dropped/batch behaviour, and pipeline throughput. Same plugins.d path as every other spec, so it is vnode-capable and needs no new transport.
+3. **Environment template** placing collectors across the simulated fleet.
+
+Blocked on nothing; runs after `SOW-0001` per one-SOW-at-a-time.
 
 ## Execution Log
 

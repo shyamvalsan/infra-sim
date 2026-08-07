@@ -32,8 +32,9 @@ Early. The first vertical slice is working end to end; most of the product in
 `spec.md` is not built yet.
 
 **Working:** generator spec format, deterministic seeded engine with invariants
-enforced by construction, plugins.d emitter with virtual-node support, a
-50-context Linux baseline, a 5-node web-stack environment, and a fidelity lint.
+enforced by construction, plugins.d emitter with virtual-node support,
+per-instance cardinality (one chart per disk / interface / mount), a
+70-context Linux baseline, a 5-node web-stack environment, and a fidelity lint.
 
 **Not built:** scenario engine, correlated logs, control console, additional
 verticals, OTEL simulation, the eval gym. See `.agents/sow/` for what is
@@ -125,7 +126,34 @@ accumulates, so emitted counters are monotonic by construction.
 
 **Roles retune, they never restructure.** A role overrides signal parameters
 only — it cannot add or remove contexts — so every node of a spec has an
-identical chart set and differs solely in behaviour.
+identical context set and differs solely in behaviour.
+
+**Per-device contexts declare instancing.** Real collectors emit one chart
+instance per device sharing a context, so a node with a single unnamed disk
+chart reads as wrong immediately:
+
+```yaml
+- id: disk.io
+  instances: { group: disk, chart_prefix: disk, family: "io" }
+```
+
+The node then supplies its devices, with weights and per-device attributes:
+
+```yaml
+instances:
+  disk:
+    - { name: nvme0n1, weight: 1.0 }
+    - { name: nvme1n1, weight: 0.35 }
+  mount:
+    - { name: "/var/lib/pgsql", weight: 1.0, attrs: { disk_total_kb: 1572864000 } }
+```
+
+Chart ids and families follow Netdata's own convention, which is not uniform:
+`disk.io` yields `disk.<dev>` in family `io`, while `net.packets` yields
+`net_packets.<iface>` in family `<iface>`. The spec states it rather than
+guessing. A node with no matching instance group emits no charts for that
+context — correct, since a host without a second disk should not have a chart
+for one.
 
 ### Bounds are safety rails, not modelling tools
 

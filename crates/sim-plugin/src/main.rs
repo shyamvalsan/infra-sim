@@ -156,7 +156,9 @@ fn run() -> Result<(), String> {
     let mut out = BufWriter::new(stdout.lock());
 
     emitter::define_hosts(&mut out, &profiles).map_err(write_err)?;
-    emitter::declare_charts(&mut out, &spec, &profiles, update_every).map_err(write_err)?;
+    for engine in &engines {
+        emitter::declare_charts(&mut out, &spec, engine, update_every).map_err(write_err)?;
+    }
     out.flush().map_err(write_err)?;
 
     let interval = update_every as f64;
