@@ -16,6 +16,7 @@ use std::sync::Arc;
 use std::time::{Duration, SystemTime, UNIX_EPOCH};
 
 mod control;
+mod describe;
 mod emitter;
 mod environment;
 mod reskin;
@@ -49,6 +50,10 @@ struct Args {
     /// Run the fidelity lint over this many simulated hours instead of
     /// emitting, then exit.
     lint_hours: Option<i64>,
+    /// Build an environment from a plain-text description instead of running.
+    describe: Option<String>,
+    /// Environment name and hostname prefix for --describe.
+    describe_name: Option<String>,
     /// Re-skin instead of running: rewrite hostnames and labels for a new
     /// prospect while preserving every GUID.
     reskin: Option<ReskinArgs>,
@@ -89,6 +94,8 @@ fn parse_args() -> Result<Args, String> {
     let mut lint_hours: Option<i64> = None;
     let mut replay_from: Option<i64> = None;
     let mut reskin_args: Option<ReskinArgs> = None;
+    let mut describe: Option<String> = None;
+    let mut describe_name: Option<String> = None;
 
     let mut args = std::env::args().skip(1);
     while let Some(arg) = args.next() {
@@ -98,6 +105,18 @@ fn parse_args() -> Result<Args, String> {
                     .next()
                     .ok_or_else(|| "--environment requires a path".to_string())?;
                 environment = Some(PathBuf::from(value));
+            }
+            "--describe" => {
+                describe =
+                    Some(args.next().ok_or_else(|| {
+                        "--describe requires a description in quotes".to_string()
+                    })?);
+            }
+            "--name" => {
+                describe_name = Some(
+                    args.next()
+                        .ok_or_else(|| "--name requires a value".to_string())?,
+                );
             }
             "--reskin" => {
                 reskin_args.get_or_insert_with(ReskinArgs::default);
@@ -150,6 +169,11 @@ fn parse_args() -> Result<Args, String> {
                      --replay-from TS  pin the simulated clock to unix timestamp TS \
                      for bit-exact replay of an archived environment\n\
                      \n\
+                     build an environment from a description:\n\
+                     --describe \"3 web servers behind an nginx load balancer, a \\\n\
+                       postgres primary and 2 redis caches\" --name acme \\\n\
+                       --environment environments/acme.yaml\n\
+                     \n\
                      re-skin a warm environment for a new prospect:\n\
                      --reskin --from-prefix sim- --to-prefix acme- \\\n\
                        [--new-name NAME] [--label key=value]... [--output PATH]\n\
@@ -178,11 +202,17 @@ fn parse_args() -> Result<Args, String> {
         lint_hours,
         replay_from,
         reskin: reskin_args,
+        describe,
+        describe_name,
     })
 }
 
 fn run() -> Result<(), String> {
     let args = parse_args()?;
+
+    if let Some(text) = &args.describe {
+        return do_describe(text, args.describe_name.as_deref(), &args.environment);
+    }
 
     if let Some(r) = &args.reskin {
         return do_reskin(&args.environment, r);
@@ -331,6 +361,66 @@ fn run() -> Result<(), String> {
         // like a stalled collector.
         out.flush().map_err(write_err)?;
     }
+}
+
+/// Build an environment from a text description and write it out.
+fn do_describe(text: &str, name: Option<&str>, output: &Path) -> Result<(), String> {
+    let reading = describe::parse(text);
+    if reading.groups.is_empty() {
+        return Err(format!(
+            "nothing recognisable in '{text}'.\n\
+             Known roles: load balancer, web/app server, database (postgres/mysql), \
+             cache (redis), kubernetes control plane, kubernetes worker, edge gateway.\n\
+             Try: --describe \"3 web servers behind an nginx load balancer, a postgres \
+             primary and 2 redis caches\""
+        ));
+    }
+
+    let name = name.unwrap_or("described").to_string();
+    let prefix = format!("{name}-");
+    // Derived from the name, so the same description reproduces the same world
+    // rather than a new one each time it is run.
+    let seed = name.bytes().fold(0xcbf2_9ce4_8422_2325u64, |h, b| {
+        (h ^ u64::from(b)).wrapping_mul(0x0000_0100_0000_01b3)
+    });
+
+    let yaml = describe::render(&reading, &name, seed, &prefix);
+
+    if let Some(dir) = output.parent() {
+        reskin::check_guid_uniqueness(dir, &yaml, output)?;
+    }
+    std::fs::write(output, &yaml)
+        .map_err(|e| format!("cannot write '{}': {e}", output.display()))?;
+
+    let total: usize = reading.groups.iter().map(|g| g.count).sum();
+    println!("read {total} node(s) from the description:\n");
+    for g in &reading.groups {
+        println!(
+            "  {:2} x {:<18} services: {:<24} <- \"{}\"",
+            g.count,
+            g.role,
+            if g.services.is_empty() {
+                "(base only)".into()
+            } else {
+                g.services.join(", ")
+            },
+            g.source.trim()
+        );
+    }
+    if !reading.unrecognised.is_empty() {
+        // Surfaced rather than ignored: a fleet missing what the prospect asked
+        // about is worse than one that admits it.
+        println!("\nnot recognised, so nothing was generated for these:");
+        for u in &reading.unrecognised {
+            println!("  \"{}\"", u.trim());
+        }
+    }
+    println!("\nwritten to {}", output.display());
+    println!(
+        "Review it, then: infra-sim --environment {} --lint 72",
+        output.display()
+    );
+    Ok(())
 }
 
 /// Re-skin an environment and write the result.

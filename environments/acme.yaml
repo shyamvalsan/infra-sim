@@ -1,0 +1,368 @@
+version: 1
+name: acme
+description: >-
+  Generated from a text description.
+
+seed: 514768821131075087
+update_every: 1
+generator: ../specs/linux-system.yaml
+specs: ../specs
+scenarios: ../scenarios
+
+# GUIDs are derived from the environment name and hostname, so
+# regenerating this file reproduces the same node identities rather
+# than orphaning the history of a fleet that is already running.
+nodes:
+
+  - hostname: acme-web-01
+    guid: 0bc4ff3b-16b5-4157-aaf5-01643d88ed2d
+    role: web
+    services: [nginx]
+    utc_offset_secs: 0
+    attrs:
+      cores: 8
+      ram_total_kb: 16777216
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/boot", weight: 0.0022, attrs: { disk_total_kb: 1048576, inodes_total: 6553600 } }
+      net:
+        - { name: eth0, weight: 1.0 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "8"
+      _system_ram_total: "16777216"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: m5.2xlarge
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: web
+      infra_sim_env: production
+
+  - hostname: acme-web-02
+    guid: 6bc4ff3b-5c15-4157-aaf5-04643d881014
+    role: web
+    services: [nginx]
+    utc_offset_secs: 0
+    attrs:
+      cores: 8
+      ram_total_kb: 16777216
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/boot", weight: 0.0022, attrs: { disk_total_kb: 1048576, inodes_total: 6553600 } }
+      net:
+        - { name: eth0, weight: 1.0 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "8"
+      _system_ram_total: "16777216"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: m5.2xlarge
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: web
+      infra_sim_env: production
+
+  - hostname: acme-web-03
+    guid: 4bc4ff3b-8a75-4157-aaf5-03643d8811c7
+    role: web
+    services: [nginx]
+    utc_offset_secs: 0
+    attrs:
+      cores: 8
+      ram_total_kb: 16777216
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/boot", weight: 0.0022, attrs: { disk_total_kb: 1048576, inodes_total: 6553600 } }
+      net:
+        - { name: eth0, weight: 1.0 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "8"
+      _system_ram_total: "16777216"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: m5.2xlarge
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: web
+      infra_sim_env: production
+
+  - hostname: acme-web-04
+    guid: abc4ff38-06d5-4157-aaf5-1e643d88ea46
+    role: web
+    services: [nginx]
+    utc_offset_secs: 0
+    attrs:
+      cores: 8
+      ram_total_kb: 16777216
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/boot", weight: 0.0022, attrs: { disk_total_kb: 1048576, inodes_total: 6553600 } }
+      net:
+        - { name: eth0, weight: 1.0 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "8"
+      _system_ram_total: "16777216"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: m5.2xlarge
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: web
+      infra_sim_env: production
+
+  - hostname: acme-web-05
+    guid: 8bc4ff38-4c35-4157-aaf5-1d643d88ebf1
+    role: web
+    services: [nginx]
+    utc_offset_secs: 0
+    attrs:
+      cores: 8
+      ram_total_kb: 16777216
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/boot", weight: 0.0022, attrs: { disk_total_kb: 1048576, inodes_total: 6553600 } }
+      net:
+        - { name: eth0, weight: 1.0 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "8"
+      _system_ram_total: "16777216"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: m5.2xlarge
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: web
+      infra_sim_env: production
+
+  - hostname: acme-web-06
+    guid: ebc4ff38-7595-4157-aaf5-00643d88eed8
+    role: web
+    services: [nginx]
+    utc_offset_secs: 0
+    attrs:
+      cores: 8
+      ram_total_kb: 16777216
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/boot", weight: 0.0022, attrs: { disk_total_kb: 1048576, inodes_total: 6553600 } }
+      net:
+        - { name: eth0, weight: 1.0 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "8"
+      _system_ram_total: "16777216"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: m5.2xlarge
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: web
+      infra_sim_env: production
+
+  - hostname: acme-lb-01
+    guid: 9478c6ab-f02b-4bde-8e36-a7052a439dd3
+    role: lb
+    services: [nginx]
+    utc_offset_secs: 0
+    attrs:
+      cores: 4
+      ram_total_kb: 4194304
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: sda, weight: 1.0 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/boot", weight: 0.0022, attrs: { disk_total_kb: 1048576, inodes_total: 6553600 } }
+      net:
+        - { name: eth0, weight: 1.0 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "4"
+      _system_ram_total: "4194304"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: c5.xlarge
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: lb
+      infra_sim_env: production
+
+  - hostname: acme-db-01
+    guid: ac2e880f-6324-4a81-a6fc-98917145fd3b
+    role: db
+    services: [postgres]
+    utc_offset_secs: 0
+    attrs:
+      cores: 16
+      ram_total_kb: 67108864
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+        - { name: nvme1n1, weight: 0.35 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/var/lib/pgsql", weight: 3.3205, attrs: { disk_total_kb: 1572864000, inodes_total: 6553600 } }
+        - { name: "/var/log", weight: 0.1107, attrs: { disk_total_kb: 52428800, inodes_total: 6553600 } }
+      net:
+        - { name: eth0, weight: 1.0 }
+        - { name: eth1, weight: 0.45 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "16"
+      _system_ram_total: "67108864"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: r5.4xlarge
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: db
+      infra_sim_env: production
+
+  - hostname: acme-cache-01
+    guid: 3a9bedc0-d135-41ad-a48b-f5ef4c155ea9
+    role: cache
+    services: [redis]
+    utc_offset_secs: 0
+    attrs:
+      cores: 8
+      ram_total_kb: 16777216
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: sda, weight: 1.0 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/boot", weight: 0.0022, attrs: { disk_total_kb: 1048576, inodes_total: 6553600 } }
+      net:
+        - { name: eth0, weight: 1.0 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "8"
+      _system_ram_total: "16777216"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: r5.large
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: cache
+      infra_sim_env: production
+
+  - hostname: acme-cache-02
+    guid: 1a9bedc3-1e95-41ad-a48b-f8ef4c154190
+    role: cache
+    services: [redis]
+    utc_offset_secs: 0
+    attrs:
+      cores: 8
+      ram_total_kb: 16777216
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: sda, weight: 1.0 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/boot", weight: 0.0022, attrs: { disk_total_kb: 1048576, inodes_total: 6553600 } }
+      net:
+        - { name: eth0, weight: 1.0 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "8"
+      _system_ram_total: "16777216"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: r5.large
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: cache
+      infra_sim_env: production
