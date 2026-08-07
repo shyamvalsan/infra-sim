@@ -220,7 +220,8 @@ timeline:
         assert_eq!(c.scenarios().active().len(), 1);
         let m = c
             .scenarios()
-            .multiplier("sim-db-01", Some("db"), "", "disk_space_used_kb", 1_050);
+            .perturbation("sim-db-01", Some("db"), "", "disk_space_used_kb", 1_050)
+            .multiplier;
         assert!((m - 2.0).abs() < 1e-9, "scenario not applied: {m}");
 
         // Resolve.

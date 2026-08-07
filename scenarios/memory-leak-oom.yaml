@@ -1,0 +1,132 @@
+version: 1
+name: memory-leak-oom
+description: >-
+  An application-server memory leak that ends in an OOM kill. Resident memory
+  climbs steadily, the page cache is squeezed out, swap activity begins, page
+  faults rise, and the kernel eventually reaps the process. Load then shifts to
+  the surviving application server.
+
+  Uses a compounding drift rather than a ramp: a leak's defining property is
+  that it never levels off, which is what makes the trend extrapolatable and
+  the crisis predictable.
+
+manifest:
+  root_cause: sim-web-01 application process resident memory
+  causal_chain:
+    - a leaked allocation on sim-web-01 grows without bound
+    - page cache is evicted as anonymous memory expands
+    - the system begins swapping and major page faults rise
+    - the kernel OOM killer reaps the process
+    - traffic shifts to sim-web-02, raising its CPU and connection count
+  blast_radius:
+    - sim-web-01
+    - sim-web-02
+  expected_finding: >-
+    A memory leak on sim-web-01 exhausted available memory and triggered an OOM
+    kill. Rising load on sim-web-02 is the load balancer redistributing traffic,
+    not a second independent fault.
+
+timeline:
+
+  - at: 0s
+    description: Resident memory begins growing without bound
+    target:
+      signal: mem_used_kb
+      hostname: sim-web-01
+    effect: drift
+    rate_per_hour: 4.5
+
+  # Available memory falls as the leak consumes it. Modelled as its own signal
+  # because mem.available is reported independently by the kernel rather than
+  # derived from the ram partition.
+  - at: 4m
+    description: Available memory falls
+    target:
+      signal: mem_available_kb
+      hostname: sim-web-01
+    effect: ramp
+    multiplier: 0.12
+    over: 18m
+
+  - at: 9m
+    description: Page cache evicted under memory pressure
+    target:
+      signal: mem_dirty_kb
+      hostname: sim-web-01
+    effect: ramp
+    multiplier: 6.0
+    over: 8m
+
+  - at: 11m
+    description: Swap activity begins
+    target:
+      signal: swapio_out_rate
+      hostname: sim-web-01
+    effect: ramp
+    multiplier: 220.0
+    over: 9m
+
+  - at: 12m
+    description: Swap fills
+    target:
+      signal: swap_used_kb
+      hostname: sim-web-01
+    effect: ramp
+    multiplier: 14.0
+    over: 10m
+
+  - at: 13m
+    description: Major page faults rise as pages are read back from swap
+    target:
+      signal: pgfaults_major_rate
+      hostname: sim-web-01
+    effect: ramp
+    multiplier: 340.0
+    over: 8m
+
+  - at: 15m
+    description: Reclaim pressure drives up system CPU
+    target:
+      signal: cpu_busy
+      hostname: sim-web-01
+    effect: ramp
+    multiplier: 1.9
+    over: 7m
+
+  # The kill itself. Additive, not multiplicative: oom_kill_rate is zero on a
+  # healthy host by design, and no multiplier can lift zero.
+  - at: 23m
+    description: Kernel OOM killer reaps the process
+    target:
+      signal: oom_kill_rate
+      hostname: sim-web-01
+    effect: add
+    amount: 1.0
+
+  # Post-kill: memory is released, so the node partially recovers on its own
+  # while the traffic it was serving moves elsewhere.
+  - at: 23m
+    description: Memory released by the kill
+    target:
+      signal: mem_used_kb
+      hostname: sim-web-01
+    effect: recover
+    over: 90s
+
+  - at: 24m
+    description: Load balancer shifts traffic to the surviving app server
+    target:
+      signal: tcp_sockets_inuse
+      hostname: sim-web-02
+    effect: ramp
+    multiplier: 2.1
+    over: 5m
+
+  - at: 24m
+    description: Surviving app server works harder
+    target:
+      signal: cpu_busy
+      hostname: sim-web-02
+    effect: ramp
+    multiplier: 1.7
+    over: 5m

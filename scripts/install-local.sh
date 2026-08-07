@@ -74,12 +74,13 @@ run sudo install -m 0644 "${GENERATOR_SRC}" "${INSTALL_DIR}/specs/$(basename "${
 
 TMP_ENV="$(mktemp)"
 trap 'rm -f "${TMP_ENV}"' EXIT
-sed -E "s|^generator:.*|generator: specs/$(basename "${GENERATOR_SRC}")|" \
+sed -E -e "s|^generator:.*|generator: specs/$(basename "${GENERATOR_SRC}")|" \
+       -e "s|^scenarios:.*|scenarios: scenarios|" \
   "${ENVIRONMENT}" > "${TMP_ENV}"
 run sudo install -m 0644 "${TMP_ENV}" "${INSTALL_DIR}/environment.yaml"
 
 # Scenarios are looked up relative to the environment file.
-SCENARIO_SRC="${REPO_ROOT}/scenarios"
+SCENARIO_SRC="$(cd "$(dirname "${ENVIRONMENT}")" && cd "$(dirname "$(grep -E '^scenarios:' "${ENVIRONMENT}" | head -1 | sed -E 's/^scenarios:[[:space:]]*//')")" && pwd)/$(basename "$(grep -E '^scenarios:' "${ENVIRONMENT}" | head -1 | sed -E 's/^scenarios:[[:space:]]*//')")"
 if [ -d "${SCENARIO_SRC}" ]; then
   run sudo mkdir -p "${INSTALL_DIR}/scenarios"
   for f in "${SCENARIO_SRC}"/*.yaml; do

@@ -8,6 +8,28 @@
 
 use sim_spec::Scenario;
 
+/// How active scenarios alter one signal.
+///
+/// Two channels rather than one because a multiplier cannot lift a signal whose
+/// baseline is zero, and the signals that matter most in a fault - OOM kills,
+/// interface errors, TCP resets - are exactly those.
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub struct Perturbation {
+    pub multiplier: f64,
+    pub additive: f64,
+}
+
+impl Perturbation {
+    pub const NONE: Self = Self {
+        multiplier: 1.0,
+        additive: 0.0,
+    };
+
+    pub fn is_none(&self) -> bool {
+        self.multiplier == 1.0 && self.additive == 0.0
+    }
+}
+
 /// A scenario that has been triggered, with the moment it started.
 #[derive(Debug, Clone)]
 pub struct ActiveScenario {
@@ -39,7 +61,7 @@ impl ScenarioSet {
         &self.active
     }
 
-    /// Combined multiplier for one signal on one node at `now`.
+    /// Combined perturbation for one signal on one node at `now`.
     ///
     /// Effects compound, so two scenarios hitting the same signal both apply —
     /// which is how a "noisy neighbour" plus a "slow disk" produce a worse
@@ -49,17 +71,18 @@ impl ScenarioSet {
     /// A `Recover` step is the exception: it scales whatever the earlier steps
     /// built back toward 1.0, so recovery unwinds the fault instead of becoming
     /// another multiplier on top of it.
-    pub fn multiplier(
+    pub fn perturbation(
         &self,
         hostname: &str,
         role: Option<&str>,
         instance: &str,
         signal: &str,
         now: i64,
-    ) -> f64 {
-        let mut total = 1.0;
+    ) -> Perturbation {
+        let mut out = Perturbation::NONE;
         for a in &self.active {
             let mut fault: f64 = 1.0;
+            let mut added: f64 = 0.0;
             let mut recovery: f64 = 1.0;
             for step in &a.scenario.timeline {
                 if !step.target.matches(hostname, role, instance, signal) {
@@ -73,14 +96,31 @@ impl ScenarioSet {
                     // Recover returns 1.0 -> 0.0 across its window; keep the
                     // smallest so the newest recovery dominates.
                     recovery = recovery.min(step.effect.multiplier_at(elapsed));
+                } else if step.effect.is_additive() {
+                    added += step.effect.additive_at(elapsed);
                 } else {
                     fault *= step.effect.multiplier_at(elapsed);
                 }
             }
-            // Blend the fault back toward neutral as recovery progresses.
-            total *= 1.0 + (fault - 1.0) * recovery;
+            // Blend both contributions back toward neutral as recovery runs.
+            out.multiplier *= 1.0 + (fault - 1.0) * recovery;
+            out.additive += added * recovery;
         }
-        total
+        out
+    }
+
+    /// Convenience for callers that only care about the multiplicative part.
+    #[cfg(test)]
+    fn multiplier(
+        &self,
+        hostname: &str,
+        role: Option<&str>,
+        instance: &str,
+        signal: &str,
+        now: i64,
+    ) -> f64 {
+        self.perturbation(hostname, role, instance, signal, now)
+            .multiplier
     }
 
     /// Ground-truth summary for the console and the eval gym.
@@ -202,6 +242,62 @@ timeline:
         // Fully recovered, back to baseline rather than stuck high.
         assert!((at(200) - 1.0).abs() < 1e-9, "not healed: {}", at(200));
         assert!((at(10_000) - 1.0).abs() < 1e-9, "did not stay healed");
+    }
+
+    #[test]
+    fn an_additive_effect_lifts_a_zero_baseline_signal() {
+        let yaml = r#"
+version: 1
+name: oom
+manifest:
+  root_cause: sim-web-01
+timeline:
+  - at: 0s
+    target: { signal: oom_kill_rate, hostname: sim-web-01 }
+    effect: add
+    amount: 2.0
+"#;
+        let set = ScenarioSet::new(vec![ActiveScenario {
+            scenario: scenario(yaml),
+            started_at: 0,
+        }]);
+        let p = set.perturbation("sim-web-01", Some("web"), "", "oom_kill_rate", 10);
+        assert_eq!(p.multiplier, 1.0);
+        assert_eq!(p.additive, 2.0);
+        // Untargeted hosts are unaffected.
+        assert!(set
+            .perturbation("sim-web-02", Some("web"), "", "oom_kill_rate", 10)
+            .is_none());
+    }
+
+    #[test]
+    fn recovery_unwinds_an_additive_effect_too() {
+        let yaml = r#"
+version: 1
+name: errors-then-heal
+manifest:
+  root_cause: sim-lb-01
+timeline:
+  - at: 0s
+    target: { signal: net_err_rate, hostname: sim-lb-01 }
+    effect: add
+    amount: 40.0
+  - at: 100s
+    target: { signal: net_err_rate, hostname: sim-lb-01 }
+    effect: recover
+    over: 100s
+"#;
+        let set = ScenarioSet::new(vec![ActiveScenario {
+            scenario: scenario(yaml),
+            started_at: 0,
+        }]);
+        let at = |t| {
+            set.perturbation("sim-lb-01", Some("lb"), "", "net_err_rate", t)
+                .additive
+        };
+        assert!((at(50) - 40.0).abs() < 1e-9);
+        assert!((at(150) - 20.0).abs() < 1e-9, "mid-recovery: {}", at(150));
+        assert!((at(200) - 0.0).abs() < 1e-9, "not healed: {}", at(200));
     }
 
     #[test]

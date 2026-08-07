@@ -1,0 +1,102 @@
+version: 1
+name: noisy-neighbour
+description: >-
+  A batch workload lands on the cache host and starves its co-located service.
+  CPU, context switching and disk contention all rise on that host while the
+  service it shares the box with degrades - and nothing is wrong with the
+  service itself, which is what makes this one instructive.
+
+  The tell is that the victim's own inputs are unchanged: its request rate is
+  flat while its latency and CPU wait climb.
+
+manifest:
+  root_cause: sim-cache-01 co-located batch workload
+  causal_chain:
+    - an unscheduled batch job starts on sim-cache-01
+    - CPU and context switching saturate on the shared host
+    - disk contention rises, lengthening service times
+    - the co-located cache service slows despite unchanged request volume
+    - application servers see slower cache responses and hold connections open
+  blast_radius:
+    - sim-cache-01
+    - sim-web-01
+    - sim-web-02
+  expected_finding: >-
+    Resource contention on sim-cache-01 from a co-located workload. The cache
+    service's own request volume is unchanged, so the degradation is
+    environmental rather than a fault in the service.
+
+timeline:
+
+  - at: 0s
+    description: Batch workload starts, saturating CPU
+    target:
+      signal: cpu_busy
+      hostname: sim-cache-01
+    effect: ramp
+    multiplier: 7.5
+    over: 6m
+
+  - at: 1m
+    description: Context switching climbs under contention
+    target:
+      signal: ctxt_switch_rate
+      hostname: sim-cache-01
+    effect: ramp
+    multiplier: 6.0
+    over: 6m
+
+  - at: 1m
+    description: Run queue builds
+    target:
+      signal: load1
+      hostname: sim-cache-01
+    effect: ramp
+    multiplier: 9.0
+    over: 7m
+
+  - at: 2m
+    description: Batch job hammers the disk
+    target:
+      signal: disk_read_kb_rate
+      hostname: sim-cache-01
+      instance: sda
+    effect: ramp
+    multiplier: 40.0
+    over: 6m
+
+  - at: 3m
+    description: Disk saturates, service times lengthen
+    target:
+      signal: disk_busy_ms_rate
+      hostname: sim-cache-01
+      instance: sda
+    effect: ramp
+    multiplier: 18.0
+    over: 6m
+
+  - at: 4m
+    description: Memory pressure from the batch job's working set
+    target:
+      signal: mem_used_kb
+      hostname: sim-cache-01
+    effect: ramp
+    multiplier: 1.35
+    over: 8m
+
+  - at: 7m
+    description: Cache clients wait longer, holding connections open
+    target:
+      signal: tcp_sockets_inuse
+      role: web
+    effect: ramp
+    multiplier: 2.4
+    over: 6m
+
+  - at: 20m
+    description: Batch job completes and the host recovers on its own
+    target:
+      signal: cpu_busy
+      hostname: sim-cache-01
+    effect: recover
+    over: 3m

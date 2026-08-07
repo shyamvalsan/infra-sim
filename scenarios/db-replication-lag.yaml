@@ -1,0 +1,99 @@
+version: 1
+name: db-replication-lag
+description: >-
+  Write load on the primary outpaces what the replication link can ship, so the
+  standby falls behind. WAL accumulates on the primary, the replication
+  interface saturates, commit latency rises, and application servers hold
+  connections open waiting on slower commits.
+
+  The replication link is a distinct interface (eth1) on the database node, so
+  the saturation is visible as an interface-level symptom rather than only in
+  aggregate.
+
+manifest:
+  root_cause: sim-db-01 replication link (eth1)
+  causal_chain:
+    - write volume on sim-db-01 rises beyond the replication link's throughput
+    - the replication interface saturates and begins dropping
+    - WAL accumulates on the primary's data volume
+    - commit latency rises as writes wait on acknowledgement
+    - application servers hold connections open waiting on commits
+  blast_radius:
+    - sim-db-01
+    - sim-web-01
+    - sim-web-02
+  expected_finding: >-
+    Replication throughput on sim-db-01's eth1 is the constraint. Rising
+    application-tier connection counts are a downstream symptom of slower
+    commits, not an independent traffic increase.
+
+timeline:
+
+  - at: 0s
+    description: Write volume climbs on the primary
+    target:
+      signal: disk_write_kb_rate
+      hostname: sim-db-01
+      instance: nvme0n1
+    effect: ramp
+    multiplier: 5.5
+    over: 12m
+
+  - at: 2m
+    description: Replication link saturates
+    target:
+      signal: net_tx_kb_rate
+      hostname: sim-db-01
+      instance: eth1
+    effect: ramp
+    multiplier: 7.0
+    over: 10m
+
+  # Zero-baseline signal: drops need an absolute rate, not a multiplier.
+  - at: 8m
+    description: Replication link begins dropping packets
+    target:
+      signal: net_drop_rate
+      hostname: sim-db-01
+      instance: eth1
+    effect: add_ramp
+    amount: 85.0
+    over: 8m
+
+  - at: 9m
+    description: TCP retransmits climb on the saturated link
+    target:
+      signal: tcp_retrans_rate
+      hostname: sim-db-01
+    effect: ramp
+    multiplier: 22.0
+    over: 8m
+
+  - at: 10m
+    description: WAL accumulates as shipping falls behind
+    target:
+      signal: disk_space_used_kb
+      hostname: sim-db-01
+      instance: /var/lib/pgsql
+    effect: ramp
+    multiplier: 2.4
+    over: 15m
+
+  - at: 12m
+    description: Commit latency rises
+    target:
+      signal: disk_await_write_ms
+      hostname: sim-db-01
+      instance: nvme0n1
+    effect: ramp
+    multiplier: 9.0
+    over: 9m
+
+  - at: 16m
+    description: Application servers hold connections waiting on commits
+    target:
+      signal: tcp_sockets_inuse
+      role: web
+    effect: ramp
+    multiplier: 3.2
+    over: 7m

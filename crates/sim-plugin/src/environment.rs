@@ -80,11 +80,22 @@ pub struct Environment {
     /// archived environment stays self-contained.
     pub generator: PathBuf,
 
+    /// Scenario directory, resolved the same way. Defaults to `scenarios`
+    /// beside the environment file, which is the installed layout; a repo
+    /// checkout points it at the shared `scenarios/` directory so the files are
+    /// not duplicated per environment.
+    #[serde(default = "default_scenario_dir")]
+    pub scenarios: PathBuf,
+
     pub nodes: Vec<NodeDef>,
 }
 
 fn default_update_every() -> i64 {
     1
+}
+
+fn default_scenario_dir() -> PathBuf {
+    PathBuf::from("scenarios")
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -134,6 +145,13 @@ fn default_weight() -> f64 {
 }
 
 impl InstanceDef {
+    pub fn name(&self) -> &str {
+        match self {
+            InstanceDef::Name(n) => n,
+            InstanceDef::Detailed { name, .. } => name,
+        }
+    }
+
     fn to_instance(&self) -> Instance {
         match self {
             InstanceDef::Name(n) => Instance {
@@ -170,14 +188,12 @@ impl Environment {
 
     /// Generator spec path resolved against the environment file's directory.
     pub fn generator_path(&self, env_path: &Path) -> PathBuf {
-        if self.generator.is_absolute() {
-            self.generator.clone()
-        } else {
-            env_path
-                .parent()
-                .unwrap_or_else(|| Path::new("."))
-                .join(&self.generator)
-        }
+        resolve(&self.generator, env_path)
+    }
+
+    /// Scenario directory resolved against the environment file's directory.
+    pub fn scenario_path(&self, env_path: &Path) -> PathBuf {
+        resolve(&self.scenarios, env_path)
     }
 
     fn validate(&self) -> Result<(), EnvError> {
@@ -249,6 +265,17 @@ impl Environment {
                 }
             })
             .collect()
+    }
+}
+
+fn resolve(path: &Path, env_path: &Path) -> PathBuf {
+    if path.is_absolute() {
+        path.to_path_buf()
+    } else {
+        env_path
+            .parent()
+            .unwrap_or_else(|| Path::new("."))
+            .join(path)
     }
 }
 

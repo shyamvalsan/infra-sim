@@ -21,7 +21,7 @@ pub mod scenario_runtime;
 
 pub use control_file::{ActiveEntry, ControlFile};
 use rng::Rng;
-pub use scenario_runtime::{ActiveScenario, ScenarioSet};
+pub use scenario_runtime::{ActiveScenario, Perturbation, ScenarioSet};
 
 /// Seconds in a day.
 const DAY: i64 = 86_400;
@@ -269,7 +269,7 @@ impl NodeEngine {
         // Scenarios perturb the signal level, so a fault propagates into every
         // context that signal feeds. That coupling is what produces a coherent
         // blast radius instead of one conspicuously anomalous chart.
-        let scenario = scenarios.multiplier(
+        let perturb = scenarios.perturbation(
             &self.profile.hostname,
             self.profile.role.as_deref(),
             scope,
@@ -277,8 +277,11 @@ impl NodeEngine {
             now,
         );
         // Weight scales the whole signal, so a lightly-loaded disk is quieter
-        // in every context that references it, not just one.
-        let mut value = signal.base * seasonal * weight * scenario;
+        // in every context that references it, not just one. The additive term
+        // is applied after weighting, in the signal's own units, because it
+        // represents an absolute event rate rather than a scaling of load.
+        let scenario = perturb.multiplier;
+        let mut value = signal.base * seasonal * weight * scenario + perturb.additive;
 
         // Noise is proportional to the *current* level, not to base. Scaling
         // off base makes a quiet 3 a.m. trough carry the same absolute jitter
@@ -326,7 +329,9 @@ impl NodeEngine {
         let max = if signal.max_is_physical() {
             signal.max * weight
         } else {
-            signal.max * weight * scenario.max(1.0)
+            // Headroom covers both channels, so an additive fault is not
+            // clamped away by a bound written for the healthy baseline.
+            signal.max * weight * scenario.max(1.0) + perturb.additive.max(0.0)
         };
         let min = signal.min * weight;
 

@@ -70,6 +70,13 @@ impl Scenario {
                     });
                 }
             }
+            if let Effect::AddRamp { over, .. } = &step.effect {
+                if over.seconds() == 0 {
+                    return Err(SpecError::ZeroRamp {
+                        scenario: self.name.clone(),
+                    });
+                }
+            }
         }
         Ok(())
     }
@@ -190,6 +197,18 @@ pub enum Effect {
     /// flapping.
     Oscillate { amplitude: f64, period: Duration },
 
+    /// Add an absolute amount, in the signal's own units.
+    ///
+    /// Required because a multiplier cannot lift a signal whose baseline is
+    /// zero, and the signals that matter most in a fault are exactly those:
+    /// OOM kills, interface errors, packet drops and TCP resets are all zero on
+    /// a healthy host by design. Giving them a small non-zero base instead
+    /// would mean a healthy fleet permanently reporting errors.
+    Add { amount: f64 },
+
+    /// Ramp an absolute amount from zero to `amount` across `over`.
+    AddRamp { amount: f64, over: Duration },
+
     /// Return to normal over `over`. Recovery matters: showing a system heal is
     /// as persuasive as showing it break.
     Recover { over: Duration },
@@ -200,10 +219,32 @@ impl Effect {
     /// and `Oscillate` never settle, hence zero.
     fn settle_seconds(&self) -> i64 {
         match self {
-            Effect::Step { .. } => 0,
+            Effect::Step { .. } | Effect::Add { .. } => 0,
             Effect::Ramp { over, .. } => over.seconds(),
+            Effect::AddRamp { over, .. } => over.seconds(),
             Effect::Recover { over } => over.seconds(),
             Effect::Drift { .. } | Effect::Oscillate { .. } => 0,
+        }
+    }
+
+    /// Whether this effect contributes an absolute amount rather than a
+    /// multiplier.
+    pub fn is_additive(&self) -> bool {
+        matches!(self, Effect::Add { .. } | Effect::AddRamp { .. })
+    }
+
+    /// Absolute amount contributed `elapsed` seconds after this step began.
+    pub fn additive_at(&self, elapsed: f64) -> f64 {
+        if elapsed < 0.0 {
+            return 0.0;
+        }
+        match self {
+            Effect::Add { amount } => *amount,
+            Effect::AddRamp { amount, over } => {
+                let span = over.seconds() as f64;
+                amount * (elapsed / span).clamp(0.0, 1.0)
+            }
+            _ => 0.0,
         }
     }
 
@@ -213,6 +254,7 @@ impl Effect {
             return 1.0;
         }
         match self {
+            Effect::Add { .. } | Effect::AddRamp { .. } => 1.0,
             Effect::Step { multiplier } => *multiplier,
 
             Effect::Ramp { multiplier, over } => {
@@ -423,6 +465,37 @@ timeline:
         };
         assert!(t.matches("anything", None, "", "cpu_busy"));
         assert!(t.matches("other", Some("db"), "eth0", "cpu_busy"));
+    }
+
+    #[test]
+    fn additive_effects_can_lift_a_zero_baseline_signal() {
+        // A multiplier cannot: OOM kills and interface errors are zero at rest
+        // by design, and giving them a non-zero base would mean a healthy fleet
+        // permanently reporting errors.
+        let e = Effect::Add { amount: 3.0 };
+        assert_eq!(e.multiplier_at(10.0), 1.0);
+        assert_eq!(e.additive_at(10.0), 3.0);
+        assert_eq!(e.additive_at(-1.0), 0.0);
+        assert!(e.is_additive());
+    }
+
+    #[test]
+    fn add_ramp_interpolates_the_absolute_amount() {
+        let e = Effect::AddRamp {
+            amount: 10.0,
+            over: Duration(100),
+        };
+        assert!((e.additive_at(0.0) - 0.0).abs() < 1e-9);
+        assert!((e.additive_at(50.0) - 5.0).abs() < 1e-9);
+        assert!((e.additive_at(100.0) - 10.0).abs() < 1e-9);
+        assert!((e.additive_at(9_999.0) - 10.0).abs() < 1e-9);
+    }
+
+    #[test]
+    fn multiplicative_effects_contribute_nothing_additive() {
+        let e = Effect::Step { multiplier: 4.0 };
+        assert_eq!(e.additive_at(10.0), 0.0);
+        assert!(!e.is_additive());
     }
 
     #[test]

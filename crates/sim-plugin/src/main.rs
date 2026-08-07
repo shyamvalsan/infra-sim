@@ -24,8 +24,6 @@ use sim_spec::GeneratorSpec;
 
 /// Where the plugin looks for its environment when Netdata launches it.
 const DEFAULT_ENVIRONMENT: &str = "/etc/netdata/infra-sim/environment.yaml";
-/// Scenario library, relative to the environment file's directory.
-const SCENARIO_DIR: &str = "scenarios";
 /// Control file the console writes to trigger and resolve scenarios.
 const CONTROL_FILE: &str = "control.yaml";
 /// Environment variable override, used by the console and by manual runs.
@@ -154,6 +152,8 @@ fn run() -> Result<(), String> {
         .collect();
 
     if let Some(hours) = args.lint_hours {
+        let library = control::load_library(&env.scenario_path(&args.environment))?;
+        check_scenarios(&spec, &env, &library)?;
         return lint(&spec, &mut engines, hours, update_every);
     }
 
@@ -162,7 +162,7 @@ fn run() -> Result<(), String> {
         .parent()
         .map(Path::to_path_buf)
         .unwrap_or_else(|| PathBuf::from("."));
-    let library = control::load_library(&base_dir.join(SCENARIO_DIR))?;
+    let library = control::load_library(&env.scenario_path(&args.environment))?;
     eprintln!(
         "infra-sim: {} scenario(s) available: {}",
         library.len(),
@@ -207,6 +207,72 @@ fn run() -> Result<(), String> {
         // Netdata reads us over a pipe, so an unflushed buffer looks exactly
         // like a stalled collector.
         out.flush().map_err(write_err)?;
+    }
+}
+
+/// Verify every scenario targets things that actually exist.
+///
+/// A scenario naming a signal the generator does not define, or a host the
+/// environment does not contain, produces no effect at all - the trigger
+/// appears to work and nothing happens. That is the worst failure mode this
+/// project has: it surfaces in front of a prospect, mid-sentence, with no error
+/// anywhere to explain it.
+fn check_scenarios(
+    spec: &GeneratorSpec,
+    env: &Environment,
+    library: &std::collections::BTreeMap<String, sim_spec::Scenario>,
+) -> Result<(), String> {
+    let hosts: Vec<&str> = env.nodes.iter().map(|n| n.hostname.as_str()).collect();
+    let roles: Vec<&str> = env.nodes.iter().filter_map(|n| n.role.as_deref()).collect();
+    let instances: Vec<&str> = env
+        .nodes
+        .iter()
+        .flat_map(|n| n.instances.values())
+        .flatten()
+        .map(|i| i.name())
+        .collect();
+
+    let mut problems = Vec::new();
+    for (name, sc) in library {
+        for (i, step) in sc.timeline.iter().enumerate() {
+            let t = &step.target;
+            if !spec.signals.contains_key(&t.signal) {
+                problems.push(format!(
+                    "  {name} step {i}: unknown signal '{}' - the step would do nothing",
+                    t.signal
+                ));
+            }
+            if let Some(h) = &t.hostname {
+                if !hosts.contains(&h.as_str()) {
+                    problems.push(format!("  {name} step {i}: unknown hostname '{h}'"));
+                }
+            }
+            if let Some(r) = &t.role {
+                if !roles.contains(&r.as_str()) {
+                    problems.push(format!("  {name} step {i}: no node has role '{r}'"));
+                }
+            }
+            if let Some(inst) = &t.instance {
+                if !instances.contains(&inst.as_str()) {
+                    problems.push(format!("  {name} step {i}: no node has instance '{inst}'"));
+                }
+            }
+        }
+    }
+
+    println!(
+        "infra-sim: checked {} scenario(s) against the environment",
+        library.len()
+    );
+    if problems.is_empty() {
+        println!("  all scenario targets resolve\n");
+        Ok(())
+    } else {
+        println!("{}\n", problems.join("\n"));
+        Err(format!(
+            "{} scenario target(s) do not resolve; those steps would silently do nothing",
+            problems.len()
+        ))
     }
 }
 

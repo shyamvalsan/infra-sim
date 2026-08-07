@@ -1,0 +1,102 @@
+version: 1
+name: flapping-edge-links
+description: >-
+  Intermittent physical-layer trouble on an edge uplink. The link oscillates
+  rather than failing outright, which is what makes flapping hard to catch: any
+  single check is likely to find the link up.
+
+  Uses an oscillating effect so throughput rises and falls continuously, with
+  errors and drops accumulating through each cycle.
+
+manifest:
+  root_cause: sim-lb-01 uplink (eth0) physical layer
+  causal_chain:
+    - the eth0 uplink on sim-lb-01 begins flapping
+    - throughput oscillates as the link renegotiates
+    - interface errors and drops accumulate on each transition
+    - TCP connections reset and retransmit through the outages
+    - clients retry, so connection counts rise without a traffic increase
+  blast_radius:
+    - sim-lb-01
+  expected_finding: >-
+    A flapping physical link on sim-lb-01's eth0. Elevated connection counts are
+    clients retrying through the outages, not a genuine increase in demand.
+
+timeline:
+
+  - at: 0s
+    description: Uplink throughput begins oscillating
+    target:
+      signal: net_rx_kb_rate
+      hostname: sim-lb-01
+      instance: eth0
+    effect: oscillate
+    amplitude: 0.85
+    period: 90s
+
+  - at: 0s
+    description: Transmit oscillates out of phase with receive
+    target:
+      signal: net_tx_kb_rate
+      hostname: sim-lb-01
+      instance: eth0
+    effect: oscillate
+    amplitude: 0.8
+    period: 110s
+
+  # Errors and drops are zero at rest, so these must be additive.
+  - at: 30s
+    description: Interface errors accumulate on each transition
+    target:
+      signal: net_err_rate
+      hostname: sim-lb-01
+      instance: eth0
+    effect: add_ramp
+    amount: 45.0
+    over: 4m
+
+  - at: 30s
+    description: Packets dropped through the outages
+    target:
+      signal: net_drop_rate
+      hostname: sim-lb-01
+      instance: eth0
+    effect: add_ramp
+    amount: 120.0
+    over: 4m
+
+  - at: 1m
+    description: Carrier transitions register as link events
+    target:
+      signal: net_events_rate
+      hostname: sim-lb-01
+      instance: eth0
+    effect: add
+    amount: 2.0
+
+  - at: 2m
+    description: Connections reset through the outages
+    target:
+      signal: tcp_estab_resets_rate
+      hostname: sim-lb-01
+    effect: ramp
+    multiplier: 30.0
+    over: 5m
+
+  - at: 2m
+    description: Retransmits climb
+    target:
+      signal: tcp_retrans_rate
+      hostname: sim-lb-01
+    effect: ramp
+    multiplier: 26.0
+    over: 5m
+
+  - at: 4m
+    description: Clients retry, inflating connection counts
+    target:
+      signal: tcp_sockets_inuse
+      hostname: sim-lb-01
+    effect: ramp
+    multiplier: 2.8
+    over: 6m

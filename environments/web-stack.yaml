@@ -11,6 +11,9 @@ seed: 8675309
 
 update_every: 1
 generator: ../specs/linux-system.yaml
+# Shared across environments rather than copied per environment. The installer
+# rewrites both paths to match the installed layout.
+scenarios: ../scenarios
 
 # GUIDs are authored, never generated per run. The GUID is the node's identity
 # in Netdata: change it and history is orphaned; change only the hostname and
