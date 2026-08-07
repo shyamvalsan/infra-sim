@@ -18,6 +18,7 @@ use std::time::{Duration, SystemTime, UNIX_EPOCH};
 mod control;
 mod emitter;
 mod environment;
+mod reskin;
 
 use environment::Environment;
 use sim_engine::{NodeEngine, ScenarioSet};
@@ -48,6 +49,17 @@ struct Args {
     /// Run the fidelity lint over this many simulated hours instead of
     /// emitting, then exit.
     lint_hours: Option<i64>,
+    /// Re-skin instead of running: rewrite hostnames and labels for a new
+    /// prospect while preserving every GUID.
+    reskin: Option<ReskinArgs>,
+    /// Unix timestamp the simulated clock starts from.
+    ///
+    /// `spec.md` promises an environment plus a seed replays an identical
+    /// world. The seed fixes the random component, but seasonality is a
+    /// function of absolute time, so without pinning the clock a replay
+    /// reproduces the same *shape* only when run at the same time of day.
+    /// Pinning closes that gap and makes replay bit-exact.
+    replay_from: Option<i64>,
 }
 
 /// Fraction of samples a signal may spend on a bound before the lint fails it.
@@ -62,10 +74,21 @@ const PINNED_THRESHOLD: f64 = 0.001;
 ///
 /// Netdata passes the collection interval as a bare integer in argv[1]. A
 /// `--environment <path>` flag is accepted for running the plugin by hand.
+#[derive(Default)]
+struct ReskinArgs {
+    from_prefix: String,
+    to_prefix: String,
+    name: Option<String>,
+    output: Option<PathBuf>,
+    labels: std::collections::BTreeMap<String, String>,
+}
+
 fn parse_args() -> Result<Args, String> {
     let mut update_every = 1_i64;
     let mut environment: Option<PathBuf> = None;
     let mut lint_hours: Option<i64> = None;
+    let mut replay_from: Option<i64> = None;
+    let mut reskin_args: Option<ReskinArgs> = None;
 
     let mut args = std::env::args().skip(1);
     while let Some(arg) = args.next() {
@@ -75,6 +98,36 @@ fn parse_args() -> Result<Args, String> {
                     .next()
                     .ok_or_else(|| "--environment requires a path".to_string())?;
                 environment = Some(PathBuf::from(value));
+            }
+            "--reskin" => {
+                reskin_args.get_or_insert_with(ReskinArgs::default);
+            }
+            flag @ ("--from-prefix" | "--to-prefix" | "--new-name" | "--output" | "--label") => {
+                let value = args
+                    .next()
+                    .ok_or_else(|| format!("{flag} requires a value"))?;
+                let r = reskin_args.get_or_insert_with(ReskinArgs::default);
+                match flag {
+                    "--from-prefix" => r.from_prefix = value,
+                    "--to-prefix" => r.to_prefix = value,
+                    "--new-name" => r.name = Some(value),
+                    "--output" => r.output = Some(PathBuf::from(value)),
+                    "--label" => {
+                        let (k, v) = value
+                            .split_once('=')
+                            .ok_or_else(|| format!("--label expects key=value, got '{value}'"))?;
+                        r.labels.insert(k.to_string(), v.to_string());
+                    }
+                    _ => unreachable!(),
+                }
+            }
+            "--replay-from" => {
+                let value = args
+                    .next()
+                    .ok_or_else(|| "--replay-from requires a unix timestamp".to_string())?;
+                replay_from = Some(value.parse::<i64>().map_err(|_| {
+                    format!("--replay-from expects a unix timestamp, got '{value}'")
+                })?);
             }
             "--lint" => {
                 let value = args
@@ -93,7 +146,15 @@ fn parse_args() -> Result<Args, String> {
                      --environment path to environment.yaml \
                      (default: ${ENV_VAR} or {DEFAULT_ENVIRONMENT})\n\
                      --lint HOURS  simulate HOURS of data, report fidelity \
-                     violations, and exit non-zero if any are found"
+                     violations, and exit non-zero if any are found\n\
+                     --replay-from TS  pin the simulated clock to unix timestamp TS \
+                     for bit-exact replay of an archived environment\n\
+                     \n\
+                     re-skin a warm environment for a new prospect:\n\
+                     --reskin --from-prefix sim- --to-prefix acme- \\\n\
+                       [--new-name NAME] [--label key=value]... [--output PATH]\n\
+                     GUIDs are never changed; the fleet keeps its history and \
+                     trained ML models."
                 ));
             }
             other => {
@@ -115,11 +176,17 @@ fn parse_args() -> Result<Args, String> {
         update_every,
         environment,
         lint_hours,
+        replay_from,
+        reskin: reskin_args,
     })
 }
 
 fn run() -> Result<(), String> {
     let args = parse_args()?;
+
+    if let Some(r) = &args.reskin {
+        return do_reskin(&args.environment, r);
+    }
 
     let env = Environment::load(&args.environment).map_err(|e| e.to_string())?;
     let spec_path = env.generator_path(&args.environment);
@@ -224,9 +291,27 @@ fn run() -> Result<(), String> {
     let interval = update_every as f64;
     let mut next = align_to_interval(now_secs(), update_every);
 
+    // In replay mode the simulated clock advances one interval per tick from a
+    // fixed origin, while wall-clock pacing is unchanged. Netdata timestamps
+    // samples on arrival, so the data still lands at "now" - only the values
+    // are reproduced exactly.
+    if let Some(origin) = args.replay_from {
+        eprintln!(
+            "infra-sim: replay mode - simulated clock pinned to {origin}, output is \
+             reproducible for this environment and seed"
+        );
+    }
+    let mut replay_clock = args.replay_from;
+
     loop {
         sleep_until(next);
-        let tick_at = next;
+        let tick_at = match replay_clock {
+            Some(t) => {
+                replay_clock = Some(t + update_every);
+                t
+            }
+            None => next,
+        };
         next += update_every;
 
         // Cheap in the common case - a single stat - and it is what makes a
@@ -246,6 +331,43 @@ fn run() -> Result<(), String> {
         // like a stalled collector.
         out.flush().map_err(write_err)?;
     }
+}
+
+/// Re-skin an environment and write the result.
+fn do_reskin(env_path: &Path, r: &ReskinArgs) -> Result<(), String> {
+    let source = std::fs::read_to_string(env_path)
+        .map_err(|e| format!("cannot read '{}': {e}", env_path.display()))?;
+
+    let plan = reskin::Plan {
+        from_prefix: r.from_prefix.clone(),
+        to_prefix: r.to_prefix.clone(),
+        name: r.name.clone(),
+        labels: r.labels.clone(),
+    };
+    let outcome = reskin::reskin(&source, &plan)?;
+
+    let output = r.output.clone().unwrap_or_else(|| env_path.to_path_buf());
+
+    // Writing a new file beside the original creates a second environment
+    // carrying the same GUIDs, which cannot both be claimed.
+    if output != env_path {
+        let dir = output.parent().unwrap_or(Path::new("."));
+        reskin::check_guid_uniqueness(dir, &outcome.yaml, &output)?;
+    }
+
+    std::fs::write(&output, &outcome.yaml)
+        .map_err(|e| format!("cannot write '{}': {e}", output.display()))?;
+
+    println!("re-skinned {} node(s):", outcome.renamed.len());
+    for (old, new) in &outcome.renamed {
+        println!("  {old} -> {new}");
+    }
+    println!("\nwritten to {}", output.display());
+    println!(
+        "GUIDs unchanged, so the fleet keeps its history, trained ML models and alert log.\n\
+         Only one environment with these GUIDs may be claimed at a time."
+    );
+    Ok(())
 }
 
 /// Verify every scenario targets things that actually exist.
