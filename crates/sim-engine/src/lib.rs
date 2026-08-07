@@ -17,6 +17,7 @@ use std::sync::Arc;
 use sim_spec::{Accumulate, GeneratorSpec, NoiseKind, Shape, Signal, Total};
 
 pub mod control_file;
+pub mod fidelity;
 pub mod rng;
 pub mod scenario_runtime;
 
@@ -98,6 +99,14 @@ pub struct PlannedChart {
     /// filter on these, so a missing label means the alert never attaches.
     pub labels: BTreeMap<String, String>,
     instance_attrs: BTreeMap<String, f64>,
+}
+
+impl PlannedChart {
+    /// Instance-scoped attribute, if this chart has one. Used by the fidelity
+    /// checks to know which total a per-instance partition should conserve.
+    pub fn instance_attrs_get(&self, name: &str) -> Option<f64> {
+        self.instance_attrs.get(name).copied()
+    }
 }
 
 /// One chart's values for a single tick.

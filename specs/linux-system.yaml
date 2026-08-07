@@ -21,21 +21,24 @@ signals:
     noise: { kind: walk, sigma: 0.035, reversion: 0.06 }
 
   load1:
-    base: 1.8
-    min: 0.02
-    max: 64.0
+    # Milli-load: the dimension divisor is 1000, matching proc.plugin.
+    base: 1800.0
+    min: 20.0
+    max: 64000.0
     seasonality: { daily_amplitude: 0.45, peak_hour: 14.0, weekend_factor: 0.55 }
     noise: { kind: walk, sigma: 0.05, reversion: 0.08 }
   load5:
-    base: 1.7
-    min: 0.02
-    max: 64.0
+    # Milli-load: the dimension divisor is 1000, matching proc.plugin.
+    base: 1700.0
+    min: 20.0
+    max: 64000.0
     seasonality: { daily_amplitude: 0.42, peak_hour: 14.2, weekend_factor: 0.55 }
     noise: { kind: walk, sigma: 0.03, reversion: 0.05 }
   load15:
-    base: 1.6
-    min: 0.02
-    max: 64.0
+    # Milli-load: the dimension divisor is 1000, matching proc.plugin.
+    base: 1600.0
+    min: 20.0
+    max: 64000.0
     seasonality: { daily_amplitude: 0.38, peak_hour: 14.5, weekend_factor: 0.55 }
     noise: { kind: walk, sigma: 0.02, reversion: 0.03 }
 
@@ -360,26 +363,34 @@ signals:
     max_is_ceiling: true
     noise: { kind: walk, sigma: 0.03, reversion: 0.2 }
 
-  uptime_secs:
-    base: 1900000.0
+  # Accumulated by the counter shape at one per second, so uptime actually
+  # advances. A gauge here held a constant, which reads as a host frozen in
+  # time - and system.uptime is one of the first things an SRE glances at.
+  uptime_tick:
+    base: 1.0
     min: 1.0
-    max: 100000000.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
 
   # Constants used by gauges that should not wander.
   const_one:
     base: 1.0
-    min: 0.0
-    max: 2.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
     max_is_ceiling: true
   const_mtu:
     base: 1500.0
-    min: 0.0
-    max: 65536.0
+    min: 1500.0
+    max: 1500.0
+    min_is_floor: true
     max_is_ceiling: true
   const_link_speed:
     base: 10000.0
-    min: 0.0
-    max: 400000.0
+    min: 10000.0
+    max: 10000.0
+    min_is_floor: true
     max_is_ceiling: true
 
   # ---- Added for dashboard coverage ----------------------------------------
@@ -420,8 +431,9 @@ signals:
     max: 10000.0
   const_duplex:
     base: 2.0
-    min: 0.0
+    min: 2.0
     max: 2.0
+    min_is_floor: true
     max_is_ceiling: true
 
   ipv6_rx_kb_rate:
@@ -534,6 +546,37 @@ roles:
       net_rx_kb_rate: { base: 9200.0 }
       net_tx_kb_rate: { base: 9800.0 }
       tcp_sockets_inuse: { base: 2600.0 }
+
+  edge-gateway:
+    description: >-
+      Small ARM gateway - 4 GiB RAM, so the memory driver must stay well inside
+      it or system.ram clamps and reports a permanently full host.
+    signals:
+      cpu_busy: { base: 19.0 }
+      mem_used_kb: { base: 1500000.0, max: 2900000.0 }
+      disk_read_kb_rate: { base: 24.0 }
+      disk_write_kb_rate: { base: 62.0 }
+      disk_reads_rate: { base: 2.0 }
+      disk_writes_rate: { base: 7.0 }
+      disk_busy_ms_rate: { base: 9.0 }
+      net_rx_kb_rate: { base: 210.0 }
+      net_tx_kb_rate: { base: 480.0 }
+      tcp_sockets_inuse: { base: 34.0 }
+
+  k8s-control-plane:
+    description: Kubernetes control plane - API and etcd bound.
+    signals:
+      cpu_busy: { base: 29.0 }
+      mem_used_kb: { base: 6100000.0 }
+      disk_write_kb_rate: { base: 1800.0 }
+
+  k8s-worker:
+    description: Kubernetes worker - containerised workloads.
+    signals:
+      cpu_busy: { base: 37.0 }
+      mem_used_kb: { base: 19000000.0, max: 28000000.0 }
+      disk_read_kb_rate: { base: 900.0 }
+      disk_write_kb_rate: { base: 1400.0 }
 
   lb:
     description: Load balancer - network dominant, minimal disk and memory.
@@ -751,9 +794,9 @@ contexts:
     family: uptime
     chart_type: line
     priority: 1001
-    shape: independent
+    shape: counters
     dimensions:
-      - { id: uptime, signal: uptime_secs }
+      - { id: uptime, rate_signal: uptime_tick, algorithm: absolute }
 
   - id: system.idlejitter
     title: CPU Idle Jitter

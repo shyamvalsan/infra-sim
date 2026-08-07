@@ -470,8 +470,48 @@ fn lint(engines: &mut [NodeEngine], hours: i64, update_every: i64) -> Result<(),
         }
     }
 
+    // Semantic checks over the emitted samples. These catch what the
+    // pinned-signal check structurally cannot: a bound that is itself wrong,
+    // a partition whose total does not resolve, a counter that goes backwards.
+    // A scenario once pushed disk utilisation to 101.5% and the pinned-signal
+    // check passed it cleanly.
+    let semantic = sim_engine::fidelity::check(
+        engines,
+        (2 * 3600) / update_every.max(1),
+        1_700_000_000,
+        update_every,
+    );
+
     let mut failures = 0usize;
     println!("infra-sim lint: {hours}h simulated, {ticks} samples per node\n");
+
+    if semantic.is_empty() {
+        println!("  semantic checks: no violations\n");
+    } else {
+        // Grouped by kind: one broken context produces a violation per sample,
+        // and a thousand identical lines hide the other problems.
+        let mut by_kind: std::collections::BTreeMap<&str, Vec<String>> = Default::default();
+        for v in &semantic {
+            by_kind
+                .entry(v.kind.as_str())
+                .or_default()
+                .push(format!("{} {}: {}", v.node, v.chart, v.detail));
+        }
+        println!("  semantic checks: {} violation(s)", semantic.len());
+        for (kind, mut items) in by_kind {
+            items.sort();
+            items.dedup();
+            println!("    {kind} ({} distinct):", items.len());
+            for i in items.iter().take(8) {
+                println!("      {i}");
+            }
+            if items.len() > 8 {
+                println!("      ... and {} more", items.len() - 8);
+            }
+            failures += items.len();
+        }
+        println!();
+    }
     for engine in engines.iter() {
         let host = &engine.profile().hostname;
         let pinned = engine.lint().pinned_signals(PINNED_THRESHOLD);
@@ -492,8 +532,8 @@ fn lint(engines: &mut [NodeEngine], hours: i64, update_every: i64) -> Result<(),
     if failures > 0 {
         println!();
         Err(format!(
-            "{failures} signal(s) spend more than {:.1}% of samples clamped to a bound; \
-             widen the bound or lower the base",
+            "{failures} fidelity problem(s): signals clamped against a bound for more than \
+             {:.1}% of samples, or semantic violations above",
             PINNED_THRESHOLD * 100.0
         ))
     } else {
