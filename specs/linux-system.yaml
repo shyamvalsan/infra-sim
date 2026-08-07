@@ -861,7 +861,7 @@ contexts:
     family: disk
     chart_type: area
     priority: 2000
-    instances: { group: disk, chart_prefix: disk, family: "io" }
+    instances: { group: disk, chart_prefix: disk, family: "io", labels: { device: "{instance}" } }
     shape: counters
     dimensions:
       - { id: reads,  rate_signal: disk_read_kb_rate }
@@ -873,7 +873,7 @@ contexts:
     family: disk
     chart_type: line
     priority: 2001
-    instances: { group: disk, chart_prefix: disk_ops, family: "ops" }
+    instances: { group: disk, chart_prefix: disk_ops, family: "ops", labels: { device: "{instance}" } }
     shape: counters
     dimensions:
       - { id: reads,  rate_signal: disk_reads_rate }
@@ -885,7 +885,7 @@ contexts:
     family: utilization
     chart_type: area
     priority: 2004
-    instances: { group: disk, chart_prefix: disk_util, family: "utilization" }
+    instances: { group: disk, chart_prefix: disk_util, family: "utilization", labels: { device: "{instance}" } }
     shape: independent
     dimensions:
       - { id: utilization, signal: disk_busy_ms_rate, divisor: 10 }
@@ -896,7 +896,7 @@ contexts:
     family: latency
     chart_type: line
     priority: 2005
-    instances: { group: disk, chart_prefix: disk_await, family: "latency" }
+    instances: { group: disk, chart_prefix: disk_await, family: "latency", labels: { device: "{instance}" } }
     shape: independent
     dimensions:
       - { id: reads,  signal: disk_await_read_ms,  divisor: 1000 }
@@ -908,7 +908,7 @@ contexts:
     family: latency
     chart_type: area
     priority: 2006
-    instances: { group: disk, chart_prefix: disk_backlog, family: "latency" }
+    instances: { group: disk, chart_prefix: disk_backlog, family: "latency", labels: { device: "{instance}" } }
     shape: independent
     dimensions:
       - { id: backlog, signal: disk_backlog_ms }
@@ -919,7 +919,7 @@ contexts:
     family: utilization
     chart_type: stacked
     priority: 2023
-    instances: { group: mount, chart_prefix: disk_space, family: "{instance}" }
+    instances: { group: mount, chart_prefix: disk_space, family: "{instance}", labels: { mount_point: "{instance}", filesystem: ext4, mount_root: "{instance}" } }
     shape: partition
     total: { from: node_attr, name: disk_total_kb }
     driver: disk_space_used_kb
@@ -934,7 +934,7 @@ contexts:
     family: utilization
     chart_type: stacked
     priority: 2024
-    instances: { group: mount, chart_prefix: disk_inodes, family: "{instance}" }
+    instances: { group: mount, chart_prefix: disk_inodes, family: "{instance}", labels: { mount_point: "{instance}", filesystem: ext4, mount_root: "{instance}" } }
     shape: partition
     total: { from: node_attr, name: inodes_total }
     driver: disk_inodes_used
@@ -949,7 +949,7 @@ contexts:
     family: net
     chart_type: area
     priority: 3000
-    instances: { group: net, chart_prefix: net, family: "{instance}" }
+    instances: { group: net, chart_prefix: net, family: "{instance}", labels: { device: "{instance}", interface_type: physical } }
     shape: counters
     dimensions:
       - { id: received, rate_signal: net_rx_kb_rate, multiplier: 8 }
@@ -961,7 +961,7 @@ contexts:
     family: packets
     chart_type: line
     priority: 3001
-    instances: { group: net, chart_prefix: net_packets, family: "{instance}" }
+    instances: { group: net, chart_prefix: net_packets, family: "{instance}", labels: { device: "{instance}", interface_type: physical } }
     shape: counters
     dimensions:
       - { id: received,  rate_signal: net_rx_pkt_rate }
@@ -973,7 +973,7 @@ contexts:
     family: errors
     chart_type: line
     priority: 3002
-    instances: { group: net, chart_prefix: net_errors, family: "{instance}" }
+    instances: { group: net, chart_prefix: net_errors, family: "{instance}", labels: { device: "{instance}", interface_type: physical } }
     shape: counters
     dimensions:
       - { id: inbound,  rate_signal: net_err_rate }
@@ -985,7 +985,7 @@ contexts:
     family: drops
     chart_type: line
     priority: 3003
-    instances: { group: net, chart_prefix: net_drops, family: "{instance}" }
+    instances: { group: net, chart_prefix: net_drops, family: "{instance}", labels: { device: "{instance}", interface_type: physical } }
     shape: counters
     dimensions:
       - { id: inbound,  rate_signal: net_drop_rate }
@@ -997,7 +997,7 @@ contexts:
     family: carrier
     chart_type: line
     priority: 3004
-    instances: { group: net, chart_prefix: net_carrier, family: "{instance}" }
+    instances: { group: net, chart_prefix: net_carrier, family: "{instance}", labels: { device: "{instance}", interface_type: physical } }
     shape: independent
     dimensions:
       - { id: up,   signal: const_one }
@@ -1009,7 +1009,7 @@ contexts:
     family: mtu
     chart_type: line
     priority: 3005
-    instances: { group: net, chart_prefix: net_mtu, family: "{instance}" }
+    instances: { group: net, chart_prefix: net_mtu, family: "{instance}", labels: { device: "{instance}", interface_type: physical } }
     shape: independent
     dimensions:
       - { id: mtu, signal: const_mtu }
@@ -1020,7 +1020,7 @@ contexts:
     family: speed
     chart_type: line
     priority: 3006
-    instances: { group: net, chart_prefix: net_speed, family: "{instance}" }
+    instances: { group: net, chart_prefix: net_speed, family: "{instance}", labels: { device: "{instance}", interface_type: physical } }
     shape: independent
     dimensions:
       - { id: speed, signal: const_link_speed, multiplier: 1000 }
@@ -1140,7 +1140,7 @@ contexts:
     family: io
     chart_type: area
     priority: 2002
-    instances: { group: disk, chart_prefix: disk_avgsz, family: "io" }
+    instances: { group: disk, chart_prefix: disk_avgsz, family: "io", labels: { device: "{instance}" } }
     shape: independent
     dimensions:
       - { id: reads,  signal: disk_avgsz_kb }
@@ -1152,7 +1152,7 @@ contexts:
     family: latency
     chart_type: line
     priority: 2007
-    instances: { group: disk, chart_prefix: disk_svctm, family: "latency" }
+    instances: { group: disk, chart_prefix: disk_svctm, family: "latency", labels: { device: "{instance}" } }
     shape: independent
     dimensions:
       - { id: svctm, signal: disk_svctm_ms, divisor: 1000 }
@@ -1163,7 +1163,7 @@ contexts:
     family: utilization
     chart_type: line
     priority: 2003
-    instances: { group: disk, chart_prefix: disk_iotime, family: "utilization" }
+    instances: { group: disk, chart_prefix: disk_iotime, family: "utilization", labels: { device: "{instance}" } }
     shape: counters
     dimensions:
       - { id: reads,  rate_signal: disk_iotime_ms_rate }
@@ -1175,7 +1175,7 @@ contexts:
     family: ops
     chart_type: line
     priority: 2008
-    instances: { group: disk, chart_prefix: disk_mops, family: "ops" }
+    instances: { group: disk, chart_prefix: disk_mops, family: "ops", labels: { device: "{instance}" } }
     shape: counters
     dimensions:
       - { id: reads,  rate_signal: disk_mops_rate }
@@ -1187,7 +1187,7 @@ contexts:
     family: ops
     chart_type: line
     priority: 2009
-    instances: { group: disk, chart_prefix: disk_qops, family: "ops" }
+    instances: { group: disk, chart_prefix: disk_qops, family: "ops", labels: { device: "{instance}" } }
     shape: independent
     dimensions:
       - { id: operations, signal: disk_qops }
@@ -1198,7 +1198,7 @@ contexts:
     family: operstate
     chart_type: line
     priority: 3007
-    instances: { group: net, chart_prefix: net_operstate, family: "{instance}" }
+    instances: { group: net, chart_prefix: net_operstate, family: "{instance}", labels: { device: "{instance}", interface_type: physical } }
     shape: independent
     dimensions:
       - { id: up,   signal: const_one }
@@ -1210,7 +1210,7 @@ contexts:
     family: duplex
     chart_type: line
     priority: 3008
-    instances: { group: net, chart_prefix: net_duplex, family: "{instance}" }
+    instances: { group: net, chart_prefix: net_duplex, family: "{instance}", labels: { device: "{instance}", interface_type: physical } }
     shape: independent
     dimensions:
       - { id: full, signal: const_duplex, divisor: 2 }
@@ -1221,7 +1221,7 @@ contexts:
     family: errors
     chart_type: line
     priority: 3009
-    instances: { group: net, chart_prefix: net_events, family: "{instance}" }
+    instances: { group: net, chart_prefix: net_events, family: "{instance}", labels: { device: "{instance}", interface_type: physical } }
     shape: counters
     dimensions:
       - { id: frames,     rate_signal: net_events_rate }
@@ -1234,7 +1234,7 @@ contexts:
     family: errors
     chart_type: line
     priority: 3010
-    instances: { group: net, chart_prefix: net_fifo, family: "{instance}" }
+    instances: { group: net, chart_prefix: net_fifo, family: "{instance}", labels: { device: "{instance}", interface_type: physical } }
     shape: counters
     dimensions:
       - { id: receive,  rate_signal: net_fifo_rate }

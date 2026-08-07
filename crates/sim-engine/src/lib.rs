@@ -91,6 +91,9 @@ pub struct PlannedChart {
     /// Instance name, or empty for a node-level chart.
     pub scope: String,
     pub weight: f64,
+    /// Chart labels emitted with the chart definition. Stock health templates
+    /// filter on these, so a missing label means the alert never attaches.
+    pub labels: BTreeMap<String, String>,
     instance_attrs: BTreeMap<String, f64>,
 }
 
@@ -455,6 +458,7 @@ fn plan_charts(spec: &GeneratorSpec, profile: &NodeProfile) -> Vec<PlannedChart>
                 family: ctx.family.clone(),
                 scope: String::new(),
                 weight: 1.0,
+                labels: ctx.labels.clone(),
                 instance_attrs: BTreeMap::new(),
             }),
             Some(inst) => {
@@ -469,6 +473,7 @@ fn plan_charts(spec: &GeneratorSpec, profile: &NodeProfile) -> Vec<PlannedChart>
                         family: inst.family_for(&i.name),
                         scope: i.name.clone(),
                         weight: i.weight,
+                        labels: inst.labels_for(&i.name),
                         instance_attrs: i.attrs.clone(),
                     });
                 }

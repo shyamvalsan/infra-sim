@@ -83,6 +83,15 @@ pub fn declare_charts<W: Write>(
             quote(PLUGIN_NAME),
             quote(MODULE_NAME),
         )?;
+        // Chart labels must be emitted before the chart is committed. Health
+        // templates filter on them, so a chart missing an expected label is
+        // silently skipped by the template rather than reported as an error.
+        for (key, value) in &chart.labels {
+            writeln!(out, "CLABEL {} {} 1", key, quote(value))?;
+        }
+        if !chart.labels.is_empty() {
+            writeln!(out, "CLABEL_COMMIT")?;
+        }
         write_dimensions(out, &ctx.shape)?;
     }
     Ok(())

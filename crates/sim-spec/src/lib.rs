@@ -263,6 +263,9 @@ pub struct Context {
     /// context id.
     #[serde(default)]
     pub instances: Option<Instancing>,
+    /// Chart labels for a non-instanced context.
+    #[serde(default)]
+    pub labels: BTreeMap<String, String>,
     #[serde(flatten)]
     pub shape: Shape,
 }
@@ -292,6 +295,16 @@ pub struct Instancing {
     /// spec states it rather than inferring it.
     #[serde(default = "default_instance_family")]
     pub family: String,
+
+    /// Chart labels emitted per instance; `{instance}` is substituted.
+    ///
+    /// These are load-bearing, not decoration. Stock health templates filter on
+    /// them — `disk_space_usage` carries `chart labels: mount_point=...` — and a
+    /// chart without the label a template expects is silently skipped. The
+    /// alert simply never exists, with no error anywhere, so a demo built
+    /// around "watch the disk alert fire" would quietly have nothing to show.
+    #[serde(default)]
+    pub labels: BTreeMap<String, String>,
 }
 
 fn default_instance_family() -> String {
@@ -306,6 +319,13 @@ impl Instancing {
 
     pub fn family_for(&self, instance: &str) -> String {
         self.family.replace("{instance}", instance)
+    }
+
+    pub fn labels_for(&self, instance: &str) -> BTreeMap<String, String> {
+        self.labels
+            .iter()
+            .map(|(k, v)| (k.clone(), v.replace("{instance}", instance)))
+            .collect()
     }
 }
 
