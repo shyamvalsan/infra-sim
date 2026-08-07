@@ -151,7 +151,10 @@ signals:
   disk_busy_ms_rate:
     base: 62.0
     min: 0.0
+    # 1000 ms of busy time per second is 100% utilisation - a hard physical
+    # ceiling, so scenarios must not be granted headroom above it.
     max: 1000.0
+    max_is_ceiling: true
     seasonality: { daily_amplitude: 0.5, peak_hour: 14.0, weekend_factor: 0.6 }
     noise: { kind: gauss, sigma: 0.3 }
   disk_await_read_ms:
@@ -450,6 +453,7 @@ signals:
     base: 0.6
     min: 0.0
     max: 100.0
+    max_is_ceiling: true
     noise: { kind: walk, sigma: 0.03, reversion: 0.05 }
   conntrack_sockets:
     base: 1900.0

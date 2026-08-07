@@ -315,9 +315,18 @@ impl NodeEngine {
         // scenario multiplier too: a fault is *meant* to push a signal past its
         // normal operating range, and clamping it back would silently defeat
         // the scenario while the lint reported a pinned signal.
-        let headroom = weight * scenario.max(1.0);
+        //
+        // A declared physical ceiling is never widened. Reality does not grant
+        // headroom because a scenario is running: disk utilisation above 100%
+        // is impossible, and shipping it is precisely the "is this fake?"
+        // artifact the fidelity work exists to prevent. This was caught live -
+        // a scenario pushed 10min_disk_utilization to 101.5%.
+        let max = if signal.max_is_physical() {
+            signal.max * weight
+        } else {
+            signal.max * weight * scenario.max(1.0)
+        };
         let min = signal.min * weight;
-        let max = signal.max * headroom;
 
         // Clamping is recorded only where the bound is a safety rail. Sitting
         // at a physical floor (zero errors on a quiet link) is realistic; being
