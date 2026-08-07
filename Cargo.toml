@@ -1,0 +1,28 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/sim-spec",
+    "crates/sim-engine",
+    "crates/sim-plugin",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.85"
+license = "GPL-3.0-or-later"
+repository = "https://github.com/shyamvalsan/infra-sim"
+
+[workspace.dependencies]
+sim-spec = { path = "crates/sim-spec" }
+sim-engine = { path = "crates/sim-engine" }
+
+serde = { version = "1", features = ["derive"] }
+serde_yaml = "0.9"
+thiserror = "2"
+
+[workspace.lints.rust]
+unsafe_code = "forbid"
+
+[workspace.lints.clippy]
+all = { level = "deny", priority = -1 }

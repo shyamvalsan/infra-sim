@@ -4,7 +4,7 @@
 
 Status: in-progress
 
-Sub-state: Bootstrap and load-bearing verification complete. Rust runtime implementation starting. OTEL sim scoping is an open decision tracked in `SOW-0002` (pending), not a blocker for this slice.
+Sub-state: Implementation plan items 1-6 delivered and validated against a live agent (5 vnodes, 50 contexts, 58 charts each, ML training). Items 7 (scenario engine) and 8 (console) not started. OTEL sim scoping tracked in `SOW-0002` (pending).
 
 ## Requirements
 
@@ -201,28 +201,51 @@ See `## Pre-Implementation Gate` → Implementation plan, items 1–9.
 - `git init`; installed Rust 1.97.1 user-local via rustup.
 - Bootstrapped SOW: `.agents/sow/{specs,pending,current,done}`, project-local `SOW.template.md` + `audit.sh`, `AGENTS.md` with project-specific guardrails, `CLAUDE.md`/`GEMINI.md` symlinks, `.claude/skills -> ../.agents/skills`.
 - Opened `SOW-0002` (pending) for OTEL sim scoping.
+- Implemented plan items 1-6: Cargo workspace (`sim-spec`, `sim-engine`, `sim-plugin`); generator spec format with `independent`/`partition`/`counters` shapes; deterministic SplitMix64 engine with name-addressed streams; plugins.d emitter; 50-context Linux baseline (`specs/linux-system.yaml`); 5-node web-stack environment (`environments/web-stack.yaml`); `scripts/install-local.sh`; README.
+- Added `--lint HOURS` to the plugin as the first piece of the fidelity harness.
+- Removed the throwaway Python probe and installed the Rust plugin on the live agent.
+
+### Findings during implementation
+
+- **Noise scaled off `base`, not the current seasonal level.** The lint surfaced `ctxt_switch_rate` and `idlejitter_us` pinned to their floors. Root cause was a modelling flaw, not tuning: a signal at a 3 a.m. trough carried the same absolute jitter as its afternoon peak, driving troughs into the floor. Fixed in `sim-engine` — noise is now proportional to the current seasonal value.
+- **Bound-clamping needed a physical/rail distinction.** The first lint run reported 175 violations, nearly all signals legitimately resting at zero. Zero is a real value for the non-negative quantities these specs model, so it is never flagged; any other floor needs `min_is_floor: true` and every ceiling needs `max_is_ceiling: true`. After the distinction plus the noise fix: 0 violations over 72 simulated hours.
+- **`cache` role RAM driver was pinned at its max**, flattening `system.ram free` to a constant — the same artifact class as the probe's `free = 0`. Caught by inspecting real emitted output; fixed by giving the role headroom above `base * (1 + daily_amplitude)`.
+- **Serde cannot combine `deny_unknown_fields` with `flatten`.** `Context` drops the strict attribute; inner shape structs stay strict.
+- **Removing a plugin file does not stop the running plugin.** The Python probe kept running from a deleted file for over an hour, writing to the same vnode GUIDs as the new Rust plugin and corrupting `system.ram` readings with interleaved values. Diagnosis cost real time because the symptom looked like a conservation bug in new code. Teardown must kill the process, not just remove the file — this belongs in the console's teardown flow and in any operator doc.
 
 ## Validation
 
-Acceptance criteria evidence:
+Acceptance criteria evidence (items 1-6; items 7-8 not started):
 
-- Pending — implementation in progress.
+- Builds clean and runs under a live agent: agent picked the plugin up on its 60s scan; all 5 vnodes present in `/api/v3/nodes`; 58 charts each (50 from the spec + 8 the agent's ML adds per node). MET.
+- Generator specs are declarative: adding a context is a YAML edit. The 50-context baseline required no generator-logic code. MET.
+- 60-80 contexts covering standard menu sections: **50 contexts. NOT MET** - see Followup. Covers system, memory, disk, network-interface and IP-stack sections, but disk/net are single-instance where real proc.plugin emits one instance per device.
+- Invariants by construction: `cargo test` asserts conservation and monotonicity over thousands of ticks; confirmed independently through the agent's own query engine - every node's `system.ram` dimensions sum exactly to its configured total (4096 / 16384 / 16384 / 65536 / 16384 MiB) with no zero-free artifact. MET.
+- Same seed reproduces identical output: unit test over 500 ticks x 3 contexts, byte-identical. MET for the engine; the plugin uses wall-clock time, so bit-exact *replay* additionally needs clock pinning - see Followup.
+- Live scenario trigger: NOT MET, item 7 not started.
+- Local verification capped at 5 vnodes. MET.
 
 Tests or equivalent validation:
 
-- Pending.
+- `cargo test`: 32 passed, 0 failed.
+- `cargo clippy --all-targets`: clean. `cargo fmt --check`: clean.
+- `infra-sim --lint 72`: 0 signals pinned across all 5 nodes over 72 simulated hours (259,200 samples per node).
 
-Real-use evidence:
+Real-use evidence (live agent `v2.10.0-1022-nightly`):
 
-- Partial. Load-bearing protocol assumptions already validated against live agent `v2.10.0-1022-nightly` via `prototypes/vnode-probe/` (3 vnodes registered, per-vnode data queried, ML confirmed training). The Rust runtime itself is not yet validated.
+- Role differentiation is physically coherent, agent-computed: `sim-lb-01` 115 Mbit/s rx with 2.5 disk reads/s and 8,606 TCP connections; `sim-db-01` 13.8 Mbit/s rx with 483 reads/s + 867 writes/s and 487 connections. Network-dominant versus IO-dominant, as the roles intend.
+- CPU busy tracks role bases: lb 23.6%, web 32.4%, db 50.5%, cache 15.1%.
+- Counter-derived rates render correctly, so emitted counters are well-formed monotonic series as far as the agent's `incremental` algorithm is concerned.
+- Hard rule holds: `ml_running = 1` and `training_status` showing 11 trained / 86 untrained dimensions per simulated node, on charts the agent created itself.
 
 Reviewer findings:
 
-- Pending.
+- No external review yet; none requested.
 
 Same-failure scan:
 
-- Pending. Must grep generator specs for clamped-to-bound expressions of the `system.ram free = 0` class found in the probe.
+- Searched for other clamped-to-bound expressions of the `free = 0` class. The `--lint` pass over 72h is that search executed rather than grepped: it covers every signal on every node and reports 0. The `cache` role instance it found is fixed.
+- Searched for other partitions whose driver could reach its total: `system.ram` (all role/node pairs bounded below total), `mem.swap` (max 3,800,000 < 4,194,304), `disk.space` (max 470,000,000 < 524,288,000), `disk.inodes` (max 29,000,000 < 32,768,000). All have headroom.
 
 Sensitive data gate:
 
@@ -271,9 +294,26 @@ Pending.
 
 ## Followup
 
-- Remove the throwaway probe from the live agent before this SOW closes.
-- `SOW-0002` — OTEL sim scoping (pending, blocked on user decision).
-- `spec.md` open questions not owned by this SOW: Cloud API teardown coverage; vnode scaling ceiling at 200.
+Done:
+
+- Throwaway probe removed from the live agent and its process killed.
+
+Remaining, in this SOW:
+
+- Item 7: scenario engine, one hero scenario, live trigger, ground-truth manifest.
+- Item 8: thin console.
+- Baseline is 50 contexts against a 60-80 target. The gap is disk and network per-instance cardinality: real proc.plugin emits one chart instance per block device and per interface sharing a context, and the generator model has no instance concept yet. This is the single biggest remaining fidelity gap in the baseline - a node with exactly one unnamed disk chart reads as wrong to an SRE.
+
+Tracked elsewhere:
+
+- `SOW-0002` - OTEL sim scoping (pending, blocked on user decision).
+
+New follow-ups raised by this work, needing a decision before they become SOWs:
+
+- **Clock pinning for bit-exact replay.** The engine is deterministic given a timestamp, but the plugin reads the wall clock, so replaying an archived environment reproduces the same shape at the same time-of-day rather than byte-identical output. `spec.md` promises bit-for-bit reproduction; closing that gap needs a `--replay-from <timestamp>` mode.
+- **Teardown must kill the plugin process, not just remove the file.** Learned the hard way during this slice; belongs in the console's teardown flow and the SE quickstart.
+
+`spec.md` open questions not owned by this SOW: Cloud API teardown coverage; vnode scaling ceiling at 200.
 
 ## Regression Log
 

@@ -1,0 +1,22 @@
+[package]
+name = "sim-plugin"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Infra-Sim external plugin: executes generator specs over the plugins.d protocol"
+
+[lints]
+workspace = true
+
+[[bin]]
+name = "infra-sim"
+path = "src/main.rs"
+
+[dependencies]
+sim-spec = { workspace = true }
+sim-engine = { workspace = true }
+serde = { workspace = true }
+serde_yaml = { workspace = true }
+thiserror = { workspace = true }

@@ -1,0 +1,1016 @@
+version: 1
+name: linux-system
+description: >-
+  Baseline Linux system metrics for a simulated node. Contexts mirror
+  proc.plugin so the standard dashboard menu sections populate; a vnode carries
+  only what its plugin emits, so anything absent here is simply missing from the
+  node's dashboard.
+
+# Signals are shared across contexts on purpose. One `cpu_busy` driving
+# system.cpu, system.load and the process counts is what makes those charts
+# move together the way a real host's do - the correlation an SRE cross-checks
+# is a property of sharing the signal, not of tuning each context to match.
+signals:
+
+  # ---- CPU ----------------------------------------------------------------
+  cpu_busy:
+    base: 22.0
+    min: 0.5
+    max: 96.0
+    seasonality: { daily_amplitude: 0.45, peak_hour: 14.0, weekend_factor: 0.55 }
+    noise: { kind: walk, sigma: 0.035, reversion: 0.06 }
+
+  load1:
+    base: 1.8
+    min: 0.02
+    max: 64.0
+    seasonality: { daily_amplitude: 0.45, peak_hour: 14.0, weekend_factor: 0.55 }
+    noise: { kind: walk, sigma: 0.05, reversion: 0.08 }
+  load5:
+    base: 1.7
+    min: 0.02
+    max: 64.0
+    seasonality: { daily_amplitude: 0.42, peak_hour: 14.2, weekend_factor: 0.55 }
+    noise: { kind: walk, sigma: 0.03, reversion: 0.05 }
+  load15:
+    base: 1.6
+    min: 0.02
+    max: 64.0
+    seasonality: { daily_amplitude: 0.38, peak_hour: 14.5, weekend_factor: 0.55 }
+    noise: { kind: walk, sigma: 0.02, reversion: 0.03 }
+
+  idlejitter_us:
+    base: 220.0
+    min: 0.0
+    max: 90000.0
+    noise: { kind: gauss, sigma: 0.45 }
+
+  # ---- Memory -------------------------------------------------------------
+  # Driver for the system.ram partition. Bounds sit well inside total RAM so
+  # the remainder (free) can never be squeezed to zero.
+  mem_used_kb:
+    base: 5600000.0
+    min: 400000.0
+    max: 11000000.0
+    seasonality: { daily_amplitude: 0.18, peak_hour: 15.0 }
+    noise: { kind: walk, sigma: 0.012, reversion: 0.03 }
+  mem_available_kb:
+    base: 9500000.0
+    min: 500000.0
+    max: 15000000.0
+    seasonality: { daily_amplitude: 0.12, peak_hour: 3.0 }
+    noise: { kind: walk, sigma: 0.01, reversion: 0.03 }
+  mem_committed_kb:
+    base: 7200000.0
+    min: 500000.0
+    max: 20000000.0
+    noise: { kind: walk, sigma: 0.015, reversion: 0.04 }
+  mem_kernel_kb:
+    base: 210000.0
+    min: 40000.0
+    max: 900000.0
+    noise: { kind: walk, sigma: 0.008, reversion: 0.05 }
+  mem_slab_reclaimable_kb:
+    base: 320000.0
+    min: 30000.0
+    max: 1500000.0
+    noise: { kind: walk, sigma: 0.01, reversion: 0.05 }
+  mem_slab_unreclaimable_kb:
+    base: 95000.0
+    min: 10000.0
+    max: 600000.0
+    noise: { kind: walk, sigma: 0.01, reversion: 0.05 }
+  mem_dirty_kb:
+    base: 4200.0
+    min: 0.0
+    max: 400000.0
+    noise: { kind: gauss, sigma: 0.55 }
+  mem_writeback_kb:
+    base: 260.0
+    min: 0.0
+    max: 200000.0
+    noise: { kind: gauss, sigma: 0.9 }
+  swap_used_kb:
+    base: 120000.0
+    min: 0.0
+    max: 3800000.0
+    seasonality: { daily_amplitude: 0.1, peak_hour: 16.0 }
+    noise: { kind: walk, sigma: 0.01, reversion: 0.02 }
+
+  pgfaults_minor_rate:
+    base: 2600.0
+    min: 0.0
+    max: 400000.0
+    seasonality: { daily_amplitude: 0.5, peak_hour: 14.0 }
+    noise: { kind: gauss, sigma: 0.25 }
+  pgfaults_major_rate:
+    base: 0.6
+    min: 0.0
+    max: 5000.0
+    noise: { kind: gauss, sigma: 1.4 }
+  oom_kill_rate:
+    base: 0.0
+    min: 0.0
+    max: 10.0
+  swapio_in_rate:
+    base: 0.8
+    min: 0.0
+    max: 60000.0
+    noise: { kind: gauss, sigma: 1.6 }
+  swapio_out_rate:
+    base: 1.1
+    min: 0.0
+    max: 60000.0
+    noise: { kind: gauss, sigma: 1.6 }
+
+  # ---- Disk ---------------------------------------------------------------
+  disk_read_kb_rate:
+    base: 380.0
+    min: 0.0
+    max: 900000.0
+    seasonality: { daily_amplitude: 0.55, peak_hour: 13.0, weekend_factor: 0.6 }
+    noise: { kind: gauss, sigma: 0.35 }
+  disk_write_kb_rate:
+    base: 640.0
+    min: 0.0
+    max: 900000.0
+    seasonality: { daily_amplitude: 0.5, peak_hour: 15.0, weekend_factor: 0.6 }
+    noise: { kind: gauss, sigma: 0.35 }
+  disk_reads_rate:
+    base: 26.0
+    min: 0.0
+    max: 60000.0
+    seasonality: { daily_amplitude: 0.55, peak_hour: 13.0, weekend_factor: 0.6 }
+    noise: { kind: gauss, sigma: 0.3 }
+  disk_writes_rate:
+    base: 58.0
+    min: 0.0
+    max: 60000.0
+    seasonality: { daily_amplitude: 0.5, peak_hour: 15.0, weekend_factor: 0.6 }
+    noise: { kind: gauss, sigma: 0.3 }
+  disk_busy_ms_rate:
+    base: 62.0
+    min: 0.0
+    max: 1000.0
+    seasonality: { daily_amplitude: 0.5, peak_hour: 14.0, weekend_factor: 0.6 }
+    noise: { kind: gauss, sigma: 0.3 }
+  disk_await_read_ms:
+    base: 0.9
+    min: 0.0
+    max: 4000.0
+    noise: { kind: walk, sigma: 0.08, reversion: 0.1 }
+  disk_await_write_ms:
+    base: 1.6
+    min: 0.0
+    max: 4000.0
+    noise: { kind: walk, sigma: 0.08, reversion: 0.1 }
+  disk_backlog_ms:
+    base: 42.0
+    min: 0.0
+    max: 100000.0
+    noise: { kind: gauss, sigma: 0.4 }
+  disk_space_used_kb:
+    base: 180000000.0
+    min: 1000000.0
+    max: 470000000.0
+    # Slow upward drift; the "slow disk fill" hero scenario steepens this
+    # rather than introducing a new signal.
+    noise: { kind: walk, sigma: 0.0015, reversion: 0.004 }
+  disk_inodes_used:
+    base: 1250000.0
+    min: 10000.0
+    max: 29000000.0
+    noise: { kind: walk, sigma: 0.002, reversion: 0.01 }
+
+  # ---- Network ------------------------------------------------------------
+  net_rx_kb_rate:
+    base: 2400.0
+    min: 0.0
+    max: 12000000.0
+    seasonality: { daily_amplitude: 0.6, peak_hour: 14.0, weekend_factor: 0.5 }
+    noise: { kind: gauss, sigma: 0.3 }
+  net_tx_kb_rate:
+    base: 5100.0
+    min: 0.0
+    max: 12000000.0
+    seasonality: { daily_amplitude: 0.6, peak_hour: 14.0, weekend_factor: 0.5 }
+    noise: { kind: gauss, sigma: 0.3 }
+  net_rx_pkt_rate:
+    base: 3200.0
+    min: 0.0
+    max: 9000000.0
+    seasonality: { daily_amplitude: 0.6, peak_hour: 14.0, weekend_factor: 0.5 }
+    noise: { kind: gauss, sigma: 0.28 }
+  net_tx_pkt_rate:
+    base: 4100.0
+    min: 0.0
+    max: 9000000.0
+    seasonality: { daily_amplitude: 0.6, peak_hour: 14.0, weekend_factor: 0.5 }
+    noise: { kind: gauss, sigma: 0.28 }
+  net_err_rate:
+    base: 0.0
+    min: 0.0
+    max: 10000.0
+  net_drop_rate:
+    base: 0.02
+    min: 0.0
+    max: 10000.0
+    noise: { kind: gauss, sigma: 2.0 }
+
+  tcp_sockets_inuse:
+    base: 420.0
+    min: 2.0
+    max: 200000.0
+    seasonality: { daily_amplitude: 0.5, peak_hour: 14.0, weekend_factor: 0.5 }
+    noise: { kind: walk, sigma: 0.04, reversion: 0.07 }
+  udp_sockets_inuse:
+    base: 18.0
+    min: 0.0
+    max: 50000.0
+    noise: { kind: walk, sigma: 0.05, reversion: 0.1 }
+  tcp_active_opens_rate:
+    base: 46.0
+    min: 0.0
+    max: 200000.0
+    seasonality: { daily_amplitude: 0.6, peak_hour: 14.0, weekend_factor: 0.5 }
+    noise: { kind: gauss, sigma: 0.3 }
+  tcp_passive_opens_rate:
+    base: 52.0
+    min: 0.0
+    max: 200000.0
+    seasonality: { daily_amplitude: 0.6, peak_hour: 14.0, weekend_factor: 0.5 }
+    noise: { kind: gauss, sigma: 0.3 }
+  tcp_attempt_fails_rate:
+    base: 0.3
+    min: 0.0
+    max: 50000.0
+    noise: { kind: gauss, sigma: 1.5 }
+  tcp_estab_resets_rate:
+    base: 0.7
+    min: 0.0
+    max: 50000.0
+    noise: { kind: gauss, sigma: 1.3 }
+  tcp_retrans_rate:
+    base: 1.4
+    min: 0.0
+    max: 100000.0
+    noise: { kind: gauss, sigma: 1.1 }
+  udp_rx_rate:
+    base: 34.0
+    min: 0.0
+    max: 500000.0
+    noise: { kind: gauss, sigma: 0.4 }
+  udp_tx_rate:
+    base: 31.0
+    min: 0.0
+    max: 500000.0
+    noise: { kind: gauss, sigma: 0.4 }
+  udp_errors_rate:
+    base: 0.05
+    min: 0.0
+    max: 50000.0
+    noise: { kind: gauss, sigma: 2.0 }
+  icmp_rx_rate:
+    base: 1.1
+    min: 0.0
+    max: 50000.0
+    noise: { kind: gauss, sigma: 0.9 }
+  icmp_tx_rate:
+    base: 1.0
+    min: 0.0
+    max: 50000.0
+    noise: { kind: gauss, sigma: 0.9 }
+
+  # ---- Kernel / scheduler -------------------------------------------------
+  ctxt_switch_rate:
+    base: 9800.0
+    min: 0.0
+    max: 5000000.0
+    seasonality: { daily_amplitude: 0.5, peak_hour: 14.0, weekend_factor: 0.55 }
+    noise: { kind: gauss, sigma: 0.22 }
+  fork_rate:
+    base: 14.0
+    min: 0.0
+    max: 200000.0
+    seasonality: { daily_amplitude: 0.5, peak_hour: 14.0, weekend_factor: 0.55 }
+    noise: { kind: gauss, sigma: 0.4 }
+  interrupt_rate:
+    base: 7400.0
+    min: 10.0
+    max: 3000000.0
+    seasonality: { daily_amplitude: 0.45, peak_hour: 14.0, weekend_factor: 0.55 }
+    noise: { kind: gauss, sigma: 0.2 }
+  softirq_timer_rate:
+    base: 2100.0
+    min: 0.0
+    max: 2000000.0
+    noise: { kind: gauss, sigma: 0.2 }
+  softirq_net_rx_rate:
+    base: 1800.0
+    min: 0.0
+    max: 2000000.0
+    seasonality: { daily_amplitude: 0.6, peak_hour: 14.0, weekend_factor: 0.5 }
+    noise: { kind: gauss, sigma: 0.3 }
+  softirq_sched_rate:
+    base: 1500.0
+    min: 0.0
+    max: 2000000.0
+    noise: { kind: gauss, sigma: 0.25 }
+  softnet_processed_rate:
+    base: 3300.0
+    min: 0.0
+    max: 5000000.0
+    seasonality: { daily_amplitude: 0.6, peak_hour: 14.0, weekend_factor: 0.5 }
+    noise: { kind: gauss, sigma: 0.28 }
+  softnet_squeezed_rate:
+    base: 0.2
+    min: 0.0
+    max: 100000.0
+    noise: { kind: gauss, sigma: 2.0 }
+
+  procs_running:
+    base: 3.0
+    min: 1.0
+    # At least one process is always runnable - this floor is a fact about the
+    # system, not a clamp, so the fidelity lint must not flag it.
+    min_is_floor: true
+    max: 4096.0
+    seasonality: { daily_amplitude: 0.6, peak_hour: 14.0, weekend_factor: 0.55 }
+    noise: { kind: gauss, sigma: 0.35 }
+  procs_blocked:
+    base: 0.2
+    min: 0.0
+    max: 4096.0
+    noise: { kind: gauss, sigma: 1.8 }
+  procs_total:
+    base: 340.0
+    min: 20.0
+    max: 65536.0
+    seasonality: { daily_amplitude: 0.15, peak_hour: 14.0 }
+    noise: { kind: walk, sigma: 0.02, reversion: 0.06 }
+
+  entropy_bits:
+    base: 3400.0
+    min: 128.0
+    max: 4096.0
+    # The kernel entropy pool genuinely saturates at its size.
+    max_is_ceiling: true
+    noise: { kind: walk, sigma: 0.03, reversion: 0.2 }
+
+  uptime_secs:
+    base: 1900000.0
+    min: 1.0
+    max: 100000000.0
+
+  # Constants used by gauges that should not wander.
+  const_one:
+    base: 1.0
+    min: 0.0
+    max: 2.0
+    max_is_ceiling: true
+  const_mtu:
+    base: 1500.0
+    min: 0.0
+    max: 65536.0
+    max_is_ceiling: true
+  const_link_speed:
+    base: 10000.0
+    min: 0.0
+    max: 400000.0
+    max_is_ceiling: true
+
+# Roles retune signal parameters only. Every node of this spec has an identical
+# chart set, so a fleet stays visually coherent while behaving differently.
+roles:
+  web:
+    description: Front-end web/application server - network heavy, moderate CPU.
+    signals:
+      cpu_busy: { base: 26.0 }
+      mem_used_kb: { base: 5200000.0 }
+      net_rx_kb_rate: { base: 5200.0 }
+      net_tx_kb_rate: { base: 11000.0 }
+      tcp_sockets_inuse: { base: 1400.0 }
+      tcp_passive_opens_rate: { base: 210.0 }
+      disk_read_kb_rate: { base: 180.0 }
+      disk_write_kb_rate: { base: 240.0 }
+
+  db:
+    description: Database server - IO and memory heavy, steadier network.
+    signals:
+      cpu_busy: { base: 41.0 }
+      # max must stay below this role's ram_total_kb (64 GiB). If the driver
+      # can reach the partition total, the remainder is squeezed to zero and
+      # the node reports free = 0 - the artifact the probe produced.
+      mem_used_kb: { base: 40000000.0, max: 58000000.0 }
+      disk_read_kb_rate: { base: 4200.0 }
+      disk_write_kb_rate: { base: 6800.0 }
+      disk_reads_rate: { base: 420.0 }
+      disk_writes_rate: { base: 610.0 }
+      disk_busy_ms_rate: { base: 240.0 }
+      disk_await_write_ms: { base: 3.4 }
+      net_rx_kb_rate: { base: 1800.0 }
+      net_tx_kb_rate: { base: 3400.0 }
+      tcp_sockets_inuse: { base: 320.0 }
+
+  cache:
+    description: In-memory cache - high memory residency, very low disk.
+    signals:
+      cpu_busy: { base: 11.0 }
+      # Headroom above base * (1 + daily_amplitude) so the peak does not sit on
+      # the bound; at max = 11000000 this pinned and free went perfectly flat.
+      mem_used_kb: { base: 9800000.0, max: 14000000.0 }
+      disk_read_kb_rate: { base: 12.0 }
+      disk_write_kb_rate: { base: 30.0 }
+      disk_reads_rate: { base: 1.0 }
+      disk_writes_rate: { base: 4.0 }
+      disk_busy_ms_rate: { base: 6.0 }
+      net_rx_kb_rate: { base: 9200.0 }
+      net_tx_kb_rate: { base: 9800.0 }
+      tcp_sockets_inuse: { base: 2600.0 }
+
+  lb:
+    description: Load balancer - network dominant, minimal disk and memory.
+    signals:
+      cpu_busy: { base: 17.0 }
+      # Bounded below this role's ram_total_kb (4 GiB); see the db role note.
+      mem_used_kb: { base: 1800000.0, max: 3300000.0 }
+      disk_read_kb_rate: { base: 8.0 }
+      disk_write_kb_rate: { base: 90.0 }
+      disk_reads_rate: { base: 1.0 }
+      disk_writes_rate: { base: 9.0 }
+      disk_busy_ms_rate: { base: 4.0 }
+      net_rx_kb_rate: { base: 16000.0 }
+      net_tx_kb_rate: { base: 15600.0 }
+      net_rx_pkt_rate: { base: 21000.0 }
+      net_tx_pkt_rate: { base: 20500.0 }
+      tcp_sockets_inuse: { base: 5200.0 }
+      tcp_active_opens_rate: { base: 640.0 }
+      tcp_passive_opens_rate: { base: 660.0 }
+
+contexts:
+
+  # ================= System overview =================
+  - id: system.cpu
+    title: Total CPU utilization
+    units: percentage
+    family: cpu
+    chart_type: stacked
+    priority: 100
+    shape: partition
+    total: { from: constant, value: 100.0 }
+    driver: cpu_busy
+    accumulate: jiffies
+    dimensions:
+      - { id: guest_nice, share: 0.0,   algorithm: percentage-of-incremental-row }
+      - { id: guest,      share: 0.0,   algorithm: percentage-of-incremental-row }
+      - { id: steal,      share: 0.004, algorithm: percentage-of-incremental-row }
+      - { id: softirq,    share: 0.035, algorithm: percentage-of-incremental-row }
+      - { id: irq,        share: 0.012, algorithm: percentage-of-incremental-row }
+      - { id: user,       share: 0.60,  algorithm: percentage-of-incremental-row }
+      - { id: system,     share: 0.24,  algorithm: percentage-of-incremental-row }
+      - { id: nice,       share: 0.014, algorithm: percentage-of-incremental-row }
+      - { id: iowait,     share: 0.075, algorithm: percentage-of-incremental-row }
+      - { id: idle,       remainder: true, algorithm: percentage-of-incremental-row }
+
+  - id: system.load
+    title: System Load Average
+    units: load
+    family: load
+    chart_type: line
+    priority: 100
+    shape: independent
+    dimensions:
+      - { id: load1,  signal: load1,  divisor: 1000 }
+      - { id: load5,  signal: load5,  divisor: 1000 }
+      - { id: load15, signal: load15, divisor: 1000 }
+
+  - id: system.io
+    title: Disk I/O
+    units: KiB/s
+    family: disk
+    chart_type: area
+    priority: 150
+    shape: counters
+    dimensions:
+      - { id: in,  name: reads,  rate_signal: disk_read_kb_rate }
+      - { id: out, name: writes, rate_signal: disk_write_kb_rate, multiplier: -1 }
+
+  - id: system.ram
+    title: System RAM
+    units: MiB
+    family: ram
+    chart_type: stacked
+    priority: 200
+    shape: partition
+    total: { from: node_attr, name: ram_total_kb }
+    driver: mem_used_kb
+    dimensions:
+      - { id: used,     share: 0.86, divisor: 1024 }
+      - { id: buffers,  share: 0.03, divisor: 1024 }
+      - { id: cached,   share: 0.11, divisor: 1024 }
+      - { id: free,     remainder: true, divisor: 1024 }
+
+  - id: system.swapio
+    title: Swap I/O
+    units: KiB/s
+    family: swap
+    chart_type: area
+    priority: 250
+    shape: counters
+    dimensions:
+      - { id: in,  rate_signal: swapio_in_rate }
+      - { id: out, rate_signal: swapio_out_rate, multiplier: -1 }
+
+  - id: system.pgpgio
+    title: Memory Paged from/to disk
+    units: KiB/s
+    family: disk
+    chart_type: area
+    priority: 151
+    shape: counters
+    dimensions:
+      - { id: in,  rate_signal: disk_read_kb_rate }
+      - { id: out, rate_signal: disk_write_kb_rate, multiplier: -1 }
+
+  - id: system.net
+    title: Physical Network Interfaces Aggregated Bandwidth
+    units: kilobits/s
+    family: network
+    chart_type: area
+    priority: 500
+    shape: counters
+    dimensions:
+      - { id: received, rate_signal: net_rx_kb_rate, multiplier: 8 }
+      - { id: sent,     rate_signal: net_tx_kb_rate, multiplier: -8 }
+
+  - id: system.ip
+    title: IPv4 Bandwidth
+    units: kilobits/s
+    family: network
+    chart_type: area
+    priority: 501
+    shape: counters
+    dimensions:
+      - { id: received, rate_signal: net_rx_kb_rate, multiplier: 8 }
+      - { id: sent,     rate_signal: net_tx_kb_rate, multiplier: -8 }
+
+  - id: system.processes
+    title: System Processes
+    units: processes
+    family: processes
+    chart_type: line
+    priority: 600
+    shape: independent
+    dimensions:
+      - { id: running, signal: procs_running }
+      - { id: blocked, signal: procs_blocked, multiplier: -1 }
+
+  - id: system.active_processes
+    title: System Active Processes
+    units: processes
+    family: processes
+    chart_type: line
+    priority: 601
+    shape: independent
+    dimensions:
+      - { id: active, signal: procs_total }
+
+  - id: system.ctxt
+    title: CPU Context Switches
+    units: context switches/s
+    family: processes
+    chart_type: line
+    priority: 800
+    shape: counters
+    dimensions:
+      - { id: switches, rate_signal: ctxt_switch_rate }
+
+  - id: system.forks
+    title: Started Processes
+    units: processes/s
+    family: processes
+    chart_type: line
+    priority: 700
+    shape: counters
+    dimensions:
+      - { id: started, rate_signal: fork_rate }
+
+  - id: system.intr
+    title: CPU Interrupts
+    units: interrupts/s
+    family: interrupts
+    chart_type: line
+    priority: 900
+    shape: counters
+    dimensions:
+      - { id: interrupts, rate_signal: interrupt_rate }
+
+  - id: system.softirqs
+    title: System softirqs
+    units: softirqs/s
+    family: softirqs
+    chart_type: stacked
+    priority: 950
+    shape: counters
+    dimensions:
+      - { id: TIMER,   rate_signal: softirq_timer_rate }
+      - { id: NET_RX,  rate_signal: softirq_net_rx_rate }
+      - { id: SCHED,   rate_signal: softirq_sched_rate }
+
+  - id: system.softnet_stat
+    title: System softnet_stat
+    units: events/s
+    family: softnet_stat
+    chart_type: line
+    priority: 955
+    shape: counters
+    dimensions:
+      - { id: processed, rate_signal: softnet_processed_rate }
+      - { id: squeezed,  rate_signal: softnet_squeezed_rate }
+
+  - id: system.entropy
+    title: Available Entropy
+    units: entropy
+    family: entropy
+    chart_type: line
+    priority: 1000
+    shape: independent
+    dimensions:
+      - { id: entropy, signal: entropy_bits }
+
+  - id: system.uptime
+    title: System Uptime
+    units: seconds
+    family: uptime
+    chart_type: line
+    priority: 1001
+    shape: independent
+    dimensions:
+      - { id: uptime, signal: uptime_secs }
+
+  - id: system.idlejitter
+    title: CPU Idle Jitter
+    units: microseconds lost/s
+    family: idlejitter
+    chart_type: line
+    priority: 1002
+    shape: independent
+    dimensions:
+      - { id: min,     signal: idlejitter_us }
+      - { id: max,     signal: idlejitter_us, multiplier: 4 }
+      - { id: average, signal: idlejitter_us, multiplier: 2 }
+
+  # ================= Memory =================
+  - id: mem.available
+    title: Available RAM for applications
+    units: MiB
+    family: system
+    chart_type: area
+    priority: 1010
+    shape: independent
+    dimensions:
+      - { id: avail, name: MemAvailable, signal: mem_available_kb, divisor: 1024 }
+
+  - id: mem.committed
+    title: Committed (Allocated) Memory
+    units: MiB
+    family: system
+    chart_type: area
+    priority: 1011
+    shape: independent
+    dimensions:
+      - { id: Committed_AS, signal: mem_committed_kb, divisor: 1024 }
+
+  - id: mem.kernel
+    title: Memory Used by Kernel
+    units: MiB
+    family: kernel
+    chart_type: stacked
+    priority: 1012
+    shape: independent
+    dimensions:
+      - { id: KernelStack, signal: mem_kernel_kb, divisor: 1024 }
+
+  - id: mem.slab
+    title: Memory Used by SLAB
+    units: MiB
+    family: slab
+    chart_type: stacked
+    priority: 1013
+    shape: independent
+    dimensions:
+      - { id: reclaimable, signal: mem_slab_reclaimable_kb,   divisor: 1024 }
+      - { id: unreclaimable, signal: mem_slab_unreclaimable_kb, divisor: 1024 }
+
+  - id: mem.writeback
+    title: Writeback Memory
+    units: MiB
+    family: kernel
+    chart_type: line
+    priority: 1014
+    shape: independent
+    dimensions:
+      - { id: Dirty,     signal: mem_dirty_kb,     divisor: 1024 }
+      - { id: Writeback, signal: mem_writeback_kb, divisor: 1024 }
+
+  - id: mem.pgfaults
+    title: Memory Page Faults
+    units: faults/s
+    family: system
+    chart_type: line
+    priority: 1015
+    shape: counters
+    dimensions:
+      - { id: minor, rate_signal: pgfaults_minor_rate }
+      - { id: major, rate_signal: pgfaults_major_rate, multiplier: -1 }
+
+  - id: mem.oom_kill
+    title: Out of Memory Kills
+    units: kills/s
+    family: system
+    chart_type: line
+    priority: 1016
+    shape: counters
+    dimensions:
+      - { id: kills, rate_signal: oom_kill_rate }
+
+  - id: mem.swap
+    title: System Swap
+    units: MiB
+    family: swap
+    chart_type: stacked
+    priority: 1017
+    shape: partition
+    total: { from: node_attr, name: swap_total_kb }
+    driver: swap_used_kb
+    dimensions:
+      - { id: used, share: 1.0, divisor: 1024 }
+      - { id: free, remainder: true, divisor: 1024 }
+
+  # ================= Disk =================
+  # Single-instance for now. Real proc.plugin emits one chart instance per
+  # block device sharing these contexts; per-instance cardinality is the next
+  # piece of the generator model and is tracked in the SOW.
+  - id: disk.io
+    title: Disk I/O Bandwidth
+    units: KiB/s
+    family: disk
+    chart_type: area
+    priority: 2000
+    shape: counters
+    dimensions:
+      - { id: reads,  rate_signal: disk_read_kb_rate }
+      - { id: writes, rate_signal: disk_write_kb_rate, multiplier: -1 }
+
+  - id: disk.ops
+    title: Disk Completed I/O Operations
+    units: operations/s
+    family: disk
+    chart_type: line
+    priority: 2001
+    shape: counters
+    dimensions:
+      - { id: reads,  rate_signal: disk_reads_rate }
+      - { id: writes, rate_signal: disk_writes_rate, multiplier: -1 }
+
+  - id: disk.util
+    title: Disk Utilization Time
+    units: "% of time working"
+    family: utilization
+    chart_type: area
+    priority: 2004
+    shape: independent
+    dimensions:
+      - { id: utilization, signal: disk_busy_ms_rate, divisor: 10 }
+
+  - id: disk.await
+    title: Average Completed I/O Operation Time
+    units: milliseconds/operation
+    family: latency
+    chart_type: line
+    priority: 2005
+    shape: independent
+    dimensions:
+      - { id: reads,  signal: disk_await_read_ms,  divisor: 1000 }
+      - { id: writes, signal: disk_await_write_ms, divisor: 1000, multiplier: -1 }
+
+  - id: disk.backlog
+    title: Disk Backlog
+    units: milliseconds
+    family: latency
+    chart_type: area
+    priority: 2006
+    shape: independent
+    dimensions:
+      - { id: backlog, signal: disk_backlog_ms }
+
+  - id: disk.space
+    title: Disk Space Usage
+    units: GiB
+    family: utilization
+    chart_type: stacked
+    priority: 2023
+    shape: partition
+    total: { from: node_attr, name: disk_total_kb }
+    driver: disk_space_used_kb
+    dimensions:
+      - { id: used,      share: 0.96, divisor: 1048576 }
+      - { id: reserved,  share: 0.04, divisor: 1048576 }
+      - { id: avail,     remainder: true, divisor: 1048576 }
+
+  - id: disk.inodes
+    title: Disk Files (inodes) Usage
+    units: inodes
+    family: utilization
+    chart_type: stacked
+    priority: 2024
+    shape: partition
+    total: { from: node_attr, name: inodes_total }
+    driver: disk_inodes_used
+    dimensions:
+      - { id: used,      share: 1.0 }
+      - { id: avail,     remainder: true }
+
+  # ================= Network interfaces =================
+  - id: net.net
+    title: Bandwidth
+    units: kilobits/s
+    family: net
+    chart_type: area
+    priority: 3000
+    shape: counters
+    dimensions:
+      - { id: received, rate_signal: net_rx_kb_rate, multiplier: 8 }
+      - { id: sent,     rate_signal: net_tx_kb_rate, multiplier: -8 }
+
+  - id: net.packets
+    title: Packets
+    units: packets/s
+    family: packets
+    chart_type: line
+    priority: 3001
+    shape: counters
+    dimensions:
+      - { id: received,  rate_signal: net_rx_pkt_rate }
+      - { id: sent,      rate_signal: net_tx_pkt_rate, multiplier: -1 }
+
+  - id: net.errors
+    title: Interface Errors
+    units: errors/s
+    family: errors
+    chart_type: line
+    priority: 3002
+    shape: counters
+    dimensions:
+      - { id: inbound,  rate_signal: net_err_rate }
+      - { id: outbound, rate_signal: net_err_rate, multiplier: -1 }
+
+  - id: net.drops
+    title: Interface Drops
+    units: drops/s
+    family: drops
+    chart_type: line
+    priority: 3003
+    shape: counters
+    dimensions:
+      - { id: inbound,  rate_signal: net_drop_rate }
+      - { id: outbound, rate_signal: net_drop_rate, multiplier: -1 }
+
+  - id: net.carrier
+    title: Interface Physical Link State
+    units: state
+    family: carrier
+    chart_type: line
+    priority: 3004
+    shape: independent
+    dimensions:
+      - { id: up,   signal: const_one }
+      - { id: down, signal: net_err_rate }
+
+  - id: net.mtu
+    title: Interface MTU
+    units: octets
+    family: mtu
+    chart_type: line
+    priority: 3005
+    shape: independent
+    dimensions:
+      - { id: mtu, signal: const_mtu }
+
+  - id: net.speed
+    title: Interface Speed
+    units: kilobits/s
+    family: speed
+    chart_type: line
+    priority: 3006
+    shape: independent
+    dimensions:
+      - { id: speed, signal: const_link_speed, multiplier: 1000 }
+
+  # ================= IP stack =================
+  - id: ip.tcpsock
+    title: IPv4 TCP Connections
+    units: active connections
+    family: tcp
+    chart_type: line
+    priority: 4000
+    shape: independent
+    dimensions:
+      - { id: connections, signal: tcp_sockets_inuse }
+
+  - id: ip.tcppackets
+    title: IPv4 TCP Packets
+    units: packets/s
+    family: tcp
+    chart_type: line
+    priority: 4001
+    shape: counters
+    dimensions:
+      - { id: received, rate_signal: net_rx_pkt_rate }
+      - { id: sent,     rate_signal: net_tx_pkt_rate, multiplier: -1 }
+
+  - id: ip.tcperrors
+    title: IPv4 TCP Errors
+    units: packets/s
+    family: tcp
+    chart_type: line
+    priority: 4002
+    shape: counters
+    dimensions:
+      - { id: RetransSegs, rate_signal: tcp_retrans_rate }
+      - { id: InErrs,      rate_signal: tcp_attempt_fails_rate, multiplier: -1 }
+
+  - id: ip.tcphandshake
+    title: IPv4 TCP Handshake Issues
+    units: events/s
+    family: tcp
+    chart_type: line
+    priority: 4003
+    shape: counters
+    dimensions:
+      - { id: AttemptFails, rate_signal: tcp_attempt_fails_rate }
+      - { id: EstabResets,  rate_signal: tcp_estab_resets_rate }
+
+  - id: ip.tcpopens
+    title: IPv4 TCP Opens
+    units: connections/s
+    family: tcp
+    chart_type: line
+    priority: 4004
+    shape: counters
+    dimensions:
+      - { id: ActiveOpens,  rate_signal: tcp_active_opens_rate }
+      - { id: PassiveOpens, rate_signal: tcp_passive_opens_rate }
+
+  - id: ipv4.udppackets
+    title: IPv4 UDP Packets
+    units: packets/s
+    family: udp
+    chart_type: line
+    priority: 4010
+    shape: counters
+    dimensions:
+      - { id: received, rate_signal: udp_rx_rate }
+      - { id: sent,     rate_signal: udp_tx_rate, multiplier: -1 }
+
+  - id: ipv4.udperrors
+    title: IPv4 UDP Errors
+    units: events/s
+    family: udp
+    chart_type: line
+    priority: 4011
+    shape: counters
+    dimensions:
+      - { id: RcvbufErrors, rate_signal: udp_errors_rate }
+      - { id: InErrors,     rate_signal: udp_errors_rate, multiplier: -1 }
+
+  - id: ipv4.icmp
+    title: IPv4 ICMP Packets
+    units: packets/s
+    family: icmp
+    chart_type: line
+    priority: 4020
+    shape: counters
+    dimensions:
+      - { id: received, rate_signal: icmp_rx_rate }
+      - { id: sent,     rate_signal: icmp_tx_rate, multiplier: -1 }
+
+  - id: ipv4.sockstat_tcp_sockets
+    title: IPv4 TCP Sockets
+    units: sockets
+    family: sockets
+    chart_type: line
+    priority: 4030
+    shape: independent
+    dimensions:
+      - { id: inuse, signal: tcp_sockets_inuse }
+
+  - id: ipv4.sockstat_udp_sockets
+    title: IPv4 UDP Sockets
+    units: sockets
+    family: sockets
+    chart_type: line
+    priority: 4031
+    shape: independent
+    dimensions:
+      - { id: inuse, signal: udp_sockets_inuse }

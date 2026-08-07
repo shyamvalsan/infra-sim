@@ -1,0 +1,170 @@
+version: 1
+name: web-stack
+description: >-
+  Three-tier web stack: load balancer, two application servers, a primary
+  database and a cache. Five nodes, the local verification cap - fleet scale
+  testing runs on a separate machine.
+
+# This seed plus this file and the referenced generator spec fully determine the
+# emitted stream. Archive all three and a past demo replays identically.
+seed: 8675309
+
+update_every: 1
+generator: ../specs/linux-system.yaml
+
+# GUIDs are authored, never generated per run. The GUID is the node's identity
+# in Netdata: change it and history is orphaned; change only the hostname and
+# the node is renamed in place with its history, trained ML models and alert
+# log intact. The re-skin workflow depends entirely on that distinction, so
+# these values must survive edits to everything else in this file.
+#
+# Hostnames and labels are the re-skin surface: retarget this environment at a
+# different prospect by rewriting them and leaving every GUID alone.
+nodes:
+
+  - hostname: sim-lb-01
+    guid: 4a1f9d20-5e83-4c17-b6a2-0d94e7fc3518
+    role: lb
+    utc_offset_secs: 0
+    attrs:
+      cores: 4
+      ram_total_kb: 4194304
+      swap_total_kb: 4194304
+      disk_total_kb: 524288000
+      inodes_total: 32768000
+    labels:
+      _os_name: Debian GNU/Linux
+      _os_version: "12"
+      _kernel_version: 6.1.0-28-amd64
+      _architecture: x86_64
+      _system_cores: "4"
+      _system_ram_total: "4194304"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: c5.xlarge
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: lb
+      infra_sim_tier: edge
+      infra_sim_env: production
+
+  - hostname: sim-web-01
+    guid: 9c6b1e42-7a3f-4d18-9e57-2b40c8f1a601
+    role: web
+    utc_offset_secs: 0
+    attrs:
+      cores: 8
+      ram_total_kb: 16777216
+      swap_total_kb: 4194304
+      disk_total_kb: 524288000
+      inodes_total: 32768000
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "8"
+      _system_ram_total: "16777216"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: m5.2xlarge
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: web
+      infra_sim_tier: app
+      infra_sim_env: production
+
+  - hostname: sim-web-02
+    guid: e2470b95-8c31-4d6a-9f04-15b8ad7e6c33
+    role: web
+    # A second region: the daily peak lands at a different wall-clock time, so
+    # the fleet does not move in visible lockstep.
+    utc_offset_secs: -28800
+    attrs:
+      cores: 8
+      ram_total_kb: 16777216
+      swap_total_kb: 4194304
+      disk_total_kb: 524288000
+      inodes_total: 32768000
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "8"
+      _system_ram_total: "16777216"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: m5.2xlarge
+      _cloud_instance_region: us-west-2
+      _install_type: infra-sim
+      infra_sim_role: web
+      infra_sim_tier: app
+      infra_sim_env: production
+
+  - hostname: sim-db-01
+    guid: 3d81f570-6c24-4a9b-8f13-7e55ab29d4c2
+    role: db
+    utc_offset_secs: 0
+    attrs:
+      cores: 16
+      ram_total_kb: 67108864
+      swap_total_kb: 4194304
+      disk_total_kb: 2097152000
+      inodes_total: 32768000
+    labels:
+      _os_name: Rocky Linux
+      _os_version: "9.4"
+      _kernel_version: 5.14.0-427.el9.x86_64
+      _architecture: x86_64
+      _system_cores: "16"
+      _system_ram_total: "67108864"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: r5.4xlarge
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: db
+      infra_sim_tier: data
+      infra_sim_env: production
+
+  - hostname: sim-cache-01
+    guid: b57e2a09-4f16-4c83-a2d7-91c6e0b3f845
+    role: cache
+    utc_offset_secs: 0
+    attrs:
+      cores: 8
+      ram_total_kb: 16777216
+      swap_total_kb: 4194304
+      disk_total_kb: 524288000
+      inodes_total: 32768000
+    labels:
+      _os_name: Debian GNU/Linux
+      _os_version: "12"
+      _kernel_version: 6.1.0-28-amd64
+      _architecture: x86_64
+      _system_cores: "8"
+      _system_ram_total: "16777216"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: r5.large
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: cache
+      infra_sim_tier: data
+      infra_sim_env: production
