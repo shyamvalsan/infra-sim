@@ -1,0 +1,202 @@
+version: 1
+name: redis
+description: >-
+  Redis in-memory cache metrics, mirroring the go.d redis collector. Composed
+  onto the Linux baseline for cache nodes.
+
+signals:
+  redis_commands_rate:
+    base: 9400.0
+    min: 0.0
+    max: 8000000.0
+    seasonality: { daily_amplitude: 0.6, peak_hour: 14.0, weekend_factor: 0.45 }
+    noise: { kind: gauss, sigma: 0.22 }
+  redis_keyspace_hits_rate:
+    base: 8700.0
+    min: 0.0
+    max: 8000000.0
+    seasonality: { daily_amplitude: 0.6, peak_hour: 14.0, weekend_factor: 0.45 }
+    noise: { kind: gauss, sigma: 0.22 }
+  redis_keyspace_misses_rate:
+    base: 430.0
+    min: 0.0
+    max: 4000000.0
+    seasonality: { daily_amplitude: 0.6, peak_hour: 14.0, weekend_factor: 0.45 }
+    noise: { kind: gauss, sigma: 0.35 }
+  redis_connected_clients:
+    base: 240.0
+    min: 0.0
+    max: 100000.0
+    seasonality: { daily_amplitude: 0.5, peak_hour: 14.0, weekend_factor: 0.45 }
+    noise: { kind: walk, sigma: 0.05, reversion: 0.08 }
+  redis_blocked_clients:
+    base: 0.0
+    min: 0.0
+    max: 50000.0
+  redis_rejected_rate:
+    base: 0.0
+    min: 0.0
+    max: 50000.0
+  redis_memory_used_bytes:
+    base: 7900000000.0
+    min: 1000000.0
+    max: 14000000000.0
+    seasonality: { daily_amplitude: 0.12, peak_hour: 15.0 }
+    noise: { kind: walk, sigma: 0.01, reversion: 0.03 }
+  redis_memory_rss_bytes:
+    base: 8400000000.0
+    min: 1000000.0
+    max: 15000000000.0
+    noise: { kind: walk, sigma: 0.01, reversion: 0.03 }
+  redis_keys_total:
+    base: 4200000.0
+    min: 0.0
+    max: 200000000.0
+    seasonality: { daily_amplitude: 0.1, peak_hour: 15.0 }
+    noise: { kind: walk, sigma: 0.006, reversion: 0.02 }
+  redis_expired_rate:
+    base: 62.0
+    min: 0.0
+    max: 500000.0
+    noise: { kind: gauss, sigma: 0.4 }
+  redis_evicted_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  redis_net_in_kb_rate:
+    base: 2400.0
+    min: 0.0
+    max: 8000000.0
+    seasonality: { daily_amplitude: 0.6, peak_hour: 14.0, weekend_factor: 0.45 }
+    noise: { kind: gauss, sigma: 0.25 }
+  redis_net_out_kb_rate:
+    base: 6100.0
+    min: 0.0
+    max: 8000000.0
+    seasonality: { daily_amplitude: 0.6, peak_hour: 14.0, weekend_factor: 0.45 }
+    noise: { kind: gauss, sigma: 0.25 }
+  redis_rdb_changes:
+    base: 41000.0
+    min: 0.0
+    max: 50000000.0
+    noise: { kind: walk, sigma: 0.05, reversion: 0.06 }
+  redis_connected_replicas:
+    base: 1.0
+    min: 0.0
+    max: 64.0
+
+contexts:
+
+  - id: redis.commands
+    title: Commands processed
+    units: commands/s
+    family: commands
+    chart_type: line
+    priority: 7000
+    shape: counters
+    dimensions:
+      - { id: processed, rate_signal: redis_commands_rate }
+
+  - id: redis.keyspace_lookup_hit_rate
+    title: Keyspace lookups
+    units: lookups/s
+    family: keyspace
+    chart_type: line
+    priority: 7001
+    shape: counters
+    dimensions:
+      - { id: hits,   rate_signal: redis_keyspace_hits_rate }
+      - { id: misses, rate_signal: redis_keyspace_misses_rate, multiplier: -1 }
+
+  - id: redis.connections
+    title: Client connections
+    units: connections
+    family: connections
+    chart_type: line
+    priority: 7010
+    shape: independent
+    dimensions:
+      - { id: connected, signal: redis_connected_clients }
+      - { id: blocked,   signal: redis_blocked_clients, multiplier: -1 }
+
+  - id: redis.rejected_connections
+    title: Rejected connections
+    units: connections/s
+    family: connections
+    chart_type: line
+    priority: 7011
+    shape: counters
+    dimensions:
+      - { id: rejected, rate_signal: redis_rejected_rate }
+
+  - id: redis.memory
+    title: Memory usage
+    units: bytes
+    family: memory
+    chart_type: line
+    priority: 7020
+    shape: independent
+    dimensions:
+      - { id: used, signal: redis_memory_used_bytes }
+      - { id: rss,  signal: redis_memory_rss_bytes }
+
+  - id: redis.keys
+    title: Keys
+    units: keys
+    family: keyspace
+    chart_type: line
+    priority: 7021
+    shape: independent
+    dimensions:
+      - { id: keys, signal: redis_keys_total }
+
+  - id: redis.expired_keys
+    title: Expired keys
+    units: keys/s
+    family: keyspace
+    chart_type: line
+    priority: 7022
+    shape: counters
+    dimensions:
+      - { id: expired, rate_signal: redis_expired_rate }
+
+  - id: redis.evicted_keys
+    title: Evicted keys
+    units: keys/s
+    family: keyspace
+    chart_type: line
+    priority: 7023
+    shape: counters
+    dimensions:
+      - { id: evicted, rate_signal: redis_evicted_rate }
+
+  - id: redis.net
+    title: Network bandwidth
+    units: kilobits/s
+    family: network
+    chart_type: area
+    priority: 7030
+    shape: counters
+    dimensions:
+      - { id: received, rate_signal: redis_net_in_kb_rate, multiplier: 8 }
+      - { id: sent,     rate_signal: redis_net_out_kb_rate, multiplier: -8 }
+
+  - id: redis.rdb_changes
+    title: Changes since last RDB save
+    units: operations
+    family: persistence
+    chart_type: line
+    priority: 7040
+    shape: independent
+    dimensions:
+      - { id: changes, signal: redis_rdb_changes }
+
+  - id: redis.connected_replicas
+    title: Connected replicas
+    units: replicas
+    family: replication
+    chart_type: line
+    priority: 7050
+    shape: independent
+    dimensions:
+      - { id: connected, signal: redis_connected_replicas }

@@ -66,7 +66,7 @@ pub enum SpecError {
         share: f64,
     },
 
-    #[error("signal '{signal}' has min {min} >= max {max}")]
+    #[error("signal '{signal}' has min {min} greater than max {max}")]
     SignalRange { signal: String, min: f64, max: f64 },
 
     #[error(
@@ -88,6 +88,23 @@ pub enum SpecError {
 
     #[error("context '{context}' has instancing with an empty group or chart_prefix")]
     BadInstancing { context: String },
+
+    #[error(
+        "specs '{a}' and '{b}' both define signal '{signal}' with different parameters - \
+         prefix service signal names so they cannot collide"
+    )]
+    SignalCollision {
+        signal: String,
+        a: String,
+        b: String,
+    },
+
+    #[error("specs '{a}' and '{b}' both define context '{context}'")]
+    ContextCollision {
+        context: String,
+        a: String,
+        b: String,
+    },
 
     #[error("scenario '{scenario}' has an empty timeline")]
     EmptyTimeline { scenario: String },
@@ -274,7 +291,10 @@ fn require_divisor(context: &str, dim: &str, divisor: i64) -> Result<(), SpecErr
 }
 
 fn validate_signal(name: &str, signal: &Signal) -> Result<(), SpecError> {
-    if signal.min >= signal.max {
+    // Equality is allowed: a genuine constant such as a configured
+    // max_connections has no range, and forcing an artificial spread would make
+    // a fixed limit wobble.
+    if signal.min > signal.max {
         return Err(SpecError::SignalRange {
             signal: name.to_string(),
             min: signal.min,

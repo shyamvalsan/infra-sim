@@ -14,7 +14,7 @@
 use std::io::{self, Write};
 
 use sim_engine::{NodeEngine, NodeProfile, Sample};
-use sim_spec::{GeneratorSpec, Shape};
+use sim_spec::Shape;
 
 /// Plugin name reported on every chart.
 pub const PLUGIN_NAME: &str = "infra-sim.plugin";
@@ -62,13 +62,12 @@ pub fn define_hosts<W: Write>(out: &mut W, profiles: &[NodeProfile]) -> io::Resu
 /// missing data, not an error.
 pub fn declare_charts<W: Write>(
     out: &mut W,
-    spec: &GeneratorSpec,
     engine: &NodeEngine,
     update_every: i64,
 ) -> io::Result<()> {
     writeln!(out, "HOST {}", engine.profile().guid)?;
     for chart in engine.charts() {
-        let ctx = &spec.contexts[chart.context_index];
+        let ctx = &engine.spec().contexts[chart.context_index];
         writeln!(
             out,
             "CHART {} '' {} {} {} {} {} {} {} '' {} {}",

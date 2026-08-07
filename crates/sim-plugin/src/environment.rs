@@ -87,6 +87,10 @@ pub struct Environment {
     #[serde(default = "default_scenario_dir")]
     pub scenarios: PathBuf,
 
+    /// Directory holding service specs named in each node's `services`.
+    #[serde(default = "default_specs_dir")]
+    pub specs: PathBuf,
+
     pub nodes: Vec<NodeDef>,
 }
 
@@ -96,6 +100,10 @@ fn default_update_every() -> i64 {
 
 fn default_scenario_dir() -> PathBuf {
     PathBuf::from("scenarios")
+}
+
+fn default_specs_dir() -> PathBuf {
+    PathBuf::from("specs")
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -120,6 +128,13 @@ pub struct NodeDef {
     /// would.
     #[serde(default)]
     pub instances: BTreeMap<String, Vec<InstanceDef>>,
+
+    /// Service generator specs composed onto the base for this node, by spec
+    /// file stem (`postgres` loads `<specs_dir>/postgres.yaml`). A database
+    /// node needs the Linux baseline *and* the Postgres contexts, so specs
+    /// compose rather than being chosen between.
+    #[serde(default)]
+    pub services: Vec<String>,
 }
 
 /// One device. Accepts either a bare name or a table, so the common case stays
@@ -194,6 +209,23 @@ impl Environment {
     /// Scenario directory resolved against the environment file's directory.
     pub fn scenario_path(&self, env_path: &Path) -> PathBuf {
         resolve(&self.scenarios, env_path)
+    }
+
+    /// Service-spec directory resolved against the environment file's directory.
+    pub fn specs_path(&self, env_path: &Path) -> PathBuf {
+        resolve(&self.specs, env_path)
+    }
+
+    /// Distinct service names used anywhere in this environment.
+    pub fn services(&self) -> Vec<String> {
+        let mut out: Vec<String> = self
+            .nodes
+            .iter()
+            .flat_map(|n| n.services.iter().cloned())
+            .collect();
+        out.sort();
+        out.dedup();
+        out
     }
 
     fn validate(&self) -> Result<(), EnvError> {

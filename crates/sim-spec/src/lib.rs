@@ -65,6 +65,53 @@ impl GeneratorSpec {
         Ok(spec)
     }
 
+    /// Compose another spec into this one.
+    ///
+    /// A node running Postgres needs the Linux baseline *and* the Postgres
+    /// contexts, so specs compose rather than being chosen between. Service
+    /// specs are expected to prefix their signal names (`pg_`, `nginx_`) —
+    /// a collision is reported rather than silently resolved, because the two
+    /// definitions would otherwise fight over one shared signal and produce
+    /// correlations nobody authored.
+    pub fn merge(&mut self, other: &GeneratorSpec) -> Result<(), SpecError> {
+        for (name, signal) in &other.signals {
+            if let Some(existing) = self.signals.get(name) {
+                // Identical definitions are harmless; a base spec and a service
+                // spec may legitimately both declare a shared constant.
+                if existing.base != signal.base
+                    || existing.min != signal.min
+                    || existing.max != signal.max
+                {
+                    return Err(SpecError::SignalCollision {
+                        signal: name.clone(),
+                        a: self.name.clone(),
+                        b: other.name.clone(),
+                    });
+                }
+            }
+            self.signals.insert(name.clone(), signal.clone());
+        }
+
+        for ctx in &other.contexts {
+            if self.contexts.iter().any(|c| c.id == ctx.id) {
+                return Err(SpecError::ContextCollision {
+                    context: ctx.id.clone(),
+                    a: self.name.clone(),
+                    b: other.name.clone(),
+                });
+            }
+            self.contexts.push(ctx.clone());
+        }
+
+        for (name, role) in &other.roles {
+            self.roles
+                .entry(name.clone())
+                .or_insert_with(|| role.clone());
+        }
+
+        Ok(())
+    }
+
     /// Signal parameters for a role, with role overrides applied over the
     /// defaults. Unknown role names are rejected at validation time, so callers
     /// that validated first can rely on a known role resolving.

@@ -12,6 +12,7 @@
 use std::io::{self, BufWriter, Write};
 use std::path::{Path, PathBuf};
 use std::process::ExitCode;
+use std::sync::Arc;
 use std::time::{Duration, SystemTime, UNIX_EPOCH};
 
 mod control;
@@ -135,26 +136,63 @@ fn run() -> Result<(), String> {
     // the agent collects.
     let update_every = args.update_every.max(env.update_every);
 
+    // One composed spec per distinct service set. Nodes sharing a service set
+    // share the spec, so a 50-node fleet does not hold 50 copies.
+    let specs_dir = env.specs_path(&args.environment);
+    let mut composed: std::collections::BTreeMap<String, Arc<GeneratorSpec>> =
+        std::collections::BTreeMap::new();
+    for node in &env.nodes {
+        let key = node.services.join("+");
+        if composed.contains_key(&key) {
+            continue;
+        }
+        let mut merged = spec.clone();
+        for service in &node.services {
+            let path = specs_dir.join(format!("{service}.yaml"));
+            let raw = std::fs::read_to_string(&path).map_err(|e| {
+                format!(
+                    "node '{}' needs service spec '{}': {e}",
+                    node.hostname,
+                    path.display()
+                )
+            })?;
+            let svc = GeneratorSpec::from_yaml(&raw).map_err(|e| e.to_string())?;
+            merged.merge(&svc).map_err(|e| e.to_string())?;
+        }
+        composed.insert(key, Arc::new(merged));
+    }
+
     let profiles = env.profiles();
+    let services = env.services();
     eprintln!(
-        "infra-sim: environment '{}' - {} node(s), spec '{}' ({} contexts), seed {}, update_every {}s",
+        "infra-sim: environment '{}' - {} node(s), base spec '{}' ({} contexts), \
+         services: {}, seed {}, update_every {}s",
         env.name,
         profiles.len(),
         spec.name,
         spec.contexts.len(),
+        if services.is_empty() {
+            "none".to_string()
+        } else {
+            services.join(", ")
+        },
         env.seed,
         update_every,
     );
 
     let mut engines: Vec<NodeEngine> = profiles
         .iter()
-        .map(|p| NodeEngine::new(&spec, p.clone(), env.seed))
+        .zip(&env.nodes)
+        .map(|(p, n)| {
+            let key = n.services.join("+");
+            NodeEngine::new(Arc::clone(&composed[&key]), p.clone(), env.seed)
+        })
         .collect();
 
     if let Some(hours) = args.lint_hours {
         let library = control::load_library(&env.scenario_path(&args.environment))?;
-        check_scenarios(&spec, &env, &library)?;
-        return lint(&spec, &mut engines, hours, update_every);
+        check_scenarios(&composed, &env, &library)?;
+        return lint(&mut engines, hours, update_every);
     }
 
     let base_dir = args
@@ -179,7 +217,7 @@ fn run() -> Result<(), String> {
 
     emitter::define_hosts(&mut out, &profiles).map_err(write_err)?;
     for engine in &engines {
-        emitter::declare_charts(&mut out, &spec, engine, update_every).map_err(write_err)?;
+        emitter::declare_charts(&mut out, engine, update_every).map_err(write_err)?;
     }
     out.flush().map_err(write_err)?;
 
@@ -199,7 +237,7 @@ fn run() -> Result<(), String> {
         let scenarios = control.scenarios();
 
         for engine in engines.iter_mut() {
-            let samples = engine.tick(&spec, scenarios, tick_at, interval);
+            let samples = engine.tick(scenarios, tick_at, interval);
             let guid = engine.profile().guid.clone();
             emitter::emit_samples(&mut out, &guid, &samples).map_err(write_err)?;
         }
@@ -218,7 +256,7 @@ fn run() -> Result<(), String> {
 /// project has: it surfaces in front of a prospect, mid-sentence, with no error
 /// anywhere to explain it.
 fn check_scenarios(
-    spec: &GeneratorSpec,
+    composed: &std::collections::BTreeMap<String, Arc<GeneratorSpec>>,
     env: &Environment,
     library: &std::collections::BTreeMap<String, sim_spec::Scenario>,
 ) -> Result<(), String> {
@@ -236,7 +274,10 @@ fn check_scenarios(
     for (name, sc) in library {
         for (i, step) in sc.timeline.iter().enumerate() {
             let t = &step.target;
-            if !spec.signals.contains_key(&t.signal) {
+            // A signal only has to exist on some node; a Postgres scenario
+            // legitimately names signals no web node defines.
+            let known = composed.values().any(|s| s.signals.contains_key(&t.signal));
+            if !known {
                 problems.push(format!(
                     "  {name} step {i}: unknown signal '{}' - the step would do nothing",
                     t.signal
@@ -280,12 +321,7 @@ fn check_scenarios(
 /// agent. This is the first piece of the fidelity harness: cheap enough to run
 /// in CI on every spec change, and it catches the clamping artifacts that are
 /// invisible in a four-second smoke test but obvious on a demo's daily chart.
-fn lint(
-    spec: &GeneratorSpec,
-    engines: &mut [NodeEngine],
-    hours: i64,
-    update_every: i64,
-) -> Result<(), String> {
+fn lint(engines: &mut [NodeEngine], hours: i64, update_every: i64) -> Result<(), String> {
     // Walk a fixed window rather than wall-clock time so the result is
     // reproducible and covers a full diurnal cycle regardless of when it runs.
     let start = 1_700_000_000_i64;
@@ -294,12 +330,7 @@ fn lint(
 
     for engine in engines.iter_mut() {
         for i in 0..ticks {
-            engine.tick(
-                spec,
-                &ScenarioSet::default(),
-                start + i * update_every,
-                interval,
-            );
+            engine.tick(&ScenarioSet::default(), start + i * update_every, interval);
         }
     }
 

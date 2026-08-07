@@ -12,6 +12,7 @@
 //!   afterwards. Code that could emit `free = 0` by clamping does not exist.
 
 use std::collections::BTreeMap;
+use std::sync::Arc;
 
 use sim_spec::{Accumulate, GeneratorSpec, NoiseKind, Shape, Signal, Total};
 
@@ -155,6 +156,10 @@ impl LintStats {
 
 /// Executes one spec for one node.
 pub struct NodeEngine {
+    /// This node's composed spec: the base plus whatever services it runs.
+    /// Shared rather than copied, since nodes of the same role compose the same
+    /// set.
+    spec: Arc<GeneratorSpec>,
     profile: NodeProfile,
     /// Signals with the node's role overrides already applied.
     signals: BTreeMap<String, Signal>,
@@ -172,11 +177,12 @@ pub struct NodeEngine {
 impl NodeEngine {
     /// Build an engine for `profile`, seeding every signal stream from
     /// `master_seed` and the node's GUID.
-    pub fn new(spec: &GeneratorSpec, profile: NodeProfile, master_seed: u64) -> Self {
+    pub fn new(spec: Arc<GeneratorSpec>, profile: NodeProfile, master_seed: u64) -> Self {
         let signals = spec.signals_for_role(profile.role.as_deref());
-        let plan = plan_charts(spec, &profile);
+        let plan = plan_charts(&spec, &profile);
 
         Self {
+            spec,
             profile,
             signals,
             plan,
@@ -204,13 +210,12 @@ impl NodeEngine {
     /// Advance the node by one interval and produce a sample per planned chart.
     ///
     /// `now` is unix seconds; `interval` is the collection period in seconds.
-    pub fn tick(
-        &mut self,
-        spec: &GeneratorSpec,
-        scenarios: &ScenarioSet,
-        now: i64,
-        interval: f64,
-    ) -> Vec<Sample> {
+    /// The composed spec this node runs.
+    pub fn spec(&self) -> &GeneratorSpec {
+        &self.spec
+    }
+
+    pub fn tick(&mut self, scenarios: &ScenarioSet, now: i64, interval: f64) -> Vec<Sample> {
         // Values are memoised per tick, so contexts sharing a signal within the
         // same scope see the same value. That shared value is what makes a
         // node's charts correlate; resolving per context would destroy it.
@@ -220,6 +225,7 @@ impl NodeEngine {
         // Taken and restored so the plan can be iterated while signal state is
         // mutated. Cheaper than cloning the plan every tick.
         let plan = std::mem::take(&mut self.plan);
+        let spec = Arc::clone(&self.spec);
         let samples = plan
             .iter()
             .map(|chart| {
@@ -654,16 +660,15 @@ contexts:
         }
     }
 
-    fn engine(seed: u64, guid: &str) -> (GeneratorSpec, NodeEngine) {
-        let spec = GeneratorSpec::from_yaml(SPEC).expect("spec parses");
-        let e = NodeEngine::new(&spec, profile(guid), seed);
-        (spec, e)
+    fn engine(seed: u64, guid: &str) -> NodeEngine {
+        let spec = Arc::new(GeneratorSpec::from_yaml(SPEC).expect("spec parses"));
+        NodeEngine::new(spec, profile(guid), seed)
     }
 
     fn run(seed: u64, guid: &str, ticks: i64) -> Vec<Vec<Sample>> {
-        let (spec, mut e) = engine(seed, guid);
+        let mut e = engine(seed, guid);
         (0..ticks)
-            .map(|i| e.tick(&spec, &ScenarioSet::default(), 1_700_000_000 + i, 1.0))
+            .map(|i| e.tick(&ScenarioSet::default(), 1_700_000_000 + i, 1.0))
             .collect()
     }
 
@@ -675,7 +680,7 @@ contexts:
 
     #[test]
     fn instanced_contexts_expand_to_one_chart_per_instance() {
-        let (_, e) = engine(1, "guid-a");
+        let e = engine(1, "guid-a");
         let ids: Vec<&str> = e.charts().iter().map(|c| c.chart_id.as_str()).collect();
         assert_eq!(
             ids,
@@ -692,7 +697,7 @@ contexts:
 
     #[test]
     fn instance_family_templating_matches_netdata_convention() {
-        let (_, e) = engine(1, "guid-a");
+        let e = engine(1, "guid-a");
         let fam = |id: &str| {
             e.charts()
                 .iter()
@@ -709,10 +714,10 @@ contexts:
 
     #[test]
     fn a_node_without_an_instance_group_emits_no_charts_for_it() {
-        let spec = GeneratorSpec::from_yaml(SPEC).unwrap();
+        let spec = Arc::new(GeneratorSpec::from_yaml(SPEC).unwrap());
         let mut p = profile("guid-a");
         p.instances.remove("disk");
-        let e = NodeEngine::new(&spec, p, 1);
+        let e = NodeEngine::new(spec, p, 1);
         assert!(!e.charts().iter().any(|c| c.context_id == "disk.io"));
         // Other contexts are unaffected.
         assert!(e.charts().iter().any(|c| c.chart_id == "system.cpu"));
@@ -824,8 +829,8 @@ contexts:
     fn a_shared_signal_resolves_once_per_scope_per_tick() {
         // system.cpu and any other context driven by cpu_busy must see the same
         // value within a tick, or charts stop correlating.
-        let (spec, mut e) = engine(19, "guid-a");
-        e.tick(&spec, &ScenarioSet::default(), 1_700_000_000, 1.0);
+        let mut e = engine(19, "guid-a");
+        e.tick(&ScenarioSet::default(), 1_700_000_000, 1.0);
         let node_scope: Vec<&String> = e
             .resolved
             .keys()
@@ -840,7 +845,7 @@ contexts:
 
     #[test]
     fn seasonality_moves_the_daily_shape() {
-        let (_, mut e) = engine(23, "guid-a");
+        let mut e = engine(23, "guid-a");
         let c = e.charts()[0].clone();
         let midnight = 1_700_000_000 - (1_700_000_000 % DAY);
         let sc = ScenarioSet::default();
@@ -855,9 +860,9 @@ contexts:
 
     #[test]
     fn healthy_signals_do_not_sit_pinned_to_their_bounds() {
-        let (spec, mut e) = engine(29, "guid-a");
+        let mut e = engine(29, "guid-a");
         for i in 0..5_000 {
-            e.tick(&spec, &ScenarioSet::default(), 1_700_000_000 + i, 1.0);
+            e.tick(&ScenarioSet::default(), 1_700_000_000 + i, 1.0);
         }
         let pinned = e.lint().pinned_signals(0.01);
         assert!(pinned.is_empty(), "signals pinned to bounds: {pinned:?}");

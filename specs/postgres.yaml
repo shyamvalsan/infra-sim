@@ -1,0 +1,298 @@
+version: 1
+name: postgres
+description: >-
+  PostgreSQL server metrics, mirroring the go.d postgres collector's contexts.
+  Composed onto the Linux baseline for nodes that run a database.
+
+# Signals are prefixed `pg_` so composing this onto another spec cannot collide.
+signals:
+  pg_connections_used:
+    base: 68.0
+    min: 1.0
+    max: 380.0
+    seasonality: { daily_amplitude: 0.55, peak_hour: 14.0, weekend_factor: 0.5 }
+    noise: { kind: walk, sigma: 0.05, reversion: 0.08 }
+  pg_connections_max:
+    base: 400.0
+    min: 400.0
+    max: 400.0
+    max_is_ceiling: true
+    min_is_floor: true
+  pg_txn_committed_rate:
+    base: 640.0
+    min: 0.0
+    max: 400000.0
+    seasonality: { daily_amplitude: 0.6, peak_hour: 14.0, weekend_factor: 0.5 }
+    noise: { kind: gauss, sigma: 0.25 }
+  pg_txn_rolledback_rate:
+    base: 2.1
+    min: 0.0
+    max: 100000.0
+    noise: { kind: gauss, sigma: 0.8 }
+  pg_tup_returned_rate:
+    base: 48000.0
+    min: 0.0
+    max: 20000000.0
+    seasonality: { daily_amplitude: 0.6, peak_hour: 14.0, weekend_factor: 0.5 }
+    noise: { kind: gauss, sigma: 0.3 }
+  pg_tup_fetched_rate:
+    base: 9200.0
+    min: 0.0
+    max: 8000000.0
+    seasonality: { daily_amplitude: 0.6, peak_hour: 14.0, weekend_factor: 0.5 }
+    noise: { kind: gauss, sigma: 0.3 }
+  pg_tup_inserted_rate:
+    base: 210.0
+    min: 0.0
+    max: 500000.0
+    seasonality: { daily_amplitude: 0.5, peak_hour: 15.0 }
+    noise: { kind: gauss, sigma: 0.4 }
+  pg_tup_updated_rate:
+    base: 130.0
+    min: 0.0
+    max: 500000.0
+    noise: { kind: gauss, sigma: 0.4 }
+  pg_tup_deleted_rate:
+    base: 24.0
+    min: 0.0
+    max: 500000.0
+    noise: { kind: gauss, sigma: 0.6 }
+  pg_blks_hit_rate:
+    base: 52000.0
+    min: 0.0
+    max: 20000000.0
+    seasonality: { daily_amplitude: 0.6, peak_hour: 14.0, weekend_factor: 0.5 }
+    noise: { kind: gauss, sigma: 0.28 }
+  pg_blks_read_rate:
+    base: 340.0
+    min: 0.0
+    max: 5000000.0
+    seasonality: { daily_amplitude: 0.6, peak_hour: 14.0, weekend_factor: 0.5 }
+    noise: { kind: gauss, sigma: 0.45 }
+  pg_deadlocks_rate:
+    base: 0.0
+    min: 0.0
+    max: 1000.0
+  pg_locks_held:
+    base: 92.0
+    min: 0.0
+    max: 60000.0
+    seasonality: { daily_amplitude: 0.5, peak_hour: 14.0 }
+    noise: { kind: walk, sigma: 0.06, reversion: 0.1 }
+  pg_locks_awaited:
+    base: 0.0
+    min: 0.0
+    max: 20000.0
+  pg_db_size_bytes:
+    base: 184000000000.0
+    min: 1000000.0
+    max: 1400000000000.0
+    noise: { kind: walk, sigma: 0.0012, reversion: 0.004 }
+  pg_repl_lag_seconds:
+    base: 0.32
+    min: 0.0
+    max: 7200.0
+    noise: { kind: walk, sigma: 0.1, reversion: 0.14 }
+  pg_wal_files:
+    base: 42.0
+    min: 1.0
+    max: 20000.0
+    min_is_floor: true
+    noise: { kind: walk, sigma: 0.04, reversion: 0.08 }
+  pg_checkpoints_timed_rate:
+    base: 0.004
+    min: 0.0
+    max: 100.0
+    noise: { kind: gauss, sigma: 0.3 }
+  pg_checkpoints_req_rate:
+    base: 0.0008
+    min: 0.0
+    max: 100.0
+    noise: { kind: gauss, sigma: 0.5 }
+  pg_bgwriter_buffers_rate:
+    base: 88.0
+    min: 0.0
+    max: 500000.0
+    noise: { kind: gauss, sigma: 0.35 }
+  pg_temp_files_rate:
+    base: 0.02
+    min: 0.0
+    max: 10000.0
+    noise: { kind: gauss, sigma: 1.5 }
+  pg_autovacuum_workers:
+    base: 0.7
+    min: 0.0
+    max: 64.0
+    noise: { kind: gauss, sigma: 0.9 }
+
+roles:
+  db:
+    description: Primary database - heavier transaction and buffer activity.
+    signals:
+      pg_connections_used: { base: 132.0 }
+      pg_txn_committed_rate: { base: 1450.0 }
+      pg_blks_hit_rate: { base: 96000.0 }
+
+contexts:
+
+  - id: postgres.connections_utilization
+    title: Connections utilization
+    units: percentage
+    family: connections
+    chart_type: line
+    priority: 5000
+    shape: independent
+    dimensions:
+      - { id: used, signal: pg_connections_used }
+
+  - id: postgres.connections_usage
+    title: Connections usage
+    units: connections
+    family: connections
+    chart_type: stacked
+    priority: 5001
+    shape: partition
+    total: { from: constant, value: 400.0 }
+    driver: pg_connections_used
+    dimensions:
+      - { id: used,      share: 1.0 }
+      - { id: available, remainder: true }
+
+  - id: postgres.transactions_duration
+    title: Transactions
+    units: transactions/s
+    family: transactions
+    chart_type: line
+    priority: 5010
+    shape: counters
+    dimensions:
+      - { id: committed,  rate_signal: pg_txn_committed_rate }
+      - { id: rollback,   rate_signal: pg_txn_rolledback_rate, multiplier: -1 }
+
+  - id: postgres.db_ops_fetched_rows_ratio
+    title: Rows fetched vs returned
+    units: rows/s
+    family: throughput
+    chart_type: line
+    priority: 5011
+    shape: counters
+    dimensions:
+      - { id: returned, rate_signal: pg_tup_returned_rate }
+      - { id: fetched,  rate_signal: pg_tup_fetched_rate }
+
+  - id: postgres.db_ops_read_rows_rate
+    title: Rows written
+    units: rows/s
+    family: throughput
+    chart_type: line
+    priority: 5012
+    shape: counters
+    dimensions:
+      - { id: inserted, rate_signal: pg_tup_inserted_rate }
+      - { id: updated,  rate_signal: pg_tup_updated_rate }
+      - { id: deleted,  rate_signal: pg_tup_deleted_rate, multiplier: -1 }
+
+  - id: postgres.db_cache_io_ratio
+    title: Buffer cache
+    units: blocks/s
+    family: cache
+    chart_type: line
+    priority: 5020
+    shape: counters
+    dimensions:
+      - { id: hit,  rate_signal: pg_blks_hit_rate }
+      - { id: read, rate_signal: pg_blks_read_rate, multiplier: -1 }
+
+  - id: postgres.db_deadlocks_rate
+    title: Deadlocks
+    units: deadlocks/s
+    family: locks
+    chart_type: line
+    priority: 5030
+    shape: counters
+    dimensions:
+      - { id: deadlocks, rate_signal: pg_deadlocks_rate }
+
+  - id: postgres.locks_utilization
+    title: Locks
+    units: locks
+    family: locks
+    chart_type: line
+    priority: 5031
+    shape: independent
+    dimensions:
+      - { id: held,    signal: pg_locks_held }
+      - { id: awaited, signal: pg_locks_awaited, multiplier: -1 }
+
+  - id: postgres.db_size
+    title: Database size
+    units: bytes
+    family: size
+    chart_type: line
+    priority: 5040
+    shape: independent
+    dimensions:
+      - { id: size, signal: pg_db_size_bytes }
+
+  - id: postgres.replication_standby_app_wal_lag_time
+    title: Replication lag time
+    units: seconds
+    family: replication
+    chart_type: line
+    priority: 5050
+    shape: independent
+    dimensions:
+      - { id: write,  signal: pg_repl_lag_seconds, divisor: 1000 }
+      - { id: flush,  signal: pg_repl_lag_seconds, divisor: 1000 }
+      - { id: replay, signal: pg_repl_lag_seconds, divisor: 1000 }
+
+  - id: postgres.wal_files_count
+    title: WAL files
+    units: files
+    family: wal
+    chart_type: stacked
+    priority: 5051
+    shape: independent
+    dimensions:
+      - { id: written, signal: pg_wal_files }
+
+  - id: postgres.checkpoints_rate
+    title: Checkpoints
+    units: checkpoints/s
+    family: checkpointer
+    chart_type: line
+    priority: 5060
+    shape: counters
+    dimensions:
+      - { id: scheduled, rate_signal: pg_checkpoints_timed_rate }
+      - { id: requested, rate_signal: pg_checkpoints_req_rate }
+
+  - id: postgres.buffers_allocated_rate
+    title: Buffers allocated
+    units: B/s
+    family: checkpointer
+    chart_type: line
+    priority: 5061
+    shape: counters
+    dimensions:
+      - { id: allocated, rate_signal: pg_bgwriter_buffers_rate }
+
+  - id: postgres.db_temp_files_created_rate
+    title: Temporary files created
+    units: files/s
+    family: temp
+    chart_type: line
+    priority: 5070
+    shape: counters
+    dimensions:
+      - { id: created, rate_signal: pg_temp_files_rate }
+
+  - id: postgres.autovacuum_workers_count
+    title: Autovacuum workers
+    units: workers
+    family: vacuum
+    chart_type: line
+    priority: 5080
+    shape: independent
+    dimensions:
+      - { id: analyze, signal: pg_autovacuum_workers }

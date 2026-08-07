@@ -1,0 +1,193 @@
+version: 1
+name: nginx
+description: >-
+  nginx web server metrics from the stub_status endpoint, plus web-log derived
+  request and response-code contexts. Composed onto the Linux baseline for
+  nodes serving HTTP.
+
+signals:
+  nginx_requests_rate:
+    base: 340.0
+    min: 0.0
+    max: 900000.0
+    seasonality: { daily_amplitude: 0.65, peak_hour: 14.0, weekend_factor: 0.45 }
+    noise: { kind: gauss, sigma: 0.22 }
+  nginx_conn_active:
+    base: 128.0
+    min: 0.0
+    max: 200000.0
+    seasonality: { daily_amplitude: 0.6, peak_hour: 14.0, weekend_factor: 0.45 }
+    noise: { kind: walk, sigma: 0.05, reversion: 0.08 }
+  nginx_conn_reading:
+    base: 3.0
+    min: 0.0
+    max: 50000.0
+    noise: { kind: gauss, sigma: 0.7 }
+  nginx_conn_writing:
+    base: 14.0
+    min: 0.0
+    max: 50000.0
+    seasonality: { daily_amplitude: 0.6, peak_hour: 14.0 }
+    noise: { kind: gauss, sigma: 0.5 }
+  nginx_conn_waiting:
+    base: 111.0
+    min: 0.0
+    max: 200000.0
+    seasonality: { daily_amplitude: 0.6, peak_hour: 14.0, weekend_factor: 0.45 }
+    noise: { kind: walk, sigma: 0.06, reversion: 0.1 }
+  nginx_conn_accepted_rate:
+    base: 44.0
+    min: 0.0
+    max: 500000.0
+    seasonality: { daily_amplitude: 0.65, peak_hour: 14.0, weekend_factor: 0.45 }
+    noise: { kind: gauss, sigma: 0.3 }
+  nginx_conn_dropped_rate:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+  # Response classes. 2xx dominates; the error classes are near-zero at rest so
+  # a scenario lifts them additively.
+  nginx_resp_2xx_rate:
+    base: 322.0
+    min: 0.0
+    max: 900000.0
+    seasonality: { daily_amplitude: 0.65, peak_hour: 14.0, weekend_factor: 0.45 }
+    noise: { kind: gauss, sigma: 0.22 }
+  nginx_resp_3xx_rate:
+    base: 14.0
+    min: 0.0
+    max: 500000.0
+    seasonality: { daily_amplitude: 0.6, peak_hour: 14.0, weekend_factor: 0.45 }
+    noise: { kind: gauss, sigma: 0.4 }
+  nginx_resp_4xx_rate:
+    base: 3.4
+    min: 0.0
+    max: 500000.0
+    seasonality: { daily_amplitude: 0.6, peak_hour: 14.0 }
+    noise: { kind: gauss, sigma: 0.7 }
+  nginx_resp_5xx_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  nginx_request_time_ms:
+    base: 42.0
+    min: 0.0
+    max: 300000.0
+    seasonality: { daily_amplitude: 0.35, peak_hour: 14.0 }
+    noise: { kind: walk, sigma: 0.07, reversion: 0.1 }
+  nginx_upstream_time_ms:
+    base: 31.0
+    min: 0.0
+    max: 300000.0
+    seasonality: { daily_amplitude: 0.4, peak_hour: 14.0 }
+    noise: { kind: walk, sigma: 0.08, reversion: 0.1 }
+  nginx_bandwidth_kb_rate:
+    base: 4100.0
+    min: 0.0
+    max: 12000000.0
+    seasonality: { daily_amplitude: 0.65, peak_hour: 14.0, weekend_factor: 0.45 }
+    noise: { kind: gauss, sigma: 0.25 }
+
+roles:
+  lb:
+    description: Edge load balancer - far higher request and connection volume.
+    signals:
+      nginx_requests_rate: { base: 2600.0 }
+      nginx_resp_2xx_rate: { base: 2480.0 }
+      nginx_conn_active: { base: 1850.0 }
+      nginx_conn_waiting: { base: 1600.0 }
+      nginx_conn_accepted_rate: { base: 320.0 }
+      nginx_bandwidth_kb_rate: { base: 16800.0 }
+
+contexts:
+
+  - id: nginx.connections_count
+    title: Active client connections
+    units: connections
+    family: connections
+    chart_type: line
+    priority: 6000
+    shape: independent
+    dimensions:
+      - { id: active, signal: nginx_conn_active }
+
+  - id: nginx.connections_status
+    title: Active connections by status
+    units: connections
+    family: connections
+    chart_type: stacked
+    priority: 6001
+    shape: independent
+    dimensions:
+      - { id: reading, signal: nginx_conn_reading }
+      - { id: writing, signal: nginx_conn_writing }
+      - { id: waiting, signal: nginx_conn_waiting }
+
+  - id: nginx.connections_accepted_handled
+    title: Accepted and handled connections
+    units: connections/s
+    family: connections
+    chart_type: line
+    priority: 6002
+    shape: counters
+    dimensions:
+      - { id: accepted, rate_signal: nginx_conn_accepted_rate }
+      - { id: dropped,  rate_signal: nginx_conn_dropped_rate, multiplier: -1 }
+
+  - id: nginx.requests_rate
+    title: Requests
+    units: requests/s
+    family: requests
+    chart_type: line
+    priority: 6010
+    shape: counters
+    dimensions:
+      - { id: requests, rate_signal: nginx_requests_rate }
+
+  - id: web_log.requests_by_status_code_class
+    title: Requests by status code class
+    units: requests/s
+    family: responses
+    chart_type: stacked
+    priority: 6020
+    shape: counters
+    dimensions:
+      - { id: "2xx", rate_signal: nginx_resp_2xx_rate }
+      - { id: "3xx", rate_signal: nginx_resp_3xx_rate }
+      - { id: "4xx", rate_signal: nginx_resp_4xx_rate }
+      - { id: "5xx", rate_signal: nginx_resp_5xx_rate }
+
+  - id: web_log.request_processing_time
+    title: Request processing time
+    units: milliseconds
+    family: timings
+    chart_type: line
+    priority: 6021
+    shape: independent
+    dimensions:
+      - { id: min,  signal: nginx_request_time_ms, divisor: 4 }
+      - { id: avg,  signal: nginx_request_time_ms }
+      - { id: max,  signal: nginx_request_time_ms, multiplier: 6 }
+
+  - id: web_log.upstream_response_time
+    title: Upstream response time
+    units: milliseconds
+    family: timings
+    chart_type: line
+    priority: 6022
+    shape: independent
+    dimensions:
+      - { id: min, signal: nginx_upstream_time_ms, divisor: 4 }
+      - { id: avg, signal: nginx_upstream_time_ms }
+      - { id: max, signal: nginx_upstream_time_ms, multiplier: 7 }
+
+  - id: web_log.bandwidth
+    title: Bandwidth
+    units: kilobits/s
+    family: bandwidth
+    chart_type: area
+    priority: 6023
+    shape: counters
+    dimensions:
+      - { id: received, rate_signal: nginx_bandwidth_kb_rate, multiplier: 1 }
+      - { id: sent,     rate_signal: nginx_bandwidth_kb_rate, multiplier: -8 }

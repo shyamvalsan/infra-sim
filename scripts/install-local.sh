@@ -70,12 +70,19 @@ if [ ! -f "${GENERATOR_SRC}" ]; then
   exit 1
 fi
 
-run sudo install -m 0644 "${GENERATOR_SRC}" "${INSTALL_DIR}/specs/$(basename "${GENERATOR_SRC}")"
+# Every spec in the source directory, not just the base: nodes compose service
+# specs onto it and a missing one stops the plugin at startup.
+SPECS_SRC="$(dirname "${GENERATOR_SRC}")"
+for f in "${SPECS_SRC}"/*.yaml; do
+  [ -e "$f" ] || continue
+  run sudo install -m 0644 "$f" "${INSTALL_DIR}/specs/$(basename "$f")"
+done
 
 TMP_ENV="$(mktemp)"
 trap 'rm -f "${TMP_ENV}"' EXIT
 sed -E -e "s|^generator:.*|generator: specs/$(basename "${GENERATOR_SRC}")|" \
        -e "s|^scenarios:.*|scenarios: scenarios|" \
+       -e "s|^specs:.*|specs: specs|" \
   "${ENVIRONMENT}" > "${TMP_ENV}"
 run sudo install -m 0644 "${TMP_ENV}" "${INSTALL_DIR}/environment.yaml"
 

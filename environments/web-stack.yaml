@@ -11,6 +11,8 @@ seed: 8675309
 
 update_every: 1
 generator: ../specs/linux-system.yaml
+# Service specs composed onto the base per node, from this directory.
+specs: ../specs
 # Shared across environments rather than copied per environment. The installer
 # rewrites both paths to match the installed layout.
 scenarios: ../scenarios
@@ -28,6 +30,7 @@ nodes:
   - hostname: sim-lb-01
     guid: 4a1f9d20-5e83-4c17-b6a2-0d94e7fc3518
     role: lb
+    services: [nginx]
     utc_offset_secs: 0
     attrs:
       cores: 4
@@ -63,6 +66,7 @@ nodes:
   - hostname: sim-web-01
     guid: 9c6b1e42-7a3f-4d18-9e57-2b40c8f1a601
     role: web
+    services: [nginx]
     utc_offset_secs: 0
     attrs:
       cores: 8
@@ -101,6 +105,7 @@ nodes:
     role: web
     # A second region: the daily peak lands at a different wall-clock time, so
     # the fleet does not move in visible lockstep.
+    services: [nginx]
     utc_offset_secs: -28800
     attrs:
       cores: 8
@@ -137,6 +142,7 @@ nodes:
   - hostname: sim-db-01
     guid: 3d81f570-6c24-4a9b-8f13-7e55ab29d4c2
     role: db
+    services: [postgres]
     utc_offset_secs: 0
     attrs:
       cores: 16
@@ -177,6 +183,7 @@ nodes:
   - hostname: sim-cache-01
     guid: b57e2a09-4f16-4c83-a2d7-91c6e0b3f845
     role: cache
+    services: [redis]
     utc_offset_secs: 0
     attrs:
       cores: 8
