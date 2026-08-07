@@ -78,6 +78,24 @@ sed -E "s|^generator:.*|generator: specs/$(basename "${GENERATOR_SRC}")|" \
   "${ENVIRONMENT}" > "${TMP_ENV}"
 run sudo install -m 0644 "${TMP_ENV}" "${INSTALL_DIR}/environment.yaml"
 
+# Scenarios are looked up relative to the environment file.
+SCENARIO_SRC="${REPO_ROOT}/scenarios"
+if [ -d "${SCENARIO_SRC}" ]; then
+  run sudo mkdir -p "${INSTALL_DIR}/scenarios"
+  for f in "${SCENARIO_SRC}"/*.yaml; do
+    [ -e "$f" ] || continue
+    run sudo install -m 0644 "$f" "${INSTALL_DIR}/scenarios/$(basename "$f")"
+  done
+fi
+
+# The control file is how scenarios are triggered live. Created empty (no
+# scenarios running) and left writable by the invoking user so triggering during
+# a demo does not need a privilege prompt at the worst possible moment.
+if [ ! -f "${INSTALL_DIR}/control.yaml" ]; then
+  printf 'active: []\n' | run sudo tee "${INSTALL_DIR}/control.yaml" >/dev/null
+fi
+run sudo chown "$(id -u):$(id -g)" "${INSTALL_DIR}/control.yaml"
+
 # Netdata only runs files it recognises as plugins.
 run sudo install -m 0755 "${BINARY}" "${PLUGIN_DIR}/infra-sim.plugin"
 
@@ -103,6 +121,8 @@ echo -e >&2 "${GREEN}==>${NC} Installed."
 echo -e >&2 "    plugin:      ${PLUGIN_DIR}/infra-sim.plugin"
 echo -e >&2 "    environment: ${INSTALL_DIR}/environment.yaml"
 echo -e >&2 "    generator:   ${INSTALL_DIR}/specs/$(basename "${GENERATOR_SRC}")"
+echo -e >&2 "    scenarios:   ${INSTALL_DIR}/scenarios/"
+echo -e >&2 "    control:     ${INSTALL_DIR}/control.yaml"
 echo -e >&2 ""
 echo -e >&2 "    The agent rescans for new plugins every 60s. Then check:"
 echo -e >&2 "      curl -s localhost:19999/api/v3/nodes | grep sim-"

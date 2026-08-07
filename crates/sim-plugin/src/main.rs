@@ -10,19 +10,24 @@
 //! product operating on it normally.
 
 use std::io::{self, BufWriter, Write};
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 use std::process::ExitCode;
 use std::time::{Duration, SystemTime, UNIX_EPOCH};
 
+mod control;
 mod emitter;
 mod environment;
 
 use environment::Environment;
-use sim_engine::NodeEngine;
+use sim_engine::{NodeEngine, ScenarioSet};
 use sim_spec::GeneratorSpec;
 
 /// Where the plugin looks for its environment when Netdata launches it.
 const DEFAULT_ENVIRONMENT: &str = "/etc/netdata/infra-sim/environment.yaml";
+/// Scenario library, relative to the environment file's directory.
+const SCENARIO_DIR: &str = "scenarios";
+/// Control file the console writes to trigger and resolve scenarios.
+const CONTROL_FILE: &str = "control.yaml";
 /// Environment variable override, used by the console and by manual runs.
 const ENV_VAR: &str = "INFRA_SIM_ENVIRONMENT";
 
@@ -152,6 +157,23 @@ fn run() -> Result<(), String> {
         return lint(&spec, &mut engines, hours, update_every);
     }
 
+    let base_dir = args
+        .environment
+        .parent()
+        .map(Path::to_path_buf)
+        .unwrap_or_else(|| PathBuf::from("."));
+    let library = control::load_library(&base_dir.join(SCENARIO_DIR))?;
+    eprintln!(
+        "infra-sim: {} scenario(s) available: {}",
+        library.len(),
+        if library.is_empty() {
+            "none".to_string()
+        } else {
+            library.keys().cloned().collect::<Vec<_>>().join(", ")
+        }
+    );
+    let mut control = control::ControlChannel::new(base_dir.join(CONTROL_FILE), library);
+
     let stdout = io::stdout();
     let mut out = BufWriter::new(stdout.lock());
 
@@ -169,8 +191,15 @@ fn run() -> Result<(), String> {
         let tick_at = next;
         next += update_every;
 
+        // Cheap in the common case - a single stat - and it is what makes a
+        // scenario triggerable mid-demo without restarting anything.
+        if let Some(change) = control.poll(tick_at) {
+            eprintln!("infra-sim: {change}");
+        }
+        let scenarios = control.scenarios();
+
         for engine in engines.iter_mut() {
-            let samples = engine.tick(&spec, tick_at, interval);
+            let samples = engine.tick(&spec, scenarios, tick_at, interval);
             let guid = engine.profile().guid.clone();
             emitter::emit_samples(&mut out, &guid, &samples).map_err(write_err)?;
         }
@@ -199,7 +228,12 @@ fn lint(
 
     for engine in engines.iter_mut() {
         for i in 0..ticks {
-            engine.tick(spec, start + i * update_every, interval);
+            engine.tick(
+                spec,
+                &ScenarioSet::default(),
+                start + i * update_every,
+                interval,
+            );
         }
     }
 

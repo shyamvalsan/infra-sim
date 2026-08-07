@@ -134,13 +134,6 @@ fn default_weight() -> f64 {
 }
 
 impl InstanceDef {
-    pub fn name(&self) -> &str {
-        match self {
-            InstanceDef::Name(n) => n,
-            InstanceDef::Detailed { name, .. } => name,
-        }
-    }
-
     fn to_instance(&self) -> Instance {
         match self {
             InstanceDef::Name(n) => Instance {

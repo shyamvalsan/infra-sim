@@ -88,6 +88,18 @@ pub enum SpecError {
 
     #[error("context '{context}' has instancing with an empty group or chart_prefix")]
     BadInstancing { context: String },
+
+    #[error("scenario '{scenario}' has an empty timeline")]
+    EmptyTimeline { scenario: String },
+
+    #[error("scenario '{scenario}' has a step with an empty target signal")]
+    EmptyTargetSignal { scenario: String },
+
+    #[error("scenario '{scenario}' has a zero-length ramp")]
+    ZeroRamp { scenario: String },
+
+    #[error("scenario '{scenario}' has a zero-length oscillation period")]
+    ZeroPeriod { scenario: String },
 }
 
 impl GeneratorSpec {

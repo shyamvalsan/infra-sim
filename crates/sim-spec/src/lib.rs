@@ -22,6 +22,9 @@ use serde::{Deserialize, Serialize};
 
 mod validate;
 
+pub mod scenario;
+
+pub use scenario::{Effect, Manifest, Scenario, Step as ScenarioStep, Target};
 pub use validate::SpecError;
 
 /// The only spec version this build understands.

@@ -16,8 +16,10 @@ use std::collections::BTreeMap;
 use sim_spec::{Accumulate, GeneratorSpec, NoiseKind, Shape, Signal, Total};
 
 pub mod rng;
+pub mod scenario_runtime;
 
 use rng::Rng;
+pub use scenario_runtime::{ActiveScenario, ControlState, ScenarioSet};
 
 /// Seconds in a day.
 const DAY: i64 = 86_400;
@@ -197,7 +199,13 @@ impl NodeEngine {
     /// Advance the node by one interval and produce a sample per planned chart.
     ///
     /// `now` is unix seconds; `interval` is the collection period in seconds.
-    pub fn tick(&mut self, spec: &GeneratorSpec, now: i64, interval: f64) -> Vec<Sample> {
+    pub fn tick(
+        &mut self,
+        spec: &GeneratorSpec,
+        scenarios: &ScenarioSet,
+        now: i64,
+        interval: f64,
+    ) -> Vec<Sample> {
         // Values are memoised per tick, so contexts sharing a signal within the
         // same scope see the same value. That shared value is what makes a
         // node's charts correlate; resolving per context would destroy it.
@@ -211,7 +219,7 @@ impl NodeEngine {
             .iter()
             .map(|chart| {
                 let ctx = &spec.contexts[chart.context_index];
-                let values = self.sample_chart(chart, &ctx.shape, now, interval);
+                let values = self.sample_chart(chart, &ctx.shape, scenarios, now, interval);
                 Sample {
                     chart_id: chart.chart_id.clone(),
                     values,
@@ -223,24 +231,49 @@ impl NodeEngine {
     }
 
     /// Resolve a signal within a scope, memoised for this tick.
-    fn value(&mut self, chart: &PlannedChart, name: &str, now: i64) -> f64 {
+    fn value(
+        &mut self,
+        chart: &PlannedChart,
+        name: &str,
+        scenarios: &ScenarioSet,
+        now: i64,
+    ) -> f64 {
         let key = format!("{}{KEY_SEP}{}", chart.scope, name);
         if let Some(v) = self.resolved.get(&key) {
             return *v;
         }
-        let v = self.eval_signal(&key, name, &chart.scope, chart.weight, now);
+        let v = self.eval_signal(&key, name, &chart.scope, chart.weight, scenarios, now);
         self.resolved.insert(key, v);
         v
     }
 
-    fn eval_signal(&mut self, key: &str, name: &str, scope: &str, weight: f64, now: i64) -> f64 {
+    #[allow(clippy::too_many_arguments)]
+    fn eval_signal(
+        &mut self,
+        key: &str,
+        name: &str,
+        scope: &str,
+        weight: f64,
+        scenarios: &ScenarioSet,
+        now: i64,
+    ) -> f64 {
         let Some(signal) = self.signals.get(name) else {
             return 0.0;
         };
         let seasonal = seasonal_factor(signal, now, self.profile.utc_offset_secs);
+        // Scenarios perturb the signal level, so a fault propagates into every
+        // context that signal feeds. That coupling is what produces a coherent
+        // blast radius instead of one conspicuously anomalous chart.
+        let scenario = scenarios.multiplier(
+            &self.profile.hostname,
+            self.profile.role.as_deref(),
+            scope,
+            name,
+            now,
+        );
         // Weight scales the whole signal, so a lightly-loaded disk is quieter
         // in every context that references it, not just one.
-        let mut value = signal.base * seasonal * weight;
+        let mut value = signal.base * seasonal * weight * scenario;
 
         // Noise is proportional to the *current* level, not to base. Scaling
         // off base makes a quiet 3 a.m. trough carry the same absolute jitter
@@ -274,10 +307,14 @@ impl NodeEngine {
             }
         }
 
-        // Bounds scale with weight too, otherwise a 0.1-weight instance would
-        // be clamped by bounds written for a full-weight one.
+        // Bounds scale with weight, otherwise a 0.1-weight instance would be
+        // clamped by bounds written for a full-weight one. They scale with the
+        // scenario multiplier too: a fault is *meant* to push a signal past its
+        // normal operating range, and clamping it back would silently defeat
+        // the scenario while the lint reported a pinned signal.
+        let headroom = weight * scenario.max(1.0);
         let min = signal.min * weight;
-        let max = signal.max * weight;
+        let max = signal.max * headroom;
 
         // Clamping is recorded only where the bound is a safety rail. Sitting
         // at a physical floor (zero errors on a quiet link) is realistic; being
@@ -317,6 +354,7 @@ impl NodeEngine {
         &mut self,
         chart: &PlannedChart,
         shape: &Shape,
+        scenarios: &ScenarioSet,
         now: i64,
         interval: f64,
     ) -> Vec<(String, i64)> {
@@ -324,7 +362,7 @@ impl NodeEngine {
             Shape::Independent { dimensions } => dimensions
                 .iter()
                 .map(|d| {
-                    let v = self.value(chart, &d.signal, now);
+                    let v = self.value(chart, &d.signal, scenarios, now);
                     (d.id.clone(), v.round() as i64)
                 })
                 .collect(),
@@ -332,7 +370,7 @@ impl NodeEngine {
             Shape::Counters { dimensions } => dimensions
                 .iter()
                 .map(|d| {
-                    let rate = self.value(chart, &d.rate_signal, now).max(0.0);
+                    let rate = self.value(chart, &d.rate_signal, scenarios, now).max(0.0);
                     let key = format!("{}/{}", chart.chart_id, d.id);
                     let acc = self.counters.entry(key).or_insert(0.0);
                     // max(0.0) above keeps this addition non-negative, so the
@@ -353,7 +391,7 @@ impl NodeEngine {
                     Total::Constant { value } => *value,
                     Total::NodeAttr { name } => self.resolve_attr(chart, name),
                 };
-                let driver = self.value(chart, driver, now).clamp(0.0, total);
+                let driver = self.value(chart, driver, scenarios, now).clamp(0.0, total);
 
                 // Non-remainder dimensions take their share of the driver; the
                 // remainder absorbs everything left of the total. Conservation
@@ -604,7 +642,7 @@ contexts:
     fn run(seed: u64, guid: &str, ticks: i64) -> Vec<Vec<Sample>> {
         let (spec, mut e) = engine(seed, guid);
         (0..ticks)
-            .map(|i| e.tick(&spec, 1_700_000_000 + i, 1.0))
+            .map(|i| e.tick(&spec, &ScenarioSet::default(), 1_700_000_000 + i, 1.0))
             .collect()
     }
 
@@ -766,7 +804,7 @@ contexts:
         // system.cpu and any other context driven by cpu_busy must see the same
         // value within a tick, or charts stop correlating.
         let (spec, mut e) = engine(19, "guid-a");
-        e.tick(&spec, 1_700_000_000, 1.0);
+        e.tick(&spec, &ScenarioSet::default(), 1_700_000_000, 1.0);
         let node_scope: Vec<&String> = e
             .resolved
             .keys()
@@ -784,9 +822,10 @@ contexts:
         let (_, mut e) = engine(23, "guid-a");
         let c = e.charts()[0].clone();
         let midnight = 1_700_000_000 - (1_700_000_000 % DAY);
-        let at_peak = e.value(&c, "cpu_busy", midnight + 14 * 3600);
+        let sc = ScenarioSet::default();
+        let at_peak = e.value(&c, "cpu_busy", &sc, midnight + 14 * 3600);
         e.resolved.clear();
-        let at_trough = e.value(&c, "cpu_busy", midnight + 2 * 3600);
+        let at_trough = e.value(&c, "cpu_busy", &sc, midnight + 2 * 3600);
         assert!(
             at_peak > at_trough,
             "no diurnal shape: peak {at_peak} <= trough {at_trough}"
@@ -797,7 +836,7 @@ contexts:
     fn healthy_signals_do_not_sit_pinned_to_their_bounds() {
         let (spec, mut e) = engine(29, "guid-a");
         for i in 0..5_000 {
-            e.tick(&spec, 1_700_000_000 + i, 1.0);
+            e.tick(&spec, &ScenarioSet::default(), 1_700_000_000 + i, 1.0);
         }
         let pinned = e.lint().pinned_signals(0.01);
         assert!(pinned.is_empty(), "signals pinned to bounds: {pinned:?}");

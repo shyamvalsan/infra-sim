@@ -1,0 +1,108 @@
+version: 1
+name: disk-fill
+description: >-
+  WAL retention raised on the primary without resizing its data volume. Free
+  space falls, write latency degrades as the filesystem fills, iowait climbs,
+  and the application tier backs up behind slower database writes.
+
+  Timeline is demo-paced (~30 min). The same scenario with hour-scale offsets is
+  the warm-up variant: `spec.md` describes this class as a days-long ramp, and
+  the effects here are written as multipliers so stretching the offsets changes
+  nothing else.
+
+# Ground truth. Written when the scenario is authored, never reconstructed from
+# what the product happened to do - that is the whole point of scoring against
+# it. The eval gym measures time-to-detect and root-cause accuracy from here.
+manifest:
+  root_cause: sim-db-01 /var/lib/pgsql
+  causal_chain:
+    - WAL retention raised without resizing the data volume on sim-db-01
+    - free space on /var/lib/pgsql falls toward exhaustion
+    - write service time on the data device degrades as the filesystem fills
+    - iowait rises on sim-db-01, reducing effective CPU headroom
+    - application servers hold connections open longer waiting on slower writes
+  blast_radius:
+    - sim-db-01
+    - sim-web-01
+    - sim-web-02
+  expected_finding: >-
+    Disk space exhaustion on the sim-db-01 database data volume is the root
+    cause. Elevated latency and connection counts on the web tier are downstream
+    symptoms, not independent faults.
+
+timeline:
+
+  # --- Root cause -----------------------------------------------------------
+  # 11% -> ~94% used, crossing the stock disk_space_usage warning at 90%, and
+  # the ramp gives out_of_disk_space_time a real trend to project from.
+  - at: 0s
+    description: WAL retention change starts consuming the data volume
+    target:
+      signal: disk_space_used_kb
+      hostname: sim-db-01
+      instance: /var/lib/pgsql
+    effect: ramp
+    multiplier: 8.2
+    over: 25m
+
+  # --- First-order symptom on the same node ---------------------------------
+  - at: 8m
+    description: Write service time degrades as the filesystem fills
+    target:
+      signal: disk_await_write_ms
+      hostname: sim-db-01
+      instance: nvme0n1
+    effect: ramp
+    multiplier: 6.0
+    over: 10m
+
+  - at: 10m
+    description: Write throughput drops as the device works harder per operation
+    target:
+      signal: disk_busy_ms_rate
+      hostname: sim-db-01
+      instance: nvme0n1
+    effect: ramp
+    multiplier: 3.4
+    over: 10m
+
+  # --- Second-order: the node itself ---------------------------------------
+  - at: 14m
+    description: iowait climbs, eating CPU headroom on the primary
+    target:
+      signal: cpu_busy
+      hostname: sim-db-01
+    effect: ramp
+    multiplier: 1.7
+    over: 8m
+
+  # --- Propagation to the dependent tier ------------------------------------
+  # Targeted by role, so this reaches every web node without naming them and
+  # keeps working when the fleet is re-skinned for a different prospect.
+  - at: 18m
+    description: Application servers hold connections open waiting on the database
+    target:
+      signal: tcp_sockets_inuse
+      role: web
+    effect: ramp
+    multiplier: 3.6
+    over: 6m
+
+  - at: 18m
+    description: Web tier CPU rises handling the backlog
+    target:
+      signal: cpu_busy
+      role: web
+    effect: ramp
+    multiplier: 1.45
+    over: 6m
+
+  # --- The load balancer sees it last ---------------------------------------
+  - at: 22m
+    description: Connection backlog reaches the edge
+    target:
+      signal: tcp_sockets_inuse
+      role: lb
+    effect: ramp
+    multiplier: 2.2
+    over: 5m

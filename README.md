@@ -36,9 +36,13 @@ enforced by construction, plugins.d emitter with virtual-node support,
 per-instance cardinality (one chart per disk / interface / mount), a
 70-context Linux baseline, a 5-node web-stack environment, and a fidelity lint.
 
-**Not built:** scenario engine, correlated logs, control console, additional
-verticals, OTEL simulation, the eval gym. See `.agents/sow/` for what is
-tracked and `spec.md` for the full product definition.
+Also working: a scenario engine with live trigger, ground-truth manifests, and
+one hero scenario.
+
+**Not built:** correlated logs, control console, the remaining four hero
+scenarios, additional verticals, OTEL simulation, the eval gym. See
+`.agents/sow/` for what is tracked and `spec.md` for the full product
+definition.
 
 ## How it works
 
@@ -167,6 +171,67 @@ really does report zero errors — so a floor of `0.0` is never flagged. Any
 other floor is a rail unless declared with `min_is_floor: true`, and every
 ceiling is a rail unless declared with `max_is_ceiling: true`.
 
+## Scenarios
+
+A scenario perturbs generator **inputs** on a timeline. It never fabricates an
+alert, an anomaly score, or a dashboard state — the real health engine and the
+real ML see the perturbed data and reach their own conclusions.
+
+If a scenario runs and Netdata stays quiet, the scenario was too weak. The
+answer is never to fake the alert.
+
+```bash
+./scripts/scenario.sh list
+./scripts/scenario.sh trigger disk-fill
+./scripts/scenario.sh status
+./scripts/scenario.sh resolve disk-fill
+```
+
+Effects begin within one collection interval. The plugin watches a control file
+recording **state, not commands** — which scenarios should be running and since
+when — so re-reading is idempotent, an unrelated edit cannot restart a running
+scenario, and a plugin restart mid-demo resumes at the same offsets instead of
+silently dropping the fault you are presenting.
+
+### Faults move signals, not charts
+
+A scenario targets a *signal*, so the fault propagates into every context that
+signal feeds. That coupling is what produces a coherent blast radius rather than
+one conspicuously anomalous chart:
+
+```yaml
+- at: 0s
+  target: { signal: disk_space_used_kb, hostname: sim-db-01, instance: /var/lib/pgsql }
+  effect: ramp
+  multiplier: 8.2
+  over: 25m
+```
+
+Selectors combine with AND and can name a host, a role, or a single device.
+Targeting by role means a scenario keeps working after a fleet is re-skinned for
+a different prospect.
+
+Effects are `step`, `ramp`, `drift` (compounding, never levels off),
+`oscillate` (flapping) and `recover`. They are multipliers, so a fault composes
+with seasonality and noise instead of replacing them — the same fault looks
+different at 3 a.m. than at peak, as it would in reality. Multiple scenarios on
+one signal compound, so a noisy neighbour plus a slow disk is worse than either
+alone without either scenario knowing about the other.
+
+### Every scenario carries ground truth
+
+```yaml
+manifest:
+  root_cause: sim-db-01 /var/lib/pgsql
+  causal_chain: [...]
+  blast_radius: [sim-db-01, sim-web-01, sim-web-02]
+  expected_finding: ...
+```
+
+Written when the scenario is authored, never reconstructed from what the product
+happened to do — that is the point of scoring against it. The eval gym measures
+time-to-detect and root-cause accuracy from this.
+
 ## Repository layout
 
 ```
@@ -175,7 +240,8 @@ crates/sim-engine/    deterministic execution, seeded RNG, invariants
 crates/sim-plugin/    plugins.d emitter, environment.yaml, fidelity lint
 specs/                generator specs
 environments/         environment definitions
-scripts/              local install
+scenarios/            scenario definitions and their ground-truth manifests
+scripts/              local install, scenario trigger/resolve
 prototypes/           throwaway verification probes and their findings
 .agents/sow/          statement-of-work ledger and specs
 ```
