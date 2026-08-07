@@ -14,21 +14,26 @@ description: >-
 # what the product happened to do - that is the whole point of scoring against
 # it. The eval gym measures time-to-detect and root-cause accuracy from here.
 manifest:
-  root_cause: sim-db-01 /var/lib/pgsql
+  root_cause: the database node's /var/lib/pgsql volume
   causal_chain:
-    - WAL retention raised without resizing the data volume on sim-db-01
+    - WAL retention raised without resizing the data volume on the database node
     - free space on /var/lib/pgsql falls toward exhaustion
     - write service time on the data device degrades as the filesystem fills
-    - iowait rises on sim-db-01, reducing effective CPU headroom
+    - iowait rises on the database node, reducing effective CPU headroom
     - application servers hold connections open longer waiting on slower writes
+  # Roles rather than hostnames, so the manifest stays accurate when this
+  # scenario runs against a different environment or a re-skinned fleet.
   blast_radius:
-    - sim-db-01
-    - sim-web-01
-    - sim-web-02
+    - role:db
+    - role:web
   expected_finding: >-
-    Disk space exhaustion on the sim-db-01 database data volume is the root
+    Disk space exhaustion on the database node's data volume is the root
     cause. Elevated latency and connection counts on the web tier are downstream
     symptoms, not independent faults.
+
+# Roles this scenario needs. An environment without them does not offer it,
+# rather than offering a button that cannot work.
+requires_roles: [db, web]
 
 timeline:
 
@@ -39,7 +44,7 @@ timeline:
     description: WAL retention change starts consuming the data volume
     target:
       signal: disk_space_used_kb
-      hostname: sim-db-01
+      role: db
       instance: /var/lib/pgsql
     effect: ramp
     multiplier: 8.2
@@ -50,7 +55,7 @@ timeline:
     description: Write service time degrades as the filesystem fills
     target:
       signal: disk_await_write_ms
-      hostname: sim-db-01
+      role: db
       instance: nvme0n1
     effect: ramp
     multiplier: 6.0
@@ -60,7 +65,7 @@ timeline:
     description: Write throughput drops as the device works harder per operation
     target:
       signal: disk_busy_ms_rate
-      hostname: sim-db-01
+      role: db
       instance: nvme0n1
     effect: ramp
     multiplier: 3.4
@@ -71,7 +76,7 @@ timeline:
     description: iowait climbs, eating CPU headroom on the primary
     target:
       signal: cpu_busy
-      hostname: sim-db-01
+      role: db
     effect: ramp
     multiplier: 1.7
     over: 8m

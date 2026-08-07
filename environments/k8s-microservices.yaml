@@ -1,0 +1,224 @@
+version: 1
+name: k8s-microservices
+description: >-
+  Kubernetes cluster: a control-plane node, two workers running containerised
+  microservices, an ingress and a database. Five nodes, the local verification
+  cap.
+
+seed: 4815162342
+update_every: 1
+generator: ../specs/linux-system.yaml
+specs: ../specs
+scenarios: ../scenarios
+
+# GUIDs are authored and stable. Re-skin by rewriting hostnames and labels and
+# leaving every GUID alone; the node keeps its history, trained ML models and
+# alert log.
+nodes:
+
+  - hostname: sim-k8s-cp-01
+    guid: 7f2e4a81-3b95-4c62-8d17-6e0a94f2b358
+    role: k8s-control-plane
+    services: [kubernetes, containers]
+    utc_offset_secs: 0
+    attrs:
+      cores: 8
+      ram_total_kb: 16777216
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+      mount:
+        - { name: "/", weight: 1.0, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/var/lib/containerd", weight: 0.7, attrs: { disk_total_kb: 209715200, inodes_total: 13107200 } }
+      net:
+        - { name: eth0, weight: 1.0 }
+      container:
+        - { name: kube-apiserver, weight: 1.0 }
+        - { name: etcd, weight: 0.8 }
+        - { name: kube-scheduler, weight: 0.3 }
+        - { name: kube-controller-manager, weight: 0.4 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "8"
+      _system_ram_total: "16777216"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: gcp
+      _cloud_instance_type: n2-standard-8
+      _cloud_instance_region: europe-west1
+      _install_type: infra-sim
+      infra_sim_role: k8s-control-plane
+      infra_sim_tier: control-plane
+      infra_sim_env: production
+      k8s_cluster: sim-cluster-01
+      _is_k8s_node: "true"
+
+  - hostname: sim-k8s-worker-01
+    guid: c3d8b62f-9a14-4e57-b0d3-2f6519ae847c
+    role: k8s-worker
+    services: [kubernetes, containers]
+    utc_offset_secs: 0
+    attrs:
+      cores: 16
+      ram_total_kb: 33554432
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+        - { name: nvme1n1, weight: 0.4 }
+      mount:
+        - { name: "/", weight: 1.0, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/var/lib/containerd", weight: 0.7, attrs: { disk_total_kb: 209715200, inodes_total: 13107200 } }
+      net:
+        - { name: eth0, weight: 1.0 }
+      container:
+        - { name: checkout-api, weight: 1.0 }
+        - { name: catalog-api, weight: 0.8 }
+        - { name: payments-worker, weight: 0.6 }
+        - { name: session-cache, weight: 0.5 }
+        - { name: fluent-bit, weight: 0.2 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "16"
+      _system_ram_total: "33554432"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: gcp
+      _cloud_instance_type: n2-standard-16
+      _cloud_instance_region: europe-west1
+      _install_type: infra-sim
+      infra_sim_role: k8s-worker
+      infra_sim_tier: workload
+      infra_sim_env: production
+      k8s_cluster: sim-cluster-01
+      _is_k8s_node: "true"
+
+  - hostname: sim-k8s-worker-02
+    guid: 1e94f7a3-6c28-4b81-9f05-3da7e2c96b41
+    role: k8s-worker
+    services: [kubernetes, containers]
+    utc_offset_secs: -21600
+    attrs:
+      cores: 16
+      ram_total_kb: 33554432
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+        - { name: nvme1n1, weight: 0.4 }
+      mount:
+        - { name: "/", weight: 1.0, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/var/lib/containerd", weight: 0.7, attrs: { disk_total_kb: 209715200, inodes_total: 13107200 } }
+      net:
+        - { name: eth0, weight: 1.0 }
+      container:
+        - { name: checkout-api, weight: 0.9 }
+        - { name: catalog-api, weight: 1.0 }
+        - { name: payments-worker, weight: 0.5 }
+        - { name: session-cache, weight: 0.6 }
+        - { name: fluent-bit, weight: 0.2 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "16"
+      _system_ram_total: "33554432"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: gcp
+      _cloud_instance_type: n2-standard-16
+      _cloud_instance_region: europe-west1
+      _install_type: infra-sim
+      infra_sim_role: k8s-worker
+      infra_sim_tier: workload
+      infra_sim_env: production
+      k8s_cluster: sim-cluster-01
+      _is_k8s_node: "true"
+
+  - hostname: sim-k8s-ingress-01
+    guid: b8471e0d-5f36-42a9-8c7b-91e4d306a25f
+    role: lb
+    services: [nginx]
+    utc_offset_secs: 0
+    attrs:
+      cores: 8
+      ram_total_kb: 8388608
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: sda, weight: 1.0 }
+      mount:
+        - { name: "/", weight: 1.0, attrs: { disk_total_kb: 52428800, inodes_total: 3276800 } }
+      net:
+        - { name: eth0, weight: 1.0 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "8"
+      _system_ram_total: "8388608"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: gcp
+      _cloud_instance_type: n2-standard-8
+      _cloud_instance_region: europe-west1
+      _install_type: infra-sim
+      infra_sim_role: ingress
+      infra_sim_tier: edge
+      infra_sim_env: production
+      k8s_cluster: sim-cluster-01
+
+  - hostname: sim-k8s-db-01
+    guid: 6a5c93f8-2e71-4d09-a3b6-84f7c1e05d92
+    role: db
+    services: [postgres]
+    utc_offset_secs: 0
+    attrs:
+      cores: 16
+      ram_total_kb: 67108864
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+        - { name: nvme1n1, weight: 0.35 }
+      mount:
+        - { name: "/", weight: 0.2, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/var/lib/pgsql", weight: 1.0, attrs: { disk_total_kb: 1572864000, inodes_total: 98304000 } }
+      net:
+        - { name: eth0, weight: 1.0 }
+        - { name: eth1, weight: 0.45 }
+    labels:
+      _os_name: Rocky Linux
+      _os_version: "9.4"
+      _kernel_version: 5.14.0-427.el9.x86_64
+      _architecture: x86_64
+      _system_cores: "16"
+      _system_ram_total: "67108864"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: gcp
+      _cloud_instance_type: n2-highmem-16
+      _cloud_instance_region: europe-west1
+      _install_type: infra-sim
+      infra_sim_role: db
+      infra_sim_tier: data
+      infra_sim_env: production

@@ -271,7 +271,14 @@ fn check_scenarios(
         .collect();
 
     let mut problems = Vec::new();
+    let mut skipped = Vec::new();
     for (name, sc) in library {
+        // A scenario whose required roles are absent is not an error; it simply
+        // does not belong to this environment and is not offered.
+        if !sc.applies_to(&roles) {
+            skipped.push(name.as_str());
+            continue;
+        }
         for (i, step) in sc.timeline.iter().enumerate() {
             let t = &step.target;
             // A signal only has to exist on some node; a Postgres scenario
@@ -302,9 +309,16 @@ fn check_scenarios(
     }
 
     println!(
-        "infra-sim: checked {} scenario(s) against the environment",
+        "infra-sim: checked {} of {} scenario(s) against the environment",
+        library.len() - skipped.len(),
         library.len()
     );
+    if !skipped.is_empty() {
+        println!(
+            "  not applicable here (missing required roles): {}",
+            skipped.join(", ")
+        );
+    }
     if problems.is_empty() {
         println!("  all scenario targets resolve\n");
         Ok(())

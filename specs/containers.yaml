@@ -1,0 +1,200 @@
+version: 1
+name: containers
+description: >-
+  Container runtime and per-container resource metrics (cgroup contexts plus
+  Docker daemon state). Composed onto the Linux baseline for container hosts.
+
+  Per-container charts use the `container` instance group, so each node declares
+  which containers it runs.
+
+signals:
+  cg_cpu_rate:
+    base: 14.0
+    min: 0.0
+    max: 100000.0
+    seasonality: { daily_amplitude: 0.55, peak_hour: 14.0, weekend_factor: 0.5 }
+    noise: { kind: walk, sigma: 0.05, reversion: 0.08 }
+  cg_cpu_throttled_rate:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+  cg_mem_used_bytes:
+    base: 620000000.0
+    min: 1000000.0
+    max: 7000000000.0
+    seasonality: { daily_amplitude: 0.15, peak_hour: 15.0 }
+    noise: { kind: walk, sigma: 0.015, reversion: 0.04 }
+  cg_mem_limit_bytes:
+    base: 2147483648.0
+    min: 2147483648.0
+    max: 2147483648.0
+    min_is_floor: true
+    max_is_ceiling: true
+  cg_io_read_kb_rate:
+    base: 120.0
+    min: 0.0
+    max: 900000.0
+    seasonality: { daily_amplitude: 0.5, peak_hour: 14.0 }
+    noise: { kind: gauss, sigma: 0.4 }
+  cg_io_write_kb_rate:
+    base: 180.0
+    min: 0.0
+    max: 900000.0
+    seasonality: { daily_amplitude: 0.5, peak_hour: 15.0 }
+    noise: { kind: gauss, sigma: 0.4 }
+  cg_pids:
+    base: 24.0
+    min: 1.0
+    max: 20000.0
+    min_is_floor: true
+    noise: { kind: walk, sigma: 0.05, reversion: 0.1 }
+  cg_net_rx_kb_rate:
+    base: 340.0
+    min: 0.0
+    max: 4000000.0
+    seasonality: { daily_amplitude: 0.6, peak_hour: 14.0, weekend_factor: 0.5 }
+    noise: { kind: gauss, sigma: 0.3 }
+  cg_net_tx_kb_rate:
+    base: 410.0
+    min: 0.0
+    max: 4000000.0
+    seasonality: { daily_amplitude: 0.6, peak_hour: 14.0, weekend_factor: 0.5 }
+    noise: { kind: gauss, sigma: 0.3 }
+
+  docker_containers_running:
+    base: 9.0
+    min: 0.0
+    max: 5000.0
+    noise: { kind: walk, sigma: 0.03, reversion: 0.15 }
+  docker_containers_stopped:
+    base: 2.0
+    min: 0.0
+    max: 5000.0
+    noise: { kind: walk, sigma: 0.05, reversion: 0.2 }
+  docker_containers_paused:
+    base: 0.0
+    min: 0.0
+    max: 5000.0
+  docker_images:
+    base: 24.0
+    min: 0.0
+    max: 10000.0
+    noise: { kind: walk, sigma: 0.02, reversion: 0.2 }
+  docker_health_unhealthy:
+    base: 0.0
+    min: 0.0
+    max: 5000.0
+
+contexts:
+
+  - id: docker.containers_state
+    title: Containers by state
+    units: containers
+    family: containers
+    chart_type: stacked
+    priority: 8000
+    shape: independent
+    dimensions:
+      - { id: running, signal: docker_containers_running }
+      - { id: paused,  signal: docker_containers_paused }
+      - { id: stopped, signal: docker_containers_stopped }
+
+  - id: docker.containers_health_status
+    title: Unhealthy containers
+    units: containers
+    family: containers
+    chart_type: line
+    priority: 8001
+    shape: independent
+    dimensions:
+      - { id: unhealthy, signal: docker_health_unhealthy }
+
+  - id: docker.images
+    title: Images
+    units: images
+    family: images
+    chart_type: line
+    priority: 8002
+    shape: independent
+    dimensions:
+      - { id: active, signal: docker_images }
+
+  - id: cgroup.cpu
+    title: CPU usage
+    units: percentage
+    family: cpu
+    chart_type: stacked
+    priority: 8010
+    instances: { group: container, chart_prefix: cgroup_cpu, family: "{instance}", labels: { container_name: "{instance}", image: simulated } }
+    shape: independent
+    dimensions:
+      - { id: user,   signal: cg_cpu_rate }
+      - { id: system, signal: cg_cpu_rate, divisor: 3 }
+
+  - id: cgroup.throttled
+    title: CPU throttling
+    units: percentage
+    family: cpu
+    chart_type: line
+    priority: 8011
+    instances: { group: container, chart_prefix: cgroup_throttled, family: "{instance}", labels: { container_name: "{instance}" } }
+    shape: independent
+    dimensions:
+      - { id: throttled, signal: cg_cpu_throttled_rate }
+
+  - id: cgroup.mem_usage
+    title: Memory usage
+    units: MiB
+    family: mem
+    chart_type: stacked
+    priority: 8020
+    instances: { group: container, chart_prefix: cgroup_mem, family: "{instance}", labels: { container_name: "{instance}" } }
+    shape: independent
+    dimensions:
+      - { id: ram, signal: cg_mem_used_bytes, divisor: 1048576 }
+
+  - id: cgroup.mem_utilization
+    title: Memory utilization
+    units: percentage
+    family: mem
+    chart_type: line
+    priority: 8021
+    instances: { group: container, chart_prefix: cgroup_mem_util, family: "{instance}", labels: { container_name: "{instance}" } }
+    shape: independent
+    dimensions:
+      - { id: used, signal: cg_mem_used_bytes, divisor: 21474836 }
+
+  - id: cgroup.io
+    title: Container I/O
+    units: KiB/s
+    family: disk
+    chart_type: area
+    priority: 8030
+    instances: { group: container, chart_prefix: cgroup_io, family: "{instance}", labels: { container_name: "{instance}" } }
+    shape: counters
+    dimensions:
+      - { id: read,  rate_signal: cg_io_read_kb_rate }
+      - { id: write, rate_signal: cg_io_write_kb_rate, multiplier: -1 }
+
+  - id: cgroup.pids_current
+    title: Container processes
+    units: pids
+    family: pids
+    chart_type: line
+    priority: 8040
+    instances: { group: container, chart_prefix: cgroup_pids, family: "{instance}", labels: { container_name: "{instance}" } }
+    shape: independent
+    dimensions:
+      - { id: pids, signal: cg_pids }
+
+  - id: cgroup.net_net
+    title: Container bandwidth
+    units: kilobits/s
+    family: network
+    chart_type: area
+    priority: 8050
+    instances: { group: container, chart_prefix: cgroup_net, family: "{instance}", labels: { container_name: "{instance}" } }
+    shape: counters
+    dimensions:
+      - { id: received, rate_signal: cg_net_rx_kb_rate, multiplier: 8 }
+      - { id: sent,     rate_signal: cg_net_tx_kb_rate, multiplier: -8 }

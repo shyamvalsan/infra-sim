@@ -11,21 +11,24 @@ description: >-
   aggregate.
 
 manifest:
-  root_cause: sim-db-01 replication link (eth1)
+  root_cause: the database node's replication link (eth1)
   causal_chain:
-    - write volume on sim-db-01 rises beyond the replication link's throughput
+    - write volume on the database node rises beyond the replication link's throughput
     - the replication interface saturates and begins dropping
     - WAL accumulates on the primary's data volume
     - commit latency rises as writes wait on acknowledgement
     - application servers hold connections open waiting on commits
   blast_radius:
-    - sim-db-01
-    - sim-web-01
-    - sim-web-02
+    - role:db
+    - role:web
   expected_finding: >-
-    Replication throughput on sim-db-01's eth1 is the constraint. Rising
+    Replication throughput on the database node's eth1 is the constraint. Rising
     application-tier connection counts are a downstream symptom of slower
     commits, not an independent traffic increase.
+
+# Roles this scenario needs. An environment without them does not offer it,
+# rather than offering a button that cannot work.
+requires_roles: [db, web]
 
 timeline:
 
@@ -33,7 +36,7 @@ timeline:
     description: Write volume climbs on the primary
     target:
       signal: disk_write_kb_rate
-      hostname: sim-db-01
+      role: db
       instance: nvme0n1
     effect: ramp
     multiplier: 5.5
@@ -43,7 +46,7 @@ timeline:
     description: Replication link saturates
     target:
       signal: net_tx_kb_rate
-      hostname: sim-db-01
+      role: db
       instance: eth1
     effect: ramp
     multiplier: 7.0
@@ -54,7 +57,7 @@ timeline:
     description: Replication link begins dropping packets
     target:
       signal: net_drop_rate
-      hostname: sim-db-01
+      role: db
       instance: eth1
     effect: add_ramp
     amount: 85.0
@@ -64,7 +67,7 @@ timeline:
     description: TCP retransmits climb on the saturated link
     target:
       signal: tcp_retrans_rate
-      hostname: sim-db-01
+      role: db
     effect: ramp
     multiplier: 22.0
     over: 8m
@@ -73,7 +76,7 @@ timeline:
     description: WAL accumulates as shipping falls behind
     target:
       signal: disk_space_used_kb
-      hostname: sim-db-01
+      role: db
       instance: /var/lib/pgsql
     effect: ramp
     multiplier: 2.4
@@ -83,7 +86,7 @@ timeline:
     description: Commit latency rises
     target:
       signal: disk_await_write_ms
-      hostname: sim-db-01
+      role: db
       instance: nvme0n1
     effect: ramp
     multiplier: 9.0

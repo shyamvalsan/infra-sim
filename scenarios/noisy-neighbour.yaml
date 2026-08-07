@@ -10,21 +10,24 @@ description: >-
   flat while its latency and CPU wait climb.
 
 manifest:
-  root_cause: sim-cache-01 co-located batch workload
+  root_cause: a co-located batch workload on the cache node
   causal_chain:
-    - an unscheduled batch job starts on sim-cache-01
+    - an unscheduled batch job starts on the cache node
     - CPU and context switching saturate on the shared host
     - disk contention rises, lengthening service times
     - the co-located cache service slows despite unchanged request volume
     - application servers see slower cache responses and hold connections open
   blast_radius:
-    - sim-cache-01
-    - sim-web-01
-    - sim-web-02
+    - role:cache
+    - role:web
   expected_finding: >-
-    Resource contention on sim-cache-01 from a co-located workload. The cache
+    Resource contention on the cache node from a co-located workload. The cache
     service's own request volume is unchanged, so the degradation is
     environmental rather than a fault in the service.
+
+# Roles this scenario needs. An environment without them does not offer it,
+# rather than offering a button that cannot work.
+requires_roles: [cache, web]
 
 timeline:
 
@@ -32,7 +35,7 @@ timeline:
     description: Batch workload starts, saturating CPU
     target:
       signal: cpu_busy
-      hostname: sim-cache-01
+      role: cache
     effect: ramp
     multiplier: 7.5
     over: 6m
@@ -41,7 +44,7 @@ timeline:
     description: Context switching climbs under contention
     target:
       signal: ctxt_switch_rate
-      hostname: sim-cache-01
+      role: cache
     effect: ramp
     multiplier: 6.0
     over: 6m
@@ -50,7 +53,7 @@ timeline:
     description: Run queue builds
     target:
       signal: load1
-      hostname: sim-cache-01
+      role: cache
     effect: ramp
     multiplier: 9.0
     over: 7m
@@ -59,7 +62,7 @@ timeline:
     description: Batch job hammers the disk
     target:
       signal: disk_read_kb_rate
-      hostname: sim-cache-01
+      role: cache
       instance: sda
     effect: ramp
     multiplier: 40.0
@@ -69,7 +72,7 @@ timeline:
     description: Disk saturates, service times lengthen
     target:
       signal: disk_busy_ms_rate
-      hostname: sim-cache-01
+      role: cache
       instance: sda
     effect: ramp
     multiplier: 18.0
@@ -79,7 +82,7 @@ timeline:
     description: Memory pressure from the batch job's working set
     target:
       signal: mem_used_kb
-      hostname: sim-cache-01
+      role: cache
     effect: ramp
     multiplier: 1.35
     over: 8m
@@ -97,6 +100,6 @@ timeline:
     description: Batch job completes and the host recovers on its own
     target:
       signal: cpu_busy
-      hostname: sim-cache-01
+      role: cache
     effect: recover
     over: 3m

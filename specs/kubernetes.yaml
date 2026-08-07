@@ -1,0 +1,180 @@
+version: 1
+name: kubernetes
+description: >-
+  Kubernetes control-plane and kubelet metrics: API server request behaviour,
+  kubelet pod lifecycle, and kube-state cluster object counts. Composed onto the
+  Linux baseline for cluster nodes.
+
+signals:
+  k8s_apiserver_req_rate:
+    base: 240.0
+    min: 0.0
+    max: 500000.0
+    seasonality: { daily_amplitude: 0.4, peak_hour: 14.0 }
+    noise: { kind: gauss, sigma: 0.25 }
+  k8s_apiserver_err_rate:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+  k8s_apiserver_latency_ms:
+    base: 34.0
+    min: 0.0
+    max: 120000.0
+    seasonality: { daily_amplitude: 0.3, peak_hour: 14.0 }
+    noise: { kind: walk, sigma: 0.08, reversion: 0.12 }
+  k8s_etcd_fsync_ms:
+    base: 4.2
+    min: 0.0
+    max: 60000.0
+    noise: { kind: walk, sigma: 0.1, reversion: 0.14 }
+  k8s_etcd_leader_changes:
+    base: 0.0
+    min: 0.0
+    max: 1000.0
+  k8s_kubelet_pods_running:
+    base: 18.0
+    min: 0.0
+    max: 1000.0
+    noise: { kind: walk, sigma: 0.02, reversion: 0.2 }
+  k8s_kubelet_pods_pending:
+    base: 0.0
+    min: 0.0
+    max: 1000.0
+  k8s_kubelet_pleg_ms:
+    base: 190.0
+    min: 0.0
+    max: 300000.0
+    noise: { kind: walk, sigma: 0.09, reversion: 0.12 }
+  k8s_kubelet_restarts_rate:
+    base: 0.0
+    min: 0.0
+    max: 1000.0
+  k8s_containers_running:
+    base: 26.0
+    min: 0.0
+    max: 5000.0
+    noise: { kind: walk, sigma: 0.02, reversion: 0.2 }
+  k8s_node_allocatable_cpu:
+    base: 8000.0
+    min: 8000.0
+    max: 8000.0
+    min_is_floor: true
+    max_is_ceiling: true
+  k8s_node_requested_cpu:
+    base: 4600.0
+    min: 0.0
+    max: 7600.0
+    seasonality: { daily_amplitude: 0.2, peak_hour: 14.0 }
+    noise: { kind: walk, sigma: 0.03, reversion: 0.06 }
+  k8s_scheduler_attempts_rate:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    noise: { kind: gauss, sigma: 0.8 }
+
+contexts:
+
+  - id: k8s_kubelet.apiserver_audit_requests_rejected
+    title: API server requests
+    units: requests/s
+    family: apiserver
+    chart_type: line
+    priority: 9000
+    shape: counters
+    dimensions:
+      - { id: requests, rate_signal: k8s_apiserver_req_rate }
+      - { id: rejected, rate_signal: k8s_apiserver_err_rate, multiplier: -1 }
+
+  - id: k8s_kubelet.apiserver_request_latency
+    title: API server request latency
+    units: milliseconds
+    family: apiserver
+    chart_type: line
+    priority: 9001
+    shape: independent
+    dimensions:
+      - { id: p99, signal: k8s_apiserver_latency_ms }
+
+  - id: k8s_state.etcd_disk_fsync_duration
+    title: etcd WAL fsync duration
+    units: milliseconds
+    family: etcd
+    chart_type: line
+    priority: 9010
+    shape: independent
+    dimensions:
+      - { id: p99, signal: k8s_etcd_fsync_ms }
+
+  - id: k8s_state.etcd_leader_changes
+    title: etcd leader changes
+    units: changes/s
+    family: etcd
+    chart_type: line
+    priority: 9011
+    shape: counters
+    dimensions:
+      - { id: changes, rate_signal: k8s_etcd_leader_changes }
+
+  - id: k8s_kubelet.kubelet_pods_running
+    title: Pods running
+    units: pods
+    family: pods
+    chart_type: line
+    priority: 9020
+    shape: independent
+    dimensions:
+      - { id: running, signal: k8s_kubelet_pods_running }
+      - { id: pending, signal: k8s_kubelet_pods_pending, multiplier: -1 }
+
+  - id: k8s_kubelet.kubelet_pleg_relist_latency
+    title: PLEG relist latency
+    units: milliseconds
+    family: pleg
+    chart_type: line
+    priority: 9021
+    shape: independent
+    dimensions:
+      - { id: p99, signal: k8s_kubelet_pleg_ms }
+
+  - id: k8s_state.pod_restarts
+    title: Container restarts
+    units: restarts/s
+    family: pods
+    chart_type: line
+    priority: 9022
+    shape: counters
+    dimensions:
+      - { id: restarts, rate_signal: k8s_kubelet_restarts_rate }
+
+  - id: k8s_kubelet.kubelet_containers_running
+    title: Containers running
+    units: containers
+    family: containers
+    chart_type: line
+    priority: 9023
+    shape: independent
+    dimensions:
+      - { id: running, signal: k8s_containers_running }
+
+  - id: k8s_state.node_allocatable_cpu_requests_utilization
+    title: Node CPU requests
+    units: millicores
+    family: capacity
+    chart_type: stacked
+    priority: 9030
+    shape: partition
+    total: { from: constant, value: 8000.0 }
+    driver: k8s_node_requested_cpu
+    dimensions:
+      - { id: requested, share: 1.0 }
+      - { id: available, remainder: true }
+
+  - id: k8s_state.scheduler_attempts
+    title: Scheduling attempts
+    units: attempts/s
+    family: scheduler
+    chart_type: line
+    priority: 9040
+    shape: counters
+    dimensions:
+      - { id: scheduled, rate_signal: k8s_scheduler_attempts_rate }

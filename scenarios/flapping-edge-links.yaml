@@ -9,18 +9,22 @@ description: >-
   errors and drops accumulating through each cycle.
 
 manifest:
-  root_cause: sim-lb-01 uplink (eth0) physical layer
+  root_cause: the edge node's uplink (eth0) physical layer
   causal_chain:
-    - the eth0 uplink on sim-lb-01 begins flapping
+    - the eth0 uplink on the edge node begins flapping
     - throughput oscillates as the link renegotiates
     - interface errors and drops accumulate on each transition
     - TCP connections reset and retransmit through the outages
     - clients retry, so connection counts rise without a traffic increase
   blast_radius:
-    - sim-lb-01
+    - role:lb
   expected_finding: >-
-    A flapping physical link on sim-lb-01's eth0. Elevated connection counts are
+    A flapping physical link on the edge node's eth0. Elevated connection counts are
     clients retrying through the outages, not a genuine increase in demand.
+
+# Roles this scenario needs. An environment without them does not offer it,
+# rather than offering a button that cannot work.
+requires_roles: [lb]
 
 timeline:
 
@@ -28,7 +32,7 @@ timeline:
     description: Uplink throughput begins oscillating
     target:
       signal: net_rx_kb_rate
-      hostname: sim-lb-01
+      role: lb
       instance: eth0
     effect: oscillate
     amplitude: 0.85
@@ -38,7 +42,7 @@ timeline:
     description: Transmit oscillates out of phase with receive
     target:
       signal: net_tx_kb_rate
-      hostname: sim-lb-01
+      role: lb
       instance: eth0
     effect: oscillate
     amplitude: 0.8
@@ -49,7 +53,7 @@ timeline:
     description: Interface errors accumulate on each transition
     target:
       signal: net_err_rate
-      hostname: sim-lb-01
+      role: lb
       instance: eth0
     effect: add_ramp
     amount: 45.0
@@ -59,7 +63,7 @@ timeline:
     description: Packets dropped through the outages
     target:
       signal: net_drop_rate
-      hostname: sim-lb-01
+      role: lb
       instance: eth0
     effect: add_ramp
     amount: 120.0
@@ -69,7 +73,7 @@ timeline:
     description: Carrier transitions register as link events
     target:
       signal: net_events_rate
-      hostname: sim-lb-01
+      role: lb
       instance: eth0
     effect: add
     amount: 2.0
@@ -78,7 +82,7 @@ timeline:
     description: Connections reset through the outages
     target:
       signal: tcp_estab_resets_rate
-      hostname: sim-lb-01
+      role: lb
     effect: ramp
     multiplier: 30.0
     over: 5m
@@ -87,7 +91,7 @@ timeline:
     description: Retransmits climb
     target:
       signal: tcp_retrans_rate
-      hostname: sim-lb-01
+      role: lb
     effect: ramp
     multiplier: 26.0
     over: 5m
@@ -96,7 +100,7 @@ timeline:
     description: Clients retry, inflating connection counts
     target:
       signal: tcp_sockets_inuse
-      hostname: sim-lb-01
+      role: lb
     effect: ramp
     multiplier: 2.8
     over: 6m

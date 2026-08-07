@@ -1,0 +1,222 @@
+version: 1
+name: robotics-edge
+description: >-
+  Distributed robotics fleet: edge gateways at four sites plus a regional
+  aggregator. Small ARM devices on flaky links, which is the shape that makes
+  this vertical distinct - low resource ceilings, high node count, and
+  connectivity as the dominant failure mode.
+
+  Five nodes here to respect the local verification cap; the real value of this
+  template is at hundreds of gateways, which is a scale-test on another machine.
+
+seed: 2718281828
+update_every: 1
+generator: ../specs/linux-system.yaml
+specs: ../specs
+scenarios: ../scenarios
+
+nodes:
+
+  - hostname: sim-edge-gw-01
+    guid: d4e19b73-8a52-4f61-9c08-3b7e5a216d94
+    role: edge-gateway
+    services: [containers]
+    utc_offset_secs: 0
+    attrs:
+      cores: 4
+      ram_total_kb: 4194304
+      swap_total_kb: 2097152
+    instances:
+      disk:
+        - { name: mmcblk0, weight: 1.0 }
+      mount:
+        - { name: "/", weight: 1.0, attrs: { disk_total_kb: 30535680, inodes_total: 1900544 } }
+        - { name: "/var/log", weight: 0.4, attrs: { disk_total_kb: 4194304, inodes_total: 262144 } }
+      net:
+        # Wired uplink plus an LTE failover: the pairing is what makes flapping
+        # legible on a fleet like this.
+        - { name: eth0, weight: 1.0 }
+        - { name: wwan0, weight: 0.12 }
+      container:
+        - { name: fleet-agent, weight: 1.0 }
+        - { name: telemetry-forwarder, weight: 0.6 }
+        - { name: motion-planner, weight: 0.8 }
+    labels:
+      _os_name: Debian GNU/Linux
+      _os_version: "12"
+      _kernel_version: 6.1.0-28-arm64
+      _architecture: aarch64
+      _system_cores: "4"
+      _system_ram_total: "4194304"
+      _virtualization: none
+      _virt_detection: none
+      _container: none
+      _container_detection: none
+      _install_type: infra-sim
+      infra_sim_role: edge-gateway
+      infra_sim_tier: edge
+      infra_sim_env: production
+      site_region: eu-west
+      device_class: robotics-gateway
+
+  - hostname: sim-edge-gw-02
+    guid: 5c8f2a10-7d64-49b3-a1e7-6f9024c8b53e
+    role: edge-gateway
+    services: [containers]
+    utc_offset_secs: 3600
+    attrs:
+      cores: 4
+      ram_total_kb: 4194304
+      swap_total_kb: 2097152
+    instances:
+      disk:
+        - { name: mmcblk0, weight: 1.0 }
+      mount:
+        - { name: "/", weight: 1.0, attrs: { disk_total_kb: 30535680, inodes_total: 1900544 } }
+        - { name: "/var/log", weight: 0.4, attrs: { disk_total_kb: 4194304, inodes_total: 262144 } }
+      net:
+        # Wired uplink plus an LTE failover: the pairing is what makes flapping
+        # legible on a fleet like this.
+        - { name: eth0, weight: 0.7 }
+        - { name: wwan0, weight: 0.12 }
+      container:
+        - { name: fleet-agent, weight: 1.0 }
+        - { name: telemetry-forwarder, weight: 0.6 }
+        - { name: motion-planner, weight: 0.8 }
+    labels:
+      _os_name: Debian GNU/Linux
+      _os_version: "12"
+      _kernel_version: 6.1.0-28-arm64
+      _architecture: aarch64
+      _system_cores: "4"
+      _system_ram_total: "4194304"
+      _virtualization: none
+      _virt_detection: none
+      _container: none
+      _container_detection: none
+      _install_type: infra-sim
+      infra_sim_role: edge-gateway
+      infra_sim_tier: edge
+      infra_sim_env: production
+      site_region: eu-north
+      device_class: robotics-gateway
+
+  - hostname: sim-edge-gw-03
+    guid: 9b3d6e57-1f48-4a29-8305-c7e1b4d92f60
+    role: edge-gateway
+    services: [containers]
+    utc_offset_secs: -18000
+    attrs:
+      cores: 4
+      ram_total_kb: 4194304
+      swap_total_kb: 2097152
+    instances:
+      disk:
+        - { name: mmcblk0, weight: 1.0 }
+      mount:
+        - { name: "/", weight: 1.0, attrs: { disk_total_kb: 30535680, inodes_total: 1900544 } }
+        - { name: "/var/log", weight: 0.4, attrs: { disk_total_kb: 4194304, inodes_total: 262144 } }
+      net:
+        # Wired uplink plus an LTE failover: the pairing is what makes flapping
+        # legible on a fleet like this.
+        - { name: eth0, weight: 0.85 }
+        - { name: wwan0, weight: 0.12 }
+      container:
+        - { name: fleet-agent, weight: 1.0 }
+        - { name: telemetry-forwarder, weight: 0.6 }
+        - { name: motion-planner, weight: 0.8 }
+    labels:
+      _os_name: Debian GNU/Linux
+      _os_version: "12"
+      _kernel_version: 6.1.0-28-arm64
+      _architecture: aarch64
+      _system_cores: "4"
+      _system_ram_total: "4194304"
+      _virtualization: none
+      _virt_detection: none
+      _container: none
+      _container_detection: none
+      _install_type: infra-sim
+      infra_sim_role: edge-gateway
+      infra_sim_tier: edge
+      infra_sim_env: production
+      site_region: us-east
+      device_class: robotics-gateway
+
+  - hostname: sim-edge-gw-04
+    guid: e71a4c92-6b30-4d85-97f2-08d536ea1b47
+    role: edge-gateway
+    services: [containers]
+    utc_offset_secs: 28800
+    attrs:
+      cores: 4
+      ram_total_kb: 4194304
+      swap_total_kb: 2097152
+    instances:
+      disk:
+        - { name: mmcblk0, weight: 1.0 }
+      mount:
+        - { name: "/", weight: 1.0, attrs: { disk_total_kb: 30535680, inodes_total: 1900544 } }
+        - { name: "/var/log", weight: 0.4, attrs: { disk_total_kb: 4194304, inodes_total: 262144 } }
+      net:
+        # Wired uplink plus an LTE failover: the pairing is what makes flapping
+        # legible on a fleet like this.
+        - { name: eth0, weight: 0.55 }
+        - { name: wwan0, weight: 0.12 }
+      container:
+        - { name: fleet-agent, weight: 1.0 }
+        - { name: telemetry-forwarder, weight: 0.6 }
+        - { name: motion-planner, weight: 0.8 }
+    labels:
+      _os_name: Debian GNU/Linux
+      _os_version: "12"
+      _kernel_version: 6.1.0-28-arm64
+      _architecture: aarch64
+      _system_cores: "4"
+      _system_ram_total: "4194304"
+      _virtualization: none
+      _virt_detection: none
+      _container: none
+      _container_detection: none
+      _install_type: infra-sim
+      infra_sim_role: edge-gateway
+      infra_sim_tier: edge
+      infra_sim_env: production
+      site_region: apac
+      device_class: robotics-gateway
+
+  - hostname: sim-edge-aggregator-01
+    guid: 3f0b8d24-9e15-4726-b8a3-51c9e07f4d68
+    role: lb
+    services: [nginx]
+    utc_offset_secs: 0
+    attrs:
+      cores: 8
+      ram_total_kb: 16777216
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+      mount:
+        - { name: "/", weight: 1.0, attrs: { disk_total_kb: 209715200, inodes_total: 13107200 } }
+      net:
+        - { name: eth0, weight: 1.0 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "8"
+      _system_ram_total: "16777216"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: m5.2xlarge
+      _cloud_instance_region: eu-west-1
+      _install_type: infra-sim
+      infra_sim_role: aggregator
+      infra_sim_tier: regional
+      infra_sim_env: production
+      site_region: eu-west

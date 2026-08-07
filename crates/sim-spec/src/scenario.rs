@@ -28,6 +28,16 @@ pub struct Scenario {
     #[serde(default)]
     pub description: String,
     pub manifest: Manifest,
+
+    /// Roles an environment must have for this scenario to mean anything.
+    ///
+    /// A scenario about database replication is meaningless on a fleet with no
+    /// database. Rather than erroring, an environment missing these roles
+    /// simply does not offer the scenario - an SE should never be shown a
+    /// button that cannot work.
+    #[serde(default)]
+    pub requires_roles: Vec<String>,
+
     pub timeline: Vec<Step>,
 }
 
@@ -79,6 +89,13 @@ impl Scenario {
             }
         }
         Ok(())
+    }
+
+    /// Whether this scenario can run against a fleet with these roles.
+    pub fn applies_to(&self, roles: &[&str]) -> bool {
+        self.requires_roles
+            .iter()
+            .all(|r| roles.contains(&r.as_str()))
     }
 
     /// Total timeline length, used by the console to show progress.
@@ -378,6 +395,25 @@ timeline:
         assert_eq!(s.manifest.blast_radius, vec!["sim-db-01"]);
         // 30m offset + step settles immediately; 0m + 45m ramp is the longest.
         assert_eq!(s.duration(), 45 * 60);
+    }
+
+    #[test]
+    fn a_scenario_without_requirements_applies_anywhere() {
+        let s = Scenario::from_yaml(SCENARIO).unwrap();
+        assert!(s.applies_to(&["anything"]));
+        assert!(s.applies_to(&[]));
+    }
+
+    #[test]
+    fn requirements_gate_applicability() {
+        let yaml = SCENARIO.replace("timeline:", "requires_roles: [db, web]\ntimeline:");
+        let s = Scenario::from_yaml(&yaml).unwrap();
+        assert!(s.applies_to(&["db", "web", "lb"]));
+        assert!(
+            !s.applies_to(&["db", "lb"]),
+            "missing role should not apply"
+        );
+        assert!(!s.applies_to(&[]));
     }
 
     #[test]
