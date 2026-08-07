@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Infra-Sim Console</title>
+<style>
+  :root {
+    --bg: #0f1115; --panel: #171a21; --panel2: #1e222b; --line: #2a2f3a;
+    --fg: #e6e9ef; --muted: #98a2b3; --accent: #00ab44;
+    --pass: #2ea043; --warn: #d29922; --fail: #f85149; --manual: #6e7681;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--fg);
+    font: 14px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  header {
+    padding: 14px 20px; border-bottom: 1px solid var(--line);
+    display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap;
+    background: var(--panel);
+  }
+  h1 { font-size: 16px; margin: 0; letter-spacing: .3px; }
+  .sim-badge {
+    background: var(--accent); color: #04240f; font-weight: 700;
+    padding: 2px 8px; border-radius: 4px; font-size: 11px;
+    text-transform: uppercase; letter-spacing: .6px;
+  }
+  .meta { color: var(--muted); font-size: 12px; font-family: var(--mono); }
+  main { padding: 20px; display: grid; gap: 20px; max-width: 1400px; }
+  section { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; }
+  section > h2 {
+    font-size: 12px; text-transform: uppercase; letter-spacing: .8px;
+    color: var(--muted); margin: 0; padding: 12px 16px; border-bottom: 1px solid var(--line);
+  }
+  .body { padding: 14px 16px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { text-align: left; color: var(--muted); font-weight: 500; padding: 6px 10px; font-size: 12px; }
+  td { padding: 7px 10px; border-top: 1px solid var(--line); font-family: var(--mono); }
+  .wrap { overflow-x: auto; }
+  .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 7px; }
+  .pass { background: var(--pass); } .warn { background: var(--warn); }
+  .fail { background: var(--fail); } .manual { background: var(--manual); }
+  .board-row { display: flex; gap: 10px; padding: 9px 0; border-top: 1px solid var(--line); align-items: flex-start; }
+  .board-row:first-child { border-top: none; }
+  .board-name { flex: 0 0 240px; }
+  .board-detail { flex: 1; color: var(--muted); font-family: var(--mono); font-size: 12px; }
+  .remedy { color: var(--warn); font-size: 12px; margin-top: 3px; }
+  .verdict { padding: 10px 16px; font-weight: 600; border-bottom: 1px solid var(--line); }
+  .verdict.go { color: var(--pass); } .verdict.nogo { color: var(--fail); }
+  .scenario { border-top: 1px solid var(--line); padding: 13px 0; }
+  .scenario:first-child { border-top: none; }
+  .scenario-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .scenario-name { font-weight: 600; font-family: var(--mono); }
+  .scenario-desc { color: var(--muted); font-size: 13px; margin: 6px 0; }
+  button {
+    background: var(--panel2); color: var(--fg); border: 1px solid var(--line);
+    padding: 5px 13px; border-radius: 5px; cursor: pointer; font-size: 13px;
+  }
+  button:hover { border-color: var(--accent); }
+  button.danger:hover { border-color: var(--fail); color: var(--fail); }
+  button[disabled] { opacity: .45; cursor: not-allowed; }
+  .running { color: var(--warn); font-size: 12px; font-family: var(--mono); }
+  .bar { height: 4px; background: var(--panel2); border-radius: 2px; margin-top: 8px; overflow: hidden; }
+  .bar > i { display: block; height: 100%; background: var(--warn); }
+  details { margin-top: 8px; }
+  summary { cursor: pointer; color: var(--muted); font-size: 12px; }
+  .manifest { margin: 8px 0 0; padding: 10px 12px; background: var(--panel2); border-radius: 6px; font-size: 12px; }
+  .manifest dt { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .5px; margin-top: 8px; }
+  .manifest dt:first-child { margin-top: 0; }
+  .manifest dd { margin: 3px 0 0; font-family: var(--mono); }
+  .manifest ol, .manifest ul { margin: 3px 0 0; padding-left: 20px; font-family: var(--mono); }
+  .errors { color: var(--fail); font-family: var(--mono); font-size: 12px; }
+  .checklist li { margin: 7px 0; color: var(--muted); }
+  .checklist code { background: var(--panel2); padding: 1px 5px; border-radius: 3px; font-size: 12px; }
+  a { color: var(--accent); }
+  .note { color: var(--muted); font-size: 12px; margin-top: 10px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Infra-Sim Console</h1>
+  <span class="sim-badge">Simulated</span>
+  <span class="meta" id="envline">loading…</span>
+</header>
+
+<main>
+  <section>
+    <h2>Preflight</h2>
+    <div class="verdict" id="verdict">…</div>
+    <div class="body" id="board"></div>
+  </section>
+
+  <section>
+    <h2>Fleet</h2>
+    <div class="body wrap"><table id="nodes">
+      <thead><tr>
+        <th></th><th>node</th><th>charts</th><th>contexts</th>
+        <th>ML trained</th><th>anomaly rate</th><th>alerts</th>
+      </tr></thead>
+      <tbody></tbody>
+    </table></div>
+  </section>
+
+  <section>
+    <h2>Scenarios</h2>
+    <div class="body" id="scenarios"></div>
+  </section>
+
+  <section>
+    <h2>Claim &amp; teardown</h2>
+    <div class="body">
+      <p class="note">
+        These are a checklist, not buttons. Whether Netdata Cloud's API can
+        automate node removal and Space deletion is still an open question in
+        the spec, and a button that silently does nothing is worse than a
+        checklist that tells the truth.
+      </p>
+      <ul class="checklist">
+        <li>Create a fresh Space named <code>&lt;Prospect&gt; (Simulated Demo)</code> — one per prospect, never reused.</li>
+        <li>Claim this agent to that Space. One claim covers the whole fleet; every vnode appears automatically.</li>
+        <li>Confirm every node carries the <code>simulated=true</code> host label. The runtime applies it and an environment file cannot override it.</li>
+        <li>Only one instance of a base may be claimed at a time — GUIDs must be unique across the infrastructure. Re-skin and re-claim; never clone.</li>
+        <li>At teardown: disarm scenarios, stop the plugin <em>process</em> (removing the file is not enough), remove now-offline nodes, delete the Space.</li>
+        <li>Archive <code>environment.yaml</code>, the generator spec, the seed and the scenario manifests. Those four replay the identical world.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>Errors</h2>
+    <div class="body errors" id="errors">none</div>
+  </section>
+</main>
+
+<script>
+const $ = (id) => document.getElementById(id);
+
+function fmtDur(s) {
+  if (s <= 0) return "-";
+  const m = Math.floor(s / 60), h = Math.floor(m / 60);
+  if (h > 0) return h + "h" + (m % 60 ? " " + (m % 60) + "m" : "");
+  return m + "m";
+}
+
+function esc(s) {
+  return String(s == null ? "" : s).replace(/[&<>"']/g, c => (
+    {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+
+async function post(path) {
+  try {
+    const r = await fetch(path, { method: "POST" });
+    if (!r.ok) {
+      const b = await r.json().catch(() => ({}));
+      alert("Failed: " + (b.error || r.status));
+    }
+  } catch (e) { alert("Failed: " + e); }
+  refresh();
+}
+
+function renderBoard(board) {
+  $("verdict").textContent = board.demo_ready
+    ? "Demo ready"
+    : "NOT demo ready — resolve the failing checks below";
+  $("verdict").className = "verdict " + (board.demo_ready ? "go" : "nogo");
+
+  $("board").innerHTML = board.checks.map(c => `
+    <div class="board-row">
+      <div class="board-name"><span class="dot ${c.status}"></span>${esc(c.name)}</div>
+      <div class="board-detail">
+        ${esc(c.detail)}
+        ${c.remedy && c.status !== "pass" ? `<div class="remedy">${esc(c.remedy)}</div>` : ""}
+      </div>
+    </div>`).join("");
+}
+
+function renderNodes(nodes, agentUrl) {
+  const tb = $("nodes").querySelector("tbody");
+  if (!nodes.length) {
+    tb.innerHTML = `<tr><td colspan="7" style="color:var(--muted)">no nodes</td></tr>`;
+    return;
+  }
+  tb.innerHTML = nodes.map(n => {
+    const mlTotal = n.ml_trained + n.ml_untrained;
+    const mlPct = mlTotal > 0 ? Math.round(100 * n.ml_trained / mlTotal) : 0;
+    const alerts = n.alarms_critical
+      ? `<span style="color:var(--fail)">${n.alarms_critical} crit</span>`
+      : n.alarms_warning
+        ? `<span style="color:var(--warn)">${n.alarms_warning} warn</span>`
+        : "clear";
+    return `<tr>
+      <td><span class="dot ${n.reachable ? "pass" : "fail"}"></span></td>
+      <td><a href="${esc(agentUrl)}" target="_blank" rel="noopener">${esc(n.hostname)}</a></td>
+      <td>${n.charts}</td>
+      <td>${n.contexts}</td>
+      <td>${mlPct}%</td>
+      <td>${n.anomaly_rate.toFixed(2)}%</td>
+      <td>${alerts}</td>
+    </tr>`;
+  }).join("");
+}
+
+function renderScenarios(scenarios) {
+  if (!scenarios.length) {
+    $("scenarios").innerHTML = `<div style="color:var(--muted)">no scenarios loaded</div>`;
+    return;
+  }
+  const anyActive = scenarios.some(s => s.active);
+  $("scenarios").innerHTML = scenarios.map(s => `
+    <div class="scenario">
+      <div class="scenario-head">
+        <span class="scenario-name">${esc(s.name)}</span>
+        ${s.active
+          ? `<button class="danger" onclick="post('/api/scenario/${encodeURIComponent(s.name)}/resolve')">Resolve</button>
+             <span class="running">running — ${Math.round(s.progress * 100)}% of ${fmtDur(s.duration_secs)}</span>`
+          : `<button onclick="post('/api/scenario/${encodeURIComponent(s.name)}/trigger')">Trigger</button>
+             <span class="meta">${fmtDur(s.duration_secs)} timeline</span>`}
+      </div>
+      <div class="scenario-desc">${esc(s.description)}</div>
+      ${s.active ? `<div class="bar"><i style="width:${(s.progress * 100).toFixed(1)}%"></i></div>` : ""}
+      <details>
+        <summary>Ground truth</summary>
+        <dl class="manifest">
+          <dt>Root cause</dt><dd>${esc(s.root_cause)}</dd>
+          ${s.causal_chain.length ? `<dt>Causal chain</dt><dd><ol>${s.causal_chain.map(c => `<li>${esc(c)}</li>`).join("")}</ol></dd>` : ""}
+          ${s.blast_radius.length ? `<dt>Blast radius</dt><dd><ul>${s.blast_radius.map(b => `<li>${esc(b)}</li>`).join("")}</ul></dd>` : ""}
+          ${s.expected_finding ? `<dt>Expected finding</dt><dd>${esc(s.expected_finding)}</dd>` : ""}
+        </dl>
+      </details>
+    </div>`).join("") + (anyActive
+      ? `<div style="margin-top:14px"><button class="danger" onclick="post('/api/scenario/resolve-all')">Resolve all</button></div>`
+      : "");
+}
+
+async function refresh() {
+  let d;
+  try {
+    d = await (await fetch("/api/status")).json();
+  } catch (e) {
+    $("errors").textContent = "console cannot reach itself: " + e;
+    return;
+  }
+
+  $("envline").textContent = d.environment
+    ? `${d.environment.name} · seed ${d.environment.seed} · ${d.environment.node_count} nodes · `
+      + `${d.environment.context_count} contexts · every ${d.environment.update_every}s · agent ${d.agent_url}`
+    : "no environment loaded";
+
+  renderBoard(d.board);
+  renderNodes(d.nodes, d.agent_url);
+  renderScenarios(d.scenarios);
+  $("errors").innerHTML = d.errors.length
+    ? d.errors.map(e => esc(e)).join("<br>")
+    : "none";
+}
+
+refresh();
+setInterval(refresh, 5000);
+</script>
+</body>
+</html>

@@ -15,11 +15,13 @@ use std::collections::BTreeMap;
 
 use sim_spec::{Accumulate, GeneratorSpec, NoiseKind, Shape, Signal, Total};
 
+pub mod control_file;
 pub mod rng;
 pub mod scenario_runtime;
 
+pub use control_file::{ActiveEntry, ControlFile};
 use rng::Rng;
-pub use scenario_runtime::{ActiveScenario, ControlState, ScenarioSet};
+pub use scenario_runtime::{ActiveScenario, ScenarioSet};
 
 /// Seconds in a day.
 const DAY: i64 = 86_400;

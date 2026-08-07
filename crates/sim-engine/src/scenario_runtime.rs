@@ -6,8 +6,6 @@
 //! Netdata stays quiet, the scenario was too weak; the answer is never to
 //! fabricate the alert.
 
-use std::collections::BTreeMap;
-
 use sim_spec::Scenario;
 
 /// A scenario that has been triggered, with the moment it started.
@@ -92,16 +90,6 @@ impl ScenarioSet {
             .map(|a| (a.scenario.name.as_str(), &a.scenario.manifest, a.started_at))
             .collect()
     }
-}
-
-/// Which scenarios the console wants running, read from the control file.
-///
-/// State rather than commands: the file says what *should* be active, so
-/// re-reading it is idempotent and a plugin restart mid-demo resumes the same
-/// scenarios at the same offsets instead of silently dropping them.
-#[derive(Debug, Clone, Default)]
-pub struct ControlState {
-    pub active: BTreeMap<String, i64>,
 }
 
 #[cfg(test)]

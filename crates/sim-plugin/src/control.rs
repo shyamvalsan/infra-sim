@@ -16,28 +16,8 @@ use std::collections::BTreeMap;
 use std::path::{Path, PathBuf};
 use std::time::SystemTime;
 
-use serde::{Deserialize, Serialize};
-use sim_engine::{ActiveScenario, ScenarioSet};
+use sim_engine::{ActiveScenario, ControlFile, ScenarioSet};
 use sim_spec::Scenario;
-
-/// On-disk control file.
-#[derive(Debug, Clone, Default, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-pub struct ControlFile {
-    /// Scenarios that should be running, by name.
-    #[serde(default)]
-    pub active: Vec<ActiveEntry>,
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-pub struct ActiveEntry {
-    pub scenario: String,
-    /// Unix seconds the scenario's timeline is measured from. Absent means
-    /// "start now", resolved once on first read so the offset stays stable.
-    #[serde(default)]
-    pub started_at: Option<i64>,
-}
 
 /// Watches the control file and builds the active [`ScenarioSet`].
 pub struct ControlChannel {
@@ -97,13 +77,9 @@ impl ControlChannel {
         }
         self.last_mtime = mtime;
 
-        let raw = match std::fs::read_to_string(&self.path) {
-            Ok(r) => r,
-            Err(e) => return self.report_error(format!("cannot read control file: {e}")),
-        };
-        let parsed: ControlFile = match serde_yaml::from_str(&raw) {
+        let parsed = match ControlFile::load(&self.path) {
             Ok(p) => p,
-            Err(e) => return self.report_error(format!("cannot parse control file: {e}")),
+            Err(e) => return self.report_error(e),
         };
         self.last_error = None;
 
