@@ -53,6 +53,18 @@ current_active() {
     | awk '{print $2}' || true
 }
 
+# Existing start times, so rewriting the file never restarts a running scenario.
+declare -A STARTED_AT
+load_started_at() {
+  [ -f "${CONTROL}" ] || return 0
+  while read -r name ts; do
+    [ -n "${name}" ] && [ -n "${ts}" ] && STARTED_AT["${name}"]="${ts}"
+  done < <(grep -oE 'scenario:[[:space:]]*[A-Za-z0-9_.-]+,[[:space:]]*started_at:[[:space:]]*[0-9]+' \
+             "${CONTROL}" 2>/dev/null \
+           | sed -E 's/scenario:[[:space:]]*([A-Za-z0-9_.-]+),[[:space:]]*started_at:[[:space:]]*([0-9]+)/\1 \2/')
+}
+load_started_at
+
 write_active() {
   local names=("$@")
   local tmp
@@ -62,7 +74,12 @@ write_active() {
   else
     printf 'active:\n' > "${tmp}"
     for n in "${names[@]}"; do
-      printf '  - { scenario: %s }\n' "${n}" >> "${tmp}"
+      # started_at is written explicitly and preserved across edits. Without it
+      # the plugin assigns "now" on first read, so a plugin restart mid-demo
+      # silently rewinds the scenario to its opening state - which looks exactly
+      # like the fault resolving itself while the presenter is describing it.
+      local started="${STARTED_AT[$n]:-$(date +%s)}"
+      printf '  - { scenario: %s, started_at: %s }\n' "${n}" "${started}" >> "${tmp}"
     done
   fi
   # Written in place, not moved: /tmp is usually a different filesystem, and
