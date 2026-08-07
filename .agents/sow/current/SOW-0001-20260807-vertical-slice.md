@@ -4,7 +4,7 @@
 
 Status: in-progress
 
-Sub-state: Implementation plan items 1-6 delivered and validated against a live agent (5 vnodes, 50 contexts, 58 charts each, ML training). Items 7 (scenario engine) and 8 (console) not started. OTEL sim scoping tracked in `SOW-0002` (pending).
+Sub-state: Implementation plan items 1-7 delivered and validated against a live agent. Item 8 (thin console) not started; correlated logs were never in this SOW's plan and need their own. OTEL sim scoping tracked in `SOW-0002` (pending).
 
 ## Requirements
 
@@ -215,6 +215,10 @@ See `## Pre-Implementation Gate` → Implementation plan, items 1–9.
 - **Bound-clamping needed a physical/rail distinction.** The first lint run reported 175 violations, nearly all signals legitimately resting at zero. Zero is a real value for the non-negative quantities these specs model, so it is never flagged; any other floor needs `min_is_floor: true` and every ceiling needs `max_is_ceiling: true`. After the distinction plus the noise fix: 0 violations over 72 simulated hours.
 - **`cache` role RAM driver was pinned at its max**, flattening `system.ram free` to a constant — the same artifact class as the probe's `free = 0`. Caught by inspecting real emitted output; fixed by giving the role headroom above `base * (1 + daily_amplitude)`.
 - **Serde cannot combine `deny_unknown_fields` with `flatten`.** `Context` drops the strict attribute; inner shape structs stay strict.
+- **Per-instance cardinality was the real fidelity gap, not context count.** Expanding contexts alone would not have fixed a node showing one unnamed disk chart. Netdata's own chart-id and family conventions are not uniform (`disk.io` -> `disk.<dev>` family `io`, but `net.packets` -> `net_packets.<iface>` family `<iface>`), so the spec states them rather than inferring; this was checked against a real node, not guessed.
+- **Chart planning had to move into the engine.** Declaration and emission were deriving the chart list separately. Any divergence would have sent `SET` lines to charts that were never declared, which surfaces as silently missing data rather than an error. One plan, read by both.
+- **Scenario multipliers had to widen signal bounds.** A fault is meant to push a signal past its normal operating range; without widening, the clamp would have silently defeated the scenario while the lint reported a pinned signal - the artifact machinery working against the feature.
+- **Scenario start time has to live in the control file.** The trigger script wrote only the scenario name, so the plugin assigned "now" on first read and a plugin restart rewound the scenario to its opening state - indistinguishable, on screen, from the fault resolving itself mid-sentence. The control module already documented restart-resume as a property; it was only true when `started_at` was present and nothing wrote it. Caught by noticing a running scenario had progressed less than wall-clock time allowed.
 - **Removing a plugin file does not stop the running plugin.** The Python probe kept running from a deleted file for over an hour, writing to the same vnode GUIDs as the new Rust plugin and corrupting `system.ram` readings with interleaved values. Diagnosis cost real time because the symptom looked like a conservation bug in new code. Teardown must kill the process, not just remove the file — this belongs in the console's teardown flow and in any operator doc.
 
 ## Validation
@@ -223,10 +227,12 @@ Acceptance criteria evidence (items 1-6; items 7-8 not started):
 
 - Builds clean and runs under a live agent: agent picked the plugin up on its 60s scan; all 5 vnodes present in `/api/v3/nodes`; 58 charts each (50 from the spec + 8 the agent's ML adds per node). MET.
 - Generator specs are declarative: adding a context is a YAML edit. The 50-context baseline required no generator-logic code. MET.
-- 60-80 contexts covering standard menu sections: **50 contexts. NOT MET** - see Followup. Covers system, memory, disk, network-interface and IP-stack sections, but disk/net are single-instance where real proc.plugin emits one instance per device.
+- 60-80 contexts covering standard menu sections: **70 contexts. MET.** Live agent shows 78 contexts per node (70 from the spec + 8 the agent's ML adds) across 94-117 charts depending on each node's device count, in 43-45 families.
+- Per-instance cardinality: MET. `disk.io` expands to `disk.nvme0n1` / `disk.nvme1n1`, `disk.space` to one chart per mount, `net.net` per interface. Weighted instances carry visibly different load (db data disk 6,610 reads/s vs WAL disk 1,524/s).
 - Invariants by construction: `cargo test` asserts conservation and monotonicity over thousands of ticks; confirmed independently through the agent's own query engine - every node's `system.ram` dimensions sum exactly to its configured total (4096 / 16384 / 16384 / 65536 / 16384 MiB) with no zero-free artifact. MET.
 - Same seed reproduces identical output: unit test over 500 ticks x 3 contexts, byte-identical. MET for the engine; the plugin uses wall-clock time, so bit-exact *replay* additionally needs clock pinning - see Followup.
-- Live scenario trigger: NOT MET, item 7 not started.
+- **The hard rule proven at the incident level, not just the data level.** With `disk-fill` running, the *first* alert Netdata raised was `ml_1min_node_ar` at a 1.02% node anomaly rate on sim-db-01 - its own ML detecting the injected fault roughly 18 minutes before the disk threshold could fire. Anomaly rate ranked the fleet correctly too: sim-db-01 1.02%, sim-web-01 0.76%, sim-cache-01 0.43%, matching the manifest's blast radius ordering. Nothing was faked; the scenario moved generator inputs and the real ML and health engine did the rest.
+- Live scenario trigger: MET. `scripts/scenario.sh trigger disk-fill` moved the targeted mount from 11.4% to 28.3% used over five minutes while the untouched mount on the same node stayed flat at ~69%, confirming instance-scoped targeting.
 - Local verification capped at 5 vnodes. MET.
 
 Tests or equivalent validation:
@@ -304,9 +310,9 @@ Done:
 
 Remaining, in this SOW:
 
-- Item 7: scenario engine, one hero scenario, live trigger, ground-truth manifest.
-- Item 8: thin console.
-- Baseline is 50 contexts against a 60-80 target. The gap is disk and network per-instance cardinality: real proc.plugin emits one chart instance per block device and per interface sharing a context, and the generator model has no instance concept yet. This is the single biggest remaining fidelity gap in the baseline - a node with exactly one unnamed disk chart reads as wrong to an SRE.
+- Item 8: thin console. The interim control surface is `scripts/scenario.sh` (list / status / trigger / resolve), which writes the same control file the console will.
+- Four of the five hero scenarios in `spec.md` are unwritten: memory leak to OOM cascade, DB replication lag, noisy neighbour, flapping edge links. The engine supports all four effect shapes they need.
+- Correlated logs. Decision 4A settled the mechanism (per-host journal files in `/var/log/journal/remote/`) but no work item for it exists in this SOW's plan. Needs its own SOW.
 
 Tracked elsewhere:
 
