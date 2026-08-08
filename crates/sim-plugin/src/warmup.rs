@@ -76,6 +76,9 @@ pub fn active(
     }
 
     ScenarioSet::new(vec![ActiveScenario {
+        // Warm-up incidents run their own timeline and are never resolved by
+        // hand; they simply stop when the window closes.
+        recovering_since: None,
         scenario: minor(usable[pick]),
         started_at,
     }])

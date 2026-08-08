@@ -54,6 +54,13 @@ signals, plus a **ground-truth manifest**.
   Targeting by **role** keeps a scenario correct after a re-skin.
 - Effects compound across scenarios; `recover` scales the accumulated fault
   back toward neutral rather than adding another multiplier.
+- **Resolve unwinds rather than deletes.** Pressing resolve sets
+  `recovering_since` on the control entry and the fault eases to neutral over
+  `RECOVERY_SECONDS` (180s, smoothstep). Deleting the entry cleared the fault
+  between two samples, which reads as a rendering glitch rather than a system
+  recovering. The console prunes finished entries; the plugin still never writes
+  `control.yaml`. Re-triggering mid-recovery cancels the unwind and keeps the
+  original `started_at`.
 - `requires_roles` means an environment lacking those roles is not offered the
   scenario, rather than offered a button that cannot work.
 - `hostname_suffix` pins a fault to one node of a role. Role alone is right for

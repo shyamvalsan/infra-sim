@@ -36,6 +36,23 @@ pub struct ActiveScenario {
     pub scenario: Scenario,
     /// Unix seconds at which the timeline's `at: 0` falls.
     pub started_at: i64,
+    /// Unix seconds at which resolve was pressed, if it has been.
+    pub recovering_since: Option<i64>,
+}
+
+impl ActiveScenario {
+    /// How much of this scenario's fault still applies, 1.0 down to 0.0.
+    ///
+    /// Eased rather than linear: a fault that unwinds fastest at the start and
+    /// tails off is what a system draining a backlog actually does, and it
+    /// keeps the last of the recovery visible instead of clipping it.
+    pub fn strength(&self, now: i64) -> f64 {
+        let Some(since) = self.recovering_since else {
+            return 1.0;
+        };
+        let t = ((now - since) as f64 / crate::RECOVERY_SECONDS as f64).clamp(0.0, 1.0);
+        1.0 - t * t * (3.0 - 2.0 * t)
+    }
 }
 
 /// All scenarios known to the runtime and which of them are running.
@@ -102,7 +119,10 @@ impl ScenarioSet {
                     fault *= step.effect.multiplier_at(elapsed);
                 }
             }
-            // Blend both contributions back toward neutral as recovery runs.
+            // Blend both contributions back toward neutral as recovery runs -
+            // whether that recovery came from the scenario's own timeline or
+            // from an operator pressing resolve.
+            let recovery = recovery * a.strength(now);
             out.multiplier *= 1.0 + (fault - 1.0) * recovery;
             out.additive += added * recovery;
         }
@@ -166,6 +186,7 @@ timeline:
     #[test]
     fn a_ramp_moves_the_targeted_signal_only() {
         let set = ScenarioSet::new(vec![ActiveScenario {
+            recovering_since: None,
             scenario: scenario(RAMP),
             started_at: 1_000,
         }]);
@@ -188,6 +209,7 @@ timeline:
     fn effects_are_inert_before_their_offset() {
         let yaml = RAMP.replace("at: 0s", "at: 500s");
         let set = ScenarioSet::new(vec![ActiveScenario {
+            recovering_since: None,
             scenario: scenario(&yaml),
             started_at: 1_000,
         }]);
@@ -201,10 +223,12 @@ timeline:
     #[test]
     fn two_scenarios_on_one_signal_compound() {
         let a = ActiveScenario {
+            recovering_since: None,
             scenario: scenario(RAMP),
             started_at: 1_000,
         };
         let b = ActiveScenario {
+            recovering_since: None,
             scenario: scenario(&RAMP.replace("name: disk-fill", "name: other")),
             started_at: 1_000,
         };
@@ -212,6 +236,42 @@ timeline:
         // Each contributes 2.0 at the halfway point.
         let m = set.multiplier("sim-db-01", Some("db"), "", "disk_space_used_kb", 1_050);
         assert!((m - 4.0).abs() < 1e-9, "got {m}");
+    }
+
+    #[test]
+    fn pressing_resolve_unwinds_the_fault_over_the_recovery_window() {
+        let scenario = Scenario::from_yaml(
+            "version: 1\nname: t\ndescription: d\nmanifest:\n  root_cause: r\n\
+             timeline:\n  - at: 0s\n    description: s\n    target:\n      signal: cpu_busy\n\
+             \x20   effect: step\n    multiplier: 5.0\n",
+        )
+        .unwrap();
+        let at = |recovering: Option<i64>, now: i64| {
+            ScenarioSet::new(vec![ActiveScenario {
+                scenario: scenario.clone(),
+                started_at: 0,
+                recovering_since: recovering,
+            }])
+            .perturbation("h", None, "", "cpu_busy", now)
+            .multiplier
+        };
+        assert_eq!(at(None, 600), 5.0, "untouched while running");
+
+        // Immediately after resolve the fault is still at full strength, and it
+        // is gone by the end of the window - the point being that it passes
+        // through every value in between instead of snapping.
+        assert!((at(Some(600), 600) - 5.0).abs() < 1e-6);
+        let mid = at(Some(600), 600 + crate::RECOVERY_SECONDS / 2);
+        assert!(mid > 1.0 && mid < 5.0, "mid-recovery was {mid}");
+        assert!((at(Some(600), 600 + crate::RECOVERY_SECONDS) - 1.0).abs() < 1e-6);
+
+        // Monotonic: recovery never briefly makes the fault worse.
+        let mut prev = f64::MAX;
+        for step in 0..=crate::RECOVERY_SECONDS {
+            let v = at(Some(600), 600 + step);
+            assert!(v <= prev + 1e-9, "recovery went backwards at {step}s");
+            prev = v;
+        }
     }
 
     #[test]
@@ -232,6 +292,7 @@ timeline:
     over: 100s
 "#;
         let set = ScenarioSet::new(vec![ActiveScenario {
+            recovering_since: None,
             scenario: scenario(yaml),
             started_at: 0,
         }]);
@@ -258,6 +319,7 @@ timeline:
     amount: 2.0
 "#;
         let set = ScenarioSet::new(vec![ActiveScenario {
+            recovering_since: None,
             scenario: scenario(yaml),
             started_at: 0,
         }]);
@@ -288,6 +350,7 @@ timeline:
     over: 100s
 "#;
         let set = ScenarioSet::new(vec![ActiveScenario {
+            recovering_since: None,
             scenario: scenario(yaml),
             started_at: 0,
         }]);
@@ -307,6 +370,7 @@ timeline:
             "target: { signal: disk_space_used_kb, hostname: sim-db-01, instance: \"/var/lib/pgsql\" }",
         );
         let set = ScenarioSet::new(vec![ActiveScenario {
+            recovering_since: None,
             scenario: scenario(&yaml),
             started_at: 1_000,
         }]);
@@ -338,6 +402,7 @@ timeline:
             "target: { signal: cpu_busy, role: web }",
         );
         let set = ScenarioSet::new(vec![ActiveScenario {
+            recovering_since: None,
             scenario: scenario(&yaml),
             started_at: 1_000,
         }]);

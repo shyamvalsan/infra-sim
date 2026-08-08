@@ -814,6 +814,7 @@ mod tests {
         );
         let sc = Scenario::from_yaml(&yaml).expect("test scenario parses");
         ScenarioSet::new(vec![crate::ActiveScenario {
+            recovering_since: None,
             scenario: sc,
             started_at: 1_700_000_000,
         }])

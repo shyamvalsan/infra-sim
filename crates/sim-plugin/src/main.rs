@@ -516,8 +516,35 @@ fn run() -> Result<(), String> {
     }
     let mut replay_clock = args.replay_from;
 
+    // The path netdata launched us from. Teardown removes this file, and seeing
+    // it go is our cue to exit *cleanly* - see `own_path_removed` below.
+    let own_path = std::env::args()
+        .next()
+        .map(PathBuf::from)
+        .filter(|p| p.exists());
+
     loop {
         sleep_until(next);
+
+        // Exit 0 when our own plugin file is removed.
+        //
+        // netdata disables a plugin that "exited abnormally" - dying from a
+        // signal counts - and the flag survives until the agent restarts
+        // (netdata/netdata @ c23face0bd94 src/plugins.d/plugins_d.c:86-91,
+        // `plugin_set_disabled`). So a fleet installed after a teardown would
+        // never be launched: correct files on disk, no process, nothing logged.
+        //
+        // Exiting cleanly the moment the file disappears means netdata takes the
+        // success path instead, keeps the plugin enabled, and starts the next
+        // fleet on its own scan.
+        if own_path.as_deref().is_some_and(|p| !p.exists()) {
+            eprintln!(
+                "infra-sim: plugin file removed - exiting cleanly so the agent keeps it enabled"
+            );
+            out.flush().map_err(write_err)?;
+            return Ok(());
+        }
+
         let tick_at = match replay_clock {
             Some(t) => {
                 replay_clock = Some(t + update_every);

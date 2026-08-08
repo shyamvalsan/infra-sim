@@ -16,6 +16,12 @@ use std::sync::Arc;
 
 use sim_spec::{Accumulate, GeneratorSpec, NoiseKind, Shape, Signal, Total};
 
+/// How long a resolved scenario takes to unwind, in seconds.
+///
+/// Long enough that an SRE watching the chart sees the system recover rather
+/// than a value being reset; short enough to fit inside a demo.
+pub const RECOVERY_SECONDS: i64 = 180;
+
 pub mod control_file;
 pub mod describe;
 pub mod fidelity;

@@ -1,603 +1,278 @@
 # Infra-Sim
 
-Synthetic infrastructure for Netdata. Generates realistic simulated fleets —
-nodes, metrics, and injected problem scenarios — that the **real** Netdata
-pipeline processes live.
+Generates simulated infrastructure (nodes, metrics, logs, injected faults) that a
+real Netdata agent collects and processes. ML trains on it, the health engine
+alerts on it, Netdata AI investigates it.
 
-## The one hard rule
+Built for sales engineers who need a demo shaped like the prospect's own estate,
+and for producing incidents on cue.
 
-**Synthetic world, live product.**
+## The rule
 
-Only the raw data is simulated. Everything downstream is the real product: ML
-actually trains and detects, the health engine actually raises alerts, Netdata
-AI actually investigates. Nothing downstream of data injection is ever scripted
-or mocked — no canned AI responses, no fake alert states, no mocked dashboards.
+Only the raw data is simulated. Nothing downstream is mocked: no canned AI
+responses, no fake alert states, no scripted dashboards.
 
-Every simulated environment is labelled as one. Each node carries
-`simulated=true`, applied by the runtime and not overridable from an
-environment file.
-
-This is verifiable, not a claim. On a live agent running the example
-environment, Netdata creates its own `anomaly_detection.*` charts per simulated
-node and trains on them with no special casing:
-
-```
-sim-db-01   anomaly_detection.ml_running = 1
-sim-db-01   netdata.training_status      = untrained 12.6, trained 10.4
-```
+Every simulated environment is labelled as one. Nodes carry `simulated=true`,
+hostnames are prefixed, and the console shows a SIMULATED badge.
 
 ## Status
 
-The first vertical slice is complete and validated end to end on a live agent.
+Working: 261 integrations, 7 node roles, 6 hero scenarios, correlated logs,
+Prometheus exporters, OTLP, a control console covering create/claim/demo/reskin/
+teardown.
 
-**Working:**
+Not done: 50+ node scale test, the eval gym (P2).
 
-- Declarative generator spec format; deterministic seeded engine (same
-  environment + seed replays identically, bit-exact with `--replay-from`).
-- plugins.d emitter with virtual nodes, per-instance cardinality (one chart per
-  disk / interface / mount) and chart labels so stock health templates attach.
-- A 70-context Linux baseline plus five service specs (nginx, postgres, redis,
-  containers, kubernetes) composed per node.
-- Four environment templates; five hero scenarios with ground-truth manifests,
-  triggerable live.
-- Two-layer fidelity harness (pinned-signal + semantic checks). It has found
-  seven real bugs that were live.
-- Control console covering the full lifecycle: create (role counts + collector
-  checkboxes, lint-gated install), preflight, scenario controls, claim, and
-  guided teardown with archive.
-- Environment authoring by hand, from a text description (offline or
-  LLM-backed), or by re-skinning a warm fleet without touching GUIDs.
-- Correlated logs — one journal source per node, fault lines matched on signals.
-- OpenTelemetry: an OTLP emitter showcase, and a collector-fleet generator spec.
+Product definition is `spec.md`. What is actually built is described in
+`.agents/sow/specs/`.
 
-**Not built:** the eval gym, additional verticals beyond the five service specs,
-and packaging for someone who did not build it. See `.agents/sow/` for what is
-tracked and `spec.md` for the full product definition.
+## Requirements
 
-**Proven, not claimed.** With `disk-fill` running, Netdata's own ML raised
-`ml_1min_node_ar` about 18 minutes before any threshold alert and ranked the
-fleet in the manifest's blast-radius order; the health engine then raised
-`disk_space_usage` WARNING on exactly the mount the manifest names as root
-cause; and that node's logs showed Postgres reporting no space left on that
-same mount, while the other nodes stayed quiet. Nothing in that chain is
-scripted.
+- Rust (stable), `cargo build --release`
+- A local Netdata agent
+- Root, for anything that writes under `/etc/netdata`
+- `systemd-journal-remote`, only for correlated logs
 
-## How it works
-
-Infra-Sim is an **external plugin** speaking Netdata's plugins.d protocol. It
-needs no agent fork, no monorepo PR, and no go.d module: `HOST_DEFINE` is
-available to external plugins and creates real Netdata virtual nodes.
-
-```
-environment.yaml  ──┐
-                    ├──►  infra-sim  ──plugins.d──►  netdata agent  ──►  Cloud
-generator spec    ──┘     (Rust)                     (ML, health, AI)
-   + seed
-```
-
-An `environment.yaml`, its generator spec, and the seed fully determine the
-emitted stream. Archive those three and a past demo replays identically.
-
-### A vnode's dashboard is exactly what you emit
-
-There is no automatic "System Overview" section. Netdata builds dashboard menus
-from the contexts present on a node, so a plugin emitting six contexts produces
-a node with six charts. For reference, a real Linux host on the same agent
-carries **188 OS-baseline contexts across 312 chart instances**.
-
-This is the single biggest driver of effort in this project. Details and
-measurements: `prototypes/vnode-probe/FINDINGS.md`.
-
-## Quick start
-
-**New here? Read [docs/QUICKSTART.md](docs/QUICKSTART.md)** — zero to a running
-fleet with a live incident, including the warm-up timing that decides whether a
-demo lands.
-
-Requires a running Netdata agent and a Rust toolchain.
+## Console
 
 ```bash
 cargo build --release
-
-# Simulate 72 hours and fail on fidelity violations. No agent needed.
-./target/release/infra-sim --environment environments/web-stack.yaml --lint 72
-
-# Install into the local agent. Runs the lint first and refuses to install if
-# it fails. The agent rescans for new plugins every 60s.
-./scripts/install-local.sh
-
-curl -s localhost:19999/api/v3/nodes | grep sim-
+sudo ./target/release/infra-sim-console --repo "$PWD"
+# http://127.0.0.1:8080
 ```
 
-Remove it again:
+Two tabs.
+
+**Build** describes an estate in plain English, turns it into an editable fleet,
+and installs it:
+
+1. Type what the prospect runs. "20 Java app servers behind a pair of HAProxy
+   boxes, a 3-node Postgres cluster, Redis for sessions, Elasticsearch for logs."
+2. Press *Build the fleet*. Optionally set a fleet size and the groups scale to
+   it, keeping the ratio between tiers.
+3. Edit the result. Search 261 integrations, change counts, add or remove groups.
+4. Name it and press *Create & install*. The name fixes the seed and every node
+   GUID, so it cannot change later without orphaning history.
+
+Creation runs a fidelity lint over N simulated hours first and refuses to install
+a fleet that fails it.
+
+The same tab holds Cloud claiming (token plus optional room id), re-skin, and
+teardown.
+
+**Run** is the demo surface: preflight verdict, scenario triggers with escalate
+and rewind, and the live node table.
+
+Reading a description needs a model key in a gitignored `.env` beside the repo:
 
 ```bash
-sudo rm -rf /etc/netdata/custom-plugins.d/infra-sim.plugin /etc/netdata/infra-sim
-sudo systemctl restart netdata
+echo 'LLM_API_KEY=...' >> .env      # llm.netdata.cloud
 ```
 
-Simulated nodes persist in the agent's database after removal — a vnode GUID is
-a durable identity, which is what makes the re-skin workflow possible.
+`ANTHROPIC_API_KEY` and `OPENAI_API_KEY` work too. The console offers only
+providers whose key it can find. `sudo` strips the environment, so `.env` is the
+only place the key reliably survives.
 
-## The console
+### Model choice
 
-The full lifecycle — create, claim, warm up, demo, tear down — from one screen.
+The plan contract needs a strict `json_schema` response format and not every
+model honours one. Measured on `llm.netdata.cloud` against a real request:
 
-```bash
-sudo ./target/release/infra-sim-console
-# then open http://127.0.0.1:8080
-```
-
-Root is required: create writes under `/etc/netdata`, manages the plugin
-process, and claim reads the agent's local-proof file. Shelling out to `sudo`
-per action would put a password prompt in the middle of a demo instead.
-
-Two tabs: **Build** and **Run**.
-
-- **Describe the estate** — type what the prospect runs, in the words they used
-  it. "6 nginx web servers behind two haproxy load balancers, a 3-node postgres
-  cluster and an elasticsearch cluster of 3" fills the fleet below, which you
-  then edit. Read offline by keyword matching, or by a real model. Put a key in
-  a gitignored `.env` beside the repo — `LLM_API_KEY` for Netdata's own gateway,
-  or `ANTHROPIC_API_KEY` / `OPENAI_API_KEY` — and the console offers it. The key
-  never reaches a web form or a command line.
-- **Fleet** — a list of groups, each one *N nodes of a role running these
-  integrations*. Two groups can share a role and differ in software, because
-  "6 nginx web servers and 3 Elasticsearch nodes" is two groups, not nine nodes
-  running both. The picker searches **261 integrations** with Netdata's own
-  icons; the six hand-authored ones are badged `DEEP`. Builds
-  `environment.yaml`, runs the fidelity lint, and **refuses to install a fleet
-  that fails it**. A template fills the form rather than being installed
-  directly, so one code path builds every environment.
-- **Simulate Prometheus exporters** — a checkbox. See below.
-- **Preflight** — a green board it verifies against the live agent, not a
-  checklist it trusts you to have done.
-- **Scenarios** — trigger, resolve, and move the demo clock. **Escalate** pushes
-  a running scenario forward through its own authored timeline rather than
-  applying a separate intensity knob, so severity and the ground-truth manifest
-  can never disagree. The same control rewinds.
-- **Re-skin** — rename the running fleet for a new prospect. GUIDs are never
-  touched, so it keeps its history, trained ML and alert log.
-- **Connect to Netdata Cloud** — a claim token and an optional room id. One
-  claim covers the whole fleet. The token goes straight to the agent and is
-  never stored, logged, or written to any file, and is cleared from the page as
-  soon as it is used.
-- **Tear down** — its own section, and it leaves nothing behind: disarms
-  scenarios, removes the plugin *and* stops its process (either alone is not
-  enough), stops the logs writer and deletes that fleet's journal files, stops
-  the exporters and removes the config they added to Netdata, archives the
-  environment/seed/manifests, then removes the install directory. Cloud-side
-  steps stay manual and say so.
-
-### Warm-up incidents
-
-`warmup_incidents: true` (on by default in generated environments and the
-committed templates) runs minor, auto-resolving faults on a deterministic
-schedule — roughly one every six hours, twenty minutes long, drawn from the
-scenarios the fleet can host.
-
-A fleet whose alert log is empty reads as a fleet nothing has ever happened to,
-which is the opposite of a real estate. These give the alert log and anomaly
-history texture before a live session.
-
-Nothing is stored and no timer runs: which incident is active at time *t* is a
-pure function of `(seed, t)`. That keeps the replay promise, means the plugin
-never writes `control.yaml` (the console owns it), and lets a restart resume
-mid-incident with no state to lose. Each one runs only the opening stretch of a
-scenario's timeline, so it never looks like the hero demo an SE will trigger
-deliberately. A deliberately triggered scenario always suppresses them.
-
-## Building an environment from a description
-
-Rather than hand-writing `environment.yaml`, describe the stack:
-
-```bash
-./target/release/infra-sim \
-  --describe "3 web servers behind an nginx load balancer, a postgres primary and 2 redis caches" \
-  --name acme --environment environments/acme.yaml
-```
-
-That runs offline against a keyword parser — no API key, no network. For a
-description written in the prospect's vocabulary rather than ours, add `--llm`:
-
-```bash
-echo 'LLM_API_KEY=...' >> .env   # Netdata's own gateway; .env is gitignored
-                                 # ANTHROPIC_API_KEY / OPENAI_API_KEY also work
-
-./target/release/infra-sim --llm netdata \
-  --describe "Our checkout tier runs on six boxes fronted by an ALB, with an \
-Aurora writer, two ElastiCache nodes and an SQS queue" \
-  --name acme --environment environments/acme.yaml
-```
-
-```
-   2 x lb                 acme-alb-NN                nginx        <- "fronted by an ALB"
-   6 x web                acme-checkout-NN           nginx        <- "checkout tier on six boxes"
-   1 x db                 acme-aurora-NN             postgres     <- "an Aurora writer"
-   2 x cache              acme-elasticache-NN        redis        <- "two ElastiCache nodes"
-
-not modelled, so nothing was generated for these:
-  "an SQS queue - no generator spec models a message broker"
-```
-
-**The model returns a plan, never YAML.** It chooses among the roles and service
-specs that exist in this repository, says how many of each and what to call
-them; the same deterministic renderer used by the offline path writes the file.
-So a model that misreads produces a wrong-but-visible fleet the SE corrects,
-rather than an environment naming a signal no generator defines — which fails
-silently, mid-demo, with nothing in any log to explain it. Anything it cannot
-map is reported instead of substituted, and GUIDs stay derived from hostnames,
-so regenerating never orphans a running fleet's history.
-
-Whichever path produced it, lint before trusting it:
-
-```bash
-./target/release/infra-sim --environment environments/acme.yaml --lint 72
-```
-
-Options: `--llm anthropic|openai`, `--llm-model MODEL`, `--llm-key-env VAR`.
-`$ANTHROPIC_BASE_URL` / `$OPENAI_BASE_URL` point at an internal gateway. The key
-is read from the environment and handed to `curl` over stdin, so it never
-appears in the process table — and it is never written to the environment file.
-
-This is authoring-time only. `spec.md`'s non-goal is per-datapoint LLM
-generation; the runtime is deterministic code with no inference in the data
-path.
-
-### Not every model can do this
-
-The plan contract needs a **strict `json_schema` response format**, and not
-every model honours one. Measured against `llm.netdata.cloud` on a real request
-(262-service enum, ~7.7k-character prompt):
-
-| Model asked for | Actually answered | Structured output | Time |
+| Asked for | Answered as | Structured output | Time |
 |---|---|---|---|
-| `k3` (default) | `k3` | honoured | 10-24s |
-| `glm-5.2-max` | `glm-5.2-max` | **ignored** — prose | ~24s |
-| `deepseek-v4-flash` | **`MiniMax-M3`** | **ignored** — prose | ~24s |
+| `k3` (default) | `k3` | yes | 10-24s |
+| `glm-5.2-max` | `glm-5.2-max` | no, prose | ~24s |
+| `deepseek-v4-flash` | `MiniMax-M3` | no, prose | ~24s |
 
-A gateway may answer as a different model than the one asked for, so a
-JSON-parse failure names the model that actually replied. Override the default
-with `--llm-model`, and set `INFRA_SIM_LLM_DEBUG=1` to see the exchange.
+A gateway can answer as a different model than the one requested, so a
+JSON-parse failure names the model that actually replied. Override with
+`--llm-model`; set `INFRA_SIM_LLM_DEBUG=1` to see the exchange.
 
-## Network devices
-
-Switches, routers and firewalls are a node class of their own, not a service
-composed onto Linux. Pick the **network-device** role and the node carries
-`specs/network-device.yaml` as its own base: 26 ports, per-port traffic,
-packets, errors, discards, status and speed, plus device CPU, memory and uptime
-— and **no** Linux contexts, because a switch has no `/var` to fill.
-
-Contexts follow the naming Netdata's own SNMP collector produces
-(`snmp.device_prof_*`), and the metric set is the universal one from the
-standard IF-MIB that every device reports.
-
-One fleet can hold both classes; a node's optional `generator:` overrides the
-fleet's.
-
-The hero scenario is `switch-uplink-degrading` — a dirty fibre connector on one
-uplink of one switch. **The link never goes down**, which is the point: a
-link-state check reports the switch healthy throughout, while CRC errors and
-discards climb on that one port, goodput falls, and the servers behind it see
-latency rise. Finding it means correlating one port with the tier behind it.
-
-## Simulated Prometheus exporters
-
-Prospects run their own services, instrumented with a Prometheus client library.
-Tick **Simulate Prometheus exporters** and each node publishes a real `/metrics`
-endpoint that **Netdata's own `go.d prometheus` collector** scrapes and charts —
-the charts are Netdata's work, not ours.
+## Command line
 
 ```bash
-# or run it by hand, like the logs process
+# build an environment from a description
+./target/release/infra-sim --llm netdata \
+  --describe "3 web servers behind an nginx load balancer, a postgres primary" \
+  --name customer-a --environment environments/customer-a.yaml
+
+# check it before trusting it
+./target/release/infra-sim --environment environments/customer-a.yaml --lint 72
+
+# install
+sudo cp target/release/infra-sim /etc/netdata/custom-plugins.d/infra-sim.plugin
+```
+
+The agent picks up a new plugin within 60s.
+
+Without `--llm` the description is read by an offline keyword parser. It resolves
+any integration named in the text but understands less phrasing.
+
+## Node classes
+
+Most nodes are Linux servers: the fleet's `generator:` is the Linux baseline and
+service specs compose on top.
+
+Network devices are not. A `network-device` node carries
+`specs/network-device.yaml` as its own base via a per-node `generator:` override:
+26 ports, per-port traffic, packets, errors, discards, status and speed, plus
+device CPU, memory and uptime. No Linux contexts, because a switch has no `/var`
+to fill. Contexts follow the naming Netdata's SNMP collector produces
+(`snmp.device_prof_*`).
+
+One fleet can hold both.
+
+## Integrations
+
+`integrations/catalogue.json` lists 261, synced from Netdata's own collector
+metadata by `scripts/sync-integrations.py`.
+
+Six are hand-authored (`nginx`, `postgres`, `redis`, `containers`, `kubernetes`,
+`otel-collector`), badged DEEP in the picker. Their signals are causally coupled
+and hero scenarios target them by name.
+
+The rest are generated: correct contexts, units, chart types and dimension names,
+with a value profile derived from the unit. Signals move independently and no
+scenario targets them. All 258 pass the 6-hour fidelity lint.
+
+A labelled scope (per database, per index) is modelled as one representative
+instance.
+
+To resync after a Netdata update:
+
+```bash
+python3 scripts/sync-integrations.py --netdata /path/to/netdata
+```
+
+## Scenarios
+
+A scenario is a timeline of effects over generator signals plus a ground-truth
+manifest naming the root cause, causal chain, blast radius and expected finding.
+The manifest is authored with the scenario, never reconstructed from what the
+product did.
+
+| Scenario | What it demonstrates |
+|---|---|
+| `disk-fill` | A database volume filling, projected exhaustion |
+| `db-replication-lag` | Replica falling behind, application-visible staleness |
+| `memory-leak-oom` | Slow leak to OOM kill |
+| `noisy-neighbour` | One tenant starving others on shared hardware |
+| `flapping-edge-links` | Intermittent physical-layer trouble on an uplink |
+| `switch-uplink-degrading` | A dirty optic. The link never goes down, so link-state monitoring sees nothing while errors climb and the tier behind it slows |
+
+Faults move signals, not charts, so a fault propagates into every context that
+signal feeds.
+
+Targets select by signal plus optional hostname, hostname suffix, role or
+instance. `hostname_suffix` pins a physical fault to one node of a role and
+survives a re-skin.
+
+Resolving a scenario unwinds it over three minutes rather than clearing it
+between two samples.
+
+`warmup_incidents: true` runs minor auto-resolving faults on a deterministic
+schedule so the alert log has texture before a session.
+
+## Correlated logs
+
+A separate process, not part of the metrics plugin.
+
+```bash
+sudo apt-get install systemd-journal-remote
+./scripts/logs.sh start|status|stop
+```
+
+Each node becomes its own log source in Netdata. Fault lines are matched on
+signals rather than scenario names, so any scenario moving a modelled signal
+produces matching logs.
+
+Healthy nodes log nothing above `notice`. There are no access logs: a node
+reporting 1,200 req/s while its logs show three lines a second is a contradiction
+an SRE notices, and journald would not hold them anyway.
+
+## Prometheus exporters
+
+Optional. Each node publishes a real `/metrics` endpoint that Netdata's own go.d
+prometheus collector scrapes and charts.
+
+```bash
 sudo ./target/release/infra-sim --exporters --environment /etc/netdata/infra-sim/environment.yaml
 curl http://127.0.0.1:19998/metrics/<hostname>
 ```
 
-The metrics are deliberately application-level — orders, carts, payment
-declines, queue depth, worker pools, a latency summary — because Netdata's own
-collectors already cover the infrastructure layer, and emitting CPU here would
-put the same series on a node twice.
+Metrics are application-level (orders, carts, payment declines, queue depth,
+worker pools, a latency summary) so nothing duplicates a chart the agent already
+collects.
 
 The console writes the scrape jobs to `/etc/netdata/go.d/prometheus.conf` and
-the matching vnode entries to `/etc/netdata/vnodes/infra-sim.conf`, with
-`vnode: <hostname>` on each job so the scraped charts land on the **same virtual
-node** as the plugins.d ones. Both files carry a marker line and are never
-overwritten without it; teardown removes only files carrying that marker.
-
-go.d reads its vnode registry once at startup, so the console restarts
-`go.d.plugin` (the daemon respawns it) — without that, the jobs attribute
-nowhere and nothing says so.
-
-The exporter reads the same `control.yaml` as the metrics plugin, so a triggered
-fault moves application metrics on the same timeline as everything else.
+vnode entries to `/etc/netdata/vnodes/infra-sim.conf`, with `vnode:` on each job
+so scraped charts land on the same virtual node as the plugins.d ones. Both files
+carry a marker line and are never overwritten without it.
 
 ## OpenTelemetry
 
-Two separate things, for two separate conversations.
+Two separate things:
 
-### 1. Send OTLP into Netdata
-
-A made-up application emitting **metrics, logs and traces** over OTLP/gRPC
-straight into Netdata's receiver — no collector in between. For the prospect
-who says "we already run OpenTelemetry".
-
-```bash
-./scripts/otlp.sh                      # builds a venv on first run
-./scripts/otlp.sh --service checkout-api --rps 20
-```
-
-It emits a storefront service: request counters, a latency histogram, in-flight
-gauge, cart value, plus parent/child spans and correlated INFO/WARN/ERROR logs.
-
-What Netdata does with each signal — **probed against agent v2.10.0, not
-assumed**:
-
-| Signal | Ingested | Where it shows up |
-|---|---|---|
-| Metrics | yes | Charts, as `otel.*` contexts. Histograms arrive fully decomposed (`.bucket`, `.count`, `.sum`, `.minmax`) |
-| Logs | yes | The `otel-logs` function, with `service.name`, severity and resource attributes as columns |
-| Traces | yes | Persisted to `/var/log/netdata/otel/v2/traces/` — **but there is no trace viewer on the agent yet**, so spans are stored rather than rendered |
-
-Two limitations worth knowing before you demo it:
-
-- **OTLP does not create Netdata nodes.** Verified by probe: two resources with
-  distinct `host.name` produced no new nodes — both landed on the ingesting
-  host, attributes flattened into `resource.attributes.*` labels, one chart
-  instance per attribute set. Distinct series, one node. So there is no node
-  list, no per-node ML ranking, no node-scoped alerts and no re-skin story on
-  this path. For a fleet, use the plugins.d path (the rest of this README).
-- `trace_id` / `span_id` are not exposed as columns by `otel-logs`, so
-  trace↔log correlation is sent but not currently surfaced.
-
-Observed and not diagnosed: OTLP log timestamps render as year 9999 in the
-agent's function API — the stored value is nanoseconds while the column
-declares a microsecond transform. `systemd-journal` renders correctly, so it is
-specific to this path. Check how it looks in your Cloud dashboard before
-demoing the logs pane.
-
-### 2. Monitor an OTel Collector fleet
-
-`specs/otel-collector.yaml` models a collector's **own** internal telemetry —
-receiver accepted/refused, batch behaviour, dropped points, exporter queue
-against capacity, enqueue failures, send retries, process RSS/CPU.
-`environments/otel-fleet.yaml` places it in the topology people actually run:
-agent collectors beside the application, forwarding to a gateway pair.
-
-```bash
-./target/release/infra-sim --environment environments/otel-fleet.yaml --lint 72
-```
-
-This runs on the plugins.d path, so it is a real multi-node fleet with per-node
-dashboards and ML. The story is a genuine pain point: a collector that silently
-drops telemetry is the worst failure in an observability pipeline, because the
-thing that would have told you is the thing that broke.
-
-## Correlated logs
-
-Each simulated node gets its own log source in Netdata, and the log lines
-follow whatever scenario is running.
-
-```bash
-sudo apt-get install systemd-journal-remote   # one-time
-
-./scripts/logs.sh start
-./scripts/logs.sh status
-./scripts/logs.sh stop
-```
-
-The pipeline:
-
-```text
-infra-sim --logs
-  -> Journal Export Format
-  -> systemd-journal-remote --output=/var/log/journal/remote/remote-<host>.journal
-  -> Netdata's systemd-journal.plugin
-  -> logs UI, one source per node
-```
-
-The journal-remote hop is not optional. journald refuses to let a local client
-set `_HOSTNAME` — it is a *trusted* field — so anything written to the local
-journal is attributed to the machine running the demo. `systemd-journal-remote`
-accepts trusted fields because its whole purpose is ingesting entries formed on
-another host, and that is what gives each simulated node its own identity.
-Netdata reads the files with `cap_dac_read_search`, so they stay root-owned.
-
-### Faults are matched on signals, not scenario names
-
-A log rule fires when a *signal* is perturbed past a threshold — the same
-question the metrics engine asks. Nothing in the log generator knows that
-`disk-fill` exists. Any scenario that drives `disk_space_used_kb` up produces
-disk-full logs, including one written next year, and a scenario that gets
-renamed or retuned cannot drift away from its own logs.
-
-So triggering `disk-fill` makes the database node log this, naming the same
-mount the alert fired on:
-
-```text
-postgres  ERROR:  could not extend file "base/16384/400000": No space left on device
-          HINT:  Check free disk space; relation "orders" on /var/lib/pgsql
-kernel    EXT4-fs warning (device var-lib-pgsql): ext4_has_free_clusters:379: ...
-```
-
-### Two deliberate choices
-
-**No access logs.** A web node reporting 1,200 req/s on its chart while its
-logs show three lines a second is exactly the contradiction an SRE notices, and
-emitting the real volume would be absurd for a demo. Real deployments split it
-the same way — nginx access logs go to a file, only errors reach journald — so
-this emits what journald would actually hold. A healthy node logs nothing above
-`notice`.
-
-**A separate process.** The logs writer shares nothing with the metrics plugin
-but the environment file, the seed and `control.yaml`. Because the engine is a
-pure function of those, both compute the same values for the same tick, so logs
-and metrics correlate by construction rather than by coordination — and the
-writer can be stopped without touching the plugin.
-
-At fleet sizes in the hundreds this should share one journal file and filter on
-the `_HOSTNAME` facet instead; `--split-mode=host` is rejected for stdin
-sources, so per-node files mean one `systemd-journal-remote` per node.
+- `otlp/emit.py` sends metrics, logs and traces for a made-up service over OTLP
+  to Netdata's ingestion endpoint (`./scripts/otlp.sh`). OTLP cannot create
+  virtual nodes, so this lands on the ingesting host.
+- The `otel-collector` integration models a collector fleet as monitored
+  services on the plugins.d path, which keeps per-node dashboards and ML.
 
 ## Writing generator specs
 
-A spec describes contexts and the signals behind them. The format exists to
-make fidelity artifacts *unrepresentable* rather than merely unlikely.
+A spec declares `signals` (base, bounds, seasonality, noise) and `contexts`
+(Netdata context id, units, chart type, dimensions). Contexts reference signals,
+so contexts sharing a signal correlate.
 
-**Signals are shared.** One `cpu_busy` drives `system.cpu`, `system.load` and
-the process counts, so those charts correlate the way a real host's do. That
-correlation is a property of sharing the signal, not of tuning each context.
+Shapes: `independent`, `partition` (a conserved total split across dimensions),
+`counters` (monotonic).
 
-**Conserved quantities use `partition`.** Exactly one dimension is the
-`remainder` and absorbs `total - sum(others)`:
+Signal properties worth knowing:
 
-```yaml
-- id: system.ram
-  shape: partition
-  total: { from: node_attr, name: ram_total_kb }
-  driver: mem_used_kb
-  dimensions:
-    - { id: used,    share: 0.86, divisor: 1024 }
-    - { id: buffers, share: 0.03, divisor: 1024 }
-    - { id: cached,  share: 0.11, divisor: 1024 }
-    - { id: free,    remainder: true, divisor: 1024 }
-```
+- `min_is_floor` / `max_is_ceiling` mark a bound as physical rather than a
+  safety rail
+- `ignore_weight` exempts a signal from its instance's weight, for properties of
+  an instance rather than quantities flowing through it
+- `from_attr` takes the value from a node or instance attribute, for facts that
+  do not vary with time
 
-Conservation is structural. The throwaway probe that preceded this code emitted
-`free = 0` within four minutes by computing each dimension independently and
-clamping the leftover; a `partition` cannot express that bug.
+Details and rationale: `.agents/sow/specs/generator-and-engine.md`.
 
-**Counters integrate a rate.** The spec states units per second and the engine
-accumulates, so emitted counters are monotonic by construction.
-
-**Roles retune, they never restructure.** A role overrides signal parameters
-only — it cannot add or remove contexts — so every node of a spec has an
-identical context set and differs solely in behaviour.
-
-**Per-device contexts declare instancing.** Real collectors emit one chart
-instance per device sharing a context, so a node with a single unnamed disk
-chart reads as wrong immediately:
-
-```yaml
-- id: disk.io
-  instances: { group: disk, chart_prefix: disk, family: "io" }
-```
-
-The node then supplies its devices, with weights and per-device attributes:
-
-```yaml
-instances:
-  disk:
-    - { name: nvme0n1, weight: 1.0 }
-    - { name: nvme1n1, weight: 0.35 }
-  mount:
-    - { name: "/var/lib/pgsql", weight: 1.0, attrs: { disk_total_kb: 1572864000 } }
-```
-
-Chart ids and families follow Netdata's own convention, which is not uniform:
-`disk.io` yields `disk.<dev>` in family `io`, while `net.packets` yields
-`net_packets.<iface>` in family `<iface>`. The spec states it rather than
-guessing. A node with no matching instance group emits no charts for that
-context — correct, since a host without a second disk should not have a chart
-for one.
-
-### Bounds are safety rails, not modelling tools
-
-`min`/`max` should sit outside the range a signal actually reaches. A signal
-pinned to a bound has stopped being modelled and is being clamped, which
-flattens the metric visibly.
-
-The lint enforces this, with one distinction: **zero is always a legitimate
-value** for the non-negative quantities these specs model — a quiet interface
-really does report zero errors — so a floor of `0.0` is never flagged. Any
-other floor is a rail unless declared with `min_is_floor: true`, and every
-ceiling is a rail unless declared with `max_is_ceiling: true`.
-
-## Scenarios
-
-A scenario perturbs generator **inputs** on a timeline. It never fabricates an
-alert, an anomaly score, or a dashboard state — the real health engine and the
-real ML see the perturbed data and reach their own conclusions.
-
-If a scenario runs and Netdata stays quiet, the scenario was too weak. The
-answer is never to fake the alert.
+## Validating
 
 ```bash
-./scripts/scenario.sh list
-./scripts/scenario.sh trigger disk-fill
-./scripts/scenario.sh status
-./scripts/scenario.sh resolve disk-fill
+cargo test
+cargo clippy --all-targets -- -D warnings
+cargo fmt --check
+
+# fidelity lint: simulates N hours and checks for clamped signals, impossible
+# units, broken conservation, stuck values and unresolvable scenario targets
+./target/release/infra-sim --environment environments/web-stack.yaml --lint 72
 ```
 
-Effects begin within one collection interval. The plugin watches a control file
-recording **state, not commands** — which scenarios should be running and since
-when — so re-reading is idempotent, an unrelated edit cannot restart a running
-scenario, and a plugin restart mid-demo resumes at the same offsets instead of
-silently dropping the fault you are presenting.
-
-### Faults move signals, not charts
-
-A scenario targets a *signal*, so the fault propagates into every context that
-signal feeds. That coupling is what produces a coherent blast radius rather than
-one conspicuously anomalous chart:
-
-```yaml
-- at: 0s
-  target: { signal: disk_space_used_kb, hostname: sim-db-01, instance: /var/lib/pgsql }
-  effect: ramp
-  multiplier: 8.2
-  over: 25m
-```
-
-Selectors combine with AND and can name a host, a role, or a single device.
-Targeting by role means a scenario keeps working after a fleet is re-skinned for
-a different prospect.
-
-Effects are `step`, `ramp`, `drift` (compounding, never levels off),
-`oscillate` (flapping) and `recover`. They are multipliers, so a fault composes
-with seasonality and noise instead of replacing them — the same fault looks
-different at 3 a.m. than at peak, as it would in reality. Multiple scenarios on
-one signal compound, so a noisy neighbour plus a slow disk is worse than either
-alone without either scenario knowing about the other.
-
-### Every scenario carries ground truth
-
-```yaml
-manifest:
-  root_cause: sim-db-01 /var/lib/pgsql
-  causal_chain: [...]
-  blast_radius: [sim-db-01, sim-web-01, sim-web-02]
-  expected_finding: ...
-```
-
-Written when the scenario is authored, never reconstructed from what the product
-happened to do — that is the point of scoring against it. The eval gym measures
-time-to-detect and root-cause accuracy from this.
+Changes to a generator, scenario or the runtime are validated against a live
+agent, not only unit tests.
 
 ## Repository layout
 
 ```
-crates/sim-spec/      generator spec format, parsing, validation
-crates/sim-engine/    deterministic execution, seeded RNG, invariants
-crates/sim-plugin/    plugins.d emitter, environment.yaml, fidelity lint
-specs/                generator specs
-environments/         environment definitions
-scenarios/            scenario definitions and their ground-truth manifests
-scripts/              local install, scenario trigger/resolve
-prototypes/           throwaway verification probes and their findings
-.agents/sow/          statement-of-work ledger and specs
+crates/sim-spec      generator and scenario formats
+crates/sim-engine    signal evaluation, scenarios, logs, describe, LLM
+crates/sim-plugin    the Netdata plugin, logs writer, exporter server
+crates/sim-console   control console (HTTP + UI)
+specs/               hand-authored generator specs
+specs/generated/     synced from Netdata collector metadata
+scenarios/           fault timelines with ground-truth manifests
+environments/        committed fleet templates
+integrations/        the picker's catalogue
+.agents/sow/specs/   what the project currently does, and why
 ```
 
-## Contributing
+## Known issues
 
-Most of this repository is content, not Rust: generator specs, environment
-templates, and scenario definitions are YAML. Adding a context to a simulated
-node means editing a spec file.
+`SOW-0008`: hand-authored specs are narrower than the generated equivalents for
+the same software (Postgres emits 15 contexts where Netdata's collector emits
+70). Composing them collides on context ids. Options are recorded in the SOW and
+need a decision.
 
-Before non-trivial work, read `AGENTS.md` — it carries the project's runtime
-rules, including the requirement that generator and runtime changes are
-validated against a live agent, not only unit tests.
-
-## Licence
-
-GPL-3.0-or-later, matching the Netdata agent.

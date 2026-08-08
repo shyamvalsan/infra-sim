@@ -107,6 +107,7 @@ impl ControlChannel {
             still_running.insert(entry.scenario.clone(), started_at);
             names.push(entry.scenario.clone());
             active.push(ActiveScenario {
+                recovering_since: entry.recovering_since,
                 scenario: scenario.clone(),
                 started_at,
             });

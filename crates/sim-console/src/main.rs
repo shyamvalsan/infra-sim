@@ -284,11 +284,13 @@ async fn resolve(
     State(app): State<Arc<AppState>>,
     AxumPath(name): AxumPath<String>,
 ) -> impl IntoResponse {
-    mutate(&app, move |c| c.resolve(&name))
+    let now = now_secs();
+    mutate(&app, move |c| c.resolve(&name, now))
 }
 
 async fn resolve_all(State(app): State<Arc<AppState>>) -> impl IntoResponse {
-    mutate(&app, |c| c.resolve_all())
+    let now = now_secs();
+    mutate(&app, move |c| c.resolve_all(now))
 }
 
 fn mutate<F: FnOnce(&mut ControlFile)>(app: &AppState, f: F) -> impl IntoResponse {
@@ -296,7 +298,12 @@ fn mutate<F: FnOnce(&mut ControlFile)>(app: &AppState, f: F) -> impl IntoRespons
     // CLI writes the same file, and whoever wrote last is the truth. Holding a
     // cached copy here would let the console silently revert a CLI trigger.
     let mut control = match ControlFile::load(&app.control_path) {
-        Ok(c) => c,
+        Ok(mut c) => {
+            // The plugin never writes this file, so finished recoveries are
+            // cleared here - the console owns it.
+            c.prune_recovered(now_secs());
+            c
+        }
         Err(e) => return (StatusCode::INTERNAL_SERVER_ERROR, Json(json_err(e))),
     };
     f(&mut control);

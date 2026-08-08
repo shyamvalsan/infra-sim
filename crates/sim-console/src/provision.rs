@@ -659,6 +659,41 @@ pub fn llm_providers(repo: &Path) -> Vec<String> {
         .collect()
 }
 
+/// Wait for the running plugin to notice its file is gone and exit.
+///
+/// Polls `/proc` rather than sleeping blind, so the common case costs a few
+/// milliseconds rather than the whole timeout.
+fn wait_for_plugin_exit(plugin: &Path, timeout: std::time::Duration) -> bool {
+    let deadline = std::time::Instant::now() + timeout;
+    while std::time::Instant::now() < deadline {
+        if !plugin_pids(plugin).is_empty() {
+            std::thread::sleep(std::time::Duration::from_millis(150));
+            continue;
+        }
+        return true;
+    }
+    plugin_pids(plugin).is_empty()
+}
+
+/// PIDs whose argv[0] is exactly this plugin path.
+fn plugin_pids(plugin: &Path) -> Vec<u32> {
+    let Ok(entries) = std::fs::read_dir("/proc") else {
+        return Vec::new();
+    };
+    entries
+        .flatten()
+        .filter_map(|e| e.file_name().to_str()?.parse::<u32>().ok())
+        .filter(|pid| {
+            std::fs::read(format!("/proc/{pid}/cmdline"))
+                .map(|c| {
+                    c.split(|b| *b == 0).next().unwrap_or_default()
+                        == plugin.as_os_str().as_encoded_bytes()
+                })
+                .unwrap_or(false)
+        })
+        .collect()
+}
+
 /// Hostnames declared in an environment file.
 fn hostnames(env_path: &Path) -> Vec<String> {
     std::fs::read_to_string(env_path)
@@ -878,24 +913,8 @@ fn install(repo: &Path, binary: &Path, env_path: &Path, services: &[String]) -> 
 /// Matched on the exact path, never on a name, because this machine may be
 /// running other simulations.
 fn stop_plugin(plugin: &Path) {
-    let Ok(entries) = std::fs::read_dir("/proc") else {
-        return;
-    };
-    for entry in entries.flatten() {
-        let Some(pid) = entry
-            .file_name()
-            .to_str()
-            .and_then(|n| n.parse::<u32>().ok())
-        else {
-            continue;
-        };
-        let Ok(cmdline) = std::fs::read(format!("/proc/{pid}/cmdline")) else {
-            continue;
-        };
-        let argv0 = cmdline.split(|b| *b == 0).next().unwrap_or_default();
-        if argv0 == plugin.as_os_str().as_encoded_bytes() {
-            let _ = Command::new("kill").arg(pid.to_string()).status();
-        }
+    for pid in plugin_pids(plugin) {
+        let _ = Command::new("kill").arg(pid.to_string()).status();
     }
 }
 
@@ -1086,12 +1105,29 @@ pub fn teardown(repo: &Path, control_path: &Path, env_path: &Path) -> Vec<Teardo
     // file - which this project has already spent an hour diagnosing once.
     let plugin = Path::new(PLUGIN_DIR).join("infra-sim.plugin");
     let removed = !plugin.exists() || std::fs::remove_file(&plugin).is_ok();
-    stop_plugin(&plugin);
+    // Removing the file first is what lets the plugin exit with status 0 on its
+    // own. That matters more than it looks: netdata disables a plugin that dies
+    // from a signal and keeps it disabled until the agent restarts, so killing
+    // it here would mean the *next* fleet never launches
+    // (netdata/netdata @ c23face0bd94 src/plugins.d/plugins_d.c:86-91).
+    //
+    // The kill stays as a fallback for a plugin that is wedged, because a
+    // collector outliving its own removal has already cost this project an hour
+    // of debugging once.
+    let exited = wait_for_plugin_exit(&plugin, std::time::Duration::from_secs(4));
+    if !exited {
+        stop_plugin(&plugin);
+    }
     steps.push(TeardownStep {
         name: "Remove the plugin and stop its process".into(),
         done: removed,
-        detail: if removed {
-            "removed so the agent's 60s rescan cannot relaunch it, then stopped by exact path"
+        detail: if removed && exited {
+            "removed; the plugin saw that and exited cleanly, so the agent keeps it enabled \
+             and will start the next fleet on its own"
+                .into()
+        } else if removed {
+            "removed, then stopped by exact path - it did not exit on its own, so the agent \
+             may need a restart before the next fleet starts"
                 .into()
         } else {
             format!("could not remove {}", plugin.display())

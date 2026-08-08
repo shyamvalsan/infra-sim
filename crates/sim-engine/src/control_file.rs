@@ -31,6 +31,16 @@ pub struct ActiveEntry {
     /// on screen from the fault resolving itself.
     #[serde(default)]
     pub started_at: Option<i64>,
+
+    /// Unix seconds at which the operator pressed resolve.
+    ///
+    /// Set rather than deleting the entry, so the fault unwinds over
+    /// `RECOVERY_SECONDS` instead of vanishing between two samples. A fault
+    /// that disappears in one collection interval looks like a rendering
+    /// glitch, and `spec.md` calls showing recovery as persuasive as showing
+    /// failure.
+    #[serde(default)]
+    pub recovering_since: Option<i64>,
 }
 
 impl ControlFile {
@@ -69,21 +79,43 @@ impl ControlFile {
 
     /// Add a scenario, preserving the start time of anything already running.
     pub fn trigger(&mut self, name: &str, now: i64) {
-        if self.is_active(name) {
+        // Re-triggering something mid-recovery cancels the recovery and keeps
+        // the original start time, so the fault resumes where it was rather
+        // than restarting from the top of the timeline.
+        if let Some(e) = self.active.iter_mut().find(|e| e.scenario == name) {
+            e.recovering_since = None;
             return;
         }
         self.active.push(ActiveEntry {
             scenario: name.to_string(),
             started_at: Some(now),
+            recovering_since: None,
         });
     }
 
-    pub fn resolve(&mut self, name: &str) {
-        self.active.retain(|e| e.scenario != name);
+    /// Begin unwinding a scenario. Idempotent: pressing resolve twice does not
+    /// restart the recovery.
+    pub fn resolve(&mut self, name: &str, now: i64) {
+        for e in self.active.iter_mut().filter(|e| e.scenario == name) {
+            e.recovering_since.get_or_insert(now);
+        }
     }
 
-    pub fn resolve_all(&mut self) {
-        self.active.clear();
+    pub fn resolve_all(&mut self, now: i64) {
+        for e in self.active.iter_mut() {
+            e.recovering_since.get_or_insert(now);
+        }
+    }
+
+    /// Drop entries whose recovery has finished.
+    ///
+    /// Called by the console, which owns this file. The plugin never writes it;
+    /// a finished entry simply contributes nothing.
+    pub fn prune_recovered(&mut self, now: i64) {
+        self.active.retain(|e| match e.recovering_since {
+            Some(t) => now - t < crate::RECOVERY_SECONDS,
+            None => true,
+        });
     }
 }
 
@@ -110,13 +142,39 @@ mod tests {
     }
 
     #[test]
-    fn resolve_removes_only_the_named_scenario() {
+    fn resolve_unwinds_only_the_named_scenario_then_prunes_it() {
+        // Resolve used to delete the entry, so the fault vanished between two
+        // samples - on screen indistinguishable from a rendering glitch.
         let mut c = ControlFile::default();
-        c.trigger("disk-fill", 1_000);
-        c.trigger("mem-leak", 2_000);
-        c.resolve("disk-fill");
-        assert!(!c.is_active("disk-fill"));
-        assert!(c.is_active("mem-leak"));
+        c.trigger("disk-fill", 1000);
+        c.trigger("noisy-neighbour", 1000);
+
+        c.resolve("disk-fill", 2000);
+        assert!(c.is_active("disk-fill"), "still present while it unwinds");
+        assert!(c.is_active("noisy-neighbour"));
+
+        // Idempotent: pressing resolve again does not restart the unwind.
+        c.resolve("disk-fill", 2100);
+        let e = c.active.iter().find(|e| e.scenario == "disk-fill").unwrap();
+        assert_eq!(e.recovering_since, Some(2000));
+
+        c.prune_recovered(2000 + crate::RECOVERY_SECONDS - 1);
+        assert!(c.is_active("disk-fill"), "not yet finished");
+
+        c.prune_recovered(2000 + crate::RECOVERY_SECONDS);
+        assert!(!c.is_active("disk-fill"), "gone once it has unwound");
+        assert!(c.is_active("noisy-neighbour"), "untouched");
+    }
+
+    #[test]
+    fn re_triggering_mid_recovery_resumes_rather_than_restarting() {
+        let mut c = ControlFile::default();
+        c.trigger("disk-fill", 1000);
+        c.resolve("disk-fill", 2000);
+        c.trigger("disk-fill", 2050);
+        let e = c.active.iter().find(|e| e.scenario == "disk-fill").unwrap();
+        assert_eq!(e.recovering_since, None, "recovery cancelled");
+        assert_eq!(e.started_at, Some(1000), "timeline position kept");
     }
 
     #[test]
