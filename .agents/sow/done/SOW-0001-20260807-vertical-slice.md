@@ -2,9 +2,9 @@
 
 ## Status
 
-Status: in-progress
+Status: completed
 
-Sub-state: Implementation plan items 1-7 delivered and validated against a live agent. Item 8 (thin console) not started; correlated logs were never in this SOW's plan and need their own. OTEL sim scoping tracked in `SOW-0002` (pending).
+Sub-state: Implementation plan items 1-9 delivered and validated against a live agent. Scope grew during execution by user direction: service spec composition, two further environment templates, clock pinning, the re-skin workflow, semantic fidelity checks, `--describe` (offline and LLM-backed), and correlated logs. OTEL sim tracked in `SOW-0002`; graceful scenario recovery in `SOW-0003`; packaging and SE quickstart in `SOW-0004`.
 
 ## Requirements
 
@@ -321,37 +321,75 @@ Artifact maintenance gate:
 - End-user/operator skills: pending.
 - SOW lifecycle: pending.
 
-Specs update:
+Same-failure search:
 
-- Pending.
+- The clamping class that produced 101.5% utilisation was searched for across every spec: declared ceilings are now never widened by a scenario, and `disk_busy_ms_rate` and `file_nr_utilization` carry `max_is_ceiling`.
+- The mount-sizing class found in `--describe` was searched for in the hand-authored templates: `web-stack` and `k8s-microservices` already size their fillable mounts with headroom (weights 0.9612 and 0.3845), so only the generated path was wrong.
+- The empty-array-expands-to-one-empty-string bash class was searched across `scripts/`: `scenario.sh` had the only occurrence; `install-local.sh` and `logs.sh` use guarded loops.
+- The argv-credential class was searched across the workspace: the LLM key is the only secret any code passes to a child process, and it goes via stdin.
 
-Project skills update:
+Sensitive data gate:
 
-- Pending.
+- No credentials, prospect names or customer-identifying values appear in any committed artifact. LLM keys are read from the environment and passed to `curl` on stdin. Test literals that resembled API keys (`sk-ant-…`) were replaced with `NOT-A-REAL-KEY` so no secret scanner ever matches. Live-agent evidence quoted here is from the user's own workstation and carries no customer identifiers. The `acme-*` fleet used in validation is a generic placeholder, not a real prospect.
 
-End-user/operator docs update:
+Artifact maintenance gate:
 
-- Pending.
-
-End-user/operator skills update:
-
-- Pending.
+- `AGENTS.md` — updated: LLM API keys added to the project-specific credential hazards (including the never-in-argv rule), and a correlated-logs section added to project-specific commands.
+- Runtime project skills — created `.agents/skills/project-live-validation/SKILL.md`. This SOW originally deferred project skills until the slice produced concrete reusable workflow knowledge; it now has (probe-first, what the lint cannot see, the teardown trap, identity rules).
+- Specs — created `.agents/sow/specs/generator-and-engine.md`, `runtime-and-scenarios.md`, `authoring-environments.md`.
+- End-user/operator docs — `README.md` gained the describe/`--llm` and correlated-logs sections; `scripts/install-local.sh` now points at the logs lifecycle.
+- End-user/operator skills — none exist and none were needed; the operator surface is `scripts/*.sh` plus the console, all documented in `README.md`.
+- SOW lifecycle — this SOW moves to `done/` as `completed`; `SOW-0002` remains pending; two new SOWs opened for the deferred items below.
 
 Lessons:
 
-- Pending.
+- **Probe before designing, twice proven.** Both the vnode-completeness question and the journald trusted-field question were settled only by running something. The second probe cost two hand-written journal entries and de-risked the whole logs feature before any generator code existed.
+- **A green lint is not a working demo.** The lint does not run scenarios, so `--describe` shipped mounts that saturate under `disk-fill` while passing every check. Any change that sizes a mount or bounds a signal needs the scenario that targets it actually triggered.
+- **Run the operator surface, do not read it.** Three defects in `logs.sh` and `scenario.sh` — a redirect in the wrong shell, `kill -0` against a root process, an empty array expanding to one empty string — were all invisible on inspection and immediate on execution. Two of them broke demo-critical paths (clearing a fault; detecting a running writer).
+- **Check the negative cases.** What made the logs result credible was not that the db node logged a disk error, but that nine other nodes, two untargeted mounts, and every non-Postgres node stayed silent.
 
 Follow-up mapping:
 
-- Pending.
+- Correlated logs — **implemented in this SOW** (was listed as needing its own SOW; the user's 1A/2C/3B decisions brought it into scope here).
+- Clock pinning for bit-exact replay — **implemented in this SOW** (`--replay-from`).
+- Semantic fidelity lint — **implemented in this SOW** (`sim-engine/src/fidelity.rs`).
+- Teardown must kill the process — **implemented**: `install-local.sh` kills previous PIDs by exact path, `logs.sh` tracks a specific PID, and journal-remote children exit on pipe close. Also recorded in the new project skill.
+- OTEL sim — tracked in `SOW-0002` (pending, decisions already resolved: collector-as-monitored-service first, OTLP vnode probe before scoping an emitter backend).
+- `resolve` snapping a signal back in one tick — **not addressed**; tracked in `SOW-0003`.
+- Packaging and SE quickstart — **not addressed**; tracked in `SOW-0004`.
+- `spec.md` corrections (four, listed under Implications And Decisions) — still proposed, not applied; `spec.md` is user-owned. Unchanged status, awaiting user.
+- Model-quality behaviour of `--llm` against a real provider — unverified, no key available this session; tracked in `SOW-0004` alongside packaging since both need a real end-to-end run.
 
 ## Outcome
 
-Pending.
+Delivered. The vertical slice runs end to end on a live agent and the hard rule holds at every step: only raw data is simulated, and ML, the health engine and the logs UI are the real product operating on it.
+
+What exists:
+
+- A Rust workspace (`sim-spec`, `sim-engine`, `sim-plugin`, `sim-console`) with a declarative generator spec format, a deterministic engine, and a plugins.d runtime that defines virtual nodes.
+- A 70-context Linux baseline plus five service specs (nginx, postgres, redis, containers, kubernetes) composed per node.
+- Four environment templates, three hand-authored and one generated.
+- Five hero scenarios with ground-truth manifests, triggerable live, with targets checked against the environment before they can silently do nothing.
+- A two-layer fidelity harness (pinned-signal plus semantic checks) that found seven real bugs that were live.
+- Environment authoring three ways: hand-written, `--describe` (offline keyword parser or a real Claude/OpenAI model), and `--reskin` for retargeting a warm fleet without touching GUIDs.
+- Correlated logs, one journal source per node, with fault lines matched on signals rather than scenario names.
+
+The clearest single result: with `disk-fill` running, Netdata's own ML raised `ml_1min_node_ar` roughly 18 minutes before any threshold alert could fire and ranked the fleet in the manifest's blast-radius order; the health engine then raised `disk_space_usage` WARNING on exactly the mount the manifest names; and that node's logs showed Postgres reporting no space left on that same mount, while nine other nodes stayed quiet. None of it was scripted.
+
+Honest gaps at close:
+
+- `spec.md` P0's "logs attributed to correct vnodes in logs UI" is not literally achievable — Netdata filters by source facet and `_HOSTNAME`, not by node view. What ships is the closest achievable thing.
+- `--llm` was never called against a real provider; wire format, schema and error paths are proven, model quality is not.
+- Nothing is packaged for a second person to run (`SOW-0004`).
+- Scale beyond 5 vnodes is untested by design; that runs on another machine.
 
 ## Lessons Extracted
 
-Pending.
+- **Probe before designing.** Twice, an assumption that looked settled by source-reading was wrong or incomplete in a way that changed the design: vnode dashboard completeness (which moved the P0 estimate by an order of magnitude) and journald's refusal of trusted fields (which made a `systemd-journal-remote` hop unavoidable). Source-reading is necessary and not sufficient. Both probes were cheap.
+- **A green check is not a working demo.** The lint does not run scenarios, so a generated environment passed every check while being sized to saturate under `disk-fill`. Separately, a 101.5% disk utilisation passed the pinned-signal check and surfaced only through an alert. Each layer of checking is blind to a specific class; know which.
+- **Run the operator surface rather than reading it.** Three defects — a redirect in the unprivileged shell, `kill -0` against a root process, an empty bash array expanding to one empty string — were invisible on inspection and immediate on execution. Two broke demo-critical paths.
+- **Verify the negative cases.** What made the correlated-logs result credible was not the db node logging a disk error; it was the nine other nodes, the two untargeted mounts, and every non-Postgres node staying silent.
+- **Constrain the model, then render deterministically.** Letting an LLM pick from a validated catalogue and having existing code write the file keeps GUIDs derived, output lintable, and the blast radius of a misreading visible rather than silent.
 
 ## Followup
 

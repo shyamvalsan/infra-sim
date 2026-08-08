@@ -269,9 +269,9 @@ Do not create generic `project-*` skills only to make the framework look complet
 
 ### Project Skills Index
 
-None yet.
+- `project-live-validation` — how to validate against a live agent. Load before changing a generator spec, the engine, a scenario, the plugins.d runtime or the logs writer, and before claiming any fidelity result.
 
-Project skill creation is **deliberately deferred** until the first vertical slice produces concrete, reusable workflow knowledge — specifically the generator-authoring loop and the fidelity-harness workflow. Creating them now would produce generic filler with no project evidence behind it. This decision is recorded in `SOW-0001`.
+Skill creation was deliberately deferred until the first vertical slice produced concrete, reusable workflow knowledge rather than generic filler. `SOW-0001` produced it: the probe-first rule (proven twice), what each layer of checking is structurally blind to, and the teardown trap.
 
 ### Project-specific commands
 

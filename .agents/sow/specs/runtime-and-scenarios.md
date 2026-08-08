@@ -1,0 +1,132 @@
+# Runtime, vnodes, scenarios and logs
+
+How a simulated fleet reaches Netdata, and how faults are injected. Describes
+current reality as of `SOW-0001`.
+
+## The plugins.d path
+
+`infra-sim` is a Netdata external plugin (`/etc/netdata/custom-plugins.d/`).
+The agent rescans for new plugins every 60s; no restart is needed.
+
+Per node it emits `HOST_DEFINE` / `HOST_LABEL` / `HOST_DEFINE_END`, then
+`CHART` / `DIMENSION` / `CLABEL` / `CLABEL_COMMIT` declarations, then `BEGIN` /
+`SET` / `END` per tick.
+
+**Verified against a live agent, not assumed:** a vnode's dashboard is exactly
+what the plugin emits — the agent adds only its own ML charts (8 per node).
+This changed the P0 estimate by roughly an order of magnitude and is why this
+project runs probes before designing.
+
+### The GUID is the identity
+
+Changing a node's `guid` orphans its history. Changing its `hostname` renames
+it in place, preserving history, trained ML models and alert log. The entire
+re-skin workflow rests on that distinction, and `reskin.rs` refuses to emit an
+environment where any GUID changed.
+
+Two environments sharing a GUID cannot both be claimed — the second claim takes
+over the first node's identity — so `check_guid_uniqueness` refuses to write a
+new environment carrying GUIDs already used by a sibling file.
+
+### Chart labels are load-bearing
+
+Netdata health templates filter on `chart labels:`. Without `CLABEL` /
+`CLABEL_COMMIT`, stock templates silently never attach — 41 alarms looked
+perfectly healthy while `disk_space_usage` was simply not evaluated. Emitting
+labels took it to 51.
+
+### Removing a plugin file does not stop the plugin
+
+A removed collector kept running for over an hour, writing to the same vnode
+GUIDs as its replacement and corrupting values with interleaved writes.
+**Teardown must kill the process**, not just delete the file. The install
+script kills previous PIDs matched on exact path.
+
+## Scenarios
+
+A scenario (`scenarios/*.yaml`) is a timeline of effects over generator
+signals, plus a **ground-truth manifest**.
+
+- Effects: `step`, `ramp`, `drift`, `oscillate`, `recover`, `add`, `add_ramp`.
+- `add`/`add_ramp` exist because a multiplier cannot lift a zero-baseline
+  signal — drop rates need an absolute term.
+- Targets select by `signal` plus optional `hostname`, `role`, `instance`.
+  Targeting by **role** keeps a scenario correct after a re-skin.
+- Effects compound across scenarios; `recover` scales the accumulated fault
+  back toward neutral rather than adding another multiplier.
+- `requires_roles` means an environment lacking those roles is not offered the
+  scenario, rather than offered a button that cannot work.
+
+The manifest (root cause, causal chain, blast radius, expected finding) is
+authored with the scenario and never reconstructed from what the product did —
+that is the point of scoring against it.
+
+### Control channel
+
+`control.yaml` beside the environment lists active scenarios and their
+`started_at`. The plugin polls it (one `stat` in the common case).
+
+`started_at` **must** be written explicitly. Without it the plugin assigns
+"now" on first read, so a plugin restart rewinds a running scenario to its
+opening state — indistinguishable on screen from the fault resolving itself
+mid-sentence.
+
+### Scenario targets are checked, not trusted
+
+`check_scenarios()` verifies every scenario's signal, hostname, role and
+instance resolve against the environment. A step naming something absent
+produces no effect at all: the trigger appears to work and nothing happens,
+in front of a prospect, with nothing in any log.
+
+## Correlated logs
+
+A **separate process** (`infra-sim --logs`), not part of the metrics plugin.
+
+```text
+infra-sim --logs
+  -> Journal Export Format
+  -> systemd-journal-remote --output=/var/log/journal/remote/remote-<host>.journal
+  -> Netdata systemd-journal.plugin (reads root-owned files via cap_dac_read_search)
+  -> logs UI, one source per node
+```
+
+- **The journal-remote hop is not optional.** journald refuses trusted fields
+  (`_HOSTNAME`) from a local client, so anything written to the local journal
+  attributes to the demo machine. `systemd-journal-remote` accepts them because
+  ingesting entries formed elsewhere is its purpose.
+- Netdata derives the logs source name from the **filename**
+  (`remote-<host>.journal` → source `<host>`).
+- `--split-mode=host` is rejected for stdin sources, so per-node files mean one
+  `systemd-journal-remote` child per node. A fleet in the hundreds should share
+  one file and filter on the `_HOSTNAME` facet instead.
+- Children exit on EOF when the parent's pipes close, however the parent dies —
+  so no signal handling is needed and nothing outlives its parent.
+
+**Fault rules match on signals, not scenario names.** A rule fires when
+`ScenarioSet::perturbation` reports a signal driven past a threshold — the same
+question the metrics engine asks. Nothing in the log generator knows `disk-fill`
+exists, so a future scenario moving the same signal gets matching logs for free.
+
+**No access logs.** A node reporting 1,200 req/s while its logs show three lines
+a second is the contradiction an SRE notices. Real deployments send access logs
+to a file and only errors to journald; this emits what journald would hold. A
+healthy node logs nothing above `notice`.
+
+Requires `systemd-journal-remote` installed and root.
+
+## Proven end to end
+
+With `disk-fill` running on a live agent:
+
+- Netdata's **own ML** raised `ml_1min_node_ar` at a 1.02% node anomaly rate
+  ~18 minutes before the threshold alert could fire, and ranked the fleet in
+  the manifest's blast-radius order (db 1.02% > web 0.76% > cache 0.43%).
+- The **real health engine** raised `disk_space_usage` WARNING at 93.5% on
+  exactly the mount the manifest names as root cause, and stayed CLEAR on the
+  two other mounts of the same node.
+- The **logs** showed that node's Postgres reporting
+  `No space left on device ... on /var/lib/pgsql`, with the nine other nodes
+  and the two untargeted mounts silent.
+
+Nothing was faked at any step: the scenario moved generator inputs and the real
+product did the rest.
