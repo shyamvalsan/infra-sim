@@ -153,6 +153,34 @@ This is authoring-time only. `spec.md`'s non-goal is per-datapoint LLM
 generation; the runtime is deterministic code with no inference in the data
 path.
 
+## OpenTelemetry
+
+`specs/otel-collector.yaml` models an OTel Collector's **own** internal
+telemetry — receiver accepted/refused, batch behaviour, dropped points, exporter
+queue against capacity, enqueue failures, send retries, process RSS/CPU.
+`environments/otel-fleet.yaml` places it in the topology people actually run:
+agent collectors beside the application, forwarding to a gateway pair.
+
+```bash
+./target/release/infra-sim --environment environments/otel-fleet.yaml --lint 72
+```
+
+The demo story is "Netdata monitoring your collector fleet", which is a real
+pain point: a collector that silently drops telemetry is the worst failure in
+an observability pipeline, because the thing that would have told you is the
+thing that broke.
+
+**Why the collector is a monitored service and not a transport.** Netdata
+ingests OTLP over gRPC, but that path **cannot create virtual nodes** — verified
+by probe, not inferred. Metrics sent from two resources with distinct
+`host.name` attributes produced no new nodes; both landed on the ingesting host,
+with the attributes flattened into `resource.attributes.*` chart labels and one
+chart instance per attribute set. Distinct series, one node.
+
+So an OTLP-based simulation has no node list, no per-node dashboards, no
+node-level ML anomaly ranking, no node-scoped alerts and no re-skin story.
+Modelling the collector on the plugins.d path keeps all of it.
+
 ## Correlated logs
 
 Each simulated node gets its own log source in Netdata, and the log lines

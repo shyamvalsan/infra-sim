@@ -1,0 +1,212 @@
+version: 1
+name: otel-fleet
+description: >-
+  An OpenTelemetry Collector deployment in the shape people actually run: agent
+  collectors alongside the application on each app host, forwarding to a
+  gateway pair that does the batching and export. Five nodes, the local
+  verification cap.
+
+  This is the collector as a monitored service. Netdata's OTLP ingestion path
+  cannot create virtual nodes - a probe (SOW-0002) confirmed that resources
+  carrying distinct host.name attributes all land on the ingesting host as chart
+  labels - so a collector fleet is modelled on the plugins.d path like any other
+  service, which keeps per-node dashboards, per-node ML and the re-skin story.
+
+  The demo it supports: the gateway queue backing up, retries climbing, and
+  points being refused upstream - the failure where the thing that would have
+  told you is the thing that broke.
+
+seed: 31415926535
+update_every: 1
+generator: ../specs/linux-system.yaml
+specs: ../specs
+scenarios: ../scenarios
+
+# GUIDs are authored and stable. Re-skin by rewriting hostnames and labels and
+# leaving every GUID alone; the node keeps its history, trained ML models and
+# alert log.
+nodes:
+
+  # --- Gateway tier: batching and export, the part that backs up ------------
+  - hostname: sim-otel-gw-01
+    guid: 2f8c41d9-7b06-4e35-a1c8-53d90fe2b477
+    role: lb
+    services: [otel-collector]
+    utc_offset_secs: 0
+    attrs:
+      cores: 8
+      ram_total_kb: 16777216
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/var/lib/otelcol", weight: 0.1107, attrs: { disk_total_kb: 52428800, inodes_total: 3276800 } }
+      net:
+        - { name: eth0, weight: 1.0 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "8"
+      _system_ram_total: "16777216"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: m5.2xlarge
+      _cloud_instance_region: eu-west-1
+      _install_type: infra-sim
+      infra_sim_role: otel-gateway
+      infra_sim_tier: telemetry
+      infra_sim_env: production
+      otel_pipeline: gateway
+
+  - hostname: sim-otel-gw-02
+    guid: 9d3a6b52-4c17-48f0-92e6-1a7b58cd0e93
+    role: lb
+    services: [otel-collector]
+    utc_offset_secs: -21600
+    attrs:
+      cores: 8
+      ram_total_kb: 16777216
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/var/lib/otelcol", weight: 0.1107, attrs: { disk_total_kb: 52428800, inodes_total: 3276800 } }
+      net:
+        - { name: eth0, weight: 1.0 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "8"
+      _system_ram_total: "16777216"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: m5.2xlarge
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: otel-gateway
+      infra_sim_tier: telemetry
+      infra_sim_env: production
+      otel_pipeline: gateway
+
+  # --- App tier: agent collectors beside the application --------------------
+  - hostname: sim-otel-app-01
+    guid: 7c50e284-1f93-4a6d-8b25-def041a7c368
+    role: web
+    services: [nginx, otel-collector]
+    utc_offset_secs: 0
+    attrs:
+      cores: 16
+      ram_total_kb: 33554432
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+      net:
+        - { name: eth0, weight: 1.0 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "16"
+      _system_ram_total: "33554432"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: m5.4xlarge
+      _cloud_instance_region: eu-west-1
+      _install_type: infra-sim
+      infra_sim_role: web
+      infra_sim_tier: application
+      infra_sim_env: production
+      otel_pipeline: agent
+
+  - hostname: sim-otel-app-02
+    guid: 4e91b7f6-8d23-4c05-a719-6b3f2ce8047a
+    role: web
+    services: [nginx, otel-collector]
+    utc_offset_secs: 0
+    attrs:
+      cores: 16
+      ram_total_kb: 33554432
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+      net:
+        - { name: eth0, weight: 1.0 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "16"
+      _system_ram_total: "33554432"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: m5.4xlarge
+      _cloud_instance_region: eu-west-1
+      _install_type: infra-sim
+      infra_sim_role: web
+      infra_sim_tier: application
+      infra_sim_env: production
+      otel_pipeline: agent
+
+  - hostname: sim-otel-app-03
+    guid: b6274ac1-5e38-49d2-8f04-c13a97e5bd60
+    role: web
+    services: [nginx, otel-collector]
+    utc_offset_secs: 28800
+    attrs:
+      cores: 16
+      ram_total_kb: 33554432
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+      net:
+        - { name: eth0, weight: 1.0 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "16"
+      _system_ram_total: "33554432"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: m5.4xlarge
+      _cloud_instance_region: ap-southeast-1
+      _install_type: infra-sim
+      infra_sim_role: web
+      infra_sim_tier: application
+      infra_sim_env: production
+      otel_pipeline: agent

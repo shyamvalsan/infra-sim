@@ -1,0 +1,256 @@
+version: 1
+name: otel-collector
+description: >-
+  An OpenTelemetry Collector's own internal telemetry, as Netdata would collect
+  it from the collector's Prometheus endpoint. Composed onto the Linux baseline
+  for nodes running a collector.
+
+  This is the collector as a *monitored service*, not as a transport. SOW-0002
+  decision 7B: Netdata's OTLP ingestion path cannot create virtual nodes - a
+  probe confirmed that resources carrying distinct host.name attributes all land
+  on the ingesting host as chart labels - so a collector fleet is modelled on the
+  plugins.d path like every other service, and stays vnode-capable.
+
+  The operational story it supports is real: a collector that silently drops
+  telemetry is the worst failure in an observability pipeline, because the thing
+  that would have told you is the thing that broke. Queue saturation, refused
+  spans and export retries are what an SRE actually watches.
+
+signals:
+
+  # --- Receivers ---------------------------------------------------------
+  otelcol_receiver_accepted_points_rate:
+    base: 18500.0
+    min: 0.0
+    max: 20000000.0
+    seasonality: { daily_amplitude: 0.55, peak_hour: 14.0, weekend_factor: 0.45 }
+    noise: { kind: gauss, sigma: 0.18 }
+  # Zero-baseline: refusals are the abnormal case, so scenarios reach these with
+  # an additive effect rather than a multiplier.
+  otelcol_receiver_refused_points_rate:
+    base: 0.0
+    min: 0.0
+    max: 2000000.0
+  otelcol_receiver_accepted_logs_rate:
+    base: 6200.0
+    min: 0.0
+    max: 8000000.0
+    seasonality: { daily_amplitude: 0.5, peak_hour: 14.0, weekend_factor: 0.5 }
+    noise: { kind: gauss, sigma: 0.2 }
+  otelcol_receiver_refused_logs_rate:
+    base: 0.0
+    min: 0.0
+    max: 2000000.0
+
+  # --- Processors --------------------------------------------------------
+  otelcol_processor_batch_size:
+    base: 812.0
+    min: 1.0
+    max: 8192.0
+    min_is_floor: true
+    noise: { kind: walk, sigma: 0.04, reversion: 0.06 }
+  otelcol_processor_batch_send_rate:
+    base: 23.0
+    min: 0.0
+    max: 100000.0
+    seasonality: { daily_amplitude: 0.5, peak_hour: 14.0 }
+    noise: { kind: gauss, sigma: 0.15 }
+  otelcol_processor_timeout_send_rate:
+    base: 1.4
+    min: 0.0
+    max: 100000.0
+    noise: { kind: gauss, sigma: 0.4 }
+  otelcol_processor_dropped_points_rate:
+    base: 0.0
+    min: 0.0
+    max: 2000000.0
+  otelcol_processor_memlimiter_refused_rate:
+    base: 0.0
+    min: 0.0
+    max: 2000000.0
+
+  # --- Exporters ---------------------------------------------------------
+  otelcol_exporter_sent_points_rate:
+    base: 18400.0
+    min: 0.0
+    max: 20000000.0
+    seasonality: { daily_amplitude: 0.55, peak_hour: 14.0, weekend_factor: 0.45 }
+    noise: { kind: gauss, sigma: 0.18 }
+  otelcol_exporter_failed_points_rate:
+    base: 0.0
+    min: 0.0
+    max: 2000000.0
+  # The single most operationally meaningful signal here: a queue that stops
+  # draining is the pipeline backing up, and it precedes data loss.
+  otelcol_exporter_queue_size:
+    base: 340.0
+    min: 0.0
+    max: 10000.0
+    max_is_ceiling: true
+    noise: { kind: walk, sigma: 0.06, reversion: 0.1 }
+  otelcol_exporter_queue_capacity:
+    base: 10000.0
+    min: 10000.0
+    max: 10000.0
+    min_is_floor: true
+    max_is_ceiling: true
+  otelcol_exporter_enqueue_failed_rate:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  otelcol_exporter_send_retries_rate:
+    base: 0.35
+    min: 0.0
+    max: 500000.0
+    noise: { kind: gauss, sigma: 0.5 }
+
+  # --- Process -----------------------------------------------------------
+  otelcol_process_memory_rss_bytes:
+    base: 412000000.0
+    min: 20000000.0
+    max: 3000000000.0
+    seasonality: { daily_amplitude: 0.14, peak_hour: 15.0 }
+    noise: { kind: walk, sigma: 0.012, reversion: 0.04 }
+  otelcol_process_cpu_seconds_rate:
+    base: 0.42
+    min: 0.0
+    max: 64.0
+    seasonality: { daily_amplitude: 0.5, peak_hour: 14.0 }
+    noise: { kind: gauss, sigma: 0.16 }
+  otelcol_process_uptime_tick:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+
+contexts:
+
+  - id: otelcol.receiver_accepted_points
+    title: Receiver metric points
+    units: points/s
+    family: receivers
+    chart_type: line
+    priority: 9000
+    shape: counters
+    dimensions:
+      - { id: accepted, rate_signal: otelcol_receiver_accepted_points_rate }
+      - { id: refused,  rate_signal: otelcol_receiver_refused_points_rate, multiplier: -1 }
+
+  - id: otelcol.receiver_accepted_logs
+    title: Receiver log records
+    units: records/s
+    family: receivers
+    chart_type: line
+    priority: 9001
+    shape: counters
+    dimensions:
+      - { id: accepted, rate_signal: otelcol_receiver_accepted_logs_rate }
+      - { id: refused,  rate_signal: otelcol_receiver_refused_logs_rate, multiplier: -1 }
+
+  - id: otelcol.processor_batch_size
+    title: Batch processor send size
+    units: records
+    family: processors
+    chart_type: line
+    priority: 9010
+    shape: independent
+    dimensions:
+      - { id: size, signal: otelcol_processor_batch_size }
+
+  - id: otelcol.processor_batches
+    title: Batches sent
+    units: batches/s
+    family: processors
+    chart_type: line
+    priority: 9011
+    shape: counters
+    dimensions:
+      - { id: size_trigger,    rate_signal: otelcol_processor_batch_send_rate }
+      - { id: timeout_trigger, rate_signal: otelcol_processor_timeout_send_rate }
+
+  - id: otelcol.processor_dropped
+    title: Points dropped by processors
+    units: points/s
+    family: processors
+    chart_type: line
+    priority: 9012
+    shape: counters
+    dimensions:
+      - { id: dropped,      rate_signal: otelcol_processor_dropped_points_rate }
+      - { id: mem_refused,  rate_signal: otelcol_processor_memlimiter_refused_rate }
+
+  - id: otelcol.exporter_sent_points
+    title: Exporter metric points
+    units: points/s
+    family: exporters
+    chart_type: line
+    priority: 9020
+    shape: counters
+    dimensions:
+      - { id: sent,   rate_signal: otelcol_exporter_sent_points_rate }
+      - { id: failed, rate_signal: otelcol_exporter_failed_points_rate, multiplier: -1 }
+
+  # Queue size against its own capacity, so the chart reads as headroom rather
+  # than an unanchored number. Capacity is a declared constant, which is why it
+  # is exempted from the flat-signal check.
+  - id: otelcol.exporter_queue
+    title: Exporter sending queue
+    units: batches
+    family: exporters
+    chart_type: area
+    priority: 9021
+    shape: independent
+    dimensions:
+      - { id: size,     signal: otelcol_exporter_queue_size }
+      - { id: capacity, signal: otelcol_exporter_queue_capacity }
+
+  - id: otelcol.exporter_enqueue_failed
+    title: Enqueue failures
+    units: points/s
+    family: exporters
+    chart_type: line
+    priority: 9022
+    shape: counters
+    dimensions:
+      - { id: enqueue_failed, rate_signal: otelcol_exporter_enqueue_failed_rate }
+
+  - id: otelcol.exporter_send_retries
+    title: Export retries
+    units: retries/s
+    family: exporters
+    chart_type: line
+    priority: 9023
+    shape: counters
+    dimensions:
+      - { id: retries, rate_signal: otelcol_exporter_send_retries_rate }
+
+  - id: otelcol.process_memory
+    title: Collector process memory
+    units: bytes
+    family: process
+    chart_type: area
+    priority: 9030
+    shape: independent
+    dimensions:
+      - { id: rss, signal: otelcol_process_memory_rss_bytes }
+
+  - id: otelcol.process_cpu
+    title: Collector process CPU
+    units: seconds/s
+    family: process
+    chart_type: line
+    priority: 9031
+    shape: counters
+    dimensions:
+      - { id: cpu, rate_signal: otelcol_process_cpu_seconds_rate }
+
+  - id: otelcol.process_uptime
+    title: Collector uptime
+    units: seconds
+    family: process
+    chart_type: line
+    priority: 9032
+    shape: counters
+    dimensions:
+      - { id: uptime, rate_signal: otelcol_process_uptime_tick }
