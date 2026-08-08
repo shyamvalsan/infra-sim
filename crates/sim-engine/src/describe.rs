@@ -307,6 +307,64 @@ const NUMBERS: &[(&str, usize)] = &[
 ];
 
 /// Parse a description into node groups.
+/// Scale a reading to roughly `target` nodes, preserving its shape.
+///
+/// An SE often wants "this prospect's stack, but at the size I'm demoing to" -
+/// the ratio between tiers is the part worth keeping, not the absolute counts a
+/// description happened to mention.
+///
+/// Largest-remainder allocation, so the total lands exactly on the target
+/// rather than drifting by a node or two, and every group keeps at least one
+/// node - a tier scaled out of existence is a tier the prospect will ask about.
+/// Returns a note describing what it did, or None if nothing changed.
+pub fn scale_to_target(reading: &mut Reading, target: usize) -> Option<String> {
+    let before: usize = reading.groups.iter().map(|g| g.count).sum();
+    if target == 0 || before == 0 || target == before {
+        return None;
+    }
+    // A target below one-node-per-group cannot be honoured without deleting a
+    // tier, which is a worse outcome than overshooting.
+    let floor = reading.groups.len();
+    let target = target.max(floor);
+
+    let scale = target as f64 / before as f64;
+    let mut remainders: Vec<(usize, f64)> = Vec::with_capacity(reading.groups.len());
+    let mut allocated = 0usize;
+    for (i, g) in reading.groups.iter_mut().enumerate() {
+        let exact = g.count as f64 * scale;
+        let whole = (exact.floor() as usize).max(1);
+        g.count = whole;
+        allocated += whole;
+        remainders.push((i, exact - exact.floor()));
+    }
+    // Hand out what rounding left over, largest fractional part first.
+    remainders.sort_by(|a, b| b.1.total_cmp(&a.1));
+    let mut idx = 0;
+    while allocated < target && !remainders.is_empty() {
+        reading.groups[remainders[idx % remainders.len()].0].count += 1;
+        allocated += 1;
+        idx += 1;
+    }
+    // Overshoot can only come from the one-node floor; take it back from the
+    // largest groups, never below one.
+    while allocated > target {
+        let Some(g) = reading
+            .groups
+            .iter_mut()
+            .filter(|g| g.count > 1)
+            .max_by_key(|g| g.count)
+        else {
+            break;
+        };
+        g.count -= 1;
+        allocated -= 1;
+    }
+
+    Some(format!(
+        "scaled from {before} to {allocated} node(s) to match the requested fleet size,          keeping the ratio between tiers"
+    ))
+}
+
 pub fn parse(text: &str) -> Reading {
     parse_with_services(text, &[])
 }
@@ -666,6 +724,87 @@ fn derive_guid(env: &str, hostname: &str) -> String {
 
 #[cfg(test)]
 mod tests {
+    #[test]
+    fn scaling_hits_the_target_exactly_and_keeps_every_tier() {
+        let mk = |counts: &[usize]| super::Reading {
+            groups: counts
+                .iter()
+                .enumerate()
+                .map(|(i, c)| super::Group {
+                    count: *c,
+                    role: format!("role{i}"),
+                    services: vec![],
+                    slug: Some(format!("g{i}")),
+                    source: String::new(),
+                })
+                .collect(),
+            unrecognised: vec![],
+        };
+        for (from, target) in [
+            (vec![2, 20, 3, 1], 50usize),
+            (vec![2, 20, 3, 1], 10),
+            (vec![1, 1], 7),
+            (vec![5], 1),
+            (vec![3, 3, 3], 100),
+        ] {
+            let mut r = mk(&from);
+            super::scale_to_target(&mut r, target);
+            let total: usize = r.groups.iter().map(|g| g.count).sum();
+            // A target below one-per-group cannot be honoured without deleting
+            // a tier; the floor is the group count.
+            let expected = target.max(from.len());
+            assert_eq!(total, expected, "from {from:?} to {target}: got {total}");
+            assert!(
+                r.groups.iter().all(|g| g.count >= 1),
+                "a tier was scaled out of existence: {from:?} -> {target}"
+            );
+        }
+    }
+
+    #[test]
+    fn scaling_preserves_the_shape() {
+        let mut r = super::Reading {
+            groups: vec![
+                super::Group {
+                    count: 2,
+                    role: "lb".into(),
+                    services: vec![],
+                    slug: Some("lb".into()),
+                    source: String::new(),
+                },
+                super::Group {
+                    count: 20,
+                    role: "web".into(),
+                    services: vec![],
+                    slug: Some("web".into()),
+                    source: String::new(),
+                },
+            ],
+            unrecognised: vec![],
+        };
+        super::scale_to_target(&mut r, 55);
+        // 2:20 is 1:10; at 55 nodes that is 5 and 50.
+        assert_eq!(r.groups[0].count, 5);
+        assert_eq!(r.groups[1].count, 50);
+    }
+
+    #[test]
+    fn scaling_to_the_same_size_is_a_no_op() {
+        let mut r = super::Reading {
+            groups: vec![super::Group {
+                count: 4,
+                role: "web".into(),
+                services: vec![],
+                slug: None,
+                source: String::new(),
+            }],
+            unrecognised: vec![],
+        };
+        assert!(super::scale_to_target(&mut r, 4).is_none());
+        assert!(super::scale_to_target(&mut r, 0).is_none());
+        assert_eq!(r.groups[0].count, 4);
+    }
+
     use super::*;
 
     fn roles(text: &str) -> Vec<(String, usize)> {

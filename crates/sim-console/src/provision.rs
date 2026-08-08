@@ -575,6 +575,10 @@ pub struct DescribeRequest {
     pub provider: String,
     #[serde(default)]
     pub model: String,
+    /// Scale the reading to roughly this many nodes. Zero leaves the
+    /// description's own numbers alone.
+    #[serde(default)]
+    pub target_nodes: usize,
 }
 
 #[derive(Debug, Clone, Serialize)]
@@ -606,7 +610,7 @@ pub fn describe(repo: &Path, req: &DescribeRequest) -> Result<DescribeResponse, 
     installable.sort();
     installable.dedup();
 
-    let (reading, source, notes, unsupported, suggested) = if req.provider.is_empty() {
+    let (mut reading, source, mut notes, unsupported, suggested) = if req.provider.is_empty() {
         let r = sim_engine::describe::parse_with_services(&req.text, &installable);
         (r, "keywords".to_string(), Vec::new(), Vec::new(), None)
     } else {
@@ -621,6 +625,12 @@ pub fn describe(repo: &Path, req: &DescribeRequest) -> Result<DescribeResponse, 
         notes.extend(p.corrections);
         (p.reading, p.model, notes, p.unsupported, p.suggested_name)
     };
+
+    // After the reading, never before: the model should read the description
+    // as written, and the SE's fleet size is a separate, deterministic step.
+    if let Some(note) = sim_engine::describe::scale_to_target(&mut reading, req.target_nodes) {
+        notes.push(note);
+    }
 
     Ok(DescribeResponse {
         groups: reading

@@ -28,7 +28,11 @@ infra-sim --describe "3 web servers behind an nginx load balancer, \
 
 Two front ends, one back end:
 
-- **Keyword parser** (default): offline, no API key, no network.
+- **Keyword parser**: offline, no API key, no network. **No longer offered in
+  the console** - asking an SE to weigh "keywords or a model" is a choice with
+  one right answer. It remains the `--describe` default on the CLI, and it is
+  still load-bearing internally as the cross-check that stops a model dropping
+  software a spec exists for.
 - **`--llm netdata|anthropic|openai`**: a real model, for descriptions written
   in the prospect's vocabulary rather than ours ("checkout tier fronted by an
   ALB, an Aurora writer, two ElastiCache nodes"). `netdata` is Netdata's own
@@ -77,6 +81,12 @@ inference in the data path.
   reproduces the same identities instead of orphaning a running fleet.
 - **`--name` is authoritative** over any model-suggested name, because the name
   fixes the seed, the hostname prefix and therefore every GUID.
+- **Fleet size is applied after the reading, never before.** The model reads the
+  description as written; `scale_to_target` then scales the groups by
+  largest-remainder to land exactly on the requested total, keeping the ratio
+  between tiers and never scaling a tier below one node. An SE asking for "this
+  prospect's shape at 50 nodes" wants the ratio, not the description's
+  arithmetic.
 - **Groups sharing a hostname element are merged** — two groups with one slug
   would emit the same hostname twice, and since the GUID derives from the
   hostname, that is two nodes claiming one identity.

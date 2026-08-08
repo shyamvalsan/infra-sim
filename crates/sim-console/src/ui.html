@@ -209,10 +209,13 @@ Keyword matching is offline and instant. A model reads vocabulary the keywords c
     <div class="body">
       <textarea id="desc" rows="3" placeholder="12 web servers behind two HAProxy load balancers, a 3-node Postgres cluster, Redis for sessions, and a small Kubernetes cluster…"></textarea>
       <div class="row" style="margin-top:10px">
-        <button id="descBtn" class="primary" onclick="doDescribe()">Read this →</button>
-        <label class="field"><span>Read by</span>
-          <select id="descBy"><option value="">keywords</option></select>
-        </label>
+        <label class="field"><span>Fleet size</span>
+          <input id="targetNodes" type="number" min="0" step="1" placeholder="as described"
+                 style="width:120px"></label>
+        <i class="tip" tabindex="0" style="margin-bottom:9px" data-tip="Leave blank to use the counts in the description.
+
+Set a number and the fleet is scaled to it, keeping the ratio between tiers - the prospect's shape at the size you are demoing to. No tier is ever scaled out of existence."></i>
+        <button id="descBtn" class="primary" onclick="doDescribe()" style="margin-left:auto">Build the fleet →</button>
         <span id="descHint"></span>
       </div>
       <div class="out" id="descOut"></div>
@@ -377,6 +380,7 @@ let CAT = null;                 // /api/catalogue
 // nodes running both, which is not what anyone described.
 let ROWS = [];
 let pickerRow = -1;
+let PROVIDER = "";
 
 function showTab(which) {
   for (const t of ["build", "run"]) {
@@ -501,13 +505,19 @@ async function loadCatalogue() {
     (CAT.templates || []).map(t =>
       `<option value="${esc(t.name)}">${esc(t.name)} · ${t.nodes} nodes</option>`).join("");
 
-  // Offer a real model only when its key is already in the console's own
-  // environment; a provider that would fail is not a choice worth showing.
-  const provs = CAT.llm_providers || [];
-  $("descBy").innerHTML = `<option value="">keyword matching (offline)</option>` +
-    provs.map(p => `<option value="${esc(p)}">${esc(p)}</option>`).join("");
-  if (provs.length) { $("descBy").value = provs[0]; }
-  $("descHint").innerHTML = provs.length ? "" :
+  // There is no provider picker. Reading a description is a job for a model,
+  // and the keyword parser is not an alternative an SE should be asked to
+  // weigh - it stays as the internal cross-check that stops a model dropping
+  // software a spec exists for. With no key, the box says so rather than
+  // silently handing back a weaker reading.
+  PROVIDER = (CAT.llm_providers || [])[0] || "";
+  if (!PROVIDER) {
+    $("desc").disabled = true;
+    $("descBtn").disabled = true;
+    $("desc").placeholder = "Add a model key to describe an estate in plain English - "
+      + "or build the fleet by hand below.";
+  }
+  $("descHint").innerHTML = PROVIDER ? "" :
     `<i class="tip left" tabindex="0" data-tip="No model key found.\n\nPut one in a .env beside the repo and restart:\n  LLM_API_KEY=…  (Netdata's own gateway)\n  ANTHROPIC_API_KEY=…\n  OPENAI_API_KEY=…\n\nsudo strips the environment, so .env is the reliable place. It is gitignored.">i</i>`;
 
   renderRoles();
@@ -537,22 +547,24 @@ async function doDescribe() {
   const out = $("descOut"), btn = $("descBtn");
   const text = $("desc").value.trim();
   if (!text) { out.className = "out bad"; out.textContent = "describe what they run, in your own words"; return; }
-  const provider = $("descBy").value;
   btn.disabled = true;
   out.className = "out";
-  out.textContent = provider ? "asking " + provider + "… (10-25s)" : "reading…";
+  out.textContent = "reading the description… (10-25s)";
   try {
     const r = await (await fetch("/api/describe", {
       method: "POST", headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ text, provider }),
+      body: JSON.stringify({
+        text, provider: PROVIDER,
+        target_nodes: parseInt($("targetNodes").value || "0", 10) || 0,
+      }),
     })).json();
     if (r.error) { out.className = "out bad"; out.textContent = r.error; return; }
 
     setRows(r.groups);
     if (!$("newName").value && r.suggested_name) $("newName").value = r.suggested_name;
 
-    const lines = [`read by ${r.source} → ` +
-      r.groups.map(g => `${g.count} ${g.role}`).join(", ")];
+    const total = r.groups.reduce((n, g) => n + g.count, 0);
+    const lines = [`${total} node(s) · read by ${r.source}`];
     for (const n of r.notes || []) lines.push("· " + n);
     if ((r.unrecognised || []).length) lines.push("not understood: " + r.unrecognised.join("; "));
     if ((r.unsupported || []).length) lines.push("cannot simulate: " + r.unsupported.join("; "));
