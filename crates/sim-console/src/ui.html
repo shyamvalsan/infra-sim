@@ -274,30 +274,24 @@ More hours catches more: signals pinned to a bound, impossible units, conservati
         <label class="check"><input type="checkbox" id="exporters"> Prometheus exporters</label><i class="tip" tabindex="0" data-tip="Each node publishes a real /metrics endpoint that Netdata's own prometheus collector scrapes and charts onto that virtual node.
 
 Application-level metrics only — orders, carts, queues, worker pools — so nothing duplicates a chart the agent already collects.">i</i>
-        <button id="createBtn" class="primary" onclick="doCreate()" style="margin-left:auto">Create &amp; install</button>
+        <button id="createBtn" class="primary" onclick="doCreate()" style="margin-left:auto">Create simulation</button>
+      </div>
+      <div class="row" style="margin-top:14px; padding-top:14px; border-top:1px solid var(--line)">
+        <label class="field grow"><span>Claim token <span style="color:var(--dim)">optional</span></span>
+          <input id="token" type="password" autocomplete="off" placeholder="from Cloud → Connect Nodes"></label>
+        <label class="field grow"><span>Room ID <span style="color:var(--dim)">optional</span></span>
+          <input id="rooms" autocomplete="off" placeholder="blank = the Space's default room"></label>
+        <i class="tip left" tabindex="0" style="margin-bottom:9px" data-tip="Each simulation runs in its own container with its own fresh, unclaimed agent, so it claims into whatever Space and room you name here - your own agent is never touched.
+
+Leave both blank to run it locally without connecting to Cloud.
+
+The token is never written to disk, logged, or passed on a command line."></i>
       </div>
       <div class="progress" id="createProgress" style="display:none">
         <div class="track"><i id="createBar"></i></div>
         <div class="label"><span id="createStage">working…</span><span class="elapsed" id="createElapsed"></span></div>
       </div>
       <div class="out" id="createOut"></div>
-    </div>
-  </section>
-
-  <section data-step="installed" class="locked">
-    <h2>Connect to Netdata Cloud <i class="tip" tabindex="0" data-tip="One claim covers the whole fleet.
-
-The token goes straight to the agent. It is never written to disk, logged, passed on a command line, or kept in this page after use.">i</i></h2>
-    <div class="body">
-      <div id="cloudState" class="note" style="margin-bottom:12px"></div>
-      <div class="row" id="claimForm">
-        <label class="field grow"><span>Claim token</span>
-          <input id="token" type="password" autocomplete="off" placeholder="from Cloud → Connect Nodes"></label>
-        <label class="field grow"><span>Room ID <span style="color:var(--dim)">optional</span></span>
-          <input id="rooms" autocomplete="off" placeholder="blank = the Space's default room"></label>
-        <button id="claimBtn" onclick="doClaim()">Connect</button>
-      </div>
-      <div class="out" id="claimOut"></div>
     </div>
   </section>
 
@@ -677,10 +671,14 @@ async function doCreate() {
         name, groups,
         lint_hours: parseInt($("lintHours").value, 10),
         exporters: $("exporters").checked,
+        claim_token: $("token").value,
+        claim_rooms: $("rooms").value.trim(),
       }),
     })).json();
     if (r.error) { out.className = "out bad"; out.textContent = r.error; return; }
     out.className = "out ok";
+    // Clear the credential from the page as soon as it has been used.
+    $("token").value = "";
     out.textContent = `created ${r.nodes} node(s) — ${r.environment}\n\n${r.lint_summary}\n` +
                       (r.notes || []).map(n => "· " + n).join("\n");
     await refresh();
@@ -688,21 +686,6 @@ async function doCreate() {
     scrollTo('section[data-step="installed"]:not(.locked)');
   } catch (e) { out.className = "out bad"; out.textContent = String(e); }
   finally { btn.disabled = false; stopProgress("create"); }
-}
-
-async function doClaim() {
-  const out = $("claimOut"), btn = $("claimBtn"), tok = $("token");
-  if (!tok.value.trim()) { out.className = "out bad"; out.textContent = "a claim token is required"; return; }
-  btn.disabled = true; out.className = "out"; out.textContent = "connecting…";
-  try {
-    const r = await (await fetch("/api/claim", {
-      method: "POST", headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ token: tok.value, rooms: $("rooms").value.trim() }),
-    })).json();
-    if (r.error) { out.className = "out bad"; out.textContent = r.error; }
-    else { out.className = r.claimed ? "out ok" : "out bad"; out.textContent = r.message; }
-  } catch (e) { out.className = "out bad"; out.textContent = String(e); }
-  finally { tok.value = ""; btn.disabled = false; }   // clear the credential from the DOM
 }
 
 async function doReskin() {
@@ -758,32 +741,6 @@ async function doAdvance(name, seconds) {
     body: JSON.stringify({ seconds }),
   });
   refresh();
-}
-
-// The agent can be in exactly one Cloud Space. When it is already claimed,
-// offering a token form is offering something that will be refused - and the
-// refusal reads as a bug in the simulation rather than a fact about the agent.
-function renderCloud(c) {
-  const box = $("cloudState"), form = $("claimForm");
-  if (!box || !form) return;
-  if (c.claimed) {
-    form.style.display = "none";
-    box.innerHTML =
-      `<b style="color:var(--pass)">This agent is already connected to Netdata Cloud.</b><br>`
-      + `Your simulated nodes appear in that Space automatically — there is nothing to connect.<br><br>`
-      + `<span class="meta">claim id ${esc(c.claim_id)} · ${esc(c.url)} · ${esc(c.status)}</span><br><br>`
-      + `<i class="tip left" tabindex="0" data-tip="An agent can be in one Space. Re-claiming would move every node on this machine, including your own, into the new Space.
-
-To put a simulation in its own Space, run it in a container instead:
-  ./scripts/sim-docker.sh create NAME env.yaml --claim --rooms ID
-
-That gives the simulation its own agent and its own claim, and leaves this one alone.">i</i> `
-      + `<span class="note">Want this fleet in its own Space or room? Run it in a container.</span>`;
-  } else {
-    form.style.display = "";
-    box.innerHTML = `<span class="note">This agent is not connected to Cloud. `
-      + `One claim covers the whole fleet.</span>`;
-  }
 }
 
 function renderBoard(b) {
@@ -850,7 +807,6 @@ async function refresh() {
   try { d = await (await fetch("/api/status")).json(); }
   catch (e) { $("errors").textContent = "console cannot reach itself: " + e; return; }
   INSTALLED = d.environment || null;
-  renderCloud(d.cloud || {});
   $("envline").textContent = INSTALLED
     ? `${INSTALLED.name} · ${INSTALLED.node_count} nodes · ${INSTALLED.context_count} contexts · seed ${INSTALLED.seed}`
     : "no simulation installed";

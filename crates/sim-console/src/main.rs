@@ -25,6 +25,7 @@ use sim_spec::{GeneratorSpec, Scenario};
 use tokio::sync::Mutex;
 
 mod agent;
+mod container;
 mod preflight;
 mod provision;
 
@@ -54,6 +55,12 @@ struct AppState {
     repo: PathBuf,
     /// What a long-running operation is doing, polled by the UI.
     progress: provision::ProgressHandle,
+    /// The containerised simulation this console is currently driving.
+    ///
+    /// A simulation now runs in its own container with its own agent, so the
+    /// agent the console talks to is chosen at runtime rather than fixed at
+    /// start-up.
+    active: std::sync::Mutex<Option<container::Active>>,
 }
 
 #[derive(Serialize)]
@@ -153,7 +160,10 @@ async fn status(State(app): State<Arc<AppState>>) -> impl IntoResponse {
     let mut errors = Vec::new();
     let now = now_secs();
 
-    let env = match load_env(&app.env_path) {
+    // Whichever simulation this console is driving: a container's agent if one
+    // is running, otherwise the host's.
+    let (agent, env_path, control_path) = target(&app);
+    let env = match load_env(&env_path) {
         Ok(e) => Some(e),
         Err(e) => {
             errors.push(e);
@@ -167,7 +177,7 @@ async fn status(State(app): State<Arc<AppState>>) -> impl IntoResponse {
             let p = if e.generator.is_absolute() {
                 e.generator.clone()
             } else {
-                app.env_path.parent()?.join(&e.generator)
+                env_path.parent()?.join(&e.generator)
             };
             let raw = std::fs::read_to_string(p).ok()?;
             GeneratorSpec::from_yaml(&raw)
@@ -185,7 +195,7 @@ async fn status(State(app): State<Arc<AppState>>) -> impl IntoResponse {
     let guid = {
         let mut cached = app.cached_guid.lock().await;
         if cached.is_none() {
-            match app.agent.machine_guid().await {
+            match agent.machine_guid().await {
                 Ok(g) => *cached = Some(g),
                 Err(e) => errors.push(e),
             }
@@ -196,14 +206,14 @@ async fn status(State(app): State<Arc<AppState>>) -> impl IntoResponse {
     let mut nodes = Vec::new();
     if let Some(guid) = &guid {
         for host in &expected {
-            nodes.push(app.agent.node_state(host, guid).await);
+            nodes.push(agent.node_state(host, guid).await);
         }
     }
 
     // Simulated hostnames the agent knows that this environment does not
     // define. A vnode GUID is durable, so nodes outlive the plugin that made
     // them and would otherwise sit on the demo dashboard as stale hosts.
-    let orphans: Vec<String> = match app.agent.nodes().await {
+    let orphans: Vec<String> = match agent.nodes().await {
         Ok(known) => known
             .into_iter()
             .filter(|h| h.starts_with("sim-") && !expected.contains(h))
@@ -214,7 +224,7 @@ async fn status(State(app): State<Arc<AppState>>) -> impl IntoResponse {
         }
     };
 
-    let control = ControlFile::load(&app.control_path).unwrap_or_else(|e| {
+    let control = ControlFile::load(&control_path).unwrap_or_else(|e| {
         errors.push(e);
         ControlFile::default()
     });
@@ -269,13 +279,13 @@ async fn status(State(app): State<Arc<AppState>>) -> impl IntoResponse {
             generator: e.generator.display().to_string(),
             context_count: generator_contexts,
         }),
-        agent_url: app.agent.base_url(),
+        agent_url: agent.base_url(),
         nodes,
         scenarios,
         board,
         now,
         errors,
-        cloud: provision::cloud_state(&app.agent).await,
+        cloud: provision::cloud_state(&agent).await,
     })
 }
 
@@ -303,7 +313,8 @@ fn mutate<F: FnOnce(&mut ControlFile)>(app: &AppState, f: F) -> impl IntoRespons
     // Read-modify-write against the file rather than console-held state: the
     // CLI writes the same file, and whoever wrote last is the truth. Holding a
     // cached copy here would let the console silently revert a CLI trigger.
-    let mut control = match ControlFile::load(&app.control_path) {
+    let (_, _, control_path) = target(app);
+    let mut control = match ControlFile::load(&control_path) {
         Ok(mut c) => {
             // The plugin never writes this file, so finished recoveries are
             // cleared here - the console owns it.
@@ -313,7 +324,7 @@ fn mutate<F: FnOnce(&mut ControlFile)>(app: &AppState, f: F) -> impl IntoRespons
         Err(e) => return (StatusCode::INTERNAL_SERVER_ERROR, Json(json_err(e))),
     };
     f(&mut control);
-    match control.save(&app.control_path) {
+    match control.save(&control_path) {
         Ok(()) => (StatusCode::OK, Json(serde_json::json!({"ok": true}))),
         Err(e) => (StatusCode::INTERNAL_SERVER_ERROR, Json(json_err(e))),
     }
@@ -393,7 +404,68 @@ async fn create(
     }
     let worker = app.progress.clone();
     let finish = app.progress.clone();
-    let out = tokio::task::spawn_blocking(move || provision::create(&repo, &req, &worker)).await;
+    // A simulation runs in its own container with its own agent. Installing
+    // into the operator's agent is what made claiming impossible and left every
+    // torn-down vnode stale, so the console does not do that any more.
+    let out = tokio::task::spawn_blocking(move || -> Result<serde_json::Value, String> {
+        // Without Docker there is no container to put a simulation in, so fall
+        // back to installing into this host's agent. That path cannot claim and
+        // leaves nodes stale on teardown, so it says so rather than pretending.
+        if let Err(why) = container::available(&repo) {
+            let mut r = provision::create(&repo, &req, &worker)?;
+            r.notes.insert(0, format!("containers unavailable ({why})"));
+            r.notes.push(
+                "installed into this host's agent instead. It cannot be claimed separately, \
+                 and its nodes are removed from the agent on teardown."
+                    .into(),
+            );
+            return Ok(serde_json::json!(r));
+        }
+        let (env_path, lint_summary, nodes) = provision::build_environment(&repo, &req, &worker)?;
+
+        provision::report(&worker, "building the image", 3);
+        container::build_image(&repo)?;
+
+        provision::report(
+            &worker,
+            if req.claim_token.trim().is_empty() {
+                "starting the container"
+            } else {
+                "starting the container and claiming it"
+            },
+            4,
+        );
+        let name = env_path
+            .file_stem()
+            .and_then(|s| s.to_str())
+            .unwrap_or("simulation")
+            .to_string();
+        let active = container::create(
+            &repo,
+            &name,
+            &env_path,
+            Some(req.claim_token.as_str()),
+            &req.claim_rooms,
+        )?;
+        Ok(serde_json::json!({
+            "environment": env_path.display().to_string(),
+            "nodes": nodes,
+            "lint_summary": lint_summary,
+            "installed": true,
+            "simulation": active,
+            "notes": [
+                format!("running in its own container on {}", active.agent_url()),
+                if req.claim_token.trim().is_empty() {
+                    "not connected to Cloud - this agent is fresh and unclaimed".to_string()
+                } else {
+                    "claim requested at start-up; the nodes appear in that Space within a minute"
+                        .to_string()
+                },
+                "nodes appear within about a minute".to_string(),
+            ],
+        }))
+    })
+    .await;
     if let Ok(mut g) = finish.lock() {
         if let Some(p) = g.as_mut() {
             p.done = true;
@@ -445,12 +517,64 @@ async fn reskin(
     }
 }
 
+/// Start or stop correlated logs inside the running simulation.
+async fn logs(
+    State(app): State<Arc<AppState>>,
+    AxumPath(action): AxumPath<String>,
+) -> impl IntoResponse {
+    let Some(active) = app.active.lock().ok().and_then(|g| g.clone()) else {
+        return Json(json_err("no simulation is running".into()));
+    };
+    let repo = app.repo.clone();
+    match tokio::task::spawn_blocking(move || container::logs(&repo, &active.name, &action)).await {
+        Ok(Ok(detail)) => Json(serde_json::json!({ "ok": true, "detail": detail })),
+        Ok(Err(e)) => Json(json_err(e)),
+        Err(e) => Json(json_err(format!("logs task failed: {e}"))),
+    }
+}
+
 async fn teardown(State(app): State<Arc<AppState>>) -> impl IntoResponse {
     let repo = app.repo.clone();
-    let control = app.control_path.clone();
-    let env = app.env_path.clone();
-    match tokio::task::spawn_blocking(move || provision::teardown(&repo, &control, &env)).await {
-        Ok(steps) => Json(serde_json::json!({ "steps": steps })),
+    let (_, env, control) = target(&app);
+    let active = app.active.lock().ok().and_then(|g| g.clone());
+    let out = tokio::task::spawn_blocking(move || match active {
+        // A containerised simulation is removed whole: the container carries
+        // the agent, its database and every vnode, so there is nothing left
+        // stale and nothing to unregister.
+        Some(a) => match container::teardown(&repo, &a.name) {
+            Ok(detail) => Ok(vec![
+                provision::TeardownStep {
+                    name: format!("Remove the container running '{}'", a.name),
+                    done: true,
+                    detail,
+                    manual: false,
+                },
+                provision::TeardownStep {
+                    name: "Nothing left behind".into(),
+                    done: true,
+                    detail: "the agent, its database and every simulated node went with the \
+                             container - no stale nodes to clear"
+                        .into(),
+                    manual: false,
+                },
+                provision::TeardownStep {
+                    name: "Remove the Space or room from Netdata Cloud".into(),
+                    done: false,
+                    detail: "one Space per prospect, never reused".into(),
+                    manual: true,
+                },
+            ]),
+            Err(e) => Err(e),
+        },
+        None => Ok(provision::teardown(&repo, &control, &env)),
+    })
+    .await;
+    if let Ok(mut g) = app.active.lock() {
+        *g = None;
+    }
+    match out {
+        Ok(Ok(steps)) => Json(serde_json::json!({ "steps": steps })),
+        Ok(Err(e)) => Json(json_err(e)),
         Err(e) => Json(json_err(format!("teardown task failed: {e}"))),
     }
 }
@@ -532,6 +656,26 @@ fn parse_args() -> Result<Args, String> {
     })
 }
 
+/// The agent the console should be talking to, and where that simulation's
+/// files live: the active container's if there is one, otherwise the host's.
+///
+/// A simulation now runs in its own container with its own agent, so the target
+/// is chosen per request rather than fixed at start-up.
+fn target(app: &AppState) -> (Agent, PathBuf, PathBuf) {
+    if let Some(a) = app.active.lock().ok().and_then(|g| g.clone()) {
+        return (
+            Agent::new("127.0.0.1", a.port),
+            a.env_path(),
+            a.control_path(),
+        );
+    }
+    (
+        app.agent.clone(),
+        app.env_path.clone(),
+        app.control_path.clone(),
+    )
+}
+
 #[tokio::main]
 async fn main() -> std::process::ExitCode {
     let args = match parse_args() {
@@ -572,6 +716,9 @@ async fn main() -> std::process::ExitCode {
         cached_guid: Mutex::new(None),
         repo: args.repo.clone(),
         progress: Default::default(),
+        // Adopt a simulation that is already running, so restarting the console
+        // does not lose track of it.
+        active: std::sync::Mutex::new(container::list(&args.repo).into_iter().next()),
     });
 
     let app = Router::new()
@@ -586,6 +733,7 @@ async fn main() -> std::process::ExitCode {
         .route("/api/create", post(create))
         .route("/api/claim", post(claim))
         .route("/api/teardown", post(teardown))
+        .route("/api/logs/{action}", post(logs))
         .route("/api/scenario/{name}/advance", post(advance))
         .route("/api/reskin", post(reskin))
         .with_state(state);

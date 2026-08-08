@@ -56,8 +56,23 @@ pub struct CreateRequest {
     pub lint_hours: u32,
     /// Also publish a simulated Prometheus exporter per node and point
     /// Netdata's own go.d prometheus collector at it.
+    ///
+    /// Not yet honoured on the container path: the exporter server and the
+    /// go.d config it writes both live inside the container, and wiring that
+    /// through is tracked rather than half-done.
     #[serde(default)]
+    #[allow(dead_code)]
     pub exporters: bool,
+
+    /// Claim the new simulation's agent into Netdata Cloud.
+    ///
+    /// Part of create rather than a step afterwards: a container claims at
+    /// start-up, so there is no "connect it later" for a fresh agent. Never
+    /// stored, never logged, never passed on a command line.
+    #[serde(default)]
+    pub claim_token: String,
+    #[serde(default)]
+    pub claim_rooms: String,
 }
 
 fn default_lint_hours() -> u32 {
@@ -171,6 +186,86 @@ fn sanitise(name: &str) -> String {
 /// Build an `environment.yaml`, lint it, and install it.
 ///
 /// `repo` is the checkout holding `specs/`, `scenarios/` and a built binary.
+/// Build and check a fleet, writing its environment file.
+///
+/// Stops short of installing: the container path takes the file from here.
+pub fn build_environment(
+    repo: &Path,
+    req: &CreateRequest,
+    progress: &ProgressHandle,
+) -> Result<(std::path::PathBuf, String, usize), String> {
+    let name = sanitise(&req.name);
+    if name.is_empty() {
+        return Err("a name is required; it fixes the seed and every node GUID".into());
+    }
+    let mut known = available_services(&repo.join("specs"));
+    known.extend(available_services(&repo.join("specs").join("generated")));
+    known.sort();
+    known.dedup();
+    let known_roles: Vec<String> = roles().iter().map(|r| r.role.to_string()).collect();
+
+    let mut groups = Vec::new();
+    for g in &req.groups {
+        if g.count == 0 {
+            continue;
+        }
+        if !known_roles.contains(&g.role) {
+            return Err(format!("unknown role '{}'", g.role));
+        }
+        for svc in &g.services {
+            if !known.contains(svc) {
+                return Err(format!("no generator spec for '{svc}'"));
+            }
+        }
+        groups.push(Group {
+            count: g.count.min(500),
+            role: g.role.clone(),
+            services: g.services.clone(),
+            slug: None,
+            source: format!("{} x {}", g.count, g.role),
+        });
+    }
+    if groups.is_empty() {
+        return Err("pick at least one node".into());
+    }
+
+    let mut reading = Reading {
+        groups,
+        unrecognised: Vec::new(),
+    };
+    reading.dedupe_slugs();
+    let nodes: usize = reading.groups.iter().map(|g| g.count).sum();
+
+    let seed = name.bytes().fold(0xcbf2_9ce4_8422_2325u64, |h, b| {
+        (h ^ u64::from(b)).wrapping_mul(0x0000_0100_0000_01b3)
+    });
+    let yaml = sim_engine::describe::render(&reading, &name, seed, &format!("{name}-"));
+
+    let env_dir = repo.join("environments");
+    std::fs::create_dir_all(&env_dir).map_err(|e| format!("cannot create environments/: {e}"))?;
+    let env_path = env_dir.join(format!("{name}.yaml"));
+    guid_uniqueness(&env_dir, &yaml, &env_path)?;
+    std::fs::write(&env_path, &yaml)
+        .map_err(|e| format!("cannot write '{}': {e}", env_path.display()))?;
+    inherit_owner(&env_dir, &env_path);
+
+    report(
+        progress,
+        &format!(
+            "checking fidelity: simulating {}h across {nodes} nodes",
+            req.lint_hours
+        ),
+        2,
+    );
+    let binary = binary_path(repo)?;
+    let summary = if req.lint_hours > 0 {
+        lint(&binary, &env_path, req.lint_hours)?
+    } else {
+        String::new()
+    };
+    Ok((env_path, summary, nodes))
+}
+
 /// Build, check and install a fleet, reporting each stage as it goes.
 pub fn create(
     repo: &Path,
