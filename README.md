@@ -161,9 +161,12 @@ Two tabs: **Build** and **Run**.
   claim covers the whole fleet. The token goes straight to the agent and is
   never stored, logged, or written to any file, and is cleared from the page as
   soon as it is used.
-- **Teardown** — disarms scenarios, removes the plugin *and* stops its process
-  (either alone is not enough), and archives the environment, seed and scenario
-  manifests. Cloud-side steps stay manual and say so.
+- **Tear down** — its own section, and it leaves nothing behind: disarms
+  scenarios, removes the plugin *and* stops its process (either alone is not
+  enough), stops the logs writer and deletes that fleet's journal files, stops
+  the exporters and removes the config they added to Netdata, archives the
+  environment/seed/manifests, then removes the install directory. Cloud-side
+  steps stay manual and say so.
 
 ### Warm-up incidents
 

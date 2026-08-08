@@ -172,6 +172,29 @@ The console writes `/etc/netdata/go.d/prometheus.conf` and
 `/etc/netdata/vnodes/infra-sim.conf`. Both carry a marker line and are never
 overwritten without it; teardown removes only files carrying that marker.
 
+## Teardown
+
+One button, and it has to leave nothing behind - the next prospect's demo runs
+on the same machine.
+
+1. Disarm scenarios, so nothing is mid-fault when the fleet stops.
+2. Remove the plugin **and** stop its process. Either alone is insufficient: the
+   agent rescans every 60s and relaunches a file it still finds, and a running
+   collector keeps writing from a deleted file.
+3. Stop `infra-sim --logs` and delete **this fleet's** journal files. Only files
+   named for the environment's own hostnames - `systemd-journal-remote` output
+   from anything else on the machine lives in the same directory. Left behind,
+   Netdata keeps offering a log source per node for a fleet that no longer
+   exists, and an SE opening logs mid-demo finds the last prospect's hostnames.
+4. Stop the exporters and remove the config they added to Netdata, matching on
+   the marker line so an operator's own `prometheus.conf` is never touched.
+5. Archive the environment, seed and scenario manifests.
+6. Remove the install directory - **only if the archive succeeded**, because
+   that is the copy being removed.
+
+Processes are matched on executable path plus argument from `/proc`, never on a
+process name. Cloud-side removal stays manual and says so.
+
 ## Proven end to end
 
 With `disk-fill` running on a live agent:

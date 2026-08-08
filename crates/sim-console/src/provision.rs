@@ -21,6 +21,12 @@ use std::process::Command;
 use serde::{Deserialize, Serialize};
 use sim_engine::describe::{available_services, roles, Group, Reading};
 
+/// Where `infra-sim --logs` writes, mirroring `logs_runtime::DEFAULT_JOURNAL_DIR`
+/// in the plugin crate. Duplicated rather than shared because the console does
+/// not depend on the plugin crate, and this is a filesystem path Netdata itself
+/// defines.
+const DEFAULT_JOURNAL_DIR: &str = "/var/log/journal/remote";
+
 /// Where an installed simulation lives.
 pub const INSTALL_DIR: &str = "/etc/netdata/infra-sim";
 /// Where Netdata looks for external plugins.
@@ -648,6 +654,66 @@ pub fn llm_providers() -> Vec<String> {
         .collect()
 }
 
+/// Hostnames declared in an environment file.
+fn hostnames(env_path: &Path) -> Vec<String> {
+    std::fs::read_to_string(env_path)
+        .map(|t| {
+            t.lines()
+                .filter_map(|l| {
+                    l.trim_start()
+                        .trim_start_matches("- ")
+                        .strip_prefix("hostname:")
+                        .map(|v| v.trim().to_string())
+                })
+                .filter(|h| !h.is_empty())
+                .collect()
+        })
+        .unwrap_or_default()
+}
+
+/// Stop `infra-sim --logs`, wherever it was started from.
+///
+/// The logs writer is a separate process an operator starts by hand
+/// (`scripts/logs.sh`), so it is not necessarily the installed binary. Matched
+/// on an `infra-sim` executable *and* the `--logs` argument, never on a name.
+fn stop_logs() -> bool {
+    let Ok(entries) = std::fs::read_dir("/proc") else {
+        return false;
+    };
+    let mut stopped = false;
+    for pid in entries
+        .flatten()
+        .filter_map(|e| e.file_name().to_str()?.parse::<u32>().ok())
+    {
+        let is_ours = std::fs::read_link(format!("/proc/{pid}/exe"))
+            .map(|p| p.file_name().and_then(|n| n.to_str()) == Some("infra-sim"))
+            .unwrap_or(false);
+        let has_flag = std::fs::read(format!("/proc/{pid}/cmdline"))
+            .map(|c| c.split(|b| *b == 0).any(|a| a == b"--logs"))
+            .unwrap_or(false);
+        if is_ours && has_flag {
+            let _ = Command::new("kill").arg(pid.to_string()).status();
+            stopped = true;
+        }
+    }
+    stopped
+}
+
+/// Delete only the journal files belonging to `hosts`.
+///
+/// Never the directory: `systemd-journal-remote` output from anything else on
+/// this machine lives there too.
+fn remove_journals(hosts: &[String]) -> usize {
+    hosts
+        .iter()
+        .filter(|h| !h.is_empty())
+        .filter(|h| {
+            let path = Path::new(DEFAULT_JOURNAL_DIR).join(format!("remote-{h}.journal"));
+            path.exists() && std::fs::remove_file(&path).is_ok()
+        })
+        .count()
+}
+
 /// GUIDs already used by another environment file in the same directory.
 fn guid_uniqueness(dir: &Path, new_yaml: &str, self_path: &Path) -> Result<(), String> {
     let guids = |t: &str| -> Vec<String> {
@@ -1028,7 +1094,25 @@ pub fn teardown(repo: &Path, control_path: &Path, env_path: &Path) -> Vec<Teardo
         manual: false,
     });
 
-    // 3. Stop the exporters and take back the Netdata config they installed.
+    // 3. Stop the correlated-logs writer and take its journal files with it.
+    //
+    // Leaving them behind means Netdata keeps offering a log source per node
+    // for a fleet that no longer exists - an SE opening logs mid-demo finds
+    // the last prospect's hostnames.
+    let hosts = hostnames(env_path);
+    let stopped_logs = stop_logs();
+    let journals = remove_journals(&hosts);
+    steps.push(TeardownStep {
+        name: "Stop the correlated logs and remove their journals".into(),
+        done: true,
+        detail: match (stopped_logs, journals) {
+            (false, 0) => "none were running".into(),
+            (_, n) => format!("{n} journal file(s) removed from {DEFAULT_JOURNAL_DIR}"),
+        },
+        manual: false,
+    });
+
+    // 4. Stop the exporters and take back the Netdata config they installed.
     let had_exporters = exporters::running();
     exporters::disable();
     steps.push(TeardownStep {
@@ -1042,7 +1126,7 @@ pub fn teardown(repo: &Path, control_path: &Path, env_path: &Path) -> Vec<Teardo
         manual: false,
     });
 
-    // 4. Archive what replays the world.
+    // 5. Archive what replays the world.
     let archive = repo.join("archive");
     let stamp = std::time::SystemTime::now()
         .duration_since(std::time::UNIX_EPOCH)
@@ -1076,6 +1160,26 @@ pub fn teardown(repo: &Path, control_path: &Path, env_path: &Path) -> Vec<Teardo
             format!("{} - these replay the identical world", dest.display())
         } else {
             "archive failed".into()
+        },
+        manual: false,
+    });
+
+    // 6. Only once the archive exists, because this is the copy being removed.
+    let install = Path::new(INSTALL_DIR);
+    let removed_install = if !archived {
+        false
+    } else {
+        !install.exists() || std::fs::remove_dir_all(install).is_ok()
+    };
+    steps.push(TeardownStep {
+        name: "Remove the install directory".into(),
+        done: removed_install,
+        detail: if removed_install {
+            format!("{INSTALL_DIR} removed - nothing left for the agent to find")
+        } else if archived {
+            format!("could not remove {INSTALL_DIR}")
+        } else {
+            format!("skipped: {INSTALL_DIR} is kept because the archive failed")
         },
         manual: false,
     });
