@@ -53,7 +53,7 @@ cargo build --release
 
 ./target/release/infra-sim --llm netdata \
   --describe "6 web servers behind two haproxy load balancers, a 3-node postgres cluster, 4 access switches" \
-  --name customer-a --environment environments/customer-a.yaml
+  --nodes 50 --name customer-a --environment environments/customer-a.yaml
 
 ./scripts/sim-docker.sh create customer-a environments/customer-a.yaml
 ./scripts/sim-docker.sh status customer-a
@@ -141,9 +141,10 @@ JSON-parse failure names the model that actually replied. Override with
 
 ```bash
 # build an environment from a description
+# --nodes scales the fleet to that size, keeping the ratio between tiers
 ./target/release/infra-sim --llm netdata \
   --describe "3 web servers behind an nginx load balancer, a postgres primary" \
-  --name customer-a --environment environments/customer-a.yaml
+  --nodes 50 --name customer-a --environment environments/customer-a.yaml
 
 # check it before trusting it
 ./target/release/infra-sim --environment environments/customer-a.yaml --lint 72

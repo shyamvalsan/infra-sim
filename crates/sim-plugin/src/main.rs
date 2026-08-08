@@ -67,6 +67,8 @@ struct Args {
     describe: Option<String>,
     /// Environment name and hostname prefix for --describe.
     describe_name: Option<String>,
+    /// Scale the reading to roughly this many nodes.
+    describe_nodes: usize,
     /// Read the description with a real model instead of the keyword parser.
     llm: Option<llm::Config>,
     /// Emit correlated logs into the journal instead of metrics.
@@ -120,6 +122,7 @@ fn parse_args() -> Result<Args, String> {
     let mut reskin_args: Option<ReskinArgs> = None;
     let mut describe: Option<String> = None;
     let mut describe_name: Option<String> = None;
+    let mut describe_nodes: usize = 0;
     let mut llm_cfg: Option<llm::Config> = None;
     let mut llm_model: Option<String> = None;
     let mut llm_key_env: Option<String> = None;
@@ -143,6 +146,13 @@ fn parse_args() -> Result<Args, String> {
                     Some(args.next().ok_or_else(|| {
                         "--describe requires a description in quotes".to_string()
                     })?);
+            }
+            "--nodes" => {
+                describe_nodes = args
+                    .next()
+                    .ok_or_else(|| "--nodes requires a count".to_string())?
+                    .parse()
+                    .map_err(|e| format!("--nodes: {e}"))?;
             }
             "--name" => {
                 describe_name = Some(
@@ -260,6 +270,8 @@ fn parse_args() -> Result<Args, String> {
                      text format, moved by whatever scenario is running.\n\
                      \n\
                      build an environment from a description:\n\
+                     --nodes N             scale the fleet to roughly N nodes, \
+                     keeping the ratio between tiers\n\
                      --describe \"3 web servers behind an nginx load balancer, a \\\n\
                        postgres primary and 2 redis caches\" --name acme \\\n\
                        --environment environments/acme.yaml\n\
@@ -327,6 +339,7 @@ fn parse_args() -> Result<Args, String> {
         reskin: reskin_args,
         describe,
         describe_name,
+        describe_nodes,
         llm: llm_cfg,
         logs,
         journal_dir: journal_dir
@@ -344,6 +357,7 @@ fn run() -> Result<(), String> {
         return do_describe(
             text,
             args.describe_name.as_deref(),
+            args.describe_nodes,
             &args.environment,
             args.llm.as_ref(),
         );
@@ -797,6 +811,7 @@ fn do_exporters(env: &Environment, args: &Args) -> Result<(), String> {
 fn do_describe(
     text: &str,
     name: Option<&str>,
+    target_nodes: usize,
     output: &Path,
     llm: Option<&llm::Config>,
 ) -> Result<(), String> {
@@ -835,8 +850,20 @@ fn do_describe(
             r.unrecognised = p.unsupported;
             r
         }
-        None => sim_engine::describe::parse(text),
+        None => {
+            // The offline reader still gets the full catalogue, so a named
+            // integration resolves whether or not a model was used.
+            let installed = llm::installable_services(&specs_dir);
+            sim_engine::describe::parse_with_services(text, &installed)
+        }
     };
+    let mut reading = reading;
+
+    // Applied after the reading, so the description is read as written and the
+    // fleet size is a separate, deterministic step.
+    if let Some(note) = sim_engine::describe::scale_to_target(&mut reading, target_nodes) {
+        println!("  adjusted: {note}\n");
+    }
 
     if reading.groups.is_empty() {
         return Err(format!(
