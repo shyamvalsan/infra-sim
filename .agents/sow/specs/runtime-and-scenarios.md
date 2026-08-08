@@ -56,6 +56,13 @@ signals, plus a **ground-truth manifest**.
   back toward neutral rather than adding another multiplier.
 - `requires_roles` means an environment lacking those roles is not offered the
   scenario, rather than offered a button that cannot work.
+- `hostname_suffix` pins a fault to one node of a role. Role alone is right for
+  a fault that really is fleet-wide, and wrong for a physical one: a dirty optic
+  is in one switch, not all of them. A suffix rather than a hostname because the
+  prefix is the prospect's name and changes on every re-skin, while `-sw-01`
+  does not. Targeting by role alone put the "dirty optic" on every switch at
+  once, contradicting a manifest that claims one port of one switch - and the
+  manifest is what Netdata AI is scored against.
 
 The manifest (root cause, causal chain, blast radius, expected finding) is
 authored with the scenario and never reconstructed from what the product did —

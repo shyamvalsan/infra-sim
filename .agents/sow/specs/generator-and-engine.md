@@ -161,3 +161,41 @@ with twelve indices shows twelve chart instances; this shows one.
 Every generated spec must pass the 6-hour fidelity lint before it ships - all
 258 do. The lint is what caught every unit misclassification above; reading the
 YAML would not have.
+
+
+## Node classes
+
+Most nodes are Linux boxes: the fleet's `generator:` is the Linux baseline and
+services compose on top. A **network device** is not, so it carries its own base
+spec through a per-node `generator:` override.
+
+```yaml
+generator: ../specs/linux-system.yaml   # the fleet's default
+nodes:
+  - hostname: acme-sw-01
+    generator: ../specs/network-device.yaml   # this node only
+    instances:
+      interface:
+        - { name: TenGigabitEthernet1/1/1, weight: 4.0, attrs: { if_speed_mbps: 10000 } }
+```
+
+Absent means the fleet's, so every environment written before this keeps
+working. The composed-spec cache is keyed on `(base spec, services)` - keying on
+services alone gave a mixed fleet whichever class was composed first, which is a
+wrong-data bug rather than a crash.
+
+An instanced context whose group is absent is skipped, so a node with no disks
+or mounts simply has no disk charts. That was verified by probe before the class
+was designed; no engine change was needed for it.
+
+### Two signal properties this required
+
+- **`ignore_weight`** - weight expresses how much flows *through* an instance,
+  which is right for throughput and wrong for a property *of* it. A link-up
+  signal of 1.0 on a 0.35-weight access port emitted 0, i.e. 24 dead ports on
+  every simulated switch.
+- **`from_attr`** - takes the value verbatim from a node or instance attribute,
+  bypassing seasonality, noise, weight and bounds. A port's rated speed is a
+  specification, not a modelled quantity, and one context has to serve a 1G
+  access port and a 10G uplink. The fidelity lint treats an attribute-sourced
+  signal as a declared constant, or all 24 ports report a stuck signal.

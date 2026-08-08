@@ -286,6 +286,13 @@ impl NodeEngine {
         if let Some(v) = self.resolved.get(&key) {
             return *v;
         }
+        // An attribute-sourced signal is a fact about the instance, not a
+        // modelled quantity: no seasonality, noise, weight or bounds.
+        if let Some(attr) = self.signals.get(name).and_then(|s| s.from_attr.clone()) {
+            let v = self.resolve_attr(chart, &attr);
+            self.resolved.insert(key, v);
+            return v;
+        }
         let v = self.eval_signal(&key, name, &chart.scope, chart.weight, scenarios, now);
         self.resolved.insert(key, v);
         v
@@ -320,6 +327,9 @@ impl NodeEngine {
         // is applied after weighting, in the signal's own units, because it
         // represents an absolute event rate rather than a scaling of load.
         let scenario = perturb.multiplier;
+        // A signal describing a property of the instance, not a flow through
+        // it, keeps its own value whatever the instance's weight.
+        let weight = if signal.ignore_weight { 1.0 } else { weight };
         let mut value = signal.base * seasonal * weight * scenario + perturb.additive;
 
         // Noise is proportional to the *current* level, not to base. Scaling

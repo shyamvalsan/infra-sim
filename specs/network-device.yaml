@@ -1,0 +1,262 @@
+version: 1
+name: network-device
+description: >-
+  A switch, router or firewall as Netdata's own SNMP collector reports it.
+
+  This is a **base** spec, not a service: a network device is not a Linux box
+  with extra charts, it is a different node class. Composing this onto the Linux
+  baseline would have every simulated switch reporting CPU jiffies, RAM and a
+  filling /var - the artifact an SRE spots in one glance. Use it via a node's
+  own `generator:` override.
+
+  Contexts follow the naming Netdata's SNMP collector produces,
+  `snmp.device_prof_<metric>` (netdata/netdata @ c23face0bd94,
+  src/go/plugin/go.d/collector/snmp/metric_ids.go:53). The metric set is the
+  universal one every device reports, from the standard IF-MIB
+  (src/go/plugin/go.d/config/go.d/snmp.profiles/default/_std-if-mib.yaml) plus
+  the three device-level metrics that appear across the most vendor profiles:
+  cpu.usage (49 of 272), memory.usage (19) and systemUptime.
+
+  Per-port charts come from the `interface` instance group, the same mechanism
+  `disk` and `net` use on a Linux node.
+
+signals:
+
+  # --- per-port throughput ---------------------------------------------------
+  # ifHCInOctets / ifHCOutOctets. Weighted per port by the environment, so an
+  # uplink carries an order of magnitude more than an access port without the
+  # spec knowing which is which.
+  if_in_octets_rate:
+    base: 3100000.0
+    min: 0.0
+    max: 1250000000.0        # 10GbE line rate in bytes/s
+    seasonality: { daily_amplitude: 0.62, peak_hour: 14.0, weekend_factor: 0.42 }
+    noise: { kind: gauss, sigma: 0.2 }
+  if_out_octets_rate:
+    base: 2700000.0
+    min: 0.0
+    max: 1250000000.0
+    seasonality: { daily_amplitude: 0.62, peak_hour: 14.0, weekend_factor: 0.42 }
+    noise: { kind: gauss, sigma: 0.2 }
+
+  # --- per-port packet rates -------------------------------------------------
+  if_in_ucast_rate:
+    base: 3400.0
+    min: 0.0
+    max: 15000000.0
+    seasonality: { daily_amplitude: 0.62, peak_hour: 14.0, weekend_factor: 0.42 }
+    noise: { kind: gauss, sigma: 0.2 }
+  if_out_ucast_rate:
+    base: 3050.0
+    min: 0.0
+    max: 15000000.0
+    seasonality: { daily_amplitude: 0.62, peak_hour: 14.0, weekend_factor: 0.42 }
+    noise: { kind: gauss, sigma: 0.2 }
+  if_in_mcast_rate:
+    base: 41.0
+    min: 0.0
+    max: 1000000.0
+    noise: { kind: gauss, sigma: 0.35 }
+  if_in_bcast_rate:
+    base: 18.0
+    min: 0.0
+    max: 1000000.0
+    noise: { kind: gauss, sigma: 0.4 }
+
+  # --- per-port faults -------------------------------------------------------
+  # Zero-based: a switch idling with a steady error rate reads as broken, and a
+  # scenario needs headroom to move these off the floor.
+  if_in_errors_rate:   { base: 0.0, min: 0.0, max: 500000.0 }
+  if_out_errors_rate:  { base: 0.0, min: 0.0, max: 500000.0 }
+  if_in_discards_rate: { base: 0.0, min: 0.0, max: 500000.0 }
+  if_out_discards_rate: { base: 0.0, min: 0.0, max: 500000.0 }
+
+  # --- per-port state --------------------------------------------------------
+  # ifOperStatus / ifAdminStatus: 1 = up. Declared constant rather than modelled
+  # as a noisy gauge resting on its ceiling; a scenario drives it down.
+  if_oper_status:
+    # A property of the port, not a flow through it: never weight-scaled.
+    ignore_weight: true
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  if_admin_status:
+    # A property of the port, not a flow through it: never weight-scaled.
+    ignore_weight: true
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+
+  # ifHighSpeed, in Mbps. Read from the port's own `if_speed_mbps` attribute,
+  # so one spec serves a 1G access port and a 10G uplink. A port named
+  # TenGigabitEthernet reporting 1000 is the kind of detail a network engineer
+  # reads before anything else.
+  if_speed:
+    from_attr: if_speed_mbps
+    base: 1000.0
+    min: 0.0
+    max: 400000.0
+
+  # --- device level ----------------------------------------------------------
+  device_cpu_usage:
+    base: 14.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality: { daily_amplitude: 0.4, peak_hour: 14.0 }
+    noise: { kind: walk, sigma: 0.09, reversion: 0.12 }
+  device_memory_usage:
+    base: 38.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise: { kind: walk, sigma: 0.02, reversion: 0.05 }
+  device_memory_total_bytes:
+    base: 4294967296.0
+    min: 1.0
+    max: 137438953472.0
+    max_is_ceiling: true
+  # Accumulated one-per-second by the counters shape below, so uptime actually
+  # advances. A device whose uptime is a flat number is one of the cheapest
+  # tells that a fleet is synthetic - and the fidelity lint refuses it.
+  uptime_tick:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+
+contexts:
+
+  # --- device ----------------------------------------------------------------
+  - id: snmp.device_prof_system_uptime
+    title: Device uptime
+    units: seconds
+    family: device
+    chart_type: line
+    priority: 50000
+    shape: counters
+    dimensions:
+      - { id: uptime, rate_signal: uptime_tick }
+
+  - id: snmp.device_prof_cpu_usage
+    title: Device CPU utilization
+    units: percentage
+    family: device
+    chart_type: area
+    priority: 50010
+    shape: independent
+    dimensions:
+      - { id: usage, signal: device_cpu_usage }
+
+  - id: snmp.device_prof_memory_usage
+    title: Device memory utilization
+    units: percentage
+    family: device
+    chart_type: area
+    priority: 50020
+    shape: independent
+    dimensions:
+      - { id: usage, signal: device_memory_usage }
+
+  # --- per port --------------------------------------------------------------
+  - id: snmp.device_prof_interface_traffic
+    title: Interface traffic
+    units: bytes/s
+    family: "{instance}"
+    chart_type: area
+    priority: 50100
+    instances:
+      group: interface
+      chart_prefix: if_traffic
+      family: "{instance}"
+      labels: { interface: "{instance}" }
+    shape: counters
+    dimensions:
+      - { id: received, rate_signal: if_in_octets_rate }
+      - { id: sent,     rate_signal: if_out_octets_rate, multiplier: -1 }
+
+  - id: snmp.device_prof_interface_packets
+    title: Interface packets
+    units: packets/s
+    family: "{instance}"
+    chart_type: line
+    priority: 50110
+    instances:
+      group: interface
+      chart_prefix: if_packets
+      family: "{instance}"
+      labels: { interface: "{instance}" }
+    shape: counters
+    dimensions:
+      - { id: unicast_in,   rate_signal: if_in_ucast_rate }
+      - { id: unicast_out,  rate_signal: if_out_ucast_rate, multiplier: -1 }
+      - { id: multicast_in, rate_signal: if_in_mcast_rate }
+      - { id: broadcast_in, rate_signal: if_in_bcast_rate }
+
+  - id: snmp.device_prof_interface_errors
+    title: Interface errors
+    units: errors/s
+    family: "{instance}"
+    chart_type: line
+    priority: 50120
+    instances:
+      group: interface
+      chart_prefix: if_errors
+      family: "{instance}"
+      labels: { interface: "{instance}" }
+    shape: counters
+    dimensions:
+      - { id: inbound,  rate_signal: if_in_errors_rate }
+      - { id: outbound, rate_signal: if_out_errors_rate, multiplier: -1 }
+
+  - id: snmp.device_prof_interface_discards
+    title: Interface discards
+    units: packets/s
+    family: "{instance}"
+    chart_type: line
+    priority: 50130
+    instances:
+      group: interface
+      chart_prefix: if_discards
+      family: "{instance}"
+      labels: { interface: "{instance}" }
+    shape: counters
+    dimensions:
+      - { id: inbound,  rate_signal: if_in_discards_rate }
+      - { id: outbound, rate_signal: if_out_discards_rate, multiplier: -1 }
+
+  - id: snmp.device_prof_interface_status
+    title: Interface status
+    units: status
+    family: "{instance}"
+    chart_type: line
+    priority: 50140
+    instances:
+      group: interface
+      chart_prefix: if_status
+      family: "{instance}"
+      labels: { interface: "{instance}" }
+    shape: independent
+    dimensions:
+      - { id: oper,  signal: if_oper_status }
+      - { id: admin, signal: if_admin_status }
+
+  - id: snmp.device_prof_interface_speed
+    title: Interface speed
+    units: megabits/s
+    family: "{instance}"
+    chart_type: line
+    priority: 50150
+    instances:
+      group: interface
+      chart_prefix: if_speed
+      family: "{instance}"
+      labels: { interface: "{instance}" }
+    shape: independent
+    dimensions:
+      - { id: speed, signal: if_speed }

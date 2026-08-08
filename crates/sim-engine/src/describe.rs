@@ -284,7 +284,56 @@ const ROLES: &[RoleDef] = &[
             "edge devices",
         ],
     },
+    RoleDef {
+        role: "network-device",
+        // Not a service: a switch is a different node class, and its spec is
+        // the node's base rather than something composed onto Linux.
+        services: &[],
+        slug: "sw",
+        summary: "switch, router or firewall polled over SNMP: ports rather \
+                  than disks, and no operating system underneath",
+        keywords: &[
+            "network device",
+            "network devices",
+            "switch",
+            "switches",
+            "router",
+            "routers",
+            "firewall",
+            "firewalls",
+            "snmp device",
+            "snmp devices",
+            "access switch",
+            "access switches",
+            "top of rack",
+            "leaf switch",
+            "spine switch",
+        ],
+    },
 ];
+
+/// Base spec for a role, when it is not the fleet's Linux baseline.
+///
+/// Only network devices differ today. Returning a path here is what makes a
+/// mixed fleet possible: the node carries its own `generator:`.
+fn base_spec(role: &str) -> Option<&'static str> {
+    match role {
+        "network-device" => Some("../specs/network-device.yaml"),
+        _ => None,
+    }
+}
+
+/// Ports on a simulated device, by index. A 24-port access switch with two
+/// uplinks is the commonest shape in a prospect's wiring closet; the uplinks
+/// carry an order of magnitude more traffic, which the weight expresses.
+fn ports() -> Vec<(String, f64, u32)> {
+    let mut out: Vec<(String, f64, u32)> = (1..=24)
+        .map(|i| (format!("GigabitEthernet1/0/{i}"), 0.35, 1000))
+        .collect();
+    out.push(("TenGigabitEthernet1/1/1".into(), 4.0, 10000));
+    out.push(("TenGigabitEthernet1/1/2".into(), 3.2, 10000));
+    out
+}
 
 /// Number words, so "three web servers" reads as naturally as "3 web servers".
 const NUMBERS: &[(&str, usize)] = &[
@@ -634,6 +683,34 @@ pub fn render(reading: &Reading, name: &str, seed: u64, prefix: &str) -> String 
             lines.push(format!("  - hostname: {hostname}"));
             lines.push(format!("    guid: {guid}"));
             lines.push(format!("    role: {}", group.role));
+
+            // A network device has no operating system, no disks and no mounts.
+            // Emitting the Linux shape here and letting the charts fall away
+            // would still leave the node advertising cores and RAM it does not
+            // have, in labels an SRE reads first.
+            if let Some(base) = base_spec(&group.role) {
+                lines.push(format!("    generator: {base}"));
+                lines.push("    services: []".into());
+                lines.push("    utc_offset_secs: 0".into());
+                lines.push("    attrs: {}".into());
+                lines.push("    instances:".into());
+                lines.push("      interface:".into());
+                for (name, weight, speed) in ports() {
+                    lines.push(format!(
+                        "        - {{ name: {name}, weight: {weight}, \
+                         attrs: {{ if_speed_mbps: {speed} }} }}"
+                    ));
+                }
+                lines.push("    labels:".into());
+                lines.push("      _install_type: infra-sim".into());
+                lines.push("      device_vendor: sim-networks".into());
+                lines.push("      device_model: SIM-2960X-24".into());
+                lines.push("      device_type: switch".into());
+                lines.push(format!("      infra_sim_role: {}", group.role));
+                lines.push("      infra_sim_env: production".into());
+                continue;
+            }
+
             lines.push(format!("    services: {services}"));
             lines.push("    utc_offset_secs: 0".into());
             lines.push("    attrs:".into());

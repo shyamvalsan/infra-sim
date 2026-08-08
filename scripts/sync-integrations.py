@@ -406,6 +406,19 @@ def main() -> None:
     # The generated entry for the same software under a different id would sit
     # beside the hand-authored one as a second, differently-sized "PostgreSQL".
     # An SE picking between them has no way to know which is which.
+    # snmp-devices is generated from a metadata.yaml that declares only a
+    # licensing scope, so it advertises 6 licence charts and no interfaces at
+    # all - the real per-port charts are built at runtime from device profiles
+    # and are invisible to this sync. Six licence charts sold as SNMP support is
+    # worse than nothing. Network devices are a node class of their own
+    # (specs/network-device.yaml), not a service composed onto Linux.
+    misleading = {"snmp-devices"}
+    catalogue = [c for c in catalogue if c["id"] not in misleading]
+    for gone in misleading:
+        path = os.path.join(spec_dir, f"{gone}.yaml")
+        if os.path.exists(path):
+            os.remove(path)
+
     aliases = {"postgres": ["postgresql"]}
     for sid, label in hand.items():
         drop = {sid, *aliases.get(sid, [])}

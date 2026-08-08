@@ -114,9 +114,10 @@ pub fn check(engines: &mut [NodeEngine], ticks: i64, start: i64, interval: i64) 
         //
         //   * a flat zero - a healthy host genuinely reports zero OOM kills and
         //     zero interface errors for as long as it stays healthy;
-        //   * a declared constant - a signal whose min equals its max was
-        //     authored as a fixed value, such as a configured max_connections
-        //     or a link's negotiated duplex.
+        //   * a declared constant - a signal whose min equals its max, or one
+        //     sourced from an attribute, was authored as a fixed value: a
+        //     configured max_connections, a link's negotiated duplex, a port's
+        //     rated speed.
         //
         // What is left is a dimension pinned at a non-zero value it was not
         // declared to hold, which is how every "/" mount came to report 100%
@@ -178,7 +179,11 @@ fn dimension_is_constant(spec: &GeneratorSpec, context_index: usize, dim: &str) 
     };
     signal_name
         .and_then(|n| spec.signals.get(&n))
-        .is_some_and(|s| s.min == s.max)
+        // `from_attr` is a declared constant by construction: the value comes
+        // from the node or instance attribute verbatim, with no seasonality,
+        // noise or bounds. A port's rated speed does not vary and must not be
+        // reported as a stuck signal.
+        .is_some_and(|s| s.min == s.max || s.from_attr.is_some())
 }
 
 /// Index of the context behind a chart id.

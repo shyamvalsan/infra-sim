@@ -155,6 +155,17 @@ pub struct Target {
     pub signal: String,
     #[serde(default)]
     pub hostname: Option<String>,
+    /// Restrict to nodes whose hostname ends with this.
+    ///
+    /// `role` alone hits every node of that role, which is wrong whenever the
+    /// fault is physical: a dirty optic is in one switch, not in all of them,
+    /// and a manifest claiming "one port of one switch" while every switch
+    /// showed the fault would be scoring Netdata AI against a lie.
+    ///
+    /// A suffix rather than a full hostname because the prefix is the prospect's
+    /// name and changes on every re-skin, while `-sw-01` does not.
+    #[serde(default)]
+    pub hostname_suffix: Option<String>,
     #[serde(default)]
     pub role: Option<String>,
     /// Restrict to one instance (a disk, a mount, an interface). Absent means
@@ -176,6 +187,11 @@ impl Target {
         }
         if let Some(want) = &self.hostname {
             if want != hostname {
+                return false;
+            }
+        }
+        if let Some(want) = &self.hostname_suffix {
+            if !hostname.ends_with(want.as_str()) {
                 return false;
             }
         }
@@ -468,9 +484,34 @@ timeline:
     }
 
     #[test]
+    fn a_hostname_suffix_pins_a_fault_to_one_node_of_a_role() {
+        // Targeting by role alone put a "dirty optic" on every switch at once,
+        // contradicting a manifest that says one port of one switch. A suffix
+        // survives a re-skin, which rewrites the prefix and nothing else.
+        let t = Target {
+            signal: "if_in_errors_rate".into(),
+            hostname: None,
+            hostname_suffix: Some("-sw-01".into()),
+            role: Some("network-device".into()),
+            instance: Some("Uplink1".into()),
+        };
+        let m = |h: &str| t.matches(h, Some("network-device"), "Uplink1", "if_in_errors_rate");
+        assert!(m("acme-sw-01"));
+        assert!(m("initech-sw-01"), "must survive a re-skin");
+        assert!(!m("acme-sw-02"), "the other switch stays clean");
+        assert!(!t.matches(
+            "acme-sw-01",
+            Some("network-device"),
+            "Uplink2",
+            "if_in_errors_rate"
+        ));
+    }
+
+    #[test]
     fn target_selectors_combine_with_and() {
         let t = Target {
             signal: "disk_space_used_kb".into(),
+            hostname_suffix: None,
             hostname: Some("sim-db-01".into()),
             role: None,
             instance: Some("/var/lib/pgsql".into()),
@@ -495,6 +536,7 @@ timeline:
     fn an_empty_selector_matches_the_whole_fleet() {
         let t = Target {
             signal: "cpu_busy".into(),
+            hostname_suffix: None,
             hostname: None,
             role: None,
             instance: None,

@@ -141,6 +141,19 @@ pub struct NodeDef {
     /// compose rather than being chosen between.
     #[serde(default)]
     pub services: Vec<String>,
+
+    /// Base generator spec for this node, overriding the fleet's.
+    ///
+    /// A network device is not a Linux box: it has ports, not disks, and
+    /// composing the Linux baseline underneath would have every simulated
+    /// switch reporting CPU, RAM and a filling `/var`. That is the artifact an
+    /// SRE spots instantly, so a node class that is not a server needs its own
+    /// base rather than an additional service.
+    ///
+    /// Absent means the fleet's `generator:`, so every environment written
+    /// before this field keeps working unchanged.
+    #[serde(default)]
+    pub generator: Option<PathBuf>,
 }
 
 /// One device. Accepts either a bare name or a table, so the common case stays
@@ -210,6 +223,14 @@ impl Environment {
     /// Generator spec path resolved against the environment file's directory.
     pub fn generator_path(&self, env_path: &Path) -> PathBuf {
         resolve(&self.generator, env_path)
+    }
+
+    /// Base spec for one node: its own override, or the fleet's.
+    pub fn node_generator_path(&self, node: &NodeDef, env_path: &Path) -> PathBuf {
+        match &node.generator {
+            Some(p) => resolve(p, env_path),
+            None => self.generator_path(env_path),
+        }
     }
 
     /// Scenario directory resolved against the environment file's directory.

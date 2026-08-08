@@ -385,11 +385,26 @@ fn run() -> Result<(), String> {
     let mut composed: std::collections::BTreeMap<String, Arc<GeneratorSpec>> =
         std::collections::BTreeMap::new();
     for node in &env.nodes {
-        let key = node.services.join("+");
+        // The base spec is part of the key. Without it a mixed fleet would take
+        // whichever node was composed first and hand its charts to the other
+        // class - a wrong-data bug, not a crash.
+        let base_path = env.node_generator_path(node, &args.environment);
+        let key = format!("{}\0{}", base_path.display(), node.services.join("+"));
         if composed.contains_key(&key) {
             continue;
         }
-        let mut merged = spec.clone();
+        let mut merged = if base_path == spec_path {
+            spec.clone()
+        } else {
+            let raw = std::fs::read_to_string(&base_path).map_err(|e| {
+                format!(
+                    "node '{}' needs base spec '{}': {e}",
+                    node.hostname,
+                    base_path.display()
+                )
+            })?;
+            GeneratorSpec::from_yaml(&raw).map_err(|e| e.to_string())?
+        };
         for service in &node.services {
             // Hand-authored specs sit directly in the specs directory; the ones
             // synced from Netdata's collector metadata sit in its `generated`
@@ -436,7 +451,11 @@ fn run() -> Result<(), String> {
         .iter()
         .zip(&env.nodes)
         .map(|(p, n)| {
-            let key = n.services.join("+");
+            let key = format!(
+                "{}\0{}",
+                env.node_generator_path(n, &args.environment).display(),
+                n.services.join("+")
+            );
             NodeEngine::new(Arc::clone(&composed[&key]), p.clone(), env.seed)
         })
         .collect();
@@ -895,6 +914,13 @@ fn check_scenarios(
                     "  {name} step {i}: unknown signal '{}' - the step would do nothing",
                     t.signal
                 ));
+            }
+            if let Some(sfx) = &t.hostname_suffix {
+                if !hosts.iter().any(|h| h.ends_with(sfx.as_str())) {
+                    problems.push(format!(
+                        "  {name} step {i}: no hostname ends with '{sfx}' - the step would do nothing"
+                    ));
+                }
             }
             if let Some(h) = &t.hostname {
                 if !hosts.contains(&h.as_str()) {

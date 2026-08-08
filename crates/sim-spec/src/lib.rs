@@ -167,6 +167,27 @@ pub struct Signal {
     /// size. Without this every `max` is treated as a rail.
     #[serde(default)]
     pub max_is_ceiling: bool,
+
+    /// Exempt this signal from its instance's weight.
+    ///
+    /// Weight expresses how much flows through an instance - a busy disk, a
+    /// 10G uplink - and scaling a throughput signal by it is exactly right. But
+    /// some signals describe a *property* of the instance rather than a
+    /// quantity moving through it: whether a port is up, what speed it is rated
+    /// at. Scaling those is nonsense, and quietly so: a link-up signal of 1.0
+    /// on a 0.35-weight access port emits 0, which reads as a dead port.
+    #[serde(default)]
+    pub ignore_weight: bool,
+
+    /// Take this signal's value verbatim from a node or instance attribute.
+    ///
+    /// For facts that differ per instance and do not vary with time: a port's
+    /// rated speed, a disk's size. Seasonality, noise, weight and bounds are all
+    /// bypassed - an attribute is not a modelled quantity, it is a
+    /// specification. Instance attributes shadow the node's, so one context
+    /// serves a 1G access port and a 10G uplink from the same spec.
+    #[serde(default)]
+    pub from_attr: Option<String>,
 }
 
 impl Signal {

@@ -1,0 +1,142 @@
+version: 1
+name: switch-uplink-degrading
+description: >-
+  A dirty fibre connector on an access switch's 10G uplink. The link stays up
+  the entire time, which is what makes this the hard one: nothing alerts on link
+  state, the port never goes down, and the switch itself looks healthy.
+
+  What actually happens is at the physical layer. CRC errors climb on the
+  uplink, the switch discards the corrupt frames, and TCP retransmits everything
+  it loses. Goodput falls while the wire gets busier, so the port looks *more*
+  utilised right up to the point the applications behind it start timing out.
+
+  The demo it supports: an engineer who checks link state sees nothing wrong.
+  The fix is found by correlating errors on one port with latency on the servers
+  behind it, which is the correlation Netdata makes and a link-state check
+  cannot.
+
+manifest:
+  root_cause: >-
+    physical-layer degradation on the first access switch's primary 10G uplink
+    (TenGigabitEthernet1/1/1) - a dirty or failing optic, not a configuration
+    change
+  causal_chain:
+    - CRC errors begin appearing inbound on the switch's primary uplink
+    - the switch discards the corrupt frames, so inbound discards track the errors
+    - TCP retransmits every lost segment, raising packet rates without raising useful throughput
+    - goodput on the uplink falls even as the port's packet counters climb
+    - the secondary uplink absorbs some traffic, so total switch throughput hides the fault
+    - servers reached through that switch see request latency rise
+  blast_radius:
+    - role:network-device
+    - role:web
+  expected_finding: >-
+    Inbound errors and discards concentrated on one port of one switch, while
+    every other port on the same device stays clean. The link never goes down,
+    so link-state monitoring reports the switch as healthy throughout. Rising
+    packet rates on that port are retransmissions, not demand - goodput is
+    falling at the same time.
+
+# Without a network device there is nothing to degrade.
+requires_roles: [network-device]
+
+timeline:
+
+  - at: 0s
+    description: CRC errors begin on the primary uplink
+    target:
+      signal: if_in_errors_rate
+      role: network-device
+      hostname_suffix: -sw-01
+      instance: TenGigabitEthernet1/1/1
+    effect: add_ramp
+    amount: 45.0
+    over: 8m
+
+  - at: 30s
+    description: The switch discards the corrupt frames
+    target:
+      signal: if_in_discards_rate
+      role: network-device
+      hostname_suffix: -sw-01
+      instance: TenGigabitEthernet1/1/1
+    effect: add_ramp
+    amount: 38.0
+    over: 8m
+
+  - at: 2m
+    description: TCP retransmits inflate the packet rate without adding goodput
+    target:
+      signal: if_in_ucast_rate
+      role: network-device
+      hostname_suffix: -sw-01
+      instance: TenGigabitEthernet1/1/1
+    effect: ramp
+    multiplier: 1.9
+    over: 10m
+
+  - at: 2m
+    description: Useful throughput falls as the link wastes capacity on retries
+    target:
+      signal: if_in_octets_rate
+      role: network-device
+      hostname_suffix: -sw-01
+      instance: TenGigabitEthernet1/1/1
+    effect: ramp
+    multiplier: 0.42
+    over: 10m
+
+  - at: 4m
+    description: The secondary uplink takes up some of the load, masking the total
+    target:
+      signal: if_in_octets_rate
+      role: network-device
+      hostname_suffix: -sw-01
+      instance: TenGigabitEthernet1/1/2
+    effect: ramp
+    multiplier: 1.55
+    over: 8m
+
+  - at: 6m
+    description: Outbound errors appear as the far end retransmits too
+    target:
+      signal: if_out_errors_rate
+      role: network-device
+      hostname_suffix: -sw-01
+      instance: TenGigabitEthernet1/1/1
+    effect: add_ramp
+    amount: 12.0
+    over: 6m
+
+  - at: 8m
+    description: The switch works harder processing errored frames
+    target:
+      signal: device_cpu_usage
+      role: network-device
+      hostname_suffix: -sw-01
+    effect: ramp
+    multiplier: 2.4
+    over: 8m
+
+  # --- blast radius: the servers behind that switch --------------------------
+  # Opportunistic. A fleet with no web tier still demonstrates the scenario on
+  # the switch itself; these steps simply do not fire.
+
+  - at: 5m
+    description: Servers behind the switch see request latency rise
+    target:
+      signal: nginx_request_time_ms
+      role: web
+    effect: ramp
+    multiplier: 3.2
+    over: 10m
+
+  - at: 7m
+    description: Retransmits raise the servers' own packet rates
+    target:
+      signal: net_rx_pkt_rate
+      role: web
+      instance: eth0
+    effect: ramp
+    multiplier: 1.7
+    over: 8m

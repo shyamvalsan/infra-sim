@@ -157,6 +157,13 @@ kill the process too.
 
 ## Things that will bite you
 
+**After a teardown, a new fleet needs the agent restarted.** Netdata keeps a
+registry entry for a plugin it has already run and does not relaunch it when the
+file reappears, so create-after-teardown installs correctly and then nothing
+shows up. `sudo systemctl restart netdata` and the nodes arrive. Tracked as
+`SOW-0011`.
+
+
 - **A green lint is not a working demo.** The lint does not run scenarios.
   After changing anything that sizes a mount or bounds a signal, trigger the
   scenario that targets it and watch the value.

@@ -260,6 +260,27 @@ A gateway may answer as a different model than the one asked for, so a
 JSON-parse failure names the model that actually replied. Override the default
 with `--llm-model`, and set `INFRA_SIM_LLM_DEBUG=1` to see the exchange.
 
+## Network devices
+
+Switches, routers and firewalls are a node class of their own, not a service
+composed onto Linux. Pick the **network-device** role and the node carries
+`specs/network-device.yaml` as its own base: 26 ports, per-port traffic,
+packets, errors, discards, status and speed, plus device CPU, memory and uptime
+— and **no** Linux contexts, because a switch has no `/var` to fill.
+
+Contexts follow the naming Netdata's own SNMP collector produces
+(`snmp.device_prof_*`), and the metric set is the universal one from the
+standard IF-MIB that every device reports.
+
+One fleet can hold both classes; a node's optional `generator:` overrides the
+fleet's.
+
+The hero scenario is `switch-uplink-degrading` — a dirty fibre connector on one
+uplink of one switch. **The link never goes down**, which is the point: a
+link-state check reports the switch healthy throughout, while CRC errors and
+discards climb on that one port, goodput falls, and the servers behind it see
+latency rise. Finding it means correlating one port with the tier behind it.
+
 ## Simulated Prometheus exporters
 
 Prospects run their own services, instrumented with a Prometheus client library.
