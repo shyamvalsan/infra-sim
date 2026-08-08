@@ -45,14 +45,37 @@ impl Agent {
         serde_json::from_str(&body).map_err(|e| format!("invalid JSON from {path}: {e}"))
     }
 
+    /// PUT a JSON body and parse the response as JSON.
+    ///
+    /// Used for claiming. The body carries a credential, so it is never logged
+    /// and never included in an error message.
+    pub async fn put_json(
+        &self,
+        path: &str,
+        body: &serde_json::Value,
+    ) -> Result<serde_json::Value, String> {
+        let text =
+            tokio::time::timeout(TIMEOUT, self.request("PUT", path, Some(&body.to_string())))
+                .await
+                .map_err(|_| {
+                    format!("timed out after {}s requesting {path}", TIMEOUT.as_secs())
+                })??;
+        serde_json::from_str(&text).map_err(|e| format!("invalid JSON from {path}: {e}"))
+    }
+
     async fn get(&self, path: &str) -> Result<String, String> {
-        let fut = self.get_inner(path);
+        let fut = self.request("GET", path, None);
         tokio::time::timeout(TIMEOUT, fut)
             .await
             .map_err(|_| format!("timed out after {}s requesting {path}", TIMEOUT.as_secs()))?
     }
 
-    async fn get_inner(&self, path: &str) -> Result<String, String> {
+    async fn request(
+        &self,
+        method: &str,
+        path: &str,
+        body: Option<&str>,
+    ) -> Result<String, String> {
         let addr = format!("{}:{}", self.host, self.port);
         let mut stream = TcpStream::connect(&addr)
             .await
@@ -60,9 +83,13 @@ impl Agent {
 
         // HTTP/1.0 so the server closes the connection when the body ends,
         // which lets read-to-EOF terminate without parsing chunked encoding.
+        let payload = body.unwrap_or_default();
         let request = format!(
-            "GET {path} HTTP/1.0\r\nHost: {}\r\nAccept: application/json\r\nConnection: close\r\n\r\n",
-            self.host
+            "{method} {path} HTTP/1.0\r\nHost: {}\r\nAccept: application/json\r\n\
+             Content-Type: application/json\r\nContent-Length: {}\r\n\
+             Connection: close\r\n\r\n{payload}",
+            self.host,
+            payload.len()
         );
         stream
             .write_all(request.as_bytes())

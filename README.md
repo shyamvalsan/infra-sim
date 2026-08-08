@@ -42,9 +42,11 @@ The first vertical slice is complete and validated end to end on a live agent.
   triggerable live.
 - Two-layer fidelity harness (pinned-signal + semantic checks). It has found
   seven real bugs that were live.
-- Control console; environment authoring by hand, from a text description
-  (offline or LLM-backed), or by re-skinning a warm fleet without touching
-  GUIDs.
+- Control console covering the full lifecycle: create (role counts + collector
+  checkboxes, lint-gated install), preflight, scenario controls, claim, and
+  guided teardown with archive.
+- Environment authoring by hand, from a text description (offline or
+  LLM-backed), or by re-skinning a warm fleet without touching GUIDs.
 - Correlated logs — one journal source per node, fault lines matched on signals.
 - OpenTelemetry: an OTLP emitter showcase, and a collector-fleet generator spec.
 
@@ -116,6 +118,33 @@ sudo systemctl restart netdata
 
 Simulated nodes persist in the agent's database after removal — a vnode GUID is
 a durable identity, which is what makes the re-skin workflow possible.
+
+## The console
+
+The full lifecycle — create, claim, warm up, demo, tear down — from one screen.
+
+```bash
+sudo ./target/release/infra-sim-console --repo "$PWD"
+# then open http://127.0.0.1:8080
+```
+
+Root is required: create writes under `/etc/netdata`, manages the plugin
+process, and claim reads the agent's local-proof file. Shelling out to `sudo`
+per action would put a password prompt in the middle of a demo instead.
+
+- **New simulation** — node count per role, and a checkbox per collector
+  (`nginx`, `postgres`, `redis`, `containers`, `kubernetes`, `otel-collector`),
+  each role's defaults pre-ticked. Builds `environment.yaml`, runs the fidelity
+  lint, and **refuses to install a fleet that fails it**.
+- **Preflight** — a green board it verifies against the live agent, not a
+  checklist it trusts you to have done.
+- **Scenarios** — trigger and resolve, with ground truth per scenario.
+- **Claim** — one claim covers the whole fleet. The token goes straight to the
+  agent and is never stored, logged, or written to any file. The Space name
+  must end `(Simulated Demo)`; that is enforced, not suggested.
+- **Teardown** — disarms scenarios, removes the plugin *and* stops its process
+  (either alone is not enough), and archives the environment, seed and scenario
+  manifests. Cloud-side steps stay manual and say so.
 
 ## Building an environment from a description
 

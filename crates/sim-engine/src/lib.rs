@@ -17,6 +17,7 @@ use std::sync::Arc;
 use sim_spec::{Accumulate, GeneratorSpec, NoiseKind, Shape, Signal, Total};
 
 pub mod control_file;
+pub mod describe;
 pub mod fidelity;
 pub mod logs;
 pub mod rng;

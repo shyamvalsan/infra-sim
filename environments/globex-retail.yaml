@@ -1,0 +1,193 @@
+version: 1
+name: globex-retail
+description: >-
+  Generated from a text description.
+
+seed: 16261534951428775630
+update_every: 1
+generator: ../specs/linux-system.yaml
+specs: ../specs
+scenarios: ../scenarios
+
+# GUIDs are derived from the environment name and hostname, so
+# regenerating this file reproduces the same node identities rather
+# than orphaning the history of a fleet that is already running.
+nodes:
+
+  - hostname: globex-retail-lb-01
+    guid: 1bf5813f-da72-4d43-9452-8f7ae1f3242d
+    role: lb
+    services: [nginx]
+    utc_offset_secs: 0
+    attrs:
+      cores: 4
+      ram_total_kb: 4194304
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: sda, weight: 1.0 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/boot", weight: 0.0022, attrs: { disk_total_kb: 1048576, inodes_total: 6553600 } }
+      net:
+        - { name: eth0, weight: 1.0 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "4"
+      _system_ram_total: "4194304"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: c5.xlarge
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: lb
+      infra_sim_env: production
+
+  - hostname: globex-retail-web-01
+    guid: 9e573be7-50bd-492e-bfce-bd894f3c1339
+    role: web
+    services: [nginx, otel-collector]
+    utc_offset_secs: 0
+    attrs:
+      cores: 8
+      ram_total_kb: 16777216
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/boot", weight: 0.0022, attrs: { disk_total_kb: 1048576, inodes_total: 6553600 } }
+      net:
+        - { name: eth0, weight: 1.0 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "8"
+      _system_ram_total: "16777216"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: m5.2xlarge
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: web
+      infra_sim_env: production
+
+  - hostname: globex-retail-web-02
+    guid: 3e573be7-bd9d-492f-bfce-b8894f3c29c0
+    role: web
+    services: [nginx, otel-collector]
+    utc_offset_secs: 0
+    attrs:
+      cores: 8
+      ram_total_kb: 16777216
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/boot", weight: 0.0022, attrs: { disk_total_kb: 1048576, inodes_total: 6553600 } }
+      net:
+        - { name: eth0, weight: 1.0 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "8"
+      _system_ram_total: "16777216"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: m5.2xlarge
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: web
+      infra_sim_env: production
+
+  - hostname: globex-retail-db-01
+    guid: ce411c26-816e-46cc-8a58-158e453d2115
+    role: db
+    services: [postgres]
+    utc_offset_secs: 0
+    attrs:
+      cores: 16
+      ram_total_kb: 67108864
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+        - { name: nvme1n1, weight: 0.35 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/var/lib/pgsql", weight: 0.9612, attrs: { disk_total_kb: 1572864000, inodes_total: 6553600 } }
+        - { name: "/var/log", weight: 0.1107, attrs: { disk_total_kb: 52428800, inodes_total: 6553600 } }
+      net:
+        - { name: eth0, weight: 1.0 }
+        - { name: eth1, weight: 0.45 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "16"
+      _system_ram_total: "67108864"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: r5.4xlarge
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: db
+      infra_sim_env: production
+
+  - hostname: globex-retail-cache-01
+    guid: 46b2844a-822f-4625-96a2-cc827a1a0b85
+    role: cache
+    services: [redis, otel-collector]
+    utc_offset_secs: 0
+    attrs:
+      cores: 8
+      ram_total_kb: 16777216
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: sda, weight: 1.0 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/boot", weight: 0.0022, attrs: { disk_total_kb: 1048576, inodes_total: 6553600 } }
+      net:
+        - { name: eth0, weight: 1.0 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "8"
+      _system_ram_total: "16777216"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: r5.large
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: cache
+      infra_sim_env: production

@@ -26,6 +26,7 @@ use tokio::sync::Mutex;
 
 mod agent;
 mod preflight;
+mod provision;
 
 use agent::Agent;
 
@@ -49,6 +50,8 @@ struct AppState {
     /// the board never claims more readiness than it can prove.
     first_seen: i64,
     cached_guid: Mutex<Option<String>>,
+    /// Checkout used by the create flow to find specs, scenarios and a binary.
+    repo: PathBuf,
 }
 
 #[derive(Serialize)]
@@ -303,6 +306,52 @@ fn mutate<F: FnOnce(&mut ControlFile)>(app: &AppState, f: F) -> impl IntoRespons
     }
 }
 
+// --------------------------------------------------------------------------
+// Lifecycle: create, claim, teardown  (spec.md section 6)
+// --------------------------------------------------------------------------
+
+/// Roles and collectors the create form can offer, read from disk.
+async fn catalogue(State(app): State<Arc<AppState>>) -> impl IntoResponse {
+    Json(serde_json::json!(provision::catalogue(
+        &app.repo.join("specs")
+    )))
+}
+
+async fn create(
+    State(app): State<Arc<AppState>>,
+    Json(req): Json<provision::CreateRequest>,
+) -> impl IntoResponse {
+    // Blocking: the lint simulates hours of data and the install copies files.
+    // Holding the executor here is fine - the console serves one operator.
+    let repo = app.repo.clone();
+    match tokio::task::spawn_blocking(move || provision::create(&repo, &req)).await {
+        Ok(Ok(r)) => Json(serde_json::json!(r)),
+        Ok(Err(e)) => Json(json_err(e)),
+        Err(e) => Json(json_err(format!("create task failed: {e}"))),
+    }
+}
+
+async fn claim(
+    State(app): State<Arc<AppState>>,
+    Json(req): Json<provision::ClaimRequest>,
+) -> impl IntoResponse {
+    match provision::claim(&app.agent, &req).await {
+        Ok(r) => Json(serde_json::json!(r)),
+        // The error must not echo the request: it carries a credential.
+        Err(e) => Json(json_err(e)),
+    }
+}
+
+async fn teardown(State(app): State<Arc<AppState>>) -> impl IntoResponse {
+    let repo = app.repo.clone();
+    let control = app.control_path.clone();
+    let env = app.env_path.clone();
+    match tokio::task::spawn_blocking(move || provision::teardown(&repo, &control, &env)).await {
+        Ok(steps) => Json(serde_json::json!({ "steps": steps })),
+        Err(e) => Json(json_err(format!("teardown task failed: {e}"))),
+    }
+}
+
 fn json_err(e: String) -> serde_json::Value {
     serde_json::json!({ "ok": false, "error": e })
 }
@@ -319,6 +368,9 @@ struct Args {
     bind: String,
     agent: String,
     lint_clean: Option<bool>,
+    /// Checkout holding specs/, scenarios/ and a built binary. Create needs
+    /// these; without it the console is read-only.
+    repo: PathBuf,
 }
 
 fn parse_args() -> Result<Args, String> {
@@ -326,6 +378,7 @@ fn parse_args() -> Result<Args, String> {
     let mut bind = DEFAULT_BIND.to_string();
     let mut agent = DEFAULT_AGENT.to_string();
     let mut lint_clean = None;
+    let mut repo = std::env::current_dir().unwrap_or_else(|_| PathBuf::from("."));
 
     let mut it = std::env::args().skip(1);
     while let Some(a) = it.next() {
@@ -334,6 +387,12 @@ fn parse_args() -> Result<Args, String> {
                 environment = PathBuf::from(
                     it.next()
                         .ok_or_else(|| "--environment requires a path".to_string())?,
+                )
+            }
+            "--repo" => {
+                repo = PathBuf::from(
+                    it.next()
+                        .ok_or_else(|| "--repo requires a path".to_string())?,
                 )
             }
             "--bind" | "-b" => {
@@ -362,6 +421,7 @@ fn parse_args() -> Result<Args, String> {
         }
     }
     Ok(Args {
+        repo,
         environment,
         bind,
         agent,
@@ -407,6 +467,7 @@ async fn main() -> std::process::ExitCode {
         lint_clean: args.lint_clean,
         first_seen: now_secs(),
         cached_guid: Mutex::new(None),
+        repo: args.repo.clone(),
     });
 
     let app = Router::new()
@@ -415,6 +476,10 @@ async fn main() -> std::process::ExitCode {
         .route("/api/scenario/{name}/trigger", post(trigger))
         .route("/api/scenario/{name}/resolve", post(resolve))
         .route("/api/scenario/resolve-all", post(resolve_all))
+        .route("/api/catalogue", get(catalogue))
+        .route("/api/create", post(create))
+        .route("/api/claim", post(claim))
+        .route("/api/teardown", post(teardown))
         .with_state(state);
 
     let addr: SocketAddr = match args.bind.parse() {

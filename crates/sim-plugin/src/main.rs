@@ -16,7 +16,6 @@ use std::sync::Arc;
 use std::time::{Duration, SystemTime, UNIX_EPOCH};
 
 mod control;
-mod describe;
 mod emitter;
 mod environment;
 mod llm;
@@ -583,7 +582,7 @@ fn do_describe(
             r.unrecognised = p.unsupported;
             r
         }
-        None => describe::parse(text),
+        None => sim_engine::describe::parse(text),
     };
 
     if reading.groups.is_empty() {
@@ -611,7 +610,7 @@ fn do_describe(
         (h ^ u64::from(b)).wrapping_mul(0x0000_0100_0000_01b3)
     });
 
-    let yaml = describe::render(&reading, &name, seed, &prefix);
+    let yaml = sim_engine::describe::render(&reading, &name, seed, &prefix);
 
     if let Some(dir) = output.parent() {
         reskin::check_guid_uniqueness(dir, &yaml, output)?;
@@ -712,6 +711,9 @@ fn check_scenarios(
 
     let mut problems = Vec::new();
     let mut skipped = Vec::new();
+    // Steps that cannot fire here but are not faults - reported so an operator
+    // knows which parts of a scenario this fleet will not show.
+    let mut inapplicable: Vec<String> = Vec::new();
     for (name, sc) in library {
         // A scenario whose required roles are absent is not an error; it simply
         // does not belong to this environment and is not offered.
@@ -721,6 +723,29 @@ fn check_scenarios(
         }
         for (i, step) in sc.timeline.iter().enumerate() {
             let t = &step.target;
+
+            // A step aimed at a role this fleet does not have is only a fault
+            // when the scenario declared that role as required. Hero scenarios
+            // propagate opportunistically - disk-fill reaches the load balancer
+            // last - and a fleet with no `lb` should still be able to run it,
+            // minus that step. Treating every absent role as fatal made the
+            // console's create flow unable to build anything but a fleet
+            // containing every role any scenario happens to mention.
+            if let Some(r) = &t.role {
+                if !roles.contains(&r.as_str()) {
+                    if sc.requires_roles.iter().any(|req| req == r) {
+                        problems.push(format!(
+                            "  {name} step {i}: requires role '{r}', which no node has"
+                        ));
+                    } else {
+                        inapplicable
+                            .push(format!("  {name} step {i}: no '{r}' node, step is skipped"));
+                    }
+                    // The rest of this step cannot fire either way.
+                    continue;
+                }
+            }
+
             // A signal only has to exist on some node; a Postgres scenario
             // legitimately names signals no web node defines.
             let known = composed.values().any(|s| s.signals.contains_key(&t.signal));
@@ -733,11 +758,6 @@ fn check_scenarios(
             if let Some(h) = &t.hostname {
                 if !hosts.contains(&h.as_str()) {
                     problems.push(format!("  {name} step {i}: unknown hostname '{h}'"));
-                }
-            }
-            if let Some(r) = &t.role {
-                if !roles.contains(&r.as_str()) {
-                    problems.push(format!("  {name} step {i}: no node has role '{r}'"));
                 }
             }
             if let Some(inst) = &t.instance {
@@ -759,8 +779,14 @@ fn check_scenarios(
             skipped.join(", ")
         );
     }
+    if !inapplicable.is_empty() {
+        println!("  steps that will not fire in this fleet:");
+        for line in &inapplicable {
+            println!("{line}");
+        }
+    }
     if problems.is_empty() {
-        println!("  all scenario targets resolve\n");
+        println!("  all required scenario targets resolve\n");
         Ok(())
     } else {
         println!("{}\n", problems.join("\n"));

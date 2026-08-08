@@ -64,13 +64,25 @@ sudo apt-get install systemd-journal-remote     # one-time
 Each node becomes its own log source, and fault lines follow whatever scenario
 is running. Stop with `./scripts/logs.sh stop`.
 
-## 6. Console
+## 6. Console — or do all of the above from one screen
 
 ```bash
-./target/release/infra-sim-console -e /etc/netdata/infra-sim/environment.yaml
+sudo ./target/release/infra-sim-console --repo "$PWD"
 ```
 
 Then open <http://127.0.0.1:8080>.
+
+Steps 1-4 above are the command line. The console does the same work with a
+form: pick node counts per role, tick the collectors you want (including
+`otel-collector`), name the prospect, and press **Create & install** — it
+builds the environment, lints it, refuses to install if the lint fails, and
+swaps the running fleet.
+
+It also holds **Claim** (token + Space name; the token is never written
+anywhere) and **Teardown** (disarm, remove the plugin, stop its process,
+archive the artifacts that replay the world).
+
+Root is required for create, claim and teardown.
 
 ---
 

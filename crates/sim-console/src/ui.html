@@ -76,6 +76,31 @@
   .checklist code { background: var(--panel2); padding: 1px 5px; border-radius: 3px; font-size: 12px; }
   a { color: var(--accent); }
   .note { color: var(--muted); font-size: 12px; margin-top: 10px; }
+
+.form { display: flex; flex-wrap: wrap; gap: 14px; margin: 10px 0 14px; }
+.form label { display: flex; flex-direction: column; gap: 4px; font-size: 12px;
+              color: var(--dim, #8b949e); }
+.form input, .form select {
+  background: #0d1117; color: #c9d1d9; border: 1px solid #30363d;
+  border-radius: 4px; padding: 6px 8px; font: inherit; font-size: 13px; min-width: 240px; }
+button { background: #21262d; color: #c9d1d9; border: 1px solid #30363d;
+  border-radius: 4px; padding: 6px 12px; font: inherit; font-size: 12px; cursor: pointer; }
+button:hover { border-color: #58a6ff; }
+button:disabled { opacity: .5; cursor: default; border-color: #30363d; }
+button.danger:hover { border-color: #f85149; }
+#rolesTable { width: 100%; border-collapse: collapse; margin-bottom: 12px; }
+#rolesTable th { text-align: left; font-weight: normal; color: #6e7681;
+  font-size: 11px; text-transform: uppercase; padding: 4px 8px; }
+#rolesTable td { padding: 5px 8px; border-top: 1px solid #21262d; vertical-align: top; }
+#rolesTable input[type=number] { width: 58px; }
+.svc { display: inline-flex; align-items: center; gap: 4px; margin-right: 12px;
+  font-size: 12px; color: #8b949e; white-space: nowrap; }
+.roleName { font-family: ui-monospace, monospace; font-size: 12px; }
+.roleSummary { color: #6e7681; font-size: 11px; margin-top: 2px; max-width: 46ch; }
+.out { white-space: pre-wrap; font-family: ui-monospace, monospace; font-size: 12px;
+  margin-top: 10px; color: #8b949e; }
+.out.ok { color: #3fb950; } .out.bad { color: #f85149; }
+.dim { color: #6e7681; }
 </style>
 </head>
 <body>
@@ -90,6 +115,36 @@
     <h2>Preflight</h2>
     <div class="verdict" id="verdict">…</div>
     <div class="body" id="board"></div>
+  </section>
+
+  <section>
+    <h2>New simulation</h2>
+    <div class="body">
+      <p class="note">
+        Builds an <code>environment.yaml</code>, runs the fidelity lint, and
+        installs it. A fleet that fails the lint is never installed. The name
+        fixes the seed and every node GUID, so it cannot change later without
+        orphaning the fleet's history.
+      </p>
+      <div class="form">
+        <label>Prospect / project name
+          <input id="newName" placeholder="acme">
+        </label>
+        <label>Lint before install
+          <select id="lintHours">
+            <option value="24">24 simulated hours (recommended)</option>
+            <option value="72">72 simulated hours (thorough, slower)</option>
+            <option value="6">6 simulated hours (quick)</option>
+          </select>
+        </label>
+      </div>
+      <table id="rolesTable">
+        <thead><tr><th>nodes</th><th>role</th><th>collectors</th></tr></thead>
+        <tbody></tbody>
+      </table>
+      <button id="createBtn" onclick="doCreate()">Create &amp; install</button>
+      <div id="createOut" class="out"></div>
+    </div>
   </section>
 
   <section>
@@ -109,22 +164,40 @@
   </section>
 
   <section>
-    <h2>Claim &amp; teardown</h2>
+    <h2>Claim</h2>
     <div class="body">
       <p class="note">
-        These are a checklist, not buttons. Whether Netdata Cloud's API can
-        automate node removal and Space deletion is still an open question in
-        the spec, and a button that silently does nothing is worse than a
-        checklist that tells the truth.
+        One claim covers the whole fleet — every simulated node appears in the
+        Space automatically. The token is sent straight to the agent and is
+        never stored, logged, or written to any file.
       </p>
-      <ul class="checklist">
-        <li>Create a fresh Space named <code>&lt;Prospect&gt; (Simulated Demo)</code> — one per prospect, never reused.</li>
-        <li>Claim this agent to that Space. One claim covers the whole fleet; every vnode appears automatically.</li>
-        <li>Confirm every node carries the <code>simulated=true</code> host label. The runtime applies it and an environment file cannot override it.</li>
-        <li>Only one instance of a base may be claimed at a time — GUIDs must be unique across the infrastructure. Re-skin and re-claim; never clone.</li>
-        <li>At teardown: disarm scenarios, stop the plugin <em>process</em> (removing the file is not enough), remove now-offline nodes, delete the Space.</li>
-        <li>Archive <code>environment.yaml</code>, the generator spec, the seed and the scenario manifests. Those four replay the identical world.</li>
-      </ul>
+      <div class="form">
+        <label>Space name
+          <input id="space" placeholder="Acme (Simulated Demo)">
+        </label>
+        <label>Claim token
+          <input id="token" type="password" placeholder="from the Space's Connect Nodes screen">
+        </label>
+        <label>Room ID <span class="dim">(optional)</span>
+          <input id="rooms" placeholder="leave blank for the default room">
+        </label>
+        <button id="claimBtn" onclick="doClaim()">Claim this fleet</button>
+      </div>
+      <div id="claimOut" class="out"></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Teardown</h2>
+    <div class="body">
+      <p class="note">
+        Disarms scenarios, stops the plugin <em>process</em> (removing the file
+        is not enough), and archives the environment, seed and scenario
+        manifests — the artifacts that replay the identical world. Cloud-side
+        steps stay manual and say so.
+      </p>
+      <button class="danger" onclick="doTeardown()">Run teardown</button>
+      <div id="teardownOut" class="out"></div>
     </div>
   </section>
 
@@ -233,6 +306,134 @@ function renderScenarios(scenarios) {
       ? `<div style="margin-top:14px"><button class="danger" onclick="post('/api/scenario/resolve-all')">Resolve all</button></div>`
       : "");
 }
+
+
+let CATALOGUE = null;
+
+async function loadCatalogue() {
+  CATALOGUE = await (await fetch("/api/catalogue")).json();
+  const tb = document.querySelector("#rolesTable tbody");
+  tb.innerHTML = "";
+  for (const r of CATALOGUE.roles) {
+    const tr = document.createElement("tr");
+
+    const count = document.createElement("td");
+    const n = document.createElement("input");
+    n.type = "number"; n.min = "0"; n.value = "0";
+    n.dataset.role = r.role; n.className = "roleCount";
+    count.appendChild(n);
+
+    const name = document.createElement("td");
+    name.innerHTML = `<div class="roleName">${r.role}</div>` +
+                     `<div class="roleSummary">${r.summary}</div>`;
+
+    // Every collector is offered on every role; the role's own are pre-ticked.
+    // otel-collector is just another checkbox, which is the point - an OTel
+    // agent beside the application is a normal deployment.
+    const svc = document.createElement("td");
+    for (const s of CATALOGUE.services) {
+      const lab = document.createElement("label");
+      lab.className = "svc";
+      const cb = document.createElement("input");
+      cb.type = "checkbox"; cb.value = s; cb.dataset.role = r.role;
+      cb.checked = r.default_services.includes(s);
+      lab.appendChild(cb);
+      lab.appendChild(document.createTextNode(s));
+      svc.appendChild(lab);
+    }
+
+    tr.appendChild(count); tr.appendChild(name); tr.appendChild(svc);
+    tb.appendChild(tr);
+  }
+}
+
+function collectGroups() {
+  const groups = [];
+  for (const input of document.querySelectorAll(".roleCount")) {
+    const count = parseInt(input.value || "0", 10);
+    if (!count) continue;
+    const services = [...document.querySelectorAll(
+      `#rolesTable input[type=checkbox][data-role="${input.dataset.role}"]`)]
+      .filter(c => c.checked).map(c => c.value);
+    groups.push({ role: input.dataset.role, count, services });
+  }
+  return groups;
+}
+
+async function doCreate() {
+  const out = document.getElementById("createOut");
+  const btn = document.getElementById("createBtn");
+  const groups = collectGroups();
+  const name = document.getElementById("newName").value.trim();
+  if (!name) { out.className = "out bad"; out.textContent = "a name is required"; return; }
+  if (!groups.length) { out.className = "out bad"; out.textContent = "pick at least one node"; return; }
+
+  btn.disabled = true;
+  out.className = "out";
+  out.textContent = "building, linting and installing - the lint simulates hours of data, so this takes a moment...";
+  try {
+    const r = await (await fetch("/api/create", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name, groups,
+        lint_hours: parseInt(document.getElementById("lintHours").value, 10),
+      }),
+    })).json();
+    if (r.error) { out.className = "out bad"; out.textContent = r.error; }
+    else {
+      out.className = "out ok";
+      out.textContent = `created ${r.nodes} node(s)\n${r.environment}\n\n` +
+                        `${r.lint_summary}\n\n${(r.notes || []).join("\n")}`;
+      refresh();
+    }
+  } catch (e) {
+    out.className = "out bad"; out.textContent = String(e);
+  } finally { btn.disabled = false; }
+}
+
+async function doClaim() {
+  const out = document.getElementById("claimOut");
+  const btn = document.getElementById("claimBtn");
+  const tokenEl = document.getElementById("token");
+  btn.disabled = true; out.className = "out"; out.textContent = "claiming...";
+  try {
+    const r = await (await fetch("/api/claim", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        token: tokenEl.value,
+        rooms: document.getElementById("rooms").value.trim(),
+        space_name: document.getElementById("space").value.trim(),
+      }),
+    })).json();
+    if (r.error) { out.className = "out bad"; out.textContent = r.error; }
+    else {
+      out.className = r.claimed ? "out ok" : "out bad";
+      out.textContent = r.message;
+    }
+  } catch (e) {
+    out.className = "out bad"; out.textContent = String(e);
+  } finally {
+    // Clear the credential from the DOM as soon as it has been used.
+    tokenEl.value = "";
+    btn.disabled = false;
+  }
+}
+
+async function doTeardown() {
+  const out = document.getElementById("teardownOut");
+  out.className = "out"; out.textContent = "tearing down...";
+  try {
+    const r = await (await fetch("/api/teardown", { method: "POST" })).json();
+    if (r.error) { out.className = "out bad"; out.textContent = r.error; return; }
+    out.className = "out";
+    out.textContent = r.steps.map(s =>
+      `${s.done ? "done" : (s.manual ? "MANUAL" : "FAILED")}  ${s.name}\n        ${s.detail}`
+    ).join("\n");
+    refresh();
+  } catch (e) { out.className = "out bad"; out.textContent = String(e); }
+}
+
+loadCatalogue();
 
 async function refresh() {
   let d;
