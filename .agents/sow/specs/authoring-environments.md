@@ -46,7 +46,28 @@ unmodellable while the offline keyword reader resolved it. So a misreading yield
 SE corrects, not an environment naming a signal no generator defines, which
 fails silently mid-demo.
 
-Anything unmappable is reported, never substituted. `spec.md` allows this: the
+### Software with a spec is never reported as unmappable
+
+A role is a node *shape* — cores, RAM, disks, which scenarios can target it —
+not a category of software. Elasticsearch, Kafka and RabbitMQ are ordinary
+servers and belong on `web` unless the description says otherwise.
+
+The prompt used to name "a search cluster" as an example of the unmappable,
+which was true when six specs existed and false once there were 261. It cost a
+real reading: the model correctly followed the rule and dropped Elasticsearch
+while `specs/generated/elasticsearch.yaml` sat on disk.
+
+Fixed in two places, because a prompt is guidance and an invariant needs
+enforcement:
+
+- the rule now says any component with a spec **must** appear in `groups`, and
+  `unsupported` is only for components with no spec at all;
+- `reinstate_droppped_software` runs the **offline keyword reader over the same
+  description** and puts back anything it resolved that the model listed as
+  unsupported, recording a correction. The deterministic reader is a floor the
+  model is not allowed to fall below.
+
+Anything genuinely unmappable is reported, never substituted. `spec.md` allows this: the
 non-goal is per-datapoint LLM generation, and authoring a file offline is not
 inference in the data path.
 

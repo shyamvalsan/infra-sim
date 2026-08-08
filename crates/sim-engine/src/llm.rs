@@ -339,6 +339,7 @@ pub fn propose(cfg: &Config, description: &str, specs_dir: &Path) -> Result<Prop
 
     let mut proposal = validate(&plan, &services)?;
     proposal.model = model;
+    reinstate_droppped_software(&mut proposal, description, &services);
     Ok(proposal)
 }
 
@@ -379,11 +380,16 @@ fn system_prompt(services: &[String]) -> String {
          - Map each part of the stack onto the closest role. Managed and cloud-branded \
            products map to the role whose shape they share: a hosted relational database is \
            'db', a hosted cache is 'cache', a cloud load balancer is 'lb'.\n\
-         - If a component has no reasonable role - a message queue, a search cluster, an \
-           object store - put it in `unsupported` and leave it out of `groups`. Do not \
-           substitute a role that merely sounds close. A node with the wrong role produces \
-           an empty dashboard where the prospect expects their service, and the person \
-           running the demo will not find out until they are in front of them.\n\
+         - A role is a node *shape* - how much CPU, RAM and disk, and which scenarios can \
+           target it - not a category of software. If a named component has a service spec \
+           in the list above, it MUST appear in `groups` on the closest-shaped role, with \
+           that spec in `services`. Elasticsearch, Kafka, RabbitMQ and the like are ordinary \
+           servers: give them `web` unless the description says otherwise. Dropping software \
+           that has a spec is the single worst error you can make here - the prospect looks \
+           for their service and it is simply absent.\n\
+         - `unsupported` is only for components with NO spec in the list above. Name the \
+           component and say plainly that no spec exists. Never put something there because \
+           no role sounds like a category match.\n\
          - `count` is how many nodes of that group to create. When the description implies \
            a tier without a number, one or two is a safer reading than a guess at scale; \
            say so in `notes`.\n\
@@ -832,6 +838,69 @@ fn validate(plan: &Value, services: &[String]) -> Result<Proposal, String> {
     })
 }
 
+/// Put back software the model discarded even though a spec for it exists.
+///
+/// The offline keyword reader is a floor the model is not allowed to fall
+/// below: it resolves any catalogue id named in the text, deterministically. If
+/// the model dropped one into `unsupported`, that is simply wrong - the spec is
+/// right there - and the SE would find the prospect's service missing from the
+/// fleet with only a line of prose to explain it.
+///
+/// This does not second-guess the model's *judgement*, only its bookkeeping: a
+/// group is reinstated solely for software the deterministic reader found in the
+/// same sentence and the model failed to place anywhere.
+fn reinstate_droppped_software(proposal: &mut Proposal, description: &str, services: &[String]) {
+    if proposal.unsupported.is_empty() {
+        return;
+    }
+    let placed: std::collections::BTreeSet<String> = proposal
+        .reading
+        .groups
+        .iter()
+        .flat_map(|g| g.services.iter().cloned())
+        .collect();
+
+    let offline = crate::describe::parse_with_services(description, services);
+    let mut reinstated: Vec<String> = Vec::new();
+
+    for group in offline.groups {
+        let missing: Vec<String> = group
+            .services
+            .iter()
+            .filter(|svc| !placed.contains(*svc))
+            // Only what the model actually claimed it could not model, so a
+            // group it deliberately left out for another reason is untouched.
+            .filter(|svc| {
+                proposal
+                    .unsupported
+                    .iter()
+                    .any(|u| u.to_lowercase().contains(svc.as_str()))
+            })
+            .cloned()
+            .collect();
+        if missing.is_empty() {
+            continue;
+        }
+        reinstated.extend(missing.iter().cloned());
+        proposal.reading.groups.push(Group {
+            services: missing,
+            ..group
+        });
+    }
+
+    if reinstated.is_empty() {
+        return;
+    }
+    proposal
+        .unsupported
+        .retain(|u| !reinstated.iter().any(|r| u.to_lowercase().contains(r)));
+    proposal.reading.dedupe_slugs();
+    proposal.corrections.push(format!(
+        "reinstated {} - the model reported it unsupported, but a generator spec exists",
+        reinstated.join(", ")
+    ));
+}
+
 fn string_list(v: &Value, key: &str) -> Vec<String> {
     v.get(key)
         .and_then(Value::as_array)
@@ -1023,6 +1092,77 @@ mod tests {
             "choices": [{ "message": { "refusal": "I can't help with that" } }]
         });
         assert!(openai_text(&body).unwrap_err().contains("declined"));
+    }
+
+    #[test]
+    fn software_with_a_spec_is_never_left_unsupported() {
+        // The failure this guards: the model reported "Elasticsearch for logs"
+        // as having no reasonable role and dropped it, while
+        // specs/generated/elasticsearch.yaml sat right there. The prospect
+        // looks for their service and it is simply absent from the fleet.
+        let services: Vec<String> = ["nginx", "postgres", "elasticsearch"]
+            .iter()
+            .map(|s| s.to_string())
+            .collect();
+        let plan = json!({
+            "environment_name": "acme",
+            "groups": [{
+                "role": "web", "count": 4, "services": ["nginx"],
+                "slug": "app", "source": "four app servers"
+            }],
+            "notes": [],
+            "unsupported": ["Elasticsearch for logs (search cluster - no reasonable role)"]
+        });
+        let mut p = super::validate(&plan, &services).unwrap();
+        super::reinstate_droppped_software(
+            &mut p,
+            "four app servers and an elasticsearch cluster of 3",
+            &services,
+        );
+
+        let placed: Vec<&str> = p
+            .reading
+            .groups
+            .iter()
+            .flat_map(|g| g.services.iter().map(String::as_str))
+            .collect();
+        assert!(placed.contains(&"elasticsearch"), "placed: {placed:?}");
+        assert!(
+            p.unsupported.is_empty(),
+            "still reported unsupported: {:?}",
+            p.unsupported
+        );
+        assert!(p.corrections.iter().any(|c| c.contains("elasticsearch")));
+        // The count came from the description, not from a guess.
+        let es = p
+            .reading
+            .groups
+            .iter()
+            .find(|g| g.services.iter().any(|s| s == "elasticsearch"))
+            .unwrap();
+        assert_eq!(es.count, 3);
+    }
+
+    #[test]
+    fn software_with_no_spec_stays_unsupported() {
+        let services: Vec<String> = ["nginx"].iter().map(|s| s.to_string()).collect();
+        let plan = json!({
+            "environment_name": "acme",
+            "groups": [{
+                "role": "web", "count": 2, "services": ["nginx"],
+                "slug": "app", "source": "two app servers"
+            }],
+            "notes": [],
+            "unsupported": ["a Kafka cluster"]
+        });
+        let mut p = super::validate(&plan, &services).unwrap();
+        super::reinstate_droppped_software(
+            &mut p,
+            "two app servers and a kafka cluster",
+            &services,
+        );
+        assert_eq!(p.unsupported, vec!["a Kafka cluster"]);
+        assert!(p.corrections.is_empty());
     }
 
     #[test]

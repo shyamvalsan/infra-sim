@@ -64,6 +64,31 @@
   .out:empty { display:none; }
   .out.ok { color:var(--pass); } .out.bad { color:var(--fail); }
   .note { color:var(--dim); font-size:12px; }
+
+  /* Explanation lives here rather than on the page. Everything this console
+     needs to say is worth saying - but not all at once, and not every time. */
+  .tip { position:relative; display:inline-flex; align-items:center; justify-content:center;
+         width:14px; height:14px; border-radius:50%; border:1px solid var(--line);
+         color:var(--dim); font-size:9px; font-style:normal; cursor:help;
+         vertical-align:middle; flex:none; }
+  .tip:hover, .tip:focus { color:var(--fg); border-color:var(--muted); outline:none; }
+  .tip::after {
+    content:attr(data-tip); position:absolute; left:0; top:calc(100% + 7px);
+    width:max-content; max-width:340px; padding:9px 11px; z-index:30;
+    background:#0b0d12; color:var(--fg); border:1px solid var(--line); border-radius:6px;
+    font-size:12px; line-height:1.5; text-align:left; white-space:pre-line;
+    /* The bubble must not inherit its anchor's typography - most of these sit
+       inside an uppercase, letter-spaced <h2>. */
+    text-transform:none; letter-spacing:normal; font-weight:400;
+    font-family:system-ui,-apple-system,"Segoe UI",sans-serif; color:var(--fg);
+    box-shadow:0 6px 22px rgba(0,0,0,.55);
+    opacity:0; visibility:hidden; transition:opacity .12s ease .25s, visibility 0s linear .37s;
+  }
+  .tip:hover::after, .tip:focus::after {
+    opacity:1; visibility:visible; transition-delay:.25s, 0s;
+  }
+  /* Near the right edge the bubble would run off-screen. */
+  .tip.left::after { left:auto; right:0; }
   .teardown-list { flex:1; min-width:280px; margin:0; padding-left:20px; color:var(--muted); font-size:13px; }
   .teardown-list li { margin:3px 0; }
   button.big { padding:10px 18px; font-size:14px; align-self:center; }
@@ -178,23 +203,28 @@
 <div id="tabBuild" class="tab on">
 
   <section>
-    <h2>Describe the estate <span class="hint">plain English — this fills the fleet below, you edit it</span></h2>
+    <h2>Describe the estate <i class="tip" tabindex="0" data-tip="Type what the prospect runs, in their words. This fills the fleet below — you edit it before anything is built.
+
+Keyword matching is offline and instant. A model reads vocabulary the keywords cannot, and says plainly what it could not model.">i</i></h2>
     <div class="body">
-      <textarea id="desc" rows="3" placeholder="e.g. 12 web servers behind two HAProxy load balancers, a 3-node Postgres cluster with streaming replication, Redis for sessions, and a small Kubernetes cluster running the checkout service"></textarea>
+      <textarea id="desc" rows="3" placeholder="12 web servers behind two HAProxy load balancers, a 3-node Postgres cluster, Redis for sessions, and a small Kubernetes cluster…"></textarea>
       <div class="row" style="margin-top:10px">
         <button id="descBtn" class="primary" onclick="doDescribe()">Read this →</button>
-        <label class="field"><span>Interpreted by</span>
-          <select id="descBy"><option value="">keyword matching (offline)</option></select>
+        <label class="field"><span>Read by</span>
+          <select id="descBy"><option value="">keywords</option></select>
         </label>
-        <span class="note" id="descHint"></span>
+        <span id="descHint"></span>
       </div>
       <div class="out" id="descOut"></div>
     </div>
   </section>
 
   <section>
-    <h2>Fleet
-      <span class="hint">nodes per role, and what runs on them</span>
+    <h2>Fleet <i class="tip" tabindex="0" data-tip="One row per group: N nodes of a role, running these integrations.
+
+Two rows may share a role and differ in software — &quot;6 nginx web servers and 3 Elasticsearch nodes&quot; is two groups, not nine nodes running both.
+
+A role is a node shape — cores, RAM, disks, and which scenarios can target it — not a category of software.">i</i>
       <span style="margin-left:auto"><select id="template" onchange="applyTemplate()">
         <option value="">start from a template…</option></select></span>
     </h2>
@@ -205,14 +235,19 @@
       <button class="link" onclick="addRow()" style="margin-top:8px">+ add a group</button>
 
       <div class="row" style="margin-top:16px; padding-top:14px; border-top:1px solid var(--line)">
-        <label class="field grow" style="max-width:280px"><span>Name (fixes the seed and every node GUID)</span>
+        <label class="field grow" style="max-width:260px"><span>Name <i class="tip" tabindex="0" data-tip="Fixes the seed, the hostname prefix and therefore every node GUID.
+
+The GUID is the node's identity in Netdata. Changing this later orphans the fleet's history, trained ML models and alert log — re-skin instead.">i</i></span>
           <input id="newName" placeholder="customer-a"></label>
-        <label class="field"><span>Lint hours</span>
+        <label class="field"><span>Lint <i class="tip" tabindex="0" data-tip="Simulates this many hours of data and checks it before installing.
+
+Catches signals pinned to a bound, impossible units, and scenario targets that do not resolve. A fleet that fails is never installed.">i</i></span>
           <select id="lintHours">
             <option value="6" selected>6</option><option value="24">24</option><option value="72">72</option>
           </select></label>
-        <label class="check" title="Serves Prometheus text-format /metrics per node and points Netdata's prometheus collector at it, attributed to the right virtual node.">
-          <input type="checkbox" id="exporters"> Simulate Prometheus exporters</label>
+        <label class="check"><input type="checkbox" id="exporters"> Prometheus exporters</label><i class="tip" tabindex="0" data-tip="Each node publishes a real /metrics endpoint that Netdata's own prometheus collector scrapes and charts onto that virtual node.
+
+Application-level metrics only — orders, carts, queues, worker pools — so nothing duplicates a chart the agent already collects.">i</i>
         <button id="createBtn" class="primary" onclick="doCreate()" style="margin-left:auto">Create &amp; install</button>
       </div>
       <div class="out" id="createOut"></div>
@@ -220,7 +255,9 @@
   </section>
 
   <section>
-    <h2>Connect to Netdata Cloud</h2>
+    <h2>Connect to Netdata Cloud <i class="tip" tabindex="0" data-tip="One claim covers the whole fleet.
+
+The token goes straight to the agent. It is never written to disk, logged, passed on a command line, or kept in this page after use.">i</i></h2>
     <div class="body">
       <div class="row">
         <label class="field grow"><span>Claim token</span>
@@ -229,13 +266,14 @@
           <input id="rooms" autocomplete="off" placeholder="blank = the Space's default room"></label>
         <button id="claimBtn" onclick="doClaim()">Connect</button>
       </div>
-      <div class="note" style="margin-top:8px">The token is never written to disk, logged, or passed on a command line.</div>
       <div class="out" id="claimOut"></div>
     </div>
   </section>
 
   <section>
-    <h2>Reuse this fleet <span class="hint">for another prospect — keeps every GUID, so history, ML models and alert log survive</span></h2>
+    <h2>Reuse this fleet <i class="tip" tabindex="0" data-tip="Renames a warm fleet for another prospect.
+
+Every GUID is preserved, so the nodes keep their history, trained ML models and alert log — a fleet that has been running for days stays that way.">i</i></h2>
     <div class="body">
       <div class="row">
         <label class="field grow" style="max-width:280px"><span>New name</span>
@@ -247,19 +285,19 @@
   </section>
 
   <section id="teardownSection">
-    <h2 style="color:var(--fail)">Tear down <span class="hint">stop the simulation and remove everything it installed</span></h2>
+    <h2 style="color:var(--fail)">Tear down <i class="tip" tabindex="0" data-tip="Stops the simulation and removes everything it installed:
+• disarms every running scenario
+• removes the plugin and stops its process
+• stops the logs writer and deletes this fleet's journals
+• stops the exporters and removes the config they added to Netdata
+• archives the environment, seed and manifests, then removes the install directory
+
+Removing the nodes and the Space from Netdata Cloud stays manual — you will be told exactly what is left.">i</i></h2>
     <div class="body">
       <div class="row">
-        <ul class="teardown-list">
-          <li>Disarms every running scenario</li>
-          <li>Removes the plugin <em>and</em> stops its process</li>
-          <li>Stops the correlated-logs writer and deletes this fleet's journal files</li>
-          <li>Stops the Prometheus exporters and removes the config they added to Netdata</li>
-          <li>Archives the environment, seed and scenario manifests, then removes the install directory</li>
-        </ul>
-        <button class="danger big" onclick="confirmTeardown()">Tear down this simulation</button>
+        <span class="note">The fleet stops for good. Everything is archived first, so it can be replayed.</span>
+        <button class="danger" onclick="confirmTeardown()" style="margin-left:auto">Tear down</button>
       </div>
-      <div class="note" style="margin-top:10px">Removing the nodes and the Space from Netdata Cloud stays manual — the console will tell you exactly what is left to do there.</div>
       <div class="out" id="teardownOut"></div>
     </div>
   </section>
@@ -273,7 +311,7 @@
     <div class="strip">
       <span class="verdict" id="verdict">checking…</span>
       <span class="meta" id="stripCounts"></span>
-      <span style="margin-left:auto"><button class="link" onclick="$('boardWrap').open=!$('boardWrap').open">preflight detail</button></span>
+      <span style="margin-left:auto"><button class="link" onclick="$('boardWrap').open=!$('boardWrap').open">detail</button></span>
     </div>
     <details id="boardWrap"><summary style="display:none"></summary>
       <div class="body" style="border-top:1px solid var(--line)" id="board"></div>
@@ -281,7 +319,9 @@
   </section>
 
   <section>
-    <h2>Scenarios <span class="hint">the fault is injected into the data; every alert, anomaly and insight after that is the real product</span></h2>
+    <h2>Scenarios <i class="tip" tabindex="0" data-tip="The fault is injected into the raw data only. Every alert, anomaly and insight after that is the real Netdata product — nothing downstream is scripted.
+
++5m / +15m walk a running scenario forward through its own authored timeline, so severity and the ground-truth manifest can never disagree. −5m rewinds.">i</i></h2>
     <div class="body" id="scenarios"></div>
   </section>
 
@@ -311,7 +351,11 @@
     </div>
     <div class="grid" id="pickerGrid"></div>
     <footer>
-      <span class="meta">Deeply modelled integrations have causally coupled signals and named hero scenarios. The rest are generated from Netdata's own collector metadata — right contexts, units and dimensions.</span>
+      <span class="meta"><i class="tip" tabindex="0" data-tip="DEEP — hand-authored: signals are causally coupled and hero scenarios target them by name.
+
+The rest are generated from Netdata's own collector metadata: right contexts, units, chart types and dimension names, but signals move independently and no scenario targets them.
+
+A labelled scope (per database, per index) is modelled as one representative instance.">i</i> what DEEP means</span>
       <button class="primary" onclick="closePicker()">Done</button>
     </footer>
   </div>
@@ -433,7 +477,7 @@ function renderRoles() {
                  onchange="ROWS[${i}].count = Math.max(0, parseInt(this.value||0,10)); renderRoles()"></td>
       <td><select onchange="setRole(${i}, this.value)">${
         CAT.roles.map(r => `<option value="${esc(r.role)}" ${r.role === row.role ? "selected" : ""}>${esc(r.role)}</option>`).join("")
-      }</select><div class="roleSummary">${esc(summary)}</div></td>
+      }</select> <i class="tip" tabindex="0" data-tip="${esc(summary)}">i</i></td>
       <td><div class="chips">${chips}
           <button class="link" onclick="openPicker(${i})">${row.services.size ? "add / remove" : "+ add integrations"}</button>
           </div></td>
@@ -463,8 +507,8 @@ async function loadCatalogue() {
   $("descBy").innerHTML = `<option value="">keyword matching (offline)</option>` +
     provs.map(p => `<option value="${esc(p)}">${esc(p)}</option>`).join("");
   if (provs.length) { $("descBy").value = provs[0]; }
-  $("descHint").textContent = provs.length
-    ? "" : "set ANTHROPIC_API_KEY or OPENAI_API_KEY before starting the console to use a model";
+  $("descHint").innerHTML = provs.length ? "" :
+    `<i class="tip left" tabindex="0" data-tip="No model key found.\n\nPut one in a .env beside the repo and restart:\n  LLM_API_KEY=…  (Netdata's own gateway)\n  ANTHROPIC_API_KEY=…\n  OPENAI_API_KEY=…\n\nsudo strips the environment, so .env is the reliable place. It is gitignored.">i</i>`;
 
   renderRoles();
 }
@@ -496,7 +540,7 @@ async function doDescribe() {
   const provider = $("descBy").value;
   btn.disabled = true;
   out.className = "out";
-  out.textContent = provider ? "asking " + provider + "…" : "reading…";
+  out.textContent = provider ? "asking " + provider + "… (10-25s)" : "reading…";
   try {
     const r = await (await fetch("/api/describe", {
       method: "POST", headers: { "Content-Type": "application/json" },
@@ -525,7 +569,7 @@ async function doCreate() {
   if (!name) { out.className = "out bad"; out.textContent = "a name is required"; return; }
   if (!groups.length) { out.className = "out bad"; out.textContent = "set a node count on at least one role"; return; }
   btn.disabled = true; out.className = "out";
-  out.textContent = "building, linting and installing — the lint simulates hours of data, so give it a moment…";
+  out.textContent = "building, linting and installing…";
   try {
     const r = await (await fetch("/api/create", {
       method: "POST", headers: { "Content-Type": "application/json" },
