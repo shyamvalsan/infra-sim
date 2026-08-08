@@ -65,6 +65,20 @@
   .out.ok { color:var(--pass); } .out.bad { color:var(--fail); }
   .note { color:var(--dim); font-size:12px; }
 
+  /* A step that is not reachable yet is hidden rather than greyed: an SE
+     working down the page should never wonder which control to touch next. */
+  section[data-step].locked { display:none; }
+
+  .progress { margin-top:12px; }
+  .progress .track { height:6px; background:var(--panel2); border-radius:3px; overflow:hidden; }
+  .progress .track > i { display:block; height:100%; background:var(--accent);
+                         width:0; transition:width .4s ease; }
+  .progress .track.indeterminate > i {
+    width:35%; animation:slide 1.4s ease-in-out infinite; }
+  @keyframes slide { 0%{margin-left:-35%} 100%{margin-left:100%} }
+  .progress .label { display:flex; gap:10px; margin-top:7px; font-size:12px; color:var(--muted); }
+  .progress .label .elapsed { margin-left:auto; font-family:var(--mono); }
+
   /* Explanation lives here rather than on the page. Everything this console
      needs to say is worth saying - but not all at once, and not every time. */
   .tip { position:relative; display:inline-flex; align-items:center; justify-content:center;
@@ -218,11 +232,15 @@ Set a number and the fleet is scaled to it, keeping the ratio between tiers - th
         <button id="descBtn" class="primary" onclick="doDescribe()" style="margin-left:auto">Build the fleet →</button>
         <span id="descHint"></span>
       </div>
+      <div class="progress" id="descProgress" style="display:none">
+        <div class="track indeterminate"><i></i></div>
+        <div class="label"><span id="descStage">reading…</span><span class="elapsed" id="descElapsed"></span></div>
+      </div>
       <div class="out" id="descOut"></div>
     </div>
   </section>
 
-  <section>
+  <section id="fleetSection">
     <h2>Fleet <i class="tip" tabindex="0" data-tip="One row per group: N nodes of a role, running these integrations.
 
 Two rows may share a role and differ in software — &quot;6 nginx web servers and 3 Elasticsearch nodes&quot; is two groups, not nine nodes running both.
@@ -242,27 +260,37 @@ A role is a node shape — cores, RAM, disks, and which scenarios can target it 
 
 The GUID is the node's identity in Netdata. Changing this later orphans the fleet's history, trained ML models and alert log — re-skin instead.">i</i></span>
           <input id="newName" placeholder="customer-a"></label>
-        <label class="field"><span>Lint <i class="tip" tabindex="0" data-tip="Simulates this many hours of data and checks it before installing.
+        <label class="field"><span>History <i class="tip" tabindex="0" data-tip="How many simulated hours to generate and check before installing.
 
-Catches signals pinned to a bound, impossible units, and scenario targets that do not resolve. A fleet that fails is never installed.">i</i></span>
+This does NOT give the nodes history. Netdata's plugin protocol cannot backfill the past, so every fleet starts at zero whatever you pick here - the value only controls how thoroughly the data is checked.
+
+More hours catches more: signals pinned to a bound, impossible units, conservation errors, scenario targets that do not resolve. A fleet that fails is never installed. 6 hours is a good default; 72 is thorough and takes noticeably longer at fleet scale.">i</i></span>
           <select id="lintHours">
-            <option value="6" selected>6</option><option value="24">24</option><option value="72">72</option>
+            <option value="2">2h  (quick)</option>
+            <option value="6" selected>6h  (default)</option>
+            <option value="24">24h</option>
+            <option value="72">72h  (thorough, slow)</option>
           </select></label>
         <label class="check"><input type="checkbox" id="exporters"> Prometheus exporters</label><i class="tip" tabindex="0" data-tip="Each node publishes a real /metrics endpoint that Netdata's own prometheus collector scrapes and charts onto that virtual node.
 
 Application-level metrics only — orders, carts, queues, worker pools — so nothing duplicates a chart the agent already collects.">i</i>
         <button id="createBtn" class="primary" onclick="doCreate()" style="margin-left:auto">Create &amp; install</button>
       </div>
+      <div class="progress" id="createProgress" style="display:none">
+        <div class="track"><i id="createBar"></i></div>
+        <div class="label"><span id="createStage">working…</span><span class="elapsed" id="createElapsed"></span></div>
+      </div>
       <div class="out" id="createOut"></div>
     </div>
   </section>
 
-  <section>
+  <section data-step="installed" class="locked">
     <h2>Connect to Netdata Cloud <i class="tip" tabindex="0" data-tip="One claim covers the whole fleet.
 
 The token goes straight to the agent. It is never written to disk, logged, passed on a command line, or kept in this page after use.">i</i></h2>
     <div class="body">
-      <div class="row">
+      <div id="cloudState" class="note" style="margin-bottom:12px"></div>
+      <div class="row" id="claimForm">
         <label class="field grow"><span>Claim token</span>
           <input id="token" type="password" autocomplete="off" placeholder="from Cloud → Connect Nodes"></label>
         <label class="field grow"><span>Room ID <span style="color:var(--dim)">optional</span></span>
@@ -273,7 +301,7 @@ The token goes straight to the agent. It is never written to disk, logged, passe
     </div>
   </section>
 
-  <section>
+  <section data-step="installed" class="locked">
     <h2>Reuse this fleet <i class="tip" tabindex="0" data-tip="Renames a warm fleet for another prospect.
 
 Every GUID is preserved, so the nodes keep their history, trained ML models and alert log — a fleet that has been running for days stays that way.">i</i></h2>
@@ -287,7 +315,7 @@ Every GUID is preserved, so the nodes keep their history, trained ML models and 
     </div>
   </section>
 
-  <section id="teardownSection">
+  <section id="teardownSection" data-step="installed" class="locked">
     <h2 style="color:var(--fail)">Tear down <i class="tip" tabindex="0" data-tip="Stops the simulation and removes everything it installed:
 • disarms every running scenario
 • removes the plugin and stops its process
@@ -382,6 +410,62 @@ let ROWS = [];
 let pickerRow = -1;
 let PROVIDER = "";
 let INSTALLED = null;   // the environment the agent is currently running, if any
+
+// --- what is shown when ----------------------------------------------------
+// Describing an estate and editing the fleet are how you build one, and both
+// are always available - numbering them as steps 1 and 2 of a sequence that
+// continued into Connect and Tear down was wrong, because those act on a fleet
+// that already exists rather than following on from building one. It also left
+// a hole in the middle of the page whenever a fleet was installed but the
+// builder was empty, and hid "+ add a group" so a fleet could not be built by
+// hand at all.
+//
+// So: two groups. Build is always there; the rest appears once there is
+// something to act on.
+function refreshSteps() {
+  for (const el of document.querySelectorAll('section[data-step="installed"]')) {
+    el.classList.toggle("locked", !INSTALLED);
+  }
+}
+
+function scrollTo(sel) {
+  const el = document.querySelector(sel);
+  if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+// --- progress -------------------------------------------------------------
+// Polled from the console rather than guessed at: create spends most of its
+// time inside the fidelity check, and a button that goes quiet for minutes is
+// indistinguishable from a hang.
+let progressTimer = null;
+
+function startProgress(prefix, indeterminate) {
+  const box = $(prefix + "Progress");
+  box.style.display = "";
+  box.querySelector(".track").classList.toggle("indeterminate", !!indeterminate);
+  const bar = box.querySelector("i");
+  if (!indeterminate) bar.style.width = "0%";
+  const t0 = Date.now();
+
+  clearInterval(progressTimer);
+  progressTimer = setInterval(async () => {
+    $(prefix + "Elapsed").textContent = Math.round((Date.now() - t0) / 1000) + "s";
+    try {
+      const p = await (await fetch("/api/progress")).json();
+      if (!p) return;
+      $(prefix + "Stage").textContent = p.stage;
+      if (!indeterminate && p.steps > 0) {
+        bar.style.width = Math.round(100 * p.step / p.steps) + "%";
+      }
+    } catch (e) { /* the console is busy; the elapsed clock still moves */ }
+  }, 700);
+}
+
+function stopProgress(prefix) {
+  clearInterval(progressTimer);
+  progressTimer = null;
+  $(prefix + "Progress").style.display = "none";
+}
 
 function showTab(which) {
   for (const t of ["build", "run"]) {
@@ -489,6 +573,7 @@ function renderRoles() {
       <td><button class="link" title="remove this group" onclick="ROWS.splice(${i},1); renderRoles()">×</button></td>
     </tr>`;
   }).join("");
+  refreshSteps();
 }
 
 function dropSel(i, id) { ROWS[i].services.delete(id); ROWS[i].touched = true; renderRoles(); }
@@ -549,8 +634,8 @@ async function doDescribe() {
   const text = $("desc").value.trim();
   if (!text) { out.className = "out bad"; out.textContent = "describe what they run, in your own words"; return; }
   btn.disabled = true;
-  out.className = "out";
-  out.textContent = "reading the description… (10-25s)";
+  out.className = "out"; out.textContent = "";
+  startProgress("desc", true);
   try {
     const r = await (await fetch("/api/describe", {
       method: "POST", headers: { "Content-Type": "application/json" },
@@ -563,6 +648,8 @@ async function doDescribe() {
 
     setRows(r.groups);
     if (!$("newName").value && r.suggested_name) $("newName").value = r.suggested_name;
+    refreshSteps();
+    scrollTo("#fleetSection");
 
     const total = r.groups.reduce((n, g) => n + g.count, 0);
     const lines = [`${total} node(s) · read by ${r.source}`];
@@ -571,7 +658,7 @@ async function doDescribe() {
     if ((r.unsupported || []).length) lines.push("cannot simulate: " + r.unsupported.join("; "));
     out.className = "out ok"; out.textContent = lines.join("\n");
   } catch (e) { out.className = "out bad"; out.textContent = String(e); }
-  finally { btn.disabled = false; }
+  finally { btn.disabled = false; stopProgress("desc"); }
 }
 
 // --- create / claim / reskin / teardown -----------------------------------
@@ -581,8 +668,8 @@ async function doCreate() {
   const name = $("newName").value.trim();
   if (!name) { out.className = "out bad"; out.textContent = "a name is required"; return; }
   if (!groups.length) { out.className = "out bad"; out.textContent = "set a node count on at least one role"; return; }
-  btn.disabled = true; out.className = "out";
-  out.textContent = "building, linting and installing…";
+  btn.disabled = true; out.className = "out"; out.textContent = "";
+  startProgress("create", false);
   try {
     const r = await (await fetch("/api/create", {
       method: "POST", headers: { "Content-Type": "application/json" },
@@ -596,9 +683,11 @@ async function doCreate() {
     out.className = "out ok";
     out.textContent = `created ${r.nodes} node(s) — ${r.environment}\n\n${r.lint_summary}\n` +
                       (r.notes || []).map(n => "· " + n).join("\n");
-    refresh();
+    await refresh();
+    refreshSteps();
+    scrollTo('section[data-step="installed"]:not(.locked)');
   } catch (e) { out.className = "out bad"; out.textContent = String(e); }
-  finally { btn.disabled = false; }
+  finally { btn.disabled = false; stopProgress("create"); }
 }
 
 async function doClaim() {
@@ -671,6 +760,32 @@ async function doAdvance(name, seconds) {
   refresh();
 }
 
+// The agent can be in exactly one Cloud Space. When it is already claimed,
+// offering a token form is offering something that will be refused - and the
+// refusal reads as a bug in the simulation rather than a fact about the agent.
+function renderCloud(c) {
+  const box = $("cloudState"), form = $("claimForm");
+  if (!box || !form) return;
+  if (c.claimed) {
+    form.style.display = "none";
+    box.innerHTML =
+      `<b style="color:var(--pass)">This agent is already connected to Netdata Cloud.</b><br>`
+      + `Your simulated nodes appear in that Space automatically — there is nothing to connect.<br><br>`
+      + `<span class="meta">claim id ${esc(c.claim_id)} · ${esc(c.url)} · ${esc(c.status)}</span><br><br>`
+      + `<i class="tip left" tabindex="0" data-tip="An agent can be in one Space. Re-claiming would move every node on this machine, including your own, into the new Space.
+
+To put a simulation in its own Space, run it in a container instead:
+  ./scripts/sim-docker.sh create NAME env.yaml --claim --rooms ID
+
+That gives the simulation its own agent and its own claim, and leaves this one alone.">i</i> `
+      + `<span class="note">Want this fleet in its own Space or room? Run it in a container.</span>`;
+  } else {
+    form.style.display = "";
+    box.innerHTML = `<span class="note">This agent is not connected to Cloud. `
+      + `One claim covers the whole fleet.</span>`;
+  }
+}
+
 function renderBoard(b) {
   const bad = b.checks.filter(c => c.status !== "pass").length;
   $("verdict").textContent = b.demo_ready ? "Demo ready" : "Not demo ready";
@@ -735,6 +850,7 @@ async function refresh() {
   try { d = await (await fetch("/api/status")).json(); }
   catch (e) { $("errors").textContent = "console cannot reach itself: " + e; return; }
   INSTALLED = d.environment || null;
+  renderCloud(d.cloud || {});
   $("envline").textContent = INSTALLED
     ? `${INSTALLED.name} · ${INSTALLED.node_count} nodes · ${INSTALLED.context_count} contexts · seed ${INSTALLED.seed}`
     : "no simulation installed";
@@ -758,7 +874,7 @@ async function refresh() {
 $("boardWrap").addEventListener("toggle", () => { $("boardWrap").dataset.touched = "1"; });
 document.addEventListener("keydown", e => { if (e.key === "Escape") closePicker(); });
 
-loadCatalogue().then(refresh);
+loadCatalogue().then(refresh).then(refreshSteps);
 setInterval(refresh, 5000);
 </script>
 </body>

@@ -172,6 +172,14 @@ fn sanitise(name: &str) -> String {
 ///
 /// `repo` is the checkout holding `specs/`, `scenarios/` and a built binary.
 pub fn create(repo: &Path, req: &CreateRequest) -> Result<CreateResponse, String> {
+    create_with_progress(repo, req, &Default::default())
+}
+
+pub fn create_with_progress(
+    repo: &Path,
+    req: &CreateRequest,
+    progress: &ProgressHandle,
+) -> Result<CreateResponse, String> {
     let name = sanitise(&req.name);
     if name.is_empty() {
         return Err("a name is required; it fixes the seed and every node GUID".into());
@@ -250,6 +258,15 @@ pub fn create(repo: &Path, req: &CreateRequest) -> Result<CreateResponse, String
     inherit_owner(&env_dir, &env_path);
 
     let binary = binary_path(repo)?;
+    report(
+        progress,
+        &format!(
+            "checking fidelity: simulating {}h across {} nodes",
+            req.lint_hours,
+            reading.groups.iter().map(|g| g.count).sum::<usize>()
+        ),
+        2,
+    );
     let lint_summary = if req.lint_hours > 0 {
         lint(&binary, &env_path, req.lint_hours)?
     } else {
@@ -267,6 +284,7 @@ pub fn create(repo: &Path, req: &CreateRequest) -> Result<CreateResponse, String
         v.dedup();
         v
     };
+    report(progress, "installing", 3);
     install(repo, &binary, &env_path, &used)?;
 
     // Lint the *installed* copy, not just the repo one.
@@ -288,6 +306,7 @@ pub fn create(repo: &Path, req: &CreateRequest) -> Result<CreateResponse, String
     notes.push(format!("installed to {INSTALL_DIR}"));
     notes.push("the agent rescans for plugins every 60s".into());
 
+    report(progress, "verifying the installed copy", 4);
     if req.exporters {
         match exporters::enable(repo, &binary, &env_path) {
             Ok(more) => notes.extend(more),
@@ -307,6 +326,50 @@ pub fn create(repo: &Path, req: &CreateRequest) -> Result<CreateResponse, String
         installed: true,
         notes,
     })
+}
+
+/// What a long-running console operation is doing right now.
+///
+/// Create takes minutes at fleet scale - most of it inside the fidelity check -
+/// and a button that goes quiet for that long is indistinguishable from a hang.
+#[derive(Debug, Clone, Serialize)]
+pub struct Progress {
+    /// What is happening, in the operator's language.
+    pub stage: String,
+    /// Which step of how many, for a determinate bar.
+    pub step: usize,
+    pub steps: usize,
+    pub started_at: u64,
+    pub done: bool,
+    pub error: String,
+}
+
+impl Progress {
+    pub fn new(stage: &str, steps: usize) -> Self {
+        Self {
+            stage: stage.to_string(),
+            step: 1,
+            steps,
+            started_at: std::time::SystemTime::now()
+                .duration_since(std::time::UNIX_EPOCH)
+                .map(|d| d.as_secs())
+                .unwrap_or(0),
+            done: false,
+            error: String::new(),
+        }
+    }
+}
+
+/// Shared handle the console updates as work proceeds and the UI polls.
+pub type ProgressHandle = std::sync::Arc<std::sync::Mutex<Option<Progress>>>;
+
+pub fn report(handle: &ProgressHandle, stage: &str, step: usize) {
+    if let Ok(mut g) = handle.lock() {
+        if let Some(p) = g.as_mut() {
+            p.stage = stage.to_string();
+            p.step = step;
+        }
+    }
 }
 
 /// Simulated Prometheus exporters, and the Netdata config that scrapes them.
@@ -1162,6 +1225,45 @@ pub async fn claim(
 }
 
 /// Current claim id, or `None` if the agent is unclaimed or unreachable.
+/// What the agent's Cloud connection currently looks like.
+#[derive(Debug, Clone, Serialize, Default)]
+pub struct CloudState {
+    pub claimed: bool,
+    pub claim_id: String,
+    pub url: String,
+    /// "online", "offline", whatever the agent reports.
+    pub status: String,
+    /// False once claimed. The console uses it to stop offering a form that
+    /// cannot succeed.
+    pub can_be_claimed: bool,
+}
+
+/// Read the agent's claim state, for display rather than for action.
+pub async fn cloud_state(agent: &crate::agent::Agent) -> CloudState {
+    let Ok(v) = agent.get_json("/api/v2/claim").await else {
+        return CloudState::default();
+    };
+    let cloud = v.get("cloud");
+    let text = |k: &str| {
+        cloud
+            .and_then(|c| c.get(k))
+            .and_then(serde_json::Value::as_str)
+            .unwrap_or("")
+            .to_string()
+    };
+    let claim_id = text("claim_id");
+    CloudState {
+        claimed: !claim_id.is_empty(),
+        claim_id,
+        url: text("url"),
+        status: text("status"),
+        can_be_claimed: v
+            .get("can_be_claimed")
+            .and_then(serde_json::Value::as_bool)
+            .unwrap_or(false),
+    }
+}
+
 async fn claim_id(agent: &crate::agent::Agent) -> Option<String> {
     agent
         .get_json("/api/v2/claim")

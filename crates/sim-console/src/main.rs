@@ -52,6 +52,8 @@ struct AppState {
     cached_guid: Mutex<Option<String>>,
     /// Checkout used by the create flow to find specs, scenarios and a binary.
     repo: PathBuf,
+    /// What a long-running operation is doing, polled by the UI.
+    progress: provision::ProgressHandle,
 }
 
 #[derive(Serialize)]
@@ -89,6 +91,9 @@ struct StatusResponse {
     board: preflight::Board,
     now: i64,
     errors: Vec<String>,
+    /// The agent's Cloud connection, so the UI shows the truth instead of a
+    /// claim form that would be refused.
+    cloud: provision::CloudState,
 }
 
 fn now_secs() -> i64 {
@@ -270,6 +275,7 @@ async fn status(State(app): State<Arc<AppState>>) -> impl IntoResponse {
         board,
         now,
         errors,
+        cloud: provision::cloud_state(&app.agent).await,
     })
 }
 
@@ -329,6 +335,12 @@ async fn catalogue(State(app): State<Arc<AppState>>) -> impl IntoResponse {
     Json(v)
 }
 
+/// What the console is doing right now, for the UI's progress bar.
+async fn progress(State(app): State<Arc<AppState>>) -> impl IntoResponse {
+    let snapshot = app.progress.lock().ok().and_then(|g| g.clone());
+    Json(serde_json::json!(snapshot))
+}
+
 /// Free-form text to a proposed fleet. Read-only: nothing is written.
 async fn describe(
     State(app): State<Arc<AppState>>,
@@ -336,7 +348,21 @@ async fn describe(
 ) -> impl IntoResponse {
     // The model call is a blocking subprocess and can take tens of seconds.
     let repo = app.repo.clone();
-    match tokio::task::spawn_blocking(move || provision::describe(&repo, &req)).await {
+    let handle = app.progress.clone();
+    if let Ok(mut g) = handle.lock() {
+        *g = Some(provision::Progress::new(
+            if req.provider.is_empty() { "reading the description" } else { "asking the model to read the description" },
+            1,
+        ));
+    }
+    let finish = app.progress.clone();
+    let out = tokio::task::spawn_blocking(move || provision::describe(&repo, &req)).await;
+    if let Ok(mut g) = finish.lock() {
+        if let Some(p) = g.as_mut() {
+            p.done = true;
+        }
+    }
+    match out {
         Ok(Ok(r)) => (StatusCode::OK, Json(serde_json::json!(r))),
         Ok(Err(e)) => (
             StatusCode::BAD_REQUEST,
@@ -356,7 +382,25 @@ async fn create(
     // Blocking: the lint simulates hours of data and the install copies files.
     // Holding the executor here is fine - the console serves one operator.
     let repo = app.repo.clone();
-    match tokio::task::spawn_blocking(move || provision::create(&repo, &req)).await {
+    let handle = app.progress.clone();
+    if let Ok(mut g) = handle.lock() {
+        // Four stages: build, check, install, verify.
+        *g = Some(provision::Progress::new("building the environment", 4));
+    }
+    let worker = app.progress.clone();
+    let finish = app.progress.clone();
+    let out =
+        tokio::task::spawn_blocking(move || provision::create_with_progress(&repo, &req, &worker))
+            .await;
+    if let Ok(mut g) = finish.lock() {
+        if let Some(p) = g.as_mut() {
+            p.done = true;
+            if let Ok(Err(e)) = &out {
+                p.error = e.clone();
+            }
+        }
+    }
+    match out {
         Ok(Ok(r)) => Json(serde_json::json!(r)),
         Ok(Err(e)) => Json(json_err(e)),
         Err(e) => Json(json_err(format!("create task failed: {e}"))),
@@ -525,6 +569,7 @@ async fn main() -> std::process::ExitCode {
         first_seen: now_secs(),
         cached_guid: Mutex::new(None),
         repo: args.repo.clone(),
+        progress: Default::default(),
     });
 
     let app = Router::new()
@@ -534,6 +579,7 @@ async fn main() -> std::process::ExitCode {
         .route("/api/scenario/{name}/resolve", post(resolve))
         .route("/api/scenario/resolve-all", post(resolve_all))
         .route("/api/catalogue", get(catalogue))
+        .route("/api/progress", get(progress))
         .route("/api/describe", post(describe))
         .route("/api/create", post(create))
         .route("/api/claim", post(claim))
