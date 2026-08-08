@@ -37,6 +37,8 @@ use std::process::{Command, Stdio};
 
 use serde_json::{json, Value};
 
+use std::collections::BTreeMap;
+
 use crate::describe::{available_services, roles, Group, Reading};
 
 /// Which API to call.
@@ -44,6 +46,10 @@ use crate::describe::{available_services, roles, Group, Reading};
 pub enum Provider {
     Anthropic,
     OpenAi,
+    /// Netdata's own inference gateway, `llm.netdata.cloud`. OpenAI-compatible
+    /// on the wire, so it shares every request and response branch below - only
+    /// the host, key and default model differ.
+    Netdata,
 }
 
 impl Provider {
@@ -51,8 +57,9 @@ impl Provider {
         match s.to_ascii_lowercase().as_str() {
             "anthropic" | "claude" => Ok(Provider::Anthropic),
             "openai" | "gpt" => Ok(Provider::OpenAi),
+            "netdata" | "llm.netdata.cloud" => Ok(Provider::Netdata),
             other => Err(format!(
-                "unknown --llm provider '{other}'; expected 'anthropic' or 'openai'"
+                "unknown --llm provider '{other}'; expected 'netdata', 'anthropic' or 'openai'"
             )),
         }
     }
@@ -62,6 +69,7 @@ impl Provider {
         match self {
             Provider::Anthropic => "ANTHROPIC_API_KEY",
             Provider::OpenAi => "OPENAI_API_KEY",
+            Provider::Netdata => "LLM_API_KEY",
         }
     }
 
@@ -72,6 +80,17 @@ impl Provider {
             // is the escape hatch and the provider's own 404 names the problem
             // precisely when this default goes stale.
             Provider::OpenAi => "gpt-5",
+            // Measured, not assumed. The whole plan contract depends on the
+            // provider honouring a strict `json_schema` response format, and on
+            // this gateway that is not a given:
+            //
+            //   k3                 obeys the schema, 10-24s
+            //   glm-5.2-max        returns free-form reasoning, schema ignored
+            //   deepseek-v4-flash  is not served at all - the gateway answers
+            //                      with MiniMax-M3, which ignores the schema
+            //
+            // Override with --llm-model when the roster changes.
+            Provider::Netdata => "k3",
         }
     }
 
@@ -92,13 +111,19 @@ impl Provider {
                 "https://api.openai.com",
                 "/v1/chat/completions",
             ),
+            Provider::Netdata => (
+                "NETDATA_LLM_BASE_URL",
+                "https://llm.netdata.cloud",
+                "/v1/chat/completions",
+            ),
         }
     }
 
-    fn label(self) -> &'static str {
+    pub fn label(self) -> &'static str {
         match self {
             Provider::Anthropic => "anthropic",
             Provider::OpenAi => "openai",
+            Provider::Netdata => "netdata",
         }
     }
 }
@@ -108,6 +133,8 @@ pub struct Config {
     pub provider: Provider,
     pub model: String,
     pub key_env: String,
+    /// Repository root, searched for a `.env` when the variable is unset.
+    pub repo: Option<std::path::PathBuf>,
     /// Client-side deadline. Generous: a thinking model on a gnarly description
     /// is slow, and a spurious timeout looks exactly like an outage.
     pub timeout_secs: u64,
@@ -119,6 +146,7 @@ impl Config {
             provider,
             model: provider.default_model().to_string(),
             key_env: provider.default_key_env().to_string(),
+            repo: None,
             timeout_secs: 240,
         }
     }
@@ -132,6 +160,71 @@ impl Config {
             .unwrap_or_else(|| default.to_string());
         join_url(&base, path)
     }
+}
+
+/// Where a provider key may be found, besides the environment.
+///
+/// The key has to reach the process somehow, and the alternatives are worse: a
+/// config file inside the repo is a credential one `git add` from being
+/// published, and typing it into the console's web form puts it in the DOM and
+/// in browser history. A gitignored `.env` beside the repo is read here and
+/// never logged.
+///
+/// Nothing is written back into the process environment - `set_var` is unsafe,
+/// this crate forbids unsafe, and a value in `environ` is readable by anything
+/// that can see the process anyway.
+pub fn env_file(repo: &Path) -> BTreeMap<String, String> {
+    let mut out = BTreeMap::new();
+    let Ok(text) = std::fs::read_to_string(repo.join(".env")) else {
+        return out;
+    };
+    // Deliberately minimal: no interpolation, no `export` prefix, no multi-line
+    // values. A .env needing those is doing more than holding one API key.
+    for line in text.lines() {
+        let line = line.trim();
+        if line.is_empty() || line.starts_with('#') {
+            continue;
+        }
+        if let Some((key, value)) = line.split_once('=') {
+            let key = key.trim();
+            let value = value.trim().trim_matches('"').trim_matches('\'');
+            if !key.is_empty() && !value.is_empty() {
+                out.insert(key.to_string(), value.to_string());
+            }
+        }
+    }
+    out
+}
+
+/// Every service spec that can actually be composed onto a node.
+///
+/// The plan schema pins `services` to this list as a JSON-schema enum, so it is
+/// also the model's entire vocabulary - anything missing here is something the
+/// model is structurally unable to propose.
+pub fn installable_services(specs_dir: &Path) -> Vec<String> {
+    let mut all = available_services(specs_dir);
+    all.extend(available_services(&specs_dir.join("generated")));
+    all.sort();
+    all.dedup();
+    all
+}
+
+/// Providers whose key is resolvable right now, for the console's picker.
+///
+/// A provider that would fail on the first request is not a choice worth
+/// offering.
+pub fn available(repo: &Path) -> Vec<Provider> {
+    let file = env_file(repo);
+    [Provider::Netdata, Provider::Anthropic, Provider::OpenAi]
+        .into_iter()
+        .filter(|p| {
+            let var = p.default_key_env();
+            std::env::var(var)
+                .map(|v| !v.trim().is_empty())
+                .unwrap_or(false)
+                || file.contains_key(var)
+        })
+        .collect()
 }
 
 /// Join a base URL to a request path, tolerating a trailing slash on the base.
@@ -156,26 +249,44 @@ pub struct Proposal {
     pub corrections: Vec<String>,
 }
 
+/// The model name the provider actually answered with.
+///
+/// A gateway may alias or fall back, so the model that replied is not
+/// necessarily the model that was asked for - and when the substitute does not
+/// honour structured output, the failure surfaces as unparseable JSON with no
+/// hint of why.
+fn served_model(raw: &Value) -> Option<String> {
+    raw.get("model")?.as_str().map(str::to_string)
+}
+
 /// Ask a model to map a description onto the catalogue.
 pub fn propose(cfg: &Config, description: &str, specs_dir: &Path) -> Result<Proposal, String> {
     let key = std::env::var(&cfg.key_env)
-        .map_err(|_| {
+        .ok()
+        .filter(|k| !k.trim().is_empty())
+        .or_else(|| {
+            cfg.repo
+                .as_deref()
+                .and_then(|repo| env_file(repo).remove(&cfg.key_env))
+        })
+        .map(|k| k.trim().to_string())
+        .filter(|k| !k.is_empty())
+        .ok_or_else(|| {
             format!(
-                "${} is not set.\n\
-                 Export the key for {} and re-run, or drop --llm to use the offline \
-                 keyword parser:\n  export {}=...",
-                cfg.key_env,
+                "no key for {}: ${} is not set and no `.env` beside the repo defines it.\n\
+                 Add it to .env (which is gitignored) or export it, or drop --llm to use \
+                 the offline keyword parser:\n  echo '{}=...' >> .env",
                 cfg.provider.label(),
+                cfg.key_env,
                 cfg.key_env
             )
-        })?
-        .trim()
-        .to_string();
-    if key.is_empty() {
-        return Err(format!("${} is set but empty", cfg.key_env));
-    }
+        })?;
 
-    let services = available_services(specs_dir);
+    // Both directories: the six hand-authored specs and the ~250 synced from
+    // Netdata's collector metadata. Offering only the former is why a model
+    // asked about HAProxy, RabbitMQ and Elasticsearch reported them as "not
+    // modelled" while the offline keyword reader resolved all three.
+    let services = installable_services(specs_dir);
     if services.is_empty() {
         return Err(format!(
             "no service specs found under '{}'; nothing to compose onto a node",
@@ -188,14 +299,39 @@ pub fn propose(cfg: &Config, description: &str, specs_dir: &Path) -> Result<Prop
     let body = request_body(cfg, &system, description, &schema);
 
     let raw = call(cfg, &key, &body)?;
+    // Set INFRA_SIM_LLM_DEBUG=1 to see exactly what a provider returned. A
+    // plan that reads as nonsense is otherwise indistinguishable from a bug in
+    // the validation below, and the response never contains the key.
+    if std::env::var("INFRA_SIM_LLM_DEBUG").is_ok_and(|v| v == "1") {
+        eprintln!("--- request ---\n{body}\n--- response ---\n{raw}\n---");
+    }
     let (text, model) = match cfg.provider {
         Provider::Anthropic => anthropic_text(&raw)?,
-        Provider::OpenAi => openai_text(&raw)?,
+        Provider::OpenAi | Provider::Netdata => openai_text(&raw)?,
     };
 
     let plan: Value = serde_json::from_str(&text).map_err(|e| {
+        // Almost always means the model ignored the strict `json_schema`
+        // response format and answered in prose. Naming the model that actually
+        // replied is the point: a gateway that aliases or falls back will
+        // answer as something else entirely, and without this the operator sees
+        // only "not valid JSON" from a model they never chose.
+        let served = served_model(&raw).unwrap_or_else(|| "unknown".into());
+        let aliased = if served != cfg.model {
+            format!(
+                "\nAsked for '{}' but '{served}' answered - this gateway aliases or falls \
+                 back, and the substitute does not honour structured output. Pick a model \
+                 that does with --llm-model.",
+                cfg.model
+            )
+        } else {
+            format!(
+                "\n'{served}' does not honour a strict json_schema response format on a \
+                 request this size. Pick a model that does with --llm-model."
+            )
+        };
         format!(
-            "the model's reply was not valid JSON ({e}).\n\
+            "the model's reply was not valid JSON ({e}).{aliased}\n\
              First 400 characters:\n{}",
             text.chars().take(400).collect::<String>()
         )
@@ -322,7 +458,7 @@ fn request_body(cfg: &Config, system: &str, description: &str, schema: &Value) -
                 "format": { "type": "json_schema", "schema": schema }
             }
         }),
-        Provider::OpenAi => json!({
+        Provider::OpenAi | Provider::Netdata => json!({
             "model": cfg.model,
             "messages": [
                 { "role": "system", "content": system },
@@ -459,7 +595,7 @@ fn curl_config(cfg: &Config, key: &str, body_path: &Path) -> String {
             ));
             lines.push(format!("header = {}", quote(&format!("x-api-key: {key}"))));
         }
-        Provider::OpenAi => {
+        Provider::OpenAi | Provider::Netdata => {
             lines.push(format!(
                 "header = {}",
                 quote(&format!("authorization: Bearer {key}"))
@@ -730,6 +866,50 @@ fn sanitise_slug(s: &str) -> String {
 
 #[cfg(test)]
 mod tests {
+    // Keep these near the top so a provider added without an endpoint is caught.
+    #[test]
+    fn the_netdata_provider_points_at_the_gateway() {
+        let cfg = super::Config::new(super::Provider::Netdata);
+        assert_eq!(cfg.key_env, "LLM_API_KEY");
+        // Not deepseek-v4-flash: the gateway answers that with MiniMax-M3,
+        // which ignores the strict json_schema the plan contract needs.
+        assert_eq!(cfg.model, "k3");
+        assert_eq!(
+            cfg.url(),
+            "https://llm.netdata.cloud/v1/chat/completions",
+            "OpenAI-compatible path"
+        );
+    }
+
+    #[test]
+    fn an_env_file_yields_keys_without_touching_the_environment() {
+        let dir = std::env::temp_dir().join(format!("infra-sim-env-{}", std::process::id()));
+        std::fs::create_dir_all(&dir).unwrap();
+        std::fs::write(
+            dir.join(".env"),
+            "# a comment\n\nLLM_API_KEY=\"secret-value\"\nEMPTY=\nNO_EQUALS\nOTHER = plain \n",
+        )
+        .unwrap();
+        let found = super::env_file(&dir);
+        assert_eq!(
+            found.get("LLM_API_KEY").map(String::as_str),
+            Some("secret-value")
+        );
+        assert_eq!(found.get("OTHER").map(String::as_str), Some("plain"));
+        assert!(!found.contains_key("EMPTY"), "an empty value is not a key");
+        assert!(!found.contains_key("NO_EQUALS"));
+        assert!(
+            std::env::var("LLM_API_KEY").is_err() || std::env::var_os("OTHER").is_none(),
+            "reading a .env must not export anything"
+        );
+        std::fs::remove_dir_all(&dir).ok();
+    }
+
+    #[test]
+    fn a_missing_env_file_is_not_an_error() {
+        assert!(super::env_file(std::path::Path::new("/nonexistent-abc")).is_empty());
+    }
+
     use super::*;
 
     fn services() -> Vec<String> {
@@ -1021,6 +1201,11 @@ mod tests {
     fn provider_names_are_forgiving_but_bounded() {
         assert_eq!(Provider::parse("claude").unwrap(), Provider::Anthropic);
         assert_eq!(Provider::parse("OpenAI").unwrap(), Provider::OpenAi);
+        assert_eq!(Provider::parse("netdata").unwrap(), Provider::Netdata);
+        assert_eq!(
+            Provider::parse("llm.netdata.cloud").unwrap(),
+            Provider::Netdata
+        );
         assert!(Provider::parse("llama").is_err());
     }
 }

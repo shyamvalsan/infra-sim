@@ -612,6 +612,7 @@ pub fn describe(repo: &Path, req: &DescribeRequest) -> Result<DescribeResponse, 
     } else {
         let provider = sim_engine::llm::Provider::parse(&req.provider)?;
         let mut cfg = sim_engine::llm::Config::new(provider);
+        cfg.repo = Some(repo.to_path_buf());
         if !req.model.is_empty() {
             cfg.model = req.model.clone();
         }
@@ -639,18 +640,12 @@ pub fn describe(repo: &Path, req: &DescribeRequest) -> Result<DescribeResponse, 
     })
 }
 
-/// Whether a provider key is present in the console's own environment, so the
-/// UI can offer the model only when it would actually work.
-pub fn llm_providers() -> Vec<String> {
-    ["anthropic", "openai"]
-        .iter()
-        .filter(|p| {
-            let env = sim_engine::llm::Provider::parse(p)
-                .map(|x| x.default_key_env())
-                .unwrap_or("");
-            std::env::var(env).map(|v| !v.is_empty()).unwrap_or(false)
-        })
-        .map(|p| p.to_string())
+/// Providers the console can actually reach, so the UI never offers one whose
+/// key is missing. Resolved from the environment or a gitignored `.env`.
+pub fn llm_providers(repo: &Path) -> Vec<String> {
+    sim_engine::llm::available(repo)
+        .into_iter()
+        .map(|p| p.label().to_string())
         .collect()
 }
 

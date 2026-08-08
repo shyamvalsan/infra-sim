@@ -318,7 +318,7 @@ async fn catalogue(State(app): State<Arc<AppState>>) -> impl IntoResponse {
         &app.repo,
     );
     let mut v = serde_json::json!(cat);
-    v["llm_providers"] = serde_json::json!(provision::llm_providers());
+    v["llm_providers"] = serde_json::json!(provision::llm_providers(&app.repo));
     Json(v)
 }
 

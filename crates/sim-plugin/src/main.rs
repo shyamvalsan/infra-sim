@@ -154,7 +154,10 @@ fn parse_args() -> Result<Args, String> {
                 let value = args
                     .next()
                     .ok_or_else(|| "--llm requires 'anthropic' or 'openai'".to_string())?;
-                llm_cfg = Some(llm::Config::new(llm::Provider::parse(&value)?));
+                let mut c = llm::Config::new(llm::Provider::parse(&value)?);
+                // The key may live in a gitignored .env beside the checkout.
+                c.repo = Some(PathBuf::from("."));
+                llm_cfg = Some(c);
             }
             "--llm-model" => {
                 llm_model = Some(

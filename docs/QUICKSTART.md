@@ -68,9 +68,18 @@ is running. Stop with `./scripts/logs.sh stop`.
 
 ```bash
 sudo ./target/release/infra-sim-console
-# with a model reading free-form descriptions:
-# sudo -E ANTHROPIC_API_KEY="$ANTHROPIC_API_KEY" ./target/release/infra-sim-console
 ```
+
+To have a real model read the free-form description, put the key in a
+gitignored `.env` beside the repo — `sudo` strips the environment, so this is
+the reliable place for it:
+
+```bash
+echo 'LLM_API_KEY=...' >> .env      # Netdata's own gateway, llm.netdata.cloud
+```
+
+`ANTHROPIC_API_KEY` and `OPENAI_API_KEY` work the same way. The console offers
+only the providers whose key it can actually find.
 
 Then open <http://127.0.0.1:8080>.
 
@@ -109,9 +118,14 @@ Root is required for create, claim and teardown.
   --name acme --environment environments/acme.yaml
 ```
 
-Add `--llm anthropic` (with `ANTHROPIC_API_KEY` set) when the description is in
-the prospect's vocabulary rather than ours. Always lint the result before
-trusting it.
+Add `--llm netdata` (with `LLM_API_KEY` in `.env`) when the description is in
+the prospect's vocabulary rather than ours — it resolves software the keyword
+reader cannot, and says plainly what it could not model. `--llm anthropic` and
+`--llm openai` work the same way. Always lint the result before trusting it.
+
+Not every model can do this: the plan contract needs a strict `json_schema`
+response format. On `llm.netdata.cloud`, `k3` honours it (and is the default);
+`glm-5.2-max` and `deepseek-v4-flash` do not. Override with `--llm-model`.
 
 ## Retargeting a warm fleet
 

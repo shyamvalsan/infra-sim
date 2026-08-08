@@ -137,9 +137,10 @@ Two tabs: **Build** and **Run**.
 - **Describe the estate** — type what the prospect runs, in the words they used
   it. "6 nginx web servers behind two haproxy load balancers, a 3-node postgres
   cluster and an elasticsearch cluster of 3" fills the fleet below, which you
-  then edit. Read offline by keyword matching, or by Claude or OpenAI when
-  `ANTHROPIC_API_KEY` / `OPENAI_API_KEY` is in the console's environment — the
-  key never reaches a web form or a command line.
+  then edit. Read offline by keyword matching, or by a real model. Put a key in
+  a gitignored `.env` beside the repo — `LLM_API_KEY` for Netdata's own gateway,
+  or `ANTHROPIC_API_KEY` / `OPENAI_API_KEY` — and the console offers it. The key
+  never reaches a web form or a command line.
 - **Fleet** — a list of groups, each one *N nodes of a role running these
   integrations*. Two groups can share a role and differ in software, because
   "6 nginx web servers and 3 Elasticsearch nodes" is two groups, not nine nodes
@@ -200,9 +201,10 @@ That runs offline against a keyword parser — no API key, no network. For a
 description written in the prospect's vocabulary rather than ours, add `--llm`:
 
 ```bash
-export ANTHROPIC_API_KEY=...   # or OPENAI_API_KEY for --llm openai
+echo 'LLM_API_KEY=...' >> .env   # Netdata's own gateway; .env is gitignored
+                                 # ANTHROPIC_API_KEY / OPENAI_API_KEY also work
 
-./target/release/infra-sim --llm anthropic \
+./target/release/infra-sim --llm netdata \
   --describe "Our checkout tier runs on six boxes fronted by an ALB, with an \
 Aurora writer, two ElastiCache nodes and an SQS queue" \
   --name acme --environment environments/acme.yaml
@@ -241,6 +243,22 @@ appears in the process table — and it is never written to the environment file
 This is authoring-time only. `spec.md`'s non-goal is per-datapoint LLM
 generation; the runtime is deterministic code with no inference in the data
 path.
+
+### Not every model can do this
+
+The plan contract needs a **strict `json_schema` response format**, and not
+every model honours one. Measured against `llm.netdata.cloud` on a real request
+(262-service enum, ~7.7k-character prompt):
+
+| Model asked for | Actually answered | Structured output | Time |
+|---|---|---|---|
+| `k3` (default) | `k3` | honoured | 10-24s |
+| `glm-5.2-max` | `glm-5.2-max` | **ignored** — prose | ~24s |
+| `deepseek-v4-flash` | **`MiniMax-M3`** | **ignored** — prose | ~24s |
+
+A gateway may answer as a different model than the one asked for, so a
+JSON-parse failure names the model that actually replied. Override the default
+with `--llm-model`, and set `INFRA_SIM_LLM_DEBUG=1` to see the exchange.
 
 ## Simulated Prometheus exporters
 
