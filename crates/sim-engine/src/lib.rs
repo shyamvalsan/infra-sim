@@ -19,6 +19,7 @@ use sim_spec::{Accumulate, GeneratorSpec, NoiseKind, Shape, Signal, Total};
 pub mod control_file;
 pub mod describe;
 pub mod fidelity;
+pub mod llm;
 pub mod logs;
 pub mod reskin;
 pub mod rng;
@@ -251,6 +252,26 @@ impl NodeEngine {
             .collect();
         self.plan = plan;
         samples
+    }
+
+    /// Every node-scope signal as a raw float, for consumers that need the
+    /// value rather than the chart.
+    ///
+    /// `tick()` rounds to the integers the plugins.d protocol carries. A
+    /// Prometheus exporter publishes floats, and a latency of 0.042s rounded to
+    /// an integer is 0 - so the exporter path reads signals directly instead of
+    /// reusing the chart samples.
+    pub fn signal_values(&mut self, scenarios: &ScenarioSet, now: i64) -> BTreeMap<String, f64> {
+        self.resolved.clear();
+        let names: Vec<String> = self.signals.keys().cloned().collect();
+        names
+            .into_iter()
+            .map(|name| {
+                let key = format!("{KEY_SEP}{name}");
+                let v = self.eval_signal(&key, &name, "", 1.0, scenarios, now);
+                (name, v)
+            })
+            .collect()
     }
 
     /// Resolve a signal within a scope, memoised for this tick.

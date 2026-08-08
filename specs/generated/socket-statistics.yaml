@@ -1,0 +1,161 @@
+version: 1
+name: socket-statistics
+description: Socket statistics metrics, generated from Netdata's own collector metadata so the contexts,
+  units and dimension names match what a real Socket statistics node reports. Signals are independent
+  and plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  socket_statistics_sockstat_sockets_used:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  socket_statistics_sockstat_tcp_mem_mem:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  socket_statistics_sockstat_udp_mem_mem:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  socket_statistics_sockstat_udplite_sockets_inuse:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  socket_statistics_sockstat_raw_sockets_inuse:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  socket_statistics_sockstat_frag_sockets_inuse:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  socket_statistics_sockstat_frag_mem_mem:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: ip.sockstat_sockets
+  title: Sockets used for all address families
+  units: sockets
+  family: sockstat
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: used
+    signal: socket_statistics_sockstat_sockets_used
+- id: ipv4.sockstat_tcp_mem
+  title: IPv4 TCP Sockets Memory
+  units: KiB
+  family: sockstat
+  chart_type: area
+  priority: 60002
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: mem
+    signal: socket_statistics_sockstat_tcp_mem_mem
+- id: ipv4.sockstat_udp_mem
+  title: IPv4 UDP Sockets Memory
+  units: sockets
+  family: sockstat
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: mem
+    signal: socket_statistics_sockstat_udp_mem_mem
+- id: ipv4.sockstat_udplite_sockets
+  title: IPv4 UDPLITE Sockets
+  units: sockets
+  family: sockstat
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: inuse
+    signal: socket_statistics_sockstat_udplite_sockets_inuse
+- id: ipv4.sockstat_raw_sockets
+  title: IPv4 RAW Sockets
+  units: sockets
+  family: sockstat
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: inuse
+    signal: socket_statistics_sockstat_raw_sockets_inuse
+- id: ipv4.sockstat_frag_sockets
+  title: IPv4 FRAG Sockets
+  units: fragments
+  family: sockstat
+  chart_type: line
+  priority: 60006
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: inuse
+    signal: socket_statistics_sockstat_frag_sockets_inuse
+- id: ipv4.sockstat_frag_mem
+  title: IPv4 FRAG Sockets Memory
+  units: KiB
+  family: sockstat
+  chart_type: area
+  priority: 60007
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: mem
+    signal: socket_statistics_sockstat_frag_mem_mem

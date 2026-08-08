@@ -1,0 +1,517 @@
+version: 1
+name: net-inet6-icmp6-stats
+description: net.inet6.icmp6.stats metrics, generated from Netdata's own collector metadata so the contexts,
+  units and dimension names match what a real net.inet6.icmp6.stats node reports. Signals are independent
+  and plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  net_inet6_icmp6_stats_icmp_received:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet6_icmp6_stats_icmp_sent:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet6_icmp6_stats_icmpredir_received:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet6_icmp6_stats_icmpredir_sent:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet6_icmp6_stats_icmperrors_inerrors:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+  net_inet6_icmp6_stats_icmperrors_outerrors:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+  net_inet6_icmp6_stats_icmperrors_incsumerrors:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+  net_inet6_icmp6_stats_icmperrors_indestunreachs:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet6_icmp6_stats_icmperrors_inpkttoobigs:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet6_icmp6_stats_icmperrors_intimeexcds:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet6_icmp6_stats_icmperrors_inparmproblems:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet6_icmp6_stats_icmperrors_outdestunreachs:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet6_icmp6_stats_icmperrors_outtimeexcds:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet6_icmp6_stats_icmperrors_outparmproblems:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet6_icmp6_stats_icmpechos_inechos:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet6_icmp6_stats_icmpechos_outechos:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet6_icmp6_stats_icmpechos_inechoreplies:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet6_icmp6_stats_icmpechos_outechoreplies:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet6_icmp6_stats_icmprouter_insolicits:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet6_icmp6_stats_icmprouter_outsolicits:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet6_icmp6_stats_icmprouter_inadvertisements:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet6_icmp6_stats_icmprouter_outadvertisements:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet6_icmp6_stats_icmpneighbor_insolicits:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet6_icmp6_stats_icmpneighbor_outsolicits:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet6_icmp6_stats_icmpneighbor_inadvertisements:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet6_icmp6_stats_icmpneighbor_outadvertisements:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet6_icmp6_stats_icmptypes_intype1:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet6_icmp6_stats_icmptypes_intype128:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet6_icmp6_stats_icmptypes_intype129:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet6_icmp6_stats_icmptypes_intype136:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet6_icmp6_stats_icmptypes_outtype1:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet6_icmp6_stats_icmptypes_outtype128:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet6_icmp6_stats_icmptypes_outtype129:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet6_icmp6_stats_icmptypes_outtype133:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet6_icmp6_stats_icmptypes_outtype135:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet6_icmp6_stats_icmptypes_outtype143:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: ipv6.icmp
+  title: IPv6 ICMP Messages
+  units: messages/s
+  family: icmp
+  chart_type: line
+  priority: 60001
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: received
+    rate_signal: net_inet6_icmp6_stats_icmp_received
+  - id: sent
+    rate_signal: net_inet6_icmp6_stats_icmp_sent
+- id: ipv6.icmpredir
+  title: IPv6 ICMP Redirects
+  units: redirects/s
+  family: icmpredir
+  chart_type: line
+  priority: 60002
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: received
+    rate_signal: net_inet6_icmp6_stats_icmpredir_received
+  - id: sent
+    rate_signal: net_inet6_icmp6_stats_icmpredir_sent
+- id: ipv6.icmperrors
+  title: IPv6 ICMP Errors
+  units: errors/s
+  family: icmperrors
+  chart_type: line
+  priority: 60003
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: InErrors
+    rate_signal: net_inet6_icmp6_stats_icmperrors_inerrors
+  - id: OutErrors
+    rate_signal: net_inet6_icmp6_stats_icmperrors_outerrors
+  - id: InCsumErrors
+    rate_signal: net_inet6_icmp6_stats_icmperrors_incsumerrors
+  - id: InDestUnreachs
+    rate_signal: net_inet6_icmp6_stats_icmperrors_indestunreachs
+  - id: InPktTooBigs
+    rate_signal: net_inet6_icmp6_stats_icmperrors_inpkttoobigs
+  - id: InTimeExcds
+    rate_signal: net_inet6_icmp6_stats_icmperrors_intimeexcds
+  - id: InParmProblems
+    rate_signal: net_inet6_icmp6_stats_icmperrors_inparmproblems
+  - id: OutDestUnreachs
+    rate_signal: net_inet6_icmp6_stats_icmperrors_outdestunreachs
+  - id: OutTimeExcds
+    rate_signal: net_inet6_icmp6_stats_icmperrors_outtimeexcds
+  - id: OutParmProblems
+    rate_signal: net_inet6_icmp6_stats_icmperrors_outparmproblems
+- id: ipv6.icmpechos
+  title: IPv6 ICMP Echo
+  units: messages/s
+  family: icmpechos
+  chart_type: line
+  priority: 60004
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: InEchos
+    rate_signal: net_inet6_icmp6_stats_icmpechos_inechos
+  - id: OutEchos
+    rate_signal: net_inet6_icmp6_stats_icmpechos_outechos
+  - id: InEchoReplies
+    rate_signal: net_inet6_icmp6_stats_icmpechos_inechoreplies
+  - id: OutEchoReplies
+    rate_signal: net_inet6_icmp6_stats_icmpechos_outechoreplies
+- id: ipv6.icmprouter
+  title: IPv6 Router Messages
+  units: messages/s
+  family: icmprouter
+  chart_type: line
+  priority: 60005
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: InSolicits
+    rate_signal: net_inet6_icmp6_stats_icmprouter_insolicits
+  - id: OutSolicits
+    rate_signal: net_inet6_icmp6_stats_icmprouter_outsolicits
+  - id: InAdvertisements
+    rate_signal: net_inet6_icmp6_stats_icmprouter_inadvertisements
+  - id: OutAdvertisements
+    rate_signal: net_inet6_icmp6_stats_icmprouter_outadvertisements
+- id: ipv6.icmpneighbor
+  title: IPv6 Neighbor Messages
+  units: messages/s
+  family: icmpneighbor
+  chart_type: line
+  priority: 60006
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: InSolicits
+    rate_signal: net_inet6_icmp6_stats_icmpneighbor_insolicits
+  - id: OutSolicits
+    rate_signal: net_inet6_icmp6_stats_icmpneighbor_outsolicits
+  - id: InAdvertisements
+    rate_signal: net_inet6_icmp6_stats_icmpneighbor_inadvertisements
+  - id: OutAdvertisements
+    rate_signal: net_inet6_icmp6_stats_icmpneighbor_outadvertisements
+- id: ipv6.icmptypes
+  title: IPv6 ICMP Types
+  units: messages/s
+  family: icmptypes
+  chart_type: line
+  priority: 60007
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: InType1
+    rate_signal: net_inet6_icmp6_stats_icmptypes_intype1
+  - id: InType128
+    rate_signal: net_inet6_icmp6_stats_icmptypes_intype128
+  - id: InType129
+    rate_signal: net_inet6_icmp6_stats_icmptypes_intype129
+  - id: InType136
+    rate_signal: net_inet6_icmp6_stats_icmptypes_intype136
+  - id: OutType1
+    rate_signal: net_inet6_icmp6_stats_icmptypes_outtype1
+  - id: OutType128
+    rate_signal: net_inet6_icmp6_stats_icmptypes_outtype128
+  - id: OutType129
+    rate_signal: net_inet6_icmp6_stats_icmptypes_outtype129
+  - id: OutType133
+    rate_signal: net_inet6_icmp6_stats_icmptypes_outtype133
+  - id: OutType135
+    rate_signal: net_inet6_icmp6_stats_icmptypes_outtype135
+  - id: OutType143
+    rate_signal: net_inet6_icmp6_stats_icmptypes_outtype143

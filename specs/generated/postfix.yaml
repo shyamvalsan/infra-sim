@@ -1,0 +1,51 @@
+version: 1
+name: postfix
+description: Postfix metrics, generated from Netdata's own collector metadata so the contexts, units and
+  dimension names match what a real Postfix node reports. Signals are independent and plausible rather
+  than causally coupled - see scripts/sync-integrations.py.
+signals:
+  postfix_qemails_emails:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postfix_qsize_size:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: postfix.qemails
+  title: Postfix Queue Emails
+  units: emails
+  family: qemails
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: emails
+    signal: postfix_qemails_emails
+- id: postfix.qsize
+  title: Postfix Queue Emails Size
+  units: KiB
+  family: qsize
+  chart_type: area
+  priority: 60002
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: size
+    signal: postfix_qsize_size

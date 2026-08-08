@@ -1,0 +1,3511 @@
+version: 1
+name: ibm-websphere-pmi
+description: IBM WebSphere PMI metrics, generated from Netdata's own collector metadata so the contexts,
+  units and dimension names match what a real IBM WebSphere PMI node reports. Signals are independent
+  and plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  ibm_websphere_pmi_alarm_manager_events_created:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_alarm_manager_events_cancelled:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_alarm_manager_events_fired:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_dynamic_cache_in_memory_entries:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_dynamic_cache_capacity_max_entries:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_ejb_operations_create:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_ejb_operations_remove:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_ejb_operations_activate:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_ejb_operations_passivate:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_ejb_operations_instantiate:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_ejb_operations_store:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_ejb_operations_load:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_ejb_messages_received:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_ejb_messages_backout:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_ejb_pool_ready:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_ejb_pool_live:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_ejb_pool_pooled:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_ejb_pool_active_method:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_ejb_pool_passive:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_ejb_pool_server_session_pool:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_ejb_pool_method_ready:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_ejb_pool_async_queue:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_ejb_time_activation:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_ejb_time_passivation:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_ejb_time_create:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_ejb_time_remove:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_ejb_time_load:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_ejb_time_store:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_ejb_time_method_response:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_ejb_time_wait:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_ejb_time_async_wait:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_ejb_time_read_lock:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_ejb_time_write_lock:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_extension_registry_requests_requests:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_extension_registry_requests_hits:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_extension_registry_requests_displacements:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_extension_registry_hit_rate_hit_rate:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_ha_manager_groups_local:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_ha_manager_bulletin_board_subjects:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_ha_manager_bulletin_board_subscriptions:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_ha_manager_bulletin_board_local_subjects:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_ha_manager_bulletin_board_local_subscriptions:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_ha_manager_rebuild_time_group_state:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_ha_manager_rebuild_time_bulletin_board:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jca_pool_operations_create:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jca_pool_operations_close:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jca_pool_operations_allocate:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jca_pool_operations_freed:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jca_pool_operations_faults:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jca_pool_managed_managed_connections:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jca_pool_managed_connection_handles:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jca_pool_utilization_percent_used:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jca_pool_utilization_percent_maxed:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jca_pool_waiting_waiting_threads:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jdbc_pool_usage_percent_used:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jdbc_pool_usage_percent_maxed:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jdbc_pool_waiting_waiting_threads:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jdbc_pool_connections_managed:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jdbc_pool_connections_handles:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jdbc_pool_operations_created:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jdbc_pool_operations_closed:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jdbc_pool_operations_allocated:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jdbc_pool_operations_returned:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jdbc_pool_operations_faults:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jdbc_pool_operations_prep_stmt_cache_discard:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jdbc_pool_time_use:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jdbc_pool_time_wait:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jdbc_pool_time_jdbc:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jms_queue_messages_produced_total:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jms_queue_messages_produced_best_effort:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jms_queue_messages_produced_express:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jms_queue_messages_produced_reliable_nonpersistent:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jms_queue_messages_produced_reliable_persistent:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jms_queue_messages_produced_assured_persistent:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jms_queue_messages_consumed_total:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jms_queue_messages_consumed_best_effort:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jms_queue_messages_consumed_express:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jms_queue_messages_consumed_reliable_nonpersistent:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jms_queue_messages_consumed_reliable_persistent:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jms_queue_messages_consumed_assured_persistent:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jms_queue_messages_consumed_expired:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jms_queue_clients_local_producers:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jms_queue_clients_local_producer_attaches:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jms_queue_clients_local_consumers:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jms_queue_clients_local_consumer_attaches:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jms_queue_storage_available:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jms_queue_storage_unavailable:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jms_queue_storage_oldest_age:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jms_queue_wait_time_aggregate:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jms_queue_wait_time_local:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jms_store_cache_add_stored:
+    base: 90.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jms_store_cache_add_not_stored:
+    base: 90.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jms_store_cache_stored_current:
+    base: 90.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jms_store_cache_stored_bytes:
+    base: 90.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jms_store_cache_not_stored_current:
+    base: 90.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jms_store_cache_not_stored_bytes:
+    base: 90.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jms_store_cache_discard_count:
+    base: 90.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jms_store_cache_discard_bytes:
+    base: 90.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jms_store_datastore_insert_batches:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jms_store_datastore_update_batches:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jms_store_datastore_delete_batches:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jms_store_datastore_insert_count:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jms_store_datastore_update_count:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jms_store_datastore_delete_count:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jms_store_datastore_open_count:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jms_store_datastore_abort_count:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  ibm_websphere_pmi_jms_store_datastore_transaction_ms:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jms_store_transactions_global_start:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jms_store_transactions_global_commit:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jms_store_transactions_global_abort:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  ibm_websphere_pmi_jms_store_transactions_global_indoubt:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jms_store_transactions_local_start:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jms_store_transactions_local_commit:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jms_store_transactions_local_abort:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  ibm_websphere_pmi_jms_store_expiry_index_items:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jms_topic_publications_assured:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jms_topic_publications_best_effort:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jms_topic_publications_express:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jms_topic_subscription_hits_assured:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jms_topic_subscription_hits_best_effort:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jms_topic_subscription_hits_express:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jms_topic_subscriptions_durable_local:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jms_topic_events_incomplete_publications:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jms_topic_events_publisher_attaches:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jms_topic_events_subscriber_attaches:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jms_topic_age_local_oldest:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jvm_heap_usage_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jvm_heap_usage_free:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jvm_heap_committed_committed:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jvm_heap_max_limit:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jvm_uptime_uptime:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jvm_cpu_usage:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jvm_gc_collections_collections:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jvm_gc_time_total:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jvm_threads_daemon:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jvm_threads_other:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_jvm_threads_peak_peak:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_orb_concurrent_concurrent_requests:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_orb_requests_requests:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_object_pool_operations_created:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_object_pool_size_allocated:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_object_pool_size_returned:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_object_pool_size_idle:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_pmi_web_service_module_services_loaded:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_portlet_requests_requests:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_portlet_concurrent_concurrent:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_portlet_errors_errors:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+  ibm_websphere_pmi_portlet_response_time_render:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_portlet_response_time_action:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_portlet_response_time_process_event:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_portlet_response_time_serve_resource:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_portlet_application_loaded_loaded:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_scheduler_activity_finished:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_scheduler_activity_failures:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  ibm_websphere_pmi_scheduler_activity_polls:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_security_auth_counts_web:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_security_auth_counts_tai:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_security_auth_counts_identity:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_security_auth_counts_basic:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_security_auth_counts_token:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_security_auth_counts_jaas_identity:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_security_auth_counts_jaas_basic:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_security_auth_counts_jaas_token:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_security_auth_counts_rmi:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_security_authz_time_web:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_security_authz_time_ejb:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_security_authz_time_admin:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_security_authz_time_cwwja:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_session_manager_active_active:
+    base: 64.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_session_manager_active_live:
+    base: 64.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_session_manager_events_created:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_session_manager_events_invalidated:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_session_manager_events_timeout_invalidations:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  ibm_websphere_pmi_session_manager_events_affinity_breaks:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_session_manager_events_cache_discards:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_session_manager_events_no_room:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_session_manager_events_activate_non_exist:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_cpu_utilization_utilization:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_system_data_usage_cpu_since_last:
+    base: 320.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_system_data_usage_free_memory:
+    base: 320.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_threadpool_usage_active:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_threadpool_usage_size:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_transaction_counts_global_begun:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_transaction_counts_global_committed:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_transaction_counts_global_rolled_back:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_transaction_counts_global_timeout:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  ibm_websphere_pmi_transaction_counts_global_involved:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_transaction_counts_optimizations:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_transaction_counts_local_begun:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_transaction_counts_local_committed:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_transaction_counts_local_rolled_back:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_transaction_counts_local_timeout:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  ibm_websphere_pmi_transaction_active_global:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_transaction_active_local:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_transaction_time_global_total:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_transaction_time_global_prepare:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_transaction_time_global_commit:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_transaction_time_global_before_completion:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_transaction_time_local_total:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_transaction_time_local_commit:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_transaction_time_local_before_completion:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_url_requests_requests:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_url_time_service:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_url_time_async:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_webapp_load_loaded_servlets:
+    base: 90.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_webapp_load_reloads:
+    base: 90.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_web_services_loaded_loaded:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_web_services_gateway_requests_synchronous:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_web_services_gateway_requests_synchronous_responses:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_web_services_gateway_requests_asynchronous:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_pmi_web_services_gateway_requests_asynchronous_responses:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: websphere_pmi.alarm_manager_events
+  title: Alarm Manager Events
+  units: events/s
+  family: alarm
+  chart_type: line
+  priority: 60001
+  shape: counters
+  labels:
+    node: sim-node-1
+    server: sim-server-1
+    manager: sim-manager-1
+  dimensions:
+  - id: created
+    rate_signal: ibm_websphere_pmi_alarm_manager_events_created
+  - id: cancelled
+    rate_signal: ibm_websphere_pmi_alarm_manager_events_cancelled
+  - id: fired
+    rate_signal: ibm_websphere_pmi_alarm_manager_events_fired
+- id: websphere_pmi.dynamic_cache_in_memory
+  title: Dynamic Cache Entries
+  units: entries
+  family: dynamic
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels:
+    node: sim-node-1
+    server: sim-server-1
+    cache: sim-cache-1
+  dimensions:
+  - id: entries
+    signal: ibm_websphere_pmi_dynamic_cache_in_memory_entries
+- id: websphere_pmi.dynamic_cache_capacity
+  title: Dynamic Cache Capacity
+  units: entries
+  family: dynamic
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels:
+    node: sim-node-1
+    server: sim-server-1
+    cache: sim-cache-1
+  dimensions:
+  - id: max_entries
+    signal: ibm_websphere_pmi_dynamic_cache_capacity_max_entries
+- id: websphere_pmi.ejb_operations
+  title: EJB Operations
+  units: operations/s
+  family: ejb
+  chart_type: line
+  priority: 60004
+  shape: counters
+  labels:
+    node: sim-node-1
+    server: sim-server-1
+    bean: sim-bean-1
+  dimensions:
+  - id: create
+    rate_signal: ibm_websphere_pmi_ejb_operations_create
+  - id: remove
+    rate_signal: ibm_websphere_pmi_ejb_operations_remove
+  - id: activate
+    rate_signal: ibm_websphere_pmi_ejb_operations_activate
+  - id: passivate
+    rate_signal: ibm_websphere_pmi_ejb_operations_passivate
+  - id: instantiate
+    rate_signal: ibm_websphere_pmi_ejb_operations_instantiate
+  - id: store
+    rate_signal: ibm_websphere_pmi_ejb_operations_store
+  - id: load
+    rate_signal: ibm_websphere_pmi_ejb_operations_load
+- id: websphere_pmi.ejb_messages
+  title: EJB Message Activity
+  units: messages/s
+  family: ejb
+  chart_type: line
+  priority: 60005
+  shape: counters
+  labels:
+    node: sim-node-1
+    server: sim-server-1
+    bean: sim-bean-1
+  dimensions:
+  - id: received
+    rate_signal: ibm_websphere_pmi_ejb_messages_received
+  - id: backout
+    rate_signal: ibm_websphere_pmi_ejb_messages_backout
+- id: websphere_pmi.ejb_pool
+  title: EJB Pool Usage
+  units: beans
+  family: ejb
+  chart_type: line
+  priority: 60006
+  shape: independent
+  labels:
+    node: sim-node-1
+    server: sim-server-1
+    bean: sim-bean-1
+  dimensions:
+  - id: ready
+    signal: ibm_websphere_pmi_ejb_pool_ready
+  - id: live
+    signal: ibm_websphere_pmi_ejb_pool_live
+  - id: pooled
+    signal: ibm_websphere_pmi_ejb_pool_pooled
+  - id: active_method
+    signal: ibm_websphere_pmi_ejb_pool_active_method
+  - id: passive
+    signal: ibm_websphere_pmi_ejb_pool_passive
+  - id: server_session_pool
+    signal: ibm_websphere_pmi_ejb_pool_server_session_pool
+  - id: method_ready
+    signal: ibm_websphere_pmi_ejb_pool_method_ready
+  - id: async_queue
+    signal: ibm_websphere_pmi_ejb_pool_async_queue
+- id: websphere_pmi.ejb_time
+  title: EJB Operation Time
+  units: milliseconds
+  family: ejb
+  chart_type: line
+  priority: 60007
+  shape: independent
+  labels:
+    node: sim-node-1
+    server: sim-server-1
+    bean: sim-bean-1
+  dimensions:
+  - id: activation
+    signal: ibm_websphere_pmi_ejb_time_activation
+  - id: passivation
+    signal: ibm_websphere_pmi_ejb_time_passivation
+  - id: create
+    signal: ibm_websphere_pmi_ejb_time_create
+  - id: remove
+    signal: ibm_websphere_pmi_ejb_time_remove
+  - id: load
+    signal: ibm_websphere_pmi_ejb_time_load
+  - id: store
+    signal: ibm_websphere_pmi_ejb_time_store
+  - id: method_response
+    signal: ibm_websphere_pmi_ejb_time_method_response
+  - id: wait
+    signal: ibm_websphere_pmi_ejb_time_wait
+  - id: async_wait
+    signal: ibm_websphere_pmi_ejb_time_async_wait
+  - id: read_lock
+    signal: ibm_websphere_pmi_ejb_time_read_lock
+  - id: write_lock
+    signal: ibm_websphere_pmi_ejb_time_write_lock
+- id: websphere_pmi.extension_registry_requests
+  title: Extension Registry Requests
+  units: events/s
+  family: extension
+  chart_type: line
+  priority: 60008
+  shape: counters
+  labels:
+    node: sim-node-1
+    server: sim-server-1
+  dimensions:
+  - id: requests
+    rate_signal: ibm_websphere_pmi_extension_registry_requests_requests
+  - id: hits
+    rate_signal: ibm_websphere_pmi_extension_registry_requests_hits
+  - id: displacements
+    rate_signal: ibm_websphere_pmi_extension_registry_requests_displacements
+- id: websphere_pmi.extension_registry_hit_rate
+  title: Extension Registry Hit Rate
+  units: percentage
+  family: extension
+  chart_type: line
+  priority: 60009
+  shape: independent
+  labels:
+    node: sim-node-1
+    server: sim-server-1
+  dimensions:
+  - id: hit_rate
+    signal: ibm_websphere_pmi_extension_registry_hit_rate_hit_rate
+- id: websphere_pmi.ha_manager_groups
+  title: HA Manager Groups
+  units: groups
+  family: ha
+  chart_type: line
+  priority: 60010
+  shape: independent
+  labels:
+    node: sim-node-1
+    server: sim-server-1
+  dimensions:
+  - id: local
+    signal: ibm_websphere_pmi_ha_manager_groups_local
+- id: websphere_pmi.ha_manager_bulletin_board
+  title: HA Manager Bulletin Board
+  units: items
+  family: ha
+  chart_type: line
+  priority: 60011
+  shape: independent
+  labels:
+    node: sim-node-1
+    server: sim-server-1
+  dimensions:
+  - id: subjects
+    signal: ibm_websphere_pmi_ha_manager_bulletin_board_subjects
+  - id: subscriptions
+    signal: ibm_websphere_pmi_ha_manager_bulletin_board_subscriptions
+  - id: local_subjects
+    signal: ibm_websphere_pmi_ha_manager_bulletin_board_local_subjects
+  - id: local_subscriptions
+    signal: ibm_websphere_pmi_ha_manager_bulletin_board_local_subscriptions
+- id: websphere_pmi.ha_manager_rebuild_time
+  title: HA Manager Rebuild Time
+  units: milliseconds
+  family: ha
+  chart_type: line
+  priority: 60012
+  shape: independent
+  labels:
+    node: sim-node-1
+    server: sim-server-1
+  dimensions:
+  - id: group_state
+    signal: ibm_websphere_pmi_ha_manager_rebuild_time_group_state
+  - id: bulletin_board
+    signal: ibm_websphere_pmi_ha_manager_rebuild_time_bulletin_board
+- id: websphere_pmi.jca_pool_operations
+  title: JCA Pool Operations
+  units: operations/s
+  family: jca
+  chart_type: line
+  priority: 60013
+  shape: counters
+  labels:
+    node: sim-node-1
+    server: sim-server-1
+    provider: sim-provider-1
+    pool: sim-pool-1
+  dimensions:
+  - id: create
+    rate_signal: ibm_websphere_pmi_jca_pool_operations_create
+  - id: close
+    rate_signal: ibm_websphere_pmi_jca_pool_operations_close
+  - id: allocate
+    rate_signal: ibm_websphere_pmi_jca_pool_operations_allocate
+  - id: freed
+    rate_signal: ibm_websphere_pmi_jca_pool_operations_freed
+  - id: faults
+    rate_signal: ibm_websphere_pmi_jca_pool_operations_faults
+- id: websphere_pmi.jca_pool_managed
+  title: JCA Pool Managed Resources
+  units: resources
+  family: jca
+  chart_type: line
+  priority: 60014
+  shape: independent
+  labels:
+    node: sim-node-1
+    server: sim-server-1
+    provider: sim-provider-1
+    pool: sim-pool-1
+  dimensions:
+  - id: managed_connections
+    signal: ibm_websphere_pmi_jca_pool_managed_managed_connections
+  - id: connection_handles
+    signal: ibm_websphere_pmi_jca_pool_managed_connection_handles
+- id: websphere_pmi.jca_pool_utilization
+  title: JCA Pool Utilization
+  units: percentage
+  family: jca
+  chart_type: line
+  priority: 60015
+  shape: independent
+  labels:
+    node: sim-node-1
+    server: sim-server-1
+    provider: sim-provider-1
+    pool: sim-pool-1
+  dimensions:
+  - id: percent_used
+    signal: ibm_websphere_pmi_jca_pool_utilization_percent_used
+  - id: percent_maxed
+    signal: ibm_websphere_pmi_jca_pool_utilization_percent_maxed
+- id: websphere_pmi.jca_pool_waiting
+  title: JCA Pool Waiting Threads
+  units: threads
+  family: jca
+  chart_type: line
+  priority: 60016
+  shape: independent
+  labels:
+    node: sim-node-1
+    server: sim-server-1
+    provider: sim-provider-1
+    pool: sim-pool-1
+  dimensions:
+  - id: waiting_threads
+    signal: ibm_websphere_pmi_jca_pool_waiting_waiting_threads
+- id: websphere_pmi.jdbc_pool_usage
+  title: JDBC Pool Utilization
+  units: percentage
+  family: jdbc
+  chart_type: line
+  priority: 60017
+  shape: independent
+  labels:
+    node: sim-node-1
+    server: sim-server-1
+    pool: sim-pool-1
+  dimensions:
+  - id: percent_used
+    signal: ibm_websphere_pmi_jdbc_pool_usage_percent_used
+  - id: percent_maxed
+    signal: ibm_websphere_pmi_jdbc_pool_usage_percent_maxed
+- id: websphere_pmi.jdbc_pool_waiting
+  title: JDBC Pool Waiting Threads
+  units: threads
+  family: jdbc
+  chart_type: line
+  priority: 60018
+  shape: independent
+  labels:
+    node: sim-node-1
+    server: sim-server-1
+    pool: sim-pool-1
+  dimensions:
+  - id: waiting_threads
+    signal: ibm_websphere_pmi_jdbc_pool_waiting_waiting_threads
+- id: websphere_pmi.jdbc_pool_connections
+  title: JDBC Pool Connections
+  units: connections
+  family: jdbc
+  chart_type: line
+  priority: 60019
+  shape: independent
+  labels:
+    node: sim-node-1
+    server: sim-server-1
+    pool: sim-pool-1
+  dimensions:
+  - id: managed
+    signal: ibm_websphere_pmi_jdbc_pool_connections_managed
+  - id: handles
+    signal: ibm_websphere_pmi_jdbc_pool_connections_handles
+- id: websphere_pmi.jdbc_pool_operations
+  title: JDBC Pool Operations
+  units: operations/s
+  family: jdbc
+  chart_type: line
+  priority: 60020
+  shape: counters
+  labels:
+    node: sim-node-1
+    server: sim-server-1
+    pool: sim-pool-1
+  dimensions:
+  - id: created
+    rate_signal: ibm_websphere_pmi_jdbc_pool_operations_created
+  - id: closed
+    rate_signal: ibm_websphere_pmi_jdbc_pool_operations_closed
+  - id: allocated
+    rate_signal: ibm_websphere_pmi_jdbc_pool_operations_allocated
+  - id: returned
+    rate_signal: ibm_websphere_pmi_jdbc_pool_operations_returned
+  - id: faults
+    rate_signal: ibm_websphere_pmi_jdbc_pool_operations_faults
+  - id: prep_stmt_cache_discard
+    rate_signal: ibm_websphere_pmi_jdbc_pool_operations_prep_stmt_cache_discard
+- id: websphere_pmi.jdbc_pool_time
+  title: JDBC Pool Time
+  units: milliseconds
+  family: jdbc
+  chart_type: line
+  priority: 60021
+  shape: independent
+  labels:
+    node: sim-node-1
+    server: sim-server-1
+    pool: sim-pool-1
+  dimensions:
+  - id: use
+    signal: ibm_websphere_pmi_jdbc_pool_time_use
+  - id: wait
+    signal: ibm_websphere_pmi_jdbc_pool_time_wait
+  - id: jdbc
+    signal: ibm_websphere_pmi_jdbc_pool_time_jdbc
+- id: websphere_pmi.jms_queue_messages_produced
+  title: JMS Queue Messages Produced
+  units: messages/s
+  family: jms
+  chart_type: line
+  priority: 60022
+  shape: counters
+  labels:
+    node: sim-node-1
+    server: sim-server-1
+    engine: sim-engine-1
+    destination: sim-destination-1
+  dimensions:
+  - id: total
+    rate_signal: ibm_websphere_pmi_jms_queue_messages_produced_total
+  - id: best_effort
+    rate_signal: ibm_websphere_pmi_jms_queue_messages_produced_best_effort
+  - id: express
+    rate_signal: ibm_websphere_pmi_jms_queue_messages_produced_express
+  - id: reliable_nonpersistent
+    rate_signal: ibm_websphere_pmi_jms_queue_messages_produced_reliable_nonpersistent
+  - id: reliable_persistent
+    rate_signal: ibm_websphere_pmi_jms_queue_messages_produced_reliable_persistent
+  - id: assured_persistent
+    rate_signal: ibm_websphere_pmi_jms_queue_messages_produced_assured_persistent
+- id: websphere_pmi.jms_queue_messages_consumed
+  title: JMS Queue Messages Consumed
+  units: messages/s
+  family: jms
+  chart_type: line
+  priority: 60023
+  shape: counters
+  labels:
+    node: sim-node-1
+    server: sim-server-1
+    engine: sim-engine-1
+    destination: sim-destination-1
+  dimensions:
+  - id: total
+    rate_signal: ibm_websphere_pmi_jms_queue_messages_consumed_total
+  - id: best_effort
+    rate_signal: ibm_websphere_pmi_jms_queue_messages_consumed_best_effort
+  - id: express
+    rate_signal: ibm_websphere_pmi_jms_queue_messages_consumed_express
+  - id: reliable_nonpersistent
+    rate_signal: ibm_websphere_pmi_jms_queue_messages_consumed_reliable_nonpersistent
+  - id: reliable_persistent
+    rate_signal: ibm_websphere_pmi_jms_queue_messages_consumed_reliable_persistent
+  - id: assured_persistent
+    rate_signal: ibm_websphere_pmi_jms_queue_messages_consumed_assured_persistent
+  - id: expired
+    rate_signal: ibm_websphere_pmi_jms_queue_messages_consumed_expired
+- id: websphere_pmi.jms_queue_clients
+  title: JMS Queue Clients
+  units: clients
+  family: jms
+  chart_type: line
+  priority: 60024
+  shape: independent
+  labels:
+    node: sim-node-1
+    server: sim-server-1
+    engine: sim-engine-1
+    destination: sim-destination-1
+  dimensions:
+  - id: local_producers
+    signal: ibm_websphere_pmi_jms_queue_clients_local_producers
+  - id: local_producer_attaches
+    signal: ibm_websphere_pmi_jms_queue_clients_local_producer_attaches
+  - id: local_consumers
+    signal: ibm_websphere_pmi_jms_queue_clients_local_consumers
+  - id: local_consumer_attaches
+    signal: ibm_websphere_pmi_jms_queue_clients_local_consumer_attaches
+- id: websphere_pmi.jms_queue_storage
+  title: JMS Queue Storage
+  units: messages
+  family: jms
+  chart_type: line
+  priority: 60025
+  shape: independent
+  labels:
+    node: sim-node-1
+    server: sim-server-1
+    engine: sim-engine-1
+    destination: sim-destination-1
+  dimensions:
+  - id: available
+    signal: ibm_websphere_pmi_jms_queue_storage_available
+  - id: unavailable
+    signal: ibm_websphere_pmi_jms_queue_storage_unavailable
+  - id: oldest_age
+    signal: ibm_websphere_pmi_jms_queue_storage_oldest_age
+- id: websphere_pmi.jms_queue_wait_time
+  title: JMS Queue Wait Time
+  units: milliseconds
+  family: jms
+  chart_type: line
+  priority: 60026
+  shape: independent
+  labels:
+    node: sim-node-1
+    server: sim-server-1
+    engine: sim-engine-1
+    destination: sim-destination-1
+  dimensions:
+  - id: aggregate
+    signal: ibm_websphere_pmi_jms_queue_wait_time_aggregate
+  - id: local
+    signal: ibm_websphere_pmi_jms_queue_wait_time_local
+- id: websphere_pmi.jms_store_cache
+  title: JMS Store Cache
+  units: events
+  family: jms
+  chart_type: line
+  priority: 60027
+  shape: independent
+  labels:
+    node: sim-node-1
+    server: sim-server-1
+    engine: sim-engine-1
+    section: sim-section-1
+  dimensions:
+  - id: add_stored
+    signal: ibm_websphere_pmi_jms_store_cache_add_stored
+  - id: add_not_stored
+    signal: ibm_websphere_pmi_jms_store_cache_add_not_stored
+  - id: stored_current
+    signal: ibm_websphere_pmi_jms_store_cache_stored_current
+  - id: stored_bytes
+    signal: ibm_websphere_pmi_jms_store_cache_stored_bytes
+  - id: not_stored_current
+    signal: ibm_websphere_pmi_jms_store_cache_not_stored_current
+  - id: not_stored_bytes
+    signal: ibm_websphere_pmi_jms_store_cache_not_stored_bytes
+  - id: discard_count
+    signal: ibm_websphere_pmi_jms_store_cache_discard_count
+  - id: discard_bytes
+    signal: ibm_websphere_pmi_jms_store_cache_discard_bytes
+- id: websphere_pmi.jms_store_datastore
+  title: JMS Store Datastore Operations
+  units: events/s
+  family: jms
+  chart_type: line
+  priority: 60028
+  shape: counters
+  labels:
+    node: sim-node-1
+    server: sim-server-1
+    engine: sim-engine-1
+    section: sim-section-1
+  dimensions:
+  - id: insert_batches
+    rate_signal: ibm_websphere_pmi_jms_store_datastore_insert_batches
+  - id: update_batches
+    rate_signal: ibm_websphere_pmi_jms_store_datastore_update_batches
+  - id: delete_batches
+    rate_signal: ibm_websphere_pmi_jms_store_datastore_delete_batches
+  - id: insert_count
+    rate_signal: ibm_websphere_pmi_jms_store_datastore_insert_count
+  - id: update_count
+    rate_signal: ibm_websphere_pmi_jms_store_datastore_update_count
+  - id: delete_count
+    rate_signal: ibm_websphere_pmi_jms_store_datastore_delete_count
+  - id: open_count
+    rate_signal: ibm_websphere_pmi_jms_store_datastore_open_count
+  - id: abort_count
+    rate_signal: ibm_websphere_pmi_jms_store_datastore_abort_count
+  - id: transaction_ms
+    rate_signal: ibm_websphere_pmi_jms_store_datastore_transaction_ms
+- id: websphere_pmi.jms_store_transactions
+  title: JMS Store Transactions
+  units: transactions/s
+  family: jms
+  chart_type: line
+  priority: 60029
+  shape: counters
+  labels:
+    node: sim-node-1
+    server: sim-server-1
+    engine: sim-engine-1
+    section: sim-section-1
+  dimensions:
+  - id: global_start
+    rate_signal: ibm_websphere_pmi_jms_store_transactions_global_start
+  - id: global_commit
+    rate_signal: ibm_websphere_pmi_jms_store_transactions_global_commit
+  - id: global_abort
+    rate_signal: ibm_websphere_pmi_jms_store_transactions_global_abort
+  - id: global_indoubt
+    rate_signal: ibm_websphere_pmi_jms_store_transactions_global_indoubt
+  - id: local_start
+    rate_signal: ibm_websphere_pmi_jms_store_transactions_local_start
+  - id: local_commit
+    rate_signal: ibm_websphere_pmi_jms_store_transactions_local_commit
+  - id: local_abort
+    rate_signal: ibm_websphere_pmi_jms_store_transactions_local_abort
+- id: websphere_pmi.jms_store_expiry
+  title: JMS Store Expiry Index
+  units: items
+  family: jms
+  chart_type: line
+  priority: 60030
+  shape: independent
+  labels:
+    node: sim-node-1
+    server: sim-server-1
+    engine: sim-engine-1
+    section: sim-section-1
+  dimensions:
+  - id: index_items
+    signal: ibm_websphere_pmi_jms_store_expiry_index_items
+- id: websphere_pmi.jms_topic_publications
+  title: JMS Topic Publications
+  units: messages/s
+  family: jms
+  chart_type: line
+  priority: 60031
+  shape: counters
+  labels:
+    node: sim-node-1
+    server: sim-server-1
+    engine: sim-engine-1
+    destination: sim-destination-1
+  dimensions:
+  - id: assured
+    rate_signal: ibm_websphere_pmi_jms_topic_publications_assured
+  - id: best_effort
+    rate_signal: ibm_websphere_pmi_jms_topic_publications_best_effort
+  - id: express
+    rate_signal: ibm_websphere_pmi_jms_topic_publications_express
+- id: websphere_pmi.jms_topic_subscription_hits
+  title: JMS Topic Subscription Hits
+  units: events/s
+  family: jms
+  chart_type: line
+  priority: 60032
+  shape: counters
+  labels:
+    node: sim-node-1
+    server: sim-server-1
+    engine: sim-engine-1
+    destination: sim-destination-1
+  dimensions:
+  - id: assured
+    rate_signal: ibm_websphere_pmi_jms_topic_subscription_hits_assured
+  - id: best_effort
+    rate_signal: ibm_websphere_pmi_jms_topic_subscription_hits_best_effort
+  - id: express
+    rate_signal: ibm_websphere_pmi_jms_topic_subscription_hits_express
+- id: websphere_pmi.jms_topic_subscriptions
+  title: JMS Topic Subscriptions
+  units: subscriptions
+  family: jms
+  chart_type: line
+  priority: 60033
+  shape: independent
+  labels:
+    node: sim-node-1
+    server: sim-server-1
+    engine: sim-engine-1
+    destination: sim-destination-1
+  dimensions:
+  - id: durable_local
+    signal: ibm_websphere_pmi_jms_topic_subscriptions_durable_local
+- id: websphere_pmi.jms_topic_events
+  title: JMS Topic Events
+  units: events/s
+  family: jms
+  chart_type: line
+  priority: 60034
+  shape: counters
+  labels:
+    node: sim-node-1
+    server: sim-server-1
+    engine: sim-engine-1
+    destination: sim-destination-1
+  dimensions:
+  - id: incomplete_publications
+    rate_signal: ibm_websphere_pmi_jms_topic_events_incomplete_publications
+  - id: publisher_attaches
+    rate_signal: ibm_websphere_pmi_jms_topic_events_publisher_attaches
+  - id: subscriber_attaches
+    rate_signal: ibm_websphere_pmi_jms_topic_events_subscriber_attaches
+- id: websphere_pmi.jms_topic_age
+  title: JMS Topic Oldest Publication Age
+  units: milliseconds
+  family: jms
+  chart_type: line
+  priority: 60035
+  shape: independent
+  labels:
+    node: sim-node-1
+    server: sim-server-1
+    engine: sim-engine-1
+    destination: sim-destination-1
+  dimensions:
+  - id: local_oldest
+    signal: ibm_websphere_pmi_jms_topic_age_local_oldest
+- id: websphere_pmi.jvm_heap_usage
+  title: JVM Heap Memory Usage
+  units: bytes
+  family: jvm
+  chart_type: stacked
+  priority: 60036
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: used
+    signal: ibm_websphere_pmi_jvm_heap_usage_used
+  - id: free
+    signal: ibm_websphere_pmi_jvm_heap_usage_free
+- id: websphere_pmi.jvm_heap_committed
+  title: JVM Heap Committed
+  units: bytes
+  family: jvm
+  chart_type: line
+  priority: 60037
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: committed
+    signal: ibm_websphere_pmi_jvm_heap_committed_committed
+- id: websphere_pmi.jvm_heap_max
+  title: JVM Heap Maximum
+  units: bytes
+  family: jvm
+  chart_type: line
+  priority: 60038
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: limit
+    signal: ibm_websphere_pmi_jvm_heap_max_limit
+- id: websphere_pmi.jvm_uptime
+  title: JVM Uptime
+  units: seconds
+  family: jvm
+  chart_type: line
+  priority: 60039
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: uptime
+    signal: ibm_websphere_pmi_jvm_uptime_uptime
+- id: websphere_pmi.jvm_cpu
+  title: JVM CPU Usage
+  units: percentage
+  family: jvm
+  chart_type: line
+  priority: 60040
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: usage
+    signal: ibm_websphere_pmi_jvm_cpu_usage
+- id: websphere_pmi.jvm_gc_collections
+  title: JVM GC Collections
+  units: collections/s
+  family: jvm
+  chart_type: line
+  priority: 60041
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: collections
+    rate_signal: ibm_websphere_pmi_jvm_gc_collections_collections
+- id: websphere_pmi.jvm_gc_time
+  title: JVM GC Time
+  units: milliseconds
+  family: jvm
+  chart_type: line
+  priority: 60042
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: total
+    signal: ibm_websphere_pmi_jvm_gc_time_total
+- id: websphere_pmi.jvm_threads
+  title: JVM Threads
+  units: threads
+  family: jvm
+  chart_type: stacked
+  priority: 60043
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: daemon
+    signal: ibm_websphere_pmi_jvm_threads_daemon
+  - id: other
+    signal: ibm_websphere_pmi_jvm_threads_other
+- id: websphere_pmi.jvm_threads_peak
+  title: JVM Peak Threads
+  units: threads
+  family: jvm
+  chart_type: line
+  priority: 60044
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: peak
+    signal: ibm_websphere_pmi_jvm_threads_peak_peak
+- id: websphere_pmi.orb_concurrent
+  title: ORB Concurrent Requests
+  units: requests
+  family: orb
+  chart_type: line
+  priority: 60045
+  shape: independent
+  labels:
+    node: sim-node-1
+    server: sim-server-1
+  dimensions:
+  - id: concurrent_requests
+    signal: ibm_websphere_pmi_orb_concurrent_concurrent_requests
+- id: websphere_pmi.orb_requests
+  title: ORB Requests
+  units: requests/s
+  family: orb
+  chart_type: line
+  priority: 60046
+  shape: counters
+  labels:
+    node: sim-node-1
+    server: sim-server-1
+  dimensions:
+  - id: requests
+    rate_signal: ibm_websphere_pmi_orb_requests_requests
+- id: websphere_pmi.object_pool_operations
+  title: Object Pool Operations
+  units: operations/s
+  family: object
+  chart_type: line
+  priority: 60047
+  shape: counters
+  labels:
+    node: sim-node-1
+    server: sim-server-1
+    pool: sim-pool-1
+  dimensions:
+  - id: created
+    rate_signal: ibm_websphere_pmi_object_pool_operations_created
+- id: websphere_pmi.object_pool_size
+  title: Object Pool Size
+  units: objects
+  family: object
+  chart_type: line
+  priority: 60048
+  shape: independent
+  labels:
+    node: sim-node-1
+    server: sim-server-1
+    pool: sim-pool-1
+  dimensions:
+  - id: allocated
+    signal: ibm_websphere_pmi_object_pool_size_allocated
+  - id: returned
+    signal: ibm_websphere_pmi_object_pool_size_returned
+  - id: idle
+    signal: ibm_websphere_pmi_object_pool_size_idle
+- id: websphere_pmi.pmi_web_service_module_services
+  title: PMI Web Service Module Services
+  units: services
+  family: pmi
+  chart_type: line
+  priority: 60049
+  shape: independent
+  labels:
+    node: sim-node-1
+    server: sim-server-1
+    module: sim-module-1
+  dimensions:
+  - id: loaded
+    signal: ibm_websphere_pmi_pmi_web_service_module_services_loaded
+- id: websphere_pmi.portlet_requests
+  title: Portlet Requests
+  units: requests/s
+  family: portlet
+  chart_type: line
+  priority: 60050
+  shape: counters
+  labels:
+    node: sim-node-1
+    server: sim-server-1
+    portlet: sim-portlet-1
+  dimensions:
+  - id: requests
+    rate_signal: ibm_websphere_pmi_portlet_requests_requests
+- id: websphere_pmi.portlet_concurrent
+  title: Portlet Concurrent Requests
+  units: requests
+  family: portlet
+  chart_type: line
+  priority: 60051
+  shape: independent
+  labels:
+    node: sim-node-1
+    server: sim-server-1
+    portlet: sim-portlet-1
+  dimensions:
+  - id: concurrent
+    signal: ibm_websphere_pmi_portlet_concurrent_concurrent
+- id: websphere_pmi.portlet_errors
+  title: Portlet Errors
+  units: errors/s
+  family: portlet
+  chart_type: line
+  priority: 60052
+  shape: counters
+  labels:
+    node: sim-node-1
+    server: sim-server-1
+    portlet: sim-portlet-1
+  dimensions:
+  - id: errors
+    rate_signal: ibm_websphere_pmi_portlet_errors_errors
+- id: websphere_pmi.portlet_response_time
+  title: Portlet Response Time
+  units: milliseconds
+  family: portlet
+  chart_type: line
+  priority: 60053
+  shape: independent
+  labels:
+    node: sim-node-1
+    server: sim-server-1
+    portlet: sim-portlet-1
+  dimensions:
+  - id: render
+    signal: ibm_websphere_pmi_portlet_response_time_render
+  - id: action
+    signal: ibm_websphere_pmi_portlet_response_time_action
+  - id: process_event
+    signal: ibm_websphere_pmi_portlet_response_time_process_event
+  - id: serve_resource
+    signal: ibm_websphere_pmi_portlet_response_time_serve_resource
+- id: websphere_pmi.portlet_application_loaded
+  title: Loaded Portlets
+  units: portlets
+  family: portlet
+  chart_type: line
+  priority: 60054
+  shape: independent
+  labels:
+    node: sim-node-1
+    server: sim-server-1
+  dimensions:
+  - id: loaded
+    signal: ibm_websphere_pmi_portlet_application_loaded_loaded
+- id: websphere_pmi.scheduler_activity
+  title: Scheduler Activity
+  units: events/s
+  family: scheduler
+  chart_type: line
+  priority: 60055
+  shape: counters
+  labels:
+    node: sim-node-1
+    server: sim-server-1
+    scheduler: sim-scheduler-1
+  dimensions:
+  - id: finished
+    rate_signal: ibm_websphere_pmi_scheduler_activity_finished
+  - id: failures
+    rate_signal: ibm_websphere_pmi_scheduler_activity_failures
+  - id: polls
+    rate_signal: ibm_websphere_pmi_scheduler_activity_polls
+- id: websphere_pmi.security_auth_counts
+  title: Security Authentication Counts
+  units: events/s
+  family: security
+  chart_type: line
+  priority: 60056
+  shape: counters
+  labels:
+    node: sim-node-1
+    server: sim-server-1
+  dimensions:
+  - id: web
+    rate_signal: ibm_websphere_pmi_security_auth_counts_web
+  - id: tai
+    rate_signal: ibm_websphere_pmi_security_auth_counts_tai
+  - id: identity
+    rate_signal: ibm_websphere_pmi_security_auth_counts_identity
+  - id: basic
+    rate_signal: ibm_websphere_pmi_security_auth_counts_basic
+  - id: token
+    rate_signal: ibm_websphere_pmi_security_auth_counts_token
+  - id: jaas_identity
+    rate_signal: ibm_websphere_pmi_security_auth_counts_jaas_identity
+  - id: jaas_basic
+    rate_signal: ibm_websphere_pmi_security_auth_counts_jaas_basic
+  - id: jaas_token
+    rate_signal: ibm_websphere_pmi_security_auth_counts_jaas_token
+  - id: rmi
+    rate_signal: ibm_websphere_pmi_security_auth_counts_rmi
+- id: websphere_pmi.security_authz_time
+  title: Security Authorization Time
+  units: milliseconds
+  family: security
+  chart_type: line
+  priority: 60057
+  shape: independent
+  labels:
+    node: sim-node-1
+    server: sim-server-1
+  dimensions:
+  - id: web
+    signal: ibm_websphere_pmi_security_authz_time_web
+  - id: ejb
+    signal: ibm_websphere_pmi_security_authz_time_ejb
+  - id: admin
+    signal: ibm_websphere_pmi_security_authz_time_admin
+  - id: cwwja
+    signal: ibm_websphere_pmi_security_authz_time_cwwja
+- id: websphere_pmi.session_manager_active
+  title: Session Manager Active Sessions
+  units: sessions
+  family: session
+  chart_type: line
+  priority: 60058
+  shape: independent
+  labels:
+    node: sim-node-1
+    server: sim-server-1
+    app: sim-app-1
+  dimensions:
+  - id: active
+    signal: ibm_websphere_pmi_session_manager_active_active
+  - id: live
+    signal: ibm_websphere_pmi_session_manager_active_live
+- id: websphere_pmi.session_manager_events
+  title: Session Manager Events
+  units: events/s
+  family: session
+  chart_type: line
+  priority: 60059
+  shape: counters
+  labels:
+    node: sim-node-1
+    server: sim-server-1
+    app: sim-app-1
+  dimensions:
+  - id: created
+    rate_signal: ibm_websphere_pmi_session_manager_events_created
+  - id: invalidated
+    rate_signal: ibm_websphere_pmi_session_manager_events_invalidated
+  - id: timeout_invalidations
+    rate_signal: ibm_websphere_pmi_session_manager_events_timeout_invalidations
+  - id: affinity_breaks
+    rate_signal: ibm_websphere_pmi_session_manager_events_affinity_breaks
+  - id: cache_discards
+    rate_signal: ibm_websphere_pmi_session_manager_events_cache_discards
+  - id: no_room
+    rate_signal: ibm_websphere_pmi_session_manager_events_no_room
+  - id: activate_non_exist
+    rate_signal: ibm_websphere_pmi_session_manager_events_activate_non_exist
+- id: websphere_pmi.cpu_utilization
+  title: CPU Utilization
+  units: percentage
+  family: cpu
+  chart_type: line
+  priority: 60060
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: utilization
+    signal: ibm_websphere_pmi_cpu_utilization_utilization
+- id: websphere_pmi.system_data_usage
+  title: System Data Snapshot
+  units: value
+  family: system
+  chart_type: line
+  priority: 60061
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: cpu_since_last
+    signal: ibm_websphere_pmi_system_data_usage_cpu_since_last
+  - id: free_memory
+    signal: ibm_websphere_pmi_system_data_usage_free_memory
+- id: websphere_pmi.threadpool_usage
+  title: Thread Pool Usage
+  units: threads
+  family: threadpool
+  chart_type: stacked
+  priority: 60062
+  shape: independent
+  labels:
+    name: sim-name-1
+  dimensions:
+  - id: active
+    signal: ibm_websphere_pmi_threadpool_usage_active
+  - id: size
+    signal: ibm_websphere_pmi_threadpool_usage_size
+- id: websphere_pmi.transaction_counts
+  title: Transaction Counts
+  units: transactions/s
+  family: transaction
+  chart_type: line
+  priority: 60063
+  shape: counters
+  labels:
+    node: sim-node-1
+    server: sim-server-1
+  dimensions:
+  - id: global_begun
+    rate_signal: ibm_websphere_pmi_transaction_counts_global_begun
+  - id: global_committed
+    rate_signal: ibm_websphere_pmi_transaction_counts_global_committed
+  - id: global_rolled_back
+    rate_signal: ibm_websphere_pmi_transaction_counts_global_rolled_back
+  - id: global_timeout
+    rate_signal: ibm_websphere_pmi_transaction_counts_global_timeout
+  - id: global_involved
+    rate_signal: ibm_websphere_pmi_transaction_counts_global_involved
+  - id: optimizations
+    rate_signal: ibm_websphere_pmi_transaction_counts_optimizations
+  - id: local_begun
+    rate_signal: ibm_websphere_pmi_transaction_counts_local_begun
+  - id: local_committed
+    rate_signal: ibm_websphere_pmi_transaction_counts_local_committed
+  - id: local_rolled_back
+    rate_signal: ibm_websphere_pmi_transaction_counts_local_rolled_back
+  - id: local_timeout
+    rate_signal: ibm_websphere_pmi_transaction_counts_local_timeout
+- id: websphere_pmi.transaction_active
+  title: Active Transactions
+  units: transactions
+  family: transaction
+  chart_type: line
+  priority: 60064
+  shape: independent
+  labels:
+    node: sim-node-1
+    server: sim-server-1
+  dimensions:
+  - id: global
+    signal: ibm_websphere_pmi_transaction_active_global
+  - id: local
+    signal: ibm_websphere_pmi_transaction_active_local
+- id: websphere_pmi.transaction_time
+  title: Transaction Durations
+  units: milliseconds
+  family: transaction
+  chart_type: line
+  priority: 60065
+  shape: independent
+  labels:
+    node: sim-node-1
+    server: sim-server-1
+  dimensions:
+  - id: global_total
+    signal: ibm_websphere_pmi_transaction_time_global_total
+  - id: global_prepare
+    signal: ibm_websphere_pmi_transaction_time_global_prepare
+  - id: global_commit
+    signal: ibm_websphere_pmi_transaction_time_global_commit
+  - id: global_before_completion
+    signal: ibm_websphere_pmi_transaction_time_global_before_completion
+  - id: local_total
+    signal: ibm_websphere_pmi_transaction_time_local_total
+  - id: local_commit
+    signal: ibm_websphere_pmi_transaction_time_local_commit
+  - id: local_before_completion
+    signal: ibm_websphere_pmi_transaction_time_local_before_completion
+- id: websphere_pmi.url_requests
+  title: URL Requests
+  units: requests/s
+  family: url
+  chart_type: line
+  priority: 60066
+  shape: counters
+  labels:
+    node: sim-node-1
+    server: sim-server-1
+    url: sim-url-1
+  dimensions:
+  - id: requests
+    rate_signal: ibm_websphere_pmi_url_requests_requests
+- id: websphere_pmi.url_time
+  title: URL Service Time
+  units: milliseconds
+  family: url
+  chart_type: line
+  priority: 60067
+  shape: independent
+  labels:
+    node: sim-node-1
+    server: sim-server-1
+    url: sim-url-1
+  dimensions:
+  - id: service
+    signal: ibm_websphere_pmi_url_time_service
+  - id: async
+    signal: ibm_websphere_pmi_url_time_async
+- id: websphere_pmi.webapp_load
+  title: Web Application Load
+  units: events
+  family: webapp
+  chart_type: line
+  priority: 60068
+  shape: independent
+  labels:
+    node: sim-node-1
+    server: sim-server-1
+    app: sim-app-1
+  dimensions:
+  - id: loaded_servlets
+    signal: ibm_websphere_pmi_webapp_load_loaded_servlets
+  - id: reloads
+    signal: ibm_websphere_pmi_webapp_load_reloads
+- id: websphere_pmi.web_services_loaded
+  title: Web Services Loaded
+  units: services
+  family: web
+  chart_type: line
+  priority: 60069
+  shape: independent
+  labels:
+    node: sim-node-1
+    server: sim-server-1
+    service: sim-service-1
+  dimensions:
+  - id: loaded
+    signal: ibm_websphere_pmi_web_services_loaded_loaded
+- id: websphere_pmi.web_services_gateway_requests
+  title: Web Services Gateway Requests
+  units: requests/s
+  family: web
+  chart_type: line
+  priority: 60070
+  shape: counters
+  labels:
+    node: sim-node-1
+    server: sim-server-1
+    gateway: sim-gateway-1
+  dimensions:
+  - id: synchronous
+    rate_signal: ibm_websphere_pmi_web_services_gateway_requests_synchronous
+  - id: synchronous_responses
+    rate_signal: ibm_websphere_pmi_web_services_gateway_requests_synchronous_responses
+  - id: asynchronous
+    rate_signal: ibm_websphere_pmi_web_services_gateway_requests_asynchronous
+  - id: asynchronous_responses
+    rate_signal: ibm_websphere_pmi_web_services_gateway_requests_asynchronous_responses

@@ -1,0 +1,90 @@
+version: 1
+name: hdd-temperature
+description: HDD temperature metrics, generated from Netdata's own collector metadata so the contexts,
+  units and dimension names match what a real HDD temperature node reports. Signals are independent and
+  plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  hdd_temperature_disk_temperature_temperature:
+    base: 41.0
+    min: 0.0
+    max: 120.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hdd_temperature_disk_temperature_sensor_status_ok:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  hdd_temperature_disk_temperature_sensor_status_err:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  hdd_temperature_disk_temperature_sensor_status_na:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  hdd_temperature_disk_temperature_sensor_status_unk:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  hdd_temperature_disk_temperature_sensor_status_nos:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  hdd_temperature_disk_temperature_sensor_status_slp:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+contexts:
+- id: hddtemp.disk_temperature
+  title: Disk temperature
+  units: Celsius
+  family: disk
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels:
+    disk_id: sim-disk_id-1
+    model: sim-model-1
+  dimensions:
+  - id: temperature
+    signal: hdd_temperature_disk_temperature_temperature
+- id: hddtemp.disk_temperature_sensor_status
+  title: Disk temperature sensor status
+  units: status
+  family: disk
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels:
+    disk_id: sim-disk_id-1
+    model: sim-model-1
+  dimensions:
+  - id: ok
+    signal: hdd_temperature_disk_temperature_sensor_status_ok
+  - id: err
+    signal: hdd_temperature_disk_temperature_sensor_status_err
+  - id: na
+    signal: hdd_temperature_disk_temperature_sensor_status_na
+  - id: unk
+    signal: hdd_temperature_disk_temperature_sensor_status_unk
+  - id: nos
+    signal: hdd_temperature_disk_temperature_sensor_status_nos
+  - id: slp
+    signal: hdd_temperature_disk_temperature_sensor_status_slp

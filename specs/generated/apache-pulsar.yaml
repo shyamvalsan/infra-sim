@@ -1,0 +1,1660 @@
+version: 1
+name: apache-pulsar
+description: Apache Pulsar metrics, generated from Netdata's own collector metadata so the contexts, units
+  and dimension names match what a real Apache Pulsar node reports. Signals are independent and plausible
+  rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  apache_pulsar_broker_components_namespaces:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_broker_components_topics:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_broker_components_subscriptions:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_broker_components_producers:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_broker_components_consumers:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_messages_rate_publish:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_messages_rate_dispatch:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_throughput_rate_publish:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_throughput_rate_dispatch:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_storage_size_used:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_storage_operations_rate_read:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_storage_operations_rate_write:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_msg_backlog_backlog:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_storage_write_latency_0_5ms:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_storage_write_latency_1ms:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_storage_write_latency_5ms:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_storage_write_latency_10ms:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_storage_write_latency_20ms:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_storage_write_latency_50ms:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_storage_write_latency_100ms:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_storage_write_latency_200ms:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_storage_write_latency_1s:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_entry_size_128b:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_entry_size_512b:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_entry_size_1kb:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_entry_size_2kb:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_entry_size_4kb:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_entry_size_16kb:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_entry_size_100kb:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_entry_size_1mb:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_subscription_delayed_delayed:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_subscription_msg_rate_redeliver_redelivered:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_subscription_blocked_on_unacked_messages_blocked:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_replication_rate_in:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_replication_rate_out:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_replication_throughput_rate_in:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_replication_throughput_rate_out:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_replication_backlog_backlog:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_namespace_broker_components_topics:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_namespace_broker_components_subscriptions:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_namespace_broker_components_producers:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_namespace_broker_components_consumers:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_namespace_messages_rate_publish:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_namespace_messages_rate_dispatch:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_namespace_throughput_rate_publish:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_namespace_throughput_rate_dispatch:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_namespace_storage_size_used:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_namespace_storage_operations_rate_read:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_namespace_storage_operations_rate_write:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_namespace_msg_backlog_backlog:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_namespace_storage_write_latency_0_5ms:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_namespace_storage_write_latency_1ms:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_namespace_storage_write_latency_5ms:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_namespace_storage_write_latency_10ms:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_namespace_storage_write_latency_20ms:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_namespace_storage_write_latency_50ms:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_namespace_storage_write_latency_100ms:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_namespace_storage_write_latency_200ms:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_namespace_storage_write_latency_1s:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_namespace_entry_size_128b:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_namespace_entry_size_512b:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_namespace_entry_size_1kb:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_namespace_entry_size_2kb:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_namespace_entry_size_4kb:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_namespace_entry_size_16kb:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_namespace_entry_size_100kb:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_namespace_entry_size_1mb:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_namespace_subscription_delayed_delayed:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_namespace_subscription_msg_rate_redeliver_redelivered:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_namespace_subscription_blocked_on_unacked_messages_blocked:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_namespace_replication_rate_in:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_namespace_replication_rate_out:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_namespace_replication_throughput_rate_in:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_namespace_replication_throughput_rate_out:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_namespace_replication_backlog_backlog:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_topic_producers_a_dimension_per_topic:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_topic_subscriptions_a_dimension_per_topic:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_topic_consumers_a_dimension_per_topic:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_topic_messages_rate_in_a_dimension_per_topic:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_topic_messages_rate_out_a_dimension_per_topic:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_topic_throughput_rate_in_a_dimension_per_topic:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_topic_throughput_rate_out_a_dimension_per_topic:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_topic_storage_size_a_dimension_per_topic:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_topic_storage_read_rate_a_dimension_per_topic:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_topic_storage_write_rate_a_dimension_per_topic:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_topic_msg_backlog_a_dimension_per_topic:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_topic_subscription_delayed_a_dimension_per_topic:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_topic_subscription_msg_rate_redeliver_a_dimension_per_topic:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_topic_subscription_blocked_on_unacked_messages_a_dimension_per_topic:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_topic_replication_rate_in_a_dimension_per_topic:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_topic_replication_rate_out_a_dimension_per_topic:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_topic_replication_throughput_rate_in_a_dimension_per_topic:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_topic_replication_throughput_rate_out_a_dimension_per_topic:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_pulsar_topic_replication_backlog_a_dimension_per_topic:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: pulsar.broker_components
+  title: Broker Components
+  units: components
+  family: broker
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: namespaces
+    signal: apache_pulsar_broker_components_namespaces
+  - id: topics
+    signal: apache_pulsar_broker_components_topics
+  - id: subscriptions
+    signal: apache_pulsar_broker_components_subscriptions
+  - id: producers
+    signal: apache_pulsar_broker_components_producers
+  - id: consumers
+    signal: apache_pulsar_broker_components_consumers
+- id: pulsar.messages_rate
+  title: Messages Rate
+  units: messages/s
+  family: messages
+  chart_type: line
+  priority: 60002
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: publish
+    rate_signal: apache_pulsar_messages_rate_publish
+  - id: dispatch
+    rate_signal: apache_pulsar_messages_rate_dispatch
+- id: pulsar.throughput_rate
+  title: Throughput Rate
+  units: KiB/s
+  family: throughput
+  chart_type: area
+  priority: 60003
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: publish
+    signal: apache_pulsar_throughput_rate_publish
+  - id: dispatch
+    signal: apache_pulsar_throughput_rate_dispatch
+- id: pulsar.storage_size
+  title: Storage Size
+  units: KiB
+  family: storage
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: used
+    signal: apache_pulsar_storage_size_used
+- id: pulsar.storage_operations_rate
+  title: Storage Read/Write Operations Rate
+  units: message batches/s
+  family: storage
+  chart_type: area
+  priority: 60005
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: read
+    rate_signal: apache_pulsar_storage_operations_rate_read
+  - id: write
+    rate_signal: apache_pulsar_storage_operations_rate_write
+- id: pulsar.msg_backlog
+  title: Messages Backlog Size
+  units: messages
+  family: msg
+  chart_type: line
+  priority: 60006
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: backlog
+    signal: apache_pulsar_msg_backlog_backlog
+- id: pulsar.storage_write_latency
+  title: Storage Write Latency
+  units: entries/s
+  family: storage
+  chart_type: stacked
+  priority: 60007
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: <=0.5ms
+    rate_signal: apache_pulsar_storage_write_latency_0_5ms
+  - id: <=1ms
+    rate_signal: apache_pulsar_storage_write_latency_1ms
+  - id: <=5ms
+    rate_signal: apache_pulsar_storage_write_latency_5ms
+  - id: =10ms
+    rate_signal: apache_pulsar_storage_write_latency_10ms
+  - id: <=20ms
+    rate_signal: apache_pulsar_storage_write_latency_20ms
+  - id: <=50ms
+    rate_signal: apache_pulsar_storage_write_latency_50ms
+  - id: <=100ms
+    rate_signal: apache_pulsar_storage_write_latency_100ms
+  - id: <=200ms
+    rate_signal: apache_pulsar_storage_write_latency_200ms
+  - id: <=1s
+    rate_signal: apache_pulsar_storage_write_latency_1s
+  - id: '>1s'
+    rate_signal: apache_pulsar_storage_write_latency_1s
+- id: pulsar.entry_size
+  title: Entry Size
+  units: entries/s
+  family: entry
+  chart_type: stacked
+  priority: 60008
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: <=128B
+    rate_signal: apache_pulsar_entry_size_128b
+  - id: <=512B
+    rate_signal: apache_pulsar_entry_size_512b
+  - id: <=1KB
+    rate_signal: apache_pulsar_entry_size_1kb
+  - id: <=2KB
+    rate_signal: apache_pulsar_entry_size_2kb
+  - id: <=4KB
+    rate_signal: apache_pulsar_entry_size_4kb
+  - id: <=16KB
+    rate_signal: apache_pulsar_entry_size_16kb
+  - id: <=100KB
+    rate_signal: apache_pulsar_entry_size_100kb
+  - id: <=1MB
+    rate_signal: apache_pulsar_entry_size_1mb
+  - id: '>1MB'
+    rate_signal: apache_pulsar_entry_size_1mb
+- id: pulsar.subscription_delayed
+  title: Subscriptions Delayed for Dispatching
+  units: message batches
+  family: subscription
+  chart_type: line
+  priority: 60009
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: delayed
+    signal: apache_pulsar_subscription_delayed_delayed
+- id: pulsar.subscription_msg_rate_redeliver
+  title: Subscriptions Redelivered Message Rate
+  units: messages/s
+  family: subscription
+  chart_type: line
+  priority: 60010
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: redelivered
+    rate_signal: apache_pulsar_subscription_msg_rate_redeliver_redelivered
+- id: pulsar.subscription_blocked_on_unacked_messages
+  title: Subscriptions Blocked On Unacked Messages
+  units: subscriptions
+  family: subscription
+  chart_type: line
+  priority: 60011
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: blocked
+    signal: apache_pulsar_subscription_blocked_on_unacked_messages_blocked
+- id: pulsar.replication_rate
+  title: Replication Rate
+  units: messages/s
+  family: replication
+  chart_type: line
+  priority: 60012
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: in
+    rate_signal: apache_pulsar_replication_rate_in
+  - id: out
+    rate_signal: apache_pulsar_replication_rate_out
+- id: pulsar.replication_throughput_rate
+  title: Replication Throughput Rate
+  units: KiB/s
+  family: replication
+  chart_type: line
+  priority: 60013
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: in
+    signal: apache_pulsar_replication_throughput_rate_in
+  - id: out
+    signal: apache_pulsar_replication_throughput_rate_out
+- id: pulsar.replication_backlog
+  title: Replication Backlog
+  units: messages
+  family: replication
+  chart_type: line
+  priority: 60014
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: backlog
+    signal: apache_pulsar_replication_backlog_backlog
+- id: pulsar.namespace_broker_components
+  title: Broker Components
+  units: components
+  family: namespace
+  chart_type: line
+  priority: 60015
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: topics
+    signal: apache_pulsar_namespace_broker_components_topics
+  - id: subscriptions
+    signal: apache_pulsar_namespace_broker_components_subscriptions
+  - id: producers
+    signal: apache_pulsar_namespace_broker_components_producers
+  - id: consumers
+    signal: apache_pulsar_namespace_broker_components_consumers
+- id: pulsar.namespace_messages_rate
+  title: Messages Rate
+  units: messages/s
+  family: namespace
+  chart_type: line
+  priority: 60016
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: publish
+    rate_signal: apache_pulsar_namespace_messages_rate_publish
+  - id: dispatch
+    rate_signal: apache_pulsar_namespace_messages_rate_dispatch
+- id: pulsar.namespace_throughput_rate
+  title: Throughput Rate
+  units: KiB/s
+  family: namespace
+  chart_type: area
+  priority: 60017
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: publish
+    signal: apache_pulsar_namespace_throughput_rate_publish
+  - id: dispatch
+    signal: apache_pulsar_namespace_throughput_rate_dispatch
+- id: pulsar.namespace_storage_size
+  title: Storage Size
+  units: KiB
+  family: namespace
+  chart_type: line
+  priority: 60018
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: used
+    signal: apache_pulsar_namespace_storage_size_used
+- id: pulsar.namespace_storage_operations_rate
+  title: Storage Read/Write Operations Rate
+  units: message batches/s
+  family: namespace
+  chart_type: area
+  priority: 60019
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: read
+    rate_signal: apache_pulsar_namespace_storage_operations_rate_read
+  - id: write
+    rate_signal: apache_pulsar_namespace_storage_operations_rate_write
+- id: pulsar.namespace_msg_backlog
+  title: Messages Backlog Size
+  units: messages
+  family: namespace
+  chart_type: line
+  priority: 60020
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: backlog
+    signal: apache_pulsar_namespace_msg_backlog_backlog
+- id: pulsar.namespace_storage_write_latency
+  title: Storage Write Latency
+  units: entries/s
+  family: namespace
+  chart_type: stacked
+  priority: 60021
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: <=0.5ms
+    rate_signal: apache_pulsar_namespace_storage_write_latency_0_5ms
+  - id: <=1ms
+    rate_signal: apache_pulsar_namespace_storage_write_latency_1ms
+  - id: <=5ms
+    rate_signal: apache_pulsar_namespace_storage_write_latency_5ms
+  - id: =10ms
+    rate_signal: apache_pulsar_namespace_storage_write_latency_10ms
+  - id: <=20ms
+    rate_signal: apache_pulsar_namespace_storage_write_latency_20ms
+  - id: <=50ms
+    rate_signal: apache_pulsar_namespace_storage_write_latency_50ms
+  - id: <=100ms
+    rate_signal: apache_pulsar_namespace_storage_write_latency_100ms
+  - id: <=200ms
+    rate_signal: apache_pulsar_namespace_storage_write_latency_200ms
+  - id: <=1s
+    rate_signal: apache_pulsar_namespace_storage_write_latency_1s
+  - id: '>1s'
+    rate_signal: apache_pulsar_namespace_storage_write_latency_1s
+- id: pulsar.namespace_entry_size
+  title: Entry Size
+  units: entries/s
+  family: namespace
+  chart_type: stacked
+  priority: 60022
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: <=128B
+    rate_signal: apache_pulsar_namespace_entry_size_128b
+  - id: <=512B
+    rate_signal: apache_pulsar_namespace_entry_size_512b
+  - id: <=1KB
+    rate_signal: apache_pulsar_namespace_entry_size_1kb
+  - id: <=2KB
+    rate_signal: apache_pulsar_namespace_entry_size_2kb
+  - id: <=4KB
+    rate_signal: apache_pulsar_namespace_entry_size_4kb
+  - id: <=16KB
+    rate_signal: apache_pulsar_namespace_entry_size_16kb
+  - id: <=100KB
+    rate_signal: apache_pulsar_namespace_entry_size_100kb
+  - id: <=1MB
+    rate_signal: apache_pulsar_namespace_entry_size_1mb
+  - id: '>1MB'
+    rate_signal: apache_pulsar_namespace_entry_size_1mb
+- id: pulsar.namespace_subscription_delayed
+  title: Subscriptions Delayed for Dispatching
+  units: message batches
+  family: namespace
+  chart_type: line
+  priority: 60023
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: delayed
+    signal: apache_pulsar_namespace_subscription_delayed_delayed
+- id: pulsar.namespace_subscription_msg_rate_redeliver
+  title: Subscriptions Redelivered Message Rate
+  units: messages/s
+  family: namespace
+  chart_type: line
+  priority: 60024
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: redelivered
+    rate_signal: apache_pulsar_namespace_subscription_msg_rate_redeliver_redelivered
+- id: pulsar.namespace_subscription_blocked_on_unacked_messages
+  title: Subscriptions Blocked On Unacked Messages
+  units: subscriptions
+  family: namespace
+  chart_type: line
+  priority: 60025
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: blocked
+    signal: apache_pulsar_namespace_subscription_blocked_on_unacked_messages_blocked
+- id: pulsar.namespace_replication_rate
+  title: Replication Rate
+  units: messages/s
+  family: namespace
+  chart_type: line
+  priority: 60026
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: in
+    rate_signal: apache_pulsar_namespace_replication_rate_in
+  - id: out
+    rate_signal: apache_pulsar_namespace_replication_rate_out
+- id: pulsar.namespace_replication_throughput_rate
+  title: Replication Throughput Rate
+  units: KiB/s
+  family: namespace
+  chart_type: line
+  priority: 60027
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: in
+    signal: apache_pulsar_namespace_replication_throughput_rate_in
+  - id: out
+    signal: apache_pulsar_namespace_replication_throughput_rate_out
+- id: pulsar.namespace_replication_backlog
+  title: Replication Backlog
+  units: messages
+  family: namespace
+  chart_type: line
+  priority: 60028
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: backlog
+    signal: apache_pulsar_namespace_replication_backlog_backlog
+- id: pulsar.topic_producers
+  title: Topic Producers
+  units: producers
+  family: topic
+  chart_type: stacked
+  priority: 60029
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: a dimension per topic
+    signal: apache_pulsar_topic_producers_a_dimension_per_topic
+- id: pulsar.topic_subscriptions
+  title: Topic Subscriptions
+  units: subscriptions
+  family: topic
+  chart_type: stacked
+  priority: 60030
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: a dimension per topic
+    signal: apache_pulsar_topic_subscriptions_a_dimension_per_topic
+- id: pulsar.topic_consumers
+  title: Topic Consumers
+  units: consumers
+  family: topic
+  chart_type: stacked
+  priority: 60031
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: a dimension per topic
+    signal: apache_pulsar_topic_consumers_a_dimension_per_topic
+- id: pulsar.topic_messages_rate_in
+  title: Topic Publish Messages Rate
+  units: publishes/s
+  family: topic
+  chart_type: stacked
+  priority: 60032
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per topic
+    rate_signal: apache_pulsar_topic_messages_rate_in_a_dimension_per_topic
+- id: pulsar.topic_messages_rate_out
+  title: Topic Dispatch Messages Rate
+  units: dispatches/s
+  family: topic
+  chart_type: stacked
+  priority: 60033
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per topic
+    rate_signal: apache_pulsar_topic_messages_rate_out_a_dimension_per_topic
+- id: pulsar.topic_throughput_rate_in
+  title: Topic Publish Throughput Rate
+  units: KiB/s
+  family: topic
+  chart_type: stacked
+  priority: 60034
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: a dimension per topic
+    signal: apache_pulsar_topic_throughput_rate_in_a_dimension_per_topic
+- id: pulsar.topic_throughput_rate_out
+  title: Topic Dispatch Throughput Rate
+  units: KiB/s
+  family: topic
+  chart_type: stacked
+  priority: 60035
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: a dimension per topic
+    signal: apache_pulsar_topic_throughput_rate_out_a_dimension_per_topic
+- id: pulsar.topic_storage_size
+  title: Topic Storage Size
+  units: KiB
+  family: topic
+  chart_type: stacked
+  priority: 60036
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: a dimension per topic
+    signal: apache_pulsar_topic_storage_size_a_dimension_per_topic
+- id: pulsar.topic_storage_read_rate
+  title: Topic Storage Read Rate
+  units: message batches/s
+  family: topic
+  chart_type: stacked
+  priority: 60037
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per topic
+    rate_signal: apache_pulsar_topic_storage_read_rate_a_dimension_per_topic
+- id: pulsar.topic_storage_write_rate
+  title: Topic Storage Write Rate
+  units: message batches/s
+  family: topic
+  chart_type: stacked
+  priority: 60038
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per topic
+    rate_signal: apache_pulsar_topic_storage_write_rate_a_dimension_per_topic
+- id: pulsar.topic_msg_backlog
+  title: Topic Messages Backlog Size
+  units: messages
+  family: topic
+  chart_type: stacked
+  priority: 60039
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: a dimension per topic
+    signal: apache_pulsar_topic_msg_backlog_a_dimension_per_topic
+- id: pulsar.topic_subscription_delayed
+  title: Topic Subscriptions Delayed for Dispatching
+  units: message batches
+  family: topic
+  chart_type: stacked
+  priority: 60040
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: a dimension per topic
+    signal: apache_pulsar_topic_subscription_delayed_a_dimension_per_topic
+- id: pulsar.topic_subscription_msg_rate_redeliver
+  title: Topic Subscriptions Redelivered Message Rate
+  units: messages/s
+  family: topic
+  chart_type: stacked
+  priority: 60041
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per topic
+    rate_signal: apache_pulsar_topic_subscription_msg_rate_redeliver_a_dimension_per_topic
+- id: pulsar.topic_subscription_blocked_on_unacked_messages
+  title: Topic Subscriptions Blocked On Unacked Messages
+  units: blocked subscriptions
+  family: topic
+  chart_type: stacked
+  priority: 60042
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: a dimension per topic
+    signal: apache_pulsar_topic_subscription_blocked_on_unacked_messages_a_dimension_per_topic
+- id: pulsar.topic_replication_rate_in
+  title: Topic Replication Rate From Remote Cluster
+  units: messages/s
+  family: topic
+  chart_type: stacked
+  priority: 60043
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per topic
+    rate_signal: apache_pulsar_topic_replication_rate_in_a_dimension_per_topic
+- id: pulsar.topic_replication_rate_out
+  title: Topic Replication Rate To Remote Cluster
+  units: messages/s
+  family: topic
+  chart_type: stacked
+  priority: 60044
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per topic
+    rate_signal: apache_pulsar_topic_replication_rate_out_a_dimension_per_topic
+- id: pulsar.topic_replication_throughput_rate_in
+  title: Topic Replication Throughput Rate From Remote Cluster
+  units: messages/s
+  family: topic
+  chart_type: stacked
+  priority: 60045
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per topic
+    rate_signal: apache_pulsar_topic_replication_throughput_rate_in_a_dimension_per_topic
+- id: pulsar.topic_replication_throughput_rate_out
+  title: Topic Replication Throughput Rate To Remote Cluster
+  units: messages/s
+  family: topic
+  chart_type: stacked
+  priority: 60046
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per topic
+    rate_signal: apache_pulsar_topic_replication_throughput_rate_out_a_dimension_per_topic
+- id: pulsar.topic_replication_backlog
+  title: Topic Replication Backlog
+  units: messages
+  family: topic
+  chart_type: stacked
+  priority: 60047
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: a dimension per topic
+    signal: apache_pulsar_topic_replication_backlog_a_dimension_per_topic

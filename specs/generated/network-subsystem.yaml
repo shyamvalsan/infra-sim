@@ -1,0 +1,721 @@
+version: 1
+name: network-subsystem
+description: Network Subsystem metrics, generated from Netdata's own collector metadata so the contexts,
+  units and dimension names match what a real Network Subsystem node reports. Signals are independent
+  and plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  network_subsystem_packets_received:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_subsystem_packets_sent:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_subsystem_packets_forwarded:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_subsystem_packets_delivered:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_subsystem_tcppackets_received:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_subsystem_tcppackets_sent:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_subsystem_errors_indiscards:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_subsystem_errors_outdiscards:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_subsystem_errors_outnoroutes:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_subsystem_errors_inaddrerrors:
+    base: 0.0
+    min: 0.0
+    max: 20000000.0
+  network_subsystem_errors_inhdrerrors:
+    base: 0.0
+    min: 0.0
+    max: 20000000.0
+  network_subsystem_errors_inunknownprotos:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_subsystem_icmpmsg_inechoreps:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_subsystem_icmpmsg_outechoreps:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_subsystem_icmpmsg_indestunreachs:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_subsystem_icmpmsg_outdestunreachs:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_subsystem_icmpmsg_inredirects:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_subsystem_icmpmsg_outredirects:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_subsystem_icmpmsg_inechos:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_subsystem_icmpmsg_outechos:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_subsystem_icmpmsg_inrouteradvert:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_subsystem_icmpmsg_outrouteradvert:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_subsystem_icmpmsg_inrouterselect:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_subsystem_icmpmsg_outrouterselect:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_subsystem_icmpmsg_intimeexcds:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_subsystem_icmpmsg_outtimeexcds:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_subsystem_icmpmsg_inparmprobs:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_subsystem_icmpmsg_outparmprobs:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_subsystem_icmpmsg_intimestamps:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_subsystem_icmpmsg_outtimestamps:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_subsystem_icmpmsg_intimestampreps:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_subsystem_icmpmsg_outtimestampreps:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_subsystem_udppackets_received:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_subsystem_udppackets_sent:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_subsystem_icmp_received:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_subsystem_icmp_sent:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_subsystem_queue_length_length:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_subsystem_rsc_connections_connections:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_subsystem_rsc_packets_packets:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_subsystem_rsc_exceptions_exceptions:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_subsystem_rsc_average_packet_size_average:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_subsystem_chimney_connections_connections:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: ipv4.packets
+  title: IPv4 Packets
+  units: packets/s
+  family: packets
+  chart_type: line
+  priority: 60001
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: received
+    rate_signal: network_subsystem_packets_received
+  - id: sent
+    rate_signal: network_subsystem_packets_sent
+  - id: forwarded
+    rate_signal: network_subsystem_packets_forwarded
+  - id: delivered
+    rate_signal: network_subsystem_packets_delivered
+- id: ipv4.tcppackets
+  title: IPv4 TCP Packets
+  units: packets/s
+  family: tcppackets
+  chart_type: area
+  priority: 60002
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: received
+    rate_signal: network_subsystem_tcppackets_received
+  - id: sent
+    rate_signal: network_subsystem_tcppackets_sent
+- id: ipv4.errors
+  title: IPv4 Errors
+  units: packets/s
+  family: errors
+  chart_type: area
+  priority: 60003
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: InDiscards
+    rate_signal: network_subsystem_errors_indiscards
+  - id: OutDiscards
+    rate_signal: network_subsystem_errors_outdiscards
+  - id: OutNoRoutes
+    rate_signal: network_subsystem_errors_outnoroutes
+  - id: InAddrErrors
+    rate_signal: network_subsystem_errors_inaddrerrors
+  - id: InHdrErrors
+    rate_signal: network_subsystem_errors_inhdrerrors
+  - id: InUnknownProtos
+    rate_signal: network_subsystem_errors_inunknownprotos
+- id: ipv4.icmpmsg
+  title: IPv4 ICMP Packets
+  units: packets/s
+  family: icmpmsg
+  chart_type: area
+  priority: 60004
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: InEchoReps
+    rate_signal: network_subsystem_icmpmsg_inechoreps
+  - id: OutEchoReps
+    rate_signal: network_subsystem_icmpmsg_outechoreps
+  - id: InDestUnreachs
+    rate_signal: network_subsystem_icmpmsg_indestunreachs
+  - id: OutDestUnreachs
+    rate_signal: network_subsystem_icmpmsg_outdestunreachs
+  - id: InRedirects
+    rate_signal: network_subsystem_icmpmsg_inredirects
+  - id: OutRedirects
+    rate_signal: network_subsystem_icmpmsg_outredirects
+  - id: InEchos
+    rate_signal: network_subsystem_icmpmsg_inechos
+  - id: OutEchos
+    rate_signal: network_subsystem_icmpmsg_outechos
+  - id: InRouterAdvert
+    rate_signal: network_subsystem_icmpmsg_inrouteradvert
+  - id: OutRouterAdvert
+    rate_signal: network_subsystem_icmpmsg_outrouteradvert
+  - id: InRouterSelect
+    rate_signal: network_subsystem_icmpmsg_inrouterselect
+  - id: OutRouterSelect
+    rate_signal: network_subsystem_icmpmsg_outrouterselect
+  - id: InTimeExcds
+    rate_signal: network_subsystem_icmpmsg_intimeexcds
+  - id: OutTimeExcds
+    rate_signal: network_subsystem_icmpmsg_outtimeexcds
+  - id: InParmProbs
+    rate_signal: network_subsystem_icmpmsg_inparmprobs
+  - id: OutParmProbs
+    rate_signal: network_subsystem_icmpmsg_outparmprobs
+  - id: InTimestamps
+    rate_signal: network_subsystem_icmpmsg_intimestamps
+  - id: OutTimestamps
+    rate_signal: network_subsystem_icmpmsg_outtimestamps
+  - id: InTimestampReps
+    rate_signal: network_subsystem_icmpmsg_intimestampreps
+  - id: OutTimestampReps
+    rate_signal: network_subsystem_icmpmsg_outtimestampreps
+- id: ipv6.tcppackets
+  title: IPv6 TCP Packets
+  units: packets/s
+  family: tcppackets
+  chart_type: area
+  priority: 60005
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: received
+    rate_signal: network_subsystem_tcppackets_received
+  - id: sent
+    rate_signal: network_subsystem_tcppackets_sent
+- id: ipv6.udppackets
+  title: IPv6 UDP Packets
+  units: packets/s
+  family: udppackets
+  chart_type: area
+  priority: 60006
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: received
+    rate_signal: network_subsystem_udppackets_received
+  - id: sent
+    rate_signal: network_subsystem_udppackets_sent
+- id: ipv6.icmp
+  title: IPv6 ICMP Packets
+  units: packets/s
+  family: icmp
+  chart_type: area
+  priority: 60007
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: received
+    rate_signal: network_subsystem_icmp_received
+  - id: sent
+    rate_signal: network_subsystem_icmp_sent
+- id: ipv6.icmpmsg
+  title: IPv6 ICMP Packets
+  units: packets/s
+  family: icmpmsg
+  chart_type: area
+  priority: 60008
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: InEchoReps
+    rate_signal: network_subsystem_icmpmsg_inechoreps
+  - id: OutEchoReps
+    rate_signal: network_subsystem_icmpmsg_outechoreps
+  - id: InDestUnreachs
+    rate_signal: network_subsystem_icmpmsg_indestunreachs
+  - id: OutDestUnreachs
+    rate_signal: network_subsystem_icmpmsg_outdestunreachs
+  - id: InRedirects
+    rate_signal: network_subsystem_icmpmsg_inredirects
+  - id: OutRedirects
+    rate_signal: network_subsystem_icmpmsg_outredirects
+  - id: InEchos
+    rate_signal: network_subsystem_icmpmsg_inechos
+  - id: OutEchos
+    rate_signal: network_subsystem_icmpmsg_outechos
+  - id: InRouterAdvert
+    rate_signal: network_subsystem_icmpmsg_inrouteradvert
+  - id: OutRouterAdvert
+    rate_signal: network_subsystem_icmpmsg_outrouteradvert
+  - id: InRouterSelect
+    rate_signal: network_subsystem_icmpmsg_inrouterselect
+  - id: OutRouterSelect
+    rate_signal: network_subsystem_icmpmsg_outrouterselect
+  - id: InTimeExcds
+    rate_signal: network_subsystem_icmpmsg_intimeexcds
+  - id: OutTimeExcds
+    rate_signal: network_subsystem_icmpmsg_outtimeexcds
+  - id: InParmProbs
+    rate_signal: network_subsystem_icmpmsg_inparmprobs
+  - id: OutParmProbs
+    rate_signal: network_subsystem_icmpmsg_outparmprobs
+  - id: InTimestamps
+    rate_signal: network_subsystem_icmpmsg_intimestamps
+  - id: OutTimestamps
+    rate_signal: network_subsystem_icmpmsg_outtimestamps
+  - id: InTimestampReps
+    rate_signal: network_subsystem_icmpmsg_intimestampreps
+  - id: OutTimestampReps
+    rate_signal: network_subsystem_icmpmsg_outtimestampreps
+- id: net.queue_length
+  title: Interface Output Queue Length
+  units: packets
+  family: queue
+  chart_type: line
+  priority: 60009
+  shape: independent
+  labels:
+    interface_type: sim-interface_type-1
+    device: sim-device-1
+  dimensions:
+  - id: length
+    signal: network_subsystem_queue_length_length
+- id: net.rsc_connections
+  title: Active TCP Connections Offloaded by RSC
+  units: connections
+  family: rsc
+  chart_type: line
+  priority: 60010
+  shape: independent
+  labels:
+    interface_type: sim-interface_type-1
+    device: sim-device-1
+  dimensions:
+  - id: connections
+    signal: network_subsystem_rsc_connections_connections
+- id: net.rsc_packets
+  title: TCP RSC Coalesced Packets
+  units: packets/s
+  family: rsc
+  chart_type: line
+  priority: 60011
+  shape: counters
+  labels:
+    interface_type: sim-interface_type-1
+    device: sim-device-1
+  dimensions:
+  - id: packets
+    rate_signal: network_subsystem_rsc_packets_packets
+- id: net.rsc_exceptions
+  title: TCP RSC Exceptions
+  units: exceptions/s
+  family: rsc
+  chart_type: line
+  priority: 60012
+  shape: counters
+  labels:
+    interface_type: sim-interface_type-1
+    device: sim-device-1
+  dimensions:
+  - id: exceptions
+    rate_signal: network_subsystem_rsc_exceptions_exceptions
+- id: net.rsc_average_packet_size
+  title: TCP RSC Average Packet Size
+  units: bytes
+  family: rsc
+  chart_type: line
+  priority: 60013
+  shape: independent
+  labels:
+    interface_type: sim-interface_type-1
+    device: sim-device-1
+  dimensions:
+  - id: average
+    signal: network_subsystem_rsc_average_packet_size_average
+- id: net.chimney_connections
+  title: Active TCP Connections Offloaded with Chimney
+  units: connections
+  family: chimney
+  chart_type: line
+  priority: 60014
+  shape: independent
+  labels:
+    interface_type: sim-interface_type-1
+    device: sim-device-1
+  dimensions:
+  - id: connections
+    signal: network_subsystem_chimney_connections_connections

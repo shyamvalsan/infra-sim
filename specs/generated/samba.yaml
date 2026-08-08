@@ -1,0 +1,112 @@
+version: 1
+name: samba
+description: Samba metrics, generated from Netdata's own collector metadata so the contexts, units and
+  dimension names match what a real Samba node reports. Signals are independent and plausible rather than
+  causally coupled - see scripts/sync-integrations.py.
+signals:
+  samba_syscall_calls_syscalls:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  samba_syscall_transferred_data_transferred:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  samba_smb2_call_calls_smb2:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  samba_smb2_call_transferred_data_in:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  samba_smb2_call_transferred_data_out:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: samba.syscall_calls
+  title: Syscalls Count
+  units: calls/s
+  family: syscall
+  chart_type: line
+  priority: 60001
+  shape: counters
+  labels:
+    syscall: sim-syscall-1
+  dimensions:
+  - id: syscalls
+    rate_signal: samba_syscall_calls_syscalls
+- id: samba.syscall_transferred_data
+  title: Syscalls Transferred Data
+  units: bytes/s
+  family: syscall
+  chart_type: area
+  priority: 60002
+  shape: counters
+  labels:
+    syscall: sim-syscall-1
+  dimensions:
+  - id: transferred
+    rate_signal: samba_syscall_transferred_data_transferred
+- id: samba.smb2_call_calls
+  title: SMB2 Calls Count
+  units: calls/s
+  family: smb2
+  chart_type: line
+  priority: 60003
+  shape: counters
+  labels:
+    smb2call: sim-smb2call-1
+  dimensions:
+  - id: smb2
+    rate_signal: samba_smb2_call_calls_smb2
+- id: samba.smb2_call_transferred_data
+  title: SMB2 Call Transferred Data
+  units: bytes/s
+  family: smb2
+  chart_type: area
+  priority: 60004
+  shape: counters
+  labels:
+    smb2call: sim-smb2call-1
+  dimensions:
+  - id: in
+    rate_signal: samba_smb2_call_transferred_data_in
+  - id: out
+    rate_signal: samba_smb2_call_transferred_data_out

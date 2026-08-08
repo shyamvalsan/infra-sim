@@ -1,0 +1,667 @@
+version: 1
+name: infiniband
+description: InfiniBand metrics, generated from Netdata's own collector metadata so the contexts, units
+  and dimension names match what a real InfiniBand node reports. Signals are independent and plausible
+  rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  infiniband_bytes_received:
+    base: 18000.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  infiniband_bytes_sent:
+    base: 18000.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  infiniband_packets_received:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  infiniband_packets_sent:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  infiniband_packets_mcast_rcvd:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  infiniband_packets_mcast_sent:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  infiniband_packets_ucast_rcvd:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  infiniband_packets_ucast_sent:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  infiniband_errors_pkts_malformated:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  infiniband_errors_pkts_rcvd_discarded:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  infiniband_errors_pkts_sent_discarded:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  infiniband_errors_tick_wait_to_send:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  infiniband_errors_pkts_missed_resource:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  infiniband_errors_buffer_overrun:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  infiniband_errors_link_downed:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  infiniband_errors_link_recovered:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  infiniband_errors_link_integrity_err:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  infiniband_errors_link_minor_errors:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+  infiniband_errors_pkts_rcvd_with_ebp:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  infiniband_errors_pkts_rcvd_discarded_by_switch:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  infiniband_errors_pkts_sent_discarded_by_switch:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  infiniband_hwerrors_duplicated_packets:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  infiniband_hwerrors_pkt_seq_num_gap:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  infiniband_hwerrors_ack_timer_expired:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  infiniband_hwerrors_drop_missing_buffer:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+  infiniband_hwerrors_drop_out_of_sequence:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+  infiniband_hwerrors_nak_sequence_rcvd:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  infiniband_hwerrors_cqe_err_req:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  infiniband_hwerrors_cqe_err_resp:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  infiniband_hwerrors_cqe_flushed_err_req:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  infiniband_hwerrors_cqe_flushed_err_resp:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  infiniband_hwerrors_remote_access_err_req:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  infiniband_hwerrors_remote_access_err_resp:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  infiniband_hwerrors_remote_invalid_req:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  infiniband_hwerrors_local_length_err_resp:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  infiniband_hwerrors_rnr_nak_packets:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  infiniband_hwerrors_cnp_pkts_ignored:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  infiniband_hwerrors_roce_icrc_errors:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+  infiniband_hwpackets_rocev2_congestion_sent:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  infiniband_hwpackets_rocev2_congestion_rcvd:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  infiniband_hwpackets_ib_congestion_handled:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  infiniband_hwpackets_atomic_req_rcvd:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  infiniband_hwpackets_connection_req_rcvd:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  infiniband_hwpackets_read_req_rcvd:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  infiniband_hwpackets_write_req_rcvd:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  infiniband_hwpackets_roce_retrans_adaptive:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  infiniband_hwpackets_roce_retrans_timeout:
+    base: 0.0
+    min: 0.0
+    max: 20000000.0
+  infiniband_hwpackets_roce_slow_restart:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  infiniband_hwpackets_roce_slow_restart_congestion:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  infiniband_hwpackets_roce_slow_restart_count:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: ib.bytes
+  title: Bandwidth usage
+  units: kilobits/s
+  family: bytes
+  chart_type: area
+  priority: 60001
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: Received
+    rate_signal: infiniband_bytes_received
+  - id: Sent
+    rate_signal: infiniband_bytes_sent
+- id: ib.packets
+  title: Packets Statistics
+  units: packets/s
+  family: packets
+  chart_type: area
+  priority: 60002
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: Received
+    rate_signal: infiniband_packets_received
+  - id: Sent
+    rate_signal: infiniband_packets_sent
+  - id: Mcast_rcvd
+    rate_signal: infiniband_packets_mcast_rcvd
+  - id: Mcast_sent
+    rate_signal: infiniband_packets_mcast_sent
+  - id: Ucast_rcvd
+    rate_signal: infiniband_packets_ucast_rcvd
+  - id: Ucast_sent
+    rate_signal: infiniband_packets_ucast_sent
+- id: ib.errors
+  title: Error Counters
+  units: errors/s
+  family: errors
+  chart_type: line
+  priority: 60003
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: Pkts_malformated
+    rate_signal: infiniband_errors_pkts_malformated
+  - id: Pkts_rcvd_discarded
+    rate_signal: infiniband_errors_pkts_rcvd_discarded
+  - id: Pkts_sent_discarded
+    rate_signal: infiniband_errors_pkts_sent_discarded
+  - id: Tick_Wait_to_send
+    rate_signal: infiniband_errors_tick_wait_to_send
+  - id: Pkts_missed_resource
+    rate_signal: infiniband_errors_pkts_missed_resource
+  - id: Buffer_overrun
+    rate_signal: infiniband_errors_buffer_overrun
+  - id: Link_Downed
+    rate_signal: infiniband_errors_link_downed
+  - id: Link_recovered
+    rate_signal: infiniband_errors_link_recovered
+  - id: Link_integrity_err
+    rate_signal: infiniband_errors_link_integrity_err
+  - id: Link_minor_errors
+    rate_signal: infiniband_errors_link_minor_errors
+  - id: Pkts_rcvd_with_EBP
+    rate_signal: infiniband_errors_pkts_rcvd_with_ebp
+  - id: Pkts_rcvd_discarded_by_switch
+    rate_signal: infiniband_errors_pkts_rcvd_discarded_by_switch
+  - id: Pkts_sent_discarded_by_switch
+    rate_signal: infiniband_errors_pkts_sent_discarded_by_switch
+- id: ib.hwerrors
+  title: Hardware Errors
+  units: errors/s
+  family: hwerrors
+  chart_type: line
+  priority: 60004
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: Duplicated_packets
+    rate_signal: infiniband_hwerrors_duplicated_packets
+  - id: Pkt_Seq_Num_gap
+    rate_signal: infiniband_hwerrors_pkt_seq_num_gap
+  - id: Ack_timer_expired
+    rate_signal: infiniband_hwerrors_ack_timer_expired
+  - id: Drop_missing_buffer
+    rate_signal: infiniband_hwerrors_drop_missing_buffer
+  - id: Drop_out_of_sequence
+    rate_signal: infiniband_hwerrors_drop_out_of_sequence
+  - id: NAK_sequence_rcvd
+    rate_signal: infiniband_hwerrors_nak_sequence_rcvd
+  - id: CQE_err_Req
+    rate_signal: infiniband_hwerrors_cqe_err_req
+  - id: CQE_err_Resp
+    rate_signal: infiniband_hwerrors_cqe_err_resp
+  - id: CQE_Flushed_err_Req
+    rate_signal: infiniband_hwerrors_cqe_flushed_err_req
+  - id: CQE_Flushed_err_Resp
+    rate_signal: infiniband_hwerrors_cqe_flushed_err_resp
+  - id: Remote_access_err_Req
+    rate_signal: infiniband_hwerrors_remote_access_err_req
+  - id: Remote_access_err_Resp
+    rate_signal: infiniband_hwerrors_remote_access_err_resp
+  - id: Remote_invalid_req
+    rate_signal: infiniband_hwerrors_remote_invalid_req
+  - id: Local_length_err_Resp
+    rate_signal: infiniband_hwerrors_local_length_err_resp
+  - id: RNR_NAK_Packets
+    rate_signal: infiniband_hwerrors_rnr_nak_packets
+  - id: CNP_Pkts_ignored
+    rate_signal: infiniband_hwerrors_cnp_pkts_ignored
+  - id: RoCE_ICRC_Errors
+    rate_signal: infiniband_hwerrors_roce_icrc_errors
+- id: ib.hwpackets
+  title: Hardware Packets Statistics
+  units: packets/s
+  family: hwpackets
+  chart_type: line
+  priority: 60005
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: RoCEv2_Congestion_sent
+    rate_signal: infiniband_hwpackets_rocev2_congestion_sent
+  - id: RoCEv2_Congestion_rcvd
+    rate_signal: infiniband_hwpackets_rocev2_congestion_rcvd
+  - id: IB_Congestion_handled
+    rate_signal: infiniband_hwpackets_ib_congestion_handled
+  - id: ATOMIC_req_rcvd
+    rate_signal: infiniband_hwpackets_atomic_req_rcvd
+  - id: Connection_req_rcvd
+    rate_signal: infiniband_hwpackets_connection_req_rcvd
+  - id: Read_req_rcvd
+    rate_signal: infiniband_hwpackets_read_req_rcvd
+  - id: Write_req_rcvd
+    rate_signal: infiniband_hwpackets_write_req_rcvd
+  - id: RoCE_retrans_adaptive
+    rate_signal: infiniband_hwpackets_roce_retrans_adaptive
+  - id: RoCE_retrans_timeout
+    rate_signal: infiniband_hwpackets_roce_retrans_timeout
+  - id: RoCE_slow_restart
+    rate_signal: infiniband_hwpackets_roce_slow_restart
+  - id: RoCE_slow_restart_congestion
+    rate_signal: infiniband_hwpackets_roce_slow_restart_congestion
+  - id: RoCE_slow_restart_count
+    rate_signal: infiniband_hwpackets_roce_slow_restart_count

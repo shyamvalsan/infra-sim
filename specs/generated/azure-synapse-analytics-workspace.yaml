@@ -1,0 +1,608 @@
+version: 1
+name: azure-synapse-analytics-workspace
+description: Azure Synapse Analytics Workspace metrics, generated from Netdata's own collector metadata
+  so the contexts, units and dimension names match what a real Azure Synapse Analytics Workspace node
+  reports. Signals are independent and plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  azure_synapse_analytics_workspace_synapse_builtin_sql_pool_data_processed_processed:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_synapse_analytics_workspace_synapse_builtin_sql_pool_login_attempts_login_attempts:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_synapse_analytics_workspace_synapse_builtin_sql_pool_requests_requests:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_synapse_analytics_workspace_synapse_activity_runs_ended:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_synapse_analytics_workspace_synapse_pipeline_runs_ended:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_synapse_analytics_workspace_synapse_trigger_runs_ended:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_synapse_analytics_workspace_synapse_link_connection_events_events:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_synapse_analytics_workspace_synapse_link_table_events_events:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_synapse_analytics_workspace_synapse_link_processed_rows_changed_rows:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_synapse_analytics_workspace_synapse_link_data_volume_processed:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_synapse_analytics_workspace_synapse_link_processing_latency_average:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_synapse_analytics_workspace_synapse_streaming_event_flow_in:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_synapse_analytics_workspace_synapse_streaming_event_flow_out:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_synapse_analytics_workspace_synapse_streaming_input_throughput_received:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_synapse_analytics_workspace_synapse_streaming_input_sources_received:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_synapse_analytics_workspace_synapse_streaming_event_timing_late:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_synapse_analytics_workspace_synapse_streaming_event_timing_early:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_synapse_analytics_workspace_synapse_streaming_event_timing_out_of_order:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_synapse_analytics_workspace_synapse_streaming_event_timing_backlogged:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_synapse_analytics_workspace_synapse_streaming_watermark_delay_delay:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_synapse_analytics_workspace_synapse_streaming_errors_runtime:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_synapse_analytics_workspace_synapse_streaming_errors_data_conversion:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_synapse_analytics_workspace_synapse_streaming_errors_deserialization:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_synapse_analytics_workspace_synapse_streaming_resource_utilization_utilization:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: azure_monitor.synapse.builtin_sql_pool_data_processed
+  title: Azure Synapse Built-in SQL Pool Data Processed
+  units: bytes/s
+  family: synapse.builtin
+  chart_type: line
+  priority: 60001
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: processed
+    rate_signal: azure_synapse_analytics_workspace_synapse_builtin_sql_pool_data_processed_processed
+- id: azure_monitor.synapse.builtin_sql_pool_login_attempts
+  title: Azure Synapse Built-in SQL Pool Login Attempts
+  units: attempts/s
+  family: synapse.builtin
+  chart_type: line
+  priority: 60002
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: login_attempts
+    rate_signal: azure_synapse_analytics_workspace_synapse_builtin_sql_pool_login_attempts_login_attempts
+- id: azure_monitor.synapse.builtin_sql_pool_requests
+  title: Azure Synapse Built-in SQL Pool Requests Ended
+  units: requests/s
+  family: synapse.builtin
+  chart_type: line
+  priority: 60003
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: requests
+    rate_signal: azure_synapse_analytics_workspace_synapse_builtin_sql_pool_requests_requests
+- id: azure_monitor.synapse.activity_runs
+  title: Azure Synapse Activity Runs
+  units: runs/s
+  family: synapse.activity
+  chart_type: line
+  priority: 60004
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: ended
+    rate_signal: azure_synapse_analytics_workspace_synapse_activity_runs_ended
+- id: azure_monitor.synapse.pipeline_runs
+  title: Azure Synapse Pipeline Runs
+  units: runs/s
+  family: synapse.pipeline
+  chart_type: line
+  priority: 60005
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: ended
+    rate_signal: azure_synapse_analytics_workspace_synapse_pipeline_runs_ended
+- id: azure_monitor.synapse.trigger_runs
+  title: Azure Synapse Trigger Runs
+  units: runs/s
+  family: synapse.trigger
+  chart_type: line
+  priority: 60006
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: ended
+    rate_signal: azure_synapse_analytics_workspace_synapse_trigger_runs_ended
+- id: azure_monitor.synapse.link_connection_events
+  title: Azure Synapse Link Connection Events
+  units: events/s
+  family: synapse.link
+  chart_type: line
+  priority: 60007
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: events
+    rate_signal: azure_synapse_analytics_workspace_synapse_link_connection_events_events
+- id: azure_monitor.synapse.link_table_events
+  title: Azure Synapse Link Table Events
+  units: events/s
+  family: synapse.link
+  chart_type: line
+  priority: 60008
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: events
+    rate_signal: azure_synapse_analytics_workspace_synapse_link_table_events_events
+- id: azure_monitor.synapse.link_processed_rows
+  title: Azure Synapse Link Processed Changed Rows
+  units: rows/s
+  family: synapse.link
+  chart_type: line
+  priority: 60009
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: changed_rows
+    rate_signal: azure_synapse_analytics_workspace_synapse_link_processed_rows_changed_rows
+- id: azure_monitor.synapse.link_data_volume
+  title: Azure Synapse Link Processed Data Volume
+  units: bytes/s
+  family: synapse.link
+  chart_type: line
+  priority: 60010
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: processed
+    rate_signal: azure_synapse_analytics_workspace_synapse_link_data_volume_processed
+- id: azure_monitor.synapse.link_processing_latency
+  title: Azure Synapse Link Processing Latency
+  units: seconds
+  family: synapse.link
+  chart_type: line
+  priority: 60011
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_synapse_analytics_workspace_synapse_link_processing_latency_average
+- id: azure_monitor.synapse.streaming_event_flow
+  title: Azure Synapse Streaming Event Flow
+  units: events/s
+  family: synapse.streaming
+  chart_type: line
+  priority: 60012
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: in
+    rate_signal: azure_synapse_analytics_workspace_synapse_streaming_event_flow_in
+  - id: out
+    rate_signal: azure_synapse_analytics_workspace_synapse_streaming_event_flow_out
+- id: azure_monitor.synapse.streaming_input_throughput
+  title: Azure Synapse Streaming Input Data Throughput
+  units: bytes/s
+  family: synapse.streaming
+  chart_type: line
+  priority: 60013
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: received
+    rate_signal: azure_synapse_analytics_workspace_synapse_streaming_input_throughput_received
+- id: azure_monitor.synapse.streaming_input_sources
+  title: Azure Synapse Streaming Input Sources Received
+  units: sources/s
+  family: synapse.streaming
+  chart_type: line
+  priority: 60014
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: received
+    rate_signal: azure_synapse_analytics_workspace_synapse_streaming_input_sources_received
+- id: azure_monitor.synapse.streaming_event_timing
+  title: Azure Synapse Streaming Event Timing Issues
+  units: events/s
+  family: synapse.streaming
+  chart_type: line
+  priority: 60015
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: late
+    rate_signal: azure_synapse_analytics_workspace_synapse_streaming_event_timing_late
+  - id: early
+    rate_signal: azure_synapse_analytics_workspace_synapse_streaming_event_timing_early
+  - id: out_of_order
+    rate_signal: azure_synapse_analytics_workspace_synapse_streaming_event_timing_out_of_order
+  - id: backlogged
+    rate_signal: azure_synapse_analytics_workspace_synapse_streaming_event_timing_backlogged
+- id: azure_monitor.synapse.streaming_watermark_delay
+  title: Azure Synapse Streaming Watermark Delay
+  units: seconds
+  family: synapse.streaming
+  chart_type: line
+  priority: 60016
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: delay
+    signal: azure_synapse_analytics_workspace_synapse_streaming_watermark_delay_delay
+- id: azure_monitor.synapse.streaming_errors
+  title: Azure Synapse Streaming Errors
+  units: errors/s
+  family: synapse.streaming
+  chart_type: line
+  priority: 60017
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: runtime
+    rate_signal: azure_synapse_analytics_workspace_synapse_streaming_errors_runtime
+  - id: data_conversion
+    rate_signal: azure_synapse_analytics_workspace_synapse_streaming_errors_data_conversion
+  - id: deserialization
+    rate_signal: azure_synapse_analytics_workspace_synapse_streaming_errors_deserialization
+- id: azure_monitor.synapse.streaming_resource_utilization
+  title: Azure Synapse Streaming Resource Utilization
+  units: percentage
+  family: synapse.streaming
+  chart_type: line
+  priority: 60018
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: utilization
+    signal: azure_synapse_analytics_workspace_synapse_streaming_resource_utilization_utilization

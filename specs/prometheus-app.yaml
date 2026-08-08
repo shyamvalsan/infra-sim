@@ -1,0 +1,165 @@
+version: 1
+name: prometheus-app
+description: >-
+  The metric set a team's own application exposes on /metrics. Deliberately
+  application-level - orders, carts, payment attempts, queue depth, worker
+  saturation - because Netdata's own collectors already cover the infrastructure
+  layer. Nothing here duplicates a chart the plugins.d path emits, so a node can
+  carry both without the same series appearing twice.
+
+  Served by `infra-sim --exporters` in Prometheus text format and scraped by
+  Netdata's own go.d prometheus collector, which builds the charts. Netdata's
+  auto-charting of an unknown exporter is the thing being demonstrated, so
+  nothing about the resulting charts is authored here.
+
+signals:
+
+  # --- business throughput ---------------------------------------------------
+  app_requests_rate:
+    base: 340.0
+    min: 0.0
+    max: 500000.0
+    seasonality: { daily_amplitude: 0.65, peak_hour: 14.0, weekend_factor: 0.42 }
+    noise: { kind: gauss, sigma: 0.18 }
+  app_requests_error_rate:
+    base: 1.4
+    min: 0.0
+    max: 200000.0
+    noise: { kind: gauss, sigma: 0.55 }
+  app_orders_rate:
+    base: 11.0
+    min: 0.0
+    max: 100000.0
+    seasonality: { daily_amplitude: 0.7, peak_hour: 15.0, weekend_factor: 0.5 }
+    noise: { kind: gauss, sigma: 0.3 }
+  app_payment_declined_rate:
+    base: 0.4
+    min: 0.0
+    max: 50000.0
+    noise: { kind: gauss, sigma: 0.7 }
+  app_cart_value_total:
+    base: 780.0
+    min: 0.0
+    max: 10000000.0
+    seasonality: { daily_amplitude: 0.7, peak_hour: 15.0, weekend_factor: 0.5 }
+    noise: { kind: gauss, sigma: 0.25 }
+
+  # --- latency ---------------------------------------------------------------
+  # Emitted as a summary's quantiles. A real service's p99 moves far more than
+  # its median under load, which is why these are separate signals rather than
+  # one signal scaled three ways.
+  app_latency_p50:
+    base: 0.042
+    min: 0.001
+    max: 60.0
+    seasonality: { daily_amplitude: 0.3, peak_hour: 14.0 }
+    noise: { kind: walk, sigma: 0.04, reversion: 0.1 }
+  app_latency_p95:
+    base: 0.19
+    min: 0.001
+    max: 60.0
+    seasonality: { daily_amplitude: 0.45, peak_hour: 14.0 }
+    noise: { kind: walk, sigma: 0.07, reversion: 0.09 }
+  app_latency_p99:
+    base: 0.63
+    min: 0.001
+    max: 60.0
+    seasonality: { daily_amplitude: 0.55, peak_hour: 14.0 }
+    noise: { kind: walk, sigma: 0.12, reversion: 0.08 }
+
+  # --- internal queues and pools ---------------------------------------------
+  app_queue_depth:
+    base: 34.0
+    min: 0.0
+    max: 5000000.0
+    seasonality: { daily_amplitude: 0.6, peak_hour: 14.5 }
+    noise: { kind: walk, sigma: 0.09, reversion: 0.12 }
+  app_queue_oldest_seconds:
+    base: 1.8
+    min: 0.0
+    max: 86400.0
+    noise: { kind: walk, sigma: 0.14, reversion: 0.13 }
+  app_workers_busy:
+    base: 6.0
+    min: 0.0
+    max: 1024.0
+    seasonality: { daily_amplitude: 0.6, peak_hour: 14.0 }
+    noise: { kind: walk, sigma: 0.11, reversion: 0.15 }
+  app_workers_total:
+    base: 32.0
+    min: 1.0
+    max: 1024.0
+    max_is_ceiling: true
+  app_db_pool_in_use:
+    base: 9.0
+    min: 0.0
+    max: 500.0
+    seasonality: { daily_amplitude: 0.55, peak_hour: 14.0 }
+    noise: { kind: walk, sigma: 0.1, reversion: 0.14 }
+  app_db_pool_size:
+    base: 40.0
+    min: 1.0
+    max: 500.0
+    max_is_ceiling: true
+  app_db_pool_wait_rate:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+
+  # --- caches and sessions ---------------------------------------------------
+  app_cache_hits_rate:
+    base: 910.0
+    min: 0.0
+    max: 5000000.0
+    seasonality: { daily_amplitude: 0.6, peak_hour: 14.0, weekend_factor: 0.45 }
+    noise: { kind: gauss, sigma: 0.16 }
+  app_cache_misses_rate:
+    base: 58.0
+    min: 0.0
+    max: 5000000.0
+    seasonality: { daily_amplitude: 0.6, peak_hour: 14.0, weekend_factor: 0.45 }
+    noise: { kind: gauss, sigma: 0.3 }
+  app_sessions_active:
+    base: 1250.0
+    min: 0.0
+    max: 5000000.0
+    seasonality: { daily_amplitude: 0.7, peak_hour: 14.5, weekend_factor: 0.4 }
+    noise: { kind: walk, sigma: 0.05, reversion: 0.08 }
+
+# The exporter renders these directly; the plugins.d path never composes this
+# spec onto a node, so `contexts` exists only to keep the file a valid
+# GeneratorSpec and to give the lint something to check.
+contexts:
+
+  - id: app.requests
+    title: Application requests
+    units: requests/s
+    family: app
+    chart_type: line
+    priority: 90000
+    shape: counters
+    dimensions:
+      - { id: total,  rate_signal: app_requests_rate }
+      - { id: errors, rate_signal: app_requests_error_rate }
+
+  - id: app.latency
+    title: Application latency
+    units: seconds
+    family: app
+    chart_type: line
+    priority: 90001
+    shape: independent
+    dimensions:
+      - { id: p50, signal: app_latency_p50 }
+      - { id: p95, signal: app_latency_p95 }
+      - { id: p99, signal: app_latency_p99 }
+
+  - id: app.queue
+    title: Work queue
+    units: items
+    family: app
+    chart_type: line
+    priority: 90002
+    shape: independent
+    dimensions:
+      - { id: depth, signal: app_queue_depth }

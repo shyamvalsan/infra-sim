@@ -1,0 +1,59 @@
+version: 1
+name: physical-and-logical-disk-performance-metrics
+description: Physical and Logical Disk Performance Metrics metrics, generated from Netdata's own collector
+  metadata so the contexts, units and dimension names match what a real Physical and Logical Disk Performance
+  Metrics node reports. Signals are independent and plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  physical_and_logical_disk_performance_metrics_split_discards:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  physical_and_logical_disk_performance_metrics_busy_busy:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: disk.split
+  title: Split I/O Operations
+  units: operations/s
+  family: split
+  chart_type: line
+  priority: 60001
+  shape: counters
+  labels:
+    mount_point: sim-mount_point-1
+    device: sim-device-1
+    model: sim-model-1
+    device_id: sim-device_id-1
+  dimensions:
+  - id: discards
+    rate_signal: physical_and_logical_disk_performance_metrics_split_discards
+- id: disk.busy
+  title: Disk Busy Time
+  units: milliseconds
+  family: busy
+  chart_type: area
+  priority: 60002
+  shape: independent
+  labels:
+    mount_point: sim-mount_point-1
+    device: sim-device-1
+    model: sim-model-1
+    device_id: sim-device_id-1
+  dimensions:
+  - id: busy
+    signal: physical_and_logical_disk_performance_metrics_busy_busy

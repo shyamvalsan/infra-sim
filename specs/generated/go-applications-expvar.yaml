@@ -1,0 +1,174 @@
+version: 1
+name: go-applications-expvar
+description: Go applications (EXPVAR) metrics, generated from Netdata's own collector metadata so the
+  contexts, units and dimension names match what a real Go applications (EXPVAR) node reports. Signals
+  are independent and plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  go_applications_expvar_memstats_heap_alloc:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  go_applications_expvar_memstats_heap_inuse:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  go_applications_expvar_memstats_stack_inuse:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  go_applications_expvar_memstats_mspan_inuse:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  go_applications_expvar_memstats_mcache_inuse:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  go_applications_expvar_memstats_live_objects_live:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  go_applications_expvar_memstats_sys_sys:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  go_applications_expvar_memstats_gc_pauses_avg:
+    base: 240000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: expvar.memstats.heap
+  title: 'memory: size of heap memory structures'
+  units: KiB
+  family: memstats.heap
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: alloc
+    signal: go_applications_expvar_memstats_heap_alloc
+  - id: inuse
+    signal: go_applications_expvar_memstats_heap_inuse
+- id: expvar.memstats.stack
+  title: 'memory: size of stack memory structures'
+  units: KiB
+  family: memstats.stack
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: inuse
+    signal: go_applications_expvar_memstats_stack_inuse
+- id: expvar.memstats.mspan
+  title: 'memory: size of mspan memory structures'
+  units: KiB
+  family: memstats.mspan
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: inuse
+    signal: go_applications_expvar_memstats_mspan_inuse
+- id: expvar.memstats.mcache
+  title: 'memory: size of mcache memory structures'
+  units: KiB
+  family: memstats.mcache
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: inuse
+    signal: go_applications_expvar_memstats_mcache_inuse
+- id: expvar.memstats.live_objects
+  title: 'memory: number of live objects'
+  units: objects
+  family: memstats.live
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: live
+    signal: go_applications_expvar_memstats_live_objects_live
+- id: expvar.memstats.sys
+  title: 'memory: size of reserved virtual address space'
+  units: KiB
+  family: memstats.sys
+  chart_type: line
+  priority: 60006
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: sys
+    signal: go_applications_expvar_memstats_sys_sys
+- id: expvar.memstats.gc_pauses
+  title: 'memory: average duration of GC pauses'
+  units: ns
+  family: memstats.gc
+  chart_type: line
+  priority: 60007
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: avg
+    signal: go_applications_expvar_memstats_gc_pauses_avg

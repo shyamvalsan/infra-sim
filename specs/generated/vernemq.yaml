@@ -1,0 +1,3030 @@
+version: 1
+name: vernemq
+description: VerneMQ metrics, generated from Netdata's own collector metadata so the contexts, units and
+  dimension names match what a real VerneMQ node reports. Signals are independent and plausible rather
+  than causally coupled - see scripts/sync-integrations.py.
+signals:
+  vernemq_node_socket_open:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_socket_operations_open:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_socket_operations_close:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_client_keepalive_expired_closed:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_socket_close_timeout_closed:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_socket_errors_errors:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+  vernemq_node_queue_processes_queue_processes:
+    base: 210.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_queue_processes_operations_setup:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_queue_processes_operations_teardown:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_queue_process_init_from_storage_queue_processes:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_queue_messages_received:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_queue_messages_sent:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_queued_messages_queued:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_queue_undelivered_messages_dropped:
+    base: 0.0
+    min: 0.0
+    max: 2000000.0
+  vernemq_node_queue_undelivered_messages_expired:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_queue_undelivered_messages_unhandled:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_router_subscriptions_subscriptions:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_router_matched_subscriptions_local:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_router_matched_subscriptions_remote:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_router_memory_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_average_scheduler_utilization_utilization:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_system_processes_processes:
+    base: 210.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_system_reductions_reductions:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_system_context_switches_context_switches:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_system_io_received:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_system_io_sent:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_system_run_queue_ready:
+    base: 210.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_system_gc_count_gc:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_system_gc_words_reclaimed_words_reclaimed:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_system_allocated_memory_processes:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_system_allocated_memory_system:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_traffic_received:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_traffic_sent:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_retain_messages_messages:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_retain_memory_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_cluster_traffic_received:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_cluster_traffic_sent:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_cluster_dropped_dropped:
+    base: 0.0
+    min: 0.0
+    max: 5000000000.0
+  vernemq_node_netsplit_unresolved_unresolved:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_netsplits_resolved:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_netsplits_detected:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_uptime_time:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_auth_received:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_auth_sent:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_auth_received_by_reason_code_success:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_auth_received_by_reason_code_continue_authentication:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_auth_received_by_reason_code_reauthenticate:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_auth_sent_by_reason_code_success:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_auth_sent_by_reason_code_continue_authentication:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_auth_sent_by_reason_code_reauthenticate:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_connect_connect:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_connect_connack:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_connack_sent_by_return_code_success:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_connack_sent_by_return_code_unsupported_protocol_version:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_connack_sent_by_return_code_client_identifier_not_valid:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_connack_sent_by_return_code_server_unavailable:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_connack_sent_by_return_code_bad_username_or_password:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_connack_sent_by_return_code_not_authorized:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_connack_sent_by_reason_code_success:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_connack_sent_by_reason_code_unspecified_error:
+    base: 0.0
+    min: 0.0
+    max: 20000000.0
+  vernemq_node_mqtt_connack_sent_by_reason_code_malformed_packet:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_connack_sent_by_reason_code_protocol_error:
+    base: 0.0
+    min: 0.0
+    max: 20000000.0
+  vernemq_node_mqtt_connack_sent_by_reason_code_impl_specific_error:
+    base: 0.0
+    min: 0.0
+    max: 20000000.0
+  vernemq_node_mqtt_connack_sent_by_reason_code_unsupported_protocol_version:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_connack_sent_by_reason_code_client_identifier_not_valid:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_connack_sent_by_reason_code_bad_username_or_password:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_connack_sent_by_reason_code_not_authorized:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_connack_sent_by_reason_code_server_unavailable:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_connack_sent_by_reason_code_server_busy:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_connack_sent_by_reason_code_banned:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_connack_sent_by_reason_code_bad_authentication_method:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_connack_sent_by_reason_code_topic_name_invalid:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_connack_sent_by_reason_code_packet_too_large:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_connack_sent_by_reason_code_quota_exceeded:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_connack_sent_by_reason_code_payload_format_invalid:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_connack_sent_by_reason_code_retain_not_supported:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_connack_sent_by_reason_code_qos_not_supported:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_connack_sent_by_reason_code_use_another_server:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_connack_sent_by_reason_code_server_moved:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_connack_sent_by_reason_code_connection_rate_exceeded:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_disconnect_received:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_disconnect_sent:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_disconnect_received_by_reason_code_normal_disconnect:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_disconnect_received_by_reason_code_disconnect_with_will_msg:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_disconnect_received_by_reason_code_unspecified_error:
+    base: 0.0
+    min: 0.0
+    max: 20000000.0
+  vernemq_node_mqtt_disconnect_received_by_reason_code_malformed_packet:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_disconnect_received_by_reason_code_protocol_error:
+    base: 0.0
+    min: 0.0
+    max: 20000000.0
+  vernemq_node_mqtt_disconnect_received_by_reason_code_impl_specific_error:
+    base: 0.0
+    min: 0.0
+    max: 20000000.0
+  vernemq_node_mqtt_disconnect_received_by_reason_code_topic_name_invalid:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_disconnect_received_by_reason_code_receive_max_exceeded:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_disconnect_received_by_reason_code_topic_alias_invalid:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_disconnect_received_by_reason_code_packet_too_large:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_disconnect_received_by_reason_code_message_rate_too_high:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_disconnect_received_by_reason_code_quota_exceeded:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_disconnect_received_by_reason_code_administrative_action:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_disconnect_received_by_reason_code_payload_format_invalid:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_disconnect_sent_by_reason_code_normal_disconnect:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_disconnect_sent_by_reason_code_unspecified_error:
+    base: 0.0
+    min: 0.0
+    max: 20000000.0
+  vernemq_node_mqtt_disconnect_sent_by_reason_code_malformed_packet:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_disconnect_sent_by_reason_code_protocol_error:
+    base: 0.0
+    min: 0.0
+    max: 20000000.0
+  vernemq_node_mqtt_disconnect_sent_by_reason_code_impl_specific_error:
+    base: 0.0
+    min: 0.0
+    max: 20000000.0
+  vernemq_node_mqtt_disconnect_sent_by_reason_code_not_authorized:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_disconnect_sent_by_reason_code_server_busy:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_disconnect_sent_by_reason_code_server_shutting_down:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_disconnect_sent_by_reason_code_keep_alive_timeout:
+    base: 0.0
+    min: 0.0
+    max: 20000000.0
+  vernemq_node_mqtt_disconnect_sent_by_reason_code_session_taken_over:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_disconnect_sent_by_reason_code_topic_filter_invalid:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_disconnect_sent_by_reason_code_topic_name_invalid:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_disconnect_sent_by_reason_code_receive_max_exceeded:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_disconnect_sent_by_reason_code_topic_alias_invalid:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_disconnect_sent_by_reason_code_packet_too_large:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_disconnect_sent_by_reason_code_message_rate_too_high:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_disconnect_sent_by_reason_code_quota_exceeded:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_disconnect_sent_by_reason_code_administrative_action:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_disconnect_sent_by_reason_code_payload_format_invalid:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_disconnect_sent_by_reason_code_retain_not_supported:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_disconnect_sent_by_reason_code_qos_not_supported:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_disconnect_sent_by_reason_code_use_another_server:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_disconnect_sent_by_reason_code_server_moved:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_disconnect_sent_by_reason_code_shared_subs_not_supported:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_disconnect_sent_by_reason_code_connection_rate_exceeded:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_disconnect_sent_by_reason_code_max_connect_time:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_disconnect_sent_by_reason_code_subscription_ids_not_supported:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_disconnect_sent_by_reason_code_wildcard_subs_not_supported:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_subscribe_subscribe:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_subscribe_suback:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_subscribe_error_subscribe:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_subscribe_auth_error_subscribe_auth:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_unsubscribe_unsubscribe:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_unsubscribe_unsuback:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_unsubscribe_error_unsubscribe:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_publish_received:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_publish_sent:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_publish_errors_publish:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_publish_auth_errors_publish_auth:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_puback_received:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_puback_sent:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_puback_received_by_reason_code_success:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_puback_received_by_reason_code_no_matching_subscribers:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_puback_received_by_reason_code_unspecified_error:
+    base: 0.0
+    min: 0.0
+    max: 20000000.0
+  vernemq_node_mqtt_puback_received_by_reason_code_impl_specific_error:
+    base: 0.0
+    min: 0.0
+    max: 20000000.0
+  vernemq_node_mqtt_puback_received_by_reason_code_not_authorized:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_puback_received_by_reason_code_topic_name_invalid:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_puback_received_by_reason_code_packet_id_in_use:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_puback_received_by_reason_code_quota_exceeded:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_puback_received_by_reason_code_payload_format_invalid:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_puback_sent_by_reason_code_success:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_puback_sent_by_reason_code_no_matching_subscribers:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_puback_sent_by_reason_code_unspecified_error:
+    base: 0.0
+    min: 0.0
+    max: 20000000.0
+  vernemq_node_mqtt_puback_sent_by_reason_code_impl_specific_error:
+    base: 0.0
+    min: 0.0
+    max: 20000000.0
+  vernemq_node_mqtt_puback_sent_by_reason_code_not_authorized:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_puback_sent_by_reason_code_topic_name_invalid:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_puback_sent_by_reason_code_packet_id_in_use:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_puback_sent_by_reason_code_quota_exceeded:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_puback_sent_by_reason_code_payload_format_invalid:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_puback_invalid_error_unexpected:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_pubrec_received:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_pubrec_sent:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_pubrec_received_by_reason_code_success:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_pubrec_received_by_reason_code_no_matching_subscribers:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_pubrec_received_by_reason_code_unspecified_error:
+    base: 0.0
+    min: 0.0
+    max: 20000000.0
+  vernemq_node_mqtt_pubrec_received_by_reason_code_impl_specific_error:
+    base: 0.0
+    min: 0.0
+    max: 20000000.0
+  vernemq_node_mqtt_pubrec_received_by_reason_code_not_authorized:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_pubrec_received_by_reason_code_topic_name_invalid:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_pubrec_received_by_reason_code_packet_id_in_use:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_pubrec_received_by_reason_code_quota_exceeded:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_pubrec_received_by_reason_code_payload_format_invalid:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_pubrec_sent_by_reason_code_success:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_pubrec_sent_by_reason_code_no_matching_subscribers:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_pubrec_sent_by_reason_code_unspecified_error:
+    base: 0.0
+    min: 0.0
+    max: 20000000.0
+  vernemq_node_mqtt_pubrec_sent_by_reason_code_impl_specific_error:
+    base: 0.0
+    min: 0.0
+    max: 20000000.0
+  vernemq_node_mqtt_pubrec_sent_by_reason_code_not_authorized:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_pubrec_sent_by_reason_code_topic_name_invalid:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_pubrec_sent_by_reason_code_packet_id_in_use:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_pubrec_sent_by_reason_code_quota_exceeded:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_pubrec_sent_by_reason_code_payload_format_invalid:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_pubrec_invalid_error_unexpected:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_pubrel_received:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_pubrel_sent:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_pubrel_received_by_reason_code_success:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_pubrel_received_by_reason_code_packet_id_not_found:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_pubrel_sent_by_reason_code_success:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_pubrel_sent_by_reason_code_packet_id_not_found:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_pubcomp_received:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_pubcomp_sent:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_pubcomp_received_by_reason_code_success:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_pubcomp_received_by_reason_code_packet_id_not_found:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_pubcomp_sent_by_reason_cod_success:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_pubcomp_sent_by_reason_cod_packet_id_not_found:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_pubcomp_invalid_error_unexpected:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_ping_pingreq:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vernemq_node_mqtt_ping_pingresp:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: vernemq.node_socket
+  title: Open Sockets
+  units: sockets
+  family: node
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels:
+    node: sim-node-1
+  dimensions:
+  - id: open
+    signal: vernemq_node_socket_open
+- id: vernemq.node_socket_operations
+  title: Socket Open and Close Events
+  units: sockets/s
+  family: node
+  chart_type: line
+  priority: 60002
+  shape: counters
+  labels:
+    node: sim-node-1
+  dimensions:
+  - id: open
+    rate_signal: vernemq_node_socket_operations_open
+  - id: close
+    rate_signal: vernemq_node_socket_operations_close
+- id: vernemq.node_client_keepalive_expired
+  title: Closed Sockets due to Keepalive Time Expired
+  units: sockets/s
+  family: node
+  chart_type: line
+  priority: 60003
+  shape: counters
+  labels:
+    node: sim-node-1
+  dimensions:
+  - id: closed
+    rate_signal: vernemq_node_client_keepalive_expired_closed
+- id: vernemq.node_socket_close_timeout
+  title: Closed Sockets due to no CONNECT Frame On Time
+  units: sockets/s
+  family: node
+  chart_type: line
+  priority: 60004
+  shape: counters
+  labels:
+    node: sim-node-1
+  dimensions:
+  - id: closed
+    rate_signal: vernemq_node_socket_close_timeout_closed
+- id: vernemq.node_socket_errors
+  title: Socket Errors
+  units: errors/s
+  family: node
+  chart_type: line
+  priority: 60005
+  shape: counters
+  labels:
+    node: sim-node-1
+  dimensions:
+  - id: errors
+    rate_signal: vernemq_node_socket_errors_errors
+- id: vernemq.node_queue_processes
+  title: Living Queues in an Online or an Offline State
+  units: queue processes
+  family: node
+  chart_type: line
+  priority: 60006
+  shape: independent
+  labels:
+    node: sim-node-1
+  dimensions:
+  - id: queue_processes
+    signal: vernemq_node_queue_processes_queue_processes
+- id: vernemq.node_queue_processes_operations
+  title: Queue Processes Setup and Teardown Events
+  units: events/s
+  family: node
+  chart_type: line
+  priority: 60007
+  shape: counters
+  labels:
+    node: sim-node-1
+  dimensions:
+  - id: setup
+    rate_signal: vernemq_node_queue_processes_operations_setup
+  - id: teardown
+    rate_signal: vernemq_node_queue_processes_operations_teardown
+- id: vernemq.node_queue_process_init_from_storage
+  title: Queue Processes Initialized from Offline Storage
+  units: queue processes/s
+  family: node
+  chart_type: line
+  priority: 60008
+  shape: counters
+  labels:
+    node: sim-node-1
+  dimensions:
+  - id: queue_processes
+    rate_signal: vernemq_node_queue_process_init_from_storage_queue_processes
+- id: vernemq.node_queue_messages
+  title: Received and Sent PUBLISH Messages
+  units: messages/s
+  family: node
+  chart_type: area
+  priority: 60009
+  shape: counters
+  labels:
+    node: sim-node-1
+  dimensions:
+  - id: received
+    rate_signal: vernemq_node_queue_messages_received
+  - id: sent
+    rate_signal: vernemq_node_queue_messages_sent
+- id: vernemq.node_queued_messages
+  title: Queued PUBLISH Messages
+  units: messages
+  family: node
+  chart_type: line
+  priority: 60010
+  shape: independent
+  labels:
+    node: sim-node-1
+  dimensions:
+  - id: queued
+    signal: vernemq_node_queued_messages_queued
+- id: vernemq.node_queue_undelivered_messages
+  title: Undelivered PUBLISH Messages
+  units: messages/s
+  family: node
+  chart_type: stacked
+  priority: 60011
+  shape: counters
+  labels:
+    node: sim-node-1
+  dimensions:
+  - id: dropped
+    rate_signal: vernemq_node_queue_undelivered_messages_dropped
+  - id: expired
+    rate_signal: vernemq_node_queue_undelivered_messages_expired
+  - id: unhandled
+    rate_signal: vernemq_node_queue_undelivered_messages_unhandled
+- id: vernemq.node_router_subscriptions
+  title: Subscriptions in the Routing Table
+  units: subscriptions
+  family: node
+  chart_type: line
+  priority: 60012
+  shape: independent
+  labels:
+    node: sim-node-1
+  dimensions:
+  - id: subscriptions
+    signal: vernemq_node_router_subscriptions_subscriptions
+- id: vernemq.node_router_matched_subscriptions
+  title: Matched Subscriptions
+  units: subscriptions/s
+  family: node
+  chart_type: line
+  priority: 60013
+  shape: counters
+  labels:
+    node: sim-node-1
+  dimensions:
+  - id: local
+    rate_signal: vernemq_node_router_matched_subscriptions_local
+  - id: remote
+    rate_signal: vernemq_node_router_matched_subscriptions_remote
+- id: vernemq.node_router_memory
+  title: Routing Table Memory Usage
+  units: bytes
+  family: node
+  chart_type: area
+  priority: 60014
+  shape: independent
+  labels:
+    node: sim-node-1
+  dimensions:
+  - id: used
+    signal: vernemq_node_router_memory_used
+- id: vernemq.node_average_scheduler_utilization
+  title: Average Scheduler Utilization
+  units: percentage
+  family: node
+  chart_type: area
+  priority: 60015
+  shape: independent
+  labels:
+    node: sim-node-1
+  dimensions:
+  - id: utilization
+    signal: vernemq_node_average_scheduler_utilization_utilization
+- id: vernemq.node_system_processes
+  title: Erlang Processes
+  units: processes
+  family: node
+  chart_type: line
+  priority: 60016
+  shape: independent
+  labels:
+    node: sim-node-1
+  dimensions:
+  - id: processes
+    signal: vernemq_node_system_processes_processes
+- id: vernemq.node_system_reductions
+  title: Reductions
+  units: ops/s
+  family: node
+  chart_type: line
+  priority: 60017
+  shape: counters
+  labels:
+    node: sim-node-1
+  dimensions:
+  - id: reductions
+    rate_signal: vernemq_node_system_reductions_reductions
+- id: vernemq.node_system_context_switches
+  title: Context Switches
+  units: ops/s
+  family: node
+  chart_type: line
+  priority: 60018
+  shape: counters
+  labels:
+    node: sim-node-1
+  dimensions:
+  - id: context_switches
+    rate_signal: vernemq_node_system_context_switches_context_switches
+- id: vernemq.node_system_io
+  title: Received and Sent Traffic through Ports
+  units: bytes/s
+  family: node
+  chart_type: area
+  priority: 60019
+  shape: counters
+  labels:
+    node: sim-node-1
+  dimensions:
+  - id: received
+    rate_signal: vernemq_node_system_io_received
+  - id: sent
+    rate_signal: vernemq_node_system_io_sent
+- id: vernemq.node_system_run_queue
+  title: Processes that are Ready to Run on All Run-Queues
+  units: processes
+  family: node
+  chart_type: line
+  priority: 60020
+  shape: independent
+  labels:
+    node: sim-node-1
+  dimensions:
+  - id: ready
+    signal: vernemq_node_system_run_queue_ready
+- id: vernemq.node_system_gc_count
+  title: GC Count
+  units: ops/s
+  family: node
+  chart_type: line
+  priority: 60021
+  shape: counters
+  labels:
+    node: sim-node-1
+  dimensions:
+  - id: gc
+    rate_signal: vernemq_node_system_gc_count_gc
+- id: vernemq.node_system_gc_words_reclaimed
+  title: GC Words Reclaimed
+  units: ops/s
+  family: node
+  chart_type: line
+  priority: 60022
+  shape: counters
+  labels:
+    node: sim-node-1
+  dimensions:
+  - id: words_reclaimed
+    rate_signal: vernemq_node_system_gc_words_reclaimed_words_reclaimed
+- id: vernemq.node_system_allocated_memory
+  title: Memory Allocated by the Erlang Processes and by the Emulator
+  units: bytes
+  family: node
+  chart_type: stacked
+  priority: 60023
+  shape: independent
+  labels:
+    node: sim-node-1
+  dimensions:
+  - id: processes
+    signal: vernemq_node_system_allocated_memory_processes
+  - id: system
+    signal: vernemq_node_system_allocated_memory_system
+- id: vernemq.node_traffic
+  title: Traffic
+  units: bytes/s
+  family: node
+  chart_type: area
+  priority: 60024
+  shape: counters
+  labels:
+    node: sim-node-1
+  dimensions:
+  - id: received
+    rate_signal: vernemq_node_traffic_received
+  - id: sent
+    rate_signal: vernemq_node_traffic_sent
+- id: vernemq.node_retain_messages
+  title: Stored Retained Messages
+  units: messages
+  family: node
+  chart_type: line
+  priority: 60025
+  shape: independent
+  labels:
+    node: sim-node-1
+  dimensions:
+  - id: messages
+    signal: vernemq_node_retain_messages_messages
+- id: vernemq.node_retain_memory
+  title: Stored Retained Messages Memory Usage
+  units: bytes
+  family: node
+  chart_type: area
+  priority: 60026
+  shape: independent
+  labels:
+    node: sim-node-1
+  dimensions:
+  - id: used
+    signal: vernemq_node_retain_memory_used
+- id: vernemq.node_cluster_traffic
+  title: Communication with Other Cluster Nodes
+  units: bytes/s
+  family: node
+  chart_type: area
+  priority: 60027
+  shape: counters
+  labels:
+    node: sim-node-1
+  dimensions:
+  - id: received
+    rate_signal: vernemq_node_cluster_traffic_received
+  - id: sent
+    rate_signal: vernemq_node_cluster_traffic_sent
+- id: vernemq.node_cluster_dropped
+  title: Traffic Dropped During Communication with Other Cluster Nodes
+  units: bytes/s
+  family: node
+  chart_type: area
+  priority: 60028
+  shape: counters
+  labels:
+    node: sim-node-1
+  dimensions:
+  - id: dropped
+    rate_signal: vernemq_node_cluster_dropped_dropped
+- id: vernemq.node_netsplit_unresolved
+  title: Unresolved Netsplits
+  units: netsplits
+  family: node
+  chart_type: line
+  priority: 60029
+  shape: independent
+  labels:
+    node: sim-node-1
+  dimensions:
+  - id: unresolved
+    signal: vernemq_node_netsplit_unresolved_unresolved
+- id: vernemq.node_netsplits
+  title: Netsplits
+  units: netsplits/s
+  family: node
+  chart_type: stacked
+  priority: 60030
+  shape: counters
+  labels:
+    node: sim-node-1
+  dimensions:
+  - id: resolved
+    rate_signal: vernemq_node_netsplits_resolved
+  - id: detected
+    rate_signal: vernemq_node_netsplits_detected
+- id: vernemq.node_uptime
+  title: Node Uptime
+  units: seconds
+  family: node
+  chart_type: line
+  priority: 60031
+  shape: independent
+  labels:
+    node: sim-node-1
+  dimensions:
+  - id: time
+    signal: vernemq_node_uptime_time
+- id: vernemq.node_mqtt_auth
+  title: MQTT AUTH Packets
+  units: packets/s
+  family: node
+  chart_type: line
+  priority: 60032
+  shape: counters
+  labels:
+    node: sim-node-1
+    mqtt_version: sim-mqtt_version-1
+  dimensions:
+  - id: received
+    rate_signal: vernemq_node_mqtt_auth_received
+  - id: sent
+    rate_signal: vernemq_node_mqtt_auth_sent
+- id: vernemq.node_mqtt_auth_received_by_reason_code
+  title: MQTT AUTH Received by Reason
+  units: packets/s
+  family: node
+  chart_type: stacked
+  priority: 60033
+  shape: counters
+  labels:
+    node: sim-node-1
+    mqtt_version: sim-mqtt_version-1
+  dimensions:
+  - id: success
+    rate_signal: vernemq_node_mqtt_auth_received_by_reason_code_success
+  - id: continue_authentication
+    rate_signal: vernemq_node_mqtt_auth_received_by_reason_code_continue_authentication
+  - id: reauthenticate
+    rate_signal: vernemq_node_mqtt_auth_received_by_reason_code_reauthenticate
+- id: vernemq.node_mqtt_auth_sent_by_reason_code
+  title: MQTT AUTH Sent by Reason
+  units: packets/s
+  family: node
+  chart_type: stacked
+  priority: 60034
+  shape: counters
+  labels:
+    node: sim-node-1
+    mqtt_version: sim-mqtt_version-1
+  dimensions:
+  - id: success
+    rate_signal: vernemq_node_mqtt_auth_sent_by_reason_code_success
+  - id: continue_authentication
+    rate_signal: vernemq_node_mqtt_auth_sent_by_reason_code_continue_authentication
+  - id: reauthenticate
+    rate_signal: vernemq_node_mqtt_auth_sent_by_reason_code_reauthenticate
+- id: vernemq.node_mqtt_connect
+  title: MQTT CONNECT and CONNACK
+  units: packets/s
+  family: node
+  chart_type: line
+  priority: 60035
+  shape: counters
+  labels:
+    node: sim-node-1
+    mqtt_version: sim-mqtt_version-1
+  dimensions:
+  - id: connect
+    rate_signal: vernemq_node_mqtt_connect_connect
+  - id: connack
+    rate_signal: vernemq_node_mqtt_connect_connack
+- id: vernemq.node_mqtt_connack_sent_by_return_code
+  title: MQTT CONNACK Sent by Return Code
+  units: packets/s
+  family: node
+  chart_type: stacked
+  priority: 60036
+  shape: counters
+  labels:
+    node: sim-node-1
+    mqtt_version: sim-mqtt_version-1
+  dimensions:
+  - id: success
+    rate_signal: vernemq_node_mqtt_connack_sent_by_return_code_success
+  - id: unsupported_protocol_version
+    rate_signal: vernemq_node_mqtt_connack_sent_by_return_code_unsupported_protocol_version
+  - id: client_identifier_not_valid
+    rate_signal: vernemq_node_mqtt_connack_sent_by_return_code_client_identifier_not_valid
+  - id: server_unavailable
+    rate_signal: vernemq_node_mqtt_connack_sent_by_return_code_server_unavailable
+  - id: bad_username_or_password
+    rate_signal: vernemq_node_mqtt_connack_sent_by_return_code_bad_username_or_password
+  - id: not_authorized
+    rate_signal: vernemq_node_mqtt_connack_sent_by_return_code_not_authorized
+- id: vernemq.node_mqtt_connack_sent_by_reason_code
+  title: MQTT CONNACK Sent by Reason
+  units: packets/s
+  family: node
+  chart_type: stacked
+  priority: 60037
+  shape: counters
+  labels:
+    node: sim-node-1
+    mqtt_version: sim-mqtt_version-1
+  dimensions:
+  - id: success
+    rate_signal: vernemq_node_mqtt_connack_sent_by_reason_code_success
+  - id: unspecified_error
+    rate_signal: vernemq_node_mqtt_connack_sent_by_reason_code_unspecified_error
+  - id: malformed_packet
+    rate_signal: vernemq_node_mqtt_connack_sent_by_reason_code_malformed_packet
+  - id: protocol_error
+    rate_signal: vernemq_node_mqtt_connack_sent_by_reason_code_protocol_error
+  - id: impl_specific_error
+    rate_signal: vernemq_node_mqtt_connack_sent_by_reason_code_impl_specific_error
+  - id: unsupported_protocol_version
+    rate_signal: vernemq_node_mqtt_connack_sent_by_reason_code_unsupported_protocol_version
+  - id: client_identifier_not_valid
+    rate_signal: vernemq_node_mqtt_connack_sent_by_reason_code_client_identifier_not_valid
+  - id: bad_username_or_password
+    rate_signal: vernemq_node_mqtt_connack_sent_by_reason_code_bad_username_or_password
+  - id: not_authorized
+    rate_signal: vernemq_node_mqtt_connack_sent_by_reason_code_not_authorized
+  - id: server_unavailable
+    rate_signal: vernemq_node_mqtt_connack_sent_by_reason_code_server_unavailable
+  - id: server_busy
+    rate_signal: vernemq_node_mqtt_connack_sent_by_reason_code_server_busy
+  - id: banned
+    rate_signal: vernemq_node_mqtt_connack_sent_by_reason_code_banned
+  - id: bad_authentication_method
+    rate_signal: vernemq_node_mqtt_connack_sent_by_reason_code_bad_authentication_method
+  - id: topic_name_invalid
+    rate_signal: vernemq_node_mqtt_connack_sent_by_reason_code_topic_name_invalid
+  - id: packet_too_large
+    rate_signal: vernemq_node_mqtt_connack_sent_by_reason_code_packet_too_large
+  - id: quota_exceeded
+    rate_signal: vernemq_node_mqtt_connack_sent_by_reason_code_quota_exceeded
+  - id: payload_format_invalid
+    rate_signal: vernemq_node_mqtt_connack_sent_by_reason_code_payload_format_invalid
+  - id: retain_not_supported
+    rate_signal: vernemq_node_mqtt_connack_sent_by_reason_code_retain_not_supported
+  - id: qos_not_supported
+    rate_signal: vernemq_node_mqtt_connack_sent_by_reason_code_qos_not_supported
+  - id: use_another_server
+    rate_signal: vernemq_node_mqtt_connack_sent_by_reason_code_use_another_server
+  - id: server_moved
+    rate_signal: vernemq_node_mqtt_connack_sent_by_reason_code_server_moved
+  - id: connection_rate_exceeded
+    rate_signal: vernemq_node_mqtt_connack_sent_by_reason_code_connection_rate_exceeded
+- id: vernemq.node_mqtt_disconnect
+  title: MQTT DISCONNECT Packets
+  units: packets/s
+  family: node
+  chart_type: line
+  priority: 60038
+  shape: counters
+  labels:
+    node: sim-node-1
+    mqtt_version: sim-mqtt_version-1
+  dimensions:
+  - id: received
+    rate_signal: vernemq_node_mqtt_disconnect_received
+  - id: sent
+    rate_signal: vernemq_node_mqtt_disconnect_sent
+- id: vernemq.node_mqtt_disconnect_received_by_reason_code
+  title: MQTT DISCONNECT Received by Reason
+  units: packets/s
+  family: node
+  chart_type: stacked
+  priority: 60039
+  shape: counters
+  labels:
+    node: sim-node-1
+    mqtt_version: sim-mqtt_version-1
+  dimensions:
+  - id: normal_disconnect
+    rate_signal: vernemq_node_mqtt_disconnect_received_by_reason_code_normal_disconnect
+  - id: disconnect_with_will_msg
+    rate_signal: vernemq_node_mqtt_disconnect_received_by_reason_code_disconnect_with_will_msg
+  - id: unspecified_error
+    rate_signal: vernemq_node_mqtt_disconnect_received_by_reason_code_unspecified_error
+  - id: malformed_packet
+    rate_signal: vernemq_node_mqtt_disconnect_received_by_reason_code_malformed_packet
+  - id: protocol_error
+    rate_signal: vernemq_node_mqtt_disconnect_received_by_reason_code_protocol_error
+  - id: impl_specific_error
+    rate_signal: vernemq_node_mqtt_disconnect_received_by_reason_code_impl_specific_error
+  - id: topic_name_invalid
+    rate_signal: vernemq_node_mqtt_disconnect_received_by_reason_code_topic_name_invalid
+  - id: receive_max_exceeded
+    rate_signal: vernemq_node_mqtt_disconnect_received_by_reason_code_receive_max_exceeded
+  - id: topic_alias_invalid
+    rate_signal: vernemq_node_mqtt_disconnect_received_by_reason_code_topic_alias_invalid
+  - id: packet_too_large
+    rate_signal: vernemq_node_mqtt_disconnect_received_by_reason_code_packet_too_large
+  - id: message_rate_too_high
+    rate_signal: vernemq_node_mqtt_disconnect_received_by_reason_code_message_rate_too_high
+  - id: quota_exceeded
+    rate_signal: vernemq_node_mqtt_disconnect_received_by_reason_code_quota_exceeded
+  - id: administrative_action
+    rate_signal: vernemq_node_mqtt_disconnect_received_by_reason_code_administrative_action
+  - id: payload_format_invalid
+    rate_signal: vernemq_node_mqtt_disconnect_received_by_reason_code_payload_format_invalid
+- id: vernemq.node_mqtt_disconnect_sent_by_reason_code
+  title: MQTT DISCONNECT Sent by Reason
+  units: packets/s
+  family: node
+  chart_type: stacked
+  priority: 60040
+  shape: counters
+  labels:
+    node: sim-node-1
+    mqtt_version: sim-mqtt_version-1
+  dimensions:
+  - id: normal_disconnect
+    rate_signal: vernemq_node_mqtt_disconnect_sent_by_reason_code_normal_disconnect
+  - id: unspecified_error
+    rate_signal: vernemq_node_mqtt_disconnect_sent_by_reason_code_unspecified_error
+  - id: malformed_packet
+    rate_signal: vernemq_node_mqtt_disconnect_sent_by_reason_code_malformed_packet
+  - id: protocol_error
+    rate_signal: vernemq_node_mqtt_disconnect_sent_by_reason_code_protocol_error
+  - id: impl_specific_error
+    rate_signal: vernemq_node_mqtt_disconnect_sent_by_reason_code_impl_specific_error
+  - id: not_authorized
+    rate_signal: vernemq_node_mqtt_disconnect_sent_by_reason_code_not_authorized
+  - id: server_busy
+    rate_signal: vernemq_node_mqtt_disconnect_sent_by_reason_code_server_busy
+  - id: server_shutting_down
+    rate_signal: vernemq_node_mqtt_disconnect_sent_by_reason_code_server_shutting_down
+  - id: keep_alive_timeout
+    rate_signal: vernemq_node_mqtt_disconnect_sent_by_reason_code_keep_alive_timeout
+  - id: session_taken_over
+    rate_signal: vernemq_node_mqtt_disconnect_sent_by_reason_code_session_taken_over
+  - id: topic_filter_invalid
+    rate_signal: vernemq_node_mqtt_disconnect_sent_by_reason_code_topic_filter_invalid
+  - id: topic_name_invalid
+    rate_signal: vernemq_node_mqtt_disconnect_sent_by_reason_code_topic_name_invalid
+  - id: receive_max_exceeded
+    rate_signal: vernemq_node_mqtt_disconnect_sent_by_reason_code_receive_max_exceeded
+  - id: topic_alias_invalid
+    rate_signal: vernemq_node_mqtt_disconnect_sent_by_reason_code_topic_alias_invalid
+  - id: packet_too_large
+    rate_signal: vernemq_node_mqtt_disconnect_sent_by_reason_code_packet_too_large
+  - id: message_rate_too_high
+    rate_signal: vernemq_node_mqtt_disconnect_sent_by_reason_code_message_rate_too_high
+  - id: quota_exceeded
+    rate_signal: vernemq_node_mqtt_disconnect_sent_by_reason_code_quota_exceeded
+  - id: administrative_action
+    rate_signal: vernemq_node_mqtt_disconnect_sent_by_reason_code_administrative_action
+  - id: payload_format_invalid
+    rate_signal: vernemq_node_mqtt_disconnect_sent_by_reason_code_payload_format_invalid
+  - id: retain_not_supported
+    rate_signal: vernemq_node_mqtt_disconnect_sent_by_reason_code_retain_not_supported
+  - id: qos_not_supported
+    rate_signal: vernemq_node_mqtt_disconnect_sent_by_reason_code_qos_not_supported
+  - id: use_another_server
+    rate_signal: vernemq_node_mqtt_disconnect_sent_by_reason_code_use_another_server
+  - id: server_moved
+    rate_signal: vernemq_node_mqtt_disconnect_sent_by_reason_code_server_moved
+  - id: shared_subs_not_supported
+    rate_signal: vernemq_node_mqtt_disconnect_sent_by_reason_code_shared_subs_not_supported
+  - id: connection_rate_exceeded
+    rate_signal: vernemq_node_mqtt_disconnect_sent_by_reason_code_connection_rate_exceeded
+  - id: max_connect_time
+    rate_signal: vernemq_node_mqtt_disconnect_sent_by_reason_code_max_connect_time
+  - id: subscription_ids_not_supported
+    rate_signal: vernemq_node_mqtt_disconnect_sent_by_reason_code_subscription_ids_not_supported
+  - id: wildcard_subs_not_supported
+    rate_signal: vernemq_node_mqtt_disconnect_sent_by_reason_code_wildcard_subs_not_supported
+- id: vernemq.node_mqtt_subscribe
+  title: MQTT SUBSCRIBE and SUBACK Packets
+  units: packets/s
+  family: node
+  chart_type: line
+  priority: 60041
+  shape: counters
+  labels:
+    node: sim-node-1
+    mqtt_version: sim-mqtt_version-1
+  dimensions:
+  - id: subscribe
+    rate_signal: vernemq_node_mqtt_subscribe_subscribe
+  - id: suback
+    rate_signal: vernemq_node_mqtt_subscribe_suback
+- id: vernemq.node_mqtt_subscribe_error
+  title: MQTT Failed SUBSCRIBE Operations due to a Netsplit
+  units: errors/s
+  family: node
+  chart_type: line
+  priority: 60042
+  shape: counters
+  labels:
+    node: sim-node-1
+    mqtt_version: sim-mqtt_version-1
+  dimensions:
+  - id: subscribe
+    rate_signal: vernemq_node_mqtt_subscribe_error_subscribe
+- id: vernemq.node_mqtt_subscribe_auth_error
+  title: MQTT Unauthorized SUBSCRIBE Attempts
+  units: errors/s
+  family: node
+  chart_type: line
+  priority: 60043
+  shape: counters
+  labels:
+    node: sim-node-1
+    mqtt_version: sim-mqtt_version-1
+  dimensions:
+  - id: subscribe_auth
+    rate_signal: vernemq_node_mqtt_subscribe_auth_error_subscribe_auth
+- id: vernemq.node_mqtt_unsubscribe
+  title: MQTT UNSUBSCRIBE and UNSUBACK Packets
+  units: packets/s
+  family: node
+  chart_type: line
+  priority: 60044
+  shape: counters
+  labels:
+    node: sim-node-1
+    mqtt_version: sim-mqtt_version-1
+  dimensions:
+  - id: unsubscribe
+    rate_signal: vernemq_node_mqtt_unsubscribe_unsubscribe
+  - id: unsuback
+    rate_signal: vernemq_node_mqtt_unsubscribe_unsuback
+- id: vernemq.node_mqtt_unsubscribe_error
+  title: MQTT Failed UNSUBSCRIBE Operations due to a Netsplit
+  units: errors/s
+  family: node
+  chart_type: line
+  priority: 60045
+  shape: counters
+  labels:
+    node: sim-node-1
+    mqtt_version: sim-mqtt_version-1
+  dimensions:
+  - id: unsubscribe
+    rate_signal: vernemq_node_mqtt_unsubscribe_error_unsubscribe
+- id: vernemq.node_mqtt_publish
+  title: MQTT QoS 0,1,2 PUBLISH
+  units: packets/s
+  family: node
+  chart_type: line
+  priority: 60046
+  shape: counters
+  labels:
+    node: sim-node-1
+    mqtt_version: sim-mqtt_version-1
+  dimensions:
+  - id: received
+    rate_signal: vernemq_node_mqtt_publish_received
+  - id: sent
+    rate_signal: vernemq_node_mqtt_publish_sent
+- id: vernemq.node_mqtt_publish_errors
+  title: MQTT Failed PUBLISH Operations due to a Netsplit
+  units: errors/s
+  family: node
+  chart_type: line
+  priority: 60047
+  shape: counters
+  labels:
+    node: sim-node-1
+    mqtt_version: sim-mqtt_version-1
+  dimensions:
+  - id: publish
+    rate_signal: vernemq_node_mqtt_publish_errors_publish
+- id: vernemq.node_mqtt_publish_auth_errors
+  title: MQTT Unauthorized PUBLISH Attempts
+  units: errors/s
+  family: node
+  chart_type: area
+  priority: 60048
+  shape: counters
+  labels:
+    node: sim-node-1
+    mqtt_version: sim-mqtt_version-1
+  dimensions:
+  - id: publish_auth
+    rate_signal: vernemq_node_mqtt_publish_auth_errors_publish_auth
+- id: vernemq.node_mqtt_puback
+  title: vMQTT QoS 1 PUBACK Packets
+  units: packets/s
+  family: node
+  chart_type: line
+  priority: 60049
+  shape: counters
+  labels:
+    node: sim-node-1
+    mqtt_version: sim-mqtt_version-1
+  dimensions:
+  - id: received
+    rate_signal: vernemq_node_mqtt_puback_received
+  - id: sent
+    rate_signal: vernemq_node_mqtt_puback_sent
+- id: vernemq.node_mqtt_puback_received_by_reason_code
+  title: MQTT PUBACK QoS 1 Received by Reason
+  units: packets/s
+  family: node
+  chart_type: stacked
+  priority: 60050
+  shape: counters
+  labels:
+    node: sim-node-1
+    mqtt_version: sim-mqtt_version-1
+  dimensions:
+  - id: success
+    rate_signal: vernemq_node_mqtt_puback_received_by_reason_code_success
+  - id: no_matching_subscribers
+    rate_signal: vernemq_node_mqtt_puback_received_by_reason_code_no_matching_subscribers
+  - id: unspecified_error
+    rate_signal: vernemq_node_mqtt_puback_received_by_reason_code_unspecified_error
+  - id: impl_specific_error
+    rate_signal: vernemq_node_mqtt_puback_received_by_reason_code_impl_specific_error
+  - id: not_authorized
+    rate_signal: vernemq_node_mqtt_puback_received_by_reason_code_not_authorized
+  - id: topic_name_invalid
+    rate_signal: vernemq_node_mqtt_puback_received_by_reason_code_topic_name_invalid
+  - id: packet_id_in_use
+    rate_signal: vernemq_node_mqtt_puback_received_by_reason_code_packet_id_in_use
+  - id: quota_exceeded
+    rate_signal: vernemq_node_mqtt_puback_received_by_reason_code_quota_exceeded
+  - id: payload_format_invalid
+    rate_signal: vernemq_node_mqtt_puback_received_by_reason_code_payload_format_invalid
+- id: vernemq.node_mqtt_puback_sent_by_reason_code
+  title: MQTT PUBACK QoS 1 Sent by Reason
+  units: packets/s
+  family: node
+  chart_type: stacked
+  priority: 60051
+  shape: counters
+  labels:
+    node: sim-node-1
+    mqtt_version: sim-mqtt_version-1
+  dimensions:
+  - id: success
+    rate_signal: vernemq_node_mqtt_puback_sent_by_reason_code_success
+  - id: no_matching_subscribers
+    rate_signal: vernemq_node_mqtt_puback_sent_by_reason_code_no_matching_subscribers
+  - id: unspecified_error
+    rate_signal: vernemq_node_mqtt_puback_sent_by_reason_code_unspecified_error
+  - id: impl_specific_error
+    rate_signal: vernemq_node_mqtt_puback_sent_by_reason_code_impl_specific_error
+  - id: not_authorized
+    rate_signal: vernemq_node_mqtt_puback_sent_by_reason_code_not_authorized
+  - id: topic_name_invalid
+    rate_signal: vernemq_node_mqtt_puback_sent_by_reason_code_topic_name_invalid
+  - id: packet_id_in_use
+    rate_signal: vernemq_node_mqtt_puback_sent_by_reason_code_packet_id_in_use
+  - id: quota_exceeded
+    rate_signal: vernemq_node_mqtt_puback_sent_by_reason_code_quota_exceeded
+  - id: payload_format_invalid
+    rate_signal: vernemq_node_mqtt_puback_sent_by_reason_code_payload_format_invalid
+- id: vernemq.node_mqtt_puback_invalid_error
+  title: MQTT PUBACK QoS 1 Received Unexpected Messages
+  units: messages/s
+  family: node
+  chart_type: line
+  priority: 60052
+  shape: counters
+  labels:
+    node: sim-node-1
+    mqtt_version: sim-mqtt_version-1
+  dimensions:
+  - id: unexpected
+    rate_signal: vernemq_node_mqtt_puback_invalid_error_unexpected
+- id: vernemq.node_mqtt_pubrec
+  title: MQTT PUBREC QoS 2 Packets
+  units: packets/s
+  family: node
+  chart_type: line
+  priority: 60053
+  shape: counters
+  labels:
+    node: sim-node-1
+    mqtt_version: sim-mqtt_version-1
+  dimensions:
+  - id: received
+    rate_signal: vernemq_node_mqtt_pubrec_received
+  - id: sent
+    rate_signal: vernemq_node_mqtt_pubrec_sent
+- id: vernemq.node_mqtt_pubrec_received_by_reason_code
+  title: MQTT PUBREC QoS 2 Received by Reason
+  units: packets/s
+  family: node
+  chart_type: stacked
+  priority: 60054
+  shape: counters
+  labels:
+    node: sim-node-1
+    mqtt_version: sim-mqtt_version-1
+  dimensions:
+  - id: success
+    rate_signal: vernemq_node_mqtt_pubrec_received_by_reason_code_success
+  - id: no_matching_subscribers
+    rate_signal: vernemq_node_mqtt_pubrec_received_by_reason_code_no_matching_subscribers
+  - id: unspecified_error
+    rate_signal: vernemq_node_mqtt_pubrec_received_by_reason_code_unspecified_error
+  - id: impl_specific_error
+    rate_signal: vernemq_node_mqtt_pubrec_received_by_reason_code_impl_specific_error
+  - id: not_authorized
+    rate_signal: vernemq_node_mqtt_pubrec_received_by_reason_code_not_authorized
+  - id: topic_name_invalid
+    rate_signal: vernemq_node_mqtt_pubrec_received_by_reason_code_topic_name_invalid
+  - id: packet_id_in_use
+    rate_signal: vernemq_node_mqtt_pubrec_received_by_reason_code_packet_id_in_use
+  - id: quota_exceeded
+    rate_signal: vernemq_node_mqtt_pubrec_received_by_reason_code_quota_exceeded
+  - id: payload_format_invalid
+    rate_signal: vernemq_node_mqtt_pubrec_received_by_reason_code_payload_format_invalid
+- id: vernemq.node_mqtt_pubrec_sent_by_reason_code
+  title: MQTT PUBREC QoS 2 Sent by Reason
+  units: packets/s
+  family: node
+  chart_type: stacked
+  priority: 60055
+  shape: counters
+  labels:
+    node: sim-node-1
+    mqtt_version: sim-mqtt_version-1
+  dimensions:
+  - id: success
+    rate_signal: vernemq_node_mqtt_pubrec_sent_by_reason_code_success
+  - id: no_matching_subscribers
+    rate_signal: vernemq_node_mqtt_pubrec_sent_by_reason_code_no_matching_subscribers
+  - id: unspecified_error
+    rate_signal: vernemq_node_mqtt_pubrec_sent_by_reason_code_unspecified_error
+  - id: impl_specific_error
+    rate_signal: vernemq_node_mqtt_pubrec_sent_by_reason_code_impl_specific_error
+  - id: not_authorized
+    rate_signal: vernemq_node_mqtt_pubrec_sent_by_reason_code_not_authorized
+  - id: topic_name_invalid
+    rate_signal: vernemq_node_mqtt_pubrec_sent_by_reason_code_topic_name_invalid
+  - id: packet_id_in_use
+    rate_signal: vernemq_node_mqtt_pubrec_sent_by_reason_code_packet_id_in_use
+  - id: quota_exceeded
+    rate_signal: vernemq_node_mqtt_pubrec_sent_by_reason_code_quota_exceeded
+  - id: payload_format_invalid
+    rate_signal: vernemq_node_mqtt_pubrec_sent_by_reason_code_payload_format_invalid
+- id: vernemq.node_mqtt_pubrec_invalid_error
+  title: MQTT PUBREC QoS 2 Received Unexpected Messages
+  units: messages/s
+  family: node
+  chart_type: line
+  priority: 60056
+  shape: counters
+  labels:
+    node: sim-node-1
+    mqtt_version: sim-mqtt_version-1
+  dimensions:
+  - id: unexpected
+    rate_signal: vernemq_node_mqtt_pubrec_invalid_error_unexpected
+- id: vernemq.node_mqtt_pubrel
+  title: MQTT PUBREL QoS 2 Packets
+  units: packets/s
+  family: node
+  chart_type: line
+  priority: 60057
+  shape: counters
+  labels:
+    node: sim-node-1
+    mqtt_version: sim-mqtt_version-1
+  dimensions:
+  - id: received
+    rate_signal: vernemq_node_mqtt_pubrel_received
+  - id: sent
+    rate_signal: vernemq_node_mqtt_pubrel_sent
+- id: vernemq.node_mqtt_pubrel_received_by_reason_code
+  title: MQTT PUBREL QoS 2 Received by Reason
+  units: packets/s
+  family: node
+  chart_type: stacked
+  priority: 60058
+  shape: counters
+  labels:
+    node: sim-node-1
+    mqtt_version: sim-mqtt_version-1
+  dimensions:
+  - id: success
+    rate_signal: vernemq_node_mqtt_pubrel_received_by_reason_code_success
+  - id: packet_id_not_found
+    rate_signal: vernemq_node_mqtt_pubrel_received_by_reason_code_packet_id_not_found
+- id: vernemq.node_mqtt_pubrel_sent_by_reason_code
+  title: MQTT PUBREL QoS 2 Sent by Reason
+  units: packets/s
+  family: node
+  chart_type: stacked
+  priority: 60059
+  shape: counters
+  labels:
+    node: sim-node-1
+    mqtt_version: sim-mqtt_version-1
+  dimensions:
+  - id: success
+    rate_signal: vernemq_node_mqtt_pubrel_sent_by_reason_code_success
+  - id: packet_id_not_found
+    rate_signal: vernemq_node_mqtt_pubrel_sent_by_reason_code_packet_id_not_found
+- id: vernemq.node_mqtt_pubcomp
+  title: MQTT PUBCOMP QoS 2 Packets
+  units: packets/s
+  family: node
+  chart_type: line
+  priority: 60060
+  shape: counters
+  labels:
+    node: sim-node-1
+    mqtt_version: sim-mqtt_version-1
+  dimensions:
+  - id: received
+    rate_signal: vernemq_node_mqtt_pubcomp_received
+  - id: sent
+    rate_signal: vernemq_node_mqtt_pubcomp_sent
+- id: vernemq.node_mqtt_pubcomp_received_by_reason_code
+  title: MQTT PUBCOMP QoS 2 Received by Reason
+  units: packets/s
+  family: node
+  chart_type: stacked
+  priority: 60061
+  shape: counters
+  labels:
+    node: sim-node-1
+    mqtt_version: sim-mqtt_version-1
+  dimensions:
+  - id: success
+    rate_signal: vernemq_node_mqtt_pubcomp_received_by_reason_code_success
+  - id: packet_id_not_found
+    rate_signal: vernemq_node_mqtt_pubcomp_received_by_reason_code_packet_id_not_found
+- id: vernemq.node_mqtt_pubcomp_sent_by_reason_cod
+  title: MQTT PUBCOMP QoS 2 Sent by Reason
+  units: packets/s
+  family: node
+  chart_type: stacked
+  priority: 60062
+  shape: counters
+  labels:
+    node: sim-node-1
+    mqtt_version: sim-mqtt_version-1
+  dimensions:
+  - id: success
+    rate_signal: vernemq_node_mqtt_pubcomp_sent_by_reason_cod_success
+  - id: packet_id_not_found
+    rate_signal: vernemq_node_mqtt_pubcomp_sent_by_reason_cod_packet_id_not_found
+- id: vernemq.node_mqtt_pubcomp_invalid_error
+  title: MQTT PUBCOMP QoS 2 Received Unexpected Messages
+  units: messages/s
+  family: node
+  chart_type: line
+  priority: 60063
+  shape: counters
+  labels:
+    node: sim-node-1
+    mqtt_version: sim-mqtt_version-1
+  dimensions:
+  - id: unexpected
+    rate_signal: vernemq_node_mqtt_pubcomp_invalid_error_unexpected
+- id: vernemq.node_mqtt_ping
+  title: MQTT PING Packets
+  units: packets/s
+  family: node
+  chart_type: line
+  priority: 60064
+  shape: counters
+  labels:
+    node: sim-node-1
+    mqtt_version: sim-mqtt_version-1
+  dimensions:
+  - id: pingreq
+    rate_signal: vernemq_node_mqtt_ping_pingreq
+  - id: pingresp
+    rate_signal: vernemq_node_mqtt_ping_pingresp

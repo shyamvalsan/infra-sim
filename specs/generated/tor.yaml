@@ -1,0 +1,64 @@
+version: 1
+name: tor
+description: Tor metrics, generated from Netdata's own collector metadata so the contexts, units and dimension
+  names match what a real Tor node reports. Signals are independent and plausible rather than causally
+  coupled - see scripts/sync-integrations.py.
+signals:
+  tor_traffic_read:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  tor_traffic_write:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  tor_uptime_uptime:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: tor.traffic
+  title: Tor Traffic
+  units: KiB/s
+  family: traffic
+  chart_type: area
+  priority: 60001
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: read
+    signal: tor_traffic_read
+  - id: write
+    signal: tor_traffic_write
+- id: tor.uptime
+  title: Tor Uptime
+  units: seconds
+  family: uptime
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: uptime
+    signal: tor_uptime_uptime

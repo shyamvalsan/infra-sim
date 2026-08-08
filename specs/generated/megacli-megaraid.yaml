@@ -1,0 +1,187 @@
+version: 1
+name: megacli-megaraid
+description: MegaCLI MegaRAID metrics, generated from Netdata's own collector metadata so the contexts,
+  units and dimension names match what a real MegaCLI MegaRAID node reports. Signals are independent and
+  plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  megacli_megaraid_adapter_health_state_optimal:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  megacli_megaraid_adapter_health_state_degraded:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  megacli_megaraid_adapter_health_state_partially_degraded:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  megacli_megaraid_adapter_health_state_failed:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  megacli_megaraid_phys_drive_media_errors_rate_media_errors:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+  megacli_megaraid_phys_drive_predictive_failures_rate_predictive_failures:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  megacli_megaraid_bbu_charge_charge:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  megacli_megaraid_bbu_recharge_cycles_recharge:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  megacli_megaraid_bbu_capacity_degradation_cap_degradation:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  megacli_megaraid_bbu_temperature_temperature:
+    base: 41.0
+    min: 0.0
+    max: 120.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: megacli.adapter_health_state
+  title: Adapter health state
+  units: state
+  family: adapter
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels:
+    adapter_number: sim-adapter_number-1
+  dimensions:
+  - id: optimal
+    signal: megacli_megaraid_adapter_health_state_optimal
+  - id: degraded
+    signal: megacli_megaraid_adapter_health_state_degraded
+  - id: partially_degraded
+    signal: megacli_megaraid_adapter_health_state_partially_degraded
+  - id: failed
+    signal: megacli_megaraid_adapter_health_state_failed
+- id: megacli.phys_drive_media_errors_rate
+  title: Physical Drive media errors rate
+  units: errors/s
+  family: phys
+  chart_type: line
+  priority: 60002
+  shape: counters
+  labels:
+    adapter_number: sim-adapter_number-1
+    wwn: sim-wwn-1
+    slot_number: sim-slot_number-1
+    drive_position: sim-drive_position-1
+    drive_type: sim-drive_type-1
+  dimensions:
+  - id: media_errors
+    rate_signal: megacli_megaraid_phys_drive_media_errors_rate_media_errors
+- id: megacli.phys_drive_predictive_failures_rate
+  title: Physical Drive predictive failures rate
+  units: failures/s
+  family: phys
+  chart_type: line
+  priority: 60003
+  shape: counters
+  labels:
+    adapter_number: sim-adapter_number-1
+    wwn: sim-wwn-1
+    slot_number: sim-slot_number-1
+    drive_position: sim-drive_position-1
+    drive_type: sim-drive_type-1
+  dimensions:
+  - id: predictive_failures
+    rate_signal: megacli_megaraid_phys_drive_predictive_failures_rate_predictive_failures
+- id: megacli.bbu_charge
+  title: BBU relative charge
+  units: percentage
+  family: bbu
+  chart_type: area
+  priority: 60004
+  shape: independent
+  labels:
+    adapter_number: sim-adapter_number-1
+    battery_type: sim-battery_type-1
+  dimensions:
+  - id: charge
+    signal: megacli_megaraid_bbu_charge_charge
+- id: megacli.bbu_recharge_cycles
+  title: BBU relative charge
+  units: cycles
+  family: bbu
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels:
+    adapter_number: sim-adapter_number-1
+    battery_type: sim-battery_type-1
+  dimensions:
+  - id: recharge
+    signal: megacli_megaraid_bbu_recharge_cycles_recharge
+- id: megacli.bbu_capacity_degradation
+  title: BBU capacity degradation
+  units: percent
+  family: bbu
+  chart_type: area
+  priority: 60006
+  shape: independent
+  labels:
+    adapter_number: sim-adapter_number-1
+    battery_type: sim-battery_type-1
+  dimensions:
+  - id: cap_degradation
+    signal: megacli_megaraid_bbu_capacity_degradation_cap_degradation
+- id: megacli.bbu_temperature
+  title: BBU bbu_temperature
+  units: Celsius
+  family: bbu
+  chart_type: line
+  priority: 60007
+  shape: independent
+  labels:
+    adapter_number: sim-adapter_number-1
+    battery_type: sim-battery_type-1
+  dimensions:
+  - id: temperature
+    signal: megacli_megaraid_bbu_temperature_temperature

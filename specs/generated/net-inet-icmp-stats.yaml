@@ -1,0 +1,95 @@
+version: 1
+name: net-inet-icmp-stats
+description: net.inet.icmp.stats metrics, generated from Netdata's own collector metadata so the contexts,
+  units and dimension names match what a real net.inet.icmp.stats node reports. Signals are independent
+  and plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  net_inet_icmp_stats_icmp_errors_inerrors:
+    base: 0.0
+    min: 0.0
+    max: 20000000.0
+  net_inet_icmp_stats_icmp_errors_outerrors:
+    base: 0.0
+    min: 0.0
+    max: 20000000.0
+  net_inet_icmp_stats_icmp_errors_incsumerrors:
+    base: 0.0
+    min: 0.0
+    max: 20000000.0
+  net_inet_icmp_stats_icmpmsg_inechoreps:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet_icmp_stats_icmpmsg_outechoreps:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet_icmp_stats_icmpmsg_inechos:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet_icmp_stats_icmpmsg_outechos:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: ipv4.icmp_errors
+  title: IPv4 ICMP Errors
+  units: packets/s
+  family: icmp
+  chart_type: line
+  priority: 60001
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: InErrors
+    rate_signal: net_inet_icmp_stats_icmp_errors_inerrors
+  - id: OutErrors
+    rate_signal: net_inet_icmp_stats_icmp_errors_outerrors
+  - id: InCsumErrors
+    rate_signal: net_inet_icmp_stats_icmp_errors_incsumerrors
+- id: ipv4.icmpmsg
+  title: IPv4 ICMP Messages
+  units: packets/s
+  family: icmpmsg
+  chart_type: line
+  priority: 60002
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: InEchoReps
+    rate_signal: net_inet_icmp_stats_icmpmsg_inechoreps
+  - id: OutEchoReps
+    rate_signal: net_inet_icmp_stats_icmpmsg_outechoreps
+  - id: InEchos
+    rate_signal: net_inet_icmp_stats_icmpmsg_inechos
+  - id: OutEchos
+    rate_signal: net_inet_icmp_stats_icmpmsg_outechos

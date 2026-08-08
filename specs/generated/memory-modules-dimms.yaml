@@ -1,0 +1,44 @@
+version: 1
+name: memory-modules-dimms
+description: Memory modules (DIMMs) metrics, generated from Netdata's own collector metadata so the contexts,
+  units and dimension names match what a real Memory modules (DIMMs) node reports. Signals are independent
+  and plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  memory_modules_dimms_edac_mc_errors_correctable:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  memory_modules_dimms_edac_mc_errors_uncorrectable:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  memory_modules_dimms_edac_mc_errors_correctable_noinfo:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  memory_modules_dimms_edac_mc_errors_uncorrectable_noinfo:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+contexts:
+- id: mem.edac_mc_errors
+  title: Memory Controller (MC) Error Detection And Correction (EDAC) Errors
+  units: errors
+  family: edac
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels:
+    controller: sim-controller-1
+    mc_name: sim-mc_name-1
+    size_mb: sim-size_mb-1
+    max_location: sim-max_location-1
+  dimensions:
+  - id: correctable
+    signal: memory_modules_dimms_edac_mc_errors_correctable
+  - id: uncorrectable
+    signal: memory_modules_dimms_edac_mc_errors_uncorrectable
+  - id: correctable_noinfo
+    signal: memory_modules_dimms_edac_mc_errors_correctable_noinfo
+  - id: uncorrectable_noinfo
+    signal: memory_modules_dimms_edac_mc_errors_uncorrectable_noinfo

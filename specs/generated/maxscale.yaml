@@ -1,0 +1,395 @@
+version: 1
+name: maxscale
+description: MaxScale metrics, generated from Netdata's own collector metadata so the contexts, units
+  and dimension names match what a real MaxScale node reports. Signals are independent and plausible rather
+  than causally coupled - see scripts/sync-integrations.py.
+signals:
+  maxscale_poll_events_reads:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  maxscale_poll_events_writes:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  maxscale_poll_events_accepts:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  maxscale_poll_events_errors:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  maxscale_poll_events_hangups:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  maxscale_current_sessions_sessions:
+    base: 64.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  maxscale_current_zombie_connections_zombie:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  maxscale_threads_by_state_active:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  maxscale_threads_by_state_draining:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  maxscale_threads_by_state_dormant:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  maxscale_current_fds_managed:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  maxscale_qc_cache_efficiency_hits:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  maxscale_qc_cache_efficiency_misses:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  maxscale_qc_cache_operations_inserts:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  maxscale_qc_cache_operations_evictions:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  maxscale_uptime_uptime:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  maxscale_server_state_master:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  maxscale_server_state_slave:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  maxscale_server_state_running:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  maxscale_server_state_down:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  maxscale_server_state_maintenance:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  maxscale_server_state_draining:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  maxscale_server_state_drained:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  maxscale_server_state_relay_master:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  maxscale_server_state_binlog_relay:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  maxscale_server_state_synced:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  maxscale_server_current_connections_connections:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: maxscale.poll_events
+  title: Poll Events
+  units: events/s
+  family: poll
+  chart_type: line
+  priority: 60001
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: reads
+    rate_signal: maxscale_poll_events_reads
+  - id: writes
+    rate_signal: maxscale_poll_events_writes
+  - id: accepts
+    rate_signal: maxscale_poll_events_accepts
+  - id: errors
+    rate_signal: maxscale_poll_events_errors
+  - id: hangups
+    rate_signal: maxscale_poll_events_hangups
+- id: maxscale.current_sessions
+  title: Current Sessions
+  units: sessions
+  family: current
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: sessions
+    signal: maxscale_current_sessions_sessions
+- id: maxscale.current_zombie_connections
+  title: Current Zombie Connections
+  units: connections
+  family: current
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: zombie
+    signal: maxscale_current_zombie_connections_zombie
+- id: maxscale.threads_by_state
+  title: Threads Count by State
+  units: threads
+  family: threads
+  chart_type: stacked
+  priority: 60004
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: active
+    signal: maxscale_threads_by_state_active
+  - id: draining
+    signal: maxscale_threads_by_state_draining
+  - id: dormant
+    signal: maxscale_threads_by_state_dormant
+- id: maxscale.current_fds
+  title: Current Managed File Descriptors
+  units: fds
+  family: current
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: managed
+    signal: maxscale_current_fds_managed
+- id: maxscale.qc_cache_efficiency
+  title: QC Cache Efficiency
+  units: requests/s
+  family: qc
+  chart_type: stacked
+  priority: 60006
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: hits
+    rate_signal: maxscale_qc_cache_efficiency_hits
+  - id: misses
+    rate_signal: maxscale_qc_cache_efficiency_misses
+- id: maxscale.qc_cache_operations
+  title: QC Cache Operations
+  units: operations/s
+  family: qc
+  chart_type: stacked
+  priority: 60007
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: inserts
+    rate_signal: maxscale_qc_cache_operations_inserts
+  - id: evictions
+    rate_signal: maxscale_qc_cache_operations_evictions
+- id: maxscale.uptime
+  title: Uptime
+  units: seconds
+  family: uptime
+  chart_type: line
+  priority: 60008
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: uptime
+    signal: maxscale_uptime_uptime
+- id: maxscale.server_state
+  title: Server State
+  units: state
+  family: server
+  chart_type: line
+  priority: 60009
+  shape: independent
+  labels:
+    server: sim-server-1
+    address: sim-address-1
+  dimensions:
+  - id: master
+    signal: maxscale_server_state_master
+  - id: slave
+    signal: maxscale_server_state_slave
+  - id: running
+    signal: maxscale_server_state_running
+  - id: down
+    signal: maxscale_server_state_down
+  - id: maintenance
+    signal: maxscale_server_state_maintenance
+  - id: draining
+    signal: maxscale_server_state_draining
+  - id: drained
+    signal: maxscale_server_state_drained
+  - id: relay_master
+    signal: maxscale_server_state_relay_master
+  - id: binlog_relay
+    signal: maxscale_server_state_binlog_relay
+  - id: synced
+    signal: maxscale_server_state_synced
+- id: maxscale.server_current_connections
+  title: Server Current connections
+  units: connections
+  family: server
+  chart_type: line
+  priority: 60010
+  shape: independent
+  labels:
+    server: sim-server-1
+    address: sim-address-1
+  dimensions:
+  - id: connections
+    signal: maxscale_server_current_connections_connections

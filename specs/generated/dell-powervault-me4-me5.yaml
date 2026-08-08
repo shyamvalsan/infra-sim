@@ -1,0 +1,1196 @@
+version: 1
+name: dell-powervault-me4-me5
+description: Dell PowerVault ME4/ME5 metrics, generated from Netdata's own collector metadata so the contexts,
+  units and dimension names match what a real Dell PowerVault ME4/ME5 node reports. Signals are independent
+  and plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  dell_powervault_me4_me5_system_health_health:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  dell_powervault_me4_me5_hw_health_controller_ok:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powervault_me4_me5_hw_health_controller_degraded:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powervault_me4_me5_hw_health_controller_fault:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powervault_me4_me5_hw_health_controller_unknown:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powervault_me4_me5_hw_health_drive_ok:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powervault_me4_me5_hw_health_drive_degraded:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powervault_me4_me5_hw_health_drive_fault:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powervault_me4_me5_hw_health_drive_unknown:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powervault_me4_me5_hw_health_fan_ok:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powervault_me4_me5_hw_health_fan_degraded:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powervault_me4_me5_hw_health_fan_fault:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powervault_me4_me5_hw_health_fan_unknown:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powervault_me4_me5_hw_health_psu_ok:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powervault_me4_me5_hw_health_psu_degraded:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powervault_me4_me5_hw_health_psu_fault:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powervault_me4_me5_hw_health_psu_unknown:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powervault_me4_me5_hw_health_fru_ok:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powervault_me4_me5_hw_health_fru_degraded:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powervault_me4_me5_hw_health_fru_fault:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powervault_me4_me5_hw_health_fru_unknown:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powervault_me4_me5_hw_health_port_ok:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powervault_me4_me5_hw_health_port_degraded:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powervault_me4_me5_hw_health_port_fault:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powervault_me4_me5_hw_health_port_unknown:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powervault_me4_me5_controller_iops_iops:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powervault_me4_me5_controller_throughput_throughput:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powervault_me4_me5_controller_cpu_load_cpu_load:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powervault_me4_me5_controller_write_cache_used_write_cache_used:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powervault_me4_me5_controller_forwarded_cmds_forwarded:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powervault_me4_me5_controller_io_read:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powervault_me4_me5_controller_io_written:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powervault_me4_me5_controller_ops_read:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powervault_me4_me5_controller_ops_write:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powervault_me4_me5_controller_cache_hits_read_hits:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powervault_me4_me5_controller_cache_hits_read_misses:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powervault_me4_me5_controller_cache_hits_write_hits:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powervault_me4_me5_controller_cache_hits_write_misses:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powervault_me4_me5_volume_iops_iops:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powervault_me4_me5_volume_throughput_throughput:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powervault_me4_me5_volume_write_cache_percent_write_cache:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powervault_me4_me5_volume_io_read:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powervault_me4_me5_volume_io_written:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powervault_me4_me5_volume_ops_read:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powervault_me4_me5_volume_ops_write:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powervault_me4_me5_volume_cache_hits_read_hits:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powervault_me4_me5_volume_cache_hits_read_misses:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powervault_me4_me5_volume_cache_hits_write_hits:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powervault_me4_me5_volume_cache_hits_write_misses:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powervault_me4_me5_volume_tier_distribution_ssd:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powervault_me4_me5_volume_tier_distribution_sas:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powervault_me4_me5_volume_tier_distribution_sata:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powervault_me4_me5_port_io_read:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powervault_me4_me5_port_io_written:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powervault_me4_me5_port_ops_read:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powervault_me4_me5_port_ops_write:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powervault_me4_me5_phy_errors_disparity:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  dell_powervault_me4_me5_phy_errors_lost_dwords:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  dell_powervault_me4_me5_phy_errors_invalid_dwords:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  dell_powervault_me4_me5_pool_capacity_total:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powervault_me4_me5_pool_capacity_available:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powervault_me4_me5_drive_temperature_temperature:
+    base: 41.0
+    min: 0.0
+    max: 120.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powervault_me4_me5_drive_power_on_hours_power_on_hours:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powervault_me4_me5_drive_ssd_life_left_life_left:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powervault_me4_me5_sensor_temperature_temperature:
+    base: 41.0
+    min: 0.0
+    max: 120.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powervault_me4_me5_sensor_voltage_voltage:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powervault_me4_me5_sensor_current_current:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powervault_me4_me5_sensor_charge_capacity_charge_capacity:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: powervault.system_health
+  title: System Health Status
+  units: status
+  family: system
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: health
+    signal: dell_powervault_me4_me5_system_health_health
+- id: powervault.hw_health_controller
+  title: Controller Health Status
+  units: controllers
+  family: hw
+  chart_type: stacked
+  priority: 60002
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: ok
+    signal: dell_powervault_me4_me5_hw_health_controller_ok
+  - id: degraded
+    signal: dell_powervault_me4_me5_hw_health_controller_degraded
+  - id: fault
+    signal: dell_powervault_me4_me5_hw_health_controller_fault
+  - id: unknown
+    signal: dell_powervault_me4_me5_hw_health_controller_unknown
+- id: powervault.hw_health_drive
+  title: Drive Health Status
+  units: drives
+  family: hw
+  chart_type: stacked
+  priority: 60003
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: ok
+    signal: dell_powervault_me4_me5_hw_health_drive_ok
+  - id: degraded
+    signal: dell_powervault_me4_me5_hw_health_drive_degraded
+  - id: fault
+    signal: dell_powervault_me4_me5_hw_health_drive_fault
+  - id: unknown
+    signal: dell_powervault_me4_me5_hw_health_drive_unknown
+- id: powervault.hw_health_fan
+  title: Fan Health Status
+  units: fans
+  family: hw
+  chart_type: stacked
+  priority: 60004
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: ok
+    signal: dell_powervault_me4_me5_hw_health_fan_ok
+  - id: degraded
+    signal: dell_powervault_me4_me5_hw_health_fan_degraded
+  - id: fault
+    signal: dell_powervault_me4_me5_hw_health_fan_fault
+  - id: unknown
+    signal: dell_powervault_me4_me5_hw_health_fan_unknown
+- id: powervault.hw_health_psu
+  title: Power Supply Health Status
+  units: PSUs
+  family: hw
+  chart_type: stacked
+  priority: 60005
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: ok
+    signal: dell_powervault_me4_me5_hw_health_psu_ok
+  - id: degraded
+    signal: dell_powervault_me4_me5_hw_health_psu_degraded
+  - id: fault
+    signal: dell_powervault_me4_me5_hw_health_psu_fault
+  - id: unknown
+    signal: dell_powervault_me4_me5_hw_health_psu_unknown
+- id: powervault.hw_health_fru
+  title: FRU Health Status
+  units: FRUs
+  family: hw
+  chart_type: stacked
+  priority: 60006
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: ok
+    signal: dell_powervault_me4_me5_hw_health_fru_ok
+  - id: degraded
+    signal: dell_powervault_me4_me5_hw_health_fru_degraded
+  - id: fault
+    signal: dell_powervault_me4_me5_hw_health_fru_fault
+  - id: unknown
+    signal: dell_powervault_me4_me5_hw_health_fru_unknown
+- id: powervault.hw_health_port
+  title: Port Health Status
+  units: ports
+  family: hw
+  chart_type: stacked
+  priority: 60007
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: ok
+    signal: dell_powervault_me4_me5_hw_health_port_ok
+  - id: degraded
+    signal: dell_powervault_me4_me5_hw_health_port_degraded
+  - id: fault
+    signal: dell_powervault_me4_me5_hw_health_port_fault
+  - id: unknown
+    signal: dell_powervault_me4_me5_hw_health_port_unknown
+- id: powervault.controller_iops
+  title: Controller IOPS
+  units: ops/s
+  family: controller
+  chart_type: line
+  priority: 60008
+  shape: counters
+  labels:
+    controller: sim-controller-1
+  dimensions:
+  - id: iops
+    rate_signal: dell_powervault_me4_me5_controller_iops_iops
+- id: powervault.controller_throughput
+  title: Controller Throughput
+  units: bytes/s
+  family: controller
+  chart_type: line
+  priority: 60009
+  shape: counters
+  labels:
+    controller: sim-controller-1
+  dimensions:
+  - id: throughput
+    rate_signal: dell_powervault_me4_me5_controller_throughput_throughput
+- id: powervault.controller_cpu_load
+  title: Controller CPU Load
+  units: percentage
+  family: controller
+  chart_type: line
+  priority: 60010
+  shape: independent
+  labels:
+    controller: sim-controller-1
+  dimensions:
+  - id: cpu_load
+    signal: dell_powervault_me4_me5_controller_cpu_load_cpu_load
+- id: powervault.controller_write_cache_used
+  title: Controller Write Cache Usage
+  units: percentage
+  family: controller
+  chart_type: line
+  priority: 60011
+  shape: independent
+  labels:
+    controller: sim-controller-1
+  dimensions:
+  - id: write_cache_used
+    signal: dell_powervault_me4_me5_controller_write_cache_used_write_cache_used
+- id: powervault.controller_forwarded_cmds
+  title: Controller Forwarded Commands
+  units: commands
+  family: controller
+  chart_type: line
+  priority: 60012
+  shape: independent
+  labels:
+    controller: sim-controller-1
+  dimensions:
+  - id: forwarded
+    signal: dell_powervault_me4_me5_controller_forwarded_cmds_forwarded
+- id: powervault.controller_io
+  title: Controller Cumulative I/O
+  units: bytes
+  family: controller
+  chart_type: area
+  priority: 60013
+  shape: independent
+  labels:
+    controller: sim-controller-1
+  dimensions:
+  - id: read
+    signal: dell_powervault_me4_me5_controller_io_read
+  - id: written
+    signal: dell_powervault_me4_me5_controller_io_written
+- id: powervault.controller_ops
+  title: Controller Cumulative Operations
+  units: ops
+  family: controller
+  chart_type: area
+  priority: 60014
+  shape: independent
+  labels:
+    controller: sim-controller-1
+  dimensions:
+  - id: read
+    signal: dell_powervault_me4_me5_controller_ops_read
+  - id: write
+    signal: dell_powervault_me4_me5_controller_ops_write
+- id: powervault.controller_cache_hits
+  title: Controller Cache Hits and Misses
+  units: hits
+  family: controller
+  chart_type: stacked
+  priority: 60015
+  shape: independent
+  labels:
+    controller: sim-controller-1
+  dimensions:
+  - id: read_hits
+    signal: dell_powervault_me4_me5_controller_cache_hits_read_hits
+  - id: read_misses
+    signal: dell_powervault_me4_me5_controller_cache_hits_read_misses
+  - id: write_hits
+    signal: dell_powervault_me4_me5_controller_cache_hits_write_hits
+  - id: write_misses
+    signal: dell_powervault_me4_me5_controller_cache_hits_write_misses
+- id: powervault.volume_iops
+  title: Volume IOPS
+  units: ops/s
+  family: volume
+  chart_type: line
+  priority: 60016
+  shape: counters
+  labels:
+    volume: sim-volume-1
+  dimensions:
+  - id: iops
+    rate_signal: dell_powervault_me4_me5_volume_iops_iops
+- id: powervault.volume_throughput
+  title: Volume Throughput
+  units: bytes/s
+  family: volume
+  chart_type: line
+  priority: 60017
+  shape: counters
+  labels:
+    volume: sim-volume-1
+  dimensions:
+  - id: throughput
+    rate_signal: dell_powervault_me4_me5_volume_throughput_throughput
+- id: powervault.volume_write_cache_percent
+  title: Volume Write Cache Usage
+  units: percentage
+  family: volume
+  chart_type: line
+  priority: 60018
+  shape: independent
+  labels:
+    volume: sim-volume-1
+  dimensions:
+  - id: write_cache
+    signal: dell_powervault_me4_me5_volume_write_cache_percent_write_cache
+- id: powervault.volume_io
+  title: Volume Cumulative I/O
+  units: bytes
+  family: volume
+  chart_type: area
+  priority: 60019
+  shape: independent
+  labels:
+    volume: sim-volume-1
+  dimensions:
+  - id: read
+    signal: dell_powervault_me4_me5_volume_io_read
+  - id: written
+    signal: dell_powervault_me4_me5_volume_io_written
+- id: powervault.volume_ops
+  title: Volume Cumulative Operations
+  units: ops
+  family: volume
+  chart_type: area
+  priority: 60020
+  shape: independent
+  labels:
+    volume: sim-volume-1
+  dimensions:
+  - id: read
+    signal: dell_powervault_me4_me5_volume_ops_read
+  - id: write
+    signal: dell_powervault_me4_me5_volume_ops_write
+- id: powervault.volume_cache_hits
+  title: Volume Cache Hits and Misses
+  units: hits
+  family: volume
+  chart_type: stacked
+  priority: 60021
+  shape: independent
+  labels:
+    volume: sim-volume-1
+  dimensions:
+  - id: read_hits
+    signal: dell_powervault_me4_me5_volume_cache_hits_read_hits
+  - id: read_misses
+    signal: dell_powervault_me4_me5_volume_cache_hits_read_misses
+  - id: write_hits
+    signal: dell_powervault_me4_me5_volume_cache_hits_write_hits
+  - id: write_misses
+    signal: dell_powervault_me4_me5_volume_cache_hits_write_misses
+- id: powervault.volume_tier_distribution
+  title: Volume Storage Tier Distribution
+  units: percentage
+  family: volume
+  chart_type: stacked
+  priority: 60022
+  shape: independent
+  labels:
+    volume: sim-volume-1
+  dimensions:
+  - id: ssd
+    signal: dell_powervault_me4_me5_volume_tier_distribution_ssd
+  - id: sas
+    signal: dell_powervault_me4_me5_volume_tier_distribution_sas
+  - id: sata
+    signal: dell_powervault_me4_me5_volume_tier_distribution_sata
+- id: powervault.port_io
+  title: Port Cumulative I/O
+  units: bytes
+  family: port
+  chart_type: area
+  priority: 60023
+  shape: independent
+  labels:
+    port: sim-port-1
+  dimensions:
+  - id: read
+    signal: dell_powervault_me4_me5_port_io_read
+  - id: written
+    signal: dell_powervault_me4_me5_port_io_written
+- id: powervault.port_ops
+  title: Port Cumulative Operations
+  units: ops
+  family: port
+  chart_type: area
+  priority: 60024
+  shape: independent
+  labels:
+    port: sim-port-1
+  dimensions:
+  - id: read
+    signal: dell_powervault_me4_me5_port_ops_read
+  - id: write
+    signal: dell_powervault_me4_me5_port_ops_write
+- id: powervault.phy_errors
+  title: SAS PHY Errors
+  units: errors
+  family: phy
+  chart_type: stacked
+  priority: 60025
+  shape: independent
+  labels:
+    port: sim-port-1
+  dimensions:
+  - id: disparity
+    signal: dell_powervault_me4_me5_phy_errors_disparity
+  - id: lost_dwords
+    signal: dell_powervault_me4_me5_phy_errors_lost_dwords
+  - id: invalid_dwords
+    signal: dell_powervault_me4_me5_phy_errors_invalid_dwords
+- id: powervault.pool_capacity
+  title: Pool Capacity
+  units: bytes
+  family: pool
+  chart_type: line
+  priority: 60026
+  shape: independent
+  labels:
+    pool: sim-pool-1
+  dimensions:
+  - id: total
+    signal: dell_powervault_me4_me5_pool_capacity_total
+  - id: available
+    signal: dell_powervault_me4_me5_pool_capacity_available
+- id: powervault.drive_temperature
+  title: Drive Temperature
+  units: Celsius
+  family: drive
+  chart_type: line
+  priority: 60027
+  shape: independent
+  labels:
+    drive: sim-drive-1
+  dimensions:
+  - id: temperature
+    signal: dell_powervault_me4_me5_drive_temperature_temperature
+- id: powervault.drive_power_on_hours
+  title: Drive Power-On Hours
+  units: hours
+  family: drive
+  chart_type: line
+  priority: 60028
+  shape: independent
+  labels:
+    drive: sim-drive-1
+  dimensions:
+  - id: power_on_hours
+    signal: dell_powervault_me4_me5_drive_power_on_hours_power_on_hours
+- id: powervault.drive_ssd_life_left
+  title: Drive SSD Life Remaining
+  units: percentage
+  family: drive
+  chart_type: line
+  priority: 60029
+  shape: independent
+  labels:
+    drive: sim-drive-1
+  dimensions:
+  - id: life_left
+    signal: dell_powervault_me4_me5_drive_ssd_life_left_life_left
+- id: powervault.sensor_temperature
+  title: Sensor Temperature
+  units: Celsius
+  family: sensor
+  chart_type: line
+  priority: 60030
+  shape: independent
+  labels:
+    sensor: sim-sensor-1
+  dimensions:
+  - id: temperature
+    signal: dell_powervault_me4_me5_sensor_temperature_temperature
+- id: powervault.sensor_voltage
+  title: Sensor Voltage
+  units: millivolts
+  family: sensor
+  chart_type: line
+  priority: 60031
+  shape: independent
+  labels:
+    sensor: sim-sensor-1
+  dimensions:
+  - id: voltage
+    signal: dell_powervault_me4_me5_sensor_voltage_voltage
+- id: powervault.sensor_current
+  title: Sensor Current
+  units: milliamps
+  family: sensor
+  chart_type: line
+  priority: 60032
+  shape: independent
+  labels:
+    sensor: sim-sensor-1
+  dimensions:
+  - id: current
+    signal: dell_powervault_me4_me5_sensor_current_current
+- id: powervault.sensor_charge_capacity
+  title: Sensor Charge Capacity
+  units: percentage
+  family: sensor
+  chart_type: line
+  priority: 60033
+  shape: independent
+  labels:
+    sensor: sim-sensor-1
+  dimensions:
+  - id: charge_capacity
+    signal: dell_powervault_me4_me5_sensor_charge_capacity_charge_capacity

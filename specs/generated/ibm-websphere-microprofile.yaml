@@ -1,0 +1,387 @@
+version: 1
+name: ibm-websphere-microprofile
+description: IBM WebSphere MicroProfile metrics, generated from Netdata's own collector metadata so the
+  contexts, units and dimension names match what a real IBM WebSphere MicroProfile node reports. Signals
+  are independent and plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  ibm_websphere_microprofile_cpu_usage_process:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_microprofile_cpu_usage_utilization:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_microprofile_cpu_time_total:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_microprofile_jvm_memory_heap_usage_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_microprofile_jvm_memory_heap_usage_free:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_microprofile_jvm_memory_heap_committed_committed:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_microprofile_jvm_memory_heap_max_limit:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_microprofile_jvm_heap_utilization_utilization:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_microprofile_jvm_gc_collections_rate:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_microprofile_jvm_gc_time_total:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_microprofile_jvm_gc_time_per_cycle:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_microprofile_jvm_threads_current_daemon:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_microprofile_jvm_threads_current_other:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_microprofile_jvm_threads_peak_peak:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_microprofile_rest_requests_requests:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_microprofile_rest_response_time_average:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_microprofile_threadpool_usage_active:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_microprofile_threadpool_usage_idle:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_microprofile_threadpool_size_size:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: websphere_mp.cpu_usage
+  title: JVM CPU Usage
+  units: percentage
+  family: cpu
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: process
+    signal: ibm_websphere_microprofile_cpu_usage_process
+  - id: utilization
+    signal: ibm_websphere_microprofile_cpu_usage_utilization
+- id: websphere_mp.cpu_time
+  title: JVM CPU Time
+  units: seconds
+  family: cpu
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: total
+    signal: ibm_websphere_microprofile_cpu_time_total
+- id: websphere_mp.jvm_memory_heap_usage
+  title: JVM Heap Memory Usage
+  units: bytes
+  family: jvm
+  chart_type: stacked
+  priority: 60003
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: used
+    signal: ibm_websphere_microprofile_jvm_memory_heap_usage_used
+  - id: free
+    signal: ibm_websphere_microprofile_jvm_memory_heap_usage_free
+- id: websphere_mp.jvm_memory_heap_committed
+  title: JVM Heap Memory Committed
+  units: bytes
+  family: jvm
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: committed
+    signal: ibm_websphere_microprofile_jvm_memory_heap_committed_committed
+- id: websphere_mp.jvm_memory_heap_max
+  title: JVM Heap Memory Maximum
+  units: bytes
+  family: jvm
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: limit
+    signal: ibm_websphere_microprofile_jvm_memory_heap_max_limit
+- id: websphere_mp.jvm_heap_utilization
+  title: JVM Heap Utilization
+  units: percentage
+  family: jvm
+  chart_type: line
+  priority: 60006
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: utilization
+    signal: ibm_websphere_microprofile_jvm_heap_utilization_utilization
+- id: websphere_mp.jvm_gc_collections
+  title: JVM Garbage Collection Rate
+  units: collections/s
+  family: jvm
+  chart_type: line
+  priority: 60007
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: rate
+    rate_signal: ibm_websphere_microprofile_jvm_gc_collections_rate
+- id: websphere_mp.jvm_gc_time
+  title: JVM GC Time
+  units: milliseconds
+  family: jvm
+  chart_type: line
+  priority: 60008
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: total
+    signal: ibm_websphere_microprofile_jvm_gc_time_total
+  - id: per_cycle
+    signal: ibm_websphere_microprofile_jvm_gc_time_per_cycle
+- id: websphere_mp.jvm_threads_current
+  title: JVM Current Threads
+  units: threads
+  family: jvm
+  chart_type: stacked
+  priority: 60009
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: daemon
+    signal: ibm_websphere_microprofile_jvm_threads_current_daemon
+  - id: other
+    signal: ibm_websphere_microprofile_jvm_threads_current_other
+- id: websphere_mp.jvm_threads_peak
+  title: JVM Peak Threads
+  units: threads
+  family: jvm
+  chart_type: line
+  priority: 60010
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: peak
+    signal: ibm_websphere_microprofile_jvm_threads_peak_peak
+- id: websphere_mp.rest_requests
+  title: REST Request Rate
+  units: requests/s
+  family: rest
+  chart_type: line
+  priority: 60011
+  shape: counters
+  labels:
+    method: sim-method-1
+    endpoint: sim-endpoint-1
+  dimensions:
+  - id: requests
+    rate_signal: ibm_websphere_microprofile_rest_requests_requests
+- id: websphere_mp.rest_response_time
+  title: REST Response Time
+  units: milliseconds
+  family: rest
+  chart_type: line
+  priority: 60012
+  shape: independent
+  labels:
+    method: sim-method-1
+    endpoint: sim-endpoint-1
+  dimensions:
+  - id: average
+    signal: ibm_websphere_microprofile_rest_response_time_average
+- id: websphere_mp.threadpool_usage
+  title: Thread Pool Usage
+  units: threads
+  family: threadpool
+  chart_type: stacked
+  priority: 60013
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: active
+    signal: ibm_websphere_microprofile_threadpool_usage_active
+  - id: idle
+    signal: ibm_websphere_microprofile_threadpool_usage_idle
+- id: websphere_mp.threadpool_size
+  title: Thread Pool Size
+  units: threads
+  family: threadpool
+  chart_type: line
+  priority: 60014
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: size
+    signal: ibm_websphere_microprofile_threadpool_size_size

@@ -1,0 +1,224 @@
+version: 1
+name: zfs-pools
+description: ZFS Pools metrics, generated from Netdata's own collector metadata so the contexts, units
+  and dimension names match what a real ZFS Pools node reports. Signals are independent and plausible
+  rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  zfs_pools_pool_space_utilization_utilization:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zfs_pools_pool_space_usage_free:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zfs_pools_pool_space_usage_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zfs_pools_pool_fragmentation_fragmentation:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zfs_pools_pool_health_state_online:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  zfs_pools_pool_health_state_degraded:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  zfs_pools_pool_health_state_faulted:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  zfs_pools_pool_health_state_offline:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  zfs_pools_pool_health_state_unavail:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  zfs_pools_pool_health_state_removed:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  zfs_pools_pool_health_state_suspended:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  zfs_pools_vdev_health_state_online:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  zfs_pools_vdev_health_state_degraded:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  zfs_pools_vdev_health_state_faulted:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  zfs_pools_vdev_health_state_offline:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  zfs_pools_vdev_health_state_unavail:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  zfs_pools_vdev_health_state_removed:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  zfs_pools_vdev_health_state_suspended:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+contexts:
+- id: zfspool.pool_space_utilization
+  title: Zpool space utilization
+  units: '%'
+  family: pool
+  chart_type: area
+  priority: 60001
+  shape: independent
+  labels:
+    pool: sim-pool-1
+  dimensions:
+  - id: utilization
+    signal: zfs_pools_pool_space_utilization_utilization
+- id: zfspool.pool_space_usage
+  title: Zpool space usage
+  units: bytes
+  family: pool
+  chart_type: stacked
+  priority: 60002
+  shape: independent
+  labels:
+    pool: sim-pool-1
+  dimensions:
+  - id: free
+    signal: zfs_pools_pool_space_usage_free
+  - id: used
+    signal: zfs_pools_pool_space_usage_used
+- id: zfspool.pool_fragmentation
+  title: Zpool fragmentation
+  units: '%'
+  family: pool
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels:
+    pool: sim-pool-1
+  dimensions:
+  - id: fragmentation
+    signal: zfs_pools_pool_fragmentation_fragmentation
+- id: zfspool.pool_health_state
+  title: Zpool health state
+  units: state
+  family: pool
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels:
+    pool: sim-pool-1
+  dimensions:
+  - id: online
+    signal: zfs_pools_pool_health_state_online
+  - id: degraded
+    signal: zfs_pools_pool_health_state_degraded
+  - id: faulted
+    signal: zfs_pools_pool_health_state_faulted
+  - id: offline
+    signal: zfs_pools_pool_health_state_offline
+  - id: unavail
+    signal: zfs_pools_pool_health_state_unavail
+  - id: removed
+    signal: zfs_pools_pool_health_state_removed
+  - id: suspended
+    signal: zfs_pools_pool_health_state_suspended
+- id: zfspool.vdev_health_state
+  title: Zpool Vdev health state
+  units: state
+  family: vdev
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels:
+    pool: sim-pool-1
+    vdev: sim-vdev-1
+  dimensions:
+  - id: online
+    signal: zfs_pools_vdev_health_state_online
+  - id: degraded
+    signal: zfs_pools_vdev_health_state_degraded
+  - id: faulted
+    signal: zfs_pools_vdev_health_state_faulted
+  - id: offline
+    signal: zfs_pools_vdev_health_state_offline
+  - id: unavail
+    signal: zfs_pools_vdev_health_state_unavail
+  - id: removed
+    signal: zfs_pools_vdev_health_state_removed
+  - id: suspended
+    signal: zfs_pools_vdev_health_state_suspended

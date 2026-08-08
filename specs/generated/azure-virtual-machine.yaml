@@ -1,0 +1,1406 @@
+version: 1
+name: azure-virtual-machine
+description: Azure Virtual Machine metrics, generated from Netdata's own collector metadata so the contexts,
+  units and dimension names match what a real Azure Virtual Machine node reports. Signals are independent
+  and plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  azure_virtual_machine_virtual_machines_cpu_average:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_virtual_machine_virtual_machines_cpu_credits_consumed:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_virtual_machine_virtual_machines_cpu_credits_remaining:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_virtual_machine_virtual_machines_memory_available:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_virtual_machine_virtual_machines_memory_percentage_available:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_virtual_machine_virtual_machines_availability_average:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  azure_virtual_machine_virtual_machines_network_traffic_in:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_virtual_machine_virtual_machines_network_traffic_out:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_virtual_machine_virtual_machines_network_flows_in:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_virtual_machine_virtual_machines_network_flows_out:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_virtual_machine_virtual_machines_network_flow_creation_rate_in:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_virtual_machine_virtual_machines_network_flow_creation_rate_out:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_virtual_machine_virtual_machines_disk_throughput_read:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_virtual_machine_virtual_machines_disk_throughput_write:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_virtual_machine_virtual_machines_disk_iops_read:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_virtual_machine_virtual_machines_disk_iops_write:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_virtual_machine_virtual_machines_os_disk_throughput_read:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_virtual_machine_virtual_machines_os_disk_throughput_write:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_virtual_machine_virtual_machines_os_disk_iops_read:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_virtual_machine_virtual_machines_os_disk_iops_write:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_virtual_machine_virtual_machines_os_disk_latency_average:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_virtual_machine_virtual_machines_os_disk_queue_depth_average:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_virtual_machine_virtual_machines_os_disk_throttling_bandwidth:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_virtual_machine_virtual_machines_os_disk_throttling_iops:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_virtual_machine_virtual_machines_os_disk_burst_capacity_max_burst:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_virtual_machine_virtual_machines_os_disk_burst_capacity_target:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_virtual_machine_virtual_machines_os_disk_burst_iops_capacity_max_burst:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_virtual_machine_virtual_machines_os_disk_burst_iops_capacity_target:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_virtual_machine_virtual_machines_os_disk_burst_credits_bandwidth:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_virtual_machine_virtual_machines_os_disk_burst_credits_io:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_virtual_machine_virtual_machines_data_disk_throughput_read:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_virtual_machine_virtual_machines_data_disk_throughput_write:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_virtual_machine_virtual_machines_data_disk_iops_read:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_virtual_machine_virtual_machines_data_disk_iops_write:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_virtual_machine_virtual_machines_data_disk_latency_average:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_virtual_machine_virtual_machines_data_disk_queue_depth_average:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_virtual_machine_virtual_machines_data_disk_throttling_bandwidth:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_virtual_machine_virtual_machines_data_disk_throttling_iops:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_virtual_machine_virtual_machines_data_disk_burst_capacity_max_burst:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_virtual_machine_virtual_machines_data_disk_burst_capacity_target:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_virtual_machine_virtual_machines_data_disk_burst_iops_capacity_max_burst:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_virtual_machine_virtual_machines_data_disk_burst_iops_capacity_target:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_virtual_machine_virtual_machines_data_disk_burst_credits_bandwidth:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_virtual_machine_virtual_machines_data_disk_burst_credits_io:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_virtual_machine_virtual_machines_temp_disk_throughput_read:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_virtual_machine_virtual_machines_temp_disk_throughput_write:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_virtual_machine_virtual_machines_temp_disk_iops_read:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_virtual_machine_virtual_machines_temp_disk_iops_write:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_virtual_machine_virtual_machines_temp_disk_latency_average:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_virtual_machine_virtual_machines_temp_disk_queue_depth_average:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_virtual_machine_virtual_machines_premium_data_disk_cache_hit:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_virtual_machine_virtual_machines_premium_data_disk_cache_miss:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_virtual_machine_virtual_machines_premium_os_disk_cache_hit:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_virtual_machine_virtual_machines_premium_os_disk_cache_miss:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_virtual_machine_virtual_machines_vm_cached_throttling_bandwidth:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_virtual_machine_virtual_machines_vm_cached_throttling_iops:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_virtual_machine_virtual_machines_vm_uncached_throttling_bandwidth:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_virtual_machine_virtual_machines_vm_uncached_throttling_iops:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_virtual_machine_virtual_machines_vm_cached_burst_credits_bandwidth:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_virtual_machine_virtual_machines_vm_cached_burst_credits_io:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_virtual_machine_virtual_machines_vm_uncached_burst_credits_bandwidth:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_virtual_machine_virtual_machines_vm_uncached_burst_credits_io:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: azure_monitor.virtual_machines.cpu
+  title: Azure Virtual Machine CPU Utilization
+  units: percentage
+  family: virtual
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_virtual_machine_virtual_machines_cpu_average
+- id: azure_monitor.virtual_machines.cpu_credits
+  title: Azure Virtual Machine CPU Credits
+  units: credits
+  family: virtual
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: consumed
+    signal: azure_virtual_machine_virtual_machines_cpu_credits_consumed
+  - id: remaining
+    signal: azure_virtual_machine_virtual_machines_cpu_credits_remaining
+- id: azure_monitor.virtual_machines.memory
+  title: Azure Virtual Machine Available Memory
+  units: bytes
+  family: virtual
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: available
+    signal: azure_virtual_machine_virtual_machines_memory_available
+- id: azure_monitor.virtual_machines.memory_percentage
+  title: Azure Virtual Machine Available Memory Percentage
+  units: percentage
+  family: virtual
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: available
+    signal: azure_virtual_machine_virtual_machines_memory_percentage_available
+- id: azure_monitor.virtual_machines.availability
+  title: Azure Virtual Machine Availability
+  units: state
+  family: virtual
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_virtual_machine_virtual_machines_availability_average
+- id: azure_monitor.virtual_machines.network_traffic
+  title: Azure Virtual Machine Network Traffic
+  units: bytes/s
+  family: virtual
+  chart_type: line
+  priority: 60006
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: in
+    rate_signal: azure_virtual_machine_virtual_machines_network_traffic_in
+  - id: out
+    rate_signal: azure_virtual_machine_virtual_machines_network_traffic_out
+- id: azure_monitor.virtual_machines.network_flows
+  title: Azure Virtual Machine Network Flows
+  units: flows
+  family: virtual
+  chart_type: line
+  priority: 60007
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: in
+    signal: azure_virtual_machine_virtual_machines_network_flows_in
+  - id: out
+    signal: azure_virtual_machine_virtual_machines_network_flows_out
+- id: azure_monitor.virtual_machines.network_flow_creation_rate
+  title: Azure Virtual Machine Network Flow Creation Rate
+  units: flows/s
+  family: virtual
+  chart_type: line
+  priority: 60008
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: in
+    rate_signal: azure_virtual_machine_virtual_machines_network_flow_creation_rate_in
+  - id: out
+    rate_signal: azure_virtual_machine_virtual_machines_network_flow_creation_rate_out
+- id: azure_monitor.virtual_machines.disk_throughput
+  title: Azure Virtual Machine Disk Throughput
+  units: bytes/s
+  family: virtual
+  chart_type: line
+  priority: 60009
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: read
+    rate_signal: azure_virtual_machine_virtual_machines_disk_throughput_read
+  - id: write
+    rate_signal: azure_virtual_machine_virtual_machines_disk_throughput_write
+- id: azure_monitor.virtual_machines.disk_iops
+  title: Azure Virtual Machine Disk IOPS
+  units: operations/s
+  family: virtual
+  chart_type: line
+  priority: 60010
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: read
+    rate_signal: azure_virtual_machine_virtual_machines_disk_iops_read
+  - id: write
+    rate_signal: azure_virtual_machine_virtual_machines_disk_iops_write
+- id: azure_monitor.virtual_machines.os_disk_throughput
+  title: Azure Virtual Machine OS Disk Throughput
+  units: bytes/s
+  family: virtual
+  chart_type: line
+  priority: 60011
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: read
+    rate_signal: azure_virtual_machine_virtual_machines_os_disk_throughput_read
+  - id: write
+    rate_signal: azure_virtual_machine_virtual_machines_os_disk_throughput_write
+- id: azure_monitor.virtual_machines.os_disk_iops
+  title: Azure Virtual Machine OS Disk IOPS
+  units: operations/s
+  family: virtual
+  chart_type: line
+  priority: 60012
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: read
+    rate_signal: azure_virtual_machine_virtual_machines_os_disk_iops_read
+  - id: write
+    rate_signal: azure_virtual_machine_virtual_machines_os_disk_iops_write
+- id: azure_monitor.virtual_machines.os_disk_latency
+  title: Azure Virtual Machine OS Disk Latency
+  units: milliseconds
+  family: virtual
+  chart_type: line
+  priority: 60013
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_virtual_machine_virtual_machines_os_disk_latency_average
+- id: azure_monitor.virtual_machines.os_disk_queue_depth
+  title: Azure Virtual Machine OS Disk Queue Depth
+  units: operations
+  family: virtual
+  chart_type: line
+  priority: 60014
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_virtual_machine_virtual_machines_os_disk_queue_depth_average
+- id: azure_monitor.virtual_machines.os_disk_throttling
+  title: Azure Virtual Machine OS Disk Throttling
+  units: percentage
+  family: virtual
+  chart_type: line
+  priority: 60015
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: bandwidth
+    signal: azure_virtual_machine_virtual_machines_os_disk_throttling_bandwidth
+  - id: iops
+    signal: azure_virtual_machine_virtual_machines_os_disk_throttling_iops
+- id: azure_monitor.virtual_machines.os_disk_burst_capacity
+  title: Azure Virtual Machine OS Disk Burst Capacity
+  units: bytes/s
+  family: virtual
+  chart_type: line
+  priority: 60016
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: max_burst
+    rate_signal: azure_virtual_machine_virtual_machines_os_disk_burst_capacity_max_burst
+  - id: target
+    rate_signal: azure_virtual_machine_virtual_machines_os_disk_burst_capacity_target
+- id: azure_monitor.virtual_machines.os_disk_burst_iops_capacity
+  title: Azure Virtual Machine OS Disk Burst IOPS Capacity
+  units: iops
+  family: virtual
+  chart_type: line
+  priority: 60017
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: max_burst
+    rate_signal: azure_virtual_machine_virtual_machines_os_disk_burst_iops_capacity_max_burst
+  - id: target
+    rate_signal: azure_virtual_machine_virtual_machines_os_disk_burst_iops_capacity_target
+- id: azure_monitor.virtual_machines.os_disk_burst_credits
+  title: Azure Virtual Machine OS Disk Burst Credits Used
+  units: percentage
+  family: virtual
+  chart_type: line
+  priority: 60018
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: bandwidth
+    signal: azure_virtual_machine_virtual_machines_os_disk_burst_credits_bandwidth
+  - id: io
+    signal: azure_virtual_machine_virtual_machines_os_disk_burst_credits_io
+- id: azure_monitor.virtual_machines.data_disk_throughput
+  title: Azure Virtual Machine Data Disk Throughput
+  units: bytes/s
+  family: virtual
+  chart_type: line
+  priority: 60019
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: read
+    rate_signal: azure_virtual_machine_virtual_machines_data_disk_throughput_read
+  - id: write
+    rate_signal: azure_virtual_machine_virtual_machines_data_disk_throughput_write
+- id: azure_monitor.virtual_machines.data_disk_iops
+  title: Azure Virtual Machine Data Disk IOPS
+  units: operations/s
+  family: virtual
+  chart_type: line
+  priority: 60020
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: read
+    rate_signal: azure_virtual_machine_virtual_machines_data_disk_iops_read
+  - id: write
+    rate_signal: azure_virtual_machine_virtual_machines_data_disk_iops_write
+- id: azure_monitor.virtual_machines.data_disk_latency
+  title: Azure Virtual Machine Data Disk Latency
+  units: milliseconds
+  family: virtual
+  chart_type: line
+  priority: 60021
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_virtual_machine_virtual_machines_data_disk_latency_average
+- id: azure_monitor.virtual_machines.data_disk_queue_depth
+  title: Azure Virtual Machine Data Disk Queue Depth
+  units: operations
+  family: virtual
+  chart_type: line
+  priority: 60022
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_virtual_machine_virtual_machines_data_disk_queue_depth_average
+- id: azure_monitor.virtual_machines.data_disk_throttling
+  title: Azure Virtual Machine Data Disk Throttling
+  units: percentage
+  family: virtual
+  chart_type: line
+  priority: 60023
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: bandwidth
+    signal: azure_virtual_machine_virtual_machines_data_disk_throttling_bandwidth
+  - id: iops
+    signal: azure_virtual_machine_virtual_machines_data_disk_throttling_iops
+- id: azure_monitor.virtual_machines.data_disk_burst_capacity
+  title: Azure Virtual Machine Data Disk Burst Capacity
+  units: bytes/s
+  family: virtual
+  chart_type: line
+  priority: 60024
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: max_burst
+    rate_signal: azure_virtual_machine_virtual_machines_data_disk_burst_capacity_max_burst
+  - id: target
+    rate_signal: azure_virtual_machine_virtual_machines_data_disk_burst_capacity_target
+- id: azure_monitor.virtual_machines.data_disk_burst_iops_capacity
+  title: Azure Virtual Machine Data Disk Burst IOPS Capacity
+  units: iops
+  family: virtual
+  chart_type: line
+  priority: 60025
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: max_burst
+    rate_signal: azure_virtual_machine_virtual_machines_data_disk_burst_iops_capacity_max_burst
+  - id: target
+    rate_signal: azure_virtual_machine_virtual_machines_data_disk_burst_iops_capacity_target
+- id: azure_monitor.virtual_machines.data_disk_burst_credits
+  title: Azure Virtual Machine Data Disk Burst Credits Used
+  units: percentage
+  family: virtual
+  chart_type: line
+  priority: 60026
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: bandwidth
+    signal: azure_virtual_machine_virtual_machines_data_disk_burst_credits_bandwidth
+  - id: io
+    signal: azure_virtual_machine_virtual_machines_data_disk_burst_credits_io
+- id: azure_monitor.virtual_machines.temp_disk_throughput
+  title: Azure Virtual Machine Temp Disk Throughput
+  units: bytes/s
+  family: virtual
+  chart_type: line
+  priority: 60027
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: read
+    rate_signal: azure_virtual_machine_virtual_machines_temp_disk_throughput_read
+  - id: write
+    rate_signal: azure_virtual_machine_virtual_machines_temp_disk_throughput_write
+- id: azure_monitor.virtual_machines.temp_disk_iops
+  title: Azure Virtual Machine Temp Disk IOPS
+  units: operations/s
+  family: virtual
+  chart_type: line
+  priority: 60028
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: read
+    rate_signal: azure_virtual_machine_virtual_machines_temp_disk_iops_read
+  - id: write
+    rate_signal: azure_virtual_machine_virtual_machines_temp_disk_iops_write
+- id: azure_monitor.virtual_machines.temp_disk_latency
+  title: Azure Virtual Machine Temp Disk Latency
+  units: milliseconds
+  family: virtual
+  chart_type: line
+  priority: 60029
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_virtual_machine_virtual_machines_temp_disk_latency_average
+- id: azure_monitor.virtual_machines.temp_disk_queue_depth
+  title: Azure Virtual Machine Temp Disk Queue Depth
+  units: operations
+  family: virtual
+  chart_type: line
+  priority: 60030
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_virtual_machine_virtual_machines_temp_disk_queue_depth_average
+- id: azure_monitor.virtual_machines.premium_data_disk_cache
+  title: Azure Virtual Machine Premium Data Disk Cache
+  units: percentage
+  family: virtual
+  chart_type: line
+  priority: 60031
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: hit
+    signal: azure_virtual_machine_virtual_machines_premium_data_disk_cache_hit
+  - id: miss
+    signal: azure_virtual_machine_virtual_machines_premium_data_disk_cache_miss
+- id: azure_monitor.virtual_machines.premium_os_disk_cache
+  title: Azure Virtual Machine Premium OS Disk Cache
+  units: percentage
+  family: virtual
+  chart_type: line
+  priority: 60032
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: hit
+    signal: azure_virtual_machine_virtual_machines_premium_os_disk_cache_hit
+  - id: miss
+    signal: azure_virtual_machine_virtual_machines_premium_os_disk_cache_miss
+- id: azure_monitor.virtual_machines.vm_cached_throttling
+  title: Azure Virtual Machine Cached IO Throttling
+  units: percentage
+  family: virtual
+  chart_type: line
+  priority: 60033
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: bandwidth
+    signal: azure_virtual_machine_virtual_machines_vm_cached_throttling_bandwidth
+  - id: iops
+    signal: azure_virtual_machine_virtual_machines_vm_cached_throttling_iops
+- id: azure_monitor.virtual_machines.vm_uncached_throttling
+  title: Azure Virtual Machine Uncached IO Throttling
+  units: percentage
+  family: virtual
+  chart_type: line
+  priority: 60034
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: bandwidth
+    signal: azure_virtual_machine_virtual_machines_vm_uncached_throttling_bandwidth
+  - id: iops
+    signal: azure_virtual_machine_virtual_machines_vm_uncached_throttling_iops
+- id: azure_monitor.virtual_machines.vm_cached_burst_credits
+  title: Azure Virtual Machine Cached Burst Credits Used
+  units: percentage
+  family: virtual
+  chart_type: line
+  priority: 60035
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: bandwidth
+    signal: azure_virtual_machine_virtual_machines_vm_cached_burst_credits_bandwidth
+  - id: io
+    signal: azure_virtual_machine_virtual_machines_vm_cached_burst_credits_io
+- id: azure_monitor.virtual_machines.vm_uncached_burst_credits
+  title: Azure Virtual Machine Uncached Burst Credits Used
+  units: percentage
+  family: virtual
+  chart_type: line
+  priority: 60036
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: bandwidth
+    signal: azure_virtual_machine_virtual_machines_vm_uncached_burst_credits_bandwidth
+  - id: io
+    signal: azure_virtual_machine_virtual_machines_vm_uncached_burst_credits_io

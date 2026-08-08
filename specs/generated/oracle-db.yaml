@@ -1,0 +1,564 @@
+version: 1
+name: oracle-db
+description: Oracle DB metrics, generated from Netdata's own collector metadata so the contexts, units
+  and dimension names match what a real Oracle DB node reports. Signals are independent and plausible
+  rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  oracle_db_sessions_session:
+    base: 64.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  oracle_db_average_active_sessions_active:
+    base: 64.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  oracle_db_sessions_utilization_session_limit:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  oracle_db_current_logons_logons:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  oracle_db_logons_logons:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  oracle_db_database_wait_time_ratio_db_wait_time:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  oracle_db_sql_service_response_time_sql_resp_time:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  oracle_db_enqueue_timeouts_enqueue:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  oracle_db_disk_io_read:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  oracle_db_disk_io_written:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  oracle_db_disk_iops_read:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  oracle_db_disk_iops_write:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  oracle_db_sorts_memory:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  oracle_db_sorts_disk:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  oracle_db_table_scans_short_table:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  oracle_db_table_scans_long_table:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  oracle_db_cache_hit_ratio_buffer:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  oracle_db_cache_hit_ratio_cursor:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  oracle_db_cache_hit_ratio_library:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  oracle_db_cache_hit_ratio_row:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  oracle_db_global_cache_blocks_corrupted:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  oracle_db_global_cache_blocks_lost:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  oracle_db_activity_parse:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  oracle_db_activity_execute:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  oracle_db_activity_user_commits:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  oracle_db_activity_user_rollbacks:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  oracle_db_tablespace_utilization_utilization:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  oracle_db_tablespace_usage_avail:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  oracle_db_tablespace_usage_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  oracle_db_wait_class_wait_time_wait_time:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: oracledb.sessions
+  title: Sessions
+  units: sessions
+  family: sessions
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: session
+    signal: oracle_db_sessions_session
+- id: oracledb.average_active_sessions
+  title: Average Active Sessions
+  units: sessions
+  family: average
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: active
+    signal: oracle_db_average_active_sessions_active
+- id: oracledb.sessions_utilization
+  title: Sessions Limit %
+  units: percent
+  family: sessions
+  chart_type: area
+  priority: 60003
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: session_limit
+    signal: oracle_db_sessions_utilization_session_limit
+- id: oracledb.current_logons
+  title: Current Logons
+  units: logons
+  family: current
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: logons
+    signal: oracle_db_current_logons_logons
+- id: oracledb.logons
+  title: Logons
+  units: logons/s
+  family: logons
+  chart_type: line
+  priority: 60005
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: logons
+    rate_signal: oracle_db_logons_logons
+- id: oracledb.database_wait_time_ratio
+  title: Database Wait Time Ratio
+  units: percent
+  family: database
+  chart_type: area
+  priority: 60006
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: db_wait_time
+    signal: oracle_db_database_wait_time_ratio_db_wait_time
+- id: oracledb.sql_service_response_time
+  title: SQL Service Response Time
+  units: seconds
+  family: sql
+  chart_type: line
+  priority: 60007
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: sql_resp_time
+    signal: oracle_db_sql_service_response_time_sql_resp_time
+- id: oracledb.enqueue_timeouts
+  title: Enqueue Timeouts
+  units: timeouts/s
+  family: enqueue
+  chart_type: line
+  priority: 60008
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: enqueue
+    rate_signal: oracle_db_enqueue_timeouts_enqueue
+- id: oracledb.disk_io
+  title: Disk IO
+  units: bytes/s
+  family: disk
+  chart_type: area
+  priority: 60009
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: read
+    rate_signal: oracle_db_disk_io_read
+  - id: written
+    rate_signal: oracle_db_disk_io_written
+- id: oracledb.disk_iops
+  title: Disk IOPS
+  units: operations/s
+  family: disk
+  chart_type: line
+  priority: 60010
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: read
+    rate_signal: oracle_db_disk_iops_read
+  - id: write
+    rate_signal: oracle_db_disk_iops_write
+- id: oracledb.sorts
+  title: Sorts
+  units: sorts/s
+  family: sorts
+  chart_type: line
+  priority: 60011
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: memory
+    rate_signal: oracle_db_sorts_memory
+  - id: disk
+    rate_signal: oracle_db_sorts_disk
+- id: oracledb.table_scans
+  title: Table Scans
+  units: scans/s
+  family: table
+  chart_type: line
+  priority: 60012
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: short_table
+    rate_signal: oracle_db_table_scans_short_table
+  - id: long_table
+    rate_signal: oracle_db_table_scans_long_table
+- id: oracledb.cache_hit_ratio
+  title: Cache Hit Ratio
+  units: percent
+  family: cache
+  chart_type: line
+  priority: 60013
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: buffer
+    signal: oracle_db_cache_hit_ratio_buffer
+  - id: cursor
+    signal: oracle_db_cache_hit_ratio_cursor
+  - id: library
+    signal: oracle_db_cache_hit_ratio_library
+  - id: row
+    signal: oracle_db_cache_hit_ratio_row
+- id: oracledb.global_cache_blocks
+  title: Global Cache Blocks
+  units: blocks/s
+  family: global
+  chart_type: line
+  priority: 60014
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: corrupted
+    rate_signal: oracle_db_global_cache_blocks_corrupted
+  - id: lost
+    rate_signal: oracle_db_global_cache_blocks_lost
+- id: oracledb.activity
+  title: Activities
+  units: events/s
+  family: activity
+  chart_type: line
+  priority: 60015
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: parse
+    rate_signal: oracle_db_activity_parse
+  - id: execute
+    rate_signal: oracle_db_activity_execute
+  - id: user_commits
+    rate_signal: oracle_db_activity_user_commits
+  - id: user_rollbacks
+    rate_signal: oracle_db_activity_user_rollbacks
+- id: oracledb.tablespace_utilization
+  title: Tablespace Utilization
+  units: percent
+  family: tablespace
+  chart_type: area
+  priority: 60016
+  shape: independent
+  labels:
+    tablespace: sim-tablespace-1
+    autoextend_status: sim-autoextend_status-1
+  dimensions:
+  - id: utilization
+    signal: oracle_db_tablespace_utilization_utilization
+- id: oracledb.tablespace_usage
+  title: Tablespace Usage
+  units: bytes
+  family: tablespace
+  chart_type: stacked
+  priority: 60017
+  shape: independent
+  labels:
+    tablespace: sim-tablespace-1
+    autoextend_status: sim-autoextend_status-1
+  dimensions:
+  - id: avail
+    signal: oracle_db_tablespace_usage_avail
+  - id: used
+    signal: oracle_db_tablespace_usage_used
+- id: oracledb.wait_class_wait_time
+  title: Wait Class Wait Time
+  units: milliseconds
+  family: wait
+  chart_type: line
+  priority: 60018
+  shape: independent
+  labels:
+    wait_class: sim-wait_class-1
+  dimensions:
+  - id: wait_time
+    signal: oracle_db_wait_class_wait_time_wait_time

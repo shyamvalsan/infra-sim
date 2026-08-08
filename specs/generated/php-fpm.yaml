@@ -1,0 +1,249 @@
+version: 1
+name: php-fpm
+description: PHP-FPM metrics, generated from Netdata's own collector metadata so the contexts, units and
+  dimension names match what a real PHP-FPM node reports. Signals are independent and plausible rather
+  than causally coupled - see scripts/sync-integrations.py.
+signals:
+  php_fpm_connections_active:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  php_fpm_connections_max_active:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  php_fpm_connections_idle:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  php_fpm_requests_requests:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  php_fpm_performance_max_children_reached:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  php_fpm_performance_slow_requests:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  php_fpm_request_duration_min:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  php_fpm_request_duration_max:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  php_fpm_request_duration_avg:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  php_fpm_request_cpu_min:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  php_fpm_request_cpu_max:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  php_fpm_request_cpu_avg:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  php_fpm_request_mem_min:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  php_fpm_request_mem_max:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  php_fpm_request_mem_avg:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: phpfpm.connections
+  title: Active Connections
+  units: connections
+  family: connections
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: active
+    signal: php_fpm_connections_active
+  - id: max_active
+    signal: php_fpm_connections_max_active
+  - id: idle
+    signal: php_fpm_connections_idle
+- id: phpfpm.requests
+  title: Requests
+  units: requests/s
+  family: requests
+  chart_type: line
+  priority: 60002
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: requests
+    rate_signal: php_fpm_requests_requests
+- id: phpfpm.performance
+  title: Performance
+  units: status
+  family: performance
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: max_children_reached
+    signal: php_fpm_performance_max_children_reached
+  - id: slow_requests
+    signal: php_fpm_performance_slow_requests
+- id: phpfpm.request_duration
+  title: Requests Duration Among All Idle Processes
+  units: milliseconds
+  family: request
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: min
+    signal: php_fpm_request_duration_min
+  - id: max
+    signal: php_fpm_request_duration_max
+  - id: avg
+    signal: php_fpm_request_duration_avg
+- id: phpfpm.request_cpu
+  title: Last Request CPU Usage Among All Idle Processes
+  units: percentage
+  family: request
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: min
+    signal: php_fpm_request_cpu_min
+  - id: max
+    signal: php_fpm_request_cpu_max
+  - id: avg
+    signal: php_fpm_request_cpu_avg
+- id: phpfpm.request_mem
+  title: Last Request Memory Usage Among All Idle Processes
+  units: KB
+  family: request
+  chart_type: line
+  priority: 60006
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: min
+    signal: php_fpm_request_mem_min
+  - id: max
+    signal: php_fpm_request_mem_max
+  - id: avg
+    signal: php_fpm_request_mem_avg

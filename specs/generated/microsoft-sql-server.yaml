@@ -1,0 +1,2286 @@
+version: 1
+name: microsoft-sql-server
+description: Microsoft SQL Server metrics, generated from Netdata's own collector metadata so the contexts,
+  units and dimension names match what a real Microsoft SQL Server node reports. Signals are independent
+  and plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  microsoft_sql_server_user_connections_user:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_session_connections_user:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_session_connections_internal:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_blocked_processes_blocked:
+    base: 210.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_batch_requests_batch:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_compilations_compilations:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_recompilations_recompilations:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_auto_param_attempts_total:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_auto_param_attempts_safe:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_auto_param_attempts_failed:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  microsoft_sql_server_sql_errors_errors:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+  microsoft_sql_server_buffer_cache_hit_ratio_hit_ratio:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_buffer_page_life_expectancy_life_expectancy:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_buffer_page_iops_read:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_buffer_page_iops_written:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_buffer_checkpoint_pages_flushed:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_buffer_page_lookups_lookups:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_buffer_lazy_writes_lazy_writes:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_memory_total_memory:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_memory_connection_memory:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_memory_pending_grants_pending:
+    base: 210.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_memory_external_benefit_benefit:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_page_splits_page:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_process_memory_resident_resident:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_process_memory_virtual_virtual:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_process_memory_utilization_utilization:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_process_page_faults_page_faults:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_os_memory_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_os_memory_available:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_os_pagefile_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_os_pagefile_available:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_database_active_transactions_active:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_database_transactions_transactions:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_database_write_transactions_write:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_database_log_flushes_flushes:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_database_log_flushed_flushed:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_database_log_growths_growths:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_database_log_file_size_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_database_log_file_size_free:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_database_log_percent_used_used:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_database_log_truncations_shrinks_truncations:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_database_log_truncations_shrinks_shrinks:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_database_io_stall_read:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_database_io_stall_write:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_database_data_file_size_size:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_database_backup_restore_throughput_throughput:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_database_state_online:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  microsoft_sql_server_database_state_restoring:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  microsoft_sql_server_database_state_recovering:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  microsoft_sql_server_database_state_pending:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  microsoft_sql_server_database_state_suspect:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  microsoft_sql_server_database_state_emergency:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  microsoft_sql_server_database_state_offline:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  microsoft_sql_server_database_read_only_read_only:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  microsoft_sql_server_database_read_only_read_write:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  microsoft_sql_server_lock_stats_deadlocks_deadlocks:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  microsoft_sql_server_lock_stats_waits_waits:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_lock_stats_timeouts_timeouts:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  microsoft_sql_server_lock_stats_requests_requests:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_locks_by_resource_locks:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_wait_total_time_duration:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_wait_resource_time_duration:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_wait_signal_time_duration:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_wait_max_time_max_time:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_wait_count_waits:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_job_status_enabled:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  microsoft_sql_server_job_status_disabled:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  microsoft_sql_server_job_last_execution_status_unknown:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  microsoft_sql_server_job_last_execution_status_ok:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  microsoft_sql_server_job_last_execution_status_warning:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  microsoft_sql_server_job_last_execution_status_error:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  microsoft_sql_server_job_last_execution_status_canceled:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  microsoft_sql_server_job_last_execution_duration_duration:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_job_last_execution_age_age:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_job_current_execution_time_duration:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_replication_status_started:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  microsoft_sql_server_replication_status_succeeded:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  microsoft_sql_server_replication_status_in_progress:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  microsoft_sql_server_replication_status_idle:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  microsoft_sql_server_replication_status_retrying:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  microsoft_sql_server_replication_status_failed:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  microsoft_sql_server_replication_warning_expiration:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_replication_warning_latency:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_replication_warning_merge_expiration:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_replication_warning_merge_slow_duration:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_replication_warning_merge_fast_duration:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_replication_warning_merge_fast_speed:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_replication_warning_merge_slow_speed:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_replication_latency_average:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_replication_latency_best:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_replication_latency_worst:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_replication_subscriptions_total:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_replication_subscriptions_agents_running:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_ag_sync_health_not_healthy:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  microsoft_sql_server_ag_sync_health_partially_healthy:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  microsoft_sql_server_ag_sync_health_healthy:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  microsoft_sql_server_ag_recovery_health_primary_online:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  microsoft_sql_server_ag_recovery_health_primary_in_progress:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  microsoft_sql_server_ag_recovery_health_secondary_online:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  microsoft_sql_server_ag_recovery_health_secondary_in_progress:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  microsoft_sql_server_ag_threads_capture:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_ag_threads_redo:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_ag_threads_parallel_redo:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_ag_replica_role_primary:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  microsoft_sql_server_ag_replica_role_secondary:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  microsoft_sql_server_ag_replica_role_resolving:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  microsoft_sql_server_ag_replica_role_unknown:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  microsoft_sql_server_ag_replica_connected_state_connected:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  microsoft_sql_server_ag_replica_connected_state_disconnected:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  microsoft_sql_server_ag_replica_connected_state_unknown:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  microsoft_sql_server_ag_replica_sync_health_not_healthy:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  microsoft_sql_server_ag_replica_sync_health_partially_healthy:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  microsoft_sql_server_ag_replica_sync_health_healthy:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  microsoft_sql_server_ag_db_sync_state_not_synchronizing:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  microsoft_sql_server_ag_db_sync_state_synchronizing:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  microsoft_sql_server_ag_db_sync_state_synchronized:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  microsoft_sql_server_ag_db_sync_state_reverting:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  microsoft_sql_server_ag_db_sync_state_initializing:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  microsoft_sql_server_ag_db_log_send_queue_queue_size:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_ag_db_log_send_rate_send_rate:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_ag_db_redo_queue_queue_size:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_ag_db_redo_rate_redo_rate:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_ag_db_filestream_send_rate_send_rate:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_ag_db_secondary_lag_lag:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_ag_db_suspended_active:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  microsoft_sql_server_ag_db_suspended_suspended:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  microsoft_sql_server_ag_db_failover_readiness_ready:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  microsoft_sql_server_ag_db_failover_readiness_not_ready:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  microsoft_sql_server_ag_db_joined_state_joined:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  microsoft_sql_server_ag_db_joined_state_not_joined:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  microsoft_sql_server_ag_cluster_quorum_state_normal:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  microsoft_sql_server_ag_cluster_quorum_state_forced:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  microsoft_sql_server_ag_cluster_quorum_state_unknown:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  microsoft_sql_server_ag_cluster_member_state_up:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  microsoft_sql_server_ag_cluster_member_state_down:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  microsoft_sql_server_ag_cluster_member_quorum_votes_votes:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_ag_page_repair_successful:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  microsoft_sql_server_ag_page_repair_failed:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+contexts:
+- id: mssql.user_connections
+  title: User Connections
+  units: connections
+  family: user
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: user
+    signal: microsoft_sql_server_user_connections_user
+- id: mssql.session_connections
+  title: Session Connections
+  units: connections
+  family: session
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: user
+    signal: microsoft_sql_server_session_connections_user
+  - id: internal
+    signal: microsoft_sql_server_session_connections_internal
+- id: mssql.blocked_processes
+  title: Blocked Processes
+  units: processes
+  family: blocked
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: blocked
+    signal: microsoft_sql_server_blocked_processes_blocked
+- id: mssql.batch_requests
+  title: Batch Requests
+  units: requests/s
+  family: batch
+  chart_type: line
+  priority: 60004
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: batch
+    rate_signal: microsoft_sql_server_batch_requests_batch
+- id: mssql.compilations
+  title: SQL Compilations
+  units: compilations/s
+  family: compilations
+  chart_type: line
+  priority: 60005
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: compilations
+    rate_signal: microsoft_sql_server_compilations_compilations
+- id: mssql.recompilations
+  title: SQL Re-Compilations
+  units: recompilations/s
+  family: recompilations
+  chart_type: line
+  priority: 60006
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: recompilations
+    rate_signal: microsoft_sql_server_recompilations_recompilations
+- id: mssql.auto_param_attempts
+  title: Auto-Parameterization Attempts
+  units: attempts/s
+  family: auto
+  chart_type: line
+  priority: 60007
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: total
+    rate_signal: microsoft_sql_server_auto_param_attempts_total
+  - id: safe
+    rate_signal: microsoft_sql_server_auto_param_attempts_safe
+  - id: failed
+    rate_signal: microsoft_sql_server_auto_param_attempts_failed
+- id: mssql.sql_errors
+  title: SQL Errors
+  units: errors/s
+  family: sql
+  chart_type: line
+  priority: 60008
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: errors
+    rate_signal: microsoft_sql_server_sql_errors_errors
+- id: mssql.buffer_cache_hit_ratio
+  title: Buffer Cache Hit Ratio
+  units: percentage
+  family: buffer
+  chart_type: line
+  priority: 60009
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: hit_ratio
+    signal: microsoft_sql_server_buffer_cache_hit_ratio_hit_ratio
+- id: mssql.buffer_page_life_expectancy
+  title: Page Life Expectancy
+  units: seconds
+  family: buffer
+  chart_type: line
+  priority: 60010
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: life_expectancy
+    signal: microsoft_sql_server_buffer_page_life_expectancy_life_expectancy
+- id: mssql.buffer_page_iops
+  title: Buffer Page I/O
+  units: pages/s
+  family: buffer
+  chart_type: line
+  priority: 60011
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: read
+    rate_signal: microsoft_sql_server_buffer_page_iops_read
+  - id: written
+    rate_signal: microsoft_sql_server_buffer_page_iops_written
+- id: mssql.buffer_checkpoint_pages
+  title: Buffer Checkpoint Pages Flushed
+  units: pages/s
+  family: buffer
+  chart_type: line
+  priority: 60012
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: flushed
+    rate_signal: microsoft_sql_server_buffer_checkpoint_pages_flushed
+- id: mssql.buffer_page_lookups
+  title: Buffer Page Lookups
+  units: lookups/s
+  family: buffer
+  chart_type: line
+  priority: 60013
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: lookups
+    rate_signal: microsoft_sql_server_buffer_page_lookups_lookups
+- id: mssql.buffer_lazy_writes
+  title: Buffer Lazy Writes
+  units: writes/s
+  family: buffer
+  chart_type: line
+  priority: 60014
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: lazy_writes
+    rate_signal: microsoft_sql_server_buffer_lazy_writes_lazy_writes
+- id: mssql.memory_total
+  title: Total Server Memory
+  units: bytes
+  family: memory
+  chart_type: line
+  priority: 60015
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: memory
+    signal: microsoft_sql_server_memory_total_memory
+- id: mssql.memory_connection
+  title: Connection Memory
+  units: bytes
+  family: memory
+  chart_type: line
+  priority: 60016
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: memory
+    signal: microsoft_sql_server_memory_connection_memory
+- id: mssql.memory_pending_grants
+  title: Pending Memory Grants
+  units: processes
+  family: memory
+  chart_type: line
+  priority: 60017
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: pending
+    signal: microsoft_sql_server_memory_pending_grants_pending
+- id: mssql.memory_external_benefit
+  title: External Benefit of Memory
+  units: benefit
+  family: memory
+  chart_type: line
+  priority: 60018
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: benefit
+    signal: microsoft_sql_server_memory_external_benefit_benefit
+- id: mssql.page_splits
+  title: Page Splits
+  units: splits/s
+  family: page
+  chart_type: line
+  priority: 60019
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: page
+    rate_signal: microsoft_sql_server_page_splits_page
+- id: mssql.process_memory_resident
+  title: SQL Server Process Resident Memory (Working Set)
+  units: bytes
+  family: process
+  chart_type: line
+  priority: 60020
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: resident
+    signal: microsoft_sql_server_process_memory_resident_resident
+- id: mssql.process_memory_virtual
+  title: SQL Server Process Virtual Memory Committed
+  units: bytes
+  family: process
+  chart_type: line
+  priority: 60021
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: virtual
+    signal: microsoft_sql_server_process_memory_virtual_virtual
+- id: mssql.process_memory_utilization
+  title: SQL Server Process Memory Utilization
+  units: percentage
+  family: process
+  chart_type: line
+  priority: 60022
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: utilization
+    signal: microsoft_sql_server_process_memory_utilization_utilization
+- id: mssql.process_page_faults
+  title: SQL Server Process Page Faults
+  units: faults
+  family: process
+  chart_type: line
+  priority: 60023
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: page_faults
+    signal: microsoft_sql_server_process_page_faults_page_faults
+- id: mssql.os_memory
+  title: OS Physical Memory
+  units: bytes
+  family: os
+  chart_type: stacked
+  priority: 60024
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: used
+    signal: microsoft_sql_server_os_memory_used
+  - id: available
+    signal: microsoft_sql_server_os_memory_available
+- id: mssql.os_pagefile
+  title: OS Page File
+  units: bytes
+  family: os
+  chart_type: stacked
+  priority: 60025
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: used
+    signal: microsoft_sql_server_os_pagefile_used
+  - id: available
+    signal: microsoft_sql_server_os_pagefile_available
+- id: mssql.database_active_transactions
+  title: Active Transactions
+  units: transactions
+  family: database
+  chart_type: line
+  priority: 60026
+  shape: independent
+  labels:
+    database: sim-database-1
+  dimensions:
+  - id: active
+    signal: microsoft_sql_server_database_active_transactions_active
+- id: mssql.database_transactions
+  title: Transactions
+  units: transactions/s
+  family: database
+  chart_type: line
+  priority: 60027
+  shape: counters
+  labels:
+    database: sim-database-1
+  dimensions:
+  - id: transactions
+    rate_signal: microsoft_sql_server_database_transactions_transactions
+- id: mssql.database_write_transactions
+  title: Write Transactions
+  units: transactions/s
+  family: database
+  chart_type: line
+  priority: 60028
+  shape: counters
+  labels:
+    database: sim-database-1
+  dimensions:
+  - id: write
+    rate_signal: microsoft_sql_server_database_write_transactions_write
+- id: mssql.database_log_flushes
+  title: Log Flushes
+  units: flushes/s
+  family: database
+  chart_type: line
+  priority: 60029
+  shape: counters
+  labels:
+    database: sim-database-1
+  dimensions:
+  - id: flushes
+    rate_signal: microsoft_sql_server_database_log_flushes_flushes
+- id: mssql.database_log_flushed
+  title: Log Bytes Flushed
+  units: bytes/s
+  family: database
+  chart_type: line
+  priority: 60030
+  shape: counters
+  labels:
+    database: sim-database-1
+  dimensions:
+  - id: flushed
+    rate_signal: microsoft_sql_server_database_log_flushed_flushed
+- id: mssql.database_log_growths
+  title: Log Growths
+  units: growths
+  family: database
+  chart_type: line
+  priority: 60031
+  shape: independent
+  labels:
+    database: sim-database-1
+  dimensions:
+  - id: growths
+    signal: microsoft_sql_server_database_log_growths_growths
+- id: mssql.database_log_file_size
+  title: Transaction Log File Size
+  units: bytes
+  family: database
+  chart_type: stacked
+  priority: 60032
+  shape: independent
+  labels:
+    database: sim-database-1
+  dimensions:
+  - id: used
+    signal: microsoft_sql_server_database_log_file_size_used
+  - id: free
+    signal: microsoft_sql_server_database_log_file_size_free
+- id: mssql.database_log_percent_used
+  title: Transaction Log Space Utilization
+  units: percentage
+  family: database
+  chart_type: line
+  priority: 60033
+  shape: independent
+  labels:
+    database: sim-database-1
+  dimensions:
+  - id: used
+    signal: microsoft_sql_server_database_log_percent_used_used
+- id: mssql.database_log_truncations_shrinks
+  title: Transaction Log Truncations and Shrinks
+  units: events/s
+  family: database
+  chart_type: line
+  priority: 60034
+  shape: counters
+  labels:
+    database: sim-database-1
+  dimensions:
+  - id: truncations
+    rate_signal: microsoft_sql_server_database_log_truncations_shrinks_truncations
+  - id: shrinks
+    rate_signal: microsoft_sql_server_database_log_truncations_shrinks_shrinks
+- id: mssql.database_io_stall
+  title: I/O Stall Time
+  units: ms
+  family: database
+  chart_type: line
+  priority: 60035
+  shape: independent
+  labels:
+    database: sim-database-1
+  dimensions:
+  - id: read
+    signal: microsoft_sql_server_database_io_stall_read
+  - id: write
+    signal: microsoft_sql_server_database_io_stall_write
+- id: mssql.database_data_file_size
+  title: Data File Size
+  units: bytes
+  family: database
+  chart_type: line
+  priority: 60036
+  shape: independent
+  labels:
+    database: sim-database-1
+  dimensions:
+  - id: size
+    signal: microsoft_sql_server_database_data_file_size_size
+- id: mssql.database_backup_restore_throughput
+  title: Backup/Restore Throughput
+  units: bytes/s
+  family: database
+  chart_type: line
+  priority: 60037
+  shape: counters
+  labels:
+    database: sim-database-1
+  dimensions:
+  - id: throughput
+    rate_signal: microsoft_sql_server_database_backup_restore_throughput_throughput
+- id: mssql.database_state
+  title: Database State
+  units: state
+  family: database
+  chart_type: line
+  priority: 60038
+  shape: independent
+  labels:
+    database: sim-database-1
+  dimensions:
+  - id: online
+    signal: microsoft_sql_server_database_state_online
+  - id: restoring
+    signal: microsoft_sql_server_database_state_restoring
+  - id: recovering
+    signal: microsoft_sql_server_database_state_recovering
+  - id: pending
+    signal: microsoft_sql_server_database_state_pending
+  - id: suspect
+    signal: microsoft_sql_server_database_state_suspect
+  - id: emergency
+    signal: microsoft_sql_server_database_state_emergency
+  - id: offline
+    signal: microsoft_sql_server_database_state_offline
+- id: mssql.database_read_only
+  title: Database Read-Only Status
+  units: status
+  family: database
+  chart_type: line
+  priority: 60039
+  shape: independent
+  labels:
+    database: sim-database-1
+  dimensions:
+  - id: read_only
+    signal: microsoft_sql_server_database_read_only_read_only
+  - id: read_write
+    signal: microsoft_sql_server_database_read_only_read_write
+- id: mssql.lock_stats_deadlocks
+  title: Deadlocks by Resource Type
+  units: deadlocks/s
+  family: lock
+  chart_type: line
+  priority: 60040
+  shape: counters
+  labels:
+    resource: sim-resource-1
+  dimensions:
+  - id: deadlocks
+    rate_signal: microsoft_sql_server_lock_stats_deadlocks_deadlocks
+- id: mssql.lock_stats_waits
+  title: Lock Waits by Resource Type
+  units: waits/s
+  family: lock
+  chart_type: line
+  priority: 60041
+  shape: counters
+  labels:
+    resource: sim-resource-1
+  dimensions:
+  - id: waits
+    rate_signal: microsoft_sql_server_lock_stats_waits_waits
+- id: mssql.lock_stats_timeouts
+  title: Lock Timeouts by Resource Type
+  units: timeouts/s
+  family: lock
+  chart_type: line
+  priority: 60042
+  shape: counters
+  labels:
+    resource: sim-resource-1
+  dimensions:
+  - id: timeouts
+    rate_signal: microsoft_sql_server_lock_stats_timeouts_timeouts
+- id: mssql.lock_stats_requests
+  title: Lock Requests by Resource Type
+  units: requests/s
+  family: lock
+  chart_type: line
+  priority: 60043
+  shape: counters
+  labels:
+    resource: sim-resource-1
+  dimensions:
+  - id: requests
+    rate_signal: microsoft_sql_server_lock_stats_requests_requests
+- id: mssql.locks_by_resource
+  title: Lock Count by Resource Type
+  units: locks
+  family: locks
+  chart_type: line
+  priority: 60044
+  shape: independent
+  labels:
+    resource: sim-resource-1
+  dimensions:
+  - id: locks
+    signal: microsoft_sql_server_locks_by_resource_locks
+- id: mssql.wait_total_time
+  title: Total Wait Time
+  units: ms
+  family: wait
+  chart_type: line
+  priority: 60045
+  shape: independent
+  labels:
+    wait_type: sim-wait_type-1
+    wait_category: sim-wait_category-1
+  dimensions:
+  - id: duration
+    signal: microsoft_sql_server_wait_total_time_duration
+- id: mssql.wait_resource_time
+  title: Resource Wait Time
+  units: ms
+  family: wait
+  chart_type: line
+  priority: 60046
+  shape: independent
+  labels:
+    wait_type: sim-wait_type-1
+    wait_category: sim-wait_category-1
+  dimensions:
+  - id: duration
+    signal: microsoft_sql_server_wait_resource_time_duration
+- id: mssql.wait_signal_time
+  title: Signal Wait Time
+  units: ms
+  family: wait
+  chart_type: line
+  priority: 60047
+  shape: independent
+  labels:
+    wait_type: sim-wait_type-1
+    wait_category: sim-wait_category-1
+  dimensions:
+  - id: duration
+    signal: microsoft_sql_server_wait_signal_time_duration
+- id: mssql.wait_max_time
+  title: Maximum Wait Time
+  units: ms
+  family: wait
+  chart_type: line
+  priority: 60048
+  shape: independent
+  labels:
+    wait_type: sim-wait_type-1
+    wait_category: sim-wait_category-1
+  dimensions:
+  - id: max_time
+    signal: microsoft_sql_server_wait_max_time_max_time
+- id: mssql.wait_count
+  title: Wait Count
+  units: waits/s
+  family: wait
+  chart_type: line
+  priority: 60049
+  shape: counters
+  labels:
+    wait_type: sim-wait_type-1
+    wait_category: sim-wait_category-1
+  dimensions:
+  - id: waits
+    rate_signal: microsoft_sql_server_wait_count_waits
+- id: mssql.job_status
+  title: Job Status
+  units: status
+  family: job
+  chart_type: line
+  priority: 60050
+  shape: independent
+  labels:
+    job_name: sim-job_name-1
+  dimensions:
+  - id: enabled
+    signal: microsoft_sql_server_job_status_enabled
+  - id: disabled
+    signal: microsoft_sql_server_job_status_disabled
+- id: mssql.job_last_execution_status
+  title: Job Last Execution Status
+  units: status
+  family: job
+  chart_type: line
+  priority: 60051
+  shape: independent
+  labels:
+    job_name: sim-job_name-1
+  dimensions:
+  - id: unknown
+    signal: microsoft_sql_server_job_last_execution_status_unknown
+  - id: ok
+    signal: microsoft_sql_server_job_last_execution_status_ok
+  - id: warning
+    signal: microsoft_sql_server_job_last_execution_status_warning
+  - id: error
+    signal: microsoft_sql_server_job_last_execution_status_error
+  - id: canceled
+    signal: microsoft_sql_server_job_last_execution_status_canceled
+- id: mssql.job_last_execution_duration
+  title: Job Last Execution Duration
+  units: seconds
+  family: job
+  chart_type: line
+  priority: 60052
+  shape: independent
+  labels:
+    job_name: sim-job_name-1
+  dimensions:
+  - id: duration
+    signal: microsoft_sql_server_job_last_execution_duration_duration
+- id: mssql.job_last_execution_age
+  title: Job Last Execution Age
+  units: seconds
+  family: job
+  chart_type: line
+  priority: 60053
+  shape: independent
+  labels:
+    job_name: sim-job_name-1
+  dimensions:
+  - id: age
+    signal: microsoft_sql_server_job_last_execution_age_age
+- id: mssql.job_current_execution_time
+  title: Job Current Execution Time
+  units: seconds
+  family: job
+  chart_type: line
+  priority: 60054
+  shape: independent
+  labels:
+    job_name: sim-job_name-1
+  dimensions:
+  - id: duration
+    signal: microsoft_sql_server_job_current_execution_time_duration
+- id: mssql.replication_status
+  title: Replication Status
+  units: status
+  family: replication
+  chart_type: line
+  priority: 60055
+  shape: independent
+  labels:
+    publisher_db: sim-publisher_db-1
+    publication: sim-publication-1
+  dimensions:
+  - id: started
+    signal: microsoft_sql_server_replication_status_started
+  - id: succeeded
+    signal: microsoft_sql_server_replication_status_succeeded
+  - id: in_progress
+    signal: microsoft_sql_server_replication_status_in_progress
+  - id: idle
+    signal: microsoft_sql_server_replication_status_idle
+  - id: retrying
+    signal: microsoft_sql_server_replication_status_retrying
+  - id: failed
+    signal: microsoft_sql_server_replication_status_failed
+- id: mssql.replication_warning
+  title: Replication Warnings
+  units: flags
+  family: replication
+  chart_type: line
+  priority: 60056
+  shape: independent
+  labels:
+    publisher_db: sim-publisher_db-1
+    publication: sim-publication-1
+  dimensions:
+  - id: expiration
+    signal: microsoft_sql_server_replication_warning_expiration
+  - id: latency
+    signal: microsoft_sql_server_replication_warning_latency
+  - id: merge_expiration
+    signal: microsoft_sql_server_replication_warning_merge_expiration
+  - id: merge_slow_duration
+    signal: microsoft_sql_server_replication_warning_merge_slow_duration
+  - id: merge_fast_duration
+    signal: microsoft_sql_server_replication_warning_merge_fast_duration
+  - id: merge_fast_speed
+    signal: microsoft_sql_server_replication_warning_merge_fast_speed
+  - id: merge_slow_speed
+    signal: microsoft_sql_server_replication_warning_merge_slow_speed
+- id: mssql.replication_latency
+  title: Replication Latency
+  units: seconds
+  family: replication
+  chart_type: line
+  priority: 60057
+  shape: independent
+  labels:
+    publisher_db: sim-publisher_db-1
+    publication: sim-publication-1
+  dimensions:
+  - id: average
+    signal: microsoft_sql_server_replication_latency_average
+  - id: best
+    signal: microsoft_sql_server_replication_latency_best
+  - id: worst
+    signal: microsoft_sql_server_replication_latency_worst
+- id: mssql.replication_subscriptions
+  title: Replication Subscriptions
+  units: subscriptions
+  family: replication
+  chart_type: line
+  priority: 60058
+  shape: independent
+  labels:
+    publisher_db: sim-publisher_db-1
+    publication: sim-publication-1
+  dimensions:
+  - id: total
+    signal: microsoft_sql_server_replication_subscriptions_total
+  - id: agents_running
+    signal: microsoft_sql_server_replication_subscriptions_agents_running
+- id: mssql.ag_sync_health
+  title: Availability Group Synchronization Health
+  units: state
+  family: ag
+  chart_type: line
+  priority: 60059
+  shape: independent
+  labels:
+    ag_name: sim-ag_name-1
+  dimensions:
+  - id: not_healthy
+    signal: microsoft_sql_server_ag_sync_health_not_healthy
+  - id: partially_healthy
+    signal: microsoft_sql_server_ag_sync_health_partially_healthy
+  - id: healthy
+    signal: microsoft_sql_server_ag_sync_health_healthy
+- id: mssql.ag_recovery_health
+  title: Availability Group Recovery Health
+  units: state
+  family: ag
+  chart_type: line
+  priority: 60060
+  shape: independent
+  labels:
+    ag_name: sim-ag_name-1
+  dimensions:
+  - id: primary_online
+    signal: microsoft_sql_server_ag_recovery_health_primary_online
+  - id: primary_in_progress
+    signal: microsoft_sql_server_ag_recovery_health_primary_in_progress
+  - id: secondary_online
+    signal: microsoft_sql_server_ag_recovery_health_secondary_online
+  - id: secondary_in_progress
+    signal: microsoft_sql_server_ag_recovery_health_secondary_in_progress
+- id: mssql.ag_threads
+  title: Availability Group Threads (SQL Server 2019+)
+  units: threads
+  family: ag
+  chart_type: line
+  priority: 60061
+  shape: independent
+  labels:
+    ag_name: sim-ag_name-1
+  dimensions:
+  - id: capture
+    signal: microsoft_sql_server_ag_threads_capture
+  - id: redo
+    signal: microsoft_sql_server_ag_threads_redo
+  - id: parallel_redo
+    signal: microsoft_sql_server_ag_threads_parallel_redo
+- id: mssql.ag_replica_role
+  title: Availability Group Replica Role
+  units: state
+  family: ag
+  chart_type: line
+  priority: 60062
+  shape: independent
+  labels:
+    ag_name: sim-ag_name-1
+    replica_server: sim-replica_server-1
+    availability_mode: sim-availability_mode-1
+    failover_mode: sim-failover_mode-1
+  dimensions:
+  - id: primary
+    signal: microsoft_sql_server_ag_replica_role_primary
+  - id: secondary
+    signal: microsoft_sql_server_ag_replica_role_secondary
+  - id: resolving
+    signal: microsoft_sql_server_ag_replica_role_resolving
+  - id: unknown
+    signal: microsoft_sql_server_ag_replica_role_unknown
+- id: mssql.ag_replica_connected_state
+  title: Availability Group Replica Connected State
+  units: state
+  family: ag
+  chart_type: line
+  priority: 60063
+  shape: independent
+  labels:
+    ag_name: sim-ag_name-1
+    replica_server: sim-replica_server-1
+    availability_mode: sim-availability_mode-1
+    failover_mode: sim-failover_mode-1
+  dimensions:
+  - id: connected
+    signal: microsoft_sql_server_ag_replica_connected_state_connected
+  - id: disconnected
+    signal: microsoft_sql_server_ag_replica_connected_state_disconnected
+  - id: unknown
+    signal: microsoft_sql_server_ag_replica_connected_state_unknown
+- id: mssql.ag_replica_sync_health
+  title: Availability Group Replica Synchronization Health
+  units: state
+  family: ag
+  chart_type: line
+  priority: 60064
+  shape: independent
+  labels:
+    ag_name: sim-ag_name-1
+    replica_server: sim-replica_server-1
+    availability_mode: sim-availability_mode-1
+    failover_mode: sim-failover_mode-1
+  dimensions:
+  - id: not_healthy
+    signal: microsoft_sql_server_ag_replica_sync_health_not_healthy
+  - id: partially_healthy
+    signal: microsoft_sql_server_ag_replica_sync_health_partially_healthy
+  - id: healthy
+    signal: microsoft_sql_server_ag_replica_sync_health_healthy
+- id: mssql.ag_db_sync_state
+  title: AG Database Synchronization State
+  units: state
+  family: ag
+  chart_type: line
+  priority: 60065
+  shape: independent
+  labels:
+    ag_name: sim-ag_name-1
+    replica_server: sim-replica_server-1
+    database: sim-database-1
+  dimensions:
+  - id: not_synchronizing
+    signal: microsoft_sql_server_ag_db_sync_state_not_synchronizing
+  - id: synchronizing
+    signal: microsoft_sql_server_ag_db_sync_state_synchronizing
+  - id: synchronized
+    signal: microsoft_sql_server_ag_db_sync_state_synchronized
+  - id: reverting
+    signal: microsoft_sql_server_ag_db_sync_state_reverting
+  - id: initializing
+    signal: microsoft_sql_server_ag_db_sync_state_initializing
+- id: mssql.ag_db_log_send_queue
+  title: AG Database Log Send Queue Size
+  units: bytes
+  family: ag
+  chart_type: line
+  priority: 60066
+  shape: independent
+  labels:
+    ag_name: sim-ag_name-1
+    replica_server: sim-replica_server-1
+    database: sim-database-1
+  dimensions:
+  - id: queue_size
+    signal: microsoft_sql_server_ag_db_log_send_queue_queue_size
+- id: mssql.ag_db_log_send_rate
+  title: AG Database Log Send Rate
+  units: bytes/s
+  family: ag
+  chart_type: line
+  priority: 60067
+  shape: counters
+  labels:
+    ag_name: sim-ag_name-1
+    replica_server: sim-replica_server-1
+    database: sim-database-1
+  dimensions:
+  - id: send_rate
+    rate_signal: microsoft_sql_server_ag_db_log_send_rate_send_rate
+- id: mssql.ag_db_redo_queue
+  title: AG Database Redo Queue Size
+  units: bytes
+  family: ag
+  chart_type: line
+  priority: 60068
+  shape: independent
+  labels:
+    ag_name: sim-ag_name-1
+    replica_server: sim-replica_server-1
+    database: sim-database-1
+  dimensions:
+  - id: queue_size
+    signal: microsoft_sql_server_ag_db_redo_queue_queue_size
+- id: mssql.ag_db_redo_rate
+  title: AG Database Redo Rate (averaged over active redo time since startup)
+  units: bytes/s
+  family: ag
+  chart_type: line
+  priority: 60069
+  shape: counters
+  labels:
+    ag_name: sim-ag_name-1
+    replica_server: sim-replica_server-1
+    database: sim-database-1
+  dimensions:
+  - id: redo_rate
+    rate_signal: microsoft_sql_server_ag_db_redo_rate_redo_rate
+- id: mssql.ag_db_filestream_send_rate
+  title: AG Database Filestream Send Rate
+  units: bytes/s
+  family: ag
+  chart_type: line
+  priority: 60070
+  shape: counters
+  labels:
+    ag_name: sim-ag_name-1
+    replica_server: sim-replica_server-1
+    database: sim-database-1
+  dimensions:
+  - id: send_rate
+    rate_signal: microsoft_sql_server_ag_db_filestream_send_rate_send_rate
+- id: mssql.ag_db_secondary_lag
+  title: AG Database Secondary Lag (SQL Server 2016+)
+  units: seconds
+  family: ag
+  chart_type: line
+  priority: 60071
+  shape: independent
+  labels:
+    ag_name: sim-ag_name-1
+    replica_server: sim-replica_server-1
+    database: sim-database-1
+  dimensions:
+  - id: lag
+    signal: microsoft_sql_server_ag_db_secondary_lag_lag
+- id: mssql.ag_db_suspended
+  title: AG Database Data Movement Suspended State
+  units: state
+  family: ag
+  chart_type: line
+  priority: 60072
+  shape: independent
+  labels:
+    ag_name: sim-ag_name-1
+    replica_server: sim-replica_server-1
+    database: sim-database-1
+  dimensions:
+  - id: active
+    signal: microsoft_sql_server_ag_db_suspended_active
+  - id: suspended
+    signal: microsoft_sql_server_ag_db_suspended_suspended
+- id: mssql.ag_db_failover_readiness
+  title: AG Database Failover Readiness
+  units: state
+  family: ag
+  chart_type: line
+  priority: 60073
+  shape: independent
+  labels:
+    ag_name: sim-ag_name-1
+    replica_server: sim-replica_server-1
+    database: sim-database-1
+  dimensions:
+  - id: ready
+    signal: microsoft_sql_server_ag_db_failover_readiness_ready
+  - id: not_ready
+    signal: microsoft_sql_server_ag_db_failover_readiness_not_ready
+- id: mssql.ag_db_joined_state
+  title: AG Database Joined State
+  units: state
+  family: ag
+  chart_type: line
+  priority: 60074
+  shape: independent
+  labels:
+    ag_name: sim-ag_name-1
+    replica_server: sim-replica_server-1
+    database: sim-database-1
+  dimensions:
+  - id: joined
+    signal: microsoft_sql_server_ag_db_joined_state_joined
+  - id: not_joined
+    signal: microsoft_sql_server_ag_db_joined_state_not_joined
+- id: mssql.ag_cluster_quorum_state
+  title: WSFC Cluster Quorum State
+  units: state
+  family: ag
+  chart_type: line
+  priority: 60075
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: normal
+    signal: microsoft_sql_server_ag_cluster_quorum_state_normal
+  - id: forced
+    signal: microsoft_sql_server_ag_cluster_quorum_state_forced
+  - id: unknown
+    signal: microsoft_sql_server_ag_cluster_quorum_state_unknown
+- id: mssql.ag_cluster_member_state
+  title: WSFC Cluster Member State
+  units: state
+  family: ag
+  chart_type: line
+  priority: 60076
+  shape: independent
+  labels:
+    cluster_member: sim-cluster_member-1
+  dimensions:
+  - id: up
+    signal: microsoft_sql_server_ag_cluster_member_state_up
+  - id: down
+    signal: microsoft_sql_server_ag_cluster_member_state_down
+- id: mssql.ag_cluster_member_quorum_votes
+  title: WSFC Cluster Member Quorum Votes
+  units: votes
+  family: ag
+  chart_type: line
+  priority: 60077
+  shape: independent
+  labels:
+    cluster_member: sim-cluster_member-1
+  dimensions:
+  - id: votes
+    signal: microsoft_sql_server_ag_cluster_member_quorum_votes_votes
+- id: mssql.ag_page_repair
+  title: AG Automatic Page Repair Events
+  units: repairs
+  family: ag
+  chart_type: line
+  priority: 60078
+  shape: independent
+  labels:
+    database: sim-database-1
+  dimensions:
+  - id: successful
+    signal: microsoft_sql_server_ag_page_repair_successful
+  - id: failed
+    signal: microsoft_sql_server_ag_page_repair_failed

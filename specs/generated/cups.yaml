@@ -1,0 +1,295 @@
+version: 1
+name: cups
+description: CUPS metrics, generated from Netdata's own collector metadata so the contexts, units and
+  dimension names match what a real CUPS node reports. Signals are independent and plausible rather than
+  causally coupled - see scripts/sync-integrations.py.
+signals:
+  cups_dests_state_idle:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cups_dests_state_printing:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cups_dests_state_stopped:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cups_dests_option_total:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cups_dests_option_acceptingjobs:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cups_dests_option_shared:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cups_job_num_pending:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cups_job_num_held:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cups_job_num_processing:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cups_job_size_pending:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cups_job_size_held:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cups_job_size_processing:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cups_destination_job_num_pending:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cups_destination_job_num_held:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cups_destination_job_num_processing:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cups_destination_job_size_pending:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cups_destination_job_size_held:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cups_destination_job_size_processing:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: cups.dests_state
+  title: Destinations by state
+  units: dests
+  family: dests
+  chart_type: stacked
+  priority: 60001
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: idle
+    signal: cups_dests_state_idle
+  - id: printing
+    signal: cups_dests_state_printing
+  - id: stopped
+    signal: cups_dests_state_stopped
+- id: cups.dests_option
+  title: Destinations by option
+  units: dests
+  family: dests
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: total
+    signal: cups_dests_option_total
+  - id: acceptingjobs
+    signal: cups_dests_option_acceptingjobs
+  - id: shared
+    signal: cups_dests_option_shared
+- id: cups.job_num
+  title: Active jobs
+  units: jobs
+  family: job
+  chart_type: stacked
+  priority: 60003
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: pending
+    signal: cups_job_num_pending
+  - id: held
+    signal: cups_job_num_held
+  - id: processing
+    signal: cups_job_num_processing
+- id: cups.job_size
+  title: Active jobs size
+  units: KB
+  family: job
+  chart_type: stacked
+  priority: 60004
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: pending
+    signal: cups_job_size_pending
+  - id: held
+    signal: cups_job_size_held
+  - id: processing
+    signal: cups_job_size_processing
+- id: cups.destination_job_num
+  title: Active jobs of {destination}
+  units: jobs
+  family: destination
+  chart_type: stacked
+  priority: 60005
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: pending
+    signal: cups_destination_job_num_pending
+  - id: held
+    signal: cups_destination_job_num_held
+  - id: processing
+    signal: cups_destination_job_num_processing
+- id: cups.destination_job_size
+  title: Active jobs size of {destination}
+  units: KB
+  family: destination
+  chart_type: stacked
+  priority: 60006
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: pending
+    signal: cups_destination_job_size_pending
+  - id: held
+    signal: cups_destination_job_size_held
+  - id: processing
+    signal: cups_destination_job_size_processing

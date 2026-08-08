@@ -1,0 +1,790 @@
+version: 1
+name: snmp-trap-listener
+description: SNMP trap listener metrics, generated from Netdata's own collector metadata so the contexts,
+  units and dimension names match what a real SNMP trap listener node reports. Signals are independent
+  and plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  snmp_trap_listener_trap_pipeline_received:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  snmp_trap_listener_trap_pipeline_decoded:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  snmp_trap_listener_trap_pipeline_accepted:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  snmp_trap_listener_trap_pipeline_committed:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  snmp_trap_listener_trap_pipeline_dedup_suppressed:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  snmp_trap_listener_trap_pipeline_dropped:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  snmp_trap_listener_trap_pipeline_write_failed:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  snmp_trap_listener_trap_events_state_change:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  snmp_trap_listener_trap_events_config_change:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  snmp_trap_listener_trap_events_security:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  snmp_trap_listener_trap_events_auth:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  snmp_trap_listener_trap_events_license:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  snmp_trap_listener_trap_events_mobility:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  snmp_trap_listener_trap_events_diagnostic:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  snmp_trap_listener_trap_events_unknown:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  snmp_trap_listener_trap_severity_emerg:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  snmp_trap_listener_trap_severity_alert:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  snmp_trap_listener_trap_severity_crit:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  snmp_trap_listener_trap_severity_err:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  snmp_trap_listener_trap_severity_warning:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  snmp_trap_listener_trap_severity_notice:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  snmp_trap_listener_trap_severity_info:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  snmp_trap_listener_trap_severity_debug:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  snmp_trap_listener_trap_errors_unknown_oid:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  snmp_trap_listener_trap_errors_decode_failed:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+  snmp_trap_listener_trap_errors_template_unresolved:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  snmp_trap_listener_trap_errors_malformed_pdu:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  snmp_trap_listener_trap_errors_dropped_allowlist:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+  snmp_trap_listener_trap_errors_rate_limited:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  snmp_trap_listener_trap_errors_auth_failures:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+  snmp_trap_listener_trap_errors_usm_failures:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+  snmp_trap_listener_trap_errors_unknown_engine_id:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  snmp_trap_listener_trap_errors_inform_response_failed:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+  snmp_trap_listener_trap_errors_binary_encoded:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  snmp_trap_listener_trap_errors_profile_load_failed:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+  snmp_trap_listener_trap_errors_journal_write_failed:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+  snmp_trap_listener_trap_errors_otlp_export_failed:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+  snmp_trap_listener_trap_errors_listener_read_failed:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+  snmp_trap_listener_trap_errors_listener_buffer_degraded:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  snmp_trap_listener_trap_dedup_suppressed_suppressed:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  snmp_trap_listener_trap_sources_active:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  snmp_trap_listener_trap_source_attribution_vnode:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  snmp_trap_listener_trap_source_attribution_fallback:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  snmp_trap_listener_trap_source_attribution_ambiguous:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  snmp_trap_listener_trap_source_attribution_failed:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  snmp_trap_listener_trap_source_attribution_overflow_dropped:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  snmp_trap_listener_trap_source_attribution_source_transitions:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  snmp_trap_listener_trap_profile_metric_diagnostics_rule_missed:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  snmp_trap_listener_trap_profile_metric_diagnostics_extraction_failed:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  snmp_trap_listener_trap_profile_metric_diagnostics_attribution_failed:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  snmp_trap_listener_trap_profile_metric_diagnostics_overflow_dropped:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  snmp_trap_listener_trap_profile_metric_diagnostics_source_transitions:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  snmp_trap_listener_trap_source_pipeline_accepted:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  snmp_trap_listener_trap_source_pipeline_committed:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  snmp_trap_listener_trap_source_pipeline_dedup_suppressed:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  snmp_trap_listener_trap_source_pipeline_write_failed:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  snmp_trap_listener_trap_source_errors_unknown_oid:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  snmp_trap_listener_trap_source_errors_template_unresolved:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  snmp_trap_listener_trap_source_errors_profile_load_failed:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+  snmp_trap_listener_trap_source_errors_journal_write_failed:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+  snmp_trap_listener_trap_source_errors_otlp_export_failed:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+  snmp_trap_listener_trap_source_last_seen_seconds_ago:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: snmp.trap.pipeline
+  title: SNMP trap receiver pipeline progress by job
+  units: events/s
+  family: trap.pipeline
+  chart_type: line
+  priority: 60001
+  shape: counters
+  labels:
+    job_name: sim-job_name-1
+  dimensions:
+  - id: received
+    rate_signal: snmp_trap_listener_trap_pipeline_received
+  - id: decoded
+    rate_signal: snmp_trap_listener_trap_pipeline_decoded
+  - id: accepted
+    rate_signal: snmp_trap_listener_trap_pipeline_accepted
+  - id: committed
+    rate_signal: snmp_trap_listener_trap_pipeline_committed
+  - id: dedup_suppressed
+    rate_signal: snmp_trap_listener_trap_pipeline_dedup_suppressed
+  - id: dropped
+    rate_signal: snmp_trap_listener_trap_pipeline_dropped
+  - id: write_failed
+    rate_signal: snmp_trap_listener_trap_pipeline_write_failed
+- id: snmp.trap.events
+  title: SNMP trap events received, categorized by type
+  units: events/s
+  family: trap.events
+  chart_type: stacked
+  priority: 60002
+  shape: counters
+  labels:
+    job_name: sim-job_name-1
+  dimensions:
+  - id: state_change
+    rate_signal: snmp_trap_listener_trap_events_state_change
+  - id: config_change
+    rate_signal: snmp_trap_listener_trap_events_config_change
+  - id: security
+    rate_signal: snmp_trap_listener_trap_events_security
+  - id: auth
+    rate_signal: snmp_trap_listener_trap_events_auth
+  - id: license
+    rate_signal: snmp_trap_listener_trap_events_license
+  - id: mobility
+    rate_signal: snmp_trap_listener_trap_events_mobility
+  - id: diagnostic
+    rate_signal: snmp_trap_listener_trap_events_diagnostic
+  - id: unknown
+    rate_signal: snmp_trap_listener_trap_events_unknown
+- id: snmp.trap.severity
+  title: SNMP trap events received, categorized by severity
+  units: events/s
+  family: trap.severity
+  chart_type: stacked
+  priority: 60003
+  shape: counters
+  labels:
+    job_name: sim-job_name-1
+  dimensions:
+  - id: emerg
+    rate_signal: snmp_trap_listener_trap_severity_emerg
+  - id: alert
+    rate_signal: snmp_trap_listener_trap_severity_alert
+  - id: crit
+    rate_signal: snmp_trap_listener_trap_severity_crit
+  - id: err
+    rate_signal: snmp_trap_listener_trap_severity_err
+  - id: warning
+    rate_signal: snmp_trap_listener_trap_severity_warning
+  - id: notice
+    rate_signal: snmp_trap_listener_trap_severity_notice
+  - id: info
+    rate_signal: snmp_trap_listener_trap_severity_info
+  - id: debug
+    rate_signal: snmp_trap_listener_trap_severity_debug
+- id: snmp.trap.errors
+  title: SNMP trap processing errors by type
+  units: errors/s
+  family: trap.errors
+  chart_type: stacked
+  priority: 60004
+  shape: counters
+  labels:
+    job_name: sim-job_name-1
+  dimensions:
+  - id: unknown_oid
+    rate_signal: snmp_trap_listener_trap_errors_unknown_oid
+  - id: decode_failed
+    rate_signal: snmp_trap_listener_trap_errors_decode_failed
+  - id: template_unresolved
+    rate_signal: snmp_trap_listener_trap_errors_template_unresolved
+  - id: malformed_pdu
+    rate_signal: snmp_trap_listener_trap_errors_malformed_pdu
+  - id: dropped_allowlist
+    rate_signal: snmp_trap_listener_trap_errors_dropped_allowlist
+  - id: rate_limited
+    rate_signal: snmp_trap_listener_trap_errors_rate_limited
+  - id: auth_failures
+    rate_signal: snmp_trap_listener_trap_errors_auth_failures
+  - id: usm_failures
+    rate_signal: snmp_trap_listener_trap_errors_usm_failures
+  - id: unknown_engine_id
+    rate_signal: snmp_trap_listener_trap_errors_unknown_engine_id
+  - id: inform_response_failed
+    rate_signal: snmp_trap_listener_trap_errors_inform_response_failed
+  - id: binary_encoded
+    rate_signal: snmp_trap_listener_trap_errors_binary_encoded
+  - id: profile_load_failed
+    rate_signal: snmp_trap_listener_trap_errors_profile_load_failed
+  - id: journal_write_failed
+    rate_signal: snmp_trap_listener_trap_errors_journal_write_failed
+  - id: otlp_export_failed
+    rate_signal: snmp_trap_listener_trap_errors_otlp_export_failed
+  - id: listener_read_failed
+    rate_signal: snmp_trap_listener_trap_errors_listener_read_failed
+  - id: listener_buffer_degraded
+    rate_signal: snmp_trap_listener_trap_errors_listener_buffer_degraded
+- id: snmp.trap.dedup_suppressed
+  title: Per-second rate of traps suppressed by deduplication (only emitted when dedup is enabled)
+  units: events/s
+  family: trap.dedup
+  chart_type: line
+  priority: 60005
+  shape: counters
+  labels:
+    job_name: sim-job_name-1
+  dimensions:
+  - id: suppressed
+    rate_signal: snmp_trap_listener_trap_dedup_suppressed_suppressed
+- id: snmp.trap.sources
+  title: Active source metric identities tracked by this listener job
+  units: sources
+  family: trap.sources
+  chart_type: line
+  priority: 60006
+  shape: independent
+  labels:
+    job_name: sim-job_name-1
+  dimensions:
+  - id: active
+    signal: snmp_trap_listener_trap_sources_active
+- id: snmp.trap.source_attribution
+  title: Source attribution diagnostics for built-in source receiver metrics
+  units: events/s
+  family: trap.source
+  chart_type: stacked
+  priority: 60007
+  shape: counters
+  labels:
+    job_name: sim-job_name-1
+  dimensions:
+  - id: vnode
+    rate_signal: snmp_trap_listener_trap_source_attribution_vnode
+  - id: fallback
+    rate_signal: snmp_trap_listener_trap_source_attribution_fallback
+  - id: ambiguous
+    rate_signal: snmp_trap_listener_trap_source_attribution_ambiguous
+  - id: failed
+    rate_signal: snmp_trap_listener_trap_source_attribution_failed
+  - id: overflow_dropped
+    rate_signal: snmp_trap_listener_trap_source_attribution_overflow_dropped
+  - id: source_transitions
+    rate_signal: snmp_trap_listener_trap_source_attribution_source_transitions
+- id: snmp.trap.profile_metric_diagnostics
+  title: 'Profile-defined trap metric extraction and attribution diagnostics (only emitted when profile_metrics
+    selects '
+  units: events/s
+  family: trap.profile
+  chart_type: stacked
+  priority: 60008
+  shape: counters
+  labels:
+    job_name: sim-job_name-1
+  dimensions:
+  - id: rule_missed
+    rate_signal: snmp_trap_listener_trap_profile_metric_diagnostics_rule_missed
+  - id: extraction_failed
+    rate_signal: snmp_trap_listener_trap_profile_metric_diagnostics_extraction_failed
+  - id: attribution_failed
+    rate_signal: snmp_trap_listener_trap_profile_metric_diagnostics_attribution_failed
+  - id: overflow_dropped
+    rate_signal: snmp_trap_listener_trap_profile_metric_diagnostics_overflow_dropped
+  - id: source_transitions
+    rate_signal: snmp_trap_listener_trap_profile_metric_diagnostics_source_transitions
+- id: snmp.trap.source_pipeline
+  title: Source-attributed receiver pipeline progress
+  units: events/s
+  family: trap.source
+  chart_type: line
+  priority: 60009
+  shape: counters
+  labels:
+    job_name: sim-job_name-1
+    source_id: sim-source_id-1
+    source_kind: sim-source_kind-1
+  dimensions:
+  - id: accepted
+    rate_signal: snmp_trap_listener_trap_source_pipeline_accepted
+  - id: committed
+    rate_signal: snmp_trap_listener_trap_source_pipeline_committed
+  - id: dedup_suppressed
+    rate_signal: snmp_trap_listener_trap_source_pipeline_dedup_suppressed
+  - id: write_failed
+    rate_signal: snmp_trap_listener_trap_source_pipeline_write_failed
+- id: snmp.trap.source_errors
+  title: Source-attributed processing errors
+  units: errors/s
+  family: trap.source
+  chart_type: stacked
+  priority: 60010
+  shape: counters
+  labels:
+    job_name: sim-job_name-1
+    source_id: sim-source_id-1
+    source_kind: sim-source_kind-1
+  dimensions:
+  - id: unknown_oid
+    rate_signal: snmp_trap_listener_trap_source_errors_unknown_oid
+  - id: template_unresolved
+    rate_signal: snmp_trap_listener_trap_source_errors_template_unresolved
+  - id: profile_load_failed
+    rate_signal: snmp_trap_listener_trap_source_errors_profile_load_failed
+  - id: journal_write_failed
+    rate_signal: snmp_trap_listener_trap_source_errors_journal_write_failed
+  - id: otlp_export_failed
+    rate_signal: snmp_trap_listener_trap_source_errors_otlp_export_failed
+- id: snmp.trap.source_last_seen
+  title: Time since this source last produced an accepted trap
+  units: seconds
+  family: trap.source
+  chart_type: line
+  priority: 60011
+  shape: independent
+  labels:
+    job_name: sim-job_name-1
+    source_id: sim-source_id-1
+    source_kind: sim-source_kind-1
+  dimensions:
+  - id: seconds_ago
+    signal: snmp_trap_listener_trap_source_last_seen_seconds_ago

@@ -1,0 +1,188 @@
+version: 1
+name: sctp-statistics
+description: SCTP Statistics metrics, generated from Netdata's own collector metadata so the contexts,
+  units and dimension names match what a real SCTP Statistics node reports. Signals are independent and
+  plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  sctp_statistics_established_established:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  sctp_statistics_transitions_active:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  sctp_statistics_transitions_passive:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  sctp_statistics_transitions_aborted:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  sctp_statistics_transitions_shutdown:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  sctp_statistics_packets_received:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  sctp_statistics_packets_sent:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  sctp_statistics_packet_errors_invalid:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  sctp_statistics_packet_errors_checksum:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  sctp_statistics_fragmentation_reassembled:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  sctp_statistics_fragmentation_fragmented:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: sctp.established
+  title: SCTP current total number of established associations
+  units: associations
+  family: established
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: established
+    signal: sctp_statistics_established_established
+- id: sctp.transitions
+  title: SCTP Association Transitions
+  units: transitions/s
+  family: transitions
+  chart_type: line
+  priority: 60002
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: active
+    rate_signal: sctp_statistics_transitions_active
+  - id: passive
+    rate_signal: sctp_statistics_transitions_passive
+  - id: aborted
+    rate_signal: sctp_statistics_transitions_aborted
+  - id: shutdown
+    rate_signal: sctp_statistics_transitions_shutdown
+- id: sctp.packets
+  title: SCTP Packets
+  units: packets/s
+  family: packets
+  chart_type: line
+  priority: 60003
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: received
+    rate_signal: sctp_statistics_packets_received
+  - id: sent
+    rate_signal: sctp_statistics_packets_sent
+- id: sctp.packet_errors
+  title: SCTP Packet Errors
+  units: packets/s
+  family: packet
+  chart_type: line
+  priority: 60004
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: invalid
+    rate_signal: sctp_statistics_packet_errors_invalid
+  - id: checksum
+    rate_signal: sctp_statistics_packet_errors_checksum
+- id: sctp.fragmentation
+  title: SCTP Fragmentation
+  units: packets/s
+  family: fragmentation
+  chart_type: line
+  priority: 60005
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: reassembled
+    rate_signal: sctp_statistics_fragmentation_reassembled
+  - id: fragmented
+    rate_signal: sctp_statistics_fragmentation_fragmented

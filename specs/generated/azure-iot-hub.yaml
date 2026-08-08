@@ -1,0 +1,1404 @@
+version: 1
+name: azure-iot-hub
+description: Azure IoT Hub metrics, generated from Netdata's own collector metadata so the contexts, units
+  and dimension names match what a real Azure IoT Hub node reports. Signals are independent and plausible
+  rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  azure_iot_hub_iot_hub_c2d_commands_completed:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_iot_hub_iot_hub_c2d_commands_abandoned:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_iot_hub_iot_hub_c2d_commands_rejected:
+    base: 0.0
+    min: 0.0
+    max: 2000000.0
+  azure_iot_hub_iot_hub_c2d_messages_expired_expired:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_iot_hub_iot_hub_c2d_methods_successful:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_iot_hub_iot_hub_c2d_methods_failed:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  azure_iot_hub_iot_hub_c2d_methods_request_size_average:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_iot_hub_iot_hub_c2d_methods_response_size_average:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_iot_hub_iot_hub_c2d_twin_reads_successful:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_iot_hub_iot_hub_c2d_twin_reads_failed:
+    base: 0.0
+    min: 0.0
+    max: 5000000.0
+  azure_iot_hub_iot_hub_c2d_twin_read_size_average:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_iot_hub_iot_hub_c2d_twin_updates_successful:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_iot_hub_iot_hub_c2d_twin_updates_failed:
+    base: 0.0
+    min: 0.0
+    max: 5000000.0
+  azure_iot_hub_iot_hub_c2d_twin_update_size_average:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_iot_hub_iot_hub_d2c_telemetry_attempted:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_iot_hub_iot_hub_d2c_telemetry_sent:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_iot_hub_iot_hub_d2c_telemetry_throttle_throttled:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_iot_hub_iot_hub_d2c_twin_reads_successful:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_iot_hub_iot_hub_d2c_twin_reads_failed:
+    base: 0.0
+    min: 0.0
+    max: 5000000.0
+  azure_iot_hub_iot_hub_d2c_twin_read_size_average:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_iot_hub_iot_hub_d2c_twin_updates_successful:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_iot_hub_iot_hub_d2c_twin_updates_failed:
+    base: 0.0
+    min: 0.0
+    max: 5000000.0
+  azure_iot_hub_iot_hub_d2c_twin_update_size_average:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_iot_hub_iot_hub_routing_deliveries_delivered:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_iot_hub_iot_hub_routing_deliveries_dropped:
+    base: 0.0
+    min: 0.0
+    max: 2000000.0
+  azure_iot_hub_iot_hub_routing_deliveries_orphaned:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_iot_hub_iot_hub_routing_deliveries_invalid:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_iot_hub_iot_hub_routing_deliveries_fallback:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_iot_hub_iot_hub_routing_delivery_by_endpoint_builtin_events:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_iot_hub_iot_hub_routing_delivery_by_endpoint_event_hubs:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_iot_hub_iot_hub_routing_delivery_by_endpoint_service_bus_queues:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_iot_hub_iot_hub_routing_delivery_by_endpoint_service_bus_topics:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_iot_hub_iot_hub_routing_delivery_by_endpoint_storage:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_iot_hub_iot_hub_routing_storage_blobs_blobs:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_iot_hub_iot_hub_routing_storage_data_bytes:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_iot_hub_iot_hub_routing_latency_builtin_events:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_iot_hub_iot_hub_routing_latency_event_hubs:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_iot_hub_iot_hub_routing_latency_service_bus_queues:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_iot_hub_iot_hub_routing_latency_service_bus_topics:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_iot_hub_iot_hub_routing_latency_storage:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_iot_hub_iot_hub_routing_deliveries_preview_deliveries:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_iot_hub_iot_hub_routing_delivery_latency_preview_average:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_iot_hub_iot_hub_routing_data_size_preview_bytes:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_iot_hub_iot_hub_connections_successful:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_iot_hub_iot_hub_connected_devices_connected:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_iot_hub_iot_hub_total_devices_total:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_iot_hub_iot_hub_daily_message_quota_used:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_iot_hub_iot_hub_data_usage_data_usage:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_iot_hub_iot_hub_data_usage_data_usage_v2:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_iot_hub_iot_hub_configurations_operations:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_iot_hub_iot_hub_event_grid_deliveries_deliveries:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_iot_hub_iot_hub_event_grid_latency_average:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_iot_hub_iot_hub_jobs_status_completed:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_iot_hub_iot_hub_jobs_status_failed:
+    base: 0.0
+    min: 0.0
+    max: 5000000.0
+  azure_iot_hub_iot_hub_jobs_cancel_successful:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_iot_hub_iot_hub_jobs_cancel_failed:
+    base: 0.0
+    min: 0.0
+    max: 5000000.0
+  azure_iot_hub_iot_hub_jobs_create_method_successful:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_iot_hub_iot_hub_jobs_create_method_failed:
+    base: 0.0
+    min: 0.0
+    max: 5000000.0
+  azure_iot_hub_iot_hub_jobs_create_twin_update_successful:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_iot_hub_iot_hub_jobs_create_twin_update_failed:
+    base: 0.0
+    min: 0.0
+    max: 5000000.0
+  azure_iot_hub_iot_hub_jobs_list_successful:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_iot_hub_iot_hub_jobs_list_failed:
+    base: 0.0
+    min: 0.0
+    max: 5000000.0
+  azure_iot_hub_iot_hub_jobs_query_successful:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_iot_hub_iot_hub_jobs_query_failed:
+    base: 0.0
+    min: 0.0
+    max: 5000000.0
+  azure_iot_hub_iot_hub_twin_queries_successful:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_iot_hub_iot_hub_twin_queries_failed:
+    base: 0.0
+    min: 0.0
+    max: 5000000.0
+  azure_iot_hub_iot_hub_twin_queries_result_size_average:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: azure_monitor.iot_hub.c2d_commands
+  title: Azure IoT Hub Cloud-to-Device Commands
+  units: messages/s
+  family: iot
+  chart_type: line
+  priority: 60001
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: completed
+    rate_signal: azure_iot_hub_iot_hub_c2d_commands_completed
+  - id: abandoned
+    rate_signal: azure_iot_hub_iot_hub_c2d_commands_abandoned
+  - id: rejected
+    rate_signal: azure_iot_hub_iot_hub_c2d_commands_rejected
+- id: azure_monitor.iot_hub.c2d_messages_expired
+  title: Azure IoT Hub Cloud-to-Device Messages Expired
+  units: messages/s
+  family: iot
+  chart_type: line
+  priority: 60002
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: expired
+    rate_signal: azure_iot_hub_iot_hub_c2d_messages_expired_expired
+- id: azure_monitor.iot_hub.c2d_methods
+  title: Azure IoT Hub Direct Method Invocations
+  units: invocations/s
+  family: iot
+  chart_type: line
+  priority: 60003
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: successful
+    rate_signal: azure_iot_hub_iot_hub_c2d_methods_successful
+  - id: failed
+    rate_signal: azure_iot_hub_iot_hub_c2d_methods_failed
+- id: azure_monitor.iot_hub.c2d_methods_request_size
+  title: Azure IoT Hub Direct Method Request Size
+  units: bytes
+  family: iot
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_iot_hub_iot_hub_c2d_methods_request_size_average
+- id: azure_monitor.iot_hub.c2d_methods_response_size
+  title: Azure IoT Hub Direct Method Response Size
+  units: bytes
+  family: iot
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_iot_hub_iot_hub_c2d_methods_response_size_average
+- id: azure_monitor.iot_hub.c2d_twin_reads
+  title: Azure IoT Hub Backend Twin Reads
+  units: operations/s
+  family: iot
+  chart_type: line
+  priority: 60006
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: successful
+    rate_signal: azure_iot_hub_iot_hub_c2d_twin_reads_successful
+  - id: failed
+    rate_signal: azure_iot_hub_iot_hub_c2d_twin_reads_failed
+- id: azure_monitor.iot_hub.c2d_twin_read_size
+  title: Azure IoT Hub Backend Twin Read Size
+  units: bytes
+  family: iot
+  chart_type: line
+  priority: 60007
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_iot_hub_iot_hub_c2d_twin_read_size_average
+- id: azure_monitor.iot_hub.c2d_twin_updates
+  title: Azure IoT Hub Backend Twin Updates
+  units: operations/s
+  family: iot
+  chart_type: line
+  priority: 60008
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: successful
+    rate_signal: azure_iot_hub_iot_hub_c2d_twin_updates_successful
+  - id: failed
+    rate_signal: azure_iot_hub_iot_hub_c2d_twin_updates_failed
+- id: azure_monitor.iot_hub.c2d_twin_update_size
+  title: Azure IoT Hub Backend Twin Update Size
+  units: bytes
+  family: iot
+  chart_type: line
+  priority: 60009
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_iot_hub_iot_hub_c2d_twin_update_size_average
+- id: azure_monitor.iot_hub.d2c_telemetry
+  title: Azure IoT Hub Device Telemetry
+  units: messages/s
+  family: iot
+  chart_type: line
+  priority: 60010
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: attempted
+    rate_signal: azure_iot_hub_iot_hub_d2c_telemetry_attempted
+  - id: sent
+    rate_signal: azure_iot_hub_iot_hub_d2c_telemetry_sent
+- id: azure_monitor.iot_hub.d2c_telemetry_throttle
+  title: Azure IoT Hub Telemetry Throttling Errors
+  units: errors/s
+  family: iot
+  chart_type: line
+  priority: 60011
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: throttled
+    rate_signal: azure_iot_hub_iot_hub_d2c_telemetry_throttle_throttled
+- id: azure_monitor.iot_hub.d2c_twin_reads
+  title: Azure IoT Hub Device Twin Reads
+  units: operations/s
+  family: iot
+  chart_type: line
+  priority: 60012
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: successful
+    rate_signal: azure_iot_hub_iot_hub_d2c_twin_reads_successful
+  - id: failed
+    rate_signal: azure_iot_hub_iot_hub_d2c_twin_reads_failed
+- id: azure_monitor.iot_hub.d2c_twin_read_size
+  title: Azure IoT Hub Device Twin Read Size
+  units: bytes
+  family: iot
+  chart_type: line
+  priority: 60013
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_iot_hub_iot_hub_d2c_twin_read_size_average
+- id: azure_monitor.iot_hub.d2c_twin_updates
+  title: Azure IoT Hub Device Twin Updates
+  units: operations/s
+  family: iot
+  chart_type: line
+  priority: 60014
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: successful
+    rate_signal: azure_iot_hub_iot_hub_d2c_twin_updates_successful
+  - id: failed
+    rate_signal: azure_iot_hub_iot_hub_d2c_twin_updates_failed
+- id: azure_monitor.iot_hub.d2c_twin_update_size
+  title: Azure IoT Hub Device Twin Update Size
+  units: bytes
+  family: iot
+  chart_type: line
+  priority: 60015
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_iot_hub_iot_hub_d2c_twin_update_size_average
+- id: azure_monitor.iot_hub.routing_deliveries
+  title: Azure IoT Hub Routing Message Deliveries
+  units: messages/s
+  family: iot
+  chart_type: line
+  priority: 60016
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: delivered
+    rate_signal: azure_iot_hub_iot_hub_routing_deliveries_delivered
+  - id: dropped
+    rate_signal: azure_iot_hub_iot_hub_routing_deliveries_dropped
+  - id: orphaned
+    rate_signal: azure_iot_hub_iot_hub_routing_deliveries_orphaned
+  - id: invalid
+    rate_signal: azure_iot_hub_iot_hub_routing_deliveries_invalid
+  - id: fallback
+    rate_signal: azure_iot_hub_iot_hub_routing_deliveries_fallback
+- id: azure_monitor.iot_hub.routing_delivery_by_endpoint
+  title: Azure IoT Hub Routing Deliveries by Endpoint
+  units: messages/s
+  family: iot
+  chart_type: line
+  priority: 60017
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: builtin_events
+    rate_signal: azure_iot_hub_iot_hub_routing_delivery_by_endpoint_builtin_events
+  - id: event_hubs
+    rate_signal: azure_iot_hub_iot_hub_routing_delivery_by_endpoint_event_hubs
+  - id: service_bus_queues
+    rate_signal: azure_iot_hub_iot_hub_routing_delivery_by_endpoint_service_bus_queues
+  - id: service_bus_topics
+    rate_signal: azure_iot_hub_iot_hub_routing_delivery_by_endpoint_service_bus_topics
+  - id: storage
+    rate_signal: azure_iot_hub_iot_hub_routing_delivery_by_endpoint_storage
+- id: azure_monitor.iot_hub.routing_storage_blobs
+  title: Azure IoT Hub Routing Blobs Delivered to Storage
+  units: blobs/s
+  family: iot
+  chart_type: line
+  priority: 60018
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: blobs
+    rate_signal: azure_iot_hub_iot_hub_routing_storage_blobs_blobs
+- id: azure_monitor.iot_hub.routing_storage_data
+  title: Azure IoT Hub Routing Data Delivered to Storage
+  units: bytes/s
+  family: iot
+  chart_type: line
+  priority: 60019
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: bytes
+    rate_signal: azure_iot_hub_iot_hub_routing_storage_data_bytes
+- id: azure_monitor.iot_hub.routing_latency
+  title: Azure IoT Hub Routing Latency
+  units: milliseconds
+  family: iot
+  chart_type: line
+  priority: 60020
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: builtin_events
+    signal: azure_iot_hub_iot_hub_routing_latency_builtin_events
+  - id: event_hubs
+    signal: azure_iot_hub_iot_hub_routing_latency_event_hubs
+  - id: service_bus_queues
+    signal: azure_iot_hub_iot_hub_routing_latency_service_bus_queues
+  - id: service_bus_topics
+    signal: azure_iot_hub_iot_hub_routing_latency_service_bus_topics
+  - id: storage
+    signal: azure_iot_hub_iot_hub_routing_latency_storage
+- id: azure_monitor.iot_hub.routing_deliveries_preview
+  title: Azure IoT Hub Routing Deliveries (Preview)
+  units: deliveries/s
+  family: iot
+  chart_type: line
+  priority: 60021
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: deliveries
+    rate_signal: azure_iot_hub_iot_hub_routing_deliveries_preview_deliveries
+- id: azure_monitor.iot_hub.routing_delivery_latency_preview
+  title: Azure IoT Hub Routing Delivery Latency (Preview)
+  units: milliseconds
+  family: iot
+  chart_type: line
+  priority: 60022
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_iot_hub_iot_hub_routing_delivery_latency_preview_average
+- id: azure_monitor.iot_hub.routing_data_size_preview
+  title: Azure IoT Hub Routing Delivery Message Size (Preview)
+  units: bytes/s
+  family: iot
+  chart_type: line
+  priority: 60023
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: bytes
+    rate_signal: azure_iot_hub_iot_hub_routing_data_size_preview_bytes
+- id: azure_monitor.iot_hub.connections
+  title: Azure IoT Hub Successful Connections
+  units: connections/s
+  family: iot
+  chart_type: line
+  priority: 60024
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: successful
+    rate_signal: azure_iot_hub_iot_hub_connections_successful
+- id: azure_monitor.iot_hub.connected_devices
+  title: Azure IoT Hub Connected Devices
+  units: devices
+  family: iot
+  chart_type: line
+  priority: 60025
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: connected
+    signal: azure_iot_hub_iot_hub_connected_devices_connected
+- id: azure_monitor.iot_hub.total_devices
+  title: Azure IoT Hub Total Devices
+  units: devices
+  family: iot
+  chart_type: line
+  priority: 60026
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: total
+    signal: azure_iot_hub_iot_hub_total_devices_total
+- id: azure_monitor.iot_hub.daily_message_quota
+  title: Azure IoT Hub Daily Message Quota Used
+  units: messages
+  family: iot
+  chart_type: line
+  priority: 60027
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: used
+    signal: azure_iot_hub_iot_hub_daily_message_quota_used
+- id: azure_monitor.iot_hub.data_usage
+  title: Azure IoT Hub Device Data Usage
+  units: bytes/s
+  family: iot
+  chart_type: line
+  priority: 60028
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: data_usage
+    rate_signal: azure_iot_hub_iot_hub_data_usage_data_usage
+  - id: data_usage_v2
+    rate_signal: azure_iot_hub_iot_hub_data_usage_data_usage_v2
+- id: azure_monitor.iot_hub.configurations
+  title: Azure IoT Hub Configuration Operations
+  units: operations/s
+  family: iot
+  chart_type: line
+  priority: 60029
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: operations
+    rate_signal: azure_iot_hub_iot_hub_configurations_operations
+- id: azure_monitor.iot_hub.event_grid_deliveries
+  title: Azure IoT Hub Event Grid Deliveries
+  units: deliveries/s
+  family: iot
+  chart_type: line
+  priority: 60030
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: deliveries
+    rate_signal: azure_iot_hub_iot_hub_event_grid_deliveries_deliveries
+- id: azure_monitor.iot_hub.event_grid_latency
+  title: Azure IoT Hub Event Grid Latency
+  units: milliseconds
+  family: iot
+  chart_type: line
+  priority: 60031
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_iot_hub_iot_hub_event_grid_latency_average
+- id: azure_monitor.iot_hub.jobs_status
+  title: Azure IoT Hub Job Completions
+  units: operations/s
+  family: iot
+  chart_type: line
+  priority: 60032
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: completed
+    rate_signal: azure_iot_hub_iot_hub_jobs_status_completed
+  - id: failed
+    rate_signal: azure_iot_hub_iot_hub_jobs_status_failed
+- id: azure_monitor.iot_hub.jobs_cancel
+  title: Azure IoT Hub Job Cancellations
+  units: operations/s
+  family: iot
+  chart_type: line
+  priority: 60033
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: successful
+    rate_signal: azure_iot_hub_iot_hub_jobs_cancel_successful
+  - id: failed
+    rate_signal: azure_iot_hub_iot_hub_jobs_cancel_failed
+- id: azure_monitor.iot_hub.jobs_create_method
+  title: Azure IoT Hub Direct Method Job Creations
+  units: operations/s
+  family: iot
+  chart_type: line
+  priority: 60034
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: successful
+    rate_signal: azure_iot_hub_iot_hub_jobs_create_method_successful
+  - id: failed
+    rate_signal: azure_iot_hub_iot_hub_jobs_create_method_failed
+- id: azure_monitor.iot_hub.jobs_create_twin_update
+  title: Azure IoT Hub Twin Update Job Creations
+  units: operations/s
+  family: iot
+  chart_type: line
+  priority: 60035
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: successful
+    rate_signal: azure_iot_hub_iot_hub_jobs_create_twin_update_successful
+  - id: failed
+    rate_signal: azure_iot_hub_iot_hub_jobs_create_twin_update_failed
+- id: azure_monitor.iot_hub.jobs_list
+  title: Azure IoT Hub Job List Calls
+  units: operations/s
+  family: iot
+  chart_type: line
+  priority: 60036
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: successful
+    rate_signal: azure_iot_hub_iot_hub_jobs_list_successful
+  - id: failed
+    rate_signal: azure_iot_hub_iot_hub_jobs_list_failed
+- id: azure_monitor.iot_hub.jobs_query
+  title: Azure IoT Hub Job Queries
+  units: operations/s
+  family: iot
+  chart_type: line
+  priority: 60037
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: successful
+    rate_signal: azure_iot_hub_iot_hub_jobs_query_successful
+  - id: failed
+    rate_signal: azure_iot_hub_iot_hub_jobs_query_failed
+- id: azure_monitor.iot_hub.twin_queries
+  title: Azure IoT Hub Twin Queries
+  units: queries/s
+  family: iot
+  chart_type: line
+  priority: 60038
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: successful
+    rate_signal: azure_iot_hub_iot_hub_twin_queries_successful
+  - id: failed
+    rate_signal: azure_iot_hub_iot_hub_twin_queries_failed
+- id: azure_monitor.iot_hub.twin_queries_result_size
+  title: Azure IoT Hub Twin Query Result Size
+  units: bytes
+  family: iot
+  chart_type: line
+  priority: 60039
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_iot_hub_iot_hub_twin_queries_result_size_average

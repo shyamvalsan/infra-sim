@@ -1,0 +1,1112 @@
+version: 1
+name: azure-cache-for-redis
+description: Azure Cache for Redis metrics, generated from Netdata's own collector metadata so the contexts,
+  units and dimension names match what a real Azure Cache for Redis node reports. Signals are independent
+  and plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  azure_cache_for_redis_redis_cache_cache_hits_hits:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_cache_for_redis_redis_cache_cache_hits_misses:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_cache_for_redis_redis_cache_throughput_read:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_cache_for_redis_redis_cache_throughput_write:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_cache_for_redis_redis_cache_server_load_maximum:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_cache_for_redis_redis_cache_cpu_maximum:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_cache_for_redis_redis_cache_memory_usage_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_cache_for_redis_redis_cache_memory_usage_rss:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_cache_for_redis_redis_cache_memory_utilization_maximum:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_cache_for_redis_redis_cache_clients_maximum:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_cache_for_redis_redis_cache_operations_maximum:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_cache_for_redis_redis_cache_commands_total:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_cache_for_redis_redis_cache_command_types_get:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_cache_for_redis_redis_cache_command_types_set:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_cache_for_redis_redis_cache_latency_average:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_cache_for_redis_redis_cache_key_events_evicted:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_cache_for_redis_redis_cache_key_events_expired:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_cache_for_redis_redis_cache_total_keys_maximum:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_cache_for_redis_redis_cache_errors_maximum:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  azure_cache_for_redis_redis_cache_miss_rate_miss_rate:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_cache_for_redis_redis_cache_latency_p99_p99:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_cache_for_redis_redis_cache_connection_rate_created:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_cache_for_redis_redis_cache_connection_rate_closed:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_cache_for_redis_redis_cache_aad_clients_maximum:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_cache_for_redis_redis_cache_instance_cache_hits_hits:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_cache_for_redis_redis_cache_instance_cache_hits_misses:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_cache_for_redis_redis_cache_instance_throughput_read:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_cache_for_redis_redis_cache_instance_throughput_write:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_cache_for_redis_redis_cache_instance_server_load_server_load:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_cache_for_redis_redis_cache_instance_server_load_cpu:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_cache_for_redis_redis_cache_instance_memory_usage_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_cache_for_redis_redis_cache_instance_memory_usage_rss:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_cache_for_redis_redis_cache_instance_memory_utilization_maximum:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_cache_for_redis_redis_cache_instance_clients_maximum:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_cache_for_redis_redis_cache_instance_operations_maximum:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_cache_for_redis_redis_cache_instance_commands_total:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_cache_for_redis_redis_cache_instance_commands_get:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_cache_for_redis_redis_cache_instance_commands_set:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_cache_for_redis_redis_cache_instance_total_keys_maximum:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_cache_for_redis_redis_cache_instance_key_events_evicted:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_cache_for_redis_redis_cache_instance_key_events_expired:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_cache_for_redis_redis_cache_geo_replication_lag_average:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_cache_for_redis_redis_cache_geo_replication_sync_offset_average:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_cache_for_redis_redis_cache_geo_replication_sync_events_started:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_cache_for_redis_redis_cache_geo_replication_sync_events_finished:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_cache_for_redis_redis_cache_geo_replication_health_average:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+contexts:
+- id: azure_monitor.redis_cache.cache_hits
+  title: Azure Cache for Redis Hit Rate
+  units: operations/s
+  family: redis
+  chart_type: line
+  priority: 60001
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: hits
+    rate_signal: azure_cache_for_redis_redis_cache_cache_hits_hits
+  - id: misses
+    rate_signal: azure_cache_for_redis_redis_cache_cache_hits_misses
+- id: azure_monitor.redis_cache.throughput
+  title: Azure Cache for Redis Throughput
+  units: bytes/s
+  family: redis
+  chart_type: line
+  priority: 60002
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: read
+    rate_signal: azure_cache_for_redis_redis_cache_throughput_read
+  - id: write
+    rate_signal: azure_cache_for_redis_redis_cache_throughput_write
+- id: azure_monitor.redis_cache.server_load
+  title: Azure Cache for Redis Server Load
+  units: percentage
+  family: redis
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: maximum
+    signal: azure_cache_for_redis_redis_cache_server_load_maximum
+- id: azure_monitor.redis_cache.cpu
+  title: Azure Cache for Redis CPU Utilization
+  units: percentage
+  family: redis
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: maximum
+    signal: azure_cache_for_redis_redis_cache_cpu_maximum
+- id: azure_monitor.redis_cache.memory_usage
+  title: Azure Cache for Redis Memory Usage
+  units: bytes
+  family: redis
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: used
+    signal: azure_cache_for_redis_redis_cache_memory_usage_used
+  - id: rss
+    signal: azure_cache_for_redis_redis_cache_memory_usage_rss
+- id: azure_monitor.redis_cache.memory_utilization
+  title: Azure Cache for Redis Memory Utilization
+  units: percentage
+  family: redis
+  chart_type: line
+  priority: 60006
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: maximum
+    signal: azure_cache_for_redis_redis_cache_memory_utilization_maximum
+- id: azure_monitor.redis_cache.clients
+  title: Azure Cache for Redis Connected Clients
+  units: clients
+  family: redis
+  chart_type: line
+  priority: 60007
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: maximum
+    signal: azure_cache_for_redis_redis_cache_clients_maximum
+- id: azure_monitor.redis_cache.operations
+  title: Azure Cache for Redis Operations
+  units: operations/s
+  family: redis
+  chart_type: line
+  priority: 60008
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: maximum
+    rate_signal: azure_cache_for_redis_redis_cache_operations_maximum
+- id: azure_monitor.redis_cache.commands
+  title: Azure Cache for Redis Commands Processed
+  units: commands/s
+  family: redis
+  chart_type: line
+  priority: 60009
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: total
+    rate_signal: azure_cache_for_redis_redis_cache_commands_total
+- id: azure_monitor.redis_cache.command_types
+  title: Azure Cache for Redis Command Types
+  units: commands/s
+  family: redis
+  chart_type: line
+  priority: 60010
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: get
+    rate_signal: azure_cache_for_redis_redis_cache_command_types_get
+  - id: set
+    rate_signal: azure_cache_for_redis_redis_cache_command_types_set
+- id: azure_monitor.redis_cache.latency
+  title: Azure Cache for Redis Latency
+  units: microseconds
+  family: redis
+  chart_type: line
+  priority: 60011
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_cache_for_redis_redis_cache_latency_average
+- id: azure_monitor.redis_cache.key_events
+  title: Azure Cache for Redis Key Events
+  units: keys/s
+  family: redis
+  chart_type: line
+  priority: 60012
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: evicted
+    rate_signal: azure_cache_for_redis_redis_cache_key_events_evicted
+  - id: expired
+    rate_signal: azure_cache_for_redis_redis_cache_key_events_expired
+- id: azure_monitor.redis_cache.total_keys
+  title: Azure Cache for Redis Total Keys
+  units: keys
+  family: redis
+  chart_type: line
+  priority: 60013
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: maximum
+    signal: azure_cache_for_redis_redis_cache_total_keys_maximum
+- id: azure_monitor.redis_cache.errors
+  title: Azure Cache for Redis Errors
+  units: errors
+  family: redis
+  chart_type: line
+  priority: 60014
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: maximum
+    signal: azure_cache_for_redis_redis_cache_errors_maximum
+- id: azure_monitor.redis_cache.miss_rate
+  title: Azure Cache for Redis Miss Rate
+  units: percentage
+  family: redis
+  chart_type: line
+  priority: 60015
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: miss_rate
+    signal: azure_cache_for_redis_redis_cache_miss_rate_miss_rate
+- id: azure_monitor.redis_cache.latency_p99
+  title: Azure Cache for Redis P99 Latency
+  units: microseconds
+  family: redis
+  chart_type: line
+  priority: 60016
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: p99
+    signal: azure_cache_for_redis_redis_cache_latency_p99_p99
+- id: azure_monitor.redis_cache.connection_rate
+  title: Azure Cache for Redis Connection Rate
+  units: connections/s
+  family: redis
+  chart_type: line
+  priority: 60017
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: created
+    rate_signal: azure_cache_for_redis_redis_cache_connection_rate_created
+  - id: closed
+    rate_signal: azure_cache_for_redis_redis_cache_connection_rate_closed
+- id: azure_monitor.redis_cache.aad_clients
+  title: Azure Cache for Redis Entra Token Clients
+  units: clients
+  family: redis
+  chart_type: line
+  priority: 60018
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: maximum
+    signal: azure_cache_for_redis_redis_cache_aad_clients_maximum
+- id: azure_monitor.redis_cache.instance_cache_hits
+  title: Azure Cache for Redis Instance Hit Rate
+  units: operations/s
+  family: redis
+  chart_type: line
+  priority: 60019
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: hits
+    rate_signal: azure_cache_for_redis_redis_cache_instance_cache_hits_hits
+  - id: misses
+    rate_signal: azure_cache_for_redis_redis_cache_instance_cache_hits_misses
+- id: azure_monitor.redis_cache.instance_throughput
+  title: Azure Cache for Redis Instance Throughput
+  units: bytes/s
+  family: redis
+  chart_type: line
+  priority: 60020
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: read
+    rate_signal: azure_cache_for_redis_redis_cache_instance_throughput_read
+  - id: write
+    rate_signal: azure_cache_for_redis_redis_cache_instance_throughput_write
+- id: azure_monitor.redis_cache.instance_server_load
+  title: Azure Cache for Redis Instance Server Load
+  units: percentage
+  family: redis
+  chart_type: line
+  priority: 60021
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: server_load
+    signal: azure_cache_for_redis_redis_cache_instance_server_load_server_load
+  - id: cpu
+    signal: azure_cache_for_redis_redis_cache_instance_server_load_cpu
+- id: azure_monitor.redis_cache.instance_memory_usage
+  title: Azure Cache for Redis Instance Memory Usage
+  units: bytes
+  family: redis
+  chart_type: line
+  priority: 60022
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: used
+    signal: azure_cache_for_redis_redis_cache_instance_memory_usage_used
+  - id: rss
+    signal: azure_cache_for_redis_redis_cache_instance_memory_usage_rss
+- id: azure_monitor.redis_cache.instance_memory_utilization
+  title: Azure Cache for Redis Instance Memory Utilization
+  units: percentage
+  family: redis
+  chart_type: line
+  priority: 60023
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: maximum
+    signal: azure_cache_for_redis_redis_cache_instance_memory_utilization_maximum
+- id: azure_monitor.redis_cache.instance_clients
+  title: Azure Cache for Redis Instance Connected Clients
+  units: clients
+  family: redis
+  chart_type: line
+  priority: 60024
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: maximum
+    signal: azure_cache_for_redis_redis_cache_instance_clients_maximum
+- id: azure_monitor.redis_cache.instance_operations
+  title: Azure Cache for Redis Instance Operations
+  units: operations/s
+  family: redis
+  chart_type: line
+  priority: 60025
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: maximum
+    rate_signal: azure_cache_for_redis_redis_cache_instance_operations_maximum
+- id: azure_monitor.redis_cache.instance_commands
+  title: Azure Cache for Redis Instance Commands Processed
+  units: commands/s
+  family: redis
+  chart_type: line
+  priority: 60026
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: total
+    rate_signal: azure_cache_for_redis_redis_cache_instance_commands_total
+  - id: get
+    rate_signal: azure_cache_for_redis_redis_cache_instance_commands_get
+  - id: set
+    rate_signal: azure_cache_for_redis_redis_cache_instance_commands_set
+- id: azure_monitor.redis_cache.instance_total_keys
+  title: Azure Cache for Redis Instance Total Keys
+  units: keys
+  family: redis
+  chart_type: line
+  priority: 60027
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: maximum
+    signal: azure_cache_for_redis_redis_cache_instance_total_keys_maximum
+- id: azure_monitor.redis_cache.instance_key_events
+  title: Azure Cache for Redis Instance Key Events
+  units: keys/s
+  family: redis
+  chart_type: line
+  priority: 60028
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: evicted
+    rate_signal: azure_cache_for_redis_redis_cache_instance_key_events_evicted
+  - id: expired
+    rate_signal: azure_cache_for_redis_redis_cache_instance_key_events_expired
+- id: azure_monitor.redis_cache.geo_replication_lag
+  title: Azure Cache for Redis Geo-Replication Connectivity Lag
+  units: seconds
+  family: redis
+  chart_type: line
+  priority: 60029
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_cache_for_redis_redis_cache_geo_replication_lag_average
+- id: azure_monitor.redis_cache.geo_replication_sync_offset
+  title: Azure Cache for Redis Geo-Replication Data Sync Offset
+  units: bytes
+  family: redis
+  chart_type: line
+  priority: 60030
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_cache_for_redis_redis_cache_geo_replication_sync_offset_average
+- id: azure_monitor.redis_cache.geo_replication_sync_events
+  title: Azure Cache for Redis Geo-Replication Sync Events
+  units: events/s
+  family: redis
+  chart_type: line
+  priority: 60031
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: started
+    rate_signal: azure_cache_for_redis_redis_cache_geo_replication_sync_events_started
+  - id: finished
+    rate_signal: azure_cache_for_redis_redis_cache_geo_replication_sync_events_finished
+- id: azure_monitor.redis_cache.geo_replication_health
+  title: Azure Cache for Redis Geo-Replication Health
+  units: status
+  family: redis
+  chart_type: line
+  priority: 60032
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_cache_for_redis_redis_cache_geo_replication_health_average

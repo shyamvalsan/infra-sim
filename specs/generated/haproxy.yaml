@@ -1,0 +1,239 @@
+version: 1
+name: haproxy
+description: HAProxy metrics, generated from Netdata's own collector metadata so the contexts, units and
+  dimension names match what a real HAProxy node reports. Signals are independent and plausible rather
+  than causally coupled - see scripts/sync-integrations.py.
+signals:
+  haproxy_backend_current_sessions_a_dimension_per_proxy:
+    base: 64.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  haproxy_backend_sessions_a_dimension_per_proxy:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  haproxy_backend_response_time_average_a_dimension_per_proxy:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  haproxy_backend_queue_time_average_a_dimension_per_proxy:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  haproxy_backend_current_queue_a_dimension_per_proxy:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  haproxy_backend_http_responses_1xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  haproxy_backend_http_responses_2xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  haproxy_backend_http_responses_3xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  haproxy_backend_http_responses_4xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  haproxy_backend_http_responses_5xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  haproxy_backend_http_responses_other:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  haproxy_backend_network_io_in:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  haproxy_backend_network_io_out:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: haproxy.backend_current_sessions
+  title: Current number of active sessions
+  units: sessions
+  family: backend
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: a dimension per proxy
+    signal: haproxy_backend_current_sessions_a_dimension_per_proxy
+- id: haproxy.backend_sessions
+  title: Sessions rate
+  units: sessions/s
+  family: backend
+  chart_type: line
+  priority: 60002
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per proxy
+    rate_signal: haproxy_backend_sessions_a_dimension_per_proxy
+- id: haproxy.backend_response_time_average
+  title: Average response time for last 1024 successful connections
+  units: milliseconds
+  family: backend
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: a dimension per proxy
+    signal: haproxy_backend_response_time_average_a_dimension_per_proxy
+- id: haproxy.backend_queue_time_average
+  title: Average queue time for last 1024 successful connections
+  units: milliseconds
+  family: backend
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: a dimension per proxy
+    signal: haproxy_backend_queue_time_average_a_dimension_per_proxy
+- id: haproxy.backend_current_queue
+  title: Current number of queued requests
+  units: requests
+  family: backend
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: a dimension per proxy
+    signal: haproxy_backend_current_queue_a_dimension_per_proxy
+- id: haproxy.backend_http_responses
+  title: HTTP responses by code class
+  units: responses/s
+  family: backend
+  chart_type: stacked
+  priority: 60006
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: 1xx
+    rate_signal: haproxy_backend_http_responses_1xx
+  - id: 2xx
+    rate_signal: haproxy_backend_http_responses_2xx
+  - id: 3xx
+    rate_signal: haproxy_backend_http_responses_3xx
+  - id: 4xx
+    rate_signal: haproxy_backend_http_responses_4xx
+  - id: 5xx
+    rate_signal: haproxy_backend_http_responses_5xx
+  - id: other
+    rate_signal: haproxy_backend_http_responses_other
+- id: haproxy.backend_network_io
+  title: Network traffic
+  units: bytes/s
+  family: backend
+  chart_type: area
+  priority: 60007
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: in
+    rate_signal: haproxy_backend_network_io_in
+  - id: out
+    rate_signal: haproxy_backend_network_io_out

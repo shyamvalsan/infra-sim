@@ -1,0 +1,136 @@
+version: 1
+name: puppet
+description: Puppet metrics, generated from Netdata's own collector metadata so the contexts, units and
+  dimension names match what a real Puppet node reports. Signals are independent and plausible rather
+  than causally coupled - see scripts/sync-integrations.py.
+signals:
+  puppet_jvm_heap_committed:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  puppet_jvm_heap_used:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  puppet_jvm_nonheap_committed:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  puppet_jvm_nonheap_used:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  puppet_cpu_execution:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  puppet_cpu_gc:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  puppet_fdopen_used:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: puppet.jvm_heap
+  title: JVM Heap
+  units: MiB
+  family: jvm
+  chart_type: area
+  priority: 60001
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: committed
+    signal: puppet_jvm_heap_committed
+  - id: used
+    signal: puppet_jvm_heap_used
+- id: puppet.jvm_nonheap
+  title: JVM Non-Heap
+  units: MiB
+  family: jvm
+  chart_type: area
+  priority: 60002
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: committed
+    signal: puppet_jvm_nonheap_committed
+  - id: used
+    signal: puppet_jvm_nonheap_used
+- id: puppet.cpu
+  title: CPU usage
+  units: percentage
+  family: cpu
+  chart_type: stacked
+  priority: 60003
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: execution
+    signal: puppet_cpu_execution
+  - id: GC
+    signal: puppet_cpu_gc
+- id: puppet.fdopen
+  title: File Descriptors
+  units: descriptors
+  family: fdopen
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: used
+    signal: puppet_fdopen_used

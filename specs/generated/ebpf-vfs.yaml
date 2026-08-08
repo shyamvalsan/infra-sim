@@ -1,0 +1,1071 @@
+version: 1
+name: ebpf-vfs
+description: eBPF VFS metrics, generated from Netdata's own collector metadata so the contexts, units
+  and dimension names match what a real eBPF VFS node reports. Signals are independent and plausible rather
+  than causally coupled - see scripts/sync-integrations.py.
+signals:
+  ebpf_vfs_vfs_unlink_delete:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_vfs_vfs_write_write:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_vfs_vfs_write_error_write:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_vfs_vfs_read_read:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_vfs_vfs_read_error_read:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_vfs_vfs_write_bytes_write:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_vfs_vfs_read_bytes_read:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_vfs_vfs_fsync_fsync:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_vfs_vfs_fsync_error_fsync:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_vfs_vfs_open_open:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_vfs_vfs_open_error_open:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_vfs_vfs_create_create:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_vfs_vfs_create_error_create:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_vfs_vfs_unlink_a_dimension_per_systemd_service:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_vfs_vfs_write_a_dimension_per_systemd_service:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_vfs_vfs_write_error_a_dimension_per_systemd_service:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_vfs_vfs_read_a_dimension_per_systemd_service:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_vfs_vfs_read_error_a_dimension_per_systemd_service:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_vfs_vfs_write_bytes_a_dimension_per_systemd_service:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_vfs_vfs_read_bytes_a_dimension_per_systemd_service:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_vfs_vfs_fsync_a_dimension_per_systemd_service:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_vfs_vfs_fsync_error_a_dimension_per_systemd_service:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_vfs_vfs_open_a_dimension_per_systemd_service:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_vfs_vfs_open_error_a_dimension_per_systemd_service:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_vfs_vfs_create_a_dimension_per_systemd_service:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_vfs_vfs_create_error_a_dimension_per_systemd_service:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_vfs_vfs_deleted_objects_delete:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_vfs_vfs_io_read:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_vfs_vfs_io_write:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_vfs_vfs_io_bytes_read:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_vfs_vfs_io_bytes_write:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_vfs_vfs_io_error_read:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_vfs_vfs_io_error_write:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_vfs_ebpf_call_vfs_unlink_calls:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_vfs_ebpf_call_vfs_write_calls:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_vfs_ebpf_call_vfs_write_error_calls:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_vfs_ebpf_call_vfs_read_calls:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_vfs_ebpf_call_vfs_read_error_calls:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_vfs_ebpf_call_vfs_write_bytes_writes:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_vfs_ebpf_call_vfs_read_bytes_reads:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_vfs_ebpf_call_vfs_fsync_calls:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_vfs_ebpf_call_vfs_fsync_error_calls:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_vfs_ebpf_call_vfs_open_calls:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_vfs_ebpf_call_vfs_open_error_calls:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_vfs_ebpf_call_vfs_create_calls:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_vfs_ebpf_call_vfs_create_error_calls:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: cgroup.vfs_unlink
+  title: Files deleted
+  units: calls/s
+  family: vfs
+  chart_type: line
+  priority: 60001
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: delete
+    rate_signal: ebpf_vfs_vfs_unlink_delete
+- id: cgroup.vfs_write
+  title: Write to disk
+  units: calls/s
+  family: vfs
+  chart_type: line
+  priority: 60002
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: write
+    rate_signal: ebpf_vfs_vfs_write_write
+- id: cgroup.vfs_write_error
+  title: Fails to write
+  units: calls/s
+  family: vfs
+  chart_type: line
+  priority: 60003
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: write
+    rate_signal: ebpf_vfs_vfs_write_error_write
+- id: cgroup.vfs_read
+  title: Read from disk
+  units: calls/s
+  family: vfs
+  chart_type: line
+  priority: 60004
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: read
+    rate_signal: ebpf_vfs_vfs_read_read
+- id: cgroup.vfs_read_error
+  title: Fails to read
+  units: calls/s
+  family: vfs
+  chart_type: line
+  priority: 60005
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: read
+    rate_signal: ebpf_vfs_vfs_read_error_read
+- id: cgroup.vfs_write_bytes
+  title: Bytes written on disk
+  units: bytes/s
+  family: vfs
+  chart_type: line
+  priority: 60006
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: write
+    rate_signal: ebpf_vfs_vfs_write_bytes_write
+- id: cgroup.vfs_read_bytes
+  title: Bytes read from disk
+  units: bytes/s
+  family: vfs
+  chart_type: line
+  priority: 60007
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: read
+    rate_signal: ebpf_vfs_vfs_read_bytes_read
+- id: cgroup.vfs_fsync
+  title: Calls to vfs_fsync.
+  units: calls/s
+  family: vfs
+  chart_type: line
+  priority: 60008
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: fsync
+    rate_signal: ebpf_vfs_vfs_fsync_fsync
+- id: cgroup.vfs_fsync_error
+  title: Sync error
+  units: calls/s
+  family: vfs
+  chart_type: line
+  priority: 60009
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: fsync
+    rate_signal: ebpf_vfs_vfs_fsync_error_fsync
+- id: cgroup.vfs_open
+  title: Calls to vfs_open.
+  units: calls/s
+  family: vfs
+  chart_type: line
+  priority: 60010
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: open
+    rate_signal: ebpf_vfs_vfs_open_open
+- id: cgroup.vfs_open_error
+  title: Open error
+  units: calls/s
+  family: vfs
+  chart_type: line
+  priority: 60011
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: open
+    rate_signal: ebpf_vfs_vfs_open_error_open
+- id: cgroup.vfs_create
+  title: Calls to vfs_create.
+  units: calls/s
+  family: vfs
+  chart_type: line
+  priority: 60012
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: create
+    rate_signal: ebpf_vfs_vfs_create_create
+- id: cgroup.vfs_create_error
+  title: Create error
+  units: calls/s
+  family: vfs
+  chart_type: line
+  priority: 60013
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: create
+    rate_signal: ebpf_vfs_vfs_create_error_create
+- id: services.vfs_unlink
+  title: Files deleted
+  units: calls/s
+  family: vfs
+  chart_type: stacked
+  priority: 60014
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per systemd service
+    rate_signal: ebpf_vfs_vfs_unlink_a_dimension_per_systemd_service
+- id: services.vfs_write
+  title: Write to disk
+  units: calls/s
+  family: vfs
+  chart_type: stacked
+  priority: 60015
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per systemd service
+    rate_signal: ebpf_vfs_vfs_write_a_dimension_per_systemd_service
+- id: services.vfs_write_error
+  title: Fails to write
+  units: calls/s
+  family: vfs
+  chart_type: stacked
+  priority: 60016
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per systemd service
+    rate_signal: ebpf_vfs_vfs_write_error_a_dimension_per_systemd_service
+- id: services.vfs_read
+  title: Read from disk
+  units: calls/s
+  family: vfs
+  chart_type: stacked
+  priority: 60017
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per systemd service
+    rate_signal: ebpf_vfs_vfs_read_a_dimension_per_systemd_service
+- id: services.vfs_read_error
+  title: Fails to read
+  units: calls/s
+  family: vfs
+  chart_type: stacked
+  priority: 60018
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per systemd service
+    rate_signal: ebpf_vfs_vfs_read_error_a_dimension_per_systemd_service
+- id: services.vfs_write_bytes
+  title: Bytes written on disk
+  units: bytes/s
+  family: vfs
+  chart_type: stacked
+  priority: 60019
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per systemd service
+    rate_signal: ebpf_vfs_vfs_write_bytes_a_dimension_per_systemd_service
+- id: services.vfs_read_bytes
+  title: Bytes read from disk
+  units: bytes/s
+  family: vfs
+  chart_type: stacked
+  priority: 60020
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per systemd service
+    rate_signal: ebpf_vfs_vfs_read_bytes_a_dimension_per_systemd_service
+- id: services.vfs_fsync
+  title: Calls to vfs_fsync.
+  units: calls/s
+  family: vfs
+  chart_type: stacked
+  priority: 60021
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per systemd service
+    rate_signal: ebpf_vfs_vfs_fsync_a_dimension_per_systemd_service
+- id: services.vfs_fsync_error
+  title: Sync error
+  units: calls/s
+  family: vfs
+  chart_type: stacked
+  priority: 60022
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per systemd service
+    rate_signal: ebpf_vfs_vfs_fsync_error_a_dimension_per_systemd_service
+- id: services.vfs_open
+  title: Calls to vfs_open.
+  units: calls/s
+  family: vfs
+  chart_type: stacked
+  priority: 60023
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per systemd service
+    rate_signal: ebpf_vfs_vfs_open_a_dimension_per_systemd_service
+- id: services.vfs_open_error
+  title: Open error
+  units: calls/s
+  family: vfs
+  chart_type: stacked
+  priority: 60024
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per systemd service
+    rate_signal: ebpf_vfs_vfs_open_error_a_dimension_per_systemd_service
+- id: services.vfs_create
+  title: Calls to vfs_create.
+  units: calls/s
+  family: vfs
+  chart_type: stacked
+  priority: 60025
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per systemd service
+    rate_signal: ebpf_vfs_vfs_create_a_dimension_per_systemd_service
+- id: services.vfs_create_error
+  title: Create error
+  units: calls/s
+  family: vfs
+  chart_type: stacked
+  priority: 60026
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per systemd service
+    rate_signal: ebpf_vfs_vfs_create_error_a_dimension_per_systemd_service
+- id: filesystem.vfs_deleted_objects
+  title: Remove files
+  units: calls/s
+  family: vfs
+  chart_type: line
+  priority: 60027
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: delete
+    rate_signal: ebpf_vfs_vfs_deleted_objects_delete
+- id: filesystem.vfs_io
+  title: Calls to IO
+  units: calls/s
+  family: vfs
+  chart_type: line
+  priority: 60028
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: read
+    rate_signal: ebpf_vfs_vfs_io_read
+  - id: write
+    rate_signal: ebpf_vfs_vfs_io_write
+- id: filesystem.vfs_io_bytes
+  title: Bytes written and read
+  units: bytes/s
+  family: vfs
+  chart_type: line
+  priority: 60029
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: read
+    rate_signal: ebpf_vfs_vfs_io_bytes_read
+  - id: write
+    rate_signal: ebpf_vfs_vfs_io_bytes_write
+- id: filesystem.vfs_io_error
+  title: Fails to write or read
+  units: calls/s
+  family: vfs
+  chart_type: line
+  priority: 60030
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: read
+    rate_signal: ebpf_vfs_vfs_io_error_read
+  - id: write
+    rate_signal: ebpf_vfs_vfs_io_error_write
+- id: filesystem.vfs_fsync
+  title: Calls to vfs_fsync.
+  units: calls/s
+  family: vfs
+  chart_type: line
+  priority: 60031
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: fsync
+    rate_signal: ebpf_vfs_vfs_fsync_fsync
+- id: filesystem.vfs_fsync_error
+  title: Fails to synchronize
+  units: calls/s
+  family: vfs
+  chart_type: line
+  priority: 60032
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: fsync
+    rate_signal: ebpf_vfs_vfs_fsync_error_fsync
+- id: filesystem.vfs_open
+  title: Calls to vfs_open.
+  units: calls/s
+  family: vfs
+  chart_type: line
+  priority: 60033
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: open
+    rate_signal: ebpf_vfs_vfs_open_open
+- id: filesystem.vfs_open_error
+  title: Fails to open a file
+  units: calls/s
+  family: vfs
+  chart_type: line
+  priority: 60034
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: open
+    rate_signal: ebpf_vfs_vfs_open_error_open
+- id: filesystem.vfs_create
+  title: Calls to vfs_create.
+  units: calls/s
+  family: vfs
+  chart_type: line
+  priority: 60035
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: create
+    rate_signal: ebpf_vfs_vfs_create_create
+- id: filesystem.vfs_create_error
+  title: Fails to create a file.
+  units: calls/s
+  family: vfs
+  chart_type: line
+  priority: 60036
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: create
+    rate_signal: ebpf_vfs_vfs_create_error_create
+- id: app.ebpf_call_vfs_unlink
+  title: Files deleted
+  units: calls/s
+  family: ebpf
+  chart_type: stacked
+  priority: 60037
+  shape: counters
+  labels:
+    app_group: sim-app_group-1
+  dimensions:
+  - id: calls
+    rate_signal: ebpf_vfs_ebpf_call_vfs_unlink_calls
+- id: app.ebpf_call_vfs_write
+  title: Write to disk
+  units: calls/s
+  family: ebpf
+  chart_type: stacked
+  priority: 60038
+  shape: counters
+  labels:
+    app_group: sim-app_group-1
+  dimensions:
+  - id: calls
+    rate_signal: ebpf_vfs_ebpf_call_vfs_write_calls
+- id: app.ebpf_call_vfs_write_error
+  title: Fails to write
+  units: calls/s
+  family: ebpf
+  chart_type: stacked
+  priority: 60039
+  shape: counters
+  labels:
+    app_group: sim-app_group-1
+  dimensions:
+  - id: calls
+    rate_signal: ebpf_vfs_ebpf_call_vfs_write_error_calls
+- id: app.ebpf_call_vfs_read
+  title: Read from disk
+  units: calls/s
+  family: ebpf
+  chart_type: stacked
+  priority: 60040
+  shape: counters
+  labels:
+    app_group: sim-app_group-1
+  dimensions:
+  - id: calls
+    rate_signal: ebpf_vfs_ebpf_call_vfs_read_calls
+- id: app.ebpf_call_vfs_read_error
+  title: Fails to read
+  units: calls/s
+  family: ebpf
+  chart_type: stacked
+  priority: 60041
+  shape: counters
+  labels:
+    app_group: sim-app_group-1
+  dimensions:
+  - id: calls
+    rate_signal: ebpf_vfs_ebpf_call_vfs_read_error_calls
+- id: app.ebpf_call_vfs_write_bytes
+  title: Bytes written on disk
+  units: bytes/s
+  family: ebpf
+  chart_type: stacked
+  priority: 60042
+  shape: counters
+  labels:
+    app_group: sim-app_group-1
+  dimensions:
+  - id: writes
+    rate_signal: ebpf_vfs_ebpf_call_vfs_write_bytes_writes
+- id: app.ebpf_call_vfs_read_bytes
+  title: Bytes read on disk
+  units: bytes/s
+  family: ebpf
+  chart_type: stacked
+  priority: 60043
+  shape: counters
+  labels:
+    app_group: sim-app_group-1
+  dimensions:
+  - id: reads
+    rate_signal: ebpf_vfs_ebpf_call_vfs_read_bytes_reads
+- id: app.ebpf_call_vfs_fsync
+  title: Calls to vfs_fsync.
+  units: calls/s
+  family: ebpf
+  chart_type: stacked
+  priority: 60044
+  shape: counters
+  labels:
+    app_group: sim-app_group-1
+  dimensions:
+  - id: calls
+    rate_signal: ebpf_vfs_ebpf_call_vfs_fsync_calls
+- id: app.ebpf_call_vfs_fsync_error
+  title: Sync error
+  units: calls/s
+  family: ebpf
+  chart_type: stacked
+  priority: 60045
+  shape: counters
+  labels:
+    app_group: sim-app_group-1
+  dimensions:
+  - id: calls
+    rate_signal: ebpf_vfs_ebpf_call_vfs_fsync_error_calls
+- id: app.ebpf_call_vfs_open
+  title: Calls to vfs_open.
+  units: calls/s
+  family: ebpf
+  chart_type: stacked
+  priority: 60046
+  shape: counters
+  labels:
+    app_group: sim-app_group-1
+  dimensions:
+  - id: calls
+    rate_signal: ebpf_vfs_ebpf_call_vfs_open_calls
+- id: app.ebpf_call_vfs_open_error
+  title: Open error
+  units: calls/s
+  family: ebpf
+  chart_type: stacked
+  priority: 60047
+  shape: counters
+  labels:
+    app_group: sim-app_group-1
+  dimensions:
+  - id: calls
+    rate_signal: ebpf_vfs_ebpf_call_vfs_open_error_calls
+- id: app.ebpf_call_vfs_create
+  title: Calls to vfs_create.
+  units: calls/s
+  family: ebpf
+  chart_type: stacked
+  priority: 60048
+  shape: counters
+  labels:
+    app_group: sim-app_group-1
+  dimensions:
+  - id: calls
+    rate_signal: ebpf_vfs_ebpf_call_vfs_create_calls
+- id: app.ebpf_call_vfs_create_error
+  title: Create error
+  units: calls/s
+  family: ebpf
+  chart_type: stacked
+  priority: 60049
+  shape: counters
+  labels:
+    app_group: sim-app_group-1
+  dimensions:
+  - id: calls
+    rate_signal: ebpf_vfs_ebpf_call_vfs_create_error_calls

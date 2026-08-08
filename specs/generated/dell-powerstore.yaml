@@ -1,0 +1,1667 @@
+version: 1
+name: dell-powerstore
+description: Dell PowerStore metrics, generated from Netdata's own collector metadata so the contexts,
+  units and dimension names match what a real Dell PowerStore node reports. Signals are independent and
+  plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  dell_powerstore_cluster_space_usage_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_cluster_space_usage_total:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_cluster_space_logical_provisioned:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_cluster_space_logical_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_cluster_space_logical_data_physical:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_cluster_space_logical_shared:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_cluster_space_efficiency_efficiency:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_cluster_space_efficiency_data_reduction:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_cluster_space_efficiency_snapshot_savings:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_cluster_space_efficiency_thin_savings:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_hardware_health_fan_ok:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_hardware_health_fan_degraded:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_hardware_health_fan_failed:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  dell_powerstore_hardware_health_fan_unknown:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_hardware_health_psu_ok:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_hardware_health_psu_degraded:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_hardware_health_psu_failed:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  dell_powerstore_hardware_health_psu_unknown:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_hardware_health_drive_ok:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_hardware_health_drive_degraded:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_hardware_health_drive_failed:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  dell_powerstore_hardware_health_drive_unknown:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_hardware_health_battery_ok:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_hardware_health_battery_degraded:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_hardware_health_battery_failed:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  dell_powerstore_hardware_health_battery_unknown:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_hardware_health_node_ok:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_hardware_health_node_degraded:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_hardware_health_node_failed:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  dell_powerstore_hardware_health_node_unknown:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_alerts_active_critical:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_alerts_active_major:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_alerts_active_minor:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_alerts_active_info:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_nas_server_status_started:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_nas_server_status_stopped:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_nas_server_status_degraded:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_nas_server_status_unknown:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_copy_data_remaining:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_copy_data_transferred:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_copy_transfer_rate_rate:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_appliance_iops_read:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_appliance_iops_write:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_appliance_bandwidth_read:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_appliance_bandwidth_write:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_appliance_latency_read:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_appliance_latency_write:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_appliance_latency_avg:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_appliance_cpu_utilization:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_appliance_space_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_appliance_space_total:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_appliance_space_logical_provisioned:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_appliance_space_logical_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_appliance_space_logical_data_physical:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_appliance_space_logical_shared:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_appliance_space_efficiency_efficiency:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_appliance_space_efficiency_data_reduction:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_appliance_space_efficiency_snapshot_savings:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_appliance_space_efficiency_thin_savings:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_volume_iops_read:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_volume_iops_write:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_volume_bandwidth_read:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_volume_bandwidth_write:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_volume_latency_read:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_volume_latency_write:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_volume_latency_avg:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_volume_space_provisioned:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_volume_space_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_volume_space_savings_thin_savings:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_node_iops_read:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_node_iops_write:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_node_bandwidth_read:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_node_bandwidth_write:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_node_latency_read:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_node_latency_write:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_node_latency_avg:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_node_logins_logins:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_fc_port_iops_read:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_fc_port_iops_write:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_fc_port_bandwidth_read:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_fc_port_bandwidth_write:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_fc_port_latency_read:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_fc_port_latency_write:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_fc_port_latency_avg:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_fc_port_link_status_up:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  dell_powerstore_eth_port_bytes_received:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_eth_port_bytes_sent:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_eth_port_packets_received:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_eth_port_packets_sent:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_eth_port_errors_rx_crc:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_eth_port_errors_rx_no_buffer:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_eth_port_errors_tx_error:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+  dell_powerstore_eth_port_link_status_up:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  dell_powerstore_filesystem_iops_read:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_filesystem_iops_write:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_filesystem_bandwidth_read:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_filesystem_bandwidth_write:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_filesystem_latency_read:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_filesystem_latency_write:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_filesystem_latency_avg:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dell_powerstore_drive_endurance_remaining:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: powerstore.cluster_space_usage
+  title: Cluster Space Usage
+  units: bytes
+  family: cluster
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: used
+    signal: dell_powerstore_cluster_space_usage_used
+  - id: total
+    signal: dell_powerstore_cluster_space_usage_total
+- id: powerstore.cluster_space_logical
+  title: Cluster Logical Space
+  units: bytes
+  family: cluster
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: provisioned
+    signal: dell_powerstore_cluster_space_logical_provisioned
+  - id: used
+    signal: dell_powerstore_cluster_space_logical_used
+  - id: data_physical
+    signal: dell_powerstore_cluster_space_logical_data_physical
+  - id: shared
+    signal: dell_powerstore_cluster_space_logical_shared
+- id: powerstore.cluster_space_efficiency
+  title: Cluster Space Efficiency Ratios
+  units: ratio
+  family: cluster
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: efficiency
+    signal: dell_powerstore_cluster_space_efficiency_efficiency
+  - id: data_reduction
+    signal: dell_powerstore_cluster_space_efficiency_data_reduction
+  - id: snapshot_savings
+    signal: dell_powerstore_cluster_space_efficiency_snapshot_savings
+  - id: thin_savings
+    signal: dell_powerstore_cluster_space_efficiency_thin_savings
+- id: powerstore.hardware_health_fan
+  title: Fan Health Status
+  units: fans
+  family: hardware
+  chart_type: stacked
+  priority: 60004
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: ok
+    signal: dell_powerstore_hardware_health_fan_ok
+  - id: degraded
+    signal: dell_powerstore_hardware_health_fan_degraded
+  - id: failed
+    signal: dell_powerstore_hardware_health_fan_failed
+  - id: unknown
+    signal: dell_powerstore_hardware_health_fan_unknown
+- id: powerstore.hardware_health_psu
+  title: Power Supply Health Status
+  units: PSUs
+  family: hardware
+  chart_type: stacked
+  priority: 60005
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: ok
+    signal: dell_powerstore_hardware_health_psu_ok
+  - id: degraded
+    signal: dell_powerstore_hardware_health_psu_degraded
+  - id: failed
+    signal: dell_powerstore_hardware_health_psu_failed
+  - id: unknown
+    signal: dell_powerstore_hardware_health_psu_unknown
+- id: powerstore.hardware_health_drive
+  title: Drive Health Status
+  units: drives
+  family: hardware
+  chart_type: stacked
+  priority: 60006
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: ok
+    signal: dell_powerstore_hardware_health_drive_ok
+  - id: degraded
+    signal: dell_powerstore_hardware_health_drive_degraded
+  - id: failed
+    signal: dell_powerstore_hardware_health_drive_failed
+  - id: unknown
+    signal: dell_powerstore_hardware_health_drive_unknown
+- id: powerstore.hardware_health_battery
+  title: Battery Health Status
+  units: batteries
+  family: hardware
+  chart_type: stacked
+  priority: 60007
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: ok
+    signal: dell_powerstore_hardware_health_battery_ok
+  - id: degraded
+    signal: dell_powerstore_hardware_health_battery_degraded
+  - id: failed
+    signal: dell_powerstore_hardware_health_battery_failed
+  - id: unknown
+    signal: dell_powerstore_hardware_health_battery_unknown
+- id: powerstore.hardware_health_node
+  title: Node Health Status
+  units: nodes
+  family: hardware
+  chart_type: stacked
+  priority: 60008
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: ok
+    signal: dell_powerstore_hardware_health_node_ok
+  - id: degraded
+    signal: dell_powerstore_hardware_health_node_degraded
+  - id: failed
+    signal: dell_powerstore_hardware_health_node_failed
+  - id: unknown
+    signal: dell_powerstore_hardware_health_node_unknown
+- id: powerstore.alerts_active
+  title: Active Alerts by Severity
+  units: alerts
+  family: alerts
+  chart_type: stacked
+  priority: 60009
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: critical
+    signal: dell_powerstore_alerts_active_critical
+  - id: major
+    signal: dell_powerstore_alerts_active_major
+  - id: minor
+    signal: dell_powerstore_alerts_active_minor
+  - id: info
+    signal: dell_powerstore_alerts_active_info
+- id: powerstore.nas_server_status
+  title: NAS Server Status
+  units: servers
+  family: nas
+  chart_type: stacked
+  priority: 60010
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: started
+    signal: dell_powerstore_nas_server_status_started
+  - id: stopped
+    signal: dell_powerstore_nas_server_status_stopped
+  - id: degraded
+    signal: dell_powerstore_nas_server_status_degraded
+  - id: unknown
+    signal: dell_powerstore_nas_server_status_unknown
+- id: powerstore.copy_data
+  title: Replication Data
+  units: bytes
+  family: copy
+  chart_type: line
+  priority: 60011
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: remaining
+    signal: dell_powerstore_copy_data_remaining
+  - id: transferred
+    signal: dell_powerstore_copy_data_transferred
+- id: powerstore.copy_transfer_rate
+  title: Replication Transfer Rate
+  units: bytes/s
+  family: copy
+  chart_type: line
+  priority: 60012
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: rate
+    rate_signal: dell_powerstore_copy_transfer_rate_rate
+- id: powerstore.appliance_iops
+  title: Appliance IOPS
+  units: ops/s
+  family: appliance
+  chart_type: area
+  priority: 60013
+  shape: counters
+  labels:
+    appliance: sim-appliance-1
+  dimensions:
+  - id: read
+    rate_signal: dell_powerstore_appliance_iops_read
+  - id: write
+    rate_signal: dell_powerstore_appliance_iops_write
+- id: powerstore.appliance_bandwidth
+  title: Appliance Bandwidth
+  units: bytes/s
+  family: appliance
+  chart_type: area
+  priority: 60014
+  shape: counters
+  labels:
+    appliance: sim-appliance-1
+  dimensions:
+  - id: read
+    rate_signal: dell_powerstore_appliance_bandwidth_read
+  - id: write
+    rate_signal: dell_powerstore_appliance_bandwidth_write
+- id: powerstore.appliance_latency
+  title: Appliance Latency
+  units: microseconds
+  family: appliance
+  chart_type: line
+  priority: 60015
+  shape: independent
+  labels:
+    appliance: sim-appliance-1
+  dimensions:
+  - id: read
+    signal: dell_powerstore_appliance_latency_read
+  - id: write
+    signal: dell_powerstore_appliance_latency_write
+  - id: avg
+    signal: dell_powerstore_appliance_latency_avg
+- id: powerstore.appliance_cpu
+  title: Appliance IO Workload CPU Utilization
+  units: percentage
+  family: appliance
+  chart_type: line
+  priority: 60016
+  shape: independent
+  labels:
+    appliance: sim-appliance-1
+  dimensions:
+  - id: utilization
+    signal: dell_powerstore_appliance_cpu_utilization
+- id: powerstore.appliance_space
+  title: Appliance Space Usage
+  units: bytes
+  family: appliance
+  chart_type: line
+  priority: 60017
+  shape: independent
+  labels:
+    appliance: sim-appliance-1
+  dimensions:
+  - id: used
+    signal: dell_powerstore_appliance_space_used
+  - id: total
+    signal: dell_powerstore_appliance_space_total
+- id: powerstore.appliance_space_logical
+  title: Appliance Logical Space
+  units: bytes
+  family: appliance
+  chart_type: line
+  priority: 60018
+  shape: independent
+  labels:
+    appliance: sim-appliance-1
+  dimensions:
+  - id: provisioned
+    signal: dell_powerstore_appliance_space_logical_provisioned
+  - id: used
+    signal: dell_powerstore_appliance_space_logical_used
+  - id: data_physical
+    signal: dell_powerstore_appliance_space_logical_data_physical
+  - id: shared
+    signal: dell_powerstore_appliance_space_logical_shared
+- id: powerstore.appliance_space_efficiency
+  title: Appliance Space Efficiency Ratios
+  units: ratio
+  family: appliance
+  chart_type: line
+  priority: 60019
+  shape: independent
+  labels:
+    appliance: sim-appliance-1
+  dimensions:
+  - id: efficiency
+    signal: dell_powerstore_appliance_space_efficiency_efficiency
+  - id: data_reduction
+    signal: dell_powerstore_appliance_space_efficiency_data_reduction
+  - id: snapshot_savings
+    signal: dell_powerstore_appliance_space_efficiency_snapshot_savings
+  - id: thin_savings
+    signal: dell_powerstore_appliance_space_efficiency_thin_savings
+- id: powerstore.volume_iops
+  title: Volume IOPS
+  units: ops/s
+  family: volume
+  chart_type: area
+  priority: 60020
+  shape: counters
+  labels:
+    volume: sim-volume-1
+  dimensions:
+  - id: read
+    rate_signal: dell_powerstore_volume_iops_read
+  - id: write
+    rate_signal: dell_powerstore_volume_iops_write
+- id: powerstore.volume_bandwidth
+  title: Volume Bandwidth
+  units: bytes/s
+  family: volume
+  chart_type: area
+  priority: 60021
+  shape: counters
+  labels:
+    volume: sim-volume-1
+  dimensions:
+  - id: read
+    rate_signal: dell_powerstore_volume_bandwidth_read
+  - id: write
+    rate_signal: dell_powerstore_volume_bandwidth_write
+- id: powerstore.volume_latency
+  title: Volume Latency
+  units: microseconds
+  family: volume
+  chart_type: line
+  priority: 60022
+  shape: independent
+  labels:
+    volume: sim-volume-1
+  dimensions:
+  - id: read
+    signal: dell_powerstore_volume_latency_read
+  - id: write
+    signal: dell_powerstore_volume_latency_write
+  - id: avg
+    signal: dell_powerstore_volume_latency_avg
+- id: powerstore.volume_space
+  title: Volume Space Usage
+  units: bytes
+  family: volume
+  chart_type: line
+  priority: 60023
+  shape: independent
+  labels:
+    volume: sim-volume-1
+  dimensions:
+  - id: provisioned
+    signal: dell_powerstore_volume_space_provisioned
+  - id: used
+    signal: dell_powerstore_volume_space_used
+- id: powerstore.volume_space_savings
+  title: Volume Thin Savings
+  units: ratio
+  family: volume
+  chart_type: line
+  priority: 60024
+  shape: independent
+  labels:
+    volume: sim-volume-1
+  dimensions:
+  - id: thin_savings
+    signal: dell_powerstore_volume_space_savings_thin_savings
+- id: powerstore.node_iops
+  title: Node IOPS
+  units: ops/s
+  family: node
+  chart_type: area
+  priority: 60025
+  shape: counters
+  labels:
+    node: sim-node-1
+  dimensions:
+  - id: read
+    rate_signal: dell_powerstore_node_iops_read
+  - id: write
+    rate_signal: dell_powerstore_node_iops_write
+- id: powerstore.node_bandwidth
+  title: Node Bandwidth
+  units: bytes/s
+  family: node
+  chart_type: area
+  priority: 60026
+  shape: counters
+  labels:
+    node: sim-node-1
+  dimensions:
+  - id: read
+    rate_signal: dell_powerstore_node_bandwidth_read
+  - id: write
+    rate_signal: dell_powerstore_node_bandwidth_write
+- id: powerstore.node_latency
+  title: Node Latency
+  units: microseconds
+  family: node
+  chart_type: line
+  priority: 60027
+  shape: independent
+  labels:
+    node: sim-node-1
+  dimensions:
+  - id: read
+    signal: dell_powerstore_node_latency_read
+  - id: write
+    signal: dell_powerstore_node_latency_write
+  - id: avg
+    signal: dell_powerstore_node_latency_avg
+- id: powerstore.node_logins
+  title: Node Current Logins
+  units: logins
+  family: node
+  chart_type: line
+  priority: 60028
+  shape: independent
+  labels:
+    node: sim-node-1
+  dimensions:
+  - id: logins
+    signal: dell_powerstore_node_logins_logins
+- id: powerstore.fc_port_iops
+  title: FC Port IOPS
+  units: ops/s
+  family: fc
+  chart_type: area
+  priority: 60029
+  shape: counters
+  labels:
+    fc_port: sim-fc_port-1
+  dimensions:
+  - id: read
+    rate_signal: dell_powerstore_fc_port_iops_read
+  - id: write
+    rate_signal: dell_powerstore_fc_port_iops_write
+- id: powerstore.fc_port_bandwidth
+  title: FC Port Bandwidth
+  units: bytes/s
+  family: fc
+  chart_type: area
+  priority: 60030
+  shape: counters
+  labels:
+    fc_port: sim-fc_port-1
+  dimensions:
+  - id: read
+    rate_signal: dell_powerstore_fc_port_bandwidth_read
+  - id: write
+    rate_signal: dell_powerstore_fc_port_bandwidth_write
+- id: powerstore.fc_port_latency
+  title: FC Port Latency
+  units: microseconds
+  family: fc
+  chart_type: line
+  priority: 60031
+  shape: independent
+  labels:
+    fc_port: sim-fc_port-1
+  dimensions:
+  - id: read
+    signal: dell_powerstore_fc_port_latency_read
+  - id: write
+    signal: dell_powerstore_fc_port_latency_write
+  - id: avg
+    signal: dell_powerstore_fc_port_latency_avg
+- id: powerstore.fc_port_link_status
+  title: FC Port Link Status
+  units: status
+  family: fc
+  chart_type: line
+  priority: 60032
+  shape: independent
+  labels:
+    fc_port: sim-fc_port-1
+  dimensions:
+  - id: up
+    signal: dell_powerstore_fc_port_link_status_up
+- id: powerstore.eth_port_bytes
+  title: Ethernet Port Bytes Rate
+  units: bytes/s
+  family: eth
+  chart_type: area
+  priority: 60033
+  shape: counters
+  labels:
+    eth_port: sim-eth_port-1
+  dimensions:
+  - id: received
+    rate_signal: dell_powerstore_eth_port_bytes_received
+  - id: sent
+    rate_signal: dell_powerstore_eth_port_bytes_sent
+- id: powerstore.eth_port_packets
+  title: Ethernet Port Packets Rate
+  units: packets/s
+  family: eth
+  chart_type: area
+  priority: 60034
+  shape: counters
+  labels:
+    eth_port: sim-eth_port-1
+  dimensions:
+  - id: received
+    rate_signal: dell_powerstore_eth_port_packets_received
+  - id: sent
+    rate_signal: dell_powerstore_eth_port_packets_sent
+- id: powerstore.eth_port_errors
+  title: Ethernet Port Errors Rate
+  units: errors/s
+  family: eth
+  chart_type: stacked
+  priority: 60035
+  shape: counters
+  labels:
+    eth_port: sim-eth_port-1
+  dimensions:
+  - id: rx_crc
+    rate_signal: dell_powerstore_eth_port_errors_rx_crc
+  - id: rx_no_buffer
+    rate_signal: dell_powerstore_eth_port_errors_rx_no_buffer
+  - id: tx_error
+    rate_signal: dell_powerstore_eth_port_errors_tx_error
+- id: powerstore.eth_port_link_status
+  title: Ethernet Port Link Status
+  units: status
+  family: eth
+  chart_type: line
+  priority: 60036
+  shape: independent
+  labels:
+    eth_port: sim-eth_port-1
+  dimensions:
+  - id: up
+    signal: dell_powerstore_eth_port_link_status_up
+- id: powerstore.filesystem_iops
+  title: File System IOPS
+  units: ops/s
+  family: filesystem
+  chart_type: area
+  priority: 60037
+  shape: counters
+  labels:
+    filesystem: sim-filesystem-1
+  dimensions:
+  - id: read
+    rate_signal: dell_powerstore_filesystem_iops_read
+  - id: write
+    rate_signal: dell_powerstore_filesystem_iops_write
+- id: powerstore.filesystem_bandwidth
+  title: File System Bandwidth
+  units: bytes/s
+  family: filesystem
+  chart_type: area
+  priority: 60038
+  shape: counters
+  labels:
+    filesystem: sim-filesystem-1
+  dimensions:
+  - id: read
+    rate_signal: dell_powerstore_filesystem_bandwidth_read
+  - id: write
+    rate_signal: dell_powerstore_filesystem_bandwidth_write
+- id: powerstore.filesystem_latency
+  title: File System Latency
+  units: microseconds
+  family: filesystem
+  chart_type: line
+  priority: 60039
+  shape: independent
+  labels:
+    filesystem: sim-filesystem-1
+  dimensions:
+  - id: read
+    signal: dell_powerstore_filesystem_latency_read
+  - id: write
+    signal: dell_powerstore_filesystem_latency_write
+  - id: avg
+    signal: dell_powerstore_filesystem_latency_avg
+- id: powerstore.drive_endurance
+  title: Drive Endurance Remaining
+  units: percentage
+  family: drive
+  chart_type: line
+  priority: 60040
+  shape: independent
+  labels:
+    drive: sim-drive-1
+  dimensions:
+  - id: remaining
+    signal: dell_powerstore_drive_endurance_remaining

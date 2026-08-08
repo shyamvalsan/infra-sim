@@ -1,0 +1,477 @@
+version: 1
+name: memcached
+description: Memcached metrics, generated from Netdata's own collector metadata so the contexts, units
+  and dimension names match what a real Memcached node reports. Signals are independent and plausible
+  rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  memcached_cache_available:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  memcached_cache_used:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  memcached_net_in:
+    base: 18000.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  memcached_net_out:
+    base: 18000.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  memcached_connections_current:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  memcached_connections_rejected:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  memcached_connections_total:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  memcached_items_current:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  memcached_items_total:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  memcached_evicted_reclaimed_reclaimed:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  memcached_evicted_reclaimed_evicted:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  memcached_get_hints:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  memcached_get_misses:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  memcached_get_rate_rate:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  memcached_set_rate_rate:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  memcached_delete_hits:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  memcached_delete_misses:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  memcached_cas_hits:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  memcached_cas_misses:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  memcached_cas_bad_value:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  memcached_increment_hits:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  memcached_increment_misses:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  memcached_decrement_hits:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  memcached_decrement_misses:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  memcached_touch_hits:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  memcached_touch_misses:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  memcached_touch_rate_rate:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: memcached.cache
+  title: Cache Size
+  units: MiB
+  family: cache
+  chart_type: stacked
+  priority: 60001
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: available
+    signal: memcached_cache_available
+  - id: used
+    signal: memcached_cache_used
+- id: memcached.net
+  title: Network
+  units: kilobits/s
+  family: net
+  chart_type: area
+  priority: 60002
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: in
+    rate_signal: memcached_net_in
+  - id: out
+    rate_signal: memcached_net_out
+- id: memcached.connections
+  title: Connections
+  units: connections/s
+  family: connections
+  chart_type: line
+  priority: 60003
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: current
+    rate_signal: memcached_connections_current
+  - id: rejected
+    rate_signal: memcached_connections_rejected
+  - id: total
+    rate_signal: memcached_connections_total
+- id: memcached.items
+  title: Items
+  units: items
+  family: items
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: current
+    signal: memcached_items_current
+  - id: total
+    signal: memcached_items_total
+- id: memcached.evicted_reclaimed
+  title: Evicted and Reclaimed Items
+  units: items
+  family: evicted
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: reclaimed
+    signal: memcached_evicted_reclaimed_reclaimed
+  - id: evicted
+    signal: memcached_evicted_reclaimed_evicted
+- id: memcached.get
+  title: Get Requests
+  units: requests
+  family: get
+  chart_type: stacked
+  priority: 60006
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: hints
+    signal: memcached_get_hints
+  - id: misses
+    signal: memcached_get_misses
+- id: memcached.get_rate
+  title: Get Request Rate
+  units: requests/s
+  family: get
+  chart_type: line
+  priority: 60007
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: rate
+    rate_signal: memcached_get_rate_rate
+- id: memcached.set_rate
+  title: Set Request Rate
+  units: requests/s
+  family: set
+  chart_type: line
+  priority: 60008
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: rate
+    rate_signal: memcached_set_rate_rate
+- id: memcached.delete
+  title: Delete Requests
+  units: requests
+  family: delete
+  chart_type: stacked
+  priority: 60009
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: hits
+    signal: memcached_delete_hits
+  - id: misses
+    signal: memcached_delete_misses
+- id: memcached.cas
+  title: Check and Set Requests
+  units: requests
+  family: cas
+  chart_type: stacked
+  priority: 60010
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: hits
+    signal: memcached_cas_hits
+  - id: misses
+    signal: memcached_cas_misses
+  - id: bad value
+    signal: memcached_cas_bad_value
+- id: memcached.increment
+  title: Increment Requests
+  units: requests
+  family: increment
+  chart_type: stacked
+  priority: 60011
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: hits
+    signal: memcached_increment_hits
+  - id: misses
+    signal: memcached_increment_misses
+- id: memcached.decrement
+  title: Decrement Requests
+  units: requests
+  family: decrement
+  chart_type: stacked
+  priority: 60012
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: hits
+    signal: memcached_decrement_hits
+  - id: misses
+    signal: memcached_decrement_misses
+- id: memcached.touch
+  title: Touch Requests
+  units: requests
+  family: touch
+  chart_type: stacked
+  priority: 60013
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: hits
+    signal: memcached_touch_hits
+  - id: misses
+    signal: memcached_touch_misses
+- id: memcached.touch_rate
+  title: Touch Request Rate
+  units: requests/s
+  family: touch
+  chart_type: line
+  priority: 60014
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: rate
+    rate_signal: memcached_touch_rate_rate

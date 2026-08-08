@@ -1,0 +1,796 @@
+version: 1
+name: ebpf-socket
+description: eBPF Socket metrics, generated from Netdata's own collector metadata so the contexts, units
+  and dimension names match what a real eBPF Socket node reports. Signals are independent and plausible
+  rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  ebpf_socket_inbound_conn_connected_tcp:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_socket_inbound_conn_connected_udp:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_socket_tcp_outbound_conn_received:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_socket_tcp_functions_received:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_socket_tcp_functions_send:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_socket_tcp_functions_closed:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_socket_total_tcp_bandwidth_received:
+    base: 18000.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_socket_total_tcp_bandwidth_send:
+    base: 18000.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_socket_tcp_error_received:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_socket_tcp_error_send:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_socket_tcp_retransmit_retransmitted:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_socket_udp_functions_received:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_socket_udp_functions_send:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_socket_total_udp_bandwidth_received:
+    base: 18000.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_socket_total_udp_bandwidth_send:
+    base: 18000.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_socket_udp_error_received:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_socket_udp_error_send:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_socket_ebpf_call_tcp_v4_connection_connections:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_socket_ebpf_call_tcp_v6_connection_connections:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_socket_ebpf_sock_total_bandwidth_received:
+    base: 18000.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_socket_ebpf_sock_total_bandwidth_sent:
+    base: 18000.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_socket_ebpf_call_tcp_sendmsg_calls:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_socket_ebpf_call_tcp_cleanup_rbuf_calls:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_socket_ebpf_call_tcp_retransmit_calls:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_socket_ebpf_call_udp_sendmsg_calls:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_socket_ebpf_call_udp_recvmsg_calls:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_socket_net_conn_ipv4_connections:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_socket_net_conn_ipv6_connections:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_socket_net_total_bandwidth_received:
+    base: 18000.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_socket_net_total_bandwidth_sent:
+    base: 18000.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_socket_net_tcp_recv_calls:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_socket_net_tcp_send_calls:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_socket_net_retransmit_calls:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_socket_net_udp_send_calls:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_socket_net_udp_recv_calls:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_socket_net_tcp_retransmit_calls:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: ip.inbound_conn
+  title: Inbound connections.
+  units: connections/s
+  family: inbound
+  chart_type: line
+  priority: 60001
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: connected_tcp
+    rate_signal: ebpf_socket_inbound_conn_connected_tcp
+  - id: connected_udp
+    rate_signal: ebpf_socket_inbound_conn_connected_udp
+- id: ip.tcp_outbound_conn
+  title: TCP outbound connections.
+  units: connections/s
+  family: tcp
+  chart_type: line
+  priority: 60002
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: received
+    rate_signal: ebpf_socket_tcp_outbound_conn_received
+- id: ip.tcp_functions
+  title: Calls to internal functions
+  units: calls/s
+  family: tcp
+  chart_type: line
+  priority: 60003
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: received
+    rate_signal: ebpf_socket_tcp_functions_received
+  - id: send
+    rate_signal: ebpf_socket_tcp_functions_send
+  - id: closed
+    rate_signal: ebpf_socket_tcp_functions_closed
+- id: ip.total_tcp_bandwidth
+  title: TCP bandwidth
+  units: kilobits/s
+  family: total
+  chart_type: line
+  priority: 60004
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: received
+    rate_signal: ebpf_socket_total_tcp_bandwidth_received
+  - id: send
+    rate_signal: ebpf_socket_total_tcp_bandwidth_send
+- id: ip.tcp_error
+  title: TCP errors
+  units: calls/s
+  family: tcp
+  chart_type: line
+  priority: 60005
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: received
+    rate_signal: ebpf_socket_tcp_error_received
+  - id: send
+    rate_signal: ebpf_socket_tcp_error_send
+- id: ip.tcp_retransmit
+  title: Packages retransmitted
+  units: calls/s
+  family: tcp
+  chart_type: line
+  priority: 60006
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: retransmitted
+    rate_signal: ebpf_socket_tcp_retransmit_retransmitted
+- id: ip.udp_functions
+  title: UDP calls
+  units: calls/s
+  family: udp
+  chart_type: line
+  priority: 60007
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: received
+    rate_signal: ebpf_socket_udp_functions_received
+  - id: send
+    rate_signal: ebpf_socket_udp_functions_send
+- id: ip.total_udp_bandwidth
+  title: UDP bandwidth
+  units: kilobits/s
+  family: total
+  chart_type: line
+  priority: 60008
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: received
+    rate_signal: ebpf_socket_total_udp_bandwidth_received
+  - id: send
+    rate_signal: ebpf_socket_total_udp_bandwidth_send
+- id: ip.udp_error
+  title: UDP errors
+  units: calls/s
+  family: udp
+  chart_type: line
+  priority: 60009
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: received
+    rate_signal: ebpf_socket_udp_error_received
+  - id: send
+    rate_signal: ebpf_socket_udp_error_send
+- id: app.ebpf_call_tcp_v4_connection
+  title: Calls to tcp_v4_connection
+  units: connections/s
+  family: ebpf
+  chart_type: stacked
+  priority: 60010
+  shape: counters
+  labels:
+    app_group: sim-app_group-1
+  dimensions:
+  - id: connections
+    rate_signal: ebpf_socket_ebpf_call_tcp_v4_connection_connections
+- id: app.ebpf_call_tcp_v6_connection
+  title: Calls to tcp_v6_connection
+  units: connections/s
+  family: ebpf
+  chart_type: stacked
+  priority: 60011
+  shape: counters
+  labels:
+    app_group: sim-app_group-1
+  dimensions:
+  - id: connections
+    rate_signal: ebpf_socket_ebpf_call_tcp_v6_connection_connections
+- id: app.ebpf_sock_total_bandwidth
+  title: Bytes sent
+  units: kilobits/s
+  family: ebpf
+  chart_type: stacked
+  priority: 60012
+  shape: counters
+  labels:
+    app_group: sim-app_group-1
+  dimensions:
+  - id: received
+    rate_signal: ebpf_socket_ebpf_sock_total_bandwidth_received
+  - id: sent
+    rate_signal: ebpf_socket_ebpf_sock_total_bandwidth_sent
+- id: app.ebpf_call_tcp_sendmsg
+  title: Calls for tcp_sendmsg
+  units: calls/s
+  family: ebpf
+  chart_type: stacked
+  priority: 60013
+  shape: counters
+  labels:
+    app_group: sim-app_group-1
+  dimensions:
+  - id: calls
+    rate_signal: ebpf_socket_ebpf_call_tcp_sendmsg_calls
+- id: app.ebpf_call_tcp_cleanup_rbuf
+  title: Calls for tcp_cleanup_rbuf
+  units: calls/s
+  family: ebpf
+  chart_type: stacked
+  priority: 60014
+  shape: counters
+  labels:
+    app_group: sim-app_group-1
+  dimensions:
+  - id: calls
+    rate_signal: ebpf_socket_ebpf_call_tcp_cleanup_rbuf_calls
+- id: app.ebpf_call_tcp_retransmit
+  title: Calls for tcp_retransmit
+  units: calls/s
+  family: ebpf
+  chart_type: stacked
+  priority: 60015
+  shape: counters
+  labels:
+    app_group: sim-app_group-1
+  dimensions:
+  - id: calls
+    rate_signal: ebpf_socket_ebpf_call_tcp_retransmit_calls
+- id: app.ebpf_call_udp_sendmsg
+  title: Calls for udp_sendmsg
+  units: calls/s
+  family: ebpf
+  chart_type: stacked
+  priority: 60016
+  shape: counters
+  labels:
+    app_group: sim-app_group-1
+  dimensions:
+  - id: calls
+    rate_signal: ebpf_socket_ebpf_call_udp_sendmsg_calls
+- id: app.ebpf_call_udp_recvmsg
+  title: Calls for udp_recvmsg
+  units: calls/s
+  family: ebpf
+  chart_type: stacked
+  priority: 60017
+  shape: counters
+  labels:
+    app_group: sim-app_group-1
+  dimensions:
+  - id: calls
+    rate_signal: ebpf_socket_ebpf_call_udp_recvmsg_calls
+- id: cgroup.net_conn_ipv4
+  title: Calls to tcp_v4_connection
+  units: connections/s
+  family: net
+  chart_type: line
+  priority: 60018
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: connections
+    rate_signal: ebpf_socket_net_conn_ipv4_connections
+- id: cgroup.net_conn_ipv6
+  title: Calls to tcp_v6_connection
+  units: connections/s
+  family: net
+  chart_type: line
+  priority: 60019
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: connections
+    rate_signal: ebpf_socket_net_conn_ipv6_connections
+- id: cgroup.net_total_bandwidth
+  title: Bytes received
+  units: kilobits/s
+  family: net
+  chart_type: line
+  priority: 60020
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: received
+    rate_signal: ebpf_socket_net_total_bandwidth_received
+  - id: sent
+    rate_signal: ebpf_socket_net_total_bandwidth_sent
+- id: cgroup.net_tcp_recv
+  title: Calls to tcp_cleanup_rbuf.
+  units: calls/s
+  family: net
+  chart_type: line
+  priority: 60021
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: calls
+    rate_signal: ebpf_socket_net_tcp_recv_calls
+- id: cgroup.net_tcp_send
+  title: Calls to tcp_sendmsg.
+  units: calls/s
+  family: net
+  chart_type: line
+  priority: 60022
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: calls
+    rate_signal: ebpf_socket_net_tcp_send_calls
+- id: cgroup.net_retransmit
+  title: Calls to tcp_retransmit.
+  units: calls/s
+  family: net
+  chart_type: line
+  priority: 60023
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: calls
+    rate_signal: ebpf_socket_net_retransmit_calls
+- id: cgroup.net_udp_send
+  title: Calls to udp_sendmsg
+  units: calls/s
+  family: net
+  chart_type: line
+  priority: 60024
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: calls
+    rate_signal: ebpf_socket_net_udp_send_calls
+- id: cgroup.net_udp_recv
+  title: Calls to udp_recvmsg
+  units: calls/s
+  family: net
+  chart_type: line
+  priority: 60025
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: calls
+    rate_signal: ebpf_socket_net_udp_recv_calls
+- id: services.net_conn_ipv4
+  title: Calls to tcp_v4_connection
+  units: connections/s
+  family: net
+  chart_type: stacked
+  priority: 60026
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: connections
+    rate_signal: ebpf_socket_net_conn_ipv4_connections
+- id: services.net_conn_ipv6
+  title: Calls to tcp_v6_connection
+  units: connections/s
+  family: net
+  chart_type: stacked
+  priority: 60027
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: connections
+    rate_signal: ebpf_socket_net_conn_ipv6_connections
+- id: services.net_total_bandwidth
+  title: Bytes received
+  units: kilobits/s
+  family: net
+  chart_type: stacked
+  priority: 60028
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: received
+    rate_signal: ebpf_socket_net_total_bandwidth_received
+  - id: sent
+    rate_signal: ebpf_socket_net_total_bandwidth_sent
+- id: services.net_tcp_recv
+  title: Calls to tcp_cleanup_rbuf.
+  units: calls/s
+  family: net
+  chart_type: stacked
+  priority: 60029
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: calls
+    rate_signal: ebpf_socket_net_tcp_recv_calls
+- id: services.net_tcp_send
+  title: Calls to tcp_sendmsg.
+  units: calls/s
+  family: net
+  chart_type: stacked
+  priority: 60030
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: calls
+    rate_signal: ebpf_socket_net_tcp_send_calls
+- id: services.net_tcp_retransmit
+  title: Calls to tcp_retransmit
+  units: calls/s
+  family: net
+  chart_type: stacked
+  priority: 60031
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: calls
+    rate_signal: ebpf_socket_net_tcp_retransmit_calls
+- id: services.net_udp_send
+  title: Calls to udp_sendmsg
+  units: calls/s
+  family: net
+  chart_type: stacked
+  priority: 60032
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: calls
+    rate_signal: ebpf_socket_net_udp_send_calls
+- id: services.net_udp_recv
+  title: Calls to udp_recvmsg
+  units: calls/s
+  family: net
+  chart_type: stacked
+  priority: 60033
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: calls
+    rate_signal: ebpf_socket_net_udp_recv_calls

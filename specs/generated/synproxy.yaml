@@ -1,0 +1,99 @@
+version: 1
+name: synproxy
+description: Synproxy metrics, generated from Netdata's own collector metadata so the contexts, units
+  and dimension names match what a real Synproxy node reports. Signals are independent and plausible rather
+  than causally coupled - see scripts/sync-integrations.py.
+signals:
+  synproxy_synproxy_syn_received_received:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  synproxy_synproxy_conn_reopened_reopened:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  synproxy_synproxy_cookies_valid:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  synproxy_synproxy_cookies_invalid:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  synproxy_synproxy_cookies_retransmits:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: netfilter.synproxy_syn_received
+  title: SYNPROXY SYN Packets received
+  units: packets/s
+  family: synproxy
+  chart_type: line
+  priority: 60001
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: received
+    rate_signal: synproxy_synproxy_syn_received_received
+- id: netfilter.synproxy_conn_reopened
+  title: SYNPROXY Connections Reopened
+  units: connections/s
+  family: synproxy
+  chart_type: line
+  priority: 60002
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: reopened
+    rate_signal: synproxy_synproxy_conn_reopened_reopened
+- id: netfilter.synproxy_cookies
+  title: SYNPROXY TCP Cookies
+  units: cookies/s
+  family: synproxy
+  chart_type: line
+  priority: 60003
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: valid
+    rate_signal: synproxy_synproxy_cookies_valid
+  - id: invalid
+    rate_signal: synproxy_synproxy_cookies_invalid
+  - id: retransmits
+    rate_signal: synproxy_synproxy_cookies_retransmits

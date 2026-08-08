@@ -1,0 +1,116 @@
+version: 1
+name: adaptec-raid
+description: Adaptec RAID metrics, generated from Netdata's own collector metadata so the contexts, units
+  and dimension names match what a real Adaptec RAID node reports. Signals are independent and plausible
+  rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  adaptec_raid_logical_device_status_ok:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  adaptec_raid_logical_device_status_critical:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  adaptec_raid_physical_device_state_ok:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  adaptec_raid_physical_device_state_critical:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  adaptec_raid_physical_device_smart_warnings_smart:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  adaptec_raid_physical_device_temperature_temperature:
+    base: 41.0
+    min: 0.0
+    max: 120.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: adaptecraid.logical_device_status
+  title: Logical Device status
+  units: status
+  family: logical
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels:
+    ld_number: sim-ld_number-1
+    ld_name: sim-ld_name-1
+    raid_level: sim-raid_level-1
+  dimensions:
+  - id: ok
+    signal: adaptec_raid_logical_device_status_ok
+  - id: critical
+    signal: adaptec_raid_logical_device_status_critical
+- id: adaptecraid.physical_device_state
+  title: Physical Device state
+  units: status
+  family: physical
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels:
+    pd_number: sim-pd_number-1
+    location: sim-location-1
+    vendor: sim-vendor-1
+    model: sim-model-1
+  dimensions:
+  - id: ok
+    signal: adaptec_raid_physical_device_state_ok
+  - id: critical
+    signal: adaptec_raid_physical_device_state_critical
+- id: adaptecraid.physical_device_smart_warnings
+  title: Physical Device SMART warnings
+  units: warnings
+  family: physical
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels:
+    pd_number: sim-pd_number-1
+    location: sim-location-1
+    vendor: sim-vendor-1
+    model: sim-model-1
+  dimensions:
+  - id: smart
+    signal: adaptec_raid_physical_device_smart_warnings_smart
+- id: adaptecraid.physical_device_temperature
+  title: Physical Device temperature
+  units: Celsius
+  family: physical
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels:
+    pd_number: sim-pd_number-1
+    location: sim-location-1
+    vendor: sim-vendor-1
+    model: sim-model-1
+  dimensions:
+  - id: temperature
+    signal: adaptec_raid_physical_device_temperature_temperature

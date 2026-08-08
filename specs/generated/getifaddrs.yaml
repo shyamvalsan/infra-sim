@@ -1,0 +1,103 @@
+version: 1
+name: getifaddrs
+description: getifaddrs metrics, generated from Netdata's own collector metadata so the contexts, units
+  and dimension names match what a real getifaddrs node reports. Signals are independent and plausible
+  rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  getifaddrs_packets_received:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  getifaddrs_packets_sent:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  getifaddrs_packets_multicast_received:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  getifaddrs_packets_multicast_sent:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  getifaddrs_ipv4_received:
+    base: 18000.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  getifaddrs_ipv4_sent:
+    base: 18000.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: system.packets
+  title: Network Packets
+  units: packets/s
+  family: packets
+  chart_type: line
+  priority: 60001
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: received
+    rate_signal: getifaddrs_packets_received
+  - id: sent
+    rate_signal: getifaddrs_packets_sent
+  - id: multicast_received
+    rate_signal: getifaddrs_packets_multicast_received
+  - id: multicast_sent
+    rate_signal: getifaddrs_packets_multicast_sent
+- id: system.ipv4
+  title: IPv4 Bandwidth
+  units: kilobits/s
+  family: ipv4
+  chart_type: area
+  priority: 60002
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: received
+    rate_signal: getifaddrs_ipv4_received
+  - id: sent
+    rate_signal: getifaddrs_ipv4_sent

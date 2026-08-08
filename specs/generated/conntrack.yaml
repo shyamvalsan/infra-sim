@@ -1,0 +1,232 @@
+version: 1
+name: conntrack
+description: Conntrack metrics, generated from Netdata's own collector metadata so the contexts, units
+  and dimension names match what a real Conntrack node reports. Signals are independent and plausible
+  rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  conntrack_conntrack_new_new:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  conntrack_conntrack_new_ignore:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  conntrack_conntrack_new_invalid:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  conntrack_conntrack_changes_inserted:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  conntrack_conntrack_changes_deleted:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  conntrack_conntrack_changes_delete_list:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  conntrack_conntrack_expect_created:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  conntrack_conntrack_expect_deleted:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  conntrack_conntrack_expect_new:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  conntrack_conntrack_search_searched:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  conntrack_conntrack_search_restarted:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  conntrack_conntrack_search_found:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  conntrack_conntrack_errors_icmp_error:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  conntrack_conntrack_errors_error_failed:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  conntrack_conntrack_errors_drop:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  conntrack_conntrack_errors_early_drop:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+contexts:
+- id: netfilter.conntrack_new
+  title: Connection Tracker New Connections
+  units: connections/s
+  family: conntrack
+  chart_type: line
+  priority: 60001
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: new
+    rate_signal: conntrack_conntrack_new_new
+  - id: ignore
+    rate_signal: conntrack_conntrack_new_ignore
+  - id: invalid
+    rate_signal: conntrack_conntrack_new_invalid
+- id: netfilter.conntrack_changes
+  title: Connection Tracker Changes
+  units: changes/s
+  family: conntrack
+  chart_type: line
+  priority: 60002
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: inserted
+    rate_signal: conntrack_conntrack_changes_inserted
+  - id: deleted
+    rate_signal: conntrack_conntrack_changes_deleted
+  - id: delete_list
+    rate_signal: conntrack_conntrack_changes_delete_list
+- id: netfilter.conntrack_expect
+  title: Connection Tracker Expectations
+  units: expectations/s
+  family: conntrack
+  chart_type: line
+  priority: 60003
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: created
+    rate_signal: conntrack_conntrack_expect_created
+  - id: deleted
+    rate_signal: conntrack_conntrack_expect_deleted
+  - id: new
+    rate_signal: conntrack_conntrack_expect_new
+- id: netfilter.conntrack_search
+  title: Connection Tracker Searches
+  units: searches/s
+  family: conntrack
+  chart_type: line
+  priority: 60004
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: searched
+    rate_signal: conntrack_conntrack_search_searched
+  - id: restarted
+    rate_signal: conntrack_conntrack_search_restarted
+  - id: found
+    rate_signal: conntrack_conntrack_search_found
+- id: netfilter.conntrack_errors
+  title: Connection Tracker Errors
+  units: events/s
+  family: conntrack
+  chart_type: line
+  priority: 60005
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: icmp_error
+    rate_signal: conntrack_conntrack_errors_icmp_error
+  - id: error_failed
+    rate_signal: conntrack_conntrack_errors_error_failed
+  - id: drop
+    rate_signal: conntrack_conntrack_errors_drop
+  - id: early_drop
+    rate_signal: conntrack_conntrack_errors_early_drop

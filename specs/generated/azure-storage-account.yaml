@@ -1,0 +1,221 @@
+version: 1
+name: azure-storage-account
+description: Azure Storage Account metrics, generated from Netdata's own collector metadata so the contexts,
+  units and dimension names match what a real Azure Storage Account node reports. Signals are independent
+  and plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  azure_storage_account_storage_accounts_availability_average:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_storage_account_storage_accounts_transactions_total:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_storage_account_storage_accounts_throughput_ingress:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_storage_account_storage_accounts_throughput_egress:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_storage_account_storage_accounts_e2e_latency_average:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_storage_account_storage_accounts_e2e_latency_maximum:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_storage_account_storage_accounts_server_latency_average:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_storage_account_storage_accounts_server_latency_maximum:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_storage_account_storage_accounts_used_capacity_average:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: azure_monitor.storage_accounts.availability
+  title: Azure Storage Account Availability
+  units: percentage
+  family: storage
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_storage_account_storage_accounts_availability_average
+- id: azure_monitor.storage_accounts.transactions
+  title: Azure Storage Account Transactions
+  units: transactions/s
+  family: storage
+  chart_type: line
+  priority: 60002
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: total
+    rate_signal: azure_storage_account_storage_accounts_transactions_total
+- id: azure_monitor.storage_accounts.throughput
+  title: Azure Storage Account Throughput
+  units: bytes/s
+  family: storage
+  chart_type: line
+  priority: 60003
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: ingress
+    rate_signal: azure_storage_account_storage_accounts_throughput_ingress
+  - id: egress
+    rate_signal: azure_storage_account_storage_accounts_throughput_egress
+- id: azure_monitor.storage_accounts.e2e_latency
+  title: Azure Storage Account End-to-End Latency
+  units: milliseconds
+  family: storage
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_storage_account_storage_accounts_e2e_latency_average
+  - id: maximum
+    signal: azure_storage_account_storage_accounts_e2e_latency_maximum
+- id: azure_monitor.storage_accounts.server_latency
+  title: Azure Storage Account Server Latency
+  units: milliseconds
+  family: storage
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_storage_account_storage_accounts_server_latency_average
+  - id: maximum
+    signal: azure_storage_account_storage_accounts_server_latency_maximum
+- id: azure_monitor.storage_accounts.used_capacity
+  title: Azure Storage Account Used Capacity
+  units: bytes
+  family: storage
+  chart_type: line
+  priority: 60006
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_storage_account_storage_accounts_used_capacity_average

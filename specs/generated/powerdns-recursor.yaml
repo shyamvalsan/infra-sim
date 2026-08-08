@@ -1,0 +1,393 @@
+version: 1
+name: powerdns-recursor
+description: PowerDNS Recursor metrics, generated from Netdata's own collector metadata so the contexts,
+  units and dimension names match what a real PowerDNS Recursor node reports. Signals are independent
+  and plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  powerdns_recursor_questions_in_total:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  powerdns_recursor_questions_in_tcp:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  powerdns_recursor_questions_in_ipv6:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  powerdns_recursor_questions_out_udp:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  powerdns_recursor_questions_out_tcp:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  powerdns_recursor_questions_out_ipv6:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  powerdns_recursor_questions_out_throttled:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  powerdns_recursor_answer_time_0_1ms:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  powerdns_recursor_answer_time_1_10ms:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  powerdns_recursor_answer_time_10_100ms:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  powerdns_recursor_answer_time_100_1000ms:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  powerdns_recursor_answer_time_slow:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  powerdns_recursor_timeouts_total:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  powerdns_recursor_timeouts_ipv4:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  powerdns_recursor_timeouts_ipv6:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  powerdns_recursor_drops_over_capacity_drops:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  powerdns_recursor_drops_query_pipe_full_drops:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  powerdns_recursor_drops_too_old_drops:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  powerdns_recursor_drops_truncated_drops:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  powerdns_recursor_drops_empty_queries:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  powerdns_recursor_cache_usage_cache_hits:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  powerdns_recursor_cache_usage_cache_misses:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  powerdns_recursor_cache_usage_packet_cache_hits:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  powerdns_recursor_cache_usage_packet_cache_misses:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  powerdns_recursor_cache_size_cache:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  powerdns_recursor_cache_size_packet_cache:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  powerdns_recursor_cache_size_negative_cache:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: powerdns_recursor.questions_in
+  title: Incoming questions
+  units: questions/s
+  family: questions
+  chart_type: line
+  priority: 60001
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: total
+    rate_signal: powerdns_recursor_questions_in_total
+  - id: tcp
+    rate_signal: powerdns_recursor_questions_in_tcp
+  - id: ipv6
+    rate_signal: powerdns_recursor_questions_in_ipv6
+- id: powerdns_recursor.questions_out
+  title: Outgoing questions
+  units: questions/s
+  family: questions
+  chart_type: line
+  priority: 60002
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: udp
+    rate_signal: powerdns_recursor_questions_out_udp
+  - id: tcp
+    rate_signal: powerdns_recursor_questions_out_tcp
+  - id: ipv6
+    rate_signal: powerdns_recursor_questions_out_ipv6
+  - id: throttled
+    rate_signal: powerdns_recursor_questions_out_throttled
+- id: powerdns_recursor.answer_time
+  title: Queries answered within a time range
+  units: queries/s
+  family: answer
+  chart_type: line
+  priority: 60003
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: 0-1ms
+    rate_signal: powerdns_recursor_answer_time_0_1ms
+  - id: 1-10ms
+    rate_signal: powerdns_recursor_answer_time_1_10ms
+  - id: 10-100ms
+    rate_signal: powerdns_recursor_answer_time_10_100ms
+  - id: 100-1000ms
+    rate_signal: powerdns_recursor_answer_time_100_1000ms
+  - id: slow
+    rate_signal: powerdns_recursor_answer_time_slow
+- id: powerdns_recursor.timeouts
+  title: Timeouts on outgoing UDP queries
+  units: timeouts/s
+  family: timeouts
+  chart_type: line
+  priority: 60004
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: total
+    rate_signal: powerdns_recursor_timeouts_total
+  - id: ipv4
+    rate_signal: powerdns_recursor_timeouts_ipv4
+  - id: ipv6
+    rate_signal: powerdns_recursor_timeouts_ipv6
+- id: powerdns_recursor.drops
+  title: Drops
+  units: drops/s
+  family: drops
+  chart_type: line
+  priority: 60005
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: over-capacity-drops
+    rate_signal: powerdns_recursor_drops_over_capacity_drops
+  - id: query-pipe-full-drops
+    rate_signal: powerdns_recursor_drops_query_pipe_full_drops
+  - id: too-old-drops
+    rate_signal: powerdns_recursor_drops_too_old_drops
+  - id: truncated-drops
+    rate_signal: powerdns_recursor_drops_truncated_drops
+  - id: empty-queries
+    rate_signal: powerdns_recursor_drops_empty_queries
+- id: powerdns_recursor.cache_usage
+  title: Cache Usage
+  units: events/s
+  family: cache
+  chart_type: line
+  priority: 60006
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: cache-hits
+    rate_signal: powerdns_recursor_cache_usage_cache_hits
+  - id: cache-misses
+    rate_signal: powerdns_recursor_cache_usage_cache_misses
+  - id: packet-cache-hits
+    rate_signal: powerdns_recursor_cache_usage_packet_cache_hits
+  - id: packet-cache-misses
+    rate_signal: powerdns_recursor_cache_usage_packet_cache_misses
+- id: powerdns_recursor.cache_size
+  title: Cache Size
+  units: entries
+  family: cache
+  chart_type: line
+  priority: 60007
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: cache
+    signal: powerdns_recursor_cache_size_cache
+  - id: packet-cache
+    signal: powerdns_recursor_cache_size_packet_cache
+  - id: negative-cache
+    signal: powerdns_recursor_cache_size_negative_cache

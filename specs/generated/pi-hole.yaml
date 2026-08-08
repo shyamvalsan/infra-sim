@@ -1,0 +1,796 @@
+version: 1
+name: pi-hole
+description: Pi-hole metrics, generated from Netdata's own collector metadata so the contexts, units and
+  dimension names match what a real Pi-hole node reports. Signals are independent and plausible rather
+  than causally coupled - see scripts/sync-integrations.py.
+signals:
+  pi_hole_dns_queries_total_queries:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pi_hole_dns_queries_blocked_percent_blocked:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pi_hole_dns_queries_by_destination_cached:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pi_hole_dns_queries_by_destination_blocked:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pi_hole_dns_queries_by_destination_forwarded:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pi_hole_dns_queries_by_type_a:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pi_hole_dns_queries_by_type_aaa:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pi_hole_dns_queries_by_type_any:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pi_hole_dns_queries_by_type_srv:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pi_hole_dns_queries_by_type_soa:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pi_hole_dns_queries_by_type_ptr:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pi_hole_dns_queries_by_type_txt:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pi_hole_dns_queries_by_type_naptr:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pi_hole_dns_queries_by_type_mx:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pi_hole_dns_queries_by_type_ds:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pi_hole_dns_queries_by_type_rrsig:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pi_hole_dns_queries_by_type_dnskey:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pi_hole_dns_queries_by_type_ns:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pi_hole_dns_queries_by_type_svcb:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pi_hole_dns_queries_by_type_https:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pi_hole_dns_queries_by_type_other:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pi_hole_dns_queries_by_status_unknown:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pi_hole_dns_queries_by_status_gravity:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pi_hole_dns_queries_by_status_forwarded:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pi_hole_dns_queries_by_status_cache:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pi_hole_dns_queries_by_status_regex:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pi_hole_dns_queries_by_status_denylist:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pi_hole_dns_queries_by_status_external_blocked_ip:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pi_hole_dns_queries_by_status_external_blocked_null:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pi_hole_dns_queries_by_status_external_blocked_nxra:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pi_hole_dns_queries_by_status_gravity_cname:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pi_hole_dns_queries_by_status_regex_cname:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pi_hole_dns_queries_by_status_denylist_cname:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pi_hole_dns_queries_by_status_retried:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pi_hole_dns_queries_by_status_retried_dnssec:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pi_hole_dns_queries_by_status_in_progress:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pi_hole_dns_queries_by_status_dbbusy:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pi_hole_dns_queries_by_status_special_domain:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pi_hole_dns_queries_by_status_cache_stale:
+    base: 0.0
+    min: 0.0
+    max: 5000000.0
+  pi_hole_dns_queries_by_status_external_blocked_ede15:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pi_hole_dns_replies_by_status_unknown:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pi_hole_dns_replies_by_status_nodata:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pi_hole_dns_replies_by_status_nxdomain:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pi_hole_dns_replies_by_status_cname:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pi_hole_dns_replies_by_status_ip:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pi_hole_dns_replies_by_status_domain:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pi_hole_dns_replies_by_status_rrname:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pi_hole_dns_replies_by_status_servfail:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  pi_hole_dns_replies_by_status_refused:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  pi_hole_dns_replies_by_status_notimp:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pi_hole_dns_replies_by_status_dnssec:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pi_hole_dns_replies_by_status_none:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pi_hole_dns_replies_by_status_other:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pi_hole_active_clients_active:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pi_hole_gravity_list_blocked_domains_blocked:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pi_hole_gravity_list_last_update_time_ago_last_update_ago:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: pihole.dns_queries_total
+  title: Pi-hole DNS Queries Total (Cached, Blocked and Forwarded)
+  units: queries/s
+  family: dns
+  chart_type: line
+  priority: 60001
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: queries
+    rate_signal: pi_hole_dns_queries_total_queries
+- id: pihole.dns_queries_blocked_percent
+  title: Pi-hole DNS Queries Blocked Percent
+  units: percent
+  family: dns
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: blocked
+    signal: pi_hole_dns_queries_blocked_percent_blocked
+- id: pihole.dns_queries_by_destination
+  title: Pi-hole DNS Queries by Destination
+  units: queries/s
+  family: dns
+  chart_type: stacked
+  priority: 60003
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: cached
+    rate_signal: pi_hole_dns_queries_by_destination_cached
+  - id: blocked
+    rate_signal: pi_hole_dns_queries_by_destination_blocked
+  - id: forwarded
+    rate_signal: pi_hole_dns_queries_by_destination_forwarded
+- id: pihole.dns_queries_by_type
+  title: Pi-hole DNS Queries by Type
+  units: queries/s
+  family: dns
+  chart_type: stacked
+  priority: 60004
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: A
+    rate_signal: pi_hole_dns_queries_by_type_a
+  - id: AAA
+    rate_signal: pi_hole_dns_queries_by_type_aaa
+  - id: ANY
+    rate_signal: pi_hole_dns_queries_by_type_any
+  - id: SRV
+    rate_signal: pi_hole_dns_queries_by_type_srv
+  - id: SOA
+    rate_signal: pi_hole_dns_queries_by_type_soa
+  - id: PTR
+    rate_signal: pi_hole_dns_queries_by_type_ptr
+  - id: TXT
+    rate_signal: pi_hole_dns_queries_by_type_txt
+  - id: NAPTR
+    rate_signal: pi_hole_dns_queries_by_type_naptr
+  - id: MX
+    rate_signal: pi_hole_dns_queries_by_type_mx
+  - id: DS
+    rate_signal: pi_hole_dns_queries_by_type_ds
+  - id: RRSIG
+    rate_signal: pi_hole_dns_queries_by_type_rrsig
+  - id: DNSKEY
+    rate_signal: pi_hole_dns_queries_by_type_dnskey
+  - id: NS
+    rate_signal: pi_hole_dns_queries_by_type_ns
+  - id: SVCB
+    rate_signal: pi_hole_dns_queries_by_type_svcb
+  - id: HTTPS
+    rate_signal: pi_hole_dns_queries_by_type_https
+  - id: OTHER
+    rate_signal: pi_hole_dns_queries_by_type_other
+- id: pihole.dns_queries_by_status
+  title: Pi-hole DNS Queries by Status
+  units: queries/s
+  family: dns
+  chart_type: stacked
+  priority: 60005
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: UNKNOWN
+    rate_signal: pi_hole_dns_queries_by_status_unknown
+  - id: GRAVITY
+    rate_signal: pi_hole_dns_queries_by_status_gravity
+  - id: FORWARDED
+    rate_signal: pi_hole_dns_queries_by_status_forwarded
+  - id: CACHE
+    rate_signal: pi_hole_dns_queries_by_status_cache
+  - id: REGEX
+    rate_signal: pi_hole_dns_queries_by_status_regex
+  - id: DENYLIST
+    rate_signal: pi_hole_dns_queries_by_status_denylist
+  - id: EXTERNAL_BLOCKED_IP
+    rate_signal: pi_hole_dns_queries_by_status_external_blocked_ip
+  - id: EXTERNAL_BLOCKED_NULL
+    rate_signal: pi_hole_dns_queries_by_status_external_blocked_null
+  - id: EXTERNAL_BLOCKED_NXRA
+    rate_signal: pi_hole_dns_queries_by_status_external_blocked_nxra
+  - id: GRAVITY_CNAME
+    rate_signal: pi_hole_dns_queries_by_status_gravity_cname
+  - id: REGEX_CNAME
+    rate_signal: pi_hole_dns_queries_by_status_regex_cname
+  - id: DENYLIST_CNAME
+    rate_signal: pi_hole_dns_queries_by_status_denylist_cname
+  - id: RETRIED
+    rate_signal: pi_hole_dns_queries_by_status_retried
+  - id: RETRIED_DNSSEC
+    rate_signal: pi_hole_dns_queries_by_status_retried_dnssec
+  - id: IN_PROGRESS
+    rate_signal: pi_hole_dns_queries_by_status_in_progress
+  - id: DBBUSY
+    rate_signal: pi_hole_dns_queries_by_status_dbbusy
+  - id: SPECIAL_DOMAIN
+    rate_signal: pi_hole_dns_queries_by_status_special_domain
+  - id: CACHE_STALE
+    rate_signal: pi_hole_dns_queries_by_status_cache_stale
+  - id: EXTERNAL_BLOCKED_EDE15
+    rate_signal: pi_hole_dns_queries_by_status_external_blocked_ede15
+- id: pihole.dns_replies_by_status
+  title: Pi-hole DNS Replies by Status
+  units: replies/s
+  family: dns
+  chart_type: stacked
+  priority: 60006
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: UNKNOWN
+    rate_signal: pi_hole_dns_replies_by_status_unknown
+  - id: NODATA
+    rate_signal: pi_hole_dns_replies_by_status_nodata
+  - id: NXDOMAIN
+    rate_signal: pi_hole_dns_replies_by_status_nxdomain
+  - id: CNAME
+    rate_signal: pi_hole_dns_replies_by_status_cname
+  - id: IP
+    rate_signal: pi_hole_dns_replies_by_status_ip
+  - id: DOMAIN
+    rate_signal: pi_hole_dns_replies_by_status_domain
+  - id: RRNAME
+    rate_signal: pi_hole_dns_replies_by_status_rrname
+  - id: SERVFAIL
+    rate_signal: pi_hole_dns_replies_by_status_servfail
+  - id: REFUSED
+    rate_signal: pi_hole_dns_replies_by_status_refused
+  - id: NOTIMP
+    rate_signal: pi_hole_dns_replies_by_status_notimp
+  - id: DNSSEC
+    rate_signal: pi_hole_dns_replies_by_status_dnssec
+  - id: NONE
+    rate_signal: pi_hole_dns_replies_by_status_none
+  - id: OTHER
+    rate_signal: pi_hole_dns_replies_by_status_other
+- id: pihole.active_clients
+  title: Pi-hole Active Clients (Seen in the Last 24 Hours)
+  units: clients
+  family: active
+  chart_type: line
+  priority: 60007
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: active
+    signal: pi_hole_active_clients_active
+- id: pihole.gravity_list_blocked_domains
+  title: Pi-hole Gravity List Blocked Domains
+  units: domains
+  family: gravity
+  chart_type: line
+  priority: 60008
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: blocked
+    signal: pi_hole_gravity_list_blocked_domains_blocked
+- id: pihole.gravity_list_last_update_time_ago
+  title: Pi-hole Gravity List Time Since Last Update
+  units: seconds
+  family: gravity
+  chart_type: line
+  priority: 60009
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: last_update_ago
+    signal: pi_hole_gravity_list_last_update_time_ago_last_update_ago

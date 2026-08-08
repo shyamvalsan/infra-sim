@@ -1,0 +1,1850 @@
+version: 1
+name: coredns
+description: CoreDNS metrics, generated from Netdata's own collector metadata so the contexts, units and
+  dimension names match what a real CoreDNS node reports. Signals are independent and plausible rather
+  than causally coupled - see scripts/sync-integrations.py.
+signals:
+  coredns_dns_request_count_total_requests:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_dns_responses_count_total_responses:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_dns_request_count_total_per_status_processed:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_dns_request_count_total_per_status_dropped:
+    base: 0.0
+    min: 0.0
+    max: 5000000.0
+  coredns_dns_no_matching_zone_dropped_total_dropped:
+    base: 0.0
+    min: 0.0
+    max: 5000000.0
+  coredns_dns_panic_count_total_panics:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_dns_requests_count_total_per_proto_udp:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_dns_requests_count_total_per_proto_tcp:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_dns_requests_count_total_per_ip_family_v4:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_dns_requests_count_total_per_ip_family_v6:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_dns_requests_count_total_per_per_type_a:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_dns_requests_count_total_per_per_type_aaaa:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_dns_requests_count_total_per_per_type_mx:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_dns_requests_count_total_per_per_type_soa:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_dns_requests_count_total_per_per_type_cname:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_dns_requests_count_total_per_per_type_ptr:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_dns_requests_count_total_per_per_type_txt:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_dns_requests_count_total_per_per_type_ns:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_dns_requests_count_total_per_per_type_ds:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_dns_requests_count_total_per_per_type_dnskey:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_dns_requests_count_total_per_per_type_rrsig:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_dns_requests_count_total_per_per_type_nsec:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_dns_requests_count_total_per_per_type_nsec3:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_dns_requests_count_total_per_per_type_ixfr:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_dns_requests_count_total_per_per_type_any:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_dns_requests_count_total_per_per_type_other:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_dns_responses_count_total_per_rcode_noerror:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  coredns_dns_responses_count_total_per_rcode_formerr:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_dns_responses_count_total_per_rcode_servfail:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  coredns_dns_responses_count_total_per_rcode_nxdomain:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_dns_responses_count_total_per_rcode_notimp:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_dns_responses_count_total_per_rcode_refused:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  coredns_dns_responses_count_total_per_rcode_yxdomain:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_dns_responses_count_total_per_rcode_yxrrset:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_dns_responses_count_total_per_rcode_nxrrset:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_dns_responses_count_total_per_rcode_notauth:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_dns_responses_count_total_per_rcode_notzone:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_dns_responses_count_total_per_rcode_badsig:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_dns_responses_count_total_per_rcode_badkey:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_dns_responses_count_total_per_rcode_badtime:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_dns_responses_count_total_per_rcode_badmode:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_dns_responses_count_total_per_rcode_badname:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_dns_responses_count_total_per_rcode_badalg:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_dns_responses_count_total_per_rcode_badtrunc:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_dns_responses_count_total_per_rcode_badcookie:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_dns_responses_count_total_per_rcode_other:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_server_dns_request_count_total_requests:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_server_dns_responses_count_total_responses:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_server_request_count_total_per_status_processed:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_server_request_count_total_per_status_dropped:
+    base: 0.0
+    min: 0.0
+    max: 5000000.0
+  coredns_server_requests_count_total_per_proto_udp:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_server_requests_count_total_per_proto_tcp:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_server_requests_count_total_per_ip_family_v4:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_server_requests_count_total_per_ip_family_v6:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_server_requests_count_total_per_per_type_a:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_server_requests_count_total_per_per_type_aaaa:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_server_requests_count_total_per_per_type_mx:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_server_requests_count_total_per_per_type_soa:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_server_requests_count_total_per_per_type_cname:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_server_requests_count_total_per_per_type_ptr:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_server_requests_count_total_per_per_type_txt:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_server_requests_count_total_per_per_type_ns:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_server_requests_count_total_per_per_type_ds:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_server_requests_count_total_per_per_type_dnskey:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_server_requests_count_total_per_per_type_rrsig:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_server_requests_count_total_per_per_type_nsec:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_server_requests_count_total_per_per_type_nsec3:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_server_requests_count_total_per_per_type_ixfr:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_server_requests_count_total_per_per_type_any:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_server_requests_count_total_per_per_type_other:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_server_responses_count_total_per_rcode_noerror:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  coredns_server_responses_count_total_per_rcode_formerr:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_server_responses_count_total_per_rcode_servfail:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  coredns_server_responses_count_total_per_rcode_nxdomain:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_server_responses_count_total_per_rcode_notimp:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_server_responses_count_total_per_rcode_refused:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  coredns_server_responses_count_total_per_rcode_yxdomain:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_server_responses_count_total_per_rcode_yxrrset:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_server_responses_count_total_per_rcode_nxrrset:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_server_responses_count_total_per_rcode_notauth:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_server_responses_count_total_per_rcode_notzone:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_server_responses_count_total_per_rcode_badsig:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_server_responses_count_total_per_rcode_badkey:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_server_responses_count_total_per_rcode_badtime:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_server_responses_count_total_per_rcode_badmode:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_server_responses_count_total_per_rcode_badname:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_server_responses_count_total_per_rcode_badalg:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_server_responses_count_total_per_rcode_badtrunc:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_server_responses_count_total_per_rcode_badcookie:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_server_responses_count_total_per_rcode_other:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_zone_dns_request_count_total_requests:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_zone_dns_responses_count_total_responses:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_zone_requests_count_total_per_proto_udp:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_zone_requests_count_total_per_proto_tcp:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_zone_requests_count_total_per_ip_family_v4:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_zone_requests_count_total_per_ip_family_v6:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_zone_requests_count_total_per_per_type_a:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_zone_requests_count_total_per_per_type_aaaa:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_zone_requests_count_total_per_per_type_mx:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_zone_requests_count_total_per_per_type_soa:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_zone_requests_count_total_per_per_type_cname:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_zone_requests_count_total_per_per_type_ptr:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_zone_requests_count_total_per_per_type_txt:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_zone_requests_count_total_per_per_type_ns:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_zone_requests_count_total_per_per_type_ds:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_zone_requests_count_total_per_per_type_dnskey:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_zone_requests_count_total_per_per_type_rrsig:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_zone_requests_count_total_per_per_type_nsec:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_zone_requests_count_total_per_per_type_nsec3:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_zone_requests_count_total_per_per_type_ixfr:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_zone_requests_count_total_per_per_type_any:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_zone_requests_count_total_per_per_type_other:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_zone_responses_count_total_per_rcode_noerror:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  coredns_zone_responses_count_total_per_rcode_formerr:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_zone_responses_count_total_per_rcode_servfail:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  coredns_zone_responses_count_total_per_rcode_nxdomain:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_zone_responses_count_total_per_rcode_notimp:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_zone_responses_count_total_per_rcode_refused:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  coredns_zone_responses_count_total_per_rcode_yxdomain:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_zone_responses_count_total_per_rcode_yxrrset:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_zone_responses_count_total_per_rcode_nxrrset:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_zone_responses_count_total_per_rcode_notauth:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_zone_responses_count_total_per_rcode_notzone:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_zone_responses_count_total_per_rcode_badsig:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_zone_responses_count_total_per_rcode_badkey:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_zone_responses_count_total_per_rcode_badtime:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_zone_responses_count_total_per_rcode_badmode:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_zone_responses_count_total_per_rcode_badname:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_zone_responses_count_total_per_rcode_badalg:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_zone_responses_count_total_per_rcode_badtrunc:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_zone_responses_count_total_per_rcode_badcookie:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  coredns_zone_responses_count_total_per_rcode_other:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: coredns.dns_request_count_total
+  title: Number Of DNS Requests
+  units: requests/s
+  family: dns
+  chart_type: line
+  priority: 60001
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: requests
+    rate_signal: coredns_dns_request_count_total_requests
+- id: coredns.dns_responses_count_total
+  title: Number Of DNS Responses
+  units: responses/s
+  family: dns
+  chart_type: line
+  priority: 60002
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: responses
+    rate_signal: coredns_dns_responses_count_total_responses
+- id: coredns.dns_request_count_total_per_status
+  title: Number Of Processed And Dropped DNS Requests
+  units: requests/s
+  family: dns
+  chart_type: stacked
+  priority: 60003
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: processed
+    rate_signal: coredns_dns_request_count_total_per_status_processed
+  - id: dropped
+    rate_signal: coredns_dns_request_count_total_per_status_dropped
+- id: coredns.dns_no_matching_zone_dropped_total
+  title: Number Of Dropped DNS Requests Because Of No Matching Zone
+  units: requests/s
+  family: dns
+  chart_type: line
+  priority: 60004
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: dropped
+    rate_signal: coredns_dns_no_matching_zone_dropped_total_dropped
+- id: coredns.dns_panic_count_total
+  title: Number Of Panics
+  units: panics/s
+  family: dns
+  chart_type: line
+  priority: 60005
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: panics
+    rate_signal: coredns_dns_panic_count_total_panics
+- id: coredns.dns_requests_count_total_per_proto
+  title: Number Of DNS Requests Per Transport Protocol
+  units: requests/s
+  family: dns
+  chart_type: stacked
+  priority: 60006
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: udp
+    rate_signal: coredns_dns_requests_count_total_per_proto_udp
+  - id: tcp
+    rate_signal: coredns_dns_requests_count_total_per_proto_tcp
+- id: coredns.dns_requests_count_total_per_ip_family
+  title: Number Of DNS Requests Per IP Family
+  units: requests/s
+  family: dns
+  chart_type: stacked
+  priority: 60007
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: v4
+    rate_signal: coredns_dns_requests_count_total_per_ip_family_v4
+  - id: v6
+    rate_signal: coredns_dns_requests_count_total_per_ip_family_v6
+- id: coredns.dns_requests_count_total_per_per_type
+  title: Number Of DNS Requests Per Type
+  units: requests/s
+  family: dns
+  chart_type: stacked
+  priority: 60008
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a
+    rate_signal: coredns_dns_requests_count_total_per_per_type_a
+  - id: aaaa
+    rate_signal: coredns_dns_requests_count_total_per_per_type_aaaa
+  - id: mx
+    rate_signal: coredns_dns_requests_count_total_per_per_type_mx
+  - id: soa
+    rate_signal: coredns_dns_requests_count_total_per_per_type_soa
+  - id: cname
+    rate_signal: coredns_dns_requests_count_total_per_per_type_cname
+  - id: ptr
+    rate_signal: coredns_dns_requests_count_total_per_per_type_ptr
+  - id: txt
+    rate_signal: coredns_dns_requests_count_total_per_per_type_txt
+  - id: ns
+    rate_signal: coredns_dns_requests_count_total_per_per_type_ns
+  - id: ds
+    rate_signal: coredns_dns_requests_count_total_per_per_type_ds
+  - id: dnskey
+    rate_signal: coredns_dns_requests_count_total_per_per_type_dnskey
+  - id: rrsig
+    rate_signal: coredns_dns_requests_count_total_per_per_type_rrsig
+  - id: nsec
+    rate_signal: coredns_dns_requests_count_total_per_per_type_nsec
+  - id: nsec3
+    rate_signal: coredns_dns_requests_count_total_per_per_type_nsec3
+  - id: ixfr
+    rate_signal: coredns_dns_requests_count_total_per_per_type_ixfr
+  - id: any
+    rate_signal: coredns_dns_requests_count_total_per_per_type_any
+  - id: other
+    rate_signal: coredns_dns_requests_count_total_per_per_type_other
+- id: coredns.dns_responses_count_total_per_rcode
+  title: Number Of DNS Responses Per Rcode
+  units: responses/s
+  family: dns
+  chart_type: stacked
+  priority: 60009
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: noerror
+    rate_signal: coredns_dns_responses_count_total_per_rcode_noerror
+  - id: formerr
+    rate_signal: coredns_dns_responses_count_total_per_rcode_formerr
+  - id: servfail
+    rate_signal: coredns_dns_responses_count_total_per_rcode_servfail
+  - id: nxdomain
+    rate_signal: coredns_dns_responses_count_total_per_rcode_nxdomain
+  - id: notimp
+    rate_signal: coredns_dns_responses_count_total_per_rcode_notimp
+  - id: refused
+    rate_signal: coredns_dns_responses_count_total_per_rcode_refused
+  - id: yxdomain
+    rate_signal: coredns_dns_responses_count_total_per_rcode_yxdomain
+  - id: yxrrset
+    rate_signal: coredns_dns_responses_count_total_per_rcode_yxrrset
+  - id: nxrrset
+    rate_signal: coredns_dns_responses_count_total_per_rcode_nxrrset
+  - id: notauth
+    rate_signal: coredns_dns_responses_count_total_per_rcode_notauth
+  - id: notzone
+    rate_signal: coredns_dns_responses_count_total_per_rcode_notzone
+  - id: badsig
+    rate_signal: coredns_dns_responses_count_total_per_rcode_badsig
+  - id: badkey
+    rate_signal: coredns_dns_responses_count_total_per_rcode_badkey
+  - id: badtime
+    rate_signal: coredns_dns_responses_count_total_per_rcode_badtime
+  - id: badmode
+    rate_signal: coredns_dns_responses_count_total_per_rcode_badmode
+  - id: badname
+    rate_signal: coredns_dns_responses_count_total_per_rcode_badname
+  - id: badalg
+    rate_signal: coredns_dns_responses_count_total_per_rcode_badalg
+  - id: badtrunc
+    rate_signal: coredns_dns_responses_count_total_per_rcode_badtrunc
+  - id: badcookie
+    rate_signal: coredns_dns_responses_count_total_per_rcode_badcookie
+  - id: other
+    rate_signal: coredns_dns_responses_count_total_per_rcode_other
+- id: coredns.server_dns_request_count_total
+  title: Number Of DNS Requests
+  units: requests/s
+  family: server
+  chart_type: line
+  priority: 60010
+  shape: counters
+  labels:
+    server_name: sim-server_name-1
+  dimensions:
+  - id: requests
+    rate_signal: coredns_server_dns_request_count_total_requests
+- id: coredns.server_dns_responses_count_total
+  title: Number Of DNS Responses
+  units: responses/s
+  family: server
+  chart_type: line
+  priority: 60011
+  shape: counters
+  labels:
+    server_name: sim-server_name-1
+  dimensions:
+  - id: responses
+    rate_signal: coredns_server_dns_responses_count_total_responses
+- id: coredns.server_request_count_total_per_status
+  title: Number Of Processed And Dropped DNS Requests
+  units: requests/s
+  family: server
+  chart_type: stacked
+  priority: 60012
+  shape: counters
+  labels:
+    server_name: sim-server_name-1
+  dimensions:
+  - id: processed
+    rate_signal: coredns_server_request_count_total_per_status_processed
+  - id: dropped
+    rate_signal: coredns_server_request_count_total_per_status_dropped
+- id: coredns.server_requests_count_total_per_proto
+  title: Number Of DNS Requests Per Transport Protocol
+  units: requests/s
+  family: server
+  chart_type: stacked
+  priority: 60013
+  shape: counters
+  labels:
+    server_name: sim-server_name-1
+  dimensions:
+  - id: udp
+    rate_signal: coredns_server_requests_count_total_per_proto_udp
+  - id: tcp
+    rate_signal: coredns_server_requests_count_total_per_proto_tcp
+- id: coredns.server_requests_count_total_per_ip_family
+  title: Number Of DNS Requests Per IP Family
+  units: requests/s
+  family: server
+  chart_type: stacked
+  priority: 60014
+  shape: counters
+  labels:
+    server_name: sim-server_name-1
+  dimensions:
+  - id: v4
+    rate_signal: coredns_server_requests_count_total_per_ip_family_v4
+  - id: v6
+    rate_signal: coredns_server_requests_count_total_per_ip_family_v6
+- id: coredns.server_requests_count_total_per_per_type
+  title: Number Of DNS Requests Per Type
+  units: requests/s
+  family: server
+  chart_type: stacked
+  priority: 60015
+  shape: counters
+  labels:
+    server_name: sim-server_name-1
+  dimensions:
+  - id: a
+    rate_signal: coredns_server_requests_count_total_per_per_type_a
+  - id: aaaa
+    rate_signal: coredns_server_requests_count_total_per_per_type_aaaa
+  - id: mx
+    rate_signal: coredns_server_requests_count_total_per_per_type_mx
+  - id: soa
+    rate_signal: coredns_server_requests_count_total_per_per_type_soa
+  - id: cname
+    rate_signal: coredns_server_requests_count_total_per_per_type_cname
+  - id: ptr
+    rate_signal: coredns_server_requests_count_total_per_per_type_ptr
+  - id: txt
+    rate_signal: coredns_server_requests_count_total_per_per_type_txt
+  - id: ns
+    rate_signal: coredns_server_requests_count_total_per_per_type_ns
+  - id: ds
+    rate_signal: coredns_server_requests_count_total_per_per_type_ds
+  - id: dnskey
+    rate_signal: coredns_server_requests_count_total_per_per_type_dnskey
+  - id: rrsig
+    rate_signal: coredns_server_requests_count_total_per_per_type_rrsig
+  - id: nsec
+    rate_signal: coredns_server_requests_count_total_per_per_type_nsec
+  - id: nsec3
+    rate_signal: coredns_server_requests_count_total_per_per_type_nsec3
+  - id: ixfr
+    rate_signal: coredns_server_requests_count_total_per_per_type_ixfr
+  - id: any
+    rate_signal: coredns_server_requests_count_total_per_per_type_any
+  - id: other
+    rate_signal: coredns_server_requests_count_total_per_per_type_other
+- id: coredns.server_responses_count_total_per_rcode
+  title: Number Of DNS Responses Per Rcode
+  units: responses/s
+  family: server
+  chart_type: stacked
+  priority: 60016
+  shape: counters
+  labels:
+    server_name: sim-server_name-1
+  dimensions:
+  - id: noerror
+    rate_signal: coredns_server_responses_count_total_per_rcode_noerror
+  - id: formerr
+    rate_signal: coredns_server_responses_count_total_per_rcode_formerr
+  - id: servfail
+    rate_signal: coredns_server_responses_count_total_per_rcode_servfail
+  - id: nxdomain
+    rate_signal: coredns_server_responses_count_total_per_rcode_nxdomain
+  - id: notimp
+    rate_signal: coredns_server_responses_count_total_per_rcode_notimp
+  - id: refused
+    rate_signal: coredns_server_responses_count_total_per_rcode_refused
+  - id: yxdomain
+    rate_signal: coredns_server_responses_count_total_per_rcode_yxdomain
+  - id: yxrrset
+    rate_signal: coredns_server_responses_count_total_per_rcode_yxrrset
+  - id: nxrrset
+    rate_signal: coredns_server_responses_count_total_per_rcode_nxrrset
+  - id: notauth
+    rate_signal: coredns_server_responses_count_total_per_rcode_notauth
+  - id: notzone
+    rate_signal: coredns_server_responses_count_total_per_rcode_notzone
+  - id: badsig
+    rate_signal: coredns_server_responses_count_total_per_rcode_badsig
+  - id: badkey
+    rate_signal: coredns_server_responses_count_total_per_rcode_badkey
+  - id: badtime
+    rate_signal: coredns_server_responses_count_total_per_rcode_badtime
+  - id: badmode
+    rate_signal: coredns_server_responses_count_total_per_rcode_badmode
+  - id: badname
+    rate_signal: coredns_server_responses_count_total_per_rcode_badname
+  - id: badalg
+    rate_signal: coredns_server_responses_count_total_per_rcode_badalg
+  - id: badtrunc
+    rate_signal: coredns_server_responses_count_total_per_rcode_badtrunc
+  - id: badcookie
+    rate_signal: coredns_server_responses_count_total_per_rcode_badcookie
+  - id: other
+    rate_signal: coredns_server_responses_count_total_per_rcode_other
+- id: coredns.zone_dns_request_count_total
+  title: Number Of DNS Requests
+  units: requests/s
+  family: zone
+  chart_type: line
+  priority: 60017
+  shape: counters
+  labels:
+    zone_name: sim-zone_name-1
+  dimensions:
+  - id: requests
+    rate_signal: coredns_zone_dns_request_count_total_requests
+- id: coredns.zone_dns_responses_count_total
+  title: Number Of DNS Responses
+  units: responses/s
+  family: zone
+  chart_type: line
+  priority: 60018
+  shape: counters
+  labels:
+    zone_name: sim-zone_name-1
+  dimensions:
+  - id: responses
+    rate_signal: coredns_zone_dns_responses_count_total_responses
+- id: coredns.zone_requests_count_total_per_proto
+  title: Number Of DNS Requests Per Transport Protocol
+  units: requests/s
+  family: zone
+  chart_type: stacked
+  priority: 60019
+  shape: counters
+  labels:
+    zone_name: sim-zone_name-1
+  dimensions:
+  - id: udp
+    rate_signal: coredns_zone_requests_count_total_per_proto_udp
+  - id: tcp
+    rate_signal: coredns_zone_requests_count_total_per_proto_tcp
+- id: coredns.zone_requests_count_total_per_ip_family
+  title: Number Of DNS Requests Per IP Family
+  units: requests/s
+  family: zone
+  chart_type: stacked
+  priority: 60020
+  shape: counters
+  labels:
+    zone_name: sim-zone_name-1
+  dimensions:
+  - id: v4
+    rate_signal: coredns_zone_requests_count_total_per_ip_family_v4
+  - id: v6
+    rate_signal: coredns_zone_requests_count_total_per_ip_family_v6
+- id: coredns.zone_requests_count_total_per_per_type
+  title: Number Of DNS Requests Per Type
+  units: requests/s
+  family: zone
+  chart_type: stacked
+  priority: 60021
+  shape: counters
+  labels:
+    zone_name: sim-zone_name-1
+  dimensions:
+  - id: a
+    rate_signal: coredns_zone_requests_count_total_per_per_type_a
+  - id: aaaa
+    rate_signal: coredns_zone_requests_count_total_per_per_type_aaaa
+  - id: mx
+    rate_signal: coredns_zone_requests_count_total_per_per_type_mx
+  - id: soa
+    rate_signal: coredns_zone_requests_count_total_per_per_type_soa
+  - id: cname
+    rate_signal: coredns_zone_requests_count_total_per_per_type_cname
+  - id: ptr
+    rate_signal: coredns_zone_requests_count_total_per_per_type_ptr
+  - id: txt
+    rate_signal: coredns_zone_requests_count_total_per_per_type_txt
+  - id: ns
+    rate_signal: coredns_zone_requests_count_total_per_per_type_ns
+  - id: ds
+    rate_signal: coredns_zone_requests_count_total_per_per_type_ds
+  - id: dnskey
+    rate_signal: coredns_zone_requests_count_total_per_per_type_dnskey
+  - id: rrsig
+    rate_signal: coredns_zone_requests_count_total_per_per_type_rrsig
+  - id: nsec
+    rate_signal: coredns_zone_requests_count_total_per_per_type_nsec
+  - id: nsec3
+    rate_signal: coredns_zone_requests_count_total_per_per_type_nsec3
+  - id: ixfr
+    rate_signal: coredns_zone_requests_count_total_per_per_type_ixfr
+  - id: any
+    rate_signal: coredns_zone_requests_count_total_per_per_type_any
+  - id: other
+    rate_signal: coredns_zone_requests_count_total_per_per_type_other
+- id: coredns.zone_responses_count_total_per_rcode
+  title: Number Of DNS Responses Per Rcode
+  units: responses/s
+  family: zone
+  chart_type: stacked
+  priority: 60022
+  shape: counters
+  labels:
+    zone_name: sim-zone_name-1
+  dimensions:
+  - id: noerror
+    rate_signal: coredns_zone_responses_count_total_per_rcode_noerror
+  - id: formerr
+    rate_signal: coredns_zone_responses_count_total_per_rcode_formerr
+  - id: servfail
+    rate_signal: coredns_zone_responses_count_total_per_rcode_servfail
+  - id: nxdomain
+    rate_signal: coredns_zone_responses_count_total_per_rcode_nxdomain
+  - id: notimp
+    rate_signal: coredns_zone_responses_count_total_per_rcode_notimp
+  - id: refused
+    rate_signal: coredns_zone_responses_count_total_per_rcode_refused
+  - id: yxdomain
+    rate_signal: coredns_zone_responses_count_total_per_rcode_yxdomain
+  - id: yxrrset
+    rate_signal: coredns_zone_responses_count_total_per_rcode_yxrrset
+  - id: nxrrset
+    rate_signal: coredns_zone_responses_count_total_per_rcode_nxrrset
+  - id: notauth
+    rate_signal: coredns_zone_responses_count_total_per_rcode_notauth
+  - id: notzone
+    rate_signal: coredns_zone_responses_count_total_per_rcode_notzone
+  - id: badsig
+    rate_signal: coredns_zone_responses_count_total_per_rcode_badsig
+  - id: badkey
+    rate_signal: coredns_zone_responses_count_total_per_rcode_badkey
+  - id: badtime
+    rate_signal: coredns_zone_responses_count_total_per_rcode_badtime
+  - id: badmode
+    rate_signal: coredns_zone_responses_count_total_per_rcode_badmode
+  - id: badname
+    rate_signal: coredns_zone_responses_count_total_per_rcode_badname
+  - id: badalg
+    rate_signal: coredns_zone_responses_count_total_per_rcode_badalg
+  - id: badtrunc
+    rate_signal: coredns_zone_responses_count_total_per_rcode_badtrunc
+  - id: badcookie
+    rate_signal: coredns_zone_responses_count_total_per_rcode_badcookie
+  - id: other
+    rate_signal: coredns_zone_responses_count_total_per_rcode_other

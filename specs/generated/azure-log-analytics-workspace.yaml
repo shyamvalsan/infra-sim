@@ -1,0 +1,1533 @@
+version: 1
+name: azure-log-analytics-workspace
+description: Azure Log Analytics Workspace metrics, generated from Netdata's own collector metadata so
+  the contexts, units and dimension names match what a real Azure Log Analytics Workspace node reports.
+  Signals are independent and plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  azure_log_analytics_workspace_log_analytics_query_availability_availability:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_ingestion_latency_average:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_ingestion_latency_maximum:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_ingestion_latency_minimum:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_ingestion_volume_records:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_queries_total:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_queries_failed:
+    base: 0.0
+    min: 0.0
+    max: 5000000.0
+  azure_log_analytics_workspace_log_analytics_export_data_exported:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_export_records_exported:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_export_failures_failed:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  azure_log_analytics_workspace_log_analytics_legacy_cpu_utilization_processor:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_legacy_cpu_utilization_privileged:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_legacy_cpu_utilization_user:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_legacy_cpu_utilization_idle:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_legacy_cpu_detailed_dpc:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_legacy_cpu_detailed_interrupt:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_legacy_cpu_detailed_io_wait:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_legacy_cpu_detailed_nice:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_legacy_cpu_pct_privileged:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_legacy_cpu_pct_user:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_legacy_memory_utilization_available:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_legacy_memory_utilization_used:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_legacy_memory_utilization_committed:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_legacy_memory_available_available_mbytes:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_legacy_memory_available_available_mbytes_memory:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_legacy_memory_used_kbytes_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_legacy_memory_used_mbytes_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_legacy_memory_free_physical:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_legacy_memory_free_virtual:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_legacy_memory_free_shared:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_legacy_swap_utilization_available:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_legacy_swap_utilization_used:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_legacy_swap_size_available:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_legacy_swap_size_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_legacy_disk_space_utilization_free:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_legacy_disk_space_utilization_used:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_legacy_disk_inodes_free:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_legacy_disk_inodes_used:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_legacy_disk_free_free:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_legacy_disk_io_throughput_read:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_legacy_disk_io_throughput_write:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_legacy_disk_io_throughput_logical:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_legacy_disk_io_throughput_physical:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_legacy_disk_io_operations_reads:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_legacy_disk_io_operations_writes:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_legacy_disk_io_operations_transfers:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_legacy_disk_io_latency_read:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_legacy_disk_io_latency_write:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_legacy_disk_io_latency_transfer:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_legacy_disk_queue_queue_length:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_legacy_paging_reads:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_legacy_paging_writes:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_legacy_paging_total:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_legacy_paging_files_free:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_legacy_paging_files_stored:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_legacy_network_throughput_win_received:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_legacy_network_throughput_win_sent:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_legacy_network_throughput_win_total:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_legacy_network_traffic_total:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_legacy_network_traffic_received:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_legacy_network_traffic_transmitted:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_legacy_network_packets_received:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_legacy_network_packets_transmitted:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_legacy_network_errors_rx:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  azure_log_analytics_workspace_log_analytics_legacy_network_errors_tx:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  azure_log_analytics_workspace_log_analytics_legacy_network_errors_collisions:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  azure_log_analytics_workspace_log_analytics_legacy_system_processes:
+    base: 210.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_legacy_processor_queue_queue_length:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_legacy_uptime_uptime:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_legacy_users_users:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_legacy_events_events:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_legacy_heartbeat_heartbeats:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_log_analytics_workspace_log_analytics_legacy_updates_updates:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: azure_monitor.log_analytics.query_availability
+  title: Azure Log Analytics Query Availability
+  units: percentage
+  family: log
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: availability
+    signal: azure_log_analytics_workspace_log_analytics_query_availability_availability
+- id: azure_monitor.log_analytics.ingestion_latency
+  title: Azure Log Analytics Ingestion Latency
+  units: seconds
+  family: log
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_log_analytics_workspace_log_analytics_ingestion_latency_average
+  - id: maximum
+    signal: azure_log_analytics_workspace_log_analytics_ingestion_latency_maximum
+  - id: minimum
+    signal: azure_log_analytics_workspace_log_analytics_ingestion_latency_minimum
+- id: azure_monitor.log_analytics.ingestion_volume
+  title: Azure Log Analytics Ingestion Volume
+  units: records/s
+  family: log
+  chart_type: line
+  priority: 60003
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: records
+    rate_signal: azure_log_analytics_workspace_log_analytics_ingestion_volume_records
+- id: azure_monitor.log_analytics.queries
+  title: Azure Log Analytics Queries
+  units: queries/s
+  family: log
+  chart_type: line
+  priority: 60004
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: total
+    rate_signal: azure_log_analytics_workspace_log_analytics_queries_total
+  - id: failed
+    rate_signal: azure_log_analytics_workspace_log_analytics_queries_failed
+- id: azure_monitor.log_analytics.export_data
+  title: Azure Log Analytics Exported Data
+  units: bytes/s
+  family: log
+  chart_type: line
+  priority: 60005
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: exported
+    rate_signal: azure_log_analytics_workspace_log_analytics_export_data_exported
+- id: azure_monitor.log_analytics.export_records
+  title: Azure Log Analytics Exported Records
+  units: records/s
+  family: log
+  chart_type: line
+  priority: 60006
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: exported
+    rate_signal: azure_log_analytics_workspace_log_analytics_export_records_exported
+- id: azure_monitor.log_analytics.export_failures
+  title: Azure Log Analytics Export Failures
+  units: exports/s
+  family: log
+  chart_type: line
+  priority: 60007
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: failed
+    rate_signal: azure_log_analytics_workspace_log_analytics_export_failures_failed
+- id: azure_monitor.log_analytics.legacy_cpu_utilization
+  title: Azure Log Analytics Legacy CPU Utilization
+  units: percentage
+  family: log
+  chart_type: line
+  priority: 60008
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: processor
+    signal: azure_log_analytics_workspace_log_analytics_legacy_cpu_utilization_processor
+  - id: privileged
+    signal: azure_log_analytics_workspace_log_analytics_legacy_cpu_utilization_privileged
+  - id: user
+    signal: azure_log_analytics_workspace_log_analytics_legacy_cpu_utilization_user
+  - id: idle
+    signal: azure_log_analytics_workspace_log_analytics_legacy_cpu_utilization_idle
+- id: azure_monitor.log_analytics.legacy_cpu_detailed
+  title: Azure Log Analytics Legacy CPU Detailed
+  units: percentage
+  family: log
+  chart_type: line
+  priority: 60009
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: dpc
+    signal: azure_log_analytics_workspace_log_analytics_legacy_cpu_detailed_dpc
+  - id: interrupt
+    signal: azure_log_analytics_workspace_log_analytics_legacy_cpu_detailed_interrupt
+  - id: io_wait
+    signal: azure_log_analytics_workspace_log_analytics_legacy_cpu_detailed_io_wait
+  - id: nice
+    signal: azure_log_analytics_workspace_log_analytics_legacy_cpu_detailed_nice
+- id: azure_monitor.log_analytics.legacy_cpu_pct
+  title: Azure Log Analytics Legacy CPU Pct Time
+  units: percentage
+  family: log
+  chart_type: line
+  priority: 60010
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: privileged
+    signal: azure_log_analytics_workspace_log_analytics_legacy_cpu_pct_privileged
+  - id: user
+    signal: azure_log_analytics_workspace_log_analytics_legacy_cpu_pct_user
+- id: azure_monitor.log_analytics.legacy_memory_utilization
+  title: Azure Log Analytics Legacy Memory Utilization
+  units: percentage
+  family: log
+  chart_type: line
+  priority: 60011
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: available
+    signal: azure_log_analytics_workspace_log_analytics_legacy_memory_utilization_available
+  - id: used
+    signal: azure_log_analytics_workspace_log_analytics_legacy_memory_utilization_used
+  - id: committed
+    signal: azure_log_analytics_workspace_log_analytics_legacy_memory_utilization_committed
+- id: azure_monitor.log_analytics.legacy_memory_available
+  title: Azure Log Analytics Legacy Available Memory
+  units: megabytes
+  family: log
+  chart_type: line
+  priority: 60012
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: available_mbytes
+    signal: azure_log_analytics_workspace_log_analytics_legacy_memory_available_available_mbytes
+  - id: available_mbytes_memory
+    signal: azure_log_analytics_workspace_log_analytics_legacy_memory_available_available_mbytes_memory
+- id: azure_monitor.log_analytics.legacy_memory_used_kbytes
+  title: Azure Log Analytics Legacy Used Memory (kBytes)
+  units: kilobytes
+  family: log
+  chart_type: line
+  priority: 60013
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: used
+    signal: azure_log_analytics_workspace_log_analytics_legacy_memory_used_kbytes_used
+- id: azure_monitor.log_analytics.legacy_memory_used_mbytes
+  title: Azure Log Analytics Legacy Used Memory (MBytes)
+  units: megabytes
+  family: log
+  chart_type: line
+  priority: 60014
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: used
+    signal: azure_log_analytics_workspace_log_analytics_legacy_memory_used_mbytes_used
+- id: azure_monitor.log_analytics.legacy_memory_free
+  title: Azure Log Analytics Legacy Free Memory
+  units: megabytes
+  family: log
+  chart_type: line
+  priority: 60015
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: physical
+    signal: azure_log_analytics_workspace_log_analytics_legacy_memory_free_physical
+  - id: virtual
+    signal: azure_log_analytics_workspace_log_analytics_legacy_memory_free_virtual
+  - id: shared
+    signal: azure_log_analytics_workspace_log_analytics_legacy_memory_free_shared
+- id: azure_monitor.log_analytics.legacy_swap_utilization
+  title: Azure Log Analytics Legacy Swap Utilization
+  units: percentage
+  family: log
+  chart_type: line
+  priority: 60016
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: available
+    signal: azure_log_analytics_workspace_log_analytics_legacy_swap_utilization_available
+  - id: used
+    signal: azure_log_analytics_workspace_log_analytics_legacy_swap_utilization_used
+- id: azure_monitor.log_analytics.legacy_swap_size
+  title: Azure Log Analytics Legacy Swap Size
+  units: megabytes
+  family: log
+  chart_type: line
+  priority: 60017
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: available
+    signal: azure_log_analytics_workspace_log_analytics_legacy_swap_size_available
+  - id: used
+    signal: azure_log_analytics_workspace_log_analytics_legacy_swap_size_used
+- id: azure_monitor.log_analytics.legacy_disk_space_utilization
+  title: Azure Log Analytics Legacy Disk Space Utilization
+  units: percentage
+  family: log
+  chart_type: line
+  priority: 60018
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: free
+    signal: azure_log_analytics_workspace_log_analytics_legacy_disk_space_utilization_free
+  - id: used
+    signal: azure_log_analytics_workspace_log_analytics_legacy_disk_space_utilization_used
+- id: azure_monitor.log_analytics.legacy_disk_inodes
+  title: Azure Log Analytics Legacy Disk Inodes
+  units: percentage
+  family: log
+  chart_type: line
+  priority: 60019
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: free
+    signal: azure_log_analytics_workspace_log_analytics_legacy_disk_inodes_free
+  - id: used
+    signal: azure_log_analytics_workspace_log_analytics_legacy_disk_inodes_used
+- id: azure_monitor.log_analytics.legacy_disk_free
+  title: Azure Log Analytics Legacy Disk Free Space
+  units: megabytes
+  family: log
+  chart_type: line
+  priority: 60020
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: free
+    signal: azure_log_analytics_workspace_log_analytics_legacy_disk_free_free
+- id: azure_monitor.log_analytics.legacy_disk_io_throughput
+  title: Azure Log Analytics Legacy Disk I/O Throughput
+  units: bytes/s
+  family: log
+  chart_type: line
+  priority: 60021
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: read
+    rate_signal: azure_log_analytics_workspace_log_analytics_legacy_disk_io_throughput_read
+  - id: write
+    rate_signal: azure_log_analytics_workspace_log_analytics_legacy_disk_io_throughput_write
+  - id: logical
+    rate_signal: azure_log_analytics_workspace_log_analytics_legacy_disk_io_throughput_logical
+  - id: physical
+    rate_signal: azure_log_analytics_workspace_log_analytics_legacy_disk_io_throughput_physical
+- id: azure_monitor.log_analytics.legacy_disk_io_operations
+  title: Azure Log Analytics Legacy Disk I/O Operations
+  units: operations/s
+  family: log
+  chart_type: line
+  priority: 60022
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: reads
+    rate_signal: azure_log_analytics_workspace_log_analytics_legacy_disk_io_operations_reads
+  - id: writes
+    rate_signal: azure_log_analytics_workspace_log_analytics_legacy_disk_io_operations_writes
+  - id: transfers
+    rate_signal: azure_log_analytics_workspace_log_analytics_legacy_disk_io_operations_transfers
+- id: azure_monitor.log_analytics.legacy_disk_io_latency
+  title: Azure Log Analytics Legacy Disk I/O Latency
+  units: seconds
+  family: log
+  chart_type: line
+  priority: 60023
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: read
+    signal: azure_log_analytics_workspace_log_analytics_legacy_disk_io_latency_read
+  - id: write
+    signal: azure_log_analytics_workspace_log_analytics_legacy_disk_io_latency_write
+  - id: transfer
+    signal: azure_log_analytics_workspace_log_analytics_legacy_disk_io_latency_transfer
+- id: azure_monitor.log_analytics.legacy_disk_queue
+  title: Azure Log Analytics Legacy Disk Queue Length
+  units: operations
+  family: log
+  chart_type: line
+  priority: 60024
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: queue_length
+    signal: azure_log_analytics_workspace_log_analytics_legacy_disk_queue_queue_length
+- id: azure_monitor.log_analytics.legacy_paging
+  title: Azure Log Analytics Legacy Paging Activity
+  units: pages/s
+  family: log
+  chart_type: line
+  priority: 60025
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: reads
+    rate_signal: azure_log_analytics_workspace_log_analytics_legacy_paging_reads
+  - id: writes
+    rate_signal: azure_log_analytics_workspace_log_analytics_legacy_paging_writes
+  - id: total
+    rate_signal: azure_log_analytics_workspace_log_analytics_legacy_paging_total
+- id: azure_monitor.log_analytics.legacy_paging_files
+  title: Azure Log Analytics Legacy Paging Files
+  units: megabytes
+  family: log
+  chart_type: line
+  priority: 60026
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: free
+    signal: azure_log_analytics_workspace_log_analytics_legacy_paging_files_free
+  - id: stored
+    signal: azure_log_analytics_workspace_log_analytics_legacy_paging_files_stored
+- id: azure_monitor.log_analytics.legacy_network_throughput_win
+  title: Azure Log Analytics Legacy Network Throughput (Windows)
+  units: bytes/s
+  family: log
+  chart_type: line
+  priority: 60027
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: received
+    rate_signal: azure_log_analytics_workspace_log_analytics_legacy_network_throughput_win_received
+  - id: sent
+    rate_signal: azure_log_analytics_workspace_log_analytics_legacy_network_throughput_win_sent
+  - id: total
+    rate_signal: azure_log_analytics_workspace_log_analytics_legacy_network_throughput_win_total
+- id: azure_monitor.log_analytics.legacy_network_traffic
+  title: Azure Log Analytics Legacy Network Traffic
+  units: bytes
+  family: log
+  chart_type: line
+  priority: 60028
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: total
+    signal: azure_log_analytics_workspace_log_analytics_legacy_network_traffic_total
+  - id: received
+    signal: azure_log_analytics_workspace_log_analytics_legacy_network_traffic_received
+  - id: transmitted
+    signal: azure_log_analytics_workspace_log_analytics_legacy_network_traffic_transmitted
+- id: azure_monitor.log_analytics.legacy_network_packets
+  title: Azure Log Analytics Legacy Network Packets
+  units: packets
+  family: log
+  chart_type: line
+  priority: 60029
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: received
+    signal: azure_log_analytics_workspace_log_analytics_legacy_network_packets_received
+  - id: transmitted
+    signal: azure_log_analytics_workspace_log_analytics_legacy_network_packets_transmitted
+- id: azure_monitor.log_analytics.legacy_network_errors
+  title: Azure Log Analytics Legacy Network Errors
+  units: errors
+  family: log
+  chart_type: line
+  priority: 60030
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: rx
+    signal: azure_log_analytics_workspace_log_analytics_legacy_network_errors_rx
+  - id: tx
+    signal: azure_log_analytics_workspace_log_analytics_legacy_network_errors_tx
+  - id: collisions
+    signal: azure_log_analytics_workspace_log_analytics_legacy_network_errors_collisions
+- id: azure_monitor.log_analytics.legacy_system
+  title: Azure Log Analytics Legacy System
+  units: processes
+  family: log
+  chart_type: line
+  priority: 60031
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: processes
+    signal: azure_log_analytics_workspace_log_analytics_legacy_system_processes
+- id: azure_monitor.log_analytics.legacy_processor_queue
+  title: Azure Log Analytics Legacy Processor Queue
+  units: threads
+  family: log
+  chart_type: line
+  priority: 60032
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: queue_length
+    signal: azure_log_analytics_workspace_log_analytics_legacy_processor_queue_queue_length
+- id: azure_monitor.log_analytics.legacy_uptime
+  title: Azure Log Analytics Legacy Uptime
+  units: seconds
+  family: log
+  chart_type: line
+  priority: 60033
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: uptime
+    signal: azure_log_analytics_workspace_log_analytics_legacy_uptime_uptime
+- id: azure_monitor.log_analytics.legacy_users
+  title: Azure Log Analytics Legacy Users
+  units: users
+  family: log
+  chart_type: line
+  priority: 60034
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: users
+    signal: azure_log_analytics_workspace_log_analytics_legacy_users_users
+- id: azure_monitor.log_analytics.legacy_events
+  title: Azure Log Analytics Legacy Events
+  units: events/s
+  family: log
+  chart_type: line
+  priority: 60035
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: events
+    rate_signal: azure_log_analytics_workspace_log_analytics_legacy_events_events
+- id: azure_monitor.log_analytics.legacy_heartbeat
+  title: Azure Log Analytics Legacy Heartbeat
+  units: heartbeats/s
+  family: log
+  chart_type: line
+  priority: 60036
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: heartbeats
+    rate_signal: azure_log_analytics_workspace_log_analytics_legacy_heartbeat_heartbeats
+- id: azure_monitor.log_analytics.legacy_updates
+  title: Azure Log Analytics Legacy Updates
+  units: updates
+  family: log
+  chart_type: line
+  priority: 60037
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: updates
+    signal: azure_log_analytics_workspace_log_analytics_legacy_updates_updates

@@ -1,0 +1,644 @@
+version: 1
+name: go-ethereum
+description: Go-ethereum metrics, generated from Netdata's own collector metadata so the contexts, units
+  and dimension names match what a real Go-ethereum node reports. Signals are independent and plausible
+  rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  go_ethereum_eth_db_chaindata_ancient_io_rate_reads:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  go_ethereum_eth_db_chaindata_ancient_io_rate_writes:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  go_ethereum_eth_db_chaindata_ancient_io_reads:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  go_ethereum_eth_db_chaindata_ancient_io_writes:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  go_ethereum_eth_db_chaindata_disk_io_reads:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  go_ethereum_eth_db_chaindata_disk_io_writes:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  go_ethereum_goroutines_goroutines:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  go_ethereum_eth_db_chaindata_disk_io_rate_reads:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  go_ethereum_eth_db_chaindata_disk_io_rate_writes:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  go_ethereum_chaindata_db_size_level_db:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  go_ethereum_chaindata_db_size_ancient_db:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  go_ethereum_chainhead_block:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  go_ethereum_chainhead_receipt:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  go_ethereum_chainhead_header:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  go_ethereum_tx_pool_pending_invalid:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  go_ethereum_tx_pool_pending_pending:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  go_ethereum_tx_pool_pending_local:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  go_ethereum_tx_pool_pending_discard:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  go_ethereum_tx_pool_pending_no_funds:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  go_ethereum_tx_pool_pending_ratelimit:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  go_ethereum_tx_pool_pending_replace:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  go_ethereum_tx_pool_current_invalid:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  go_ethereum_tx_pool_current_pending:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  go_ethereum_tx_pool_current_local:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  go_ethereum_tx_pool_current_pool:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  go_ethereum_tx_pool_queued_discard:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  go_ethereum_tx_pool_queued_eviction:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  go_ethereum_tx_pool_queued_no_funds:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  go_ethereum_tx_pool_queued_ratelimit:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  go_ethereum_p2p_bandwidth_ingress:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  go_ethereum_p2p_bandwidth_egress:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  go_ethereum_reorgs_executed:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  go_ethereum_reorgs_blocks_added:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  go_ethereum_reorgs_blocks_dropped:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  go_ethereum_p2p_peers_peers:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  go_ethereum_p2p_peers_calls_dials:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  go_ethereum_p2p_peers_calls_serves:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  go_ethereum_rpc_calls_failed:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  go_ethereum_rpc_calls_successful:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: geth.eth_db_chaindata_ancient_io_rate
+  title: Ancient Chaindata rate
+  units: bytes/s
+  family: eth
+  chart_type: line
+  priority: 60001
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: reads
+    rate_signal: go_ethereum_eth_db_chaindata_ancient_io_rate_reads
+  - id: writes
+    rate_signal: go_ethereum_eth_db_chaindata_ancient_io_rate_writes
+- id: geth.eth_db_chaindata_ancient_io
+  title: Session ancient Chaindata
+  units: bytes
+  family: eth
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: reads
+    signal: go_ethereum_eth_db_chaindata_ancient_io_reads
+  - id: writes
+    signal: go_ethereum_eth_db_chaindata_ancient_io_writes
+- id: geth.eth_db_chaindata_disk_io
+  title: Session chaindata on disk
+  units: bytes
+  family: eth
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: reads
+    signal: go_ethereum_eth_db_chaindata_disk_io_reads
+  - id: writes
+    signal: go_ethereum_eth_db_chaindata_disk_io_writes
+- id: geth.goroutines
+  title: Number of goroutines
+  units: goroutines
+  family: goroutines
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: goroutines
+    signal: go_ethereum_goroutines_goroutines
+- id: geth.eth_db_chaindata_disk_io_rate
+  title: On disk Chaindata rate
+  units: bytes/s
+  family: eth
+  chart_type: line
+  priority: 60005
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: reads
+    rate_signal: go_ethereum_eth_db_chaindata_disk_io_rate_reads
+  - id: writes
+    rate_signal: go_ethereum_eth_db_chaindata_disk_io_rate_writes
+- id: geth.chaindata_db_size
+  title: Chaindata Size
+  units: bytes
+  family: chaindata
+  chart_type: line
+  priority: 60006
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: level_db
+    signal: go_ethereum_chaindata_db_size_level_db
+  - id: ancient_db
+    signal: go_ethereum_chaindata_db_size_ancient_db
+- id: geth.chainhead
+  title: Chainhead
+  units: block
+  family: chainhead
+  chart_type: line
+  priority: 60007
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: block
+    signal: go_ethereum_chainhead_block
+  - id: receipt
+    signal: go_ethereum_chainhead_receipt
+  - id: header
+    signal: go_ethereum_chainhead_header
+- id: geth.tx_pool_pending
+  title: Pending Transaction Pool
+  units: transactions
+  family: tx
+  chart_type: line
+  priority: 60008
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: invalid
+    signal: go_ethereum_tx_pool_pending_invalid
+  - id: pending
+    signal: go_ethereum_tx_pool_pending_pending
+  - id: local
+    signal: go_ethereum_tx_pool_pending_local
+  - id: discard
+    signal: go_ethereum_tx_pool_pending_discard
+  - id: no_funds
+    signal: go_ethereum_tx_pool_pending_no_funds
+  - id: ratelimit
+    signal: go_ethereum_tx_pool_pending_ratelimit
+  - id: replace
+    signal: go_ethereum_tx_pool_pending_replace
+- id: geth.tx_pool_current
+  title: Transaction Pool
+  units: transactions
+  family: tx
+  chart_type: line
+  priority: 60009
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: invalid
+    signal: go_ethereum_tx_pool_current_invalid
+  - id: pending
+    signal: go_ethereum_tx_pool_current_pending
+  - id: local
+    signal: go_ethereum_tx_pool_current_local
+  - id: pool
+    signal: go_ethereum_tx_pool_current_pool
+- id: geth.tx_pool_queued
+  title: Queued Transaction Pool
+  units: transactions
+  family: tx
+  chart_type: line
+  priority: 60010
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: discard
+    signal: go_ethereum_tx_pool_queued_discard
+  - id: eviction
+    signal: go_ethereum_tx_pool_queued_eviction
+  - id: no_funds
+    signal: go_ethereum_tx_pool_queued_no_funds
+  - id: ratelimit
+    signal: go_ethereum_tx_pool_queued_ratelimit
+- id: geth.p2p_bandwidth
+  title: P2P bandwidth
+  units: bytes/s
+  family: p2p
+  chart_type: line
+  priority: 60011
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: ingress
+    rate_signal: go_ethereum_p2p_bandwidth_ingress
+  - id: egress
+    rate_signal: go_ethereum_p2p_bandwidth_egress
+- id: geth.reorgs
+  title: Executed Reorgs
+  units: reorgs
+  family: reorgs
+  chart_type: line
+  priority: 60012
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: executed
+    signal: go_ethereum_reorgs_executed
+- id: geth.reorgs_blocks
+  title: Blocks Added/Removed from Reorg
+  units: blocks
+  family: reorgs
+  chart_type: line
+  priority: 60013
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: added
+    signal: go_ethereum_reorgs_blocks_added
+  - id: dropped
+    signal: go_ethereum_reorgs_blocks_dropped
+- id: geth.p2p_peers
+  title: Number of Peers
+  units: peers
+  family: p2p
+  chart_type: line
+  priority: 60014
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: peers
+    signal: go_ethereum_p2p_peers_peers
+- id: geth.p2p_peers_calls
+  title: P2P Serves and Dials
+  units: calls/s
+  family: p2p
+  chart_type: line
+  priority: 60015
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: dials
+    rate_signal: go_ethereum_p2p_peers_calls_dials
+  - id: serves
+    rate_signal: go_ethereum_p2p_peers_calls_serves
+- id: geth.rpc_calls
+  title: rpc calls
+  units: calls/s
+  family: rpc
+  chart_type: line
+  priority: 60016
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: failed
+    rate_signal: go_ethereum_rpc_calls_failed
+  - id: successful
+    rate_signal: go_ethereum_rpc_calls_successful

@@ -1,0 +1,474 @@
+version: 1
+name: logstash
+description: Logstash metrics, generated from Netdata's own collector metadata so the contexts, units
+  and dimension names match what a real Logstash node reports. Signals are independent and plausible rather
+  than causally coupled - see scripts/sync-integrations.py.
+signals:
+  logstash_jvm_threads_threads:
+    base: 320.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  logstash_jvm_mem_heap_used_in_use:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  logstash_jvm_mem_heap_committed:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  logstash_jvm_mem_heap_used:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  logstash_jvm_mem_pools_eden_committed:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  logstash_jvm_mem_pools_eden_used:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  logstash_jvm_mem_pools_survivor_committed:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  logstash_jvm_mem_pools_survivor_used:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  logstash_jvm_mem_pools_old_committed:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  logstash_jvm_mem_pools_old_used:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  logstash_jvm_gc_collector_count_eden:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  logstash_jvm_gc_collector_count_old:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  logstash_jvm_gc_collector_time_eden:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  logstash_jvm_gc_collector_time_old:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  logstash_open_file_descriptors_open:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  logstash_event_in:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  logstash_event_filtered:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  logstash_event_out:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  logstash_event_duration_event:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  logstash_event_duration_queue:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  logstash_uptime_uptime:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  logstash_pipeline_event_in:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  logstash_pipeline_event_filtered:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  logstash_pipeline_event_out:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  logstash_pipeline_event_duration_event:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  logstash_pipeline_event_duration_queue:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: logstash.jvm_threads
+  title: JVM Threads
+  units: count
+  family: jvm
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: threads
+    signal: logstash_jvm_threads_threads
+- id: logstash.jvm_mem_heap_used
+  title: JVM Heap Memory Percentage
+  units: percentage
+  family: jvm
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: in_use
+    signal: logstash_jvm_mem_heap_used_in_use
+- id: logstash.jvm_mem_heap
+  title: JVM Heap Memory
+  units: KiB
+  family: jvm
+  chart_type: area
+  priority: 60003
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: committed
+    signal: logstash_jvm_mem_heap_committed
+  - id: used
+    signal: logstash_jvm_mem_heap_used
+- id: logstash.jvm_mem_pools_eden
+  title: JVM Pool Eden Memory
+  units: KiB
+  family: jvm
+  chart_type: area
+  priority: 60004
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: committed
+    signal: logstash_jvm_mem_pools_eden_committed
+  - id: used
+    signal: logstash_jvm_mem_pools_eden_used
+- id: logstash.jvm_mem_pools_survivor
+  title: JVM Pool Survivor Memory
+  units: KiB
+  family: jvm
+  chart_type: area
+  priority: 60005
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: committed
+    signal: logstash_jvm_mem_pools_survivor_committed
+  - id: used
+    signal: logstash_jvm_mem_pools_survivor_used
+- id: logstash.jvm_mem_pools_old
+  title: JVM Pool Old Memory
+  units: KiB
+  family: jvm
+  chart_type: area
+  priority: 60006
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: committed
+    signal: logstash_jvm_mem_pools_old_committed
+  - id: used
+    signal: logstash_jvm_mem_pools_old_used
+- id: logstash.jvm_gc_collector_count
+  title: Garbage Collection Count
+  units: counts/s
+  family: jvm
+  chart_type: line
+  priority: 60007
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: eden
+    rate_signal: logstash_jvm_gc_collector_count_eden
+  - id: old
+    rate_signal: logstash_jvm_gc_collector_count_old
+- id: logstash.jvm_gc_collector_time
+  title: Time Spent On Garbage Collection
+  units: ms
+  family: jvm
+  chart_type: line
+  priority: 60008
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: eden
+    signal: logstash_jvm_gc_collector_time_eden
+  - id: old
+    signal: logstash_jvm_gc_collector_time_old
+- id: logstash.open_file_descriptors
+  title: Open File Descriptors
+  units: fd
+  family: open
+  chart_type: line
+  priority: 60009
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: open
+    signal: logstash_open_file_descriptors_open
+- id: logstash.event
+  title: Events Overview
+  units: events/s
+  family: event
+  chart_type: line
+  priority: 60010
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: in
+    rate_signal: logstash_event_in
+  - id: filtered
+    rate_signal: logstash_event_filtered
+  - id: out
+    rate_signal: logstash_event_out
+- id: logstash.event_duration
+  title: Events Duration
+  units: seconds
+  family: event
+  chart_type: line
+  priority: 60011
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: event
+    signal: logstash_event_duration_event
+  - id: queue
+    signal: logstash_event_duration_queue
+- id: logstash.uptime
+  title: Uptime
+  units: seconds
+  family: uptime
+  chart_type: line
+  priority: 60012
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: uptime
+    signal: logstash_uptime_uptime
+- id: logstash.pipeline_event
+  title: Pipeline Events
+  units: events/s
+  family: pipeline
+  chart_type: line
+  priority: 60013
+  shape: counters
+  labels:
+    pipeline: sim-pipeline-1
+  dimensions:
+  - id: in
+    rate_signal: logstash_pipeline_event_in
+  - id: filtered
+    rate_signal: logstash_pipeline_event_filtered
+  - id: out
+    rate_signal: logstash_pipeline_event_out
+- id: logstash.pipeline_event_duration
+  title: Pipeline Events Duration
+  units: seconds
+  family: pipeline
+  chart_type: line
+  priority: 60014
+  shape: independent
+  labels:
+    pipeline: sim-pipeline-1
+  dimensions:
+  - id: event
+    signal: logstash_pipeline_event_duration_event
+  - id: queue
+    signal: logstash_pipeline_event_duration_queue

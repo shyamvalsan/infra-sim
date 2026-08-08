@@ -1,0 +1,311 @@
+version: 1
+name: azure-expressroute-gateway
+description: Azure ExpressRoute Gateway metrics, generated from Netdata's own collector metadata so the
+  contexts, units and dimension names match what a real Azure ExpressRoute Gateway node reports. Signals
+  are independent and plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  azure_expressroute_gateway_express_route_gateway_connection_throughput_in:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_expressroute_gateway_express_route_gateway_connection_throughput_out:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_expressroute_gateway_express_route_gateway_gateway_throughput_average:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_expressroute_gateway_express_route_gateway_cpu_utilization_average:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_expressroute_gateway_express_route_gateway_packets_average:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_expressroute_gateway_express_route_gateway_active_flows_average:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_expressroute_gateway_express_route_gateway_routes_advertised_maximum:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_expressroute_gateway_express_route_gateway_routes_learned_maximum:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_expressroute_gateway_express_route_gateway_route_changes_total:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_expressroute_gateway_express_route_gateway_max_flows_creation_rate_maximum:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_expressroute_gateway_express_route_gateway_vm_count_maximum:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: azure_monitor.express_route_gateway.connection_throughput
+  title: Azure ExpressRoute Gateway Connection Throughput
+  units: bits/s
+  family: express
+  chart_type: line
+  priority: 60001
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: in
+    rate_signal: azure_expressroute_gateway_express_route_gateway_connection_throughput_in
+  - id: out
+    rate_signal: azure_expressroute_gateway_express_route_gateway_connection_throughput_out
+- id: azure_monitor.express_route_gateway.gateway_throughput
+  title: Azure ExpressRoute Gateway Throughput
+  units: bits/s
+  family: express
+  chart_type: line
+  priority: 60002
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    rate_signal: azure_expressroute_gateway_express_route_gateway_gateway_throughput_average
+- id: azure_monitor.express_route_gateway.cpu_utilization
+  title: Azure ExpressRoute Gateway CPU Utilization
+  units: percentage
+  family: express
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_expressroute_gateway_express_route_gateway_cpu_utilization_average
+- id: azure_monitor.express_route_gateway.packets
+  title: Azure ExpressRoute Gateway Packets
+  units: packets/s
+  family: express
+  chart_type: line
+  priority: 60004
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    rate_signal: azure_expressroute_gateway_express_route_gateway_packets_average
+- id: azure_monitor.express_route_gateway.active_flows
+  title: Azure ExpressRoute Gateway Active Flows
+  units: flows
+  family: express
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_expressroute_gateway_express_route_gateway_active_flows_average
+- id: azure_monitor.express_route_gateway.routes_advertised
+  title: Azure ExpressRoute Gateway Routes Advertised to Peer
+  units: routes
+  family: express
+  chart_type: line
+  priority: 60006
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: maximum
+    signal: azure_expressroute_gateway_express_route_gateway_routes_advertised_maximum
+- id: azure_monitor.express_route_gateway.routes_learned
+  title: Azure ExpressRoute Gateway Routes Learned from Peer
+  units: routes
+  family: express
+  chart_type: line
+  priority: 60007
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: maximum
+    signal: azure_expressroute_gateway_express_route_gateway_routes_learned_maximum
+- id: azure_monitor.express_route_gateway.route_changes
+  title: Azure ExpressRoute Gateway Route Changes
+  units: changes/s
+  family: express
+  chart_type: line
+  priority: 60008
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: total
+    rate_signal: azure_expressroute_gateway_express_route_gateway_route_changes_total
+- id: azure_monitor.express_route_gateway.max_flows_creation_rate
+  title: Azure ExpressRoute Gateway Max Flow Creation Rate
+  units: flows/s
+  family: express
+  chart_type: line
+  priority: 60009
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: maximum
+    rate_signal: azure_expressroute_gateway_express_route_gateway_max_flows_creation_rate_maximum
+- id: azure_monitor.express_route_gateway.vm_count
+  title: Azure ExpressRoute Gateway VMs in VNet
+  units: VMs
+  family: express
+  chart_type: line
+  priority: 60010
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: maximum
+    signal: azure_expressroute_gateway_express_route_gateway_vm_count_maximum

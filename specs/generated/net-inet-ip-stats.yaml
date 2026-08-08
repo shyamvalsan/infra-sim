@@ -1,0 +1,223 @@
+version: 1
+name: net-inet-ip-stats
+description: net.inet.ip.stats metrics, generated from Netdata's own collector metadata so the contexts,
+  units and dimension names match what a real net.inet.ip.stats node reports. Signals are independent
+  and plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  net_inet_ip_stats_packets_received:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet_ip_stats_packets_sent:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet_ip_stats_packets_forwarded:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet_ip_stats_packets_delivered:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet_ip_stats_fragsout_ok:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet_ip_stats_fragsout_failed:
+    base: 0.0
+    min: 0.0
+    max: 20000000.0
+  net_inet_ip_stats_fragsout_created:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet_ip_stats_fragsin_ok:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet_ip_stats_fragsin_failed:
+    base: 0.0
+    min: 0.0
+    max: 20000000.0
+  net_inet_ip_stats_fragsin_all:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet_ip_stats_errors_indiscards:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet_ip_stats_errors_outdiscards:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet_ip_stats_errors_inhdrerrors:
+    base: 0.0
+    min: 0.0
+    max: 20000000.0
+  net_inet_ip_stats_errors_outnoroutes:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet_ip_stats_errors_inaddrerrors:
+    base: 0.0
+    min: 0.0
+    max: 20000000.0
+  net_inet_ip_stats_errors_inunknownprotos:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: ipv4.packets
+  title: IPv4 Packets
+  units: packets/s
+  family: packets
+  chart_type: line
+  priority: 60001
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: received
+    rate_signal: net_inet_ip_stats_packets_received
+  - id: sent
+    rate_signal: net_inet_ip_stats_packets_sent
+  - id: forwarded
+    rate_signal: net_inet_ip_stats_packets_forwarded
+  - id: delivered
+    rate_signal: net_inet_ip_stats_packets_delivered
+- id: ipv4.fragsout
+  title: IPv4 Fragments Sent
+  units: packets/s
+  family: fragsout
+  chart_type: line
+  priority: 60002
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: ok
+    rate_signal: net_inet_ip_stats_fragsout_ok
+  - id: failed
+    rate_signal: net_inet_ip_stats_fragsout_failed
+  - id: created
+    rate_signal: net_inet_ip_stats_fragsout_created
+- id: ipv4.fragsin
+  title: IPv4 Fragments Reassembly
+  units: packets/s
+  family: fragsin
+  chart_type: line
+  priority: 60003
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: ok
+    rate_signal: net_inet_ip_stats_fragsin_ok
+  - id: failed
+    rate_signal: net_inet_ip_stats_fragsin_failed
+  - id: all
+    rate_signal: net_inet_ip_stats_fragsin_all
+- id: ipv4.errors
+  title: IPv4 Errors
+  units: packets/s
+  family: errors
+  chart_type: line
+  priority: 60004
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: InDiscards
+    rate_signal: net_inet_ip_stats_errors_indiscards
+  - id: OutDiscards
+    rate_signal: net_inet_ip_stats_errors_outdiscards
+  - id: InHdrErrors
+    rate_signal: net_inet_ip_stats_errors_inhdrerrors
+  - id: OutNoRoutes
+    rate_signal: net_inet_ip_stats_errors_outnoroutes
+  - id: InAddrErrors
+    rate_signal: net_inet_ip_stats_errors_inaddrerrors
+  - id: InUnknownProtos
+    rate_signal: net_inet_ip_stats_errors_inunknownprotos

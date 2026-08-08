@@ -1,0 +1,365 @@
+version: 1
+name: azure-api-management
+description: Azure API Management metrics, generated from Netdata's own collector metadata so the contexts,
+  units and dimension names match what a real Azure API Management node reports. Signals are independent
+  and plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  azure_api_management_api_management_capacity_capacity:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_api_management_api_management_gateway_cpu_cpu:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_api_management_api_management_gateway_memory_memory:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_api_management_api_management_requests_requests:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_api_management_api_management_request_duration_overall:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_api_management_api_management_request_duration_backend:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_api_management_api_management_eventhub_events_total:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_api_management_api_management_eventhub_events_successful:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_api_management_api_management_eventhub_events_failed:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  azure_api_management_api_management_eventhub_events_dropped:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  azure_api_management_api_management_eventhub_events_rejected:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  azure_api_management_api_management_eventhub_events_throttled:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_api_management_api_management_eventhub_events_timed_out:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_api_management_api_management_eventhub_bytes_sent:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_api_management_api_management_websocket_connections_connection_attempts:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_api_management_api_management_websocket_messages_messages:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_api_management_api_management_network_connectivity_connectivity:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+contexts:
+- id: azure_monitor.api_management.capacity
+  title: Azure API Management Capacity Utilization
+  units: percentage
+  family: api
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: capacity
+    signal: azure_api_management_api_management_capacity_capacity
+- id: azure_monitor.api_management.gateway_cpu
+  title: Azure API Management Gateway CPU
+  units: percentage
+  family: api
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: cpu
+    signal: azure_api_management_api_management_gateway_cpu_cpu
+- id: azure_monitor.api_management.gateway_memory
+  title: Azure API Management Gateway Memory
+  units: percentage
+  family: api
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: memory
+    signal: azure_api_management_api_management_gateway_memory_memory
+- id: azure_monitor.api_management.requests
+  title: Azure API Management Gateway Requests
+  units: requests/s
+  family: api
+  chart_type: line
+  priority: 60004
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: requests
+    rate_signal: azure_api_management_api_management_requests_requests
+- id: azure_monitor.api_management.request_duration
+  title: Azure API Management Request Duration
+  units: milliseconds
+  family: api
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: overall
+    signal: azure_api_management_api_management_request_duration_overall
+  - id: backend
+    signal: azure_api_management_api_management_request_duration_backend
+- id: azure_monitor.api_management.eventhub_events
+  title: Azure API Management EventHub Events
+  units: events/s
+  family: api
+  chart_type: line
+  priority: 60006
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: total
+    rate_signal: azure_api_management_api_management_eventhub_events_total
+  - id: successful
+    rate_signal: azure_api_management_api_management_eventhub_events_successful
+  - id: failed
+    rate_signal: azure_api_management_api_management_eventhub_events_failed
+  - id: dropped
+    rate_signal: azure_api_management_api_management_eventhub_events_dropped
+  - id: rejected
+    rate_signal: azure_api_management_api_management_eventhub_events_rejected
+  - id: throttled
+    rate_signal: azure_api_management_api_management_eventhub_events_throttled
+  - id: timed_out
+    rate_signal: azure_api_management_api_management_eventhub_events_timed_out
+- id: azure_monitor.api_management.eventhub_bytes
+  title: Azure API Management EventHub Bytes Sent
+  units: bytes/s
+  family: api
+  chart_type: line
+  priority: 60007
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: sent
+    rate_signal: azure_api_management_api_management_eventhub_bytes_sent
+- id: azure_monitor.api_management.websocket_connections
+  title: Azure API Management WebSocket Connection Attempts
+  units: attempts/s
+  family: api
+  chart_type: line
+  priority: 60008
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: connection_attempts
+    rate_signal: azure_api_management_api_management_websocket_connections_connection_attempts
+- id: azure_monitor.api_management.websocket_messages
+  title: Azure API Management WebSocket Messages
+  units: messages/s
+  family: api
+  chart_type: line
+  priority: 60009
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: messages
+    rate_signal: azure_api_management_api_management_websocket_messages_messages
+- id: azure_monitor.api_management.network_connectivity
+  title: Azure API Management Network Connectivity Status
+  units: status
+  family: api
+  chart_type: line
+  priority: 60010
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: connectivity
+    signal: azure_api_management_api_management_network_connectivity_connectivity

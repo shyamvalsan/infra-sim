@@ -1,0 +1,2712 @@
+version: 1
+name: percona-mysql
+description: Percona MySQL metrics, generated from Netdata's own collector metadata so the contexts, units
+  and dimension names match what a real Percona MySQL node reports. Signals are independent and plausible
+  rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  percona_mysql_net_in:
+    base: 18000.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_net_out:
+    base: 18000.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_queries_queries:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_queries_questions:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_queries_slow_queries:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_queries_type_select:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_queries_type_delete:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_queries_type_update:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_queries_type_insert:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_queries_type_replace:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_handlers_commit:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_handlers_delete:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_handlers_prepare:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_handlers_read_first:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_handlers_read_key:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_handlers_read_next:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_handlers_read_prev:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_handlers_read_rnd:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_handlers_read_rnd_next:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_handlers_rollback:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_handlers_savepoint:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_handlers_savepointrollback:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_handlers_update:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_handlers_write:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_table_open_cache_overflows_open_cache:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_table_locks_immediate:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_table_locks_waited:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_join_issues_full_join:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_join_issues_full_range_join:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_join_issues_range:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_join_issues_range_check:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_join_issues_scan:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_sort_issues_merge_passes:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_sort_issues_range:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_sort_issues_scan:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_tmp_disk_tables:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_tmp_files:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_tmp_tables:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_connections_all:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_connections_aborted:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  percona_mysql_connections_active_active:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_connections_active_limit:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_connections_active_max_active:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_threads_connected:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_threads_cached:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_threads_running:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_threads_created_created:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_thread_cache_misses_misses:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_innodb_io_read:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_innodb_io_write:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_innodb_io_ops_reads:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_innodb_io_ops_writes:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_innodb_io_ops_fsyncs:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_innodb_io_pending_ops_reads:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_innodb_io_pending_ops_writes:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_innodb_io_pending_ops_fsyncs:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_innodb_log_waits:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_innodb_log_write_requests:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_innodb_log_writes:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_innodb_redo_log_activity_redo_written:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_innodb_redo_log_activity_checkpointed:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_innodb_redo_log_occupancy_occupancy:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_innodb_redo_log_checkpoint_age_age:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_innodb_cur_row_lock_current_waits:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_innodb_rows_inserted:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_innodb_rows_read:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_innodb_rows_updated:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_innodb_rows_deleted:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_innodb_buffer_pool_pages_data:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_innodb_buffer_pool_pages_dirty:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_innodb_buffer_pool_pages_free:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_innodb_buffer_pool_pages_misc:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_innodb_buffer_pool_pages_total:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_innodb_buffer_pool_pages_flushed_flush_pages:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_innodb_buffer_pool_bytes_data:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_innodb_buffer_pool_bytes_dirty:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_innodb_buffer_pool_read_ahead_all:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_innodb_buffer_pool_read_ahead_evicted:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_innodb_buffer_pool_read_ahead_rnd_read_ahead:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_innodb_buffer_pool_ops_disk_reads:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_innodb_buffer_pool_ops_wait_free:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_innodb_os_log_fsyncs:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_innodb_os_log_writes:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_innodb_os_log_fsync_writes_fsyncs:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_innodb_os_log_io_write:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_innodb_deadlocks_deadlocks:
+    base: 0.0
+    min: 0.0
+    max: 5000000.0
+  percona_mysql_files_files:
+    base: 1200.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_files_rate_files:
+    base: 22.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_connection_errors_accept:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_connection_errors_internal:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_connection_errors_max:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_connection_errors_peer_addr:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_connection_errors_select:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_connection_errors_tcpwrap:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_opened_tables_tables:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_open_tables_cache:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_open_tables_tables:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_process_list_fetch_query_duration_duration:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_process_list_queries_count_system:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_process_list_queries_count_user:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_process_list_longest_query_duration_duration:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_qcache_ops_hits:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_qcache_ops_lowmem_prunes:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_qcache_ops_inserts:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_qcache_ops_not_cached:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_qcache_queries:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_qcache_freemem_free:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_qcache_memblocks_free:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_qcache_memblocks_total:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_galera_writesets_rx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_galera_writesets_tx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_galera_bytes_rx:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_galera_bytes_tx:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_galera_queue_rx:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_galera_queue_tx:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_galera_conflicts_bf_aborts:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  percona_mysql_galera_conflicts_cert_fails:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  percona_mysql_galera_flow_control_paused:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_galera_cluster_status_primary:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  percona_mysql_galera_cluster_status_non_primary:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  percona_mysql_galera_cluster_status_disconnected:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  percona_mysql_galera_cluster_state_undefined:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  percona_mysql_galera_cluster_state_joining:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  percona_mysql_galera_cluster_state_donor:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  percona_mysql_galera_cluster_state_joined:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  percona_mysql_galera_cluster_state_synced:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  percona_mysql_galera_cluster_state_error:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  percona_mysql_galera_cluster_size_nodes:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_galera_cluster_weight_weight:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_galera_connected_connected:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  percona_mysql_galera_ready_ready:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  percona_mysql_galera_open_transactions_open:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_galera_thread_count_threads:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_key_blocks_unused:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_key_blocks_used:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_key_blocks_not_flushed:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_key_requests_reads:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_key_requests_writes:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_key_disk_ops_reads:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_key_disk_ops_writes:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_binlog_cache_disk:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_binlog_cache_all:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_binlog_stmt_cache_disk:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_binlog_stmt_cache_all:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_slave_behind_seconds:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_slave_status_sql_running:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  percona_mysql_slave_status_io_running:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  percona_mysql_userstats_cpu_used:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_userstats_rows_read:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_userstats_rows_sent:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_userstats_rows_updated:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_userstats_rows_inserted:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_userstats_rows_deleted:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_userstats_commands_select:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_userstats_commands_update:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_userstats_commands_other:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_userstats_denied_commands_denied:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  percona_mysql_userstats_created_transactions_commit:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_userstats_created_transactions_rollback:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_userstats_binlog_written_written:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_userstats_empty_queries_empty:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_userstats_connections_created:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  percona_mysql_userstats_lost_connections_lost:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  percona_mysql_userstats_denied_connections_denied:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+contexts:
+- id: mysql.net
+  title: Bandwidth
+  units: kilobits/s
+  family: net
+  chart_type: area
+  priority: 60001
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: in
+    rate_signal: percona_mysql_net_in
+  - id: out
+    rate_signal: percona_mysql_net_out
+- id: mysql.queries
+  title: Queries
+  units: queries/s
+  family: queries
+  chart_type: line
+  priority: 60002
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: queries
+    rate_signal: percona_mysql_queries_queries
+  - id: questions
+    rate_signal: percona_mysql_queries_questions
+  - id: slow_queries
+    rate_signal: percona_mysql_queries_slow_queries
+- id: mysql.queries_type
+  title: Queries By Type
+  units: queries/s
+  family: queries
+  chart_type: stacked
+  priority: 60003
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: select
+    rate_signal: percona_mysql_queries_type_select
+  - id: delete
+    rate_signal: percona_mysql_queries_type_delete
+  - id: update
+    rate_signal: percona_mysql_queries_type_update
+  - id: insert
+    rate_signal: percona_mysql_queries_type_insert
+  - id: replace
+    rate_signal: percona_mysql_queries_type_replace
+- id: mysql.handlers
+  title: Handlers
+  units: handlers/s
+  family: handlers
+  chart_type: line
+  priority: 60004
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: commit
+    rate_signal: percona_mysql_handlers_commit
+  - id: delete
+    rate_signal: percona_mysql_handlers_delete
+  - id: prepare
+    rate_signal: percona_mysql_handlers_prepare
+  - id: read_first
+    rate_signal: percona_mysql_handlers_read_first
+  - id: read_key
+    rate_signal: percona_mysql_handlers_read_key
+  - id: read_next
+    rate_signal: percona_mysql_handlers_read_next
+  - id: read_prev
+    rate_signal: percona_mysql_handlers_read_prev
+  - id: read_rnd
+    rate_signal: percona_mysql_handlers_read_rnd
+  - id: read_rnd_next
+    rate_signal: percona_mysql_handlers_read_rnd_next
+  - id: rollback
+    rate_signal: percona_mysql_handlers_rollback
+  - id: savepoint
+    rate_signal: percona_mysql_handlers_savepoint
+  - id: savepointrollback
+    rate_signal: percona_mysql_handlers_savepointrollback
+  - id: update
+    rate_signal: percona_mysql_handlers_update
+  - id: write
+    rate_signal: percona_mysql_handlers_write
+- id: mysql.table_open_cache_overflows
+  title: Table open cache overflows
+  units: overflows/s
+  family: table
+  chart_type: line
+  priority: 60005
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: open_cache
+    rate_signal: percona_mysql_table_open_cache_overflows_open_cache
+- id: mysql.table_locks
+  title: Table Locks
+  units: locks/s
+  family: table
+  chart_type: line
+  priority: 60006
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: immediate
+    rate_signal: percona_mysql_table_locks_immediate
+  - id: waited
+    rate_signal: percona_mysql_table_locks_waited
+- id: mysql.join_issues
+  title: Table Select Join Issues
+  units: joins/s
+  family: join
+  chart_type: line
+  priority: 60007
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: full_join
+    rate_signal: percona_mysql_join_issues_full_join
+  - id: full_range_join
+    rate_signal: percona_mysql_join_issues_full_range_join
+  - id: range
+    rate_signal: percona_mysql_join_issues_range
+  - id: range_check
+    rate_signal: percona_mysql_join_issues_range_check
+  - id: scan
+    rate_signal: percona_mysql_join_issues_scan
+- id: mysql.sort_issues
+  title: Table Sort Issues
+  units: issues/s
+  family: sort
+  chart_type: line
+  priority: 60008
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: merge_passes
+    rate_signal: percona_mysql_sort_issues_merge_passes
+  - id: range
+    rate_signal: percona_mysql_sort_issues_range
+  - id: scan
+    rate_signal: percona_mysql_sort_issues_scan
+- id: mysql.tmp
+  title: Tmp Operations
+  units: events/s
+  family: tmp
+  chart_type: line
+  priority: 60009
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: disk_tables
+    rate_signal: percona_mysql_tmp_disk_tables
+  - id: files
+    rate_signal: percona_mysql_tmp_files
+  - id: tables
+    rate_signal: percona_mysql_tmp_tables
+- id: mysql.connections
+  title: Connections
+  units: connections/s
+  family: connections
+  chart_type: line
+  priority: 60010
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: all
+    rate_signal: percona_mysql_connections_all
+  - id: aborted
+    rate_signal: percona_mysql_connections_aborted
+- id: mysql.connections_active
+  title: Active Connections
+  units: connections
+  family: connections
+  chart_type: line
+  priority: 60011
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: active
+    signal: percona_mysql_connections_active_active
+  - id: limit
+    signal: percona_mysql_connections_active_limit
+  - id: max_active
+    signal: percona_mysql_connections_active_max_active
+- id: mysql.threads
+  title: Threads
+  units: threads
+  family: threads
+  chart_type: line
+  priority: 60012
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: connected
+    signal: percona_mysql_threads_connected
+  - id: cached
+    signal: percona_mysql_threads_cached
+  - id: running
+    signal: percona_mysql_threads_running
+- id: mysql.threads_created
+  title: Threads Creation Rate
+  units: threads/s
+  family: threads
+  chart_type: line
+  priority: 60013
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: created
+    rate_signal: percona_mysql_threads_created_created
+- id: mysql.thread_cache_misses
+  title: Threads Cache Misses
+  units: misses
+  family: thread
+  chart_type: line
+  priority: 60014
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: misses
+    signal: percona_mysql_thread_cache_misses_misses
+- id: mysql.innodb_io
+  title: InnoDB I/O Bandwidth
+  units: KiB/s
+  family: innodb
+  chart_type: line
+  priority: 60015
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: read
+    signal: percona_mysql_innodb_io_read
+  - id: write
+    signal: percona_mysql_innodb_io_write
+- id: mysql.innodb_io_ops
+  title: InnoDB I/O Operations
+  units: operations/s
+  family: innodb
+  chart_type: line
+  priority: 60016
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: reads
+    rate_signal: percona_mysql_innodb_io_ops_reads
+  - id: writes
+    rate_signal: percona_mysql_innodb_io_ops_writes
+  - id: fsyncs
+    rate_signal: percona_mysql_innodb_io_ops_fsyncs
+- id: mysql.innodb_io_pending_ops
+  title: InnoDB Pending I/O Operations
+  units: operations
+  family: innodb
+  chart_type: line
+  priority: 60017
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: reads
+    signal: percona_mysql_innodb_io_pending_ops_reads
+  - id: writes
+    signal: percona_mysql_innodb_io_pending_ops_writes
+  - id: fsyncs
+    signal: percona_mysql_innodb_io_pending_ops_fsyncs
+- id: mysql.innodb_log
+  title: InnoDB Log Operations
+  units: operations/s
+  family: innodb
+  chart_type: line
+  priority: 60018
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: waits
+    rate_signal: percona_mysql_innodb_log_waits
+  - id: write_requests
+    rate_signal: percona_mysql_innodb_log_write_requests
+  - id: writes
+    rate_signal: percona_mysql_innodb_log_writes
+- id: mysql.innodb_redo_log_activity
+  title: InnoDB Redo Log Activity
+  units: B/s
+  family: innodb
+  chart_type: line
+  priority: 60019
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: redo_written
+    rate_signal: percona_mysql_innodb_redo_log_activity_redo_written
+  - id: checkpointed
+    rate_signal: percona_mysql_innodb_redo_log_activity_checkpointed
+- id: mysql.innodb_redo_log_occupancy
+  title: InnoDB Redo Log Occupancy
+  units: percentage
+  family: innodb
+  chart_type: area
+  priority: 60020
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: occupancy
+    signal: percona_mysql_innodb_redo_log_occupancy_occupancy
+- id: mysql.innodb_redo_log_checkpoint_age
+  title: InnoDB Redo Log Checkpoint Age
+  units: B
+  family: innodb
+  chart_type: line
+  priority: 60021
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: age
+    signal: percona_mysql_innodb_redo_log_checkpoint_age_age
+- id: mysql.innodb_cur_row_lock
+  title: InnoDB Current Row Locks
+  units: operations
+  family: innodb
+  chart_type: line
+  priority: 60022
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: current waits
+    signal: percona_mysql_innodb_cur_row_lock_current_waits
+- id: mysql.innodb_rows
+  title: InnoDB Row Operations
+  units: operations/s
+  family: innodb
+  chart_type: area
+  priority: 60023
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: inserted
+    rate_signal: percona_mysql_innodb_rows_inserted
+  - id: read
+    rate_signal: percona_mysql_innodb_rows_read
+  - id: updated
+    rate_signal: percona_mysql_innodb_rows_updated
+  - id: deleted
+    rate_signal: percona_mysql_innodb_rows_deleted
+- id: mysql.innodb_buffer_pool_pages
+  title: InnoDB Buffer Pool Pages
+  units: pages
+  family: innodb
+  chart_type: line
+  priority: 60024
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: data
+    signal: percona_mysql_innodb_buffer_pool_pages_data
+  - id: dirty
+    signal: percona_mysql_innodb_buffer_pool_pages_dirty
+  - id: free
+    signal: percona_mysql_innodb_buffer_pool_pages_free
+  - id: misc
+    signal: percona_mysql_innodb_buffer_pool_pages_misc
+  - id: total
+    signal: percona_mysql_innodb_buffer_pool_pages_total
+- id: mysql.innodb_buffer_pool_pages_flushed
+  title: InnoDB Buffer Pool Flush Pages Requests
+  units: requests/s
+  family: innodb
+  chart_type: line
+  priority: 60025
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: flush_pages
+    rate_signal: percona_mysql_innodb_buffer_pool_pages_flushed_flush_pages
+- id: mysql.innodb_buffer_pool_bytes
+  title: InnoDB Buffer Pool Bytes
+  units: MiB
+  family: innodb
+  chart_type: line
+  priority: 60026
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: data
+    signal: percona_mysql_innodb_buffer_pool_bytes_data
+  - id: dirty
+    signal: percona_mysql_innodb_buffer_pool_bytes_dirty
+- id: mysql.innodb_buffer_pool_read_ahead
+  title: InnoDB Buffer Pool Read Pages
+  units: pages/s
+  family: innodb
+  chart_type: line
+  priority: 60027
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: all
+    rate_signal: percona_mysql_innodb_buffer_pool_read_ahead_all
+  - id: evicted
+    rate_signal: percona_mysql_innodb_buffer_pool_read_ahead_evicted
+- id: mysql.innodb_buffer_pool_read_ahead_rnd
+  title: InnoDB Buffer Pool Random Read-Aheads
+  units: operations/s
+  family: innodb
+  chart_type: line
+  priority: 60028
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: read-ahead
+    rate_signal: percona_mysql_innodb_buffer_pool_read_ahead_rnd_read_ahead
+- id: mysql.innodb_buffer_pool_ops
+  title: InnoDB Buffer Pool Operations
+  units: operations/s
+  family: innodb
+  chart_type: area
+  priority: 60029
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: disk_reads
+    rate_signal: percona_mysql_innodb_buffer_pool_ops_disk_reads
+  - id: wait_free
+    rate_signal: percona_mysql_innodb_buffer_pool_ops_wait_free
+- id: mysql.innodb_os_log
+  title: InnoDB OS Log Pending Operations
+  units: operations
+  family: innodb
+  chart_type: line
+  priority: 60030
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: fsyncs
+    signal: percona_mysql_innodb_os_log_fsyncs
+  - id: writes
+    signal: percona_mysql_innodb_os_log_writes
+- id: mysql.innodb_os_log_fsync_writes
+  title: InnoDB OS Log Operations
+  units: operations/s
+  family: innodb
+  chart_type: line
+  priority: 60031
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: fsyncs
+    rate_signal: percona_mysql_innodb_os_log_fsync_writes_fsyncs
+- id: mysql.innodb_os_log_io
+  title: InnoDB OS Log Bandwidth
+  units: KiB/s
+  family: innodb
+  chart_type: area
+  priority: 60032
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: write
+    signal: percona_mysql_innodb_os_log_io_write
+- id: mysql.innodb_deadlocks
+  title: InnoDB Deadlocks
+  units: operations/s
+  family: innodb
+  chart_type: area
+  priority: 60033
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: deadlocks
+    rate_signal: percona_mysql_innodb_deadlocks_deadlocks
+- id: mysql.files
+  title: Open Files
+  units: files
+  family: files
+  chart_type: line
+  priority: 60034
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: files
+    signal: percona_mysql_files_files
+- id: mysql.files_rate
+  title: Opened Files Rate
+  units: files/s
+  family: files
+  chart_type: line
+  priority: 60035
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: files
+    rate_signal: percona_mysql_files_rate_files
+- id: mysql.connection_errors
+  title: Connection Errors
+  units: errors/s
+  family: connection
+  chart_type: line
+  priority: 60036
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: accept
+    rate_signal: percona_mysql_connection_errors_accept
+  - id: internal
+    rate_signal: percona_mysql_connection_errors_internal
+  - id: max
+    rate_signal: percona_mysql_connection_errors_max
+  - id: peer_addr
+    rate_signal: percona_mysql_connection_errors_peer_addr
+  - id: select
+    rate_signal: percona_mysql_connection_errors_select
+  - id: tcpwrap
+    rate_signal: percona_mysql_connection_errors_tcpwrap
+- id: mysql.opened_tables
+  title: Opened Tables
+  units: tables/s
+  family: opened
+  chart_type: line
+  priority: 60037
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: tables
+    rate_signal: percona_mysql_opened_tables_tables
+- id: mysql.open_tables
+  title: Open Tables
+  units: tables
+  family: open
+  chart_type: area
+  priority: 60038
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: cache
+    signal: percona_mysql_open_tables_cache
+  - id: tables
+    signal: percona_mysql_open_tables_tables
+- id: mysql.process_list_fetch_query_duration
+  title: Process List Fetch Duration
+  units: milliseconds
+  family: process
+  chart_type: line
+  priority: 60039
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: duration
+    signal: percona_mysql_process_list_fetch_query_duration_duration
+- id: mysql.process_list_queries_count
+  title: Queries Count
+  units: queries
+  family: process
+  chart_type: stacked
+  priority: 60040
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: system
+    signal: percona_mysql_process_list_queries_count_system
+  - id: user
+    signal: percona_mysql_process_list_queries_count_user
+- id: mysql.process_list_longest_query_duration
+  title: Longest Query Duration
+  units: seconds
+  family: process
+  chart_type: line
+  priority: 60041
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: duration
+    signal: percona_mysql_process_list_longest_query_duration_duration
+- id: mysql.qcache_ops
+  title: QCache Operations
+  units: queries/s
+  family: qcache
+  chart_type: line
+  priority: 60042
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: hits
+    rate_signal: percona_mysql_qcache_ops_hits
+  - id: lowmem_prunes
+    rate_signal: percona_mysql_qcache_ops_lowmem_prunes
+  - id: inserts
+    rate_signal: percona_mysql_qcache_ops_inserts
+  - id: not_cached
+    rate_signal: percona_mysql_qcache_ops_not_cached
+- id: mysql.qcache
+  title: QCache Queries in Cache
+  units: queries
+  family: qcache
+  chart_type: line
+  priority: 60043
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: queries
+    signal: percona_mysql_qcache_queries
+- id: mysql.qcache_freemem
+  title: QCache Free Memory
+  units: MiB
+  family: qcache
+  chart_type: area
+  priority: 60044
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: free
+    signal: percona_mysql_qcache_freemem_free
+- id: mysql.qcache_memblocks
+  title: QCache Memory Blocks
+  units: blocks
+  family: qcache
+  chart_type: line
+  priority: 60045
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: free
+    signal: percona_mysql_qcache_memblocks_free
+  - id: total
+    signal: percona_mysql_qcache_memblocks_total
+- id: mysql.galera_writesets
+  title: Replicated Writesets
+  units: writesets/s
+  family: galera
+  chart_type: line
+  priority: 60046
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: rx
+    rate_signal: percona_mysql_galera_writesets_rx
+  - id: tx
+    rate_signal: percona_mysql_galera_writesets_tx
+- id: mysql.galera_bytes
+  title: Replicated Bytes
+  units: KiB/s
+  family: galera
+  chart_type: area
+  priority: 60047
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: rx
+    signal: percona_mysql_galera_bytes_rx
+  - id: tx
+    signal: percona_mysql_galera_bytes_tx
+- id: mysql.galera_queue
+  title: Galera Queue
+  units: writesets
+  family: galera
+  chart_type: line
+  priority: 60048
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: rx
+    signal: percona_mysql_galera_queue_rx
+  - id: tx
+    signal: percona_mysql_galera_queue_tx
+- id: mysql.galera_conflicts
+  title: Replication Conflicts
+  units: transactions
+  family: galera
+  chart_type: area
+  priority: 60049
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: bf_aborts
+    signal: percona_mysql_galera_conflicts_bf_aborts
+  - id: cert_fails
+    signal: percona_mysql_galera_conflicts_cert_fails
+- id: mysql.galera_flow_control
+  title: Flow Control
+  units: ms
+  family: galera
+  chart_type: area
+  priority: 60050
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: paused
+    signal: percona_mysql_galera_flow_control_paused
+- id: mysql.galera_cluster_status
+  title: Cluster Component Status
+  units: status
+  family: galera
+  chart_type: line
+  priority: 60051
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: primary
+    signal: percona_mysql_galera_cluster_status_primary
+  - id: non_primary
+    signal: percona_mysql_galera_cluster_status_non_primary
+  - id: disconnected
+    signal: percona_mysql_galera_cluster_status_disconnected
+- id: mysql.galera_cluster_state
+  title: Cluster Component State
+  units: state
+  family: galera
+  chart_type: line
+  priority: 60052
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: undefined
+    signal: percona_mysql_galera_cluster_state_undefined
+  - id: joining
+    signal: percona_mysql_galera_cluster_state_joining
+  - id: donor
+    signal: percona_mysql_galera_cluster_state_donor
+  - id: joined
+    signal: percona_mysql_galera_cluster_state_joined
+  - id: synced
+    signal: percona_mysql_galera_cluster_state_synced
+  - id: error
+    signal: percona_mysql_galera_cluster_state_error
+- id: mysql.galera_cluster_size
+  title: Number of Nodes in the Cluster
+  units: nodes
+  family: galera
+  chart_type: line
+  priority: 60053
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: nodes
+    signal: percona_mysql_galera_cluster_size_nodes
+- id: mysql.galera_cluster_weight
+  title: The Total Weight of the Current Members in the Cluster
+  units: weight
+  family: galera
+  chart_type: line
+  priority: 60054
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: weight
+    signal: percona_mysql_galera_cluster_weight_weight
+- id: mysql.galera_connected
+  title: Cluster Connection Status
+  units: boolean
+  family: galera
+  chart_type: line
+  priority: 60055
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: connected
+    signal: percona_mysql_galera_connected_connected
+- id: mysql.galera_ready
+  title: Accept Queries Readiness Status
+  units: boolean
+  family: galera
+  chart_type: line
+  priority: 60056
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: ready
+    signal: percona_mysql_galera_ready_ready
+- id: mysql.galera_open_transactions
+  title: Open Transactions
+  units: transactions
+  family: galera
+  chart_type: line
+  priority: 60057
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: open
+    signal: percona_mysql_galera_open_transactions_open
+- id: mysql.galera_thread_count
+  title: Total Number of WSRep (applier/rollbacker) Threads
+  units: threads
+  family: galera
+  chart_type: line
+  priority: 60058
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: threads
+    signal: percona_mysql_galera_thread_count_threads
+- id: mysql.key_blocks
+  title: MyISAM Key Cache Blocks
+  units: blocks
+  family: key
+  chart_type: line
+  priority: 60059
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: unused
+    signal: percona_mysql_key_blocks_unused
+  - id: used
+    signal: percona_mysql_key_blocks_used
+  - id: not_flushed
+    signal: percona_mysql_key_blocks_not_flushed
+- id: mysql.key_requests
+  title: MyISAM Key Cache Requests
+  units: requests/s
+  family: key
+  chart_type: area
+  priority: 60060
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: reads
+    rate_signal: percona_mysql_key_requests_reads
+  - id: writes
+    rate_signal: percona_mysql_key_requests_writes
+- id: mysql.key_disk_ops
+  title: MyISAM Key Cache Disk Operations
+  units: operations/s
+  family: key
+  chart_type: area
+  priority: 60061
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: reads
+    rate_signal: percona_mysql_key_disk_ops_reads
+  - id: writes
+    rate_signal: percona_mysql_key_disk_ops_writes
+- id: mysql.binlog_cache
+  title: Binlog Cache
+  units: transactions/s
+  family: binlog
+  chart_type: line
+  priority: 60062
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: disk
+    rate_signal: percona_mysql_binlog_cache_disk
+  - id: all
+    rate_signal: percona_mysql_binlog_cache_all
+- id: mysql.binlog_stmt_cache
+  title: Binlog Statement Cache
+  units: statements/s
+  family: binlog
+  chart_type: line
+  priority: 60063
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: disk
+    rate_signal: percona_mysql_binlog_stmt_cache_disk
+  - id: all
+    rate_signal: percona_mysql_binlog_stmt_cache_all
+- id: mysql.slave_behind
+  title: Slave Behind Seconds
+  units: seconds
+  family: slave
+  chart_type: line
+  priority: 60064
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: seconds
+    signal: percona_mysql_slave_behind_seconds
+- id: mysql.slave_status
+  title: I/O / SQL Thread Running State
+  units: boolean
+  family: slave
+  chart_type: line
+  priority: 60065
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: sql_running
+    signal: percona_mysql_slave_status_sql_running
+  - id: io_running
+    signal: percona_mysql_slave_status_io_running
+- id: mysql.userstats_cpu
+  title: User CPU Time
+  units: percentage
+  family: userstats
+  chart_type: line
+  priority: 60066
+  shape: independent
+  labels:
+    user: sim-user-1
+  dimensions:
+  - id: used
+    signal: percona_mysql_userstats_cpu_used
+- id: mysql.userstats_rows
+  title: User Rows Operations
+  units: operations/s
+  family: userstats
+  chart_type: stacked
+  priority: 60067
+  shape: counters
+  labels:
+    user: sim-user-1
+  dimensions:
+  - id: read
+    rate_signal: percona_mysql_userstats_rows_read
+  - id: sent
+    rate_signal: percona_mysql_userstats_rows_sent
+  - id: updated
+    rate_signal: percona_mysql_userstats_rows_updated
+  - id: inserted
+    rate_signal: percona_mysql_userstats_rows_inserted
+  - id: deleted
+    rate_signal: percona_mysql_userstats_rows_deleted
+- id: mysql.userstats_commands
+  title: User Commands
+  units: commands/s
+  family: userstats
+  chart_type: stacked
+  priority: 60068
+  shape: counters
+  labels:
+    user: sim-user-1
+  dimensions:
+  - id: select
+    rate_signal: percona_mysql_userstats_commands_select
+  - id: update
+    rate_signal: percona_mysql_userstats_commands_update
+  - id: other
+    rate_signal: percona_mysql_userstats_commands_other
+- id: mysql.userstats_denied_commands
+  title: User Denied Commands
+  units: commands/s
+  family: userstats
+  chart_type: stacked
+  priority: 60069
+  shape: counters
+  labels:
+    user: sim-user-1
+  dimensions:
+  - id: denied
+    rate_signal: percona_mysql_userstats_denied_commands_denied
+- id: mysql.userstats_created_transactions
+  title: User Transactions
+  units: transactions/s
+  family: userstats
+  chart_type: area
+  priority: 60070
+  shape: counters
+  labels:
+    user: sim-user-1
+  dimensions:
+  - id: commit
+    rate_signal: percona_mysql_userstats_created_transactions_commit
+  - id: rollback
+    rate_signal: percona_mysql_userstats_created_transactions_rollback
+- id: mysql.userstats_binlog_written
+  title: User Binlog Written
+  units: B/s
+  family: userstats
+  chart_type: line
+  priority: 60071
+  shape: counters
+  labels:
+    user: sim-user-1
+  dimensions:
+  - id: written
+    rate_signal: percona_mysql_userstats_binlog_written_written
+- id: mysql.userstats_empty_queries
+  title: User Empty Queries
+  units: queries/s
+  family: userstats
+  chart_type: line
+  priority: 60072
+  shape: counters
+  labels:
+    user: sim-user-1
+  dimensions:
+  - id: empty
+    rate_signal: percona_mysql_userstats_empty_queries_empty
+- id: mysql.userstats_connections
+  title: User Created Connections
+  units: connections/s
+  family: userstats
+  chart_type: line
+  priority: 60073
+  shape: counters
+  labels:
+    user: sim-user-1
+  dimensions:
+  - id: created
+    rate_signal: percona_mysql_userstats_connections_created
+- id: mysql.userstats_lost_connections
+  title: User Lost Connections
+  units: connections/s
+  family: userstats
+  chart_type: line
+  priority: 60074
+  shape: counters
+  labels:
+    user: sim-user-1
+  dimensions:
+  - id: lost
+    rate_signal: percona_mysql_userstats_lost_connections_lost
+- id: mysql.userstats_denied_connections
+  title: User Denied Connections
+  units: connections/s
+  family: userstats
+  chart_type: line
+  priority: 60075
+  shape: counters
+  labels:
+    user: sim-user-1
+  dimensions:
+  - id: denied
+    rate_signal: percona_mysql_userstats_denied_connections_denied

@@ -1,0 +1,117 @@
+version: 1
+name: ebpf-filesystem
+description: eBPF Filesystem metrics, generated from Netdata's own collector metadata so the contexts,
+  units and dimension names match what a real eBPF Filesystem node reports. Signals are independent and
+  plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  ebpf_filesystem_read_latency_latency_period:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_filesystem_open_latency_latency_period:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_filesystem_sync_latency_latency_period:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_filesystem_write_latency_latency_period:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_filesystem_attributte_latency_latency_period:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: filesystem.read_latency
+  title: ext4 latency for each read request.
+  units: calls/s
+  family: read
+  chart_type: stacked
+  priority: 60001
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: latency period
+    rate_signal: ebpf_filesystem_read_latency_latency_period
+- id: filesystem.open_latency
+  title: ext4 latency for each open request.
+  units: calls/s
+  family: open
+  chart_type: stacked
+  priority: 60002
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: latency period
+    rate_signal: ebpf_filesystem_open_latency_latency_period
+- id: filesystem.sync_latency
+  title: ext4 latency for each sync request.
+  units: calls/s
+  family: sync
+  chart_type: stacked
+  priority: 60003
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: latency period
+    rate_signal: ebpf_filesystem_sync_latency_latency_period
+- id: filesystem.write_latency
+  title: ext4 latency for each write request.
+  units: calls/s
+  family: write
+  chart_type: stacked
+  priority: 60004
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: latency period
+    rate_signal: ebpf_filesystem_write_latency_latency_period
+- id: filesystem.attributte_latency
+  title: nfs latency for each attribute request.
+  units: calls/s
+  family: attributte
+  chart_type: stacked
+  priority: 60005
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: latency period
+    rate_signal: ebpf_filesystem_attributte_latency_latency_period

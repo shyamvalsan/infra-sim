@@ -1,0 +1,60 @@
+version: 1
+name: x-509-certificate
+description: X.509 certificate metrics, generated from Netdata's own collector metadata so the contexts,
+  units and dimension names match what a real X.509 certificate node reports. Signals are independent
+  and plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  x_509_certificate_time_until_expiration_expiry:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  x_509_certificate_revocation_status_not_revoked:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  x_509_certificate_revocation_status_revoked:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+contexts:
+- id: x509check.time_until_expiration
+  title: Time Until Certificate Expiration
+  units: seconds
+  family: time
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels:
+    source: sim-source-1
+    common_name: sim-common_name-1
+    depth: sim-depth-1
+  dimensions:
+  - id: expiry
+    signal: x_509_certificate_time_until_expiration_expiry
+- id: x509check.revocation_status
+  title: Revocation Status
+  units: boolean
+  family: revocation
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels:
+    source: sim-source-1
+    common_name: sim-common_name-1
+    depth: sim-depth-1
+  dimensions:
+  - id: not_revoked
+    signal: x_509_certificate_revocation_status_not_revoked
+  - id: revoked
+    signal: x_509_certificate_revocation_status_revoked

@@ -122,3 +122,42 @@ mounts sized so `disk-fill` clamped them at 100%.
 - No declarative log spec: log rules live in code (`sim-engine/src/logs.rs`),
   not YAML, unlike every other generator concern.
 - The lint's coverage of scenario-active behaviour is manual.
+
+
+## The generated integration corpus
+
+`specs/*.yaml` holds six hand-authored specs. `specs/generated/*.yaml` holds 258
+more, synced from Netdata's own collector metadata by
+`scripts/sync-integrations.py`, and `integrations/catalogue.json` is what the
+console's picker reads.
+
+A collector's `metadata.yaml` gives the right contexts, units, chart types and
+dimension names. It does not give plausible *values*, so the sync derives a
+value profile from the unit and the dimension name:
+
+- Short unit strings (`%`, `ms`, `B`, `pps`) match **exactly**, before any
+  substring rule. Matching `%` as a substring of `percentage` is what let 60
+  metrics fall through to a generic profile and produce 108% disk fragmentation.
+- A dimension naming a failure (`error`, `drop`, `refused`, `timeout`, ...)
+  starts at zero. A fleet idling with a steady error rate reads as broken, and a
+  scenario needs headroom to move it off the floor.
+- A 0/1 dimension is declared constant rather than modelled as a noisy gauge
+  that rests on its ceiling.
+- A negative baseline (dBm) drifts rather than following a working day.
+
+### What generated specs are not
+
+They are **structurally** faithful and **not causally coupled**: signals move
+independently, and no scenario targets them. The catalogue labels each entry
+`deep` or `generated` so the console can show the difference rather than imply
+every integration is equal.
+
+A labelled scope (per database, per index, per queue) becomes **one**
+representative instance carrying that scope's chart labels. A real Elasticsearch
+with twelve indices shows twelve chart instances; this shows one.
+
+### The gate
+
+Every generated spec must pass the 6-hour fidelity lint before it ships - all
+258 do. The lint is what caught every unit misclassification above; reading the
+YAML would not have.

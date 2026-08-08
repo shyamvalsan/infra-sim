@@ -1,0 +1,76 @@
+version: 1
+name: isc-dhcp
+description: ISC DHCP metrics, generated from Netdata's own collector metadata so the contexts, units
+  and dimension names match what a real ISC DHCP node reports. Signals are independent and plausible rather
+  than causally coupled - see scripts/sync-integrations.py.
+signals:
+  isc_dhcp_active_leases_total_active:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  isc_dhcp_dhcp_pool_utilization_utilization:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  isc_dhcp_dhcp_pool_active_leases_active:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: isc_dhcpd.active_leases_total
+  title: Active Leases Total
+  units: leases
+  family: active
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: active
+    signal: isc_dhcp_active_leases_total_active
+- id: isc_dhcpd.dhcp_pool_utilization
+  title: DHCP Pool Utilization
+  units: percent
+  family: dhcp
+  chart_type: area
+  priority: 60002
+  shape: independent
+  labels:
+    dhcp_pool_name: sim-dhcp_pool_name-1
+  dimensions:
+  - id: utilization
+    signal: isc_dhcp_dhcp_pool_utilization_utilization
+- id: isc_dhcpd.dhcp_pool_active_leases
+  title: Active Leases Total
+  units: leases
+  family: dhcp
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels:
+    dhcp_pool_name: sim-dhcp_pool_name-1
+  dimensions:
+  - id: active
+    signal: isc_dhcp_dhcp_pool_active_leases_active

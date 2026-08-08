@@ -1,0 +1,396 @@
+version: 1
+name: apache
+description: Apache metrics, generated from Netdata's own collector metadata so the contexts, units and
+  dimension names match what a real Apache node reports. Signals are independent and plausible rather
+  than causally coupled - see scripts/sync-integrations.py.
+signals:
+  apache_connections_connections:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_conns_async_keepalive:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_conns_async_closing:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_conns_async_writing:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_workers_idle:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_workers_busy:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_scoreboard_waiting:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_scoreboard_starting:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_scoreboard_reading:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_scoreboard_sending:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_scoreboard_keepalive:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_scoreboard_dns_lookup:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_scoreboard_closing:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_scoreboard_logging:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_scoreboard_finishing:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_scoreboard_idle_cleanup:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_scoreboard_open:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_requests_requests:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_net_sent:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_reqpersec_requests:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_bytespersec_served:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_bytesperreq_size:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apache_uptime_uptime:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: apache.connections
+  title: Connections
+  units: connections
+  family: connections
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: connections
+    signal: apache_connections_connections
+- id: apache.conns_async
+  title: Active Connections
+  units: connections
+  family: conns
+  chart_type: stacked
+  priority: 60002
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: keepalive
+    signal: apache_conns_async_keepalive
+  - id: closing
+    signal: apache_conns_async_closing
+  - id: writing
+    signal: apache_conns_async_writing
+- id: apache.workers
+  title: Workers Threads
+  units: workers
+  family: workers
+  chart_type: stacked
+  priority: 60003
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: idle
+    signal: apache_workers_idle
+  - id: busy
+    signal: apache_workers_busy
+- id: apache.scoreboard
+  title: Scoreboard
+  units: connections
+  family: scoreboard
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: waiting
+    signal: apache_scoreboard_waiting
+  - id: starting
+    signal: apache_scoreboard_starting
+  - id: reading
+    signal: apache_scoreboard_reading
+  - id: sending
+    signal: apache_scoreboard_sending
+  - id: keepalive
+    signal: apache_scoreboard_keepalive
+  - id: dns_lookup
+    signal: apache_scoreboard_dns_lookup
+  - id: closing
+    signal: apache_scoreboard_closing
+  - id: logging
+    signal: apache_scoreboard_logging
+  - id: finishing
+    signal: apache_scoreboard_finishing
+  - id: idle_cleanup
+    signal: apache_scoreboard_idle_cleanup
+  - id: open
+    signal: apache_scoreboard_open
+- id: apache.requests
+  title: Requests
+  units: requests/s
+  family: requests
+  chart_type: line
+  priority: 60005
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: requests
+    rate_signal: apache_requests_requests
+- id: apache.net
+  title: Bandwidth
+  units: kilobit/s
+  family: net
+  chart_type: area
+  priority: 60006
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: sent
+    rate_signal: apache_net_sent
+- id: apache.reqpersec
+  title: Lifetime Average Number Of Requests Per Second
+  units: requests/s
+  family: reqpersec
+  chart_type: area
+  priority: 60007
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: requests
+    rate_signal: apache_reqpersec_requests
+- id: apache.bytespersec
+  title: Lifetime Average Number Of Bytes Served Per Second
+  units: KiB/s
+  family: bytespersec
+  chart_type: area
+  priority: 60008
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: served
+    signal: apache_bytespersec_served
+- id: apache.bytesperreq
+  title: Lifetime Average Response Size
+  units: KiB
+  family: bytesperreq
+  chart_type: area
+  priority: 60009
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: size
+    signal: apache_bytesperreq_size
+- id: apache.uptime
+  title: Uptime
+  units: seconds
+  family: uptime
+  chart_type: line
+  priority: 60010
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: uptime
+    signal: apache_uptime_uptime

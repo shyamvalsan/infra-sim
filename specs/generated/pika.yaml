@@ -1,0 +1,491 @@
+version: 1
+name: pika
+description: Pika metrics, generated from Netdata's own collector metadata so the contexts, units and
+  dimension names match what a real Pika node reports. Signals are independent and plausible rather than
+  causally coupled - see scripts/sync-integrations.py.
+signals:
+  pika_connections_accepted:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pika_clients_connected:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pika_memory_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pika_connected_replicas_connected:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pika_commands_processed:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pika_commands_calls_a_dimension_per_command:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pika_database_strings_keys_a_dimension_per_database:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pika_database_strings_expires_keys_a_dimension_per_database:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pika_database_strings_invalid_keys_a_dimension_per_database:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pika_database_hashes_keys_a_dimension_per_database:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pika_database_hashes_expires_keys_a_dimension_per_database:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pika_database_hashes_invalid_keys_a_dimension_per_database:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pika_database_lists_keys_a_dimension_per_database:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pika_database_lists_expires_keys_a_dimension_per_database:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pika_database_lists_invalid_keys_a_dimension_per_database:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pika_database_zsets_keys_a_dimension_per_database:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pika_database_zsets_expires_keys_a_dimension_per_database:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pika_database_zsets_invalid_keys_a_dimension_per_database:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pika_database_sets_keys_a_dimension_per_database:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pika_database_sets_expires_keys_a_dimension_per_database:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pika_database_sets_invalid_keys_a_dimension_per_database:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pika_uptime_uptime:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: pika.connections
+  title: Connections
+  units: connections
+  family: connections
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: accepted
+    signal: pika_connections_accepted
+- id: pika.clients
+  title: Clients
+  units: clients
+  family: clients
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: connected
+    signal: pika_clients_connected
+- id: pika.memory
+  title: Memory usage
+  units: bytes
+  family: memory
+  chart_type: area
+  priority: 60003
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: used
+    signal: pika_memory_used
+- id: pika.connected_replicas
+  title: Connected replicas
+  units: replicas
+  family: connected
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: connected
+    signal: pika_connected_replicas_connected
+- id: pika.commands
+  title: Processed commands
+  units: commands/s
+  family: commands
+  chart_type: line
+  priority: 60005
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: processed
+    rate_signal: pika_commands_processed
+- id: pika.commands_calls
+  title: Calls per command
+  units: calls/s
+  family: commands
+  chart_type: stacked
+  priority: 60006
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per command
+    rate_signal: pika_commands_calls_a_dimension_per_command
+- id: pika.database_strings_keys
+  title: Strings type keys per database
+  units: keys
+  family: database
+  chart_type: stacked
+  priority: 60007
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: a dimension per database
+    signal: pika_database_strings_keys_a_dimension_per_database
+- id: pika.database_strings_expires_keys
+  title: Strings type expires keys per database
+  units: keys
+  family: database
+  chart_type: stacked
+  priority: 60008
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: a dimension per database
+    signal: pika_database_strings_expires_keys_a_dimension_per_database
+- id: pika.database_strings_invalid_keys
+  title: Strings type invalid keys per database
+  units: keys
+  family: database
+  chart_type: stacked
+  priority: 60009
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: a dimension per database
+    signal: pika_database_strings_invalid_keys_a_dimension_per_database
+- id: pika.database_hashes_keys
+  title: Hashes type keys per database
+  units: keys
+  family: database
+  chart_type: stacked
+  priority: 60010
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: a dimension per database
+    signal: pika_database_hashes_keys_a_dimension_per_database
+- id: pika.database_hashes_expires_keys
+  title: Hashes type expires keys per database
+  units: keys
+  family: database
+  chart_type: stacked
+  priority: 60011
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: a dimension per database
+    signal: pika_database_hashes_expires_keys_a_dimension_per_database
+- id: pika.database_hashes_invalid_keys
+  title: Hashes type invalid keys per database
+  units: keys
+  family: database
+  chart_type: stacked
+  priority: 60012
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: a dimension per database
+    signal: pika_database_hashes_invalid_keys_a_dimension_per_database
+- id: pika.database_lists_keys
+  title: Lists type keys per database
+  units: keys
+  family: database
+  chart_type: stacked
+  priority: 60013
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: a dimension per database
+    signal: pika_database_lists_keys_a_dimension_per_database
+- id: pika.database_lists_expires_keys
+  title: Lists type expires keys per database
+  units: keys
+  family: database
+  chart_type: stacked
+  priority: 60014
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: a dimension per database
+    signal: pika_database_lists_expires_keys_a_dimension_per_database
+- id: pika.database_lists_invalid_keys
+  title: Lists type invalid keys per database
+  units: keys
+  family: database
+  chart_type: stacked
+  priority: 60015
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: a dimension per database
+    signal: pika_database_lists_invalid_keys_a_dimension_per_database
+- id: pika.database_zsets_keys
+  title: Zsets type keys per database
+  units: keys
+  family: database
+  chart_type: stacked
+  priority: 60016
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: a dimension per database
+    signal: pika_database_zsets_keys_a_dimension_per_database
+- id: pika.database_zsets_expires_keys
+  title: Zsets type expires keys per database
+  units: keys
+  family: database
+  chart_type: stacked
+  priority: 60017
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: a dimension per database
+    signal: pika_database_zsets_expires_keys_a_dimension_per_database
+- id: pika.database_zsets_invalid_keys
+  title: Zsets type invalid keys per database
+  units: keys
+  family: database
+  chart_type: stacked
+  priority: 60018
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: a dimension per database
+    signal: pika_database_zsets_invalid_keys_a_dimension_per_database
+- id: pika.database_sets_keys
+  title: Sets type keys per database
+  units: keys
+  family: database
+  chart_type: stacked
+  priority: 60019
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: a dimension per database
+    signal: pika_database_sets_keys_a_dimension_per_database
+- id: pika.database_sets_expires_keys
+  title: Sets type expires keys per database
+  units: keys
+  family: database
+  chart_type: stacked
+  priority: 60020
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: a dimension per database
+    signal: pika_database_sets_expires_keys_a_dimension_per_database
+- id: pika.database_sets_invalid_keys
+  title: Sets invalid keys per database
+  units: keys
+  family: database
+  chart_type: stacked
+  priority: 60021
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: a dimension per database
+    signal: pika_database_sets_invalid_keys_a_dimension_per_database
+- id: pika.uptime
+  title: Uptime
+  units: seconds
+  family: uptime
+  chart_type: line
+  priority: 60022
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: uptime
+    signal: pika_uptime_uptime

@@ -1,0 +1,420 @@
+version: 1
+name: chrony
+description: Chrony metrics, generated from Netdata's own collector metadata so the contexts, units and
+  dimension names match what a real Chrony node reports. Signals are independent and plausible rather
+  than causally coupled - see scripts/sync-integrations.py.
+signals:
+  chrony_stratum_stratum:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chrony_current_correction_current_correction:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chrony_root_delay_root_delay:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chrony_root_dispersion_root_delay:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chrony_last_offset_offset:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chrony_rms_offset_offset:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chrony_frequency_frequency:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chrony_residual_frequency_residual_frequency:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chrony_skew_skew:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chrony_update_interval_update_interval:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chrony_ref_measurement_time_ref_measurement_time:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chrony_leap_status_normal:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  chrony_leap_status_insert_second:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  chrony_leap_status_delete_second:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  chrony_leap_status_unsynchronised:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  chrony_activity_online:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chrony_activity_offline:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chrony_activity_burst_online:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chrony_activity_burst_offline:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chrony_activity_unresolved:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chrony_ntp_packets_received:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chrony_ntp_packets_dropped:
+    base: 0.0
+    min: 0.0
+    max: 20000000.0
+  chrony_command_packets_received:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chrony_command_packets_dropped:
+    base: 0.0
+    min: 0.0
+    max: 20000000.0
+contexts:
+- id: chrony.stratum
+  title: Distance to the reference clock
+  units: level
+  family: stratum
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: stratum
+    signal: chrony_stratum_stratum
+- id: chrony.current_correction
+  title: Current correction
+  units: seconds
+  family: current
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: current_correction
+    signal: chrony_current_correction_current_correction
+- id: chrony.root_delay
+  title: Network path delay to stratum-1
+  units: seconds
+  family: root
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: root_delay
+    signal: chrony_root_delay_root_delay
+- id: chrony.root_dispersion
+  title: Dispersion accumulated back to stratum-1
+  units: seconds
+  family: root
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: root_delay
+    signal: chrony_root_dispersion_root_delay
+- id: chrony.last_offset
+  title: Offset on the last clock update
+  units: seconds
+  family: last
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: offset
+    signal: chrony_last_offset_offset
+- id: chrony.rms_offset
+  title: Long-term average of the offset value
+  units: seconds
+  family: rms
+  chart_type: line
+  priority: 60006
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: offset
+    signal: chrony_rms_offset_offset
+- id: chrony.frequency
+  title: Frequency
+  units: ppm
+  family: frequency
+  chart_type: line
+  priority: 60007
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: frequency
+    signal: chrony_frequency_frequency
+- id: chrony.residual_frequency
+  title: Residual frequency
+  units: ppm
+  family: residual
+  chart_type: line
+  priority: 60008
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: residual_frequency
+    signal: chrony_residual_frequency_residual_frequency
+- id: chrony.skew
+  title: Skew
+  units: ppm
+  family: skew
+  chart_type: line
+  priority: 60009
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: skew
+    signal: chrony_skew_skew
+- id: chrony.update_interval
+  title: Interval between the last two clock updates
+  units: seconds
+  family: update
+  chart_type: line
+  priority: 60010
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: update_interval
+    signal: chrony_update_interval_update_interval
+- id: chrony.ref_measurement_time
+  title: Time since the last measurement
+  units: seconds
+  family: ref
+  chart_type: line
+  priority: 60011
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: ref_measurement_time
+    signal: chrony_ref_measurement_time_ref_measurement_time
+- id: chrony.leap_status
+  title: Leap status
+  units: status
+  family: leap
+  chart_type: line
+  priority: 60012
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: normal
+    signal: chrony_leap_status_normal
+  - id: insert_second
+    signal: chrony_leap_status_insert_second
+  - id: delete_second
+    signal: chrony_leap_status_delete_second
+  - id: unsynchronised
+    signal: chrony_leap_status_unsynchronised
+- id: chrony.activity
+  title: Peers activity
+  units: sources
+  family: activity
+  chart_type: stacked
+  priority: 60013
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: online
+    signal: chrony_activity_online
+  - id: offline
+    signal: chrony_activity_offline
+  - id: burst_online
+    signal: chrony_activity_burst_online
+  - id: burst_offline
+    signal: chrony_activity_burst_offline
+  - id: unresolved
+    signal: chrony_activity_unresolved
+- id: chrony.ntp_packets
+  title: NTP packets
+  units: packets/s
+  family: ntp
+  chart_type: line
+  priority: 60014
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: received
+    rate_signal: chrony_ntp_packets_received
+  - id: dropped
+    rate_signal: chrony_ntp_packets_dropped
+- id: chrony.command_packets
+  title: Command packets
+  units: packets/s
+  family: command
+  chart_type: line
+  priority: 60015
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: received
+    rate_signal: chrony_command_packets_received
+  - id: dropped
+    rate_signal: chrony_command_packets_dropped

@@ -1,0 +1,911 @@
+version: 1
+name: ceph
+description: Ceph metrics, generated from Netdata's own collector metadata so the contexts, units and
+  dimension names match what a real Ceph node reports. Signals are independent and plausible rather than
+  causally coupled - see scripts/sync-integrations.py.
+signals:
+  ceph_cluster_status_ok:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ceph_cluster_status_err:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ceph_cluster_status_warn:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ceph_cluster_hosts_count_hosts:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ceph_cluster_monitors_count_monitors:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ceph_cluster_osds_count_osds:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ceph_cluster_osds_by_status_count_up:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ceph_cluster_osds_by_status_count_down:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ceph_cluster_osds_by_status_count_in:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ceph_cluster_osds_by_status_count_out:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ceph_cluster_managers_count_active:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ceph_cluster_managers_count_standby:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ceph_cluster_object_gateways_count_object:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ceph_cluster_iscsi_gateways_count_iscsi:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ceph_cluster_iscsi_gateways_by_status_count_up:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ceph_cluster_iscsi_gateways_by_status_count_down:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ceph_cluster_physical_capacity_utilization_utilization:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ceph_cluster_physical_capacity_usage_avail:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ceph_cluster_physical_capacity_usage_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ceph_cluster_objects_count_objects:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ceph_cluster_objects_by_status_distribution_healthy:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ceph_cluster_objects_by_status_distribution_misplaced:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ceph_cluster_objects_by_status_distribution_degraded:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ceph_cluster_objects_by_status_distribution_unfound:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ceph_cluster_pools_count_pools:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ceph_cluster_pgs_count_pgs:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ceph_cluster_pgs_by_status_count_clean:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ceph_cluster_pgs_by_status_count_working:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ceph_cluster_pgs_by_status_count_warning:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ceph_cluster_pgs_by_status_count_unknown:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ceph_cluster_pgs_per_osd_count_per_osd:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ceph_osd_status_up:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ceph_osd_status_down:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ceph_osd_status_in:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ceph_osd_status_out:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ceph_osd_space_usage_avail:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ceph_osd_space_usage_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ceph_osd_io_read:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ceph_osd_io_written:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ceph_osd_iops_read:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ceph_osd_iops_write:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ceph_osd_latency_commit:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ceph_osd_latency_apply:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ceph_pool_space_utilization_utilization:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ceph_pool_space_usage_avail:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ceph_pool_space_usage_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ceph_pool_objects_count_object:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ceph_pool_io_read:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ceph_pool_io_written:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ceph_pool_iops_read:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ceph_pool_iops_write:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: ceph.cluster_status
+  title: Ceph Cluster Status
+  units: status
+  family: cluster
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels:
+    fsid: sim-fsid-1
+  dimensions:
+  - id: ok
+    signal: ceph_cluster_status_ok
+  - id: err
+    signal: ceph_cluster_status_err
+  - id: warn
+    signal: ceph_cluster_status_warn
+- id: ceph.cluster_hosts_count
+  title: Ceph Cluster Hosts
+  units: hosts
+  family: cluster
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels:
+    fsid: sim-fsid-1
+  dimensions:
+  - id: hosts
+    signal: ceph_cluster_hosts_count_hosts
+- id: ceph.cluster_monitors_count
+  title: Ceph Cluster Monitors
+  units: monitors
+  family: cluster
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels:
+    fsid: sim-fsid-1
+  dimensions:
+  - id: monitors
+    signal: ceph_cluster_monitors_count_monitors
+- id: ceph.cluster_osds_count
+  title: Ceph Cluster OSDs
+  units: osds
+  family: cluster
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels:
+    fsid: sim-fsid-1
+  dimensions:
+  - id: osds
+    signal: ceph_cluster_osds_count_osds
+- id: ceph.cluster_osds_by_status_count
+  title: Ceph Cluster OSDs by Status
+  units: status
+  family: cluster
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels:
+    fsid: sim-fsid-1
+  dimensions:
+  - id: up
+    signal: ceph_cluster_osds_by_status_count_up
+  - id: down
+    signal: ceph_cluster_osds_by_status_count_down
+  - id: in
+    signal: ceph_cluster_osds_by_status_count_in
+  - id: out
+    signal: ceph_cluster_osds_by_status_count_out
+- id: ceph.cluster_managers_count
+  title: Ceph Cluster Managers
+  units: managers
+  family: cluster
+  chart_type: line
+  priority: 60006
+  shape: independent
+  labels:
+    fsid: sim-fsid-1
+  dimensions:
+  - id: active
+    signal: ceph_cluster_managers_count_active
+  - id: standby
+    signal: ceph_cluster_managers_count_standby
+- id: ceph.cluster_object_gateways_count
+  title: Ceph Cluster Object Gateways (RGW)
+  units: gateways
+  family: cluster
+  chart_type: line
+  priority: 60007
+  shape: independent
+  labels:
+    fsid: sim-fsid-1
+  dimensions:
+  - id: object
+    signal: ceph_cluster_object_gateways_count_object
+- id: ceph.cluster_iscsi_gateways_count
+  title: Ceph Cluster iSCSI Gateways
+  units: gateways
+  family: cluster
+  chart_type: line
+  priority: 60008
+  shape: independent
+  labels:
+    fsid: sim-fsid-1
+  dimensions:
+  - id: iscsi
+    signal: ceph_cluster_iscsi_gateways_count_iscsi
+- id: ceph.cluster_iscsi_gateways_by_status_count
+  title: Ceph Cluster iSCSI Gateways by Status
+  units: gateways
+  family: cluster
+  chart_type: line
+  priority: 60009
+  shape: independent
+  labels:
+    fsid: sim-fsid-1
+  dimensions:
+  - id: up
+    signal: ceph_cluster_iscsi_gateways_by_status_count_up
+  - id: down
+    signal: ceph_cluster_iscsi_gateways_by_status_count_down
+- id: ceph.cluster_physical_capacity_utilization
+  title: Ceph Cluster Physical Capacity Utilization
+  units: percent
+  family: cluster
+  chart_type: area
+  priority: 60010
+  shape: independent
+  labels:
+    fsid: sim-fsid-1
+  dimensions:
+  - id: utilization
+    signal: ceph_cluster_physical_capacity_utilization_utilization
+- id: ceph.cluster_physical_capacity_usage
+  title: Ceph Cluster Physical Capacity Usage
+  units: bytes
+  family: cluster
+  chart_type: stacked
+  priority: 60011
+  shape: independent
+  labels:
+    fsid: sim-fsid-1
+  dimensions:
+  - id: avail
+    signal: ceph_cluster_physical_capacity_usage_avail
+  - id: used
+    signal: ceph_cluster_physical_capacity_usage_used
+- id: ceph.cluster_objects_count
+  title: Ceph Cluster Objects
+  units: objects
+  family: cluster
+  chart_type: line
+  priority: 60012
+  shape: independent
+  labels:
+    fsid: sim-fsid-1
+  dimensions:
+  - id: objects
+    signal: ceph_cluster_objects_count_objects
+- id: ceph.cluster_objects_by_status_distribution
+  title: Ceph Cluster Objects by Status
+  units: percent
+  family: cluster
+  chart_type: stacked
+  priority: 60013
+  shape: independent
+  labels:
+    fsid: sim-fsid-1
+  dimensions:
+  - id: healthy
+    signal: ceph_cluster_objects_by_status_distribution_healthy
+  - id: misplaced
+    signal: ceph_cluster_objects_by_status_distribution_misplaced
+  - id: degraded
+    signal: ceph_cluster_objects_by_status_distribution_degraded
+  - id: unfound
+    signal: ceph_cluster_objects_by_status_distribution_unfound
+- id: ceph.cluster_pools_count
+  title: Ceph Cluster Pools
+  units: pools
+  family: cluster
+  chart_type: line
+  priority: 60014
+  shape: independent
+  labels:
+    fsid: sim-fsid-1
+  dimensions:
+  - id: pools
+    signal: ceph_cluster_pools_count_pools
+- id: ceph.cluster_pgs_count
+  title: Ceph Cluster Placement Groups
+  units: pgs
+  family: cluster
+  chart_type: line
+  priority: 60015
+  shape: independent
+  labels:
+    fsid: sim-fsid-1
+  dimensions:
+  - id: pgs
+    signal: ceph_cluster_pgs_count_pgs
+- id: ceph.cluster_pgs_by_status_count
+  title: Ceph Cluster Placement Groups by Status
+  units: pgs
+  family: cluster
+  chart_type: stacked
+  priority: 60016
+  shape: independent
+  labels:
+    fsid: sim-fsid-1
+  dimensions:
+  - id: clean
+    signal: ceph_cluster_pgs_by_status_count_clean
+  - id: working
+    signal: ceph_cluster_pgs_by_status_count_working
+  - id: warning
+    signal: ceph_cluster_pgs_by_status_count_warning
+  - id: unknown
+    signal: ceph_cluster_pgs_by_status_count_unknown
+- id: ceph.cluster_pgs_per_osd_count
+  title: Ceph Cluster Placement Groups per OSD
+  units: pgs
+  family: cluster
+  chart_type: line
+  priority: 60017
+  shape: independent
+  labels:
+    fsid: sim-fsid-1
+  dimensions:
+  - id: per_osd
+    signal: ceph_cluster_pgs_per_osd_count_per_osd
+- id: ceph.osd_status
+  title: Ceph OSD Status
+  units: status
+  family: osd
+  chart_type: line
+  priority: 60018
+  shape: independent
+  labels:
+    fsid: sim-fsid-1
+    osd_uuid: sim-osd_uuid-1
+    osd_name: sim-osd_name-1
+    device_class: sim-device_class-1
+  dimensions:
+  - id: up
+    signal: ceph_osd_status_up
+  - id: down
+    signal: ceph_osd_status_down
+  - id: in
+    signal: ceph_osd_status_in
+  - id: out
+    signal: ceph_osd_status_out
+- id: ceph.osd_space_usage
+  title: Ceph OSD Space Usage
+  units: bytes
+  family: osd
+  chart_type: stacked
+  priority: 60019
+  shape: independent
+  labels:
+    fsid: sim-fsid-1
+    osd_uuid: sim-osd_uuid-1
+    osd_name: sim-osd_name-1
+    device_class: sim-device_class-1
+  dimensions:
+  - id: avail
+    signal: ceph_osd_space_usage_avail
+  - id: used
+    signal: ceph_osd_space_usage_used
+- id: ceph.osd_io
+  title: Ceph OSD IO
+  units: bytes/s
+  family: osd
+  chart_type: area
+  priority: 60020
+  shape: counters
+  labels:
+    fsid: sim-fsid-1
+    osd_uuid: sim-osd_uuid-1
+    osd_name: sim-osd_name-1
+    device_class: sim-device_class-1
+  dimensions:
+  - id: read
+    rate_signal: ceph_osd_io_read
+  - id: written
+    rate_signal: ceph_osd_io_written
+- id: ceph.osd_iops
+  title: Ceph OSD IOPS
+  units: ops/s
+  family: osd
+  chart_type: area
+  priority: 60021
+  shape: counters
+  labels:
+    fsid: sim-fsid-1
+    osd_uuid: sim-osd_uuid-1
+    osd_name: sim-osd_name-1
+    device_class: sim-device_class-1
+  dimensions:
+  - id: read
+    rate_signal: ceph_osd_iops_read
+  - id: write
+    rate_signal: ceph_osd_iops_write
+- id: ceph.osd_latency
+  title: Ceph OSD Latency
+  units: milliseconds
+  family: osd
+  chart_type: line
+  priority: 60022
+  shape: independent
+  labels:
+    fsid: sim-fsid-1
+    osd_uuid: sim-osd_uuid-1
+    osd_name: sim-osd_name-1
+    device_class: sim-device_class-1
+  dimensions:
+  - id: commit
+    signal: ceph_osd_latency_commit
+  - id: apply
+    signal: ceph_osd_latency_apply
+- id: ceph.pool_space_utilization
+  title: Ceph Pool Space Utilization
+  units: percent
+  family: pool
+  chart_type: area
+  priority: 60023
+  shape: independent
+  labels:
+    fsid: sim-fsid-1
+    pool_name: sim-pool_name-1
+  dimensions:
+  - id: utilization
+    signal: ceph_pool_space_utilization_utilization
+- id: ceph.pool_space_usage
+  title: Ceph Pool Space Usage
+  units: bytes
+  family: pool
+  chart_type: stacked
+  priority: 60024
+  shape: independent
+  labels:
+    fsid: sim-fsid-1
+    pool_name: sim-pool_name-1
+  dimensions:
+  - id: avail
+    signal: ceph_pool_space_usage_avail
+  - id: used
+    signal: ceph_pool_space_usage_used
+- id: ceph.pool_objects_count
+  title: Ceph Pool Objects
+  units: objects
+  family: pool
+  chart_type: line
+  priority: 60025
+  shape: independent
+  labels:
+    fsid: sim-fsid-1
+    pool_name: sim-pool_name-1
+  dimensions:
+  - id: object
+    signal: ceph_pool_objects_count_object
+- id: ceph.pool_io
+  title: Ceph Pool IO
+  units: bytes/s
+  family: pool
+  chart_type: area
+  priority: 60026
+  shape: counters
+  labels:
+    fsid: sim-fsid-1
+    pool_name: sim-pool_name-1
+  dimensions:
+  - id: read
+    rate_signal: ceph_pool_io_read
+  - id: written
+    rate_signal: ceph_pool_io_written
+- id: ceph.pool_iops
+  title: Ceph Pool IOPS
+  units: ops/s
+  family: pool
+  chart_type: area
+  priority: 60027
+  shape: counters
+  labels:
+    fsid: sim-fsid-1
+    pool_name: sim-pool_name-1
+  dimensions:
+  - id: read
+    rate_signal: ceph_pool_iops_read
+  - id: write
+    rate_signal: ceph_pool_iops_write

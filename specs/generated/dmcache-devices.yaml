@@ -1,0 +1,210 @@
+version: 1
+name: dmcache-devices
+description: DMCache devices metrics, generated from Netdata's own collector metadata so the contexts,
+  units and dimension names match what a real DMCache devices node reports. Signals are independent and
+  plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  dmcache_devices_device_cache_space_usage_free:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dmcache_devices_device_cache_space_usage_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dmcache_devices_device_metadata_space_usage_free:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dmcache_devices_device_metadata_space_usage_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dmcache_devices_device_cache_read_efficiency_hits:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dmcache_devices_device_cache_read_efficiency_misses:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dmcache_devices_device_cache_write_efficiency_hits:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dmcache_devices_device_cache_write_efficiency_misses:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dmcache_devices_device_cache_activity_promotions:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dmcache_devices_device_cache_activity_demotions:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dmcache_devices_device_cache_dirty_size_dirty:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: dmcache.device_cache_space_usage
+  title: DMCache space usage
+  units: bytes
+  family: device
+  chart_type: stacked
+  priority: 60001
+  shape: independent
+  labels:
+    device: sim-device-1
+  dimensions:
+  - id: free
+    signal: dmcache_devices_device_cache_space_usage_free
+  - id: used
+    signal: dmcache_devices_device_cache_space_usage_used
+- id: dmcache.device_metadata_space_usage
+  title: DMCache metadata space usage
+  units: bytes
+  family: device
+  chart_type: stacked
+  priority: 60002
+  shape: independent
+  labels:
+    device: sim-device-1
+  dimensions:
+  - id: free
+    signal: dmcache_devices_device_metadata_space_usage_free
+  - id: used
+    signal: dmcache_devices_device_metadata_space_usage_used
+- id: dmcache.device_cache_read_efficiency
+  title: DMCache read efficiency
+  units: requests/s
+  family: device
+  chart_type: stacked
+  priority: 60003
+  shape: counters
+  labels:
+    device: sim-device-1
+  dimensions:
+  - id: hits
+    rate_signal: dmcache_devices_device_cache_read_efficiency_hits
+  - id: misses
+    rate_signal: dmcache_devices_device_cache_read_efficiency_misses
+- id: dmcache.device_cache_write_efficiency
+  title: DMCache write efficiency
+  units: requests/s
+  family: device
+  chart_type: stacked
+  priority: 60004
+  shape: counters
+  labels:
+    device: sim-device-1
+  dimensions:
+  - id: hits
+    rate_signal: dmcache_devices_device_cache_write_efficiency_hits
+  - id: misses
+    rate_signal: dmcache_devices_device_cache_write_efficiency_misses
+- id: dmcache.device_cache_activity
+  title: DMCache activity
+  units: bytes/s
+  family: device
+  chart_type: area
+  priority: 60005
+  shape: counters
+  labels:
+    device: sim-device-1
+  dimensions:
+  - id: promotions
+    rate_signal: dmcache_devices_device_cache_activity_promotions
+  - id: demotions
+    rate_signal: dmcache_devices_device_cache_activity_demotions
+- id: dmcache.device_cache_dirty_size
+  title: DMCache dirty data size
+  units: bytes
+  family: device
+  chart_type: area
+  priority: 60006
+  shape: independent
+  labels:
+    device: sim-device-1
+  dimensions:
+  - id: dirty
+    signal: dmcache_devices_device_cache_dirty_size_dirty

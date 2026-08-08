@@ -1,0 +1,298 @@
+version: 1
+name: nfs-server
+description: NFS Server metrics, generated from Netdata's own collector metadata so the contexts, units
+  and dimension names match what a real NFS Server node reports. Signals are independent and plausible
+  rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  nfs_server_readcache_hits:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nfs_server_readcache_misses:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nfs_server_readcache_nocache:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nfs_server_filehandles_stale:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  nfs_server_io_read:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nfs_server_io_write:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nfs_server_threads_threads:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nfs_server_net_udp:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nfs_server_net_tcp:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nfs_server_rpc_calls:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nfs_server_rpc_bad_format:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nfs_server_rpc_bad_auth:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nfs_server_proc2_a_dimension_per_proc2_call:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nfs_server_proc3_a_dimension_per_proc3_call:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nfs_server_proc4_a_dimension_per_proc4_call:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nfs_server_proc4ops_a_dimension_per_proc4_operation:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: nfsd.readcache
+  title: NFS Server Read Cache
+  units: reads/s
+  family: readcache
+  chart_type: stacked
+  priority: 60001
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: hits
+    rate_signal: nfs_server_readcache_hits
+  - id: misses
+    rate_signal: nfs_server_readcache_misses
+  - id: nocache
+    rate_signal: nfs_server_readcache_nocache
+- id: nfsd.filehandles
+  title: NFS Server File Handles
+  units: handles/s
+  family: filehandles
+  chart_type: line
+  priority: 60002
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: stale
+    rate_signal: nfs_server_filehandles_stale
+- id: nfsd.io
+  title: NFS Server I/O
+  units: kilobytes/s
+  family: io
+  chart_type: area
+  priority: 60003
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: read
+    rate_signal: nfs_server_io_read
+  - id: write
+    rate_signal: nfs_server_io_write
+- id: nfsd.threads
+  title: NFS Server Threads
+  units: threads
+  family: threads
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: threads
+    signal: nfs_server_threads_threads
+- id: nfsd.net
+  title: NFS Server Network Statistics
+  units: packets/s
+  family: net
+  chart_type: line
+  priority: 60005
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: udp
+    rate_signal: nfs_server_net_udp
+  - id: tcp
+    rate_signal: nfs_server_net_tcp
+- id: nfsd.rpc
+  title: NFS Server Remote Procedure Calls Statistics
+  units: calls/s
+  family: rpc
+  chart_type: line
+  priority: 60006
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: calls
+    rate_signal: nfs_server_rpc_calls
+  - id: bad_format
+    rate_signal: nfs_server_rpc_bad_format
+  - id: bad_auth
+    rate_signal: nfs_server_rpc_bad_auth
+- id: nfsd.proc2
+  title: NFS v2 Server Remote Procedure Calls
+  units: calls/s
+  family: proc2
+  chart_type: stacked
+  priority: 60007
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per proc2 call
+    rate_signal: nfs_server_proc2_a_dimension_per_proc2_call
+- id: nfsd.proc3
+  title: NFS v3 Server Remote Procedure Calls
+  units: calls/s
+  family: proc3
+  chart_type: stacked
+  priority: 60008
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per proc3 call
+    rate_signal: nfs_server_proc3_a_dimension_per_proc3_call
+- id: nfsd.proc4
+  title: NFS v4 Server Remote Procedure Calls
+  units: calls/s
+  family: proc4
+  chart_type: stacked
+  priority: 60009
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per proc4 call
+    rate_signal: nfs_server_proc4_a_dimension_per_proc4_call
+- id: nfsd.proc4ops
+  title: NFS v4 Server Operations
+  units: operations/s
+  family: proc4ops
+  chart_type: stacked
+  priority: 60010
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per proc4 operation
+    rate_signal: nfs_server_proc4ops_a_dimension_per_proc4_operation

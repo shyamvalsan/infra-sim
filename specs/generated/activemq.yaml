@@ -1,0 +1,86 @@
+version: 1
+name: activemq
+description: ActiveMQ metrics, generated from Netdata's own collector metadata so the contexts, units
+  and dimension names match what a real ActiveMQ node reports. Signals are independent and plausible rather
+  than causally coupled - see scripts/sync-integrations.py.
+signals:
+  activemq_messages_enqueued:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  activemq_messages_dequeued:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  activemq_unprocessed_messages_unprocessed:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  activemq_consumers_consumers:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: activemq.messages
+  title: Messaged
+  units: messages/s
+  family: messages
+  chart_type: line
+  priority: 60001
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: enqueued
+    rate_signal: activemq_messages_enqueued
+  - id: dequeued
+    rate_signal: activemq_messages_dequeued
+- id: activemq.unprocessed_messages
+  title: Unprocessed Messages
+  units: messages
+  family: unprocessed
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: unprocessed
+    signal: activemq_unprocessed_messages_unprocessed
+- id: activemq.consumers
+  title: Consumers
+  units: consumers
+  family: consumers
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: consumers
+    signal: activemq_consumers_consumers

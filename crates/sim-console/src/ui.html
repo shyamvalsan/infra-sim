@@ -6,358 +6,570 @@
 <title>Infra-Sim Console</title>
 <style>
   :root {
-    --bg: #0f1115; --panel: #171a21; --panel2: #1e222b; --line: #2a2f3a;
-    --fg: #e6e9ef; --muted: #98a2b3; --accent: #00ab44;
-    --pass: #2ea043; --warn: #d29922; --fail: #f85149; --manual: #6e7681;
+    --bg:#0f1115; --panel:#171a21; --panel2:#1e222b; --line:#2a2f3a;
+    --fg:#e6e9ef; --muted:#98a2b3; --dim:#6e7681; --accent:#00ab44;
+    --pass:#2ea043; --warn:#d29922; --fail:#f85149; --manual:#6e7681;
     --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0; background: var(--bg); color: var(--fg);
-    font: 14px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
-  }
-  header {
-    padding: 14px 20px; border-bottom: 1px solid var(--line);
-    display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap;
-    background: var(--panel);
-  }
-  h1 { font-size: 16px; margin: 0; letter-spacing: .3px; }
-  .sim-badge {
-    background: var(--accent); color: #04240f; font-weight: 700;
-    padding: 2px 8px; border-radius: 4px; font-size: 11px;
-    text-transform: uppercase; letter-spacing: .6px;
-  }
-  .meta { color: var(--muted); font-size: 12px; font-family: var(--mono); }
-  main { padding: 20px; display: grid; gap: 20px; max-width: 1400px; }
-  section { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; }
-  section > h2 {
-    font-size: 12px; text-transform: uppercase; letter-spacing: .8px;
-    color: var(--muted); margin: 0; padding: 12px 16px; border-bottom: 1px solid var(--line);
-  }
-  .body { padding: 14px 16px; }
-  table { width: 100%; border-collapse: collapse; font-size: 13px; }
-  th { text-align: left; color: var(--muted); font-weight: 500; padding: 6px 10px; font-size: 12px; }
-  td { padding: 7px 10px; border-top: 1px solid var(--line); font-family: var(--mono); }
-  .wrap { overflow-x: auto; }
-  .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 7px; }
-  .pass { background: var(--pass); } .warn { background: var(--warn); }
-  .fail { background: var(--fail); } .manual { background: var(--manual); }
-  .board-row { display: flex; gap: 10px; padding: 9px 0; border-top: 1px solid var(--line); align-items: flex-start; }
-  .board-row:first-child { border-top: none; }
-  .board-name { flex: 0 0 240px; }
-  .board-detail { flex: 1; color: var(--muted); font-family: var(--mono); font-size: 12px; }
-  .remedy { color: var(--warn); font-size: 12px; margin-top: 3px; }
-  .verdict { padding: 10px 16px; font-weight: 600; border-bottom: 1px solid var(--line); }
-  .verdict.go { color: var(--pass); } .verdict.nogo { color: var(--fail); }
-  .scenario { border-top: 1px solid var(--line); padding: 13px 0; }
-  .scenario:first-child { border-top: none; }
-  .scenario-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-  .scenario-name { font-weight: 600; font-family: var(--mono); }
-  .scenario-desc { color: var(--muted); font-size: 13px; margin: 6px 0; }
-  button {
-    background: var(--panel2); color: var(--fg); border: 1px solid var(--line);
-    padding: 5px 13px; border-radius: 5px; cursor: pointer; font-size: 13px;
-  }
-  button:hover { border-color: var(--accent); }
-  button.danger:hover { border-color: var(--fail); color: var(--fail); }
-  button[disabled] { opacity: .45; cursor: not-allowed; }
-  .running { color: var(--warn); font-size: 12px; font-family: var(--mono); }
-  .bar { height: 4px; background: var(--panel2); border-radius: 2px; margin-top: 8px; overflow: hidden; }
-  .bar > i { display: block; height: 100%; background: var(--warn); }
-  details { margin-top: 8px; }
-  summary { cursor: pointer; color: var(--muted); font-size: 12px; }
-  .manifest { margin: 8px 0 0; padding: 10px 12px; background: var(--panel2); border-radius: 6px; font-size: 12px; }
-  .manifest dt { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .5px; margin-top: 8px; }
-  .manifest dt:first-child { margin-top: 0; }
-  .manifest dd { margin: 3px 0 0; font-family: var(--mono); }
-  .manifest ol, .manifest ul { margin: 3px 0 0; padding-left: 20px; font-family: var(--mono); }
-  .errors { color: var(--fail); font-family: var(--mono); font-size: 12px; }
-  .checklist li { margin: 7px 0; color: var(--muted); }
-  .checklist code { background: var(--panel2); padding: 1px 5px; border-radius: 3px; font-size: 12px; }
-  a { color: var(--accent); }
-  .note { color: var(--muted); font-size: 12px; margin-top: 10px; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--fg);
+         font:14px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif; }
+  a { color:var(--accent); }
 
-.form { display: flex; flex-wrap: wrap; gap: 14px; margin: 10px 0 14px; }
-.form label { display: flex; flex-direction: column; gap: 4px; font-size: 12px;
-              color: var(--dim, #8b949e); }
-.form input, .form select {
-  background: #0d1117; color: #c9d1d9; border: 1px solid #30363d;
-  border-radius: 4px; padding: 6px 8px; font: inherit; font-size: 13px; min-width: 240px; }
-button { background: #21262d; color: #c9d1d9; border: 1px solid #30363d;
-  border-radius: 4px; padding: 6px 12px; font: inherit; font-size: 12px; cursor: pointer; }
-button:hover { border-color: #58a6ff; }
-button:disabled { opacity: .5; cursor: default; border-color: #30363d; }
-button.danger:hover { border-color: #f85149; }
-#rolesTable { width: 100%; border-collapse: collapse; margin-bottom: 12px; }
-#rolesTable th { text-align: left; font-weight: normal; color: #6e7681;
-  font-size: 11px; text-transform: uppercase; padding: 4px 8px; }
-#rolesTable td { padding: 5px 8px; border-top: 1px solid #21262d; vertical-align: top; }
-#rolesTable input[type=number] { width: 58px; }
-.svc { display: inline-flex; align-items: center; gap: 4px; margin-right: 12px;
-  font-size: 12px; color: #8b949e; white-space: nowrap; }
-.roleName { font-family: ui-monospace, monospace; font-size: 12px; }
-.roleSummary { color: #6e7681; font-size: 11px; margin-top: 2px; max-width: 46ch; }
-.out { white-space: pre-wrap; font-family: ui-monospace, monospace; font-size: 12px;
-  margin-top: 10px; color: #8b949e; }
-.out.ok { color: #3fb950; } .out.bad { color: #f85149; }
-.dim { color: #6e7681; }
+  /* --- chrome ------------------------------------------------------------ */
+  header { display:flex; align-items:center; gap:14px; flex-wrap:wrap;
+           padding:0 20px; background:var(--panel); border-bottom:1px solid var(--line); }
+  h1 { font-size:15px; margin:0; padding:14px 0; letter-spacing:.3px; }
+  .badge { background:var(--accent); color:#04240f; font-weight:700; padding:2px 8px;
+           border-radius:4px; font-size:11px; text-transform:uppercase; letter-spacing:.6px; }
+  .meta { color:var(--muted); font-size:12px; font-family:var(--mono); }
+  nav { margin-left:auto; display:flex; gap:2px; align-self:flex-end; }
+  nav button { background:none; border:none; border-bottom:2px solid transparent;
+               color:var(--muted); padding:12px 16px; font-size:13px; cursor:pointer; }
+  nav button:hover { color:var(--fg); }
+  nav button.on { color:var(--fg); border-bottom-color:var(--accent); }
+
+  main { padding:20px; max-width:1180px; margin:0 auto; }
+  .tab { display:none; } .tab.on { display:grid; gap:18px; }
+
+  section { background:var(--panel); border:1px solid var(--line); border-radius:8px; }
+  section > h2 { font-size:12px; text-transform:uppercase; letter-spacing:.8px; color:var(--muted);
+                 margin:0; padding:11px 16px; border-bottom:1px solid var(--line);
+                 display:flex; align-items:center; gap:10px; }
+  section > h2 .hint { text-transform:none; letter-spacing:0; color:var(--dim); font-weight:400; }
+  .body { padding:14px 16px; }
+
+  /* --- controls ---------------------------------------------------------- */
+  button { background:var(--panel2); color:var(--fg); border:1px solid var(--line);
+           border-radius:5px; padding:6px 13px; font:inherit; font-size:13px; cursor:pointer; }
+  button:hover { border-color:var(--accent); }
+  button[disabled] { opacity:.45; cursor:not-allowed; border-color:var(--line); }
+  button.primary { background:var(--accent); border-color:var(--accent); color:#04240f; font-weight:600; }
+  button.primary:hover { filter:brightness(1.12); }
+  button.danger:hover { border-color:var(--fail); color:var(--fail); }
+  button.link { background:none; border:none; color:var(--muted); padding:2px 4px;
+                text-decoration:underline; font-size:12px; }
+  button.link:hover { color:var(--fg); }
+  input, select, textarea {
+    background:#0d1117; color:var(--fg); border:1px solid var(--line);
+    border-radius:5px; padding:7px 9px; font:inherit; font-size:13px; }
+  input:focus, select:focus, textarea:focus { outline:none; border-color:var(--accent); }
+  textarea { width:100%; resize:vertical; font-size:13px; line-height:1.6; }
+  label.field { display:flex; flex-direction:column; gap:5px; font-size:12px; color:var(--muted); }
+  .row { display:flex; gap:12px; flex-wrap:wrap; align-items:flex-end; }
+  .grow { flex:1; min-width:200px; }
+  .check { display:inline-flex; align-items:center; gap:7px; font-size:13px; color:var(--fg); cursor:pointer; }
+
+  .out { white-space:pre-wrap; font-family:var(--mono); font-size:12px; margin-top:12px; color:var(--muted); }
+  .out:empty { display:none; }
+  .out.ok { color:var(--pass); } .out.bad { color:var(--fail); }
+  .note { color:var(--dim); font-size:12px; }
+
+  /* --- fleet builder ----------------------------------------------------- */
+  table.fleet { width:100%; border-collapse:collapse; }
+  table.fleet th { text-align:left; color:var(--dim); font-weight:400; font-size:11px;
+                   text-transform:uppercase; letter-spacing:.5px; padding:0 8px 6px; }
+  table.fleet td { padding:9px 8px; border-top:1px solid var(--line); vertical-align:top; }
+  table.fleet tr:first-child td { border-top:none; }
+  .roleName { font-family:var(--mono); font-size:13px; }
+  .roleSummary { color:var(--dim); font-size:11px; margin-top:2px; max-width:44ch; }
+  input.count { width:56px; text-align:center; }
+  tr.off .roleName, tr.off .roleSummary, tr.off .chips { opacity:.4; }
+
+  .chips { display:flex; flex-wrap:wrap; gap:5px; align-items:center; }
+  .chip { display:inline-flex; align-items:center; gap:5px; background:var(--panel2);
+          border:1px solid var(--line); border-radius:20px; padding:2px 9px 2px 4px; font-size:12px; }
+  .chip img, .chip .ini { width:15px; height:15px; border-radius:3px; background:#fff; object-fit:contain; }
+  .chip .ini { display:inline-flex; align-items:center; justify-content:center; background:var(--line);
+               color:var(--muted); font-size:8px; font-weight:700; }
+  .chip b { font-weight:400; }
+  .chip .x { cursor:pointer; color:var(--dim); font-size:14px; line-height:1; }
+  .chip .x:hover { color:var(--fail); }
+
+  /* --- integration picker ------------------------------------------------ */
+  .modal { position:fixed; inset:0; background:rgba(0,0,0,.62); display:none;
+           align-items:center; justify-content:center; padding:24px; z-index:20; }
+  .modal.on { display:flex; }
+  .sheet { background:var(--panel); border:1px solid var(--line); border-radius:10px;
+           width:min(940px,100%); max-height:100%; display:flex; flex-direction:column; }
+  .sheet header { background:none; border-bottom:1px solid var(--line); padding:14px 18px; gap:10px; }
+  .sheet .filters { display:flex; gap:10px; padding:12px 18px; border-bottom:1px solid var(--line); flex-wrap:wrap; }
+  .sheet .filters input { flex:1; min-width:180px; }
+  .grid { overflow:auto; padding:14px 18px; display:grid; gap:8px;
+          grid-template-columns:repeat(auto-fill,minmax(216px,1fr)); }
+  .card { display:flex; gap:9px; align-items:flex-start; padding:8px 10px; border:1px solid var(--line);
+          border-radius:7px; cursor:pointer; background:var(--panel2); }
+  .card:hover { border-color:var(--muted); }
+  .card.on { border-color:var(--accent); background:#12281a; }
+  .card img, .card .ini { width:22px; height:22px; border-radius:4px; background:#fff;
+                          object-fit:contain; flex:none; margin-top:1px; }
+  .card .ini { display:flex; align-items:center; justify-content:center; background:var(--line);
+               color:var(--muted); font-size:10px; font-weight:700; }
+  .card .n { font-size:13px; line-height:1.3; word-break:break-word; }
+  .card .s { color:var(--dim); font-size:11px; margin-top:2px; }
+  .tag { font-size:9px; text-transform:uppercase; letter-spacing:.5px; padding:1px 5px;
+         border-radius:3px; border:1px solid var(--line); color:var(--dim); }
+  .tag.deep { color:var(--accent); border-color:var(--accent); }
+  .sheet footer { padding:12px 18px; border-top:1px solid var(--line);
+                  display:flex; gap:10px; align-items:center; }
+  .sheet footer .meta { margin-right:auto; }
+
+  /* --- run tab ----------------------------------------------------------- */
+  .strip { display:flex; align-items:center; gap:16px; padding:12px 16px; flex-wrap:wrap; }
+  .strip .verdict { font-weight:600; }
+  .verdict.go { color:var(--pass); } .verdict.nogo { color:var(--fail); }
+  .dot { display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:7px; }
+  .pass{background:var(--pass)} .warn{background:var(--warn)}
+  .fail{background:var(--fail)} .manual{background:var(--manual)}
+  .board-row { display:flex; gap:10px; padding:8px 0; border-top:1px solid var(--line); }
+  .board-name { flex:0 0 230px; font-size:13px; }
+  .board-detail { flex:1; color:var(--muted); font-family:var(--mono); font-size:12px; }
+  .remedy { color:var(--warn); font-size:12px; margin-top:3px; }
+  table.nodes { width:100%; border-collapse:collapse; font-size:13px; }
+  table.nodes th { text-align:left; color:var(--dim); font-weight:400; font-size:11px;
+                   text-transform:uppercase; padding:0 10px 6px; }
+  table.nodes td { padding:7px 10px; border-top:1px solid var(--line); font-family:var(--mono); }
+  .scenario { border-top:1px solid var(--line); padding:12px 0; }
+  .scenario:first-child { border-top:none; }
+  .scenario-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .scenario-name { font-weight:600; font-family:var(--mono); }
+  .scenario-desc { color:var(--muted); font-size:13px; margin:6px 0 0; max-width:90ch; }
+  .running { color:var(--warn); font-size:12px; font-family:var(--mono); }
+  .bar { height:3px; background:var(--panel2); border-radius:2px; margin-top:8px; overflow:hidden; }
+  .bar > i { display:block; height:100%; background:var(--warn); }
+  details > summary { cursor:pointer; color:var(--muted); font-size:12px; list-style:none; }
+  details > summary::before { content:"▸ "; }
+  details[open] > summary::before { content:"▾ "; }
+  .manifest { margin:8px 0 0; padding:10px 12px; background:var(--panel2); border-radius:6px; font-size:12px; }
+  .manifest dt { color:var(--dim); font-size:10px; text-transform:uppercase; letter-spacing:.5px; margin-top:8px; }
+  .manifest dt:first-child { margin-top:0; }
+  .manifest dd { margin:3px 0 0; font-family:var(--mono); }
+  .manifest ol, .manifest ul { margin:3px 0 0; padding-left:20px; font-family:var(--mono); }
 </style>
 </head>
 <body>
+
 <header>
-  <h1>Infra-Sim Console</h1>
-  <span class="sim-badge">Simulated</span>
+  <h1>Infra-Sim</h1>
+  <span class="badge">Simulated</span>
   <span class="meta" id="envline">loading…</span>
+  <nav>
+    <button id="tabBuildBtn" class="on" onclick="showTab('build')">Build</button>
+    <button id="tabRunBtn" onclick="showTab('run')">Run</button>
+  </nav>
 </header>
 
 <main>
-  <section>
-    <h2>Preflight</h2>
-    <div class="verdict" id="verdict">…</div>
-    <div class="body" id="board"></div>
-  </section>
+
+<!-- ====================== BUILD ========================================== -->
+<div id="tabBuild" class="tab on">
 
   <section>
-    <h2>New simulation</h2>
+    <h2>Describe the estate <span class="hint">plain English — this fills the fleet below, you edit it</span></h2>
     <div class="body">
-      <p class="note">
-        Builds an <code>environment.yaml</code>, runs the fidelity lint, and
-        installs it. A fleet that fails the lint is never installed. The name
-        fixes the seed and every node GUID, so it cannot change later without
-        orphaning the fleet's history.
-      </p>
-      <div class="form">
-        <label>Start from
-          <select id="template" onchange="applyTemplate()">
-            <option value="">blank - pick roles below</option>
-          </select>
+      <textarea id="desc" rows="3" placeholder="e.g. 12 web servers behind two HAProxy load balancers, a 3-node Postgres cluster with streaming replication, Redis for sessions, and a small Kubernetes cluster running the checkout service"></textarea>
+      <div class="row" style="margin-top:10px">
+        <button id="descBtn" class="primary" onclick="doDescribe()">Read this →</button>
+        <label class="field"><span>Interpreted by</span>
+          <select id="descBy"><option value="">keyword matching (offline)</option></select>
         </label>
-        <label>Prospect / project name
-          <input id="newName" placeholder="acme">
-        </label>
-        <label>Lint before install
-          <select id="lintHours">
-            <option value="24">24 simulated hours (recommended)</option>
-            <option value="72">72 simulated hours (thorough, slower)</option>
-            <option value="6">6 simulated hours (quick)</option>
-          </select>
-        </label>
+        <span class="note" id="descHint"></span>
       </div>
-      <table id="rolesTable">
-        <thead><tr><th>nodes</th><th>role</th><th>collectors</th></tr></thead>
-        <tbody></tbody>
-      </table>
-      <button id="createBtn" onclick="doCreate()">Create &amp; install</button>
-      <div id="createOut" class="out"></div>
+      <div class="out" id="descOut"></div>
     </div>
   </section>
 
   <section>
-    <h2>Fleet</h2>
-    <div class="body wrap"><table id="nodes">
-      <thead><tr>
-        <th></th><th>node</th><th>charts</th><th>contexts</th>
-        <th>ML trained</th><th>anomaly rate</th><th>alerts</th>
-      </tr></thead>
-      <tbody></tbody>
-    </table></div>
+    <h2>Fleet
+      <span class="hint">nodes per role, and what runs on them</span>
+      <span style="margin-left:auto"><select id="template" onchange="applyTemplate()">
+        <option value="">start from a template…</option></select></span>
+    </h2>
+    <div class="body">
+      <table class="fleet"><thead><tr>
+        <th style="width:70px">Nodes</th><th style="width:190px">Role</th><th>Integrations</th><th style="width:30px"></th>
+      </tr></thead><tbody id="roles"></tbody></table>
+      <button class="link" onclick="addRow()" style="margin-top:8px">+ add a group</button>
+
+      <div class="row" style="margin-top:16px; padding-top:14px; border-top:1px solid var(--line)">
+        <label class="field grow" style="max-width:280px"><span>Name (fixes the seed and every node GUID)</span>
+          <input id="newName" placeholder="customer-a"></label>
+        <label class="field"><span>Lint hours</span>
+          <select id="lintHours">
+            <option value="6" selected>6</option><option value="24">24</option><option value="72">72</option>
+          </select></label>
+        <label class="check" title="Serves Prometheus text-format /metrics per node and points Netdata's prometheus collector at it, attributed to the right virtual node.">
+          <input type="checkbox" id="exporters"> Simulate Prometheus exporters</label>
+        <button id="createBtn" class="primary" onclick="doCreate()" style="margin-left:auto">Create &amp; install</button>
+      </div>
+      <div class="out" id="createOut"></div>
+    </div>
   </section>
 
   <section>
-    <h2>Scenarios</h2>
+    <h2>Connect to Netdata Cloud</h2>
+    <div class="body">
+      <div class="row">
+        <label class="field grow"><span>Claim token</span>
+          <input id="token" type="password" autocomplete="off" placeholder="from Cloud → Connect Nodes"></label>
+        <label class="field grow"><span>Room ID <span style="color:var(--dim)">optional</span></span>
+          <input id="rooms" autocomplete="off" placeholder="blank = the Space's default room"></label>
+        <button id="claimBtn" onclick="doClaim()">Connect</button>
+      </div>
+      <div class="note" style="margin-top:8px">The token is never written to disk, logged, or passed on a command line.</div>
+      <div class="out" id="claimOut"></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Reuse this fleet <span class="hint">for another prospect — keeps every GUID, so history, ML models and alert log survive</span></h2>
+    <div class="body">
+      <div class="row">
+        <label class="field grow" style="max-width:280px"><span>New name</span>
+          <input id="reskinName" placeholder="customer-b"></label>
+        <button onclick="doReskin()">Re-skin</button>
+        <span style="margin-left:auto"><button class="danger" onclick="confirmTeardown()">Tear down</button></span>
+      </div>
+      <div class="out" id="reskinOut"></div>
+      <div class="out" id="teardownOut"></div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ====================== RUN ============================================ -->
+<div id="tabRun" class="tab">
+
+  <section>
+    <div class="strip">
+      <span class="verdict" id="verdict">checking…</span>
+      <span class="meta" id="stripCounts"></span>
+      <span style="margin-left:auto"><button class="link" onclick="$('boardWrap').open=!$('boardWrap').open">preflight detail</button></span>
+    </div>
+    <details id="boardWrap"><summary style="display:none"></summary>
+      <div class="body" style="border-top:1px solid var(--line)" id="board"></div>
+    </details>
+  </section>
+
+  <section>
+    <h2>Scenarios <span class="hint">the fault is injected into the data; every alert, anomaly and insight after that is the real product</span></h2>
     <div class="body" id="scenarios"></div>
   </section>
 
   <section>
-    <h2>Claim</h2>
-    <div class="body">
-      <p class="note">
-        One claim covers the whole fleet — every simulated node appears in the
-        Space automatically. The token is sent straight to the agent and is
-        never stored, logged, or written to any file.
-      </p>
-      <div class="form">
-        <label>Space name
-          <input id="space" placeholder="Acme (Simulated Demo)">
-        </label>
-        <label>Claim token
-          <input id="token" type="password" placeholder="from the Space's Connect Nodes screen">
-        </label>
-        <label>Room ID <span class="dim">(optional)</span>
-          <input id="rooms" placeholder="leave blank for the default room">
-        </label>
-        <button id="claimBtn" onclick="doClaim()">Claim this fleet</button>
-      </div>
-      <div id="claimOut" class="out"></div>
+    <h2>Nodes</h2>
+    <div class="body" style="overflow-x:auto">
+      <table class="nodes"><thead><tr>
+        <th></th><th>Host</th><th>Charts</th><th>Contexts</th><th>ML trained</th><th>Anomaly</th><th>Alerts</th>
+      </tr></thead><tbody id="nodes"></tbody></table>
+      <div class="out" id="errors"></div>
     </div>
   </section>
 
-  <section>
-    <h2>Re-skin for a new prospect</h2>
-    <div class="body">
-      <p class="note">
-        Renames the running fleet in place. GUIDs are never touched, so it keeps
-        its history, trained ML models and alert log — a cold 72-hour start
-        becomes a change measured in minutes. Move, do not clone: only one
-        environment carrying these GUIDs may be claimed at a time.
-      </p>
-      <div class="form">
-        <label>New prospect name
-          <input id="reskinName" placeholder="globex">
-        </label>
-        <button onclick="doReskin()">Re-skin</button>
-      </div>
-      <div id="reskinOut" class="out"></div>
-    </div>
-  </section>
-
-  <section>
-    <h2>Teardown</h2>
-    <div class="body">
-      <p class="note">
-        Disarms scenarios, stops the plugin <em>process</em> (removing the file
-        is not enough), and archives the environment, seed and scenario
-        manifests — the artifacts that replay the identical world. Cloud-side
-        steps stay manual and say so.
-      </p>
-      <button class="danger" onclick="doTeardown()">Run teardown</button>
-      <div id="teardownOut" class="out"></div>
-    </div>
-  </section>
-
-  <section>
-    <h2>Errors</h2>
-    <div class="body errors" id="errors">none</div>
-  </section>
+</div>
 </main>
+
+<!-- ====================== integration picker ============================= -->
+<div class="modal" id="picker" onclick="if(event.target===this)closePicker()">
+  <div class="sheet">
+    <header><b id="pickerTitle">Integrations</b>
+      <span class="meta" id="pickerCount"></span></header>
+    <div class="filters">
+      <input id="pickerSearch" placeholder="search 150+ integrations — postgres, kafka, snmp, nvidia…"
+             oninput="renderPicker()" autocomplete="off">
+      <select id="pickerCat" onchange="renderPicker()"></select>
+      <label class="check"><input type="checkbox" id="pickerSel" onchange="renderPicker()"> selected only</label>
+    </div>
+    <div class="grid" id="pickerGrid"></div>
+    <footer>
+      <span class="meta">Deeply modelled integrations have causally coupled signals and named hero scenarios. The rest are generated from Netdata's own collector metadata — right contexts, units and dimensions.</span>
+      <button class="primary" onclick="closePicker()">Done</button>
+    </footer>
+  </div>
+</div>
 
 <script>
 const $ = (id) => document.getElementById(id);
-
-function fmtDur(s) {
+const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g,
+  c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const fmtDur = (s) => {
   if (s <= 0) return "-";
-  const m = Math.floor(s / 60), h = Math.floor(m / 60);
-  if (h > 0) return h + "h" + (m % 60 ? " " + (m % 60) + "m" : "");
-  return m + "m";
+  const m = Math.floor(s/60), h = Math.floor(m/60);
+  return h > 0 ? h + "h" + (m%60 ? " " + (m%60) + "m" : "") : m + "m";
+};
+
+let CAT = null;                 // /api/catalogue
+// One row per group, mirroring the API's `groups` array. Keying by role instead
+// would collapse "6 nginx web servers and 3 elasticsearch nodes" into nine
+// nodes running both, which is not what anyone described.
+let ROWS = [];
+let pickerRow = -1;
+
+function showTab(which) {
+  for (const t of ["build", "run"]) {
+    $("tab" + t[0].toUpperCase() + t.slice(1)).classList.toggle("on", t === which);
+    $("tab" + t[0].toUpperCase() + t.slice(1) + "Btn").classList.toggle("on", t === which);
+  }
 }
 
-function esc(s) {
-  return String(s == null ? "" : s).replace(/[&<>"']/g, c => (
-    {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+// --- integration rendering ------------------------------------------------
+function iconFor(it, cls) {
+  const ini = esc((it.name || it.id).slice(0, 2).toUpperCase());
+  // Icons come from netdata.cloud. Offline, the onerror swap keeps the row
+  // readable instead of showing a broken image.
+  return it.icon
+    ? `<img class="${cls}" src="${esc(it.icon)}" alt="" loading="lazy"
+         onerror="this.outerHTML='<span class=\\'ini ${cls}\\'>${ini}</span>'">`
+    : `<span class="ini ${cls}">${ini}</span>`;
 }
 
-async function post(path) {
-  try {
-    const r = await fetch(path, { method: "POST" });
-    if (!r.ok) {
-      const b = await r.json().catch(() => ({}));
-      alert("Failed: " + (b.error || r.status));
-    }
-  } catch (e) { alert("Failed: " + e); }
-  refresh();
+function openPicker(index) {
+  pickerRow = index;
+  $("pickerTitle").textContent = "Integrations on these " + ROWS[index].role + " nodes";
+  $("pickerSearch").value = ""; $("pickerSel").checked = false;
+  $("picker").classList.add("on");
+  renderPicker();
+  $("pickerSearch").focus();
+}
+function closePicker() {
+  if (pickerRow >= 0 && ROWS[pickerRow]) ROWS[pickerRow].touched = true;
+  $("picker").classList.remove("on");
+  renderRoles();
 }
 
-function renderBoard(board) {
-  $("verdict").textContent = board.demo_ready
-    ? "Demo ready"
-    : "NOT demo ready — resolve the failing checks below";
-  $("verdict").className = "verdict " + (board.demo_ready ? "go" : "nogo");
+function renderPicker() {
+  const q = $("pickerSearch").value.trim().toLowerCase();
+  const cat = $("pickerCat").value;
+  const onlySel = $("pickerSel").checked;
+  const sel = ROWS[pickerRow].services;
+  const list = CAT.integrations.filter(it =>
+    (!cat || it.category === cat) &&
+    (!onlySel || sel.has(it.id)) &&
+    (!q || it.id.includes(q) || it.name.toLowerCase().includes(q) || it.category.includes(q)));
 
-  $("board").innerHTML = board.checks.map(c => `
-    <div class="board-row">
-      <div class="board-name"><span class="dot ${c.status}"></span>${esc(c.name)}</div>
-      <div class="board-detail">
-        ${esc(c.detail)}
-        ${c.remedy && c.status !== "pass" ? `<div class="remedy">${esc(c.remedy)}</div>` : ""}
-      </div>
-    </div>`).join("");
+  $("pickerCount").textContent = `${sel.size} selected · ${list.length} shown`;
+  $("pickerGrid").innerHTML = list.map(it => `
+    <div class="card ${sel.has(it.id) ? "on" : ""}" onclick="toggleSel('${esc(it.id)}')">
+      ${iconFor(it, "")}
+      <div><div class="n">${esc(it.name)}</div>
+        <div class="s">${it.charts} charts
+          ${it.modelled === "deep" ? '<span class="tag deep">deep</span>' : ""}</div></div>
+    </div>`).join("") ||
+    `<div class="note">nothing matches “${esc(q)}”</div>`;
 }
 
-function renderNodes(nodes, agentUrl) {
-  const tb = $("nodes").querySelector("tbody");
-  if (!nodes.length) {
-    tb.innerHTML = `<tr><td colspan="7" style="color:var(--muted)">no nodes</td></tr>`;
+function toggleSel(id) {
+  const s = ROWS[pickerRow].services;
+  s.has(id) ? s.delete(id) : s.add(id);
+  renderPicker();
+}
+
+function addRow(role, count, services) {
+  const r = role || CAT.roles[0].role;
+  ROWS.push({
+    role: r,
+    count: count == null ? 1 : count,
+    services: new Set(services || CAT.roles.find(x => x.role === r).default_services),
+  });
+  renderRoles();
+}
+
+function setRole(i, role) {
+  ROWS[i].role = role;
+  // Swapping the role re-arms the defaults only while the row is untouched;
+  // silently discarding a hand-picked list would be worse than a stale one.
+  if (!ROWS[i].touched) {
+    ROWS[i].services = new Set(CAT.roles.find(x => x.role === role).default_services);
+  }
+  renderRoles();
+}
+
+function renderRoles() {
+  if (!ROWS.length) {
+    $("roles").innerHTML = `<tr><td colspan="4" class="note">
+      no groups yet — describe the estate above, pick a template, or add one</td></tr>`;
     return;
   }
-  tb.innerHTML = nodes.map(n => {
-    const mlTotal = n.ml_trained + n.ml_untrained;
-    const mlPct = mlTotal > 0 ? Math.round(100 * n.ml_trained / mlTotal) : 0;
-    const alerts = n.alarms_critical
-      ? `<span style="color:var(--fail)">${n.alarms_critical} crit</span>`
-      : n.alarms_warning
-        ? `<span style="color:var(--warn)">${n.alarms_warning} warn</span>`
-        : "clear";
-    return `<tr>
-      <td><span class="dot ${n.reachable ? "pass" : "fail"}"></span></td>
-      <td><a href="${esc(agentUrl)}" target="_blank" rel="noopener">${esc(n.hostname)}</a></td>
-      <td>${n.charts}</td>
-      <td>${n.contexts}</td>
-      <td>${mlPct}%</td>
-      <td>${n.anomaly_rate.toFixed(2)}%</td>
-      <td>${alerts}</td>
+  $("roles").innerHTML = ROWS.map((row, i) => {
+    const chips = [...row.services].map(id => {
+      const it = CAT.byId[id] || { id, name: id, charts: 0 };
+      return `<span class="chip">${iconFor(it, "")}<b>${esc(it.name)}</b>
+                <span class="x" onclick="dropSel(${i},'${esc(id)}')">×</span></span>`;
+    }).join("");
+    const summary = CAT.roles.find(r => r.role === row.role)?.summary || "";
+    return `<tr class="${row.count > 0 ? "" : "off"}">
+      <td><input class="count" type="number" min="0" value="${row.count}"
+                 onchange="ROWS[${i}].count = Math.max(0, parseInt(this.value||0,10)); renderRoles()"></td>
+      <td><select onchange="setRole(${i}, this.value)">${
+        CAT.roles.map(r => `<option value="${esc(r.role)}" ${r.role === row.role ? "selected" : ""}>${esc(r.role)}</option>`).join("")
+      }</select><div class="roleSummary">${esc(summary)}</div></td>
+      <td><div class="chips">${chips}
+          <button class="link" onclick="openPicker(${i})">${row.services.size ? "add / remove" : "+ add integrations"}</button>
+          </div></td>
+      <td><button class="link" title="remove this group" onclick="ROWS.splice(${i},1); renderRoles()">×</button></td>
     </tr>`;
   }).join("");
 }
 
-function renderScenarios(scenarios) {
-  if (!scenarios.length) {
-    $("scenarios").innerHTML = `<div style="color:var(--muted)">no scenarios loaded</div>`;
-    return;
-  }
-  const anyActive = scenarios.some(s => s.active);
-  $("scenarios").innerHTML = scenarios.map(s => `
-    <div class="scenario">
-      <div class="scenario-head">
-        <span class="scenario-name">${esc(s.name)}</span>
-        ${s.active
-          ? `<button class="danger" onclick="post('/api/scenario/${encodeURIComponent(s.name)}/resolve')">Resolve</button>
-             <button onclick="doAdvance('${encodeURIComponent(s.name)}', 300)" title="Advance this scenario 5 minutes through its own timeline">Escalate +5m</button>
-             <button onclick="doAdvance('${encodeURIComponent(s.name)}', 900)" title="Skip 15 minutes ahead">+15m</button>
-             <button onclick="doAdvance('${encodeURIComponent(s.name)}', -300)" title="Rewind 5 minutes">-5m</button>
-             <span class="running">running — ${Math.round(s.progress * 100)}% of ${fmtDur(s.duration_secs)}</span>`
-          : `<button onclick="post('/api/scenario/${encodeURIComponent(s.name)}/trigger')">Trigger</button>
-             <span class="meta">${fmtDur(s.duration_secs)} timeline</span>`}
-      </div>
-      <div class="scenario-desc">${esc(s.description)}</div>
-      ${s.active ? `<div class="bar"><i style="width:${(s.progress * 100).toFixed(1)}%"></i></div>` : ""}
-      <details>
-        <summary>Ground truth</summary>
-        <dl class="manifest">
-          <dt>Root cause</dt><dd>${esc(s.root_cause)}</dd>
-          ${s.causal_chain.length ? `<dt>Causal chain</dt><dd><ol>${s.causal_chain.map(c => `<li>${esc(c)}</li>`).join("")}</ol></dd>` : ""}
-          ${s.blast_radius.length ? `<dt>Blast radius</dt><dd><ul>${s.blast_radius.map(b => `<li>${esc(b)}</li>`).join("")}</ul></dd>` : ""}
-          ${s.expected_finding ? `<dt>Expected finding</dt><dd>${esc(s.expected_finding)}</dd>` : ""}
-        </dl>
-      </details>
-    </div>`).join("") + (anyActive
-      ? `<div style="margin-top:14px"><button class="danger" onclick="post('/api/scenario/resolve-all')">Resolve all</button></div>`
-      : "");
+function dropSel(i, id) { ROWS[i].services.delete(id); ROWS[i].touched = true; renderRoles(); }
+
+// --- catalogue ------------------------------------------------------------
+async function loadCatalogue() {
+  CAT = await (await fetch("/api/catalogue")).json();
+  CAT.byId = Object.fromEntries(CAT.integrations.map(i => [i.id, i]));
+
+  const cats = [...new Set(CAT.integrations.map(i => i.category))].sort();
+  $("pickerCat").innerHTML = `<option value="">every category</option>` +
+    cats.map(c => `<option value="${esc(c)}">${esc(c.replace(/-/g, " "))}</option>`).join("");
+
+  $("template").innerHTML = `<option value="">start from a template…</option>` +
+    (CAT.templates || []).map(t =>
+      `<option value="${esc(t.name)}">${esc(t.name)} · ${t.nodes} nodes</option>`).join("");
+
+  // Offer a real model only when its key is already in the console's own
+  // environment; a provider that would fail is not a choice worth showing.
+  const provs = CAT.llm_providers || [];
+  $("descBy").innerHTML = `<option value="">keyword matching (offline)</option>` +
+    provs.map(p => `<option value="${esc(p)}">${esc(p)}</option>`).join("");
+  if (provs.length) { $("descBy").value = provs[0]; }
+  $("descHint").textContent = provs.length
+    ? "" : "set ANTHROPIC_API_KEY or OPENAI_API_KEY before starting the console to use a model";
+
+  renderRoles();
 }
-
-
-let CATALOGUE = null;
 
 function applyTemplate() {
-  const pick = document.getElementById("template").value;
-  if (!pick || !CATALOGUE) return;
-  const t = CATALOGUE.templates.find(x => x.name === pick);
+  const t = (CAT.templates || []).find(x => x.name === $("template").value);
   if (!t) return;
-  // A template fills the form; it is never installed directly, so there is one
-  // code path building every environment.
-  for (const input of document.querySelectorAll(".roleCount")) input.value = "0";
-  for (const cb of document.querySelectorAll("#rolesTable input[type=checkbox]")) cb.checked = false;
-  for (const g of t.groups) {
-    const input = document.querySelector(`.roleCount[data-role="${g.role}"]`);
-    if (!input) continue;
-    input.value = String((parseInt(input.value, 10) || 0) + g.count);
-    for (const s of g.services) {
-      const cb = document.querySelector(
-        `#rolesTable input[type=checkbox][data-role="${g.role}"][value="${s}"]`);
-      if (cb) cb.checked = true;
-    }
-  }
+  setRows(t.groups);
+  if (!$("newName").value) $("newName").value = t.name;
 }
 
+function setRows(groups) {
+  ROWS = groups.map(g => ({
+    role: g.role, count: g.count, services: new Set(g.services), touched: true,
+  }));
+  renderRoles();
+}
+
+function collectGroups() {
+  return ROWS.filter(r => r.count > 0)
+             .map(r => ({ role: r.role, count: r.count, services: [...r.services] }));
+}
+
+// --- describe -------------------------------------------------------------
+async function doDescribe() {
+  const out = $("descOut"), btn = $("descBtn");
+  const text = $("desc").value.trim();
+  if (!text) { out.className = "out bad"; out.textContent = "describe what they run, in your own words"; return; }
+  const provider = $("descBy").value;
+  btn.disabled = true;
+  out.className = "out";
+  out.textContent = provider ? "asking " + provider + "…" : "reading…";
+  try {
+    const r = await (await fetch("/api/describe", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text, provider }),
+    })).json();
+    if (r.error) { out.className = "out bad"; out.textContent = r.error; return; }
+
+    setRows(r.groups);
+    if (!$("newName").value && r.suggested_name) $("newName").value = r.suggested_name;
+
+    const lines = [`read by ${r.source} → ` +
+      r.groups.map(g => `${g.count} ${g.role}`).join(", ")];
+    for (const n of r.notes || []) lines.push("· " + n);
+    if ((r.unrecognised || []).length) lines.push("not understood: " + r.unrecognised.join("; "));
+    if ((r.unsupported || []).length) lines.push("cannot simulate: " + r.unsupported.join("; "));
+    out.className = "out ok"; out.textContent = lines.join("\n");
+  } catch (e) { out.className = "out bad"; out.textContent = String(e); }
+  finally { btn.disabled = false; }
+}
+
+// --- create / claim / reskin / teardown -----------------------------------
+async function doCreate() {
+  const out = $("createOut"), btn = $("createBtn");
+  const groups = collectGroups();
+  const name = $("newName").value.trim();
+  if (!name) { out.className = "out bad"; out.textContent = "a name is required"; return; }
+  if (!groups.length) { out.className = "out bad"; out.textContent = "set a node count on at least one role"; return; }
+  btn.disabled = true; out.className = "out";
+  out.textContent = "building, linting and installing — the lint simulates hours of data, so give it a moment…";
+  try {
+    const r = await (await fetch("/api/create", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name, groups,
+        lint_hours: parseInt($("lintHours").value, 10),
+        exporters: $("exporters").checked,
+      }),
+    })).json();
+    if (r.error) { out.className = "out bad"; out.textContent = r.error; return; }
+    out.className = "out ok";
+    out.textContent = `created ${r.nodes} node(s) — ${r.environment}\n\n${r.lint_summary}\n` +
+                      (r.notes || []).map(n => "· " + n).join("\n");
+    refresh();
+  } catch (e) { out.className = "out bad"; out.textContent = String(e); }
+  finally { btn.disabled = false; }
+}
+
+async function doClaim() {
+  const out = $("claimOut"), btn = $("claimBtn"), tok = $("token");
+  if (!tok.value.trim()) { out.className = "out bad"; out.textContent = "a claim token is required"; return; }
+  btn.disabled = true; out.className = "out"; out.textContent = "connecting…";
+  try {
+    const r = await (await fetch("/api/claim", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ token: tok.value, rooms: $("rooms").value.trim() }),
+    })).json();
+    if (r.error) { out.className = "out bad"; out.textContent = r.error; }
+    else { out.className = r.claimed ? "out ok" : "out bad"; out.textContent = r.message; }
+  } catch (e) { out.className = "out bad"; out.textContent = String(e); }
+  finally { tok.value = ""; btn.disabled = false; }   // clear the credential from the DOM
+}
+
+async function doReskin() {
+  const out = $("reskinOut");
+  const name = $("reskinName").value.trim();
+  if (!name) { out.className = "out bad"; out.textContent = "a name is required"; return; }
+  out.className = "out"; out.textContent = "re-skinning…";
+  try {
+    const r = await (await fetch("/api/reskin", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name }),
+    })).json();
+    if (r.error) { out.className = "out bad"; out.textContent = r.error; return; }
+    out.className = "out ok";
+    out.textContent = `renamed ${r.renamed.length} node(s), every GUID unchanged:\n` +
+      r.renamed.map(([a, b]) => `  ${a} → ${b}`).join("\n");
+    refresh();
+  } catch (e) { out.className = "out bad"; out.textContent = String(e); }
+}
+
+function confirmTeardown() {
+  if (confirm("Stop the fleet, remove the plugin and archive the environment?")) doTeardown();
+}
+async function doTeardown() {
+  const out = $("teardownOut");
+  out.className = "out"; out.textContent = "tearing down…";
+  try {
+    const r = await (await fetch("/api/teardown", { method: "POST" })).json();
+    if (r.error) { out.className = "out bad"; out.textContent = r.error; return; }
+    out.className = "out";
+    out.textContent = r.steps.map(s =>
+      `${s.done ? "done  " : (s.manual ? "MANUAL" : "FAILED")}  ${s.name}\n        ${s.detail}`).join("\n");
+    refresh();
+  } catch (e) { out.className = "out bad"; out.textContent = String(e); }
+}
+
+// --- run tab --------------------------------------------------------------
+async function post(path) {
+  try {
+    const r = await fetch(path, { method: "POST" });
+    if (!r.ok) alert("Failed: " + ((await r.json().catch(() => ({}))).error || r.status));
+  } catch (e) { alert("Failed: " + e); }
+  refresh();
+}
 async function doAdvance(name, seconds) {
   await fetch(`/api/scenario/${encodeURIComponent(name)}/advance`, {
     method: "POST", headers: { "Content-Type": "application/json" },
@@ -366,180 +578,83 @@ async function doAdvance(name, seconds) {
   refresh();
 }
 
-async function doReskin() {
-  const out = document.getElementById("reskinOut");
-  const name = document.getElementById("reskinName").value.trim();
-  if (!name) { out.className = "out bad"; out.textContent = "a name is required"; return; }
-  out.className = "out"; out.textContent = "re-skinning...";
-  try {
-    const r = await (await fetch("/api/reskin", {
-      method: "POST", headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name }),
-    })).json();
-    if (r.error) { out.className = "out bad"; out.textContent = r.error; return; }
-    out.className = "out ok";
-    out.textContent = `renamed ${r.renamed.length} node(s), GUIDs unchanged:\n` +
-      r.renamed.map(([a, b]) => `  ${a} -> ${b}`).join("\n");
-    refresh();
-  } catch (e) { out.className = "out bad"; out.textContent = String(e); }
+function renderBoard(b) {
+  const bad = b.checks.filter(c => c.status !== "pass").length;
+  $("verdict").textContent = b.demo_ready ? "Demo ready" : "Not demo ready";
+  $("verdict").className = "verdict " + (b.demo_ready ? "go" : "nogo");
+  $("stripCounts").textContent = bad
+    ? `${bad} of ${b.checks.length} checks need attention`
+    : `all ${b.checks.length} checks pass`;
+  if (bad && !$("boardWrap").dataset.touched) $("boardWrap").open = true;
+  $("board").innerHTML = b.checks.map(c => `
+    <div class="board-row">
+      <div class="board-name"><span class="dot ${c.status}"></span>${esc(c.name)}</div>
+      <div class="board-detail">${esc(c.detail)}
+        ${c.remedy && c.status !== "pass" ? `<div class="remedy">${esc(c.remedy)}</div>` : ""}</div>
+    </div>`).join("");
 }
 
-
-async function loadCatalogue() {
-  CATALOGUE = await (await fetch("/api/catalogue")).json();
-  const tsel = document.getElementById("template");
-  for (const t of CATALOGUE.templates || []) {
-    const o = document.createElement("option");
-    o.value = t.name;
-    o.textContent = `${t.name} (${t.nodes} nodes)`;
-    tsel.appendChild(o);
-  }
-  const tb = document.querySelector("#rolesTable tbody");
-  tb.innerHTML = "";
-  for (const r of CATALOGUE.roles) {
-    const tr = document.createElement("tr");
-
-    const count = document.createElement("td");
-    const n = document.createElement("input");
-    n.type = "number"; n.min = "0"; n.value = "0";
-    n.dataset.role = r.role; n.className = "roleCount";
-    count.appendChild(n);
-
-    const name = document.createElement("td");
-    name.innerHTML = `<div class="roleName">${r.role}</div>` +
-                     `<div class="roleSummary">${r.summary}</div>`;
-
-    // Every collector is offered on every role; the role's own are pre-ticked.
-    // otel-collector is just another checkbox, which is the point - an OTel
-    // agent beside the application is a normal deployment.
-    const svc = document.createElement("td");
-    for (const s of CATALOGUE.services) {
-      const lab = document.createElement("label");
-      lab.className = "svc";
-      const cb = document.createElement("input");
-      cb.type = "checkbox"; cb.value = s; cb.dataset.role = r.role;
-      cb.checked = r.default_services.includes(s);
-      lab.appendChild(cb);
-      lab.appendChild(document.createTextNode(s));
-      svc.appendChild(lab);
-    }
-
-    tr.appendChild(count); tr.appendChild(name); tr.appendChild(svc);
-    tb.appendChild(tr);
-  }
+function renderNodes(nodes, agentUrl) {
+  $("nodes").innerHTML = nodes.length ? nodes.map(n => {
+    const tot = n.ml_trained + n.ml_untrained;
+    const alerts = n.alarms_critical ? `<span style="color:var(--fail)">${n.alarms_critical} crit</span>`
+      : n.alarms_warning ? `<span style="color:var(--warn)">${n.alarms_warning} warn</span>` : "clear";
+    return `<tr>
+      <td><span class="dot ${n.reachable ? "pass" : "fail"}"></span></td>
+      <td><a href="${esc(agentUrl)}" target="_blank" rel="noopener">${esc(n.hostname)}</a></td>
+      <td>${n.charts}</td><td>${n.contexts}</td>
+      <td>${tot > 0 ? Math.round(100*n.ml_trained/tot) : 0}%</td>
+      <td>${n.anomaly_rate.toFixed(2)}%</td><td>${alerts}</td></tr>`;
+  }).join("") : `<tr><td colspan="7" class="note">no nodes yet — build one on the Build tab</td></tr>`;
 }
 
-function collectGroups() {
-  const groups = [];
-  for (const input of document.querySelectorAll(".roleCount")) {
-    const count = parseInt(input.value || "0", 10);
-    if (!count) continue;
-    const services = [...document.querySelectorAll(
-      `#rolesTable input[type=checkbox][data-role="${input.dataset.role}"]`)]
-      .filter(c => c.checked).map(c => c.value);
-    groups.push({ role: input.dataset.role, count, services });
-  }
-  return groups;
+function renderScenarios(ss) {
+  if (!ss.length) { $("scenarios").innerHTML = `<div class="note">no scenarios loaded</div>`; return; }
+  const anyActive = ss.some(s => s.active);
+  $("scenarios").innerHTML = ss.map(s => `
+    <div class="scenario">
+      <div class="scenario-head">
+        <span class="scenario-name">${esc(s.name)}</span>
+        ${s.active
+          ? `<button class="danger" onclick="post('/api/scenario/${encodeURIComponent(s.name)}/resolve')">Resolve</button>
+             <button onclick="doAdvance('${encodeURIComponent(s.name)}',300)" title="Advance 5 minutes through this scenario's own timeline">+5m</button>
+             <button onclick="doAdvance('${encodeURIComponent(s.name)}',900)">+15m</button>
+             <button onclick="doAdvance('${encodeURIComponent(s.name)}',-300)">−5m</button>
+             <span class="running">${Math.round(s.progress*100)}% of ${fmtDur(s.duration_secs)}</span>`
+          : `<button onclick="post('/api/scenario/${encodeURIComponent(s.name)}/trigger')">Trigger</button>
+             <span class="meta">${fmtDur(s.duration_secs)}</span>`}
+      </div>
+      <div class="scenario-desc">${esc(s.description)}</div>
+      ${s.active ? `<div class="bar"><i style="width:${(s.progress*100).toFixed(1)}%"></i></div>` : ""}
+      <details style="margin-top:8px"><summary>ground truth</summary>
+        <dl class="manifest">
+          <dt>Root cause</dt><dd>${esc(s.root_cause)}</dd>
+          ${s.causal_chain.length ? `<dt>Causal chain</dt><dd><ol>${s.causal_chain.map(c=>`<li>${esc(c)}</li>`).join("")}</ol></dd>` : ""}
+          ${s.blast_radius.length ? `<dt>Blast radius</dt><dd><ul>${s.blast_radius.map(b=>`<li>${esc(b)}</li>`).join("")}</ul></dd>` : ""}
+          ${s.expected_finding ? `<dt>Expected finding</dt><dd>${esc(s.expected_finding)}</dd>` : ""}
+        </dl></details>
+    </div>`).join("") + (anyActive
+      ? `<div style="margin-top:14px"><button class="danger" onclick="post('/api/scenario/resolve-all')">Resolve all</button></div>` : "");
 }
-
-async function doCreate() {
-  const out = document.getElementById("createOut");
-  const btn = document.getElementById("createBtn");
-  const groups = collectGroups();
-  const name = document.getElementById("newName").value.trim();
-  if (!name) { out.className = "out bad"; out.textContent = "a name is required"; return; }
-  if (!groups.length) { out.className = "out bad"; out.textContent = "pick at least one node"; return; }
-
-  btn.disabled = true;
-  out.className = "out";
-  out.textContent = "building, linting and installing - the lint simulates hours of data, so this takes a moment...";
-  try {
-    const r = await (await fetch("/api/create", {
-      method: "POST", headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        name, groups,
-        lint_hours: parseInt(document.getElementById("lintHours").value, 10),
-      }),
-    })).json();
-    if (r.error) { out.className = "out bad"; out.textContent = r.error; }
-    else {
-      out.className = "out ok";
-      out.textContent = `created ${r.nodes} node(s)\n${r.environment}\n\n` +
-                        `${r.lint_summary}\n\n${(r.notes || []).join("\n")}`;
-      refresh();
-    }
-  } catch (e) {
-    out.className = "out bad"; out.textContent = String(e);
-  } finally { btn.disabled = false; }
-}
-
-async function doClaim() {
-  const out = document.getElementById("claimOut");
-  const btn = document.getElementById("claimBtn");
-  const tokenEl = document.getElementById("token");
-  btn.disabled = true; out.className = "out"; out.textContent = "claiming...";
-  try {
-    const r = await (await fetch("/api/claim", {
-      method: "POST", headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        token: tokenEl.value,
-        rooms: document.getElementById("rooms").value.trim(),
-        space_name: document.getElementById("space").value.trim(),
-      }),
-    })).json();
-    if (r.error) { out.className = "out bad"; out.textContent = r.error; }
-    else {
-      out.className = r.claimed ? "out ok" : "out bad";
-      out.textContent = r.message;
-    }
-  } catch (e) {
-    out.className = "out bad"; out.textContent = String(e);
-  } finally {
-    // Clear the credential from the DOM as soon as it has been used.
-    tokenEl.value = "";
-    btn.disabled = false;
-  }
-}
-
-async function doTeardown() {
-  const out = document.getElementById("teardownOut");
-  out.className = "out"; out.textContent = "tearing down...";
-  try {
-    const r = await (await fetch("/api/teardown", { method: "POST" })).json();
-    if (r.error) { out.className = "out bad"; out.textContent = r.error; return; }
-    out.className = "out";
-    out.textContent = r.steps.map(s =>
-      `${s.done ? "done" : (s.manual ? "MANUAL" : "FAILED")}  ${s.name}\n        ${s.detail}`
-    ).join("\n");
-    refresh();
-  } catch (e) { out.className = "out bad"; out.textContent = String(e); }
-}
-
-loadCatalogue();
 
 async function refresh() {
   let d;
-  try {
-    d = await (await fetch("/api/status")).json();
-  } catch (e) {
-    $("errors").textContent = "console cannot reach itself: " + e;
-    return;
-  }
-
+  try { d = await (await fetch("/api/status")).json(); }
+  catch (e) { $("errors").textContent = "console cannot reach itself: " + e; return; }
   $("envline").textContent = d.environment
-    ? `${d.environment.name} · seed ${d.environment.seed} · ${d.environment.node_count} nodes · `
-      + `${d.environment.context_count} contexts · every ${d.environment.update_every}s · agent ${d.agent_url}`
-    : "no environment loaded";
-
+    ? `${d.environment.name} · ${d.environment.node_count} nodes · ${d.environment.context_count} contexts · seed ${d.environment.seed}`
+    : "nothing installed yet";
   renderBoard(d.board);
   renderNodes(d.nodes, d.agent_url);
   renderScenarios(d.scenarios);
-  $("errors").innerHTML = d.errors.length
-    ? d.errors.map(e => esc(e)).join("<br>")
-    : "none";
+  $("errors").className = d.errors.length ? "out bad" : "out";
+  $("errors").textContent = d.errors.join("\n");
 }
 
-refresh();
+$("boardWrap").addEventListener("toggle", () => { $("boardWrap").dataset.touched = "1"; });
+document.addEventListener("keydown", e => { if (e.key === "Escape") closePicker(); });
+
+loadCatalogue().then(refresh);
 setInterval(refresh, 5000);
 </script>
 </body>

@@ -1,0 +1,199 @@
+version: 1
+name: nagios-plugins-and-custom-scripts
+description: Nagios Plugins and Custom Scripts metrics, generated from Netdata's own collector metadata
+  so the contexts, units and dimension names match what a real Nagios Plugins and Custom Scripts node
+  reports. Signals are independent and plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  nagios_plugins_and_custom_scripts_job_execution_state_ok:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  nagios_plugins_and_custom_scripts_job_execution_state_warning:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  nagios_plugins_and_custom_scripts_job_execution_state_critical:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  nagios_plugins_and_custom_scripts_job_execution_state_unknown:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  nagios_plugins_and_custom_scripts_job_execution_state_timeout:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  nagios_plugins_and_custom_scripts_job_execution_state_paused:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  nagios_plugins_and_custom_scripts_job_execution_state_retry:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  nagios_plugins_and_custom_scripts_job_perfdata_threshold_state_no_threshold:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  nagios_plugins_and_custom_scripts_job_perfdata_threshold_state_ok:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  nagios_plugins_and_custom_scripts_job_perfdata_threshold_state_warning:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  nagios_plugins_and_custom_scripts_job_perfdata_threshold_state_critical:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  nagios_plugins_and_custom_scripts_job_perfdata_threshold_state_retry:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  nagios_plugins_and_custom_scripts_job_execution_duration_duration:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nagios_plugins_and_custom_scripts_job_execution_cpu_total_total:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nagios_plugins_and_custom_scripts_job_execution_max_rss_rss:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: nagios.job.execution_state
+  title: 'Current state of the check job. Values are ok, warning, critical, unknown, timeout (check exceeded
+    configured '
+  units: state
+  family: job.execution
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels:
+    nagios_job: sim-nagios_job-1
+    perfdata_value: sim-perfdata_value-1
+  dimensions:
+  - id: ok
+    signal: nagios_plugins_and_custom_scripts_job_execution_state_ok
+  - id: warning
+    signal: nagios_plugins_and_custom_scripts_job_execution_state_warning
+  - id: critical
+    signal: nagios_plugins_and_custom_scripts_job_execution_state_critical
+  - id: unknown
+    signal: nagios_plugins_and_custom_scripts_job_execution_state_unknown
+  - id: timeout
+    signal: nagios_plugins_and_custom_scripts_job_execution_state_timeout
+  - id: paused
+    signal: nagios_plugins_and_custom_scripts_job_execution_state_paused
+  - id: retry
+    signal: nagios_plugins_and_custom_scripts_job_execution_state_retry
+- id: nagios.job.perfdata_threshold_state
+  title: Threshold state derived from performance data warning/critical ranges. Use the `perfdata_value`
+    label to ident
+  units: state
+  family: job.perfdata
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels:
+    nagios_job: sim-nagios_job-1
+    perfdata_value: sim-perfdata_value-1
+  dimensions:
+  - id: no_threshold
+    signal: nagios_plugins_and_custom_scripts_job_perfdata_threshold_state_no_threshold
+  - id: ok
+    signal: nagios_plugins_and_custom_scripts_job_perfdata_threshold_state_ok
+  - id: warning
+    signal: nagios_plugins_and_custom_scripts_job_perfdata_threshold_state_warning
+  - id: critical
+    signal: nagios_plugins_and_custom_scripts_job_perfdata_threshold_state_critical
+  - id: retry
+    signal: nagios_plugins_and_custom_scripts_job_perfdata_threshold_state_retry
+- id: nagios.job.execution_duration
+  title: How long the check command took to run.
+  units: seconds
+  family: job.execution
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels:
+    nagios_job: sim-nagios_job-1
+    perfdata_value: sim-perfdata_value-1
+  dimensions:
+  - id: duration
+    signal: nagios_plugins_and_custom_scripts_job_execution_duration_duration
+- id: nagios.job.execution_cpu_total
+  title: CPU time (user + system) consumed by the check command. Available on non-Windows platforms.
+  units: seconds
+  family: job.execution
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels:
+    nagios_job: sim-nagios_job-1
+    perfdata_value: sim-perfdata_value-1
+  dimensions:
+  - id: total
+    signal: nagios_plugins_and_custom_scripts_job_execution_cpu_total_total
+- id: nagios.job.execution_max_rss
+  title: Peak memory (RSS) used by the check command. Available on non-Windows platforms.
+  units: bytes
+  family: job.execution
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels:
+    nagios_job: sim-nagios_job-1
+    perfdata_value: sim-perfdata_value-1
+  dimensions:
+  - id: rss
+    signal: nagios_plugins_and_custom_scripts_job_execution_max_rss_rss

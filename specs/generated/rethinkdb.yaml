@@ -1,0 +1,272 @@
+version: 1
+name: rethinkdb
+description: RethinkDB metrics, generated from Netdata's own collector metadata so the contexts, units
+  and dimension names match what a real RethinkDB node reports. Signals are independent and plausible
+  rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  rethinkdb_cluster_servers_stats_request_success:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rethinkdb_cluster_servers_stats_request_timeout:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  rethinkdb_cluster_client_connections_connections:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rethinkdb_cluster_active_clients_active:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rethinkdb_cluster_queries_queries:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rethinkdb_cluster_documents_read:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rethinkdb_cluster_documents_written:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rethinkdb_server_stats_request_status_success:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  rethinkdb_server_stats_request_status_timeout:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  rethinkdb_server_client_connections_connections:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rethinkdb_server_active_clients_active:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rethinkdb_server_queries_queries:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rethinkdb_server_documents_read:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rethinkdb_server_documents_written:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: rethinkdb.cluster_servers_stats_request
+  title: Cluster Servers Stats Request
+  units: servers
+  family: cluster
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: success
+    signal: rethinkdb_cluster_servers_stats_request_success
+  - id: timeout
+    signal: rethinkdb_cluster_servers_stats_request_timeout
+- id: rethinkdb.cluster_client_connections
+  title: Cluster Client Connections
+  units: connections
+  family: cluster
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: connections
+    signal: rethinkdb_cluster_client_connections_connections
+- id: rethinkdb.cluster_active_clients
+  title: Cluster Active Clients
+  units: clients
+  family: cluster
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: active
+    signal: rethinkdb_cluster_active_clients_active
+- id: rethinkdb.cluster_queries
+  title: Cluster Queries
+  units: queries/s
+  family: cluster
+  chart_type: line
+  priority: 60004
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: queries
+    rate_signal: rethinkdb_cluster_queries_queries
+- id: rethinkdb.cluster_documents
+  title: Cluster Documents
+  units: documents/s
+  family: cluster
+  chart_type: line
+  priority: 60005
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: read
+    rate_signal: rethinkdb_cluster_documents_read
+  - id: written
+    rate_signal: rethinkdb_cluster_documents_written
+- id: rethinkdb.server_stats_request_status
+  title: Server Stats Request Status
+  units: status
+  family: server
+  chart_type: line
+  priority: 60006
+  shape: independent
+  labels:
+    server_uuid: sim-server_uuid-1
+    server_name: sim-server_name-1
+  dimensions:
+  - id: success
+    signal: rethinkdb_server_stats_request_status_success
+  - id: timeout
+    signal: rethinkdb_server_stats_request_status_timeout
+- id: rethinkdb.server_client_connections
+  title: Server Client Connections
+  units: connections
+  family: server
+  chart_type: line
+  priority: 60007
+  shape: independent
+  labels:
+    server_uuid: sim-server_uuid-1
+    server_name: sim-server_name-1
+  dimensions:
+  - id: connections
+    signal: rethinkdb_server_client_connections_connections
+- id: rethinkdb.server_active_clients
+  title: Server Active Clients
+  units: clients
+  family: server
+  chart_type: line
+  priority: 60008
+  shape: independent
+  labels:
+    server_uuid: sim-server_uuid-1
+    server_name: sim-server_name-1
+  dimensions:
+  - id: active
+    signal: rethinkdb_server_active_clients_active
+- id: rethinkdb.server_queries
+  title: Server Queries
+  units: queries/s
+  family: server
+  chart_type: line
+  priority: 60009
+  shape: counters
+  labels:
+    server_uuid: sim-server_uuid-1
+    server_name: sim-server_name-1
+  dimensions:
+  - id: queries
+    rate_signal: rethinkdb_server_queries_queries
+- id: rethinkdb.server_documents
+  title: Server Documents
+  units: documents/s
+  family: server
+  chart_type: line
+  priority: 60010
+  shape: counters
+  labels:
+    server_uuid: sim-server_uuid-1
+    server_name: sim-server_name-1
+  dimensions:
+  - id: read
+    rate_signal: rethinkdb_server_documents_read
+  - id: written
+    rate_signal: rethinkdb_server_documents_written

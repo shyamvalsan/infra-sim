@@ -1,0 +1,221 @@
+version: 1
+name: disk-statistics
+description: Disk Statistics metrics, generated from Netdata's own collector metadata so the contexts,
+  units and dimension names match what a real Disk Statistics node reports. Signals are independent and
+  plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  disk_statistics_io_discards:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  disk_statistics_ops_discards:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  disk_statistics_ops_flushes:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  disk_statistics_busy_busy:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  disk_statistics_mops_discards:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  disk_statistics_iotime_discards:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  disk_statistics_iotime_flushes:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  disk_statistics_await_discards:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  disk_statistics_await_flushes:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  disk_statistics_avgsz_discards:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: disk_ext.io
+  title: Amount of Discarded Data
+  units: KiB/s
+  family: io
+  chart_type: area
+  priority: 60001
+  shape: independent
+  labels:
+    device: sim-device-1
+    mount_point: sim-mount_point-1
+    device_type: sim-device_type-1
+  dimensions:
+  - id: discards
+    signal: disk_statistics_io_discards
+- id: disk_ext.ops
+  title: Disk Completed Extended I/O Operations
+  units: operations/s
+  family: ops
+  chart_type: line
+  priority: 60002
+  shape: counters
+  labels:
+    device: sim-device-1
+    mount_point: sim-mount_point-1
+    device_type: sim-device_type-1
+  dimensions:
+  - id: discards
+    rate_signal: disk_statistics_ops_discards
+  - id: flushes
+    rate_signal: disk_statistics_ops_flushes
+- id: disk.busy
+  title: Disk Busy Time
+  units: milliseconds
+  family: busy
+  chart_type: area
+  priority: 60003
+  shape: independent
+  labels:
+    device: sim-device-1
+    mount_point: sim-mount_point-1
+    device_type: sim-device_type-1
+  dimensions:
+  - id: busy
+    signal: disk_statistics_busy_busy
+- id: disk_ext.mops
+  title: Disk Merged Discard Operations
+  units: merged operations/s
+  family: mops
+  chart_type: line
+  priority: 60004
+  shape: counters
+  labels:
+    device: sim-device-1
+    mount_point: sim-mount_point-1
+    device_type: sim-device_type-1
+  dimensions:
+  - id: discards
+    rate_signal: disk_statistics_mops_discards
+- id: disk_ext.iotime
+  title: Disk Total I/O Time for Extended Operations
+  units: milliseconds/s
+  family: iotime
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels:
+    device: sim-device-1
+    mount_point: sim-mount_point-1
+    device_type: sim-device_type-1
+  dimensions:
+  - id: discards
+    signal: disk_statistics_iotime_discards
+  - id: flushes
+    signal: disk_statistics_iotime_flushes
+- id: disk_ext.await
+  title: Average Completed Extended I/O Operation Time
+  units: milliseconds/operation
+  family: await
+  chart_type: line
+  priority: 60006
+  shape: independent
+  labels:
+    device: sim-device-1
+    mount_point: sim-mount_point-1
+    device_type: sim-device_type-1
+  dimensions:
+  - id: discards
+    signal: disk_statistics_await_discards
+  - id: flushes
+    signal: disk_statistics_await_flushes
+- id: disk_ext.avgsz
+  title: Average Amount of Discarded Data
+  units: KiB/operation
+  family: avgsz
+  chart_type: area
+  priority: 60007
+  shape: independent
+  labels:
+    device: sim-device-1
+    mount_point: sim-mount_point-1
+    device_type: sim-device_type-1
+  dimensions:
+  - id: discards
+    signal: disk_statistics_avgsz_discards

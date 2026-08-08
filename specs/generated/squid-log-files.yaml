@@ -1,0 +1,506 @@
+version: 1
+name: squid-log-files
+description: Squid log files metrics, generated from Netdata's own collector metadata so the contexts,
+  units and dimension names match what a real Squid log files node reports. Signals are independent and
+  plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  squid_log_files_requests_requests:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  squid_log_files_excluded_requests_unmatched:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  squid_log_files_type_requests_success:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  squid_log_files_type_requests_bad:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  squid_log_files_type_requests_redirect:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  squid_log_files_type_requests_error:
+    base: 0.0
+    min: 0.0
+    max: 5000000.0
+  squid_log_files_http_status_code_class_responses_1xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  squid_log_files_http_status_code_class_responses_2xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  squid_log_files_http_status_code_class_responses_3xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  squid_log_files_http_status_code_class_responses_4xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  squid_log_files_http_status_code_class_responses_5xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  squid_log_files_http_status_code_responses_a_dimension_per_http_response_code:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  squid_log_files_bandwidth_sent:
+    base: 18000.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  squid_log_files_response_time_min:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  squid_log_files_response_time_max:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  squid_log_files_response_time_avg:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  squid_log_files_uniq_clients_clients:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  squid_log_files_cache_result_code_requests_a_dimension_per_cache_result_code:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  squid_log_files_cache_result_code_transport_tag_requests_a_dimension_per_cache_result_delivery_transport_tag:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  squid_log_files_cache_result_code_handling_tag_requests_a_dimension_per_cache_result_handling_tag:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  squid_log_files_cache_code_object_tag_requests_a_dimension_per_cache_result_produced_object_tag:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  squid_log_files_cache_code_load_source_tag_requests_a_dimension_per_cache_result_load_source_tag:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  squid_log_files_cache_code_error_tag_requests_a_dimension_per_cache_result_error_tag:
+    base: 0.0
+    min: 0.0
+    max: 5000000.0
+  squid_log_files_http_method_requests_a_dimension_per_http_method:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  squid_log_files_mime_type_requests_a_dimension_per_mime_type:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  squid_log_files_hier_code_requests_a_dimension_per_hierarchy_code:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  squid_log_files_server_address_forwarded_requests_a_dimension_per_server_address:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: squidlog.requests
+  title: Total Requests
+  units: requests/s
+  family: requests
+  chart_type: line
+  priority: 60001
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: requests
+    rate_signal: squid_log_files_requests_requests
+- id: squidlog.excluded_requests
+  title: Excluded Requests
+  units: requests/s
+  family: excluded
+  chart_type: line
+  priority: 60002
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: unmatched
+    rate_signal: squid_log_files_excluded_requests_unmatched
+- id: squidlog.type_requests
+  title: Requests By Type
+  units: requests/s
+  family: type
+  chart_type: stacked
+  priority: 60003
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: success
+    rate_signal: squid_log_files_type_requests_success
+  - id: bad
+    rate_signal: squid_log_files_type_requests_bad
+  - id: redirect
+    rate_signal: squid_log_files_type_requests_redirect
+  - id: error
+    rate_signal: squid_log_files_type_requests_error
+- id: squidlog.http_status_code_class_responses
+  title: Responses By HTTP Status Code Class
+  units: responses/s
+  family: http
+  chart_type: stacked
+  priority: 60004
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: 1xx
+    rate_signal: squid_log_files_http_status_code_class_responses_1xx
+  - id: 2xx
+    rate_signal: squid_log_files_http_status_code_class_responses_2xx
+  - id: 3xx
+    rate_signal: squid_log_files_http_status_code_class_responses_3xx
+  - id: 4xx
+    rate_signal: squid_log_files_http_status_code_class_responses_4xx
+  - id: 5xx
+    rate_signal: squid_log_files_http_status_code_class_responses_5xx
+- id: squidlog.http_status_code_responses
+  title: Responses By HTTP Status Code
+  units: responses/s
+  family: http
+  chart_type: stacked
+  priority: 60005
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per HTTP response code
+    rate_signal: squid_log_files_http_status_code_responses_a_dimension_per_http_response_code
+- id: squidlog.bandwidth
+  title: Bandwidth
+  units: kilobits/s
+  family: bandwidth
+  chart_type: line
+  priority: 60006
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: sent
+    rate_signal: squid_log_files_bandwidth_sent
+- id: squidlog.response_time
+  title: Response Time
+  units: milliseconds
+  family: response
+  chart_type: line
+  priority: 60007
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: min
+    signal: squid_log_files_response_time_min
+  - id: max
+    signal: squid_log_files_response_time_max
+  - id: avg
+    signal: squid_log_files_response_time_avg
+- id: squidlog.uniq_clients
+  title: Unique Clients
+  units: clients
+  family: uniq
+  chart_type: line
+  priority: 60008
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: clients
+    signal: squid_log_files_uniq_clients_clients
+- id: squidlog.cache_result_code_requests
+  title: Requests By Cache Result Code
+  units: requests/s
+  family: cache
+  chart_type: stacked
+  priority: 60009
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per cache result code
+    rate_signal: squid_log_files_cache_result_code_requests_a_dimension_per_cache_result_code
+- id: squidlog.cache_result_code_transport_tag_requests
+  title: Requests By Cache Result Delivery Transport Tag
+  units: requests/s
+  family: cache
+  chart_type: stacked
+  priority: 60010
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per cache result delivery transport tag
+    rate_signal: squid_log_files_cache_result_code_transport_tag_requests_a_dimension_per_cache_result_delivery_transport_tag
+- id: squidlog.cache_result_code_handling_tag_requests
+  title: Requests By Cache Result Handling Tag
+  units: requests/s
+  family: cache
+  chart_type: stacked
+  priority: 60011
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per cache result handling tag
+    rate_signal: squid_log_files_cache_result_code_handling_tag_requests_a_dimension_per_cache_result_handling_tag
+- id: squidlog.cache_code_object_tag_requests
+  title: Requests By Cache Result Produced Object Tag
+  units: requests/s
+  family: cache
+  chart_type: stacked
+  priority: 60012
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per cache result produced object tag
+    rate_signal: squid_log_files_cache_code_object_tag_requests_a_dimension_per_cache_result_produced_object_tag
+- id: squidlog.cache_code_load_source_tag_requests
+  title: Requests By Cache Result Load Source Tag
+  units: requests/s
+  family: cache
+  chart_type: stacked
+  priority: 60013
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per cache result load source tag
+    rate_signal: squid_log_files_cache_code_load_source_tag_requests_a_dimension_per_cache_result_load_source_tag
+- id: squidlog.cache_code_error_tag_requests
+  title: Requests By Cache Result Errors Tag
+  units: requests/s
+  family: cache
+  chart_type: stacked
+  priority: 60014
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per cache result error tag
+    rate_signal: squid_log_files_cache_code_error_tag_requests_a_dimension_per_cache_result_error_tag
+- id: squidlog.http_method_requests
+  title: Requests By HTTP Method
+  units: requests/s
+  family: http
+  chart_type: stacked
+  priority: 60015
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per HTTP method
+    rate_signal: squid_log_files_http_method_requests_a_dimension_per_http_method
+- id: squidlog.mime_type_requests
+  title: Requests By MIME Type
+  units: requests/s
+  family: mime
+  chart_type: stacked
+  priority: 60016
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per MIME type
+    rate_signal: squid_log_files_mime_type_requests_a_dimension_per_mime_type
+- id: squidlog.hier_code_requests
+  title: Requests By Hierarchy Code
+  units: requests/s
+  family: hier
+  chart_type: stacked
+  priority: 60017
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per hierarchy code
+    rate_signal: squid_log_files_hier_code_requests_a_dimension_per_hierarchy_code
+- id: squidlog.server_address_forwarded_requests
+  title: Forwarded Requests By Server Address
+  units: requests/s
+  family: server
+  chart_type: stacked
+  priority: 60018
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per server address
+    rate_signal: squid_log_files_server_address_forwarded_requests_a_dimension_per_server_address

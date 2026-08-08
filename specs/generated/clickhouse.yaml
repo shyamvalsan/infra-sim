@@ -1,0 +1,1591 @@
+version: 1
+name: clickhouse
+description: ClickHouse metrics, generated from Netdata's own collector metadata so the contexts, units
+  and dimension names match what a real ClickHouse node reports. Signals are independent and plausible
+  rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  clickhouse_connections_tcp:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_connections_http:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_connections_mysql:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_connections_postgresql:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_connections_interserver:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_slow_reads_slow:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_read_backoff_read_backoff:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_memory_usage_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_running_queries_running:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_queries_preempted_preempted:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_queries_successful:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_queries_failed:
+    base: 0.0
+    min: 0.0
+    max: 5000000.0
+  clickhouse_select_queries_successful:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_select_queries_failed:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  clickhouse_insert_queries_successful:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_insert_queries_failed:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  clickhouse_queries_memory_limit_exceeded_mem_limit_exceeded:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_longest_running_query_time_longest_query_time:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_queries_latency_queries_time:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_select_queries_latency_selects_time:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_insert_queries_latency_inserts_time:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_io_reads:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_io_writes:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_iops_reads:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_iops_writes:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_io_errors_read:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_io_errors_write:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_io_seeks_lseek:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_io_file_opens_file_open:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_replicated_parts_current_activity_fetch:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_replicated_parts_current_activity_send:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_replicated_parts_current_activity_check:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_replicas_max_absolute_dela_replication_delay:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_replicated_readonly_tables_read_only:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_replicated_data_loss_data_loss:
+    base: 90.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_replicated_part_fetches_successful:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_replicated_part_fetches_failed:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  clickhouse_inserted_rows_inserted:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_inserted_bytes_inserted:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_rejected_inserts_rejected:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  clickhouse_delayed_inserts_delayed:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_delayed_inserts_throttle_time_delayed_inserts_throttle_time:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_selected_bytes_selected:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_selected_rows_selected:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_selected_parts_selected:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_selected_ranges_selected:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_selected_marks_selected:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_merges_merge:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_merges_latency_merges_time:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_merged_uncompressed_bytes_merged_uncompressed:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_merged_rows_merged:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_merge_tree_data_writer_inserted_rows_inserted:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_merge_tree_data_writer_uncompressed_bytes_inserted:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_merge_tree_data_writer_compressed_bytes_written:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_uncompressed_cache_requests_hits:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_uncompressed_cache_requests_misses:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_mark_cache_requests_hits:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_mark_cache_requests_misses:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_max_part_count_for_partition_max_parts_partition:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_parts_count_temporary:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_parts_count_pre_active:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_parts_count_active:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_parts_count_deleting:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_parts_count_delete_on_destroy:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_parts_count_outdated:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_parts_count_wide:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_parts_count_compact:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_distributed_connections_active:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_distributed_connections_attempts_connection:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_distributed_connections_fail_retries_connection_retry:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_distributed_connections_fail_exhausted_retries_connection_retry_exhausted:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_distributed_files_to_insert_pending_insertions:
+    base: 1200.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_distributed_rejected_inserts_rejected:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  clickhouse_distributed_delayed_inserts_delayed:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_distributed_delayed_inserts_latency_delayed_time:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_distributed_sync_insertion_timeout_exceeded_sync_insertion:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_distributed_async_insertions_failures_async_insertions:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_uptime_uptime:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_disk_space_usage_free:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_disk_space_usage_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_database_table_size_size:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_database_table_parts_parts:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  clickhouse_database_table_rows_rows:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: clickhouse.connections
+  title: Connections
+  units: connections
+  family: connections
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: tcp
+    signal: clickhouse_connections_tcp
+  - id: http
+    signal: clickhouse_connections_http
+  - id: mysql
+    signal: clickhouse_connections_mysql
+  - id: postgresql
+    signal: clickhouse_connections_postgresql
+  - id: interserver
+    signal: clickhouse_connections_interserver
+- id: clickhouse.slow_reads
+  title: Slow reads from a file
+  units: reads/s
+  family: slow
+  chart_type: line
+  priority: 60002
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: slow
+    rate_signal: clickhouse_slow_reads_slow
+- id: clickhouse.read_backoff
+  title: Read backoff events
+  units: events/s
+  family: read
+  chart_type: line
+  priority: 60003
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: read_backoff
+    rate_signal: clickhouse_read_backoff_read_backoff
+- id: clickhouse.memory_usage
+  title: Memory usage
+  units: bytes
+  family: memory
+  chart_type: area
+  priority: 60004
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: used
+    signal: clickhouse_memory_usage_used
+- id: clickhouse.running_queries
+  title: Running queries
+  units: queries
+  family: running
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: running
+    signal: clickhouse_running_queries_running
+- id: clickhouse.queries_preempted
+  title: Queries waiting due to priority
+  units: queries
+  family: queries
+  chart_type: line
+  priority: 60006
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: preempted
+    signal: clickhouse_queries_preempted_preempted
+- id: clickhouse.queries
+  title: Queries
+  units: queries/s
+  family: queries
+  chart_type: stacked
+  priority: 60007
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: successful
+    rate_signal: clickhouse_queries_successful
+  - id: failed
+    rate_signal: clickhouse_queries_failed
+- id: clickhouse.select_queries
+  title: Select queries
+  units: selects/s
+  family: select
+  chart_type: stacked
+  priority: 60008
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: successful
+    rate_signal: clickhouse_select_queries_successful
+  - id: failed
+    rate_signal: clickhouse_select_queries_failed
+- id: clickhouse.insert_queries
+  title: Insert queries
+  units: inserts/s
+  family: insert
+  chart_type: stacked
+  priority: 60009
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: successful
+    rate_signal: clickhouse_insert_queries_successful
+  - id: failed
+    rate_signal: clickhouse_insert_queries_failed
+- id: clickhouse.queries_memory_limit_exceeded
+  title: Memory limit exceeded for query
+  units: queries/s
+  family: queries
+  chart_type: line
+  priority: 60010
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: mem_limit_exceeded
+    rate_signal: clickhouse_queries_memory_limit_exceeded_mem_limit_exceeded
+- id: clickhouse.longest_running_query_time
+  title: Longest running query time
+  units: seconds
+  family: longest
+  chart_type: line
+  priority: 60011
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: longest_query_time
+    signal: clickhouse_longest_running_query_time_longest_query_time
+- id: clickhouse.queries_latency
+  title: Queries latency
+  units: microseconds
+  family: queries
+  chart_type: line
+  priority: 60012
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: queries_time
+    signal: clickhouse_queries_latency_queries_time
+- id: clickhouse.select_queries_latency
+  title: Select queries latency
+  units: microseconds
+  family: select
+  chart_type: line
+  priority: 60013
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: selects_time
+    signal: clickhouse_select_queries_latency_selects_time
+- id: clickhouse.insert_queries_latency
+  title: Insert queries latency
+  units: microseconds
+  family: insert
+  chart_type: line
+  priority: 60014
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: inserts_time
+    signal: clickhouse_insert_queries_latency_inserts_time
+- id: clickhouse.io
+  title: Read and written data
+  units: bytes/s
+  family: io
+  chart_type: area
+  priority: 60015
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: reads
+    rate_signal: clickhouse_io_reads
+  - id: writes
+    rate_signal: clickhouse_io_writes
+- id: clickhouse.iops
+  title: Read and write operations
+  units: ops/s
+  family: iops
+  chart_type: line
+  priority: 60016
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: reads
+    rate_signal: clickhouse_iops_reads
+  - id: writes
+    rate_signal: clickhouse_iops_writes
+- id: clickhouse.io_errors
+  title: Read and write errors
+  units: errors/s
+  family: io
+  chart_type: line
+  priority: 60017
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: read
+    rate_signal: clickhouse_io_errors_read
+  - id: write
+    rate_signal: clickhouse_io_errors_write
+- id: clickhouse.io_seeks
+  title: lseek function calls
+  units: ops/s
+  family: io
+  chart_type: line
+  priority: 60018
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: lseek
+    rate_signal: clickhouse_io_seeks_lseek
+- id: clickhouse.io_file_opens
+  title: File opens
+  units: ops/s
+  family: io
+  chart_type: line
+  priority: 60019
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: file_open
+    rate_signal: clickhouse_io_file_opens_file_open
+- id: clickhouse.replicated_parts_current_activity
+  title: Replicated parts current activity
+  units: parts
+  family: replicated
+  chart_type: line
+  priority: 60020
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: fetch
+    signal: clickhouse_replicated_parts_current_activity_fetch
+  - id: send
+    signal: clickhouse_replicated_parts_current_activity_send
+  - id: check
+    signal: clickhouse_replicated_parts_current_activity_check
+- id: clickhouse.replicas_max_absolute_dela
+  title: Replicas max absolute delay
+  units: seconds
+  family: replicas
+  chart_type: line
+  priority: 60021
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: replication_delay
+    signal: clickhouse_replicas_max_absolute_dela_replication_delay
+- id: clickhouse.replicated_readonly_tables
+  title: Replicated tables in readonly state
+  units: tables
+  family: replicated
+  chart_type: line
+  priority: 60022
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: read_only
+    signal: clickhouse_replicated_readonly_tables_read_only
+- id: clickhouse.replicated_data_loss
+  title: Replicated data loss
+  units: events
+  family: replicated
+  chart_type: line
+  priority: 60023
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: data_loss
+    signal: clickhouse_replicated_data_loss_data_loss
+- id: clickhouse.replicated_part_fetches
+  title: Replicated part fetches
+  units: fetches/s
+  family: replicated
+  chart_type: line
+  priority: 60024
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: successful
+    rate_signal: clickhouse_replicated_part_fetches_successful
+  - id: failed
+    rate_signal: clickhouse_replicated_part_fetches_failed
+- id: clickhouse.inserted_rows
+  title: Inserted rows
+  units: rows/s
+  family: inserted
+  chart_type: line
+  priority: 60025
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: inserted
+    rate_signal: clickhouse_inserted_rows_inserted
+- id: clickhouse.inserted_bytes
+  title: Inserted data
+  units: bytes/s
+  family: inserted
+  chart_type: area
+  priority: 60026
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: inserted
+    rate_signal: clickhouse_inserted_bytes_inserted
+- id: clickhouse.rejected_inserts
+  title: Rejected inserts
+  units: inserts/s
+  family: rejected
+  chart_type: line
+  priority: 60027
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: rejected
+    rate_signal: clickhouse_rejected_inserts_rejected
+- id: clickhouse.delayed_inserts
+  title: Delayed inserts
+  units: inserts/s
+  family: delayed
+  chart_type: line
+  priority: 60028
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: delayed
+    rate_signal: clickhouse_delayed_inserts_delayed
+- id: clickhouse.delayed_inserts_throttle_time
+  title: Delayed inserts throttle time
+  units: milliseconds
+  family: delayed
+  chart_type: line
+  priority: 60029
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: delayed_inserts_throttle_time
+    signal: clickhouse_delayed_inserts_throttle_time_delayed_inserts_throttle_time
+- id: clickhouse.selected_bytes
+  title: Selected data
+  units: bytes/s
+  family: selected
+  chart_type: area
+  priority: 60030
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: selected
+    rate_signal: clickhouse_selected_bytes_selected
+- id: clickhouse.selected_rows
+  title: Selected rows
+  units: rows/s
+  family: selected
+  chart_type: line
+  priority: 60031
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: selected
+    rate_signal: clickhouse_selected_rows_selected
+- id: clickhouse.selected_parts
+  title: Selected parts
+  units: parts/s
+  family: selected
+  chart_type: line
+  priority: 60032
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: selected
+    rate_signal: clickhouse_selected_parts_selected
+- id: clickhouse.selected_ranges
+  title: Selected ranges
+  units: ranges/s
+  family: selected
+  chart_type: line
+  priority: 60033
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: selected
+    rate_signal: clickhouse_selected_ranges_selected
+- id: clickhouse.selected_marks
+  title: Selected marks
+  units: marks/s
+  family: selected
+  chart_type: line
+  priority: 60034
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: selected
+    rate_signal: clickhouse_selected_marks_selected
+- id: clickhouse.merges
+  title: Merge operations
+  units: ops/s
+  family: merges
+  chart_type: line
+  priority: 60035
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: merge
+    rate_signal: clickhouse_merges_merge
+- id: clickhouse.merges_latency
+  title: Time spent for background merges
+  units: milliseconds
+  family: merges
+  chart_type: line
+  priority: 60036
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: merges_time
+    signal: clickhouse_merges_latency_merges_time
+- id: clickhouse.merged_uncompressed_bytes
+  title: Uncompressed data read for background merges
+  units: bytes/s
+  family: merged
+  chart_type: area
+  priority: 60037
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: merged_uncompressed
+    rate_signal: clickhouse_merged_uncompressed_bytes_merged_uncompressed
+- id: clickhouse.merged_rows
+  title: Merged rows
+  units: rows/s
+  family: merged
+  chart_type: line
+  priority: 60038
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: merged
+    rate_signal: clickhouse_merged_rows_merged
+- id: clickhouse.merge_tree_data_writer_inserted_rows
+  title: Rows INSERTed to MergeTree tables
+  units: rows/s
+  family: merge
+  chart_type: line
+  priority: 60039
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: inserted
+    rate_signal: clickhouse_merge_tree_data_writer_inserted_rows_inserted
+- id: clickhouse.merge_tree_data_writer_uncompressed_bytes
+  title: Data INSERTed to MergeTree tables
+  units: bytes/s
+  family: merge
+  chart_type: area
+  priority: 60040
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: inserted
+    rate_signal: clickhouse_merge_tree_data_writer_uncompressed_bytes_inserted
+- id: clickhouse.merge_tree_data_writer_compressed_bytes
+  title: Data written to disk for data INSERTed to MergeTree tables
+  units: bytes/s
+  family: merge
+  chart_type: area
+  priority: 60041
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: written
+    rate_signal: clickhouse_merge_tree_data_writer_compressed_bytes_written
+- id: clickhouse.uncompressed_cache_requests
+  title: Uncompressed cache requests
+  units: requests/s
+  family: uncompressed
+  chart_type: line
+  priority: 60042
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: hits
+    rate_signal: clickhouse_uncompressed_cache_requests_hits
+  - id: misses
+    rate_signal: clickhouse_uncompressed_cache_requests_misses
+- id: clickhouse.mark_cache_requests
+  title: Mark cache requests
+  units: requests/s
+  family: mark
+  chart_type: line
+  priority: 60043
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: hits
+    rate_signal: clickhouse_mark_cache_requests_hits
+  - id: misses
+    rate_signal: clickhouse_mark_cache_requests_misses
+- id: clickhouse.max_part_count_for_partition
+  title: Max part count for partition
+  units: parts
+  family: max
+  chart_type: line
+  priority: 60044
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: max_parts_partition
+    signal: clickhouse_max_part_count_for_partition_max_parts_partition
+- id: clickhouse.parts_count
+  title: Parts
+  units: parts
+  family: parts
+  chart_type: line
+  priority: 60045
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: temporary
+    signal: clickhouse_parts_count_temporary
+  - id: pre_active
+    signal: clickhouse_parts_count_pre_active
+  - id: active
+    signal: clickhouse_parts_count_active
+  - id: deleting
+    signal: clickhouse_parts_count_deleting
+  - id: delete_on_destroy
+    signal: clickhouse_parts_count_delete_on_destroy
+  - id: outdated
+    signal: clickhouse_parts_count_outdated
+  - id: wide
+    signal: clickhouse_parts_count_wide
+  - id: compact
+    signal: clickhouse_parts_count_compact
+- id: clickhouse.distributed_connections
+  title: Active distributed connection
+  units: connections
+  family: distributed
+  chart_type: line
+  priority: 60046
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: active
+    signal: clickhouse_distributed_connections_active
+- id: clickhouse.distributed_connections_attempts
+  title: Distributed connection attempts
+  units: attempts/s
+  family: distributed
+  chart_type: line
+  priority: 60047
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: connection
+    rate_signal: clickhouse_distributed_connections_attempts_connection
+- id: clickhouse.distributed_connections_fail_retries
+  title: Distributed connection fails with retry
+  units: fails/s
+  family: distributed
+  chart_type: line
+  priority: 60048
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: connection_retry
+    rate_signal: clickhouse_distributed_connections_fail_retries_connection_retry
+- id: clickhouse.distributed_connections_fail_exhausted_retries
+  title: Distributed connection fails after all retries finished
+  units: fails/s
+  family: distributed
+  chart_type: line
+  priority: 60049
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: connection_retry_exhausted
+    rate_signal: clickhouse_distributed_connections_fail_exhausted_retries_connection_retry_exhausted
+- id: clickhouse.distributed_files_to_insert
+  title: Pending files to process for asynchronous insertion into Distributed tables
+  units: files
+  family: distributed
+  chart_type: line
+  priority: 60050
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: pending_insertions
+    signal: clickhouse_distributed_files_to_insert_pending_insertions
+- id: clickhouse.distributed_rejected_inserts
+  title: Rejected INSERTs to a Distributed table
+  units: inserts/s
+  family: distributed
+  chart_type: line
+  priority: 60051
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: rejected
+    rate_signal: clickhouse_distributed_rejected_inserts_rejected
+- id: clickhouse.distributed_delayed_inserts
+  title: Delayed INSERTs to a Distributed table
+  units: inserts/s
+  family: distributed
+  chart_type: line
+  priority: 60052
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: delayed
+    rate_signal: clickhouse_distributed_delayed_inserts_delayed
+- id: clickhouse.distributed_delayed_inserts_latency
+  title: Time spent while the INSERT of a block to a Distributed table was throttled
+  units: milliseconds
+  family: distributed
+  chart_type: line
+  priority: 60053
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: delayed_time
+    signal: clickhouse_distributed_delayed_inserts_latency_delayed_time
+- id: clickhouse.distributed_sync_insertion_timeout_exceeded
+  title: Distributed table sync insertions timeouts
+  units: timeouts/s
+  family: distributed
+  chart_type: line
+  priority: 60054
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: sync_insertion
+    rate_signal: clickhouse_distributed_sync_insertion_timeout_exceeded_sync_insertion
+- id: clickhouse.distributed_async_insertions_failures
+  title: Distributed table async insertion failures
+  units: failures/s
+  family: distributed
+  chart_type: line
+  priority: 60055
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: async_insertions
+    rate_signal: clickhouse_distributed_async_insertions_failures_async_insertions
+- id: clickhouse.uptime
+  title: Uptime
+  units: seconds
+  family: uptime
+  chart_type: line
+  priority: 60056
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: uptime
+    signal: clickhouse_uptime_uptime
+- id: clickhouse.disk_space_usage
+  title: Disk space usage
+  units: bytes
+  family: disk
+  chart_type: stacked
+  priority: 60057
+  shape: independent
+  labels:
+    disk_name: sim-disk_name-1
+  dimensions:
+  - id: free
+    signal: clickhouse_disk_space_usage_free
+  - id: used
+    signal: clickhouse_disk_space_usage_used
+- id: clickhouse.database_table_size
+  title: Table size
+  units: bytes
+  family: database
+  chart_type: area
+  priority: 60058
+  shape: independent
+  labels:
+    database: sim-database-1
+    table: sim-table-1
+  dimensions:
+  - id: size
+    signal: clickhouse_database_table_size_size
+- id: clickhouse.database_table_parts
+  title: Table parts
+  units: parts
+  family: database
+  chart_type: line
+  priority: 60059
+  shape: independent
+  labels:
+    database: sim-database-1
+    table: sim-table-1
+  dimensions:
+  - id: parts
+    signal: clickhouse_database_table_parts_parts
+- id: clickhouse.database_table_rows
+  title: Table rows
+  units: rows
+  family: database
+  chart_type: line
+  priority: 60060
+  shape: independent
+  labels:
+    database: sim-database-1
+    table: sim-table-1
+  dimensions:
+  - id: rows
+    signal: clickhouse_database_table_rows_rows

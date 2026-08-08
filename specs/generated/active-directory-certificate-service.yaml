@@ -1,0 +1,299 @@
+version: 1
+name: active-directory-certificate-service
+description: Active Directory Certificate Service metrics, generated from Netdata's own collector metadata
+  so the contexts, units and dimension names match what a real Active Directory Certificate Service node
+  reports. Signals are independent and plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  active_directory_certificate_service_cert_requests_requests:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  active_directory_certificate_service_cert_request_processing_time_processing_times:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  active_directory_certificate_service_cert_retrievals_retrievals:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  active_directory_certificate_service_cert_failed_requests_failed:
+    base: 0.0
+    min: 0.0
+    max: 5000000.0
+  active_directory_certificate_service_cert_issued_requests_issued:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  active_directory_certificate_service_cert_pending_requests_pending:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  active_directory_certificate_service_cert_challenge_responses_challenge:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  active_directory_certificate_service_cert_retrieval_processing_time_processing_time:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  active_directory_certificate_service_cert_request_cryptographic_signing_time_singing_time:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  active_directory_certificate_service_cert_request_policy_module_processing_processing_time:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  active_directory_certificate_service_cert_challenge_response_processing_time_processing_time:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  active_directory_certificate_service_cert_signed_certificate_timestamp_lists_processing_time:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  active_directory_certificate_service_cert_signed_certificate_timestamp_list_processing_time_processing_time:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: adcs.cert_requests
+  title: Certificate requests processed
+  units: requests/s
+  family: cert
+  chart_type: line
+  priority: 60001
+  shape: counters
+  labels:
+    cert: sim-cert-1
+  dimensions:
+  - id: requests
+    rate_signal: active_directory_certificate_service_cert_requests_requests
+- id: adcs.cert_request_processing_time
+  title: Certificate last request processing time
+  units: seconds
+  family: cert
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels:
+    cert: sim-cert-1
+  dimensions:
+  - id: processing_times
+    signal: active_directory_certificate_service_cert_request_processing_time_processing_times
+- id: adcs.cert_retrievals
+  title: Total of certificate retrievals
+  units: retrievals/s
+  family: cert
+  chart_type: line
+  priority: 60003
+  shape: counters
+  labels:
+    cert: sim-cert-1
+  dimensions:
+  - id: retrievals
+    rate_signal: active_directory_certificate_service_cert_retrievals_retrievals
+- id: adcs.cert_failed_requests
+  title: Certificate failed requests processed
+  units: requests/s
+  family: cert
+  chart_type: line
+  priority: 60004
+  shape: counters
+  labels:
+    cert: sim-cert-1
+  dimensions:
+  - id: failed
+    rate_signal: active_directory_certificate_service_cert_failed_requests_failed
+- id: adcs.cert_issued_requests
+  title: Certificate issued requests processed
+  units: requests/s
+  family: cert
+  chart_type: line
+  priority: 60005
+  shape: counters
+  labels:
+    cert: sim-cert-1
+  dimensions:
+  - id: issued
+    rate_signal: active_directory_certificate_service_cert_issued_requests_issued
+- id: adcs.cert_pending_requests
+  title: Certificate pending requests processed
+  units: requests/s
+  family: cert
+  chart_type: line
+  priority: 60006
+  shape: counters
+  labels:
+    cert: sim-cert-1
+  dimensions:
+  - id: pending
+    rate_signal: active_directory_certificate_service_cert_pending_requests_pending
+- id: adcs.cert_challenge_responses
+  title: Certificate challenge responses
+  units: responses/s
+  family: cert
+  chart_type: line
+  priority: 60007
+  shape: counters
+  labels:
+    cert: sim-cert-1
+  dimensions:
+  - id: challenge
+    rate_signal: active_directory_certificate_service_cert_challenge_responses_challenge
+- id: adcs.cert_retrieval_processing_time
+  title: Certificate last retrieval processing time
+  units: seconds
+  family: cert
+  chart_type: line
+  priority: 60008
+  shape: independent
+  labels:
+    cert: sim-cert-1
+  dimensions:
+  - id: processing_time
+    signal: active_directory_certificate_service_cert_retrieval_processing_time_processing_time
+- id: adcs.cert_request_cryptographic_signing_time
+  title: Certificate last signing operation request time
+  units: seconds
+  family: cert
+  chart_type: line
+  priority: 60009
+  shape: independent
+  labels:
+    cert: sim-cert-1
+  dimensions:
+  - id: singing_time
+    signal: active_directory_certificate_service_cert_request_cryptographic_signing_time_singing_time
+- id: adcs.cert_request_policy_module_processing
+  title: Certificate last policy module processing request time
+  units: seconds
+  family: cert
+  chart_type: line
+  priority: 60010
+  shape: independent
+  labels:
+    cert: sim-cert-1
+  dimensions:
+  - id: processing_time
+    signal: active_directory_certificate_service_cert_request_policy_module_processing_processing_time
+- id: adcs.cert_challenge_response_processing_time
+  title: Certificate last challenge response time
+  units: seconds
+  family: cert
+  chart_type: line
+  priority: 60011
+  shape: independent
+  labels:
+    cert: sim-cert-1
+  dimensions:
+  - id: processing_time
+    signal: active_directory_certificate_service_cert_challenge_response_processing_time_processing_time
+- id: adcs.cert_signed_certificate_timestamp_lists
+  title: Certificate Signed Certificate Timestamp Lists processed
+  units: lists/s
+  family: cert
+  chart_type: line
+  priority: 60012
+  shape: counters
+  labels:
+    cert: sim-cert-1
+  dimensions:
+  - id: processing_time
+    rate_signal: active_directory_certificate_service_cert_signed_certificate_timestamp_lists_processing_time
+- id: adcs.cert_signed_certificate_timestamp_list_processing_time
+  title: Certificate last Signed Certificate Timestamp List process time
+  units: seconds
+  family: cert
+  chart_type: line
+  priority: 60013
+  shape: independent
+  labels:
+    cert: sim-cert-1
+  dimensions:
+  - id: processing_time
+    signal: active_directory_certificate_service_cert_signed_certificate_timestamp_list_processing_time_processing_time

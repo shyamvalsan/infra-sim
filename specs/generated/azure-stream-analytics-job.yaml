@@ -1,0 +1,383 @@
+version: 1
+name: azure-stream-analytics-job
+description: Azure Stream Analytics Job metrics, generated from Netdata's own collector metadata so the
+  contexts, units and dimension names match what a real Azure Stream Analytics Job node reports. Signals
+  are independent and plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  azure_stream_analytics_job_stream_analytics_event_flow_in:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_stream_analytics_job_stream_analytics_event_flow_out:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_stream_analytics_job_stream_analytics_input_data_throughput_received:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_stream_analytics_job_stream_analytics_input_sources_received_received:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_stream_analytics_job_stream_analytics_event_timing_late:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_stream_analytics_job_stream_analytics_event_timing_early:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_stream_analytics_job_stream_analytics_event_timing_out_of_order:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_stream_analytics_job_stream_analytics_backlogged_events_backlogged:
+    base: 90.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_stream_analytics_job_stream_analytics_watermark_delay_delay:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_stream_analytics_job_stream_analytics_errors_runtime:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_stream_analytics_job_stream_analytics_errors_data_conversion:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_stream_analytics_job_stream_analytics_errors_deserialization:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_stream_analytics_job_stream_analytics_function_requests_total:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_stream_analytics_job_stream_analytics_function_requests_failed:
+    base: 0.0
+    min: 0.0
+    max: 5000000.0
+  azure_stream_analytics_job_stream_analytics_function_events_input:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_stream_analytics_job_stream_analytics_resource_utilization_cpu:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_stream_analytics_job_stream_analytics_resource_utilization_su_memory:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: azure_monitor.stream_analytics.event_flow
+  title: Azure Stream Analytics Event Flow
+  units: events/s
+  family: stream
+  chart_type: line
+  priority: 60001
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: in
+    rate_signal: azure_stream_analytics_job_stream_analytics_event_flow_in
+  - id: out
+    rate_signal: azure_stream_analytics_job_stream_analytics_event_flow_out
+- id: azure_monitor.stream_analytics.input_data_throughput
+  title: Azure Stream Analytics Input Data Throughput
+  units: bytes/s
+  family: stream
+  chart_type: line
+  priority: 60002
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: received
+    rate_signal: azure_stream_analytics_job_stream_analytics_input_data_throughput_received
+- id: azure_monitor.stream_analytics.input_sources_received
+  title: Azure Stream Analytics Input Sources Received
+  units: sources/s
+  family: stream
+  chart_type: line
+  priority: 60003
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: received
+    rate_signal: azure_stream_analytics_job_stream_analytics_input_sources_received_received
+- id: azure_monitor.stream_analytics.event_timing
+  title: Azure Stream Analytics Event Timing Issues
+  units: events/s
+  family: stream
+  chart_type: line
+  priority: 60004
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: late
+    rate_signal: azure_stream_analytics_job_stream_analytics_event_timing_late
+  - id: early
+    rate_signal: azure_stream_analytics_job_stream_analytics_event_timing_early
+  - id: out_of_order
+    rate_signal: azure_stream_analytics_job_stream_analytics_event_timing_out_of_order
+- id: azure_monitor.stream_analytics.backlogged_events
+  title: Azure Stream Analytics Backlogged Events
+  units: events
+  family: stream
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: backlogged
+    signal: azure_stream_analytics_job_stream_analytics_backlogged_events_backlogged
+- id: azure_monitor.stream_analytics.watermark_delay
+  title: Azure Stream Analytics Watermark Delay
+  units: seconds
+  family: stream
+  chart_type: line
+  priority: 60006
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: delay
+    signal: azure_stream_analytics_job_stream_analytics_watermark_delay_delay
+- id: azure_monitor.stream_analytics.errors
+  title: Azure Stream Analytics Errors
+  units: errors/s
+  family: stream
+  chart_type: line
+  priority: 60007
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: runtime
+    rate_signal: azure_stream_analytics_job_stream_analytics_errors_runtime
+  - id: data_conversion
+    rate_signal: azure_stream_analytics_job_stream_analytics_errors_data_conversion
+  - id: deserialization
+    rate_signal: azure_stream_analytics_job_stream_analytics_errors_deserialization
+- id: azure_monitor.stream_analytics.function_requests
+  title: Azure Stream Analytics Function Requests
+  units: requests/s
+  family: stream
+  chart_type: line
+  priority: 60008
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: total
+    rate_signal: azure_stream_analytics_job_stream_analytics_function_requests_total
+  - id: failed
+    rate_signal: azure_stream_analytics_job_stream_analytics_function_requests_failed
+- id: azure_monitor.stream_analytics.function_events
+  title: Azure Stream Analytics Function Events
+  units: events/s
+  family: stream
+  chart_type: line
+  priority: 60009
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: input
+    rate_signal: azure_stream_analytics_job_stream_analytics_function_events_input
+- id: azure_monitor.stream_analytics.resource_utilization
+  title: Azure Stream Analytics Resource Utilization
+  units: percentage
+  family: stream
+  chart_type: line
+  priority: 60010
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: cpu
+    signal: azure_stream_analytics_job_stream_analytics_resource_utilization_cpu
+  - id: su_memory
+    signal: azure_stream_analytics_job_stream_analytics_resource_utilization_su_memory

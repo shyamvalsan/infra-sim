@@ -1,0 +1,361 @@
+version: 1
+name: btrfs
+description: BTRFS metrics, generated from Netdata's own collector metadata so the contexts, units and
+  dimension names match what a real BTRFS node reports. Signals are independent and plausible rather than
+  causally coupled - see scripts/sync-integrations.py.
+signals:
+  btrfs_disk_unallocated:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  btrfs_disk_data_free:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  btrfs_disk_data_used:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  btrfs_disk_meta_free:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  btrfs_disk_meta_used:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  btrfs_disk_sys_free:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  btrfs_disk_sys_used:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  btrfs_data_free:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  btrfs_data_used:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  btrfs_metadata_free:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  btrfs_metadata_used:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  btrfs_metadata_reserved:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  btrfs_system_free:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  btrfs_system_used:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  btrfs_commits_commits:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  btrfs_commits_perc_time_commits:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  btrfs_commit_timings_last:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  btrfs_commit_timings_max:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  btrfs_device_errors_write_errs:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  btrfs_device_errors_read_errs:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  btrfs_device_errors_flush_errs:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  btrfs_device_errors_corruption_errs:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  btrfs_device_errors_generation_errs:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+contexts:
+- id: btrfs.disk
+  title: BTRFS Physical Disk Allocation
+  units: MiB
+  family: disk
+  chart_type: stacked
+  priority: 60001
+  shape: independent
+  labels:
+    filesystem_uuid: sim-filesystem_uuid-1
+    filesystem_label: sim-filesystem_label-1
+  dimensions:
+  - id: unallocated
+    signal: btrfs_disk_unallocated
+  - id: data_free
+    signal: btrfs_disk_data_free
+  - id: data_used
+    signal: btrfs_disk_data_used
+  - id: meta_free
+    signal: btrfs_disk_meta_free
+  - id: meta_used
+    signal: btrfs_disk_meta_used
+  - id: sys_free
+    signal: btrfs_disk_sys_free
+  - id: sys_used
+    signal: btrfs_disk_sys_used
+- id: btrfs.data
+  title: BTRFS Data Allocation
+  units: MiB
+  family: data
+  chart_type: stacked
+  priority: 60002
+  shape: independent
+  labels:
+    filesystem_uuid: sim-filesystem_uuid-1
+    filesystem_label: sim-filesystem_label-1
+  dimensions:
+  - id: free
+    signal: btrfs_data_free
+  - id: used
+    signal: btrfs_data_used
+- id: btrfs.metadata
+  title: BTRFS Metadata Allocation
+  units: MiB
+  family: metadata
+  chart_type: stacked
+  priority: 60003
+  shape: independent
+  labels:
+    filesystem_uuid: sim-filesystem_uuid-1
+    filesystem_label: sim-filesystem_label-1
+  dimensions:
+  - id: free
+    signal: btrfs_metadata_free
+  - id: used
+    signal: btrfs_metadata_used
+  - id: reserved
+    signal: btrfs_metadata_reserved
+- id: btrfs.system
+  title: BTRFS System Allocation
+  units: MiB
+  family: system
+  chart_type: stacked
+  priority: 60004
+  shape: independent
+  labels:
+    filesystem_uuid: sim-filesystem_uuid-1
+    filesystem_label: sim-filesystem_label-1
+  dimensions:
+  - id: free
+    signal: btrfs_system_free
+  - id: used
+    signal: btrfs_system_used
+- id: btrfs.commits
+  title: BTRFS Commits
+  units: commits
+  family: commits
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels:
+    filesystem_uuid: sim-filesystem_uuid-1
+    filesystem_label: sim-filesystem_label-1
+  dimensions:
+  - id: commits
+    signal: btrfs_commits_commits
+- id: btrfs.commits_perc_time
+  title: BTRFS Commits Time Share
+  units: percentage
+  family: commits
+  chart_type: line
+  priority: 60006
+  shape: independent
+  labels:
+    filesystem_uuid: sim-filesystem_uuid-1
+    filesystem_label: sim-filesystem_label-1
+  dimensions:
+  - id: commits
+    signal: btrfs_commits_perc_time_commits
+- id: btrfs.commit_timings
+  title: BTRFS Commit Timings
+  units: ms
+  family: commit
+  chart_type: line
+  priority: 60007
+  shape: independent
+  labels:
+    filesystem_uuid: sim-filesystem_uuid-1
+    filesystem_label: sim-filesystem_label-1
+  dimensions:
+  - id: last
+    signal: btrfs_commit_timings_last
+  - id: max
+    signal: btrfs_commit_timings_max
+- id: btrfs.device_errors
+  title: BTRFS Device Errors
+  units: errors
+  family: device
+  chart_type: line
+  priority: 60008
+  shape: independent
+  labels:
+    device_id: sim-device_id-1
+    filesystem_uuid: sim-filesystem_uuid-1
+    filesystem_label: sim-filesystem_label-1
+  dimensions:
+  - id: write_errs
+    signal: btrfs_device_errors_write_errs
+  - id: read_errs
+    signal: btrfs_device_errors_read_errs
+  - id: flush_errs
+    signal: btrfs_device_errors_flush_errs
+  - id: corruption_errs
+    signal: btrfs_device_errors_corruption_errs
+  - id: generation_errs
+    signal: btrfs_device_errors_generation_errs

@@ -1,0 +1,1701 @@
+version: 1
+name: proxysql
+description: ProxySQL metrics, generated from Netdata's own collector metadata so the contexts, units
+  and dimension names match what a real ProxySQL node reports. Signals are independent and plausible rather
+  than causally coupled - see scripts/sync-integrations.py.
+signals:
+  proxysql_client_connections_count_connected:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_client_connections_count_non_idle:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_client_connections_count_hostgroup_locked:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_client_connections_rate_created:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_client_connections_rate_aborted:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  proxysql_server_connections_count_connected:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_server_connections_rate_created:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_server_connections_rate_aborted:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  proxysql_server_connections_rate_delayed:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_backends_traffic_recv:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_backends_traffic_sent:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_clients_traffic_recv:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_clients_traffic_sent:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_active_transactions_count_client:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_questions_rate_questions:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_slow_queries_rate_slow:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_queries_rate_autocommit:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_queries_rate_autocommit_filtered:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_queries_rate_commit_filtered:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_queries_rate_rollback:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_queries_rate_rollback_filtered:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_queries_rate_backend_change_user:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_queries_rate_backend_init_db:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_queries_rate_backend_set_names:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_queries_rate_frontend_init_db:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_queries_rate_frontend_set_names:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_queries_rate_frontend_use_db:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_backend_statements_count_total:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_backend_statements_count_unique:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_backend_statements_rate_prepare:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_backend_statements_rate_execute:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_backend_statements_rate_close:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_client_statements_count_total:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_client_statements_count_unique:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_client_statements_rate_prepare:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_client_statements_rate_execute:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_client_statements_rate_close:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_cached_statements_count_cached:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_query_cache_entries_count_entries:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_query_cache_memory_used_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_query_cache_io_in:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_query_cache_io_out:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_query_cache_requests_rate_read:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_query_cache_requests_rate_write:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_query_cache_requests_rate_read_success:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_mysql_monitor_workers_count_workers:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_mysql_monitor_workers_count_auxiliary:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_mysql_monitor_workers_rate_started:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_mysql_monitor_connect_checks_rate_succeed:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_mysql_monitor_connect_checks_rate_failed:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  proxysql_mysql_monitor_ping_checks_rate_succeed:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_mysql_monitor_ping_checks_rate_failed:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  proxysql_mysql_monitor_read_only_checks_rate_succeed:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_mysql_monitor_read_only_checks_rate_failed:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  proxysql_mysql_monitor_replication_lag_checks_rate_succeed:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_mysql_monitor_replication_lag_checks_rate_failed:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  proxysql_jemalloc_memory_used_active:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_jemalloc_memory_used_allocated:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_jemalloc_memory_used_mapped:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_jemalloc_memory_used_metadata:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_jemalloc_memory_used_resident:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_jemalloc_memory_used_retained:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_memory_used_auth:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_memory_used_sqlite3:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_memory_used_query_digest:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_memory_used_query_rules:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_memory_used_firewall_users_table:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_memory_used_firewall_users_config:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_memory_used_firewall_rules_table:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_memory_used_firewall_rules_config:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_memory_used_mysql_threads:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_memory_used_admin_threads:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_memory_used_cluster_threads:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_uptime_uptime:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_mysql_command_execution_rate_uptime:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_mysql_command_execution_time_time:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_mysql_command_execution_duration_100us:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_mysql_command_execution_duration_500us:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_mysql_command_execution_duration_1ms:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_mysql_command_execution_duration_5ms:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_mysql_command_execution_duration_10ms:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_mysql_command_execution_duration_50ms:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_mysql_command_execution_duration_100ms:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_mysql_command_execution_duration_500ms:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_mysql_command_execution_duration_1s:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_mysql_command_execution_duration_5s:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_mysql_command_execution_duration_10s:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_mysql_command_execution_duration_inf:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_mysql_user_connections_utilization_used:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_mysql_user_connections_count_used:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_hostgroup_backends_status_online:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_hostgroup_backends_status_shunned:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_hostgroup_backends_status_offline_soft:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_hostgroup_backends_status_offline_hard:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_backend_status_online:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  proxysql_backend_status_shunned:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  proxysql_backend_status_offline_soft:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  proxysql_backend_status_offline_hard:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  proxysql_backend_connections_usage_free:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_backend_connections_usage_used:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_backend_connections_rate_succeed:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_backend_connections_rate_failed:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  proxysql_backend_queries_rate_queries:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_backend_traffic_recv:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_backend_traffic_send:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  proxysql_backend_latency_latency:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: proxysql.client_connections_count
+  title: Client connections
+  units: connections
+  family: client
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: connected
+    signal: proxysql_client_connections_count_connected
+  - id: non_idle
+    signal: proxysql_client_connections_count_non_idle
+  - id: hostgroup_locked
+    signal: proxysql_client_connections_count_hostgroup_locked
+- id: proxysql.client_connections_rate
+  title: Client connections rate
+  units: connections/s
+  family: client
+  chart_type: line
+  priority: 60002
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: created
+    rate_signal: proxysql_client_connections_rate_created
+  - id: aborted
+    rate_signal: proxysql_client_connections_rate_aborted
+- id: proxysql.server_connections_count
+  title: Server connections
+  units: connections
+  family: server
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: connected
+    signal: proxysql_server_connections_count_connected
+- id: proxysql.server_connections_rate
+  title: Server connections rate
+  units: connections/s
+  family: server
+  chart_type: line
+  priority: 60004
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: created
+    rate_signal: proxysql_server_connections_rate_created
+  - id: aborted
+    rate_signal: proxysql_server_connections_rate_aborted
+  - id: delayed
+    rate_signal: proxysql_server_connections_rate_delayed
+- id: proxysql.backends_traffic
+  title: Backends traffic
+  units: B/s
+  family: backends
+  chart_type: line
+  priority: 60005
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: recv
+    rate_signal: proxysql_backends_traffic_recv
+  - id: sent
+    rate_signal: proxysql_backends_traffic_sent
+- id: proxysql.clients_traffic
+  title: Clients traffic
+  units: B/s
+  family: clients
+  chart_type: line
+  priority: 60006
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: recv
+    rate_signal: proxysql_clients_traffic_recv
+  - id: sent
+    rate_signal: proxysql_clients_traffic_sent
+- id: proxysql.active_transactions_count
+  title: Client connections that are currently processing a transaction
+  units: connections
+  family: active
+  chart_type: line
+  priority: 60007
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: client
+    signal: proxysql_active_transactions_count_client
+- id: proxysql.questions_rate
+  title: Client requests / statements executed
+  units: questions/s
+  family: questions
+  chart_type: line
+  priority: 60008
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: questions
+    rate_signal: proxysql_questions_rate_questions
+- id: proxysql.slow_queries_rate
+  title: Slow queries
+  units: queries/s
+  family: slow
+  chart_type: line
+  priority: 60009
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: slow
+    rate_signal: proxysql_slow_queries_rate_slow
+- id: proxysql.queries_rate
+  title: Queries rate
+  units: queries/s
+  family: queries
+  chart_type: stacked
+  priority: 60010
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: autocommit
+    rate_signal: proxysql_queries_rate_autocommit
+  - id: autocommit_filtered
+    rate_signal: proxysql_queries_rate_autocommit_filtered
+  - id: commit_filtered
+    rate_signal: proxysql_queries_rate_commit_filtered
+  - id: rollback
+    rate_signal: proxysql_queries_rate_rollback
+  - id: rollback_filtered
+    rate_signal: proxysql_queries_rate_rollback_filtered
+  - id: backend_change_user
+    rate_signal: proxysql_queries_rate_backend_change_user
+  - id: backend_init_db
+    rate_signal: proxysql_queries_rate_backend_init_db
+  - id: backend_set_names
+    rate_signal: proxysql_queries_rate_backend_set_names
+  - id: frontend_init_db
+    rate_signal: proxysql_queries_rate_frontend_init_db
+  - id: frontend_set_names
+    rate_signal: proxysql_queries_rate_frontend_set_names
+  - id: frontend_use_db
+    rate_signal: proxysql_queries_rate_frontend_use_db
+- id: proxysql.backend_statements_count
+  title: Statements available across all backend connections
+  units: statements
+  family: backend
+  chart_type: line
+  priority: 60011
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: total
+    signal: proxysql_backend_statements_count_total
+  - id: unique
+    signal: proxysql_backend_statements_count_unique
+- id: proxysql.backend_statements_rate
+  title: Statements executed against the backends
+  units: statements/s
+  family: backend
+  chart_type: stacked
+  priority: 60012
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: prepare
+    rate_signal: proxysql_backend_statements_rate_prepare
+  - id: execute
+    rate_signal: proxysql_backend_statements_rate_execute
+  - id: close
+    rate_signal: proxysql_backend_statements_rate_close
+- id: proxysql.client_statements_count
+  title: Statements that are in use by clients
+  units: statements
+  family: client
+  chart_type: line
+  priority: 60013
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: total
+    signal: proxysql_client_statements_count_total
+  - id: unique
+    signal: proxysql_client_statements_count_unique
+- id: proxysql.client_statements_rate
+  title: Statements executed by clients
+  units: statements/s
+  family: client
+  chart_type: stacked
+  priority: 60014
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: prepare
+    rate_signal: proxysql_client_statements_rate_prepare
+  - id: execute
+    rate_signal: proxysql_client_statements_rate_execute
+  - id: close
+    rate_signal: proxysql_client_statements_rate_close
+- id: proxysql.cached_statements_count
+  title: Global prepared statements
+  units: statements
+  family: cached
+  chart_type: line
+  priority: 60015
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: cached
+    signal: proxysql_cached_statements_count_cached
+- id: proxysql.query_cache_entries_count
+  title: Query Cache entries
+  units: entries
+  family: query
+  chart_type: line
+  priority: 60016
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: entries
+    signal: proxysql_query_cache_entries_count_entries
+- id: proxysql.query_cache_memory_used
+  title: Query Cache memory used
+  units: B
+  family: query
+  chart_type: line
+  priority: 60017
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: used
+    signal: proxysql_query_cache_memory_used_used
+- id: proxysql.query_cache_io
+  title: Query Cache I/O
+  units: B/s
+  family: query
+  chart_type: line
+  priority: 60018
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: in
+    rate_signal: proxysql_query_cache_io_in
+  - id: out
+    rate_signal: proxysql_query_cache_io_out
+- id: proxysql.query_cache_requests_rate
+  title: Query Cache requests
+  units: requests/s
+  family: query
+  chart_type: line
+  priority: 60019
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: read
+    rate_signal: proxysql_query_cache_requests_rate_read
+  - id: write
+    rate_signal: proxysql_query_cache_requests_rate_write
+  - id: read_success
+    rate_signal: proxysql_query_cache_requests_rate_read_success
+- id: proxysql.mysql_monitor_workers_count
+  title: MySQL monitor workers
+  units: threads
+  family: mysql
+  chart_type: line
+  priority: 60020
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: workers
+    signal: proxysql_mysql_monitor_workers_count_workers
+  - id: auxiliary
+    signal: proxysql_mysql_monitor_workers_count_auxiliary
+- id: proxysql.mysql_monitor_workers_rate
+  title: MySQL monitor workers rate
+  units: workers/s
+  family: mysql
+  chart_type: line
+  priority: 60021
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: started
+    rate_signal: proxysql_mysql_monitor_workers_rate_started
+- id: proxysql.mysql_monitor_connect_checks_rate
+  title: MySQL monitor connect checks
+  units: checks/s
+  family: mysql
+  chart_type: line
+  priority: 60022
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: succeed
+    rate_signal: proxysql_mysql_monitor_connect_checks_rate_succeed
+  - id: failed
+    rate_signal: proxysql_mysql_monitor_connect_checks_rate_failed
+- id: proxysql.mysql_monitor_ping_checks_rate
+  title: MySQL monitor ping checks
+  units: checks/s
+  family: mysql
+  chart_type: line
+  priority: 60023
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: succeed
+    rate_signal: proxysql_mysql_monitor_ping_checks_rate_succeed
+  - id: failed
+    rate_signal: proxysql_mysql_monitor_ping_checks_rate_failed
+- id: proxysql.mysql_monitor_read_only_checks_rate
+  title: MySQL monitor read only checks
+  units: checks/s
+  family: mysql
+  chart_type: line
+  priority: 60024
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: succeed
+    rate_signal: proxysql_mysql_monitor_read_only_checks_rate_succeed
+  - id: failed
+    rate_signal: proxysql_mysql_monitor_read_only_checks_rate_failed
+- id: proxysql.mysql_monitor_replication_lag_checks_rate
+  title: MySQL monitor replication lag checks
+  units: checks/s
+  family: mysql
+  chart_type: line
+  priority: 60025
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: succeed
+    rate_signal: proxysql_mysql_monitor_replication_lag_checks_rate_succeed
+  - id: failed
+    rate_signal: proxysql_mysql_monitor_replication_lag_checks_rate_failed
+- id: proxysql.jemalloc_memory_used
+  title: Jemalloc used memory
+  units: B
+  family: jemalloc
+  chart_type: stacked
+  priority: 60026
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: active
+    signal: proxysql_jemalloc_memory_used_active
+  - id: allocated
+    signal: proxysql_jemalloc_memory_used_allocated
+  - id: mapped
+    signal: proxysql_jemalloc_memory_used_mapped
+  - id: metadata
+    signal: proxysql_jemalloc_memory_used_metadata
+  - id: resident
+    signal: proxysql_jemalloc_memory_used_resident
+  - id: retained
+    signal: proxysql_jemalloc_memory_used_retained
+- id: proxysql.memory_used
+  title: Memory used
+  units: B
+  family: memory
+  chart_type: stacked
+  priority: 60027
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: auth
+    signal: proxysql_memory_used_auth
+  - id: sqlite3
+    signal: proxysql_memory_used_sqlite3
+  - id: query_digest
+    signal: proxysql_memory_used_query_digest
+  - id: query_rules
+    signal: proxysql_memory_used_query_rules
+  - id: firewall_users_table
+    signal: proxysql_memory_used_firewall_users_table
+  - id: firewall_users_config
+    signal: proxysql_memory_used_firewall_users_config
+  - id: firewall_rules_table
+    signal: proxysql_memory_used_firewall_rules_table
+  - id: firewall_rules_config
+    signal: proxysql_memory_used_firewall_rules_config
+  - id: mysql_threads
+    signal: proxysql_memory_used_mysql_threads
+  - id: admin_threads
+    signal: proxysql_memory_used_admin_threads
+  - id: cluster_threads
+    signal: proxysql_memory_used_cluster_threads
+- id: proxysql.uptime
+  title: Uptime
+  units: seconds
+  family: uptime
+  chart_type: line
+  priority: 60028
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: uptime
+    signal: proxysql_uptime_uptime
+- id: proxysql.mysql_command_execution_rate
+  title: MySQL command execution
+  units: seconds
+  family: mysql
+  chart_type: line
+  priority: 60029
+  shape: independent
+  labels:
+    command: sim-command-1
+  dimensions:
+  - id: uptime
+    signal: proxysql_mysql_command_execution_rate_uptime
+- id: proxysql.mysql_command_execution_time
+  title: MySQL command execution time
+  units: microseconds
+  family: mysql
+  chart_type: line
+  priority: 60030
+  shape: independent
+  labels:
+    command: sim-command-1
+  dimensions:
+  - id: time
+    signal: proxysql_mysql_command_execution_time_time
+- id: proxysql.mysql_command_execution_duration
+  title: MySQL command execution duration histogram
+  units: microseconds
+  family: mysql
+  chart_type: stacked
+  priority: 60031
+  shape: independent
+  labels:
+    command: sim-command-1
+  dimensions:
+  - id: 100us
+    signal: proxysql_mysql_command_execution_duration_100us
+  - id: 500us
+    signal: proxysql_mysql_command_execution_duration_500us
+  - id: 1ms
+    signal: proxysql_mysql_command_execution_duration_1ms
+  - id: 5ms
+    signal: proxysql_mysql_command_execution_duration_5ms
+  - id: 10ms
+    signal: proxysql_mysql_command_execution_duration_10ms
+  - id: 50ms
+    signal: proxysql_mysql_command_execution_duration_50ms
+  - id: 100ms
+    signal: proxysql_mysql_command_execution_duration_100ms
+  - id: 500ms
+    signal: proxysql_mysql_command_execution_duration_500ms
+  - id: 1s
+    signal: proxysql_mysql_command_execution_duration_1s
+  - id: 5s
+    signal: proxysql_mysql_command_execution_duration_5s
+  - id: 10s
+    signal: proxysql_mysql_command_execution_duration_10s
+  - id: +Inf
+    signal: proxysql_mysql_command_execution_duration_inf
+- id: proxysql.mysql_user_connections_utilization
+  title: MySQL user connections utilization
+  units: percentage
+  family: mysql
+  chart_type: line
+  priority: 60032
+  shape: independent
+  labels:
+    user: sim-user-1
+  dimensions:
+  - id: used
+    signal: proxysql_mysql_user_connections_utilization_used
+- id: proxysql.mysql_user_connections_count
+  title: MySQL user connections used
+  units: connections
+  family: mysql
+  chart_type: line
+  priority: 60033
+  shape: independent
+  labels:
+    user: sim-user-1
+  dimensions:
+  - id: used
+    signal: proxysql_mysql_user_connections_count_used
+- id: proxysql.hostgroup_backends_status
+  title: Hostgroup backends count in each status
+  units: backends
+  family: hostgroup
+  chart_type: line
+  priority: 60034
+  shape: independent
+  labels:
+    hostgroup: sim-hostgroup-1
+  dimensions:
+  - id: online
+    signal: proxysql_hostgroup_backends_status_online
+  - id: shunned
+    signal: proxysql_hostgroup_backends_status_shunned
+  - id: offline_soft
+    signal: proxysql_hostgroup_backends_status_offline_soft
+  - id: offline_hard
+    signal: proxysql_hostgroup_backends_status_offline_hard
+- id: proxysql.backend_status
+  title: Backend status
+  units: status
+  family: backend
+  chart_type: line
+  priority: 60035
+  shape: independent
+  labels:
+    hostgroup: sim-hostgroup-1
+    host: sim-host-1
+    port: sim-port-1
+  dimensions:
+  - id: online
+    signal: proxysql_backend_status_online
+  - id: shunned
+    signal: proxysql_backend_status_shunned
+  - id: offline_soft
+    signal: proxysql_backend_status_offline_soft
+  - id: offline_hard
+    signal: proxysql_backend_status_offline_hard
+- id: proxysql.backend_connections_usage
+  title: Backend connections usage
+  units: connections
+  family: backend
+  chart_type: line
+  priority: 60036
+  shape: independent
+  labels:
+    hostgroup: sim-hostgroup-1
+    host: sim-host-1
+    port: sim-port-1
+  dimensions:
+  - id: free
+    signal: proxysql_backend_connections_usage_free
+  - id: used
+    signal: proxysql_backend_connections_usage_used
+- id: proxysql.backend_connections_rate
+  title: Backend connections established
+  units: connections/s
+  family: backend
+  chart_type: line
+  priority: 60037
+  shape: counters
+  labels:
+    hostgroup: sim-hostgroup-1
+    host: sim-host-1
+    port: sim-port-1
+  dimensions:
+  - id: succeed
+    rate_signal: proxysql_backend_connections_rate_succeed
+  - id: failed
+    rate_signal: proxysql_backend_connections_rate_failed
+- id: proxysql.backend_queries_rate
+  title: Backend queries
+  units: queries/s
+  family: backend
+  chart_type: line
+  priority: 60038
+  shape: counters
+  labels:
+    hostgroup: sim-hostgroup-1
+    host: sim-host-1
+    port: sim-port-1
+  dimensions:
+  - id: queries
+    rate_signal: proxysql_backend_queries_rate_queries
+- id: proxysql.backend_traffic
+  title: Backend traffic
+  units: B/s
+  family: backend
+  chart_type: line
+  priority: 60039
+  shape: counters
+  labels:
+    hostgroup: sim-hostgroup-1
+    host: sim-host-1
+    port: sim-port-1
+  dimensions:
+  - id: recv
+    rate_signal: proxysql_backend_traffic_recv
+  - id: send
+    rate_signal: proxysql_backend_traffic_send
+- id: proxysql.backend_latency
+  title: Backend latency
+  units: microseconds
+  family: backend
+  chart_type: line
+  priority: 60040
+  shape: independent
+  labels:
+    hostgroup: sim-hostgroup-1
+    host: sim-host-1
+    port: sim-port-1
+  dimensions:
+  - id: latency
+    signal: proxysql_backend_latency_latency

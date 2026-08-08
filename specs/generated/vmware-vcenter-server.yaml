@@ -1,0 +1,4863 @@
+version: 1
+name: vmware-vcenter-server
+description: VMware vCenter Server metrics, generated from Netdata's own collector metadata so the contexts,
+  units and dimension names match what a real VMware vCenter Server node reports. Signals are independent
+  and plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  vmware_vcenter_server_inventory_objects_datacenters:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_inventory_objects_folders:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_inventory_objects_clusters:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_inventory_objects_hosts:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_inventory_objects_vms:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_inventory_objects_datastores:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_inventory_objects_resource_pools:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_vm_cpu_utilization_used:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_vm_mem_utilization_used:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_vm_mem_usage_granted:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_vm_mem_usage_consumed:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_vm_mem_usage_active:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_vm_mem_usage_shared:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_vm_mem_swap_usage_swapped:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_vm_mem_swap_io_in:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_vm_mem_swap_io_out:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_vm_disk_io_read:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_vm_disk_io_write:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_vm_disk_max_latency_latency:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_vm_net_traffic_received:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_vm_net_traffic_sent:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_vm_net_packets_received:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_vm_net_packets_sent:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_vm_net_drops_received:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_vm_net_drops_sent:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_vm_overall_status_green:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_vm_overall_status_red:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_vm_overall_status_yellow:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_vm_overall_status_gray:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_vm_power_state_powered_on:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_vm_power_state_powered_off:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_vm_power_state_suspended:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_vm_connection_state_connected:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_vm_connection_state_disconnected:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_vm_connection_state_orphaned:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_vm_connection_state_inaccessible:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_vm_connection_state_invalid:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_vm_tools_running_status_running:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_vm_tools_running_status_not_running:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_vm_tools_running_status_executing_scripts:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_vm_tools_running_status_unknown:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_vm_tools_version_status_current:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_vm_tools_version_status_need_upgrade:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_vm_tools_version_status_not_installed:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_vm_tools_version_status_unmanaged:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_vm_tools_version_status_too_old:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_vm_tools_version_status_supported_old:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_vm_tools_version_status_supported_new:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_vm_tools_version_status_too_new:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_vm_tools_version_status_blacklisted:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_vm_tools_version_status_unknown:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_vm_consolidation_needed_needed:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_vm_consolidation_needed_not_needed:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_vm_system_uptime_uptime:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_vm_config_cpu_vcpus:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_vm_config_memory_memory:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_vm_config_devices_disks:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_vm_config_devices_nics:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_vm_storage_usage_committed:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_vm_storage_usage_uncommitted:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_vm_storage_usage_unshared:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_vm_snapshot_count_count:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_vm_snapshot_max_age_age:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_vm_snapshot_max_chain_depth_depth:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_vm_power_usage_power:
+    base: 145.0
+    min: 0.0
+    max: 2000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_vm_energy_usage_energy:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_vsan_vm_operations_read:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_vsan_vm_operations_write:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_vsan_vm_throughput_read:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_vsan_vm_throughput_write:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_vsan_vm_latency_read:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_vsan_vm_latency_write:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_host_power_usage_power:
+    base: 145.0
+    min: 0.0
+    max: 2000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_host_power_usage_cap:
+    base: 145.0
+    min: 0.0
+    max: 2000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_host_power_capacity_usage_used:
+    base: 145.0
+    min: 0.0
+    max: 2000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_host_power_capacity_usage_usable:
+    base: 145.0
+    min: 0.0
+    max: 2000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_host_power_capacity_usage_idle:
+    base: 145.0
+    min: 0.0
+    max: 2000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_host_power_capacity_usage_system:
+    base: 145.0
+    min: 0.0
+    max: 2000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_host_power_capacity_usage_vm:
+    base: 145.0
+    min: 0.0
+    max: 2000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_host_power_capacity_utilization_used:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_host_energy_usage_energy:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_vsan_host_operations_read:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_vsan_host_operations_write:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_vsan_host_throughput_read:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_vsan_host_throughput_write:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_vsan_host_latency_read:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_vsan_host_latency_write:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_vsan_host_congestions_congestions:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_vsan_host_cache_hit_rate_hit_rate:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_host_cpu_utilization_used:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_host_mem_utilization_used:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_host_mem_usage_granted:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_host_mem_usage_consumed:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_host_mem_usage_active:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_host_mem_usage_shared:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_host_mem_usage_sharedcommon:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_host_mem_swap_io_in:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_host_mem_swap_io_out:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_host_disk_io_read:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_host_disk_io_write:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_host_disk_max_latency_latency:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_host_net_traffic_received:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_host_net_traffic_sent:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_host_net_packets_received:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_host_net_packets_sent:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_host_net_drops_received:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_host_net_drops_sent:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_host_net_errors_received:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  vmware_vcenter_server_host_net_errors_sent:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  vmware_vcenter_server_host_overall_status_green:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_host_overall_status_red:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_host_overall_status_yellow:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_host_overall_status_gray:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_host_power_state_powered_on:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_host_power_state_powered_off:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_host_power_state_standby:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_host_power_state_unknown:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_host_connection_state_connected:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_host_connection_state_not_responding:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_host_connection_state_disconnected:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_host_maintenance_status_normal:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_host_maintenance_status_in_maintenance:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_host_system_uptime_uptime:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_datastore_disk_io_read:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_datastore_disk_io_write:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_datastore_disk_iops_reads:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_datastore_disk_iops_writes:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_datastore_disk_latency_read:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_datastore_disk_latency_write:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_datastore_space_utilization_used:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_datastore_space_usage_capacity:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_datastore_space_usage_free:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_datastore_space_usage_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_datastore_space_usage_uncommitted:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_datastore_overall_status_green:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_datastore_overall_status_red:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_datastore_overall_status_yellow:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_datastore_overall_status_gray:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_datastore_accessibility_status_accessible:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_datastore_accessibility_status_inaccessible:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_datastore_maintenance_status_normal:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_datastore_maintenance_status_entering_maintenance:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_datastore_maintenance_status_in_maintenance:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_datastore_maintenance_status_unknown:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_datastore_multiple_host_access_enabled:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_datastore_multiple_host_access_disabled:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_datastore_multiple_host_access_unknown:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_datastore_cluster_space_utilization_used:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_datastore_cluster_space_usage_capacity:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_datastore_cluster_space_usage_free:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_datastore_cluster_space_usage_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_datastore_cluster_storage_drs_status_enabled:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_datastore_cluster_storage_drs_status_disabled:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_datastore_cluster_overall_status_green:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_datastore_cluster_overall_status_red:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_datastore_cluster_overall_status_yellow:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_datastore_cluster_overall_status_gray:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_vsan_cluster_space_usage_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_vsan_cluster_space_usage_free:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_vsan_cluster_space_usage_total:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_vsan_cluster_space_utilization_used:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_vsan_cluster_health_status_green:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_vsan_cluster_health_status_yellow:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_vsan_cluster_health_status_red:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_vsan_cluster_health_status_unknown:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_vsan_cluster_operations_read:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_vsan_cluster_operations_write:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_vsan_cluster_throughput_read:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_vsan_cluster_throughput_write:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_vsan_cluster_latency_read:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_vsan_cluster_latency_write:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_vsan_cluster_congestions_congestions:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_cluster_hosts_total:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_cluster_hosts_effective:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_cluster_cpu_capacity_total:
+    base: 2400.0
+    min: 0.0
+    max: 6000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_cluster_cpu_capacity_effective:
+    base: 2400.0
+    min: 0.0
+    max: 6000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_cluster_mem_capacity_total:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_cluster_mem_capacity_effective:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_cluster_cpu_topology_cores:
+    base: 320.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_cluster_cpu_topology_threads:
+    base: 320.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_cluster_drs_config_enabled:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_cluster_drs_mode_manual:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_cluster_drs_mode_partially_automated:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_cluster_drs_mode_fully_automated:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_cluster_drs_mode_unknown:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_cluster_drs_vmotion_rate_rate:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_cluster_ha_config_enabled:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_cluster_ha_config_admission_control:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_cluster_ha_host_monitoring_enabled:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_cluster_ha_host_monitoring_disabled:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_cluster_ha_host_monitoring_unknown:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_cluster_ha_vm_monitoring_disabled:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_cluster_ha_vm_monitoring_vm_monitoring_only:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_cluster_ha_vm_monitoring_vm_and_app_monitoring:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_cluster_ha_vm_monitoring_unknown:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_cluster_ha_vm_component_protection_enabled:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_cluster_ha_vm_component_protection_disabled:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_cluster_ha_vm_component_protection_unknown:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_cluster_overall_status_green:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_cluster_overall_status_red:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_cluster_overall_status_yellow:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_cluster_overall_status_gray:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_cluster_vmotions_vmotions:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_cluster_drs_score_score:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_cluster_drs_balance_current:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_cluster_drs_balance_target:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_cluster_vm_count_total:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_cluster_vm_count_powered_off:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_cluster_usage_cpu_demand:
+    base: 2400.0
+    min: 0.0
+    max: 6000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_cluster_usage_cpu_entitled:
+    base: 2400.0
+    min: 0.0
+    max: 6000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_cluster_usage_cpu_reserved:
+    base: 2400.0
+    min: 0.0
+    max: 6000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_cluster_usage_mem_demand:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_cluster_usage_mem_entitled:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_cluster_usage_mem_reserved:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_cluster_cpu_utilization_used:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_cluster_cpu_usage_used:
+    base: 2400.0
+    min: 0.0
+    max: 6000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_cluster_cpu_usage_total:
+    base: 2400.0
+    min: 0.0
+    max: 6000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_cluster_mem_utilization_used:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_cluster_mem_usage_consumed:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_cluster_mem_usage_active:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_cluster_mem_usage_granted:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_cluster_mem_usage_shared:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_cluster_mem_usage_overhead:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_cluster_mem_usage_swap_used:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_cluster_services_fairness_cpu:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_cluster_services_fairness_memory:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_cluster_services_effective_cpu_effective_cpu:
+    base: 2400.0
+    min: 0.0
+    max: 6000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_cluster_services_effective_mem_effective_mem:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_cluster_services_failover_failures_tolerable:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  vmware_vcenter_server_cluster_vm_migrations_vmotion:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_cluster_vm_migrations_svmotion:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_cluster_vm_migrations_xvmotion:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_cluster_vm_lifecycle_poweron:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_cluster_vm_lifecycle_poweroff:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_cluster_vm_lifecycle_create:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_cluster_vm_lifecycle_destroy:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_cluster_vm_lifecycle_clone:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_cluster_vm_lifecycle_deploy:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_cluster_vm_management_reconfigure:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_cluster_vm_management_reset:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_cluster_vm_management_suspend:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_cluster_vm_management_register:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_cluster_vm_management_unregister:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_cluster_vm_guest_ops_reboot:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_cluster_vm_guest_ops_shutdown:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_cluster_vm_guest_ops_standby:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_cluster_vm_cold_migrations_change_ds:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_cluster_vm_cold_migrations_change_host:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_cluster_vm_cold_migrations_change_host_ds:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_resource_pool_cpu_usage_usage:
+    base: 2400.0
+    min: 0.0
+    max: 6000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_resource_pool_cpu_usage_demand:
+    base: 2400.0
+    min: 0.0
+    max: 6000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_resource_pool_cpu_entitlement_distributed:
+    base: 2400.0
+    min: 0.0
+    max: 6000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_resource_pool_cpu_allocation_reservation_used:
+    base: 2400.0
+    min: 0.0
+    max: 6000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_resource_pool_cpu_allocation_unreserved_for_vm:
+    base: 2400.0
+    min: 0.0
+    max: 6000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_resource_pool_cpu_allocation_max_usage:
+    base: 2400.0
+    min: 0.0
+    max: 6000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_resource_pool_mem_usage_host:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_resource_pool_mem_usage_guest:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_resource_pool_mem_entitlement_distributed:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_resource_pool_mem_allocation_reservation_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_resource_pool_mem_allocation_unreserved_for_vm:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_resource_pool_mem_allocation_max_usage:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_resource_pool_mem_breakdown_private:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_resource_pool_mem_breakdown_shared:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_resource_pool_mem_breakdown_swapped:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_resource_pool_mem_breakdown_ballooned:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_resource_pool_mem_breakdown_overhead:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_resource_pool_mem_breakdown_consumed_overhead:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_resource_pool_mem_breakdown_compressed:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_resource_pool_cpu_config_reservation:
+    base: 2400.0
+    min: 0.0
+    max: 6000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_resource_pool_cpu_config_limit:
+    base: 2400.0
+    min: 0.0
+    max: 6000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_resource_pool_mem_config_reservation:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_resource_pool_mem_config_limit:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  vmware_vcenter_server_resource_pool_overall_status_green:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_resource_pool_overall_status_red:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_resource_pool_overall_status_yellow:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  vmware_vcenter_server_resource_pool_overall_status_gray:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+contexts:
+- id: vsphere.inventory_objects
+  title: vSphere inventory object count after include filters are applied
+  units: objects
+  family: inventory
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels:
+    id: sim-id-1
+  dimensions:
+  - id: datacenters
+    signal: vmware_vcenter_server_inventory_objects_datacenters
+  - id: folders
+    signal: vmware_vcenter_server_inventory_objects_folders
+  - id: clusters
+    signal: vmware_vcenter_server_inventory_objects_clusters
+  - id: hosts
+    signal: vmware_vcenter_server_inventory_objects_hosts
+  - id: vms
+    signal: vmware_vcenter_server_inventory_objects_vms
+  - id: datastores
+    signal: vmware_vcenter_server_inventory_objects_datastores
+  - id: resource_pools
+    signal: vmware_vcenter_server_inventory_objects_resource_pools
+- id: vsphere.vm_cpu_utilization
+  title: Virtual Machine CPU utilization
+  units: percentage
+  family: vm
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    host: sim-host-1
+    vm: sim-vm-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: used
+    signal: vmware_vcenter_server_vm_cpu_utilization_used
+- id: vsphere.vm_mem_utilization
+  title: Virtual Machine memory utilization
+  units: percentage
+  family: vm
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    host: sim-host-1
+    vm: sim-vm-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: used
+    signal: vmware_vcenter_server_vm_mem_utilization_used
+- id: vsphere.vm_mem_usage
+  title: Virtual Machine memory usage
+  units: KiB
+  family: vm
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    host: sim-host-1
+    vm: sim-vm-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: granted
+    signal: vmware_vcenter_server_vm_mem_usage_granted
+  - id: consumed
+    signal: vmware_vcenter_server_vm_mem_usage_consumed
+  - id: active
+    signal: vmware_vcenter_server_vm_mem_usage_active
+  - id: shared
+    signal: vmware_vcenter_server_vm_mem_usage_shared
+- id: vsphere.vm_mem_swap_usage
+  title: Virtual Machine VMKernel memory swap usage
+  units: KiB
+  family: vm
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    host: sim-host-1
+    vm: sim-vm-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: swapped
+    signal: vmware_vcenter_server_vm_mem_swap_usage_swapped
+- id: vsphere.vm_mem_swap_io
+  title: Virtual Machine VMKernel memory swap IO
+  units: KiB/s
+  family: vm
+  chart_type: area
+  priority: 60006
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    host: sim-host-1
+    vm: sim-vm-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: in
+    signal: vmware_vcenter_server_vm_mem_swap_io_in
+  - id: out
+    signal: vmware_vcenter_server_vm_mem_swap_io_out
+- id: vsphere.vm_disk_io
+  title: Virtual Machine disk IO
+  units: KiB/s
+  family: vm
+  chart_type: area
+  priority: 60007
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    host: sim-host-1
+    vm: sim-vm-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: read
+    signal: vmware_vcenter_server_vm_disk_io_read
+  - id: write
+    signal: vmware_vcenter_server_vm_disk_io_write
+- id: vsphere.vm_disk_max_latency
+  title: Virtual Machine disk max latency
+  units: milliseconds
+  family: vm
+  chart_type: line
+  priority: 60008
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    host: sim-host-1
+    vm: sim-vm-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: latency
+    signal: vmware_vcenter_server_vm_disk_max_latency_latency
+- id: vsphere.vm_net_traffic
+  title: Virtual Machine network traffic
+  units: KiB/s
+  family: vm
+  chart_type: area
+  priority: 60009
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    host: sim-host-1
+    vm: sim-vm-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: received
+    signal: vmware_vcenter_server_vm_net_traffic_received
+  - id: sent
+    signal: vmware_vcenter_server_vm_net_traffic_sent
+- id: vsphere.vm_net_packets
+  title: Virtual Machine network packets
+  units: packets
+  family: vm
+  chart_type: line
+  priority: 60010
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    host: sim-host-1
+    vm: sim-vm-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: received
+    signal: vmware_vcenter_server_vm_net_packets_received
+  - id: sent
+    signal: vmware_vcenter_server_vm_net_packets_sent
+- id: vsphere.vm_net_drops
+  title: Virtual Machine network dropped packets
+  units: drops
+  family: vm
+  chart_type: line
+  priority: 60011
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    host: sim-host-1
+    vm: sim-vm-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: received
+    signal: vmware_vcenter_server_vm_net_drops_received
+  - id: sent
+    signal: vmware_vcenter_server_vm_net_drops_sent
+- id: vsphere.vm_overall_status
+  title: Virtual Machine overall alarm status
+  units: status
+  family: vm
+  chart_type: line
+  priority: 60012
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    host: sim-host-1
+    vm: sim-vm-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: green
+    signal: vmware_vcenter_server_vm_overall_status_green
+  - id: red
+    signal: vmware_vcenter_server_vm_overall_status_red
+  - id: yellow
+    signal: vmware_vcenter_server_vm_overall_status_yellow
+  - id: gray
+    signal: vmware_vcenter_server_vm_overall_status_gray
+- id: vsphere.vm_power_state
+  title: Virtual Machine power state
+  units: status
+  family: vm
+  chart_type: line
+  priority: 60013
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    host: sim-host-1
+    vm: sim-vm-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: powered_on
+    signal: vmware_vcenter_server_vm_power_state_powered_on
+  - id: powered_off
+    signal: vmware_vcenter_server_vm_power_state_powered_off
+  - id: suspended
+    signal: vmware_vcenter_server_vm_power_state_suspended
+- id: vsphere.vm_connection_state
+  title: Virtual Machine connection state
+  units: status
+  family: vm
+  chart_type: line
+  priority: 60014
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    host: sim-host-1
+    vm: sim-vm-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: connected
+    signal: vmware_vcenter_server_vm_connection_state_connected
+  - id: disconnected
+    signal: vmware_vcenter_server_vm_connection_state_disconnected
+  - id: orphaned
+    signal: vmware_vcenter_server_vm_connection_state_orphaned
+  - id: inaccessible
+    signal: vmware_vcenter_server_vm_connection_state_inaccessible
+  - id: invalid
+    signal: vmware_vcenter_server_vm_connection_state_invalid
+- id: vsphere.vm_tools_running_status
+  title: Virtual Machine VMware Tools running status
+  units: status
+  family: vm
+  chart_type: line
+  priority: 60015
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    host: sim-host-1
+    vm: sim-vm-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: running
+    signal: vmware_vcenter_server_vm_tools_running_status_running
+  - id: not_running
+    signal: vmware_vcenter_server_vm_tools_running_status_not_running
+  - id: executing_scripts
+    signal: vmware_vcenter_server_vm_tools_running_status_executing_scripts
+  - id: unknown
+    signal: vmware_vcenter_server_vm_tools_running_status_unknown
+- id: vsphere.vm_tools_version_status
+  title: Virtual Machine VMware Tools version status
+  units: status
+  family: vm
+  chart_type: line
+  priority: 60016
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    host: sim-host-1
+    vm: sim-vm-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: current
+    signal: vmware_vcenter_server_vm_tools_version_status_current
+  - id: need_upgrade
+    signal: vmware_vcenter_server_vm_tools_version_status_need_upgrade
+  - id: not_installed
+    signal: vmware_vcenter_server_vm_tools_version_status_not_installed
+  - id: unmanaged
+    signal: vmware_vcenter_server_vm_tools_version_status_unmanaged
+  - id: too_old
+    signal: vmware_vcenter_server_vm_tools_version_status_too_old
+  - id: supported_old
+    signal: vmware_vcenter_server_vm_tools_version_status_supported_old
+  - id: supported_new
+    signal: vmware_vcenter_server_vm_tools_version_status_supported_new
+  - id: too_new
+    signal: vmware_vcenter_server_vm_tools_version_status_too_new
+  - id: blacklisted
+    signal: vmware_vcenter_server_vm_tools_version_status_blacklisted
+  - id: unknown
+    signal: vmware_vcenter_server_vm_tools_version_status_unknown
+- id: vsphere.vm_consolidation_needed
+  title: Virtual Machine disk consolidation status
+  units: status
+  family: vm
+  chart_type: line
+  priority: 60017
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    host: sim-host-1
+    vm: sim-vm-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: needed
+    signal: vmware_vcenter_server_vm_consolidation_needed_needed
+  - id: not_needed
+    signal: vmware_vcenter_server_vm_consolidation_needed_not_needed
+- id: vsphere.vm_system_uptime
+  title: Virtual Machine system uptime
+  units: seconds
+  family: vm
+  chart_type: line
+  priority: 60018
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    host: sim-host-1
+    vm: sim-vm-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: uptime
+    signal: vmware_vcenter_server_vm_system_uptime_uptime
+- id: vsphere.vm_config_cpu
+  title: Virtual Machine configured CPU
+  units: vCPUs
+  family: vm
+  chart_type: line
+  priority: 60019
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    host: sim-host-1
+    vm: sim-vm-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: vcpus
+    signal: vmware_vcenter_server_vm_config_cpu_vcpus
+- id: vsphere.vm_config_memory
+  title: Virtual Machine configured memory
+  units: MiB
+  family: vm
+  chart_type: line
+  priority: 60020
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    host: sim-host-1
+    vm: sim-vm-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: memory
+    signal: vmware_vcenter_server_vm_config_memory_memory
+- id: vsphere.vm_config_devices
+  title: Virtual Machine configured devices
+  units: devices
+  family: vm
+  chart_type: line
+  priority: 60021
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    host: sim-host-1
+    vm: sim-vm-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: disks
+    signal: vmware_vcenter_server_vm_config_devices_disks
+  - id: nics
+    signal: vmware_vcenter_server_vm_config_devices_nics
+- id: vsphere.vm_storage_usage
+  title: Virtual Machine storage usage
+  units: bytes
+  family: vm
+  chart_type: line
+  priority: 60022
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    host: sim-host-1
+    vm: sim-vm-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: committed
+    signal: vmware_vcenter_server_vm_storage_usage_committed
+  - id: uncommitted
+    signal: vmware_vcenter_server_vm_storage_usage_uncommitted
+  - id: unshared
+    signal: vmware_vcenter_server_vm_storage_usage_unshared
+- id: vsphere.vm_snapshot_count
+  title: Virtual Machine snapshot count
+  units: snapshots
+  family: vm
+  chart_type: line
+  priority: 60023
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    host: sim-host-1
+    vm: sim-vm-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: count
+    signal: vmware_vcenter_server_vm_snapshot_count_count
+- id: vsphere.vm_snapshot_max_age
+  title: Virtual Machine oldest snapshot age; zero means no snapshots
+  units: seconds
+  family: vm
+  chart_type: line
+  priority: 60024
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    host: sim-host-1
+    vm: sim-vm-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: age
+    signal: vmware_vcenter_server_vm_snapshot_max_age_age
+- id: vsphere.vm_snapshot_max_chain_depth
+  title: Virtual Machine maximum snapshot chain depth; zero means no snapshots
+  units: snapshots
+  family: vm
+  chart_type: line
+  priority: 60025
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    host: sim-host-1
+    vm: sim-vm-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: depth
+    signal: vmware_vcenter_server_vm_snapshot_max_chain_depth_depth
+- id: vsphere.vm_power_usage
+  title: Virtual Machine power usage
+  units: watts
+  family: vm
+  chart_type: line
+  priority: 60026
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    host: sim-host-1
+    vm: sim-vm-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: power
+    signal: vmware_vcenter_server_vm_power_usage_power
+- id: vsphere.vm_energy_usage
+  title: Virtual Machine energy usage
+  units: joules
+  family: vm
+  chart_type: line
+  priority: 60027
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    host: sim-host-1
+    vm: sim-vm-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: energy
+    signal: vmware_vcenter_server_vm_energy_usage_energy
+- id: vsphere.vsan_vm_operations
+  title: vSAN Virtual Machine operations
+  units: operations/s
+  family: vsan
+  chart_type: line
+  priority: 60028
+  shape: counters
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    host: sim-host-1
+    vm: sim-vm-1
+    vm_instance_uuid: sim-vm_instance_uuid-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: read
+    rate_signal: vmware_vcenter_server_vsan_vm_operations_read
+  - id: write
+    rate_signal: vmware_vcenter_server_vsan_vm_operations_write
+- id: vsphere.vsan_vm_throughput
+  title: vSAN Virtual Machine throughput
+  units: bytes/s
+  family: vsan
+  chart_type: area
+  priority: 60029
+  shape: counters
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    host: sim-host-1
+    vm: sim-vm-1
+    vm_instance_uuid: sim-vm_instance_uuid-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: read
+    rate_signal: vmware_vcenter_server_vsan_vm_throughput_read
+  - id: write
+    rate_signal: vmware_vcenter_server_vsan_vm_throughput_write
+- id: vsphere.vsan_vm_latency
+  title: vSAN Virtual Machine latency
+  units: microseconds
+  family: vsan
+  chart_type: line
+  priority: 60030
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    host: sim-host-1
+    vm: sim-vm-1
+    vm_instance_uuid: sim-vm_instance_uuid-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: read
+    signal: vmware_vcenter_server_vsan_vm_latency_read
+  - id: write
+    signal: vmware_vcenter_server_vsan_vm_latency_write
+- id: vsphere.host_power_usage
+  title: ESXi Host power usage
+  units: watts
+  family: host
+  chart_type: line
+  priority: 60031
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    host: sim-host-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: power
+    signal: vmware_vcenter_server_host_power_usage_power
+  - id: cap
+    signal: vmware_vcenter_server_host_power_usage_cap
+- id: vsphere.host_power_capacity_usage
+  title: ESXi Host power capacity usage
+  units: watts
+  family: host
+  chart_type: line
+  priority: 60032
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    host: sim-host-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: used
+    signal: vmware_vcenter_server_host_power_capacity_usage_used
+  - id: usable
+    signal: vmware_vcenter_server_host_power_capacity_usage_usable
+  - id: idle
+    signal: vmware_vcenter_server_host_power_capacity_usage_idle
+  - id: system
+    signal: vmware_vcenter_server_host_power_capacity_usage_system
+  - id: vm
+    signal: vmware_vcenter_server_host_power_capacity_usage_vm
+- id: vsphere.host_power_capacity_utilization
+  title: ESXi Host power capacity utilization
+  units: percentage
+  family: host
+  chart_type: line
+  priority: 60033
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    host: sim-host-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: used
+    signal: vmware_vcenter_server_host_power_capacity_utilization_used
+- id: vsphere.host_energy_usage
+  title: ESXi Host energy usage
+  units: joules
+  family: host
+  chart_type: line
+  priority: 60034
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    host: sim-host-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: energy
+    signal: vmware_vcenter_server_host_energy_usage_energy
+- id: vsphere.vsan_host_operations
+  title: vSAN Host operations
+  units: operations/s
+  family: vsan
+  chart_type: line
+  priority: 60035
+  shape: counters
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    host: sim-host-1
+    vsan_node_uuid: sim-vsan_node_uuid-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: read
+    rate_signal: vmware_vcenter_server_vsan_host_operations_read
+  - id: write
+    rate_signal: vmware_vcenter_server_vsan_host_operations_write
+- id: vsphere.vsan_host_throughput
+  title: vSAN Host throughput
+  units: bytes/s
+  family: vsan
+  chart_type: area
+  priority: 60036
+  shape: counters
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    host: sim-host-1
+    vsan_node_uuid: sim-vsan_node_uuid-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: read
+    rate_signal: vmware_vcenter_server_vsan_host_throughput_read
+  - id: write
+    rate_signal: vmware_vcenter_server_vsan_host_throughput_write
+- id: vsphere.vsan_host_latency
+  title: vSAN Host latency
+  units: microseconds
+  family: vsan
+  chart_type: line
+  priority: 60037
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    host: sim-host-1
+    vsan_node_uuid: sim-vsan_node_uuid-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: read
+    signal: vmware_vcenter_server_vsan_host_latency_read
+  - id: write
+    signal: vmware_vcenter_server_vsan_host_latency_write
+- id: vsphere.vsan_host_congestions
+  title: vSAN Host congestion events
+  units: congestions/s
+  family: vsan
+  chart_type: line
+  priority: 60038
+  shape: counters
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    host: sim-host-1
+    vsan_node_uuid: sim-vsan_node_uuid-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: congestions
+    rate_signal: vmware_vcenter_server_vsan_host_congestions_congestions
+- id: vsphere.vsan_host_cache_hit_rate
+  title: vSAN Host client cache hit rate
+  units: percentage
+  family: vsan
+  chart_type: line
+  priority: 60039
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    host: sim-host-1
+    vsan_node_uuid: sim-vsan_node_uuid-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: hit_rate
+    signal: vmware_vcenter_server_vsan_host_cache_hit_rate_hit_rate
+- id: vsphere.host_cpu_utilization
+  title: ESXi Host CPU utilization
+  units: percentage
+  family: host
+  chart_type: line
+  priority: 60040
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    host: sim-host-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: used
+    signal: vmware_vcenter_server_host_cpu_utilization_used
+- id: vsphere.host_mem_utilization
+  title: ESXi Host memory utilization
+  units: percentage
+  family: host
+  chart_type: line
+  priority: 60041
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    host: sim-host-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: used
+    signal: vmware_vcenter_server_host_mem_utilization_used
+- id: vsphere.host_mem_usage
+  title: ESXi Host memory usage
+  units: KiB
+  family: host
+  chart_type: line
+  priority: 60042
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    host: sim-host-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: granted
+    signal: vmware_vcenter_server_host_mem_usage_granted
+  - id: consumed
+    signal: vmware_vcenter_server_host_mem_usage_consumed
+  - id: active
+    signal: vmware_vcenter_server_host_mem_usage_active
+  - id: shared
+    signal: vmware_vcenter_server_host_mem_usage_shared
+  - id: sharedcommon
+    signal: vmware_vcenter_server_host_mem_usage_sharedcommon
+- id: vsphere.host_mem_swap_io
+  title: ESXi Host VMKernel memory swap IO
+  units: KiB/s
+  family: host
+  chart_type: area
+  priority: 60043
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    host: sim-host-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: in
+    signal: vmware_vcenter_server_host_mem_swap_io_in
+  - id: out
+    signal: vmware_vcenter_server_host_mem_swap_io_out
+- id: vsphere.host_disk_io
+  title: ESXi Host disk IO
+  units: KiB/s
+  family: host
+  chart_type: area
+  priority: 60044
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    host: sim-host-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: read
+    signal: vmware_vcenter_server_host_disk_io_read
+  - id: write
+    signal: vmware_vcenter_server_host_disk_io_write
+- id: vsphere.host_disk_max_latency
+  title: ESXi Host disk max latency
+  units: milliseconds
+  family: host
+  chart_type: line
+  priority: 60045
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    host: sim-host-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: latency
+    signal: vmware_vcenter_server_host_disk_max_latency_latency
+- id: vsphere.host_net_traffic
+  title: ESXi Host network traffic
+  units: KiB/s
+  family: host
+  chart_type: area
+  priority: 60046
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    host: sim-host-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: received
+    signal: vmware_vcenter_server_host_net_traffic_received
+  - id: sent
+    signal: vmware_vcenter_server_host_net_traffic_sent
+- id: vsphere.host_net_packets
+  title: ESXi Host network packets
+  units: packets
+  family: host
+  chart_type: line
+  priority: 60047
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    host: sim-host-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: received
+    signal: vmware_vcenter_server_host_net_packets_received
+  - id: sent
+    signal: vmware_vcenter_server_host_net_packets_sent
+- id: vsphere.host_net_drops
+  title: ESXi Host network drops
+  units: drops
+  family: host
+  chart_type: line
+  priority: 60048
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    host: sim-host-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: received
+    signal: vmware_vcenter_server_host_net_drops_received
+  - id: sent
+    signal: vmware_vcenter_server_host_net_drops_sent
+- id: vsphere.host_net_errors
+  title: ESXi Host network errors
+  units: errors
+  family: host
+  chart_type: line
+  priority: 60049
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    host: sim-host-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: received
+    signal: vmware_vcenter_server_host_net_errors_received
+  - id: sent
+    signal: vmware_vcenter_server_host_net_errors_sent
+- id: vsphere.host_overall_status
+  title: ESXi Host overall alarm status
+  units: status
+  family: host
+  chart_type: line
+  priority: 60050
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    host: sim-host-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: green
+    signal: vmware_vcenter_server_host_overall_status_green
+  - id: red
+    signal: vmware_vcenter_server_host_overall_status_red
+  - id: yellow
+    signal: vmware_vcenter_server_host_overall_status_yellow
+  - id: gray
+    signal: vmware_vcenter_server_host_overall_status_gray
+- id: vsphere.host_power_state
+  title: ESXi Host power state
+  units: status
+  family: host
+  chart_type: line
+  priority: 60051
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    host: sim-host-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: powered_on
+    signal: vmware_vcenter_server_host_power_state_powered_on
+  - id: powered_off
+    signal: vmware_vcenter_server_host_power_state_powered_off
+  - id: standby
+    signal: vmware_vcenter_server_host_power_state_standby
+  - id: unknown
+    signal: vmware_vcenter_server_host_power_state_unknown
+- id: vsphere.host_connection_state
+  title: ESXi Host connection state
+  units: status
+  family: host
+  chart_type: line
+  priority: 60052
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    host: sim-host-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: connected
+    signal: vmware_vcenter_server_host_connection_state_connected
+  - id: not_responding
+    signal: vmware_vcenter_server_host_connection_state_not_responding
+  - id: disconnected
+    signal: vmware_vcenter_server_host_connection_state_disconnected
+- id: vsphere.host_maintenance_status
+  title: ESXi Host maintenance status
+  units: status
+  family: host
+  chart_type: line
+  priority: 60053
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    host: sim-host-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: normal
+    signal: vmware_vcenter_server_host_maintenance_status_normal
+  - id: in_maintenance
+    signal: vmware_vcenter_server_host_maintenance_status_in_maintenance
+- id: vsphere.host_system_uptime
+  title: ESXi Host system uptime
+  units: seconds
+  family: host
+  chart_type: line
+  priority: 60054
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    host: sim-host-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: uptime
+    signal: vmware_vcenter_server_host_system_uptime_uptime
+- id: vsphere.datastore_disk_io
+  title: Datastore disk IO
+  units: KiB/s
+  family: datastore
+  chart_type: area
+  priority: 60055
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    datastore: sim-datastore-1
+    type: sim-type-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: read
+    signal: vmware_vcenter_server_datastore_disk_io_read
+  - id: write
+    signal: vmware_vcenter_server_datastore_disk_io_write
+- id: vsphere.datastore_disk_iops
+  title: Datastore disk IOPS
+  units: operations/s
+  family: datastore
+  chart_type: line
+  priority: 60056
+  shape: counters
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    datastore: sim-datastore-1
+    type: sim-type-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: reads
+    rate_signal: vmware_vcenter_server_datastore_disk_iops_reads
+  - id: writes
+    rate_signal: vmware_vcenter_server_datastore_disk_iops_writes
+- id: vsphere.datastore_disk_latency
+  title: Datastore disk latency
+  units: milliseconds
+  family: datastore
+  chart_type: line
+  priority: 60057
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    datastore: sim-datastore-1
+    type: sim-type-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: read
+    signal: vmware_vcenter_server_datastore_disk_latency_read
+  - id: write
+    signal: vmware_vcenter_server_datastore_disk_latency_write
+- id: vsphere.datastore_space_utilization
+  title: Datastore space utilization
+  units: percentage
+  family: datastore
+  chart_type: line
+  priority: 60058
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    datastore: sim-datastore-1
+    type: sim-type-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: used
+    signal: vmware_vcenter_server_datastore_space_utilization_used
+- id: vsphere.datastore_space_usage
+  title: Datastore space usage; capacity, free, used, and uncommitted are zero when the datastore is inaccessible
+  units: bytes
+  family: datastore
+  chart_type: line
+  priority: 60059
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    datastore: sim-datastore-1
+    type: sim-type-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: capacity
+    signal: vmware_vcenter_server_datastore_space_usage_capacity
+  - id: free
+    signal: vmware_vcenter_server_datastore_space_usage_free
+  - id: used
+    signal: vmware_vcenter_server_datastore_space_usage_used
+  - id: uncommitted
+    signal: vmware_vcenter_server_datastore_space_usage_uncommitted
+- id: vsphere.datastore_overall_status
+  title: Datastore overall alarm status
+  units: status
+  family: datastore
+  chart_type: line
+  priority: 60060
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    datastore: sim-datastore-1
+    type: sim-type-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: green
+    signal: vmware_vcenter_server_datastore_overall_status_green
+  - id: red
+    signal: vmware_vcenter_server_datastore_overall_status_red
+  - id: yellow
+    signal: vmware_vcenter_server_datastore_overall_status_yellow
+  - id: gray
+    signal: vmware_vcenter_server_datastore_overall_status_gray
+- id: vsphere.datastore_accessibility_status
+  title: Datastore accessibility status
+  units: status
+  family: datastore
+  chart_type: line
+  priority: 60061
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    datastore: sim-datastore-1
+    type: sim-type-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: accessible
+    signal: vmware_vcenter_server_datastore_accessibility_status_accessible
+  - id: inaccessible
+    signal: vmware_vcenter_server_datastore_accessibility_status_inaccessible
+- id: vsphere.datastore_maintenance_status
+  title: Datastore maintenance mode status
+  units: status
+  family: datastore
+  chart_type: line
+  priority: 60062
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    datastore: sim-datastore-1
+    type: sim-type-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: normal
+    signal: vmware_vcenter_server_datastore_maintenance_status_normal
+  - id: entering_maintenance
+    signal: vmware_vcenter_server_datastore_maintenance_status_entering_maintenance
+  - id: in_maintenance
+    signal: vmware_vcenter_server_datastore_maintenance_status_in_maintenance
+  - id: unknown
+    signal: vmware_vcenter_server_datastore_maintenance_status_unknown
+- id: vsphere.datastore_multiple_host_access
+  title: Datastore multi-host access status
+  units: status
+  family: datastore
+  chart_type: line
+  priority: 60063
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    datastore: sim-datastore-1
+    type: sim-type-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: enabled
+    signal: vmware_vcenter_server_datastore_multiple_host_access_enabled
+  - id: disabled
+    signal: vmware_vcenter_server_datastore_multiple_host_access_disabled
+  - id: unknown
+    signal: vmware_vcenter_server_datastore_multiple_host_access_unknown
+- id: vsphere.datastore_cluster_space_utilization
+  title: Datastore Cluster space utilization
+  units: percentage
+  family: datastore
+  chart_type: line
+  priority: 60064
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    datastore_cluster: sim-datastore_cluster-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: used
+    signal: vmware_vcenter_server_datastore_cluster_space_utilization_used
+- id: vsphere.datastore_cluster_space_usage
+  title: Datastore Cluster space usage
+  units: bytes
+  family: datastore
+  chart_type: line
+  priority: 60065
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    datastore_cluster: sim-datastore_cluster-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: capacity
+    signal: vmware_vcenter_server_datastore_cluster_space_usage_capacity
+  - id: free
+    signal: vmware_vcenter_server_datastore_cluster_space_usage_free
+  - id: used
+    signal: vmware_vcenter_server_datastore_cluster_space_usage_used
+- id: vsphere.datastore_cluster_storage_drs_status
+  title: Datastore Cluster Storage DRS status
+  units: status
+  family: datastore
+  chart_type: line
+  priority: 60066
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    datastore_cluster: sim-datastore_cluster-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: enabled
+    signal: vmware_vcenter_server_datastore_cluster_storage_drs_status_enabled
+  - id: disabled
+    signal: vmware_vcenter_server_datastore_cluster_storage_drs_status_disabled
+- id: vsphere.datastore_cluster_overall_status
+  title: Datastore Cluster overall status
+  units: status
+  family: datastore
+  chart_type: line
+  priority: 60067
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    datastore_cluster: sim-datastore_cluster-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: green
+    signal: vmware_vcenter_server_datastore_cluster_overall_status_green
+  - id: red
+    signal: vmware_vcenter_server_datastore_cluster_overall_status_red
+  - id: yellow
+    signal: vmware_vcenter_server_datastore_cluster_overall_status_yellow
+  - id: gray
+    signal: vmware_vcenter_server_datastore_cluster_overall_status_gray
+- id: vsphere.vsan_cluster_space_usage
+  title: vSAN Cluster space usage
+  units: bytes
+  family: vsan
+  chart_type: stacked
+  priority: 60068
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    vsan_uuid: sim-vsan_uuid-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: used
+    signal: vmware_vcenter_server_vsan_cluster_space_usage_used
+  - id: free
+    signal: vmware_vcenter_server_vsan_cluster_space_usage_free
+  - id: total
+    signal: vmware_vcenter_server_vsan_cluster_space_usage_total
+- id: vsphere.vsan_cluster_space_utilization
+  title: vSAN Cluster space utilization
+  units: percentage
+  family: vsan
+  chart_type: line
+  priority: 60069
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    vsan_uuid: sim-vsan_uuid-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: used
+    signal: vmware_vcenter_server_vsan_cluster_space_utilization_used
+- id: vsphere.vsan_cluster_health_status
+  title: vSAN Cluster health status
+  units: status
+  family: vsan
+  chart_type: line
+  priority: 60070
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    vsan_uuid: sim-vsan_uuid-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: green
+    signal: vmware_vcenter_server_vsan_cluster_health_status_green
+  - id: yellow
+    signal: vmware_vcenter_server_vsan_cluster_health_status_yellow
+  - id: red
+    signal: vmware_vcenter_server_vsan_cluster_health_status_red
+  - id: unknown
+    signal: vmware_vcenter_server_vsan_cluster_health_status_unknown
+- id: vsphere.vsan_cluster_operations
+  title: vSAN Cluster operations
+  units: operations/s
+  family: vsan
+  chart_type: line
+  priority: 60071
+  shape: counters
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    vsan_uuid: sim-vsan_uuid-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: read
+    rate_signal: vmware_vcenter_server_vsan_cluster_operations_read
+  - id: write
+    rate_signal: vmware_vcenter_server_vsan_cluster_operations_write
+- id: vsphere.vsan_cluster_throughput
+  title: vSAN Cluster throughput
+  units: bytes/s
+  family: vsan
+  chart_type: area
+  priority: 60072
+  shape: counters
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    vsan_uuid: sim-vsan_uuid-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: read
+    rate_signal: vmware_vcenter_server_vsan_cluster_throughput_read
+  - id: write
+    rate_signal: vmware_vcenter_server_vsan_cluster_throughput_write
+- id: vsphere.vsan_cluster_latency
+  title: vSAN Cluster latency
+  units: microseconds
+  family: vsan
+  chart_type: line
+  priority: 60073
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    vsan_uuid: sim-vsan_uuid-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: read
+    signal: vmware_vcenter_server_vsan_cluster_latency_read
+  - id: write
+    signal: vmware_vcenter_server_vsan_cluster_latency_write
+- id: vsphere.vsan_cluster_congestions
+  title: vSAN Cluster congestion events
+  units: congestions/s
+  family: vsan
+  chart_type: line
+  priority: 60074
+  shape: counters
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    vsan_uuid: sim-vsan_uuid-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: congestions
+    rate_signal: vmware_vcenter_server_vsan_cluster_congestions_congestions
+- id: vsphere.cluster_hosts
+  title: Cluster host count
+  units: hosts
+  family: cluster
+  chart_type: line
+  priority: 60075
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: total
+    signal: vmware_vcenter_server_cluster_hosts_total
+  - id: effective
+    signal: vmware_vcenter_server_cluster_hosts_effective
+- id: vsphere.cluster_cpu_capacity
+  title: Cluster CPU capacity
+  units: MHz
+  family: cluster
+  chart_type: line
+  priority: 60076
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: total
+    signal: vmware_vcenter_server_cluster_cpu_capacity_total
+  - id: effective
+    signal: vmware_vcenter_server_cluster_cpu_capacity_effective
+- id: vsphere.cluster_mem_capacity
+  title: Cluster memory capacity
+  units: bytes
+  family: cluster
+  chart_type: line
+  priority: 60077
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: total
+    signal: vmware_vcenter_server_cluster_mem_capacity_total
+  - id: effective
+    signal: vmware_vcenter_server_cluster_mem_capacity_effective
+- id: vsphere.cluster_cpu_topology
+  title: Cluster CPU topology
+  units: count
+  family: cluster
+  chart_type: line
+  priority: 60078
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: cores
+    signal: vmware_vcenter_server_cluster_cpu_topology_cores
+  - id: threads
+    signal: vmware_vcenter_server_cluster_cpu_topology_threads
+- id: vsphere.cluster_drs_config
+  title: Cluster DRS enabled
+  units: status
+  family: cluster
+  chart_type: line
+  priority: 60079
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: enabled
+    signal: vmware_vcenter_server_cluster_drs_config_enabled
+- id: vsphere.cluster_drs_mode
+  title: Cluster DRS automation mode
+  units: status
+  family: cluster
+  chart_type: line
+  priority: 60080
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: manual
+    signal: vmware_vcenter_server_cluster_drs_mode_manual
+  - id: partially_automated
+    signal: vmware_vcenter_server_cluster_drs_mode_partially_automated
+  - id: fully_automated
+    signal: vmware_vcenter_server_cluster_drs_mode_fully_automated
+  - id: unknown
+    signal: vmware_vcenter_server_cluster_drs_mode_unknown
+- id: vsphere.cluster_drs_vmotion_rate
+  title: Cluster DRS vMotion recommendation threshold
+  units: level
+  family: cluster
+  chart_type: line
+  priority: 60081
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: rate
+    signal: vmware_vcenter_server_cluster_drs_vmotion_rate_rate
+- id: vsphere.cluster_ha_config
+  title: Cluster HA configuration
+  units: status
+  family: cluster
+  chart_type: line
+  priority: 60082
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: enabled
+    signal: vmware_vcenter_server_cluster_ha_config_enabled
+  - id: admission_control
+    signal: vmware_vcenter_server_cluster_ha_config_admission_control
+- id: vsphere.cluster_ha_host_monitoring
+  title: Cluster HA host monitoring
+  units: status
+  family: cluster
+  chart_type: line
+  priority: 60083
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: enabled
+    signal: vmware_vcenter_server_cluster_ha_host_monitoring_enabled
+  - id: disabled
+    signal: vmware_vcenter_server_cluster_ha_host_monitoring_disabled
+  - id: unknown
+    signal: vmware_vcenter_server_cluster_ha_host_monitoring_unknown
+- id: vsphere.cluster_ha_vm_monitoring
+  title: Cluster HA VM monitoring
+  units: status
+  family: cluster
+  chart_type: line
+  priority: 60084
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: disabled
+    signal: vmware_vcenter_server_cluster_ha_vm_monitoring_disabled
+  - id: vm_monitoring_only
+    signal: vmware_vcenter_server_cluster_ha_vm_monitoring_vm_monitoring_only
+  - id: vm_and_app_monitoring
+    signal: vmware_vcenter_server_cluster_ha_vm_monitoring_vm_and_app_monitoring
+  - id: unknown
+    signal: vmware_vcenter_server_cluster_ha_vm_monitoring_unknown
+- id: vsphere.cluster_ha_vm_component_protection
+  title: Cluster HA VM component protection
+  units: status
+  family: cluster
+  chart_type: line
+  priority: 60085
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: enabled
+    signal: vmware_vcenter_server_cluster_ha_vm_component_protection_enabled
+  - id: disabled
+    signal: vmware_vcenter_server_cluster_ha_vm_component_protection_disabled
+  - id: unknown
+    signal: vmware_vcenter_server_cluster_ha_vm_component_protection_unknown
+- id: vsphere.cluster_overall_status
+  title: Cluster overall alarm status
+  units: status
+  family: cluster
+  chart_type: line
+  priority: 60086
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: green
+    signal: vmware_vcenter_server_cluster_overall_status_green
+  - id: red
+    signal: vmware_vcenter_server_cluster_overall_status_red
+  - id: yellow
+    signal: vmware_vcenter_server_cluster_overall_status_yellow
+  - id: gray
+    signal: vmware_vcenter_server_cluster_overall_status_gray
+- id: vsphere.cluster_vmotions
+  title: Cluster cumulative vMotion count
+  units: migrations
+  family: cluster
+  chart_type: line
+  priority: 60087
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: vmotions
+    signal: vmware_vcenter_server_cluster_vmotions_vmotions
+- id: vsphere.cluster_drs_score
+  title: Cluster DRS score
+  units: percentage
+  family: cluster
+  chart_type: line
+  priority: 60088
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: score
+    signal: vmware_vcenter_server_cluster_drs_score_score
+- id: vsphere.cluster_drs_balance
+  title: Cluster DRS load balance
+  units: score
+  family: cluster
+  chart_type: line
+  priority: 60089
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: current
+    signal: vmware_vcenter_server_cluster_drs_balance_current
+  - id: target
+    signal: vmware_vcenter_server_cluster_drs_balance_target
+- id: vsphere.cluster_vm_count
+  title: Cluster VM count
+  units: VMs
+  family: cluster
+  chart_type: line
+  priority: 60090
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: total
+    signal: vmware_vcenter_server_cluster_vm_count_total
+  - id: powered_off
+    signal: vmware_vcenter_server_cluster_vm_count_powered_off
+- id: vsphere.cluster_usage_cpu
+  title: Cluster DRS CPU usage summary
+  units: MHz
+  family: cluster
+  chart_type: line
+  priority: 60091
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: demand
+    signal: vmware_vcenter_server_cluster_usage_cpu_demand
+  - id: entitled
+    signal: vmware_vcenter_server_cluster_usage_cpu_entitled
+  - id: reserved
+    signal: vmware_vcenter_server_cluster_usage_cpu_reserved
+- id: vsphere.cluster_usage_mem
+  title: Cluster DRS memory usage summary
+  units: MB
+  family: cluster
+  chart_type: line
+  priority: 60092
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: demand
+    signal: vmware_vcenter_server_cluster_usage_mem_demand
+  - id: entitled
+    signal: vmware_vcenter_server_cluster_usage_mem_entitled
+  - id: reserved
+    signal: vmware_vcenter_server_cluster_usage_mem_reserved
+- id: vsphere.cluster_cpu_utilization
+  title: Cluster CPU utilization
+  units: percentage
+  family: cluster
+  chart_type: line
+  priority: 60093
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: used
+    signal: vmware_vcenter_server_cluster_cpu_utilization_used
+- id: vsphere.cluster_cpu_usage
+  title: Cluster CPU usage
+  units: MHz
+  family: cluster
+  chart_type: line
+  priority: 60094
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: used
+    signal: vmware_vcenter_server_cluster_cpu_usage_used
+  - id: total
+    signal: vmware_vcenter_server_cluster_cpu_usage_total
+- id: vsphere.cluster_mem_utilization
+  title: Cluster memory utilization
+  units: percentage
+  family: cluster
+  chart_type: line
+  priority: 60095
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: used
+    signal: vmware_vcenter_server_cluster_mem_utilization_used
+- id: vsphere.cluster_mem_usage
+  title: Cluster memory usage
+  units: KiB
+  family: cluster
+  chart_type: line
+  priority: 60096
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: consumed
+    signal: vmware_vcenter_server_cluster_mem_usage_consumed
+  - id: active
+    signal: vmware_vcenter_server_cluster_mem_usage_active
+  - id: granted
+    signal: vmware_vcenter_server_cluster_mem_usage_granted
+  - id: shared
+    signal: vmware_vcenter_server_cluster_mem_usage_shared
+  - id: overhead
+    signal: vmware_vcenter_server_cluster_mem_usage_overhead
+  - id: swap_used
+    signal: vmware_vcenter_server_cluster_mem_usage_swap_used
+- id: vsphere.cluster_services_fairness
+  title: Cluster DRS resource distribution fairness
+  units: score
+  family: cluster
+  chart_type: line
+  priority: 60097
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: cpu
+    signal: vmware_vcenter_server_cluster_services_fairness_cpu
+  - id: memory
+    signal: vmware_vcenter_server_cluster_services_fairness_memory
+- id: vsphere.cluster_services_effective_cpu
+  title: Cluster effective CPU capacity
+  units: MHz
+  family: cluster
+  chart_type: line
+  priority: 60098
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: effective_cpu
+    signal: vmware_vcenter_server_cluster_services_effective_cpu_effective_cpu
+- id: vsphere.cluster_services_effective_mem
+  title: Cluster effective memory capacity
+  units: MB
+  family: cluster
+  chart_type: line
+  priority: 60099
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: effective_mem
+    signal: vmware_vcenter_server_cluster_services_effective_mem_effective_mem
+- id: vsphere.cluster_services_failover
+  title: Cluster HA failover capacity
+  units: failures
+  family: cluster
+  chart_type: line
+  priority: 60100
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: failures_tolerable
+    signal: vmware_vcenter_server_cluster_services_failover_failures_tolerable
+- id: vsphere.cluster_vm_migrations
+  title: Cluster VM migration operations
+  units: operations
+  family: cluster
+  chart_type: line
+  priority: 60101
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: vmotion
+    signal: vmware_vcenter_server_cluster_vm_migrations_vmotion
+  - id: svmotion
+    signal: vmware_vcenter_server_cluster_vm_migrations_svmotion
+  - id: xvmotion
+    signal: vmware_vcenter_server_cluster_vm_migrations_xvmotion
+- id: vsphere.cluster_vm_lifecycle
+  title: Cluster VM lifecycle operations
+  units: operations
+  family: cluster
+  chart_type: line
+  priority: 60102
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: poweron
+    signal: vmware_vcenter_server_cluster_vm_lifecycle_poweron
+  - id: poweroff
+    signal: vmware_vcenter_server_cluster_vm_lifecycle_poweroff
+  - id: create
+    signal: vmware_vcenter_server_cluster_vm_lifecycle_create
+  - id: destroy
+    signal: vmware_vcenter_server_cluster_vm_lifecycle_destroy
+  - id: clone
+    signal: vmware_vcenter_server_cluster_vm_lifecycle_clone
+  - id: deploy
+    signal: vmware_vcenter_server_cluster_vm_lifecycle_deploy
+- id: vsphere.cluster_vm_management
+  title: Cluster VM management operations
+  units: operations
+  family: cluster
+  chart_type: line
+  priority: 60103
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: reconfigure
+    signal: vmware_vcenter_server_cluster_vm_management_reconfigure
+  - id: reset
+    signal: vmware_vcenter_server_cluster_vm_management_reset
+  - id: suspend
+    signal: vmware_vcenter_server_cluster_vm_management_suspend
+  - id: register
+    signal: vmware_vcenter_server_cluster_vm_management_register
+  - id: unregister
+    signal: vmware_vcenter_server_cluster_vm_management_unregister
+- id: vsphere.cluster_vm_guest_ops
+  title: Cluster VM guest operations
+  units: operations
+  family: cluster
+  chart_type: line
+  priority: 60104
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: reboot
+    signal: vmware_vcenter_server_cluster_vm_guest_ops_reboot
+  - id: shutdown
+    signal: vmware_vcenter_server_cluster_vm_guest_ops_shutdown
+  - id: standby
+    signal: vmware_vcenter_server_cluster_vm_guest_ops_standby
+- id: vsphere.cluster_vm_cold_migrations
+  title: Cluster VM cold migration operations
+  units: operations
+  family: cluster
+  chart_type: line
+  priority: 60105
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: change_ds
+    signal: vmware_vcenter_server_cluster_vm_cold_migrations_change_ds
+  - id: change_host
+    signal: vmware_vcenter_server_cluster_vm_cold_migrations_change_host
+  - id: change_host_ds
+    signal: vmware_vcenter_server_cluster_vm_cold_migrations_change_host_ds
+- id: vsphere.resource_pool_cpu_usage
+  title: Resource Pool CPU usage vs demand
+  units: MHz
+  family: resource
+  chart_type: line
+  priority: 60106
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    resource_pool: sim-resource_pool-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: usage
+    signal: vmware_vcenter_server_resource_pool_cpu_usage_usage
+  - id: demand
+    signal: vmware_vcenter_server_resource_pool_cpu_usage_demand
+- id: vsphere.resource_pool_cpu_entitlement
+  title: Resource Pool CPU entitlement
+  units: MHz
+  family: resource
+  chart_type: line
+  priority: 60107
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    resource_pool: sim-resource_pool-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: distributed
+    signal: vmware_vcenter_server_resource_pool_cpu_entitlement_distributed
+- id: vsphere.resource_pool_cpu_allocation
+  title: Resource Pool CPU allocation
+  units: MHz
+  family: resource
+  chart_type: line
+  priority: 60108
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    resource_pool: sim-resource_pool-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: reservation_used
+    signal: vmware_vcenter_server_resource_pool_cpu_allocation_reservation_used
+  - id: unreserved_for_vm
+    signal: vmware_vcenter_server_resource_pool_cpu_allocation_unreserved_for_vm
+  - id: max_usage
+    signal: vmware_vcenter_server_resource_pool_cpu_allocation_max_usage
+- id: vsphere.resource_pool_mem_usage
+  title: Resource Pool memory usage
+  units: MB
+  family: resource
+  chart_type: line
+  priority: 60109
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    resource_pool: sim-resource_pool-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: host
+    signal: vmware_vcenter_server_resource_pool_mem_usage_host
+  - id: guest
+    signal: vmware_vcenter_server_resource_pool_mem_usage_guest
+- id: vsphere.resource_pool_mem_entitlement
+  title: Resource Pool memory entitlement
+  units: MB
+  family: resource
+  chart_type: line
+  priority: 60110
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    resource_pool: sim-resource_pool-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: distributed
+    signal: vmware_vcenter_server_resource_pool_mem_entitlement_distributed
+- id: vsphere.resource_pool_mem_allocation
+  title: Resource Pool memory allocation
+  units: bytes
+  family: resource
+  chart_type: line
+  priority: 60111
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    resource_pool: sim-resource_pool-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: reservation_used
+    signal: vmware_vcenter_server_resource_pool_mem_allocation_reservation_used
+  - id: unreserved_for_vm
+    signal: vmware_vcenter_server_resource_pool_mem_allocation_unreserved_for_vm
+  - id: max_usage
+    signal: vmware_vcenter_server_resource_pool_mem_allocation_max_usage
+- id: vsphere.resource_pool_mem_breakdown
+  title: Resource Pool memory state breakdown
+  units: MB
+  family: resource
+  chart_type: line
+  priority: 60112
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    resource_pool: sim-resource_pool-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: private
+    signal: vmware_vcenter_server_resource_pool_mem_breakdown_private
+  - id: shared
+    signal: vmware_vcenter_server_resource_pool_mem_breakdown_shared
+  - id: swapped
+    signal: vmware_vcenter_server_resource_pool_mem_breakdown_swapped
+  - id: ballooned
+    signal: vmware_vcenter_server_resource_pool_mem_breakdown_ballooned
+  - id: overhead
+    signal: vmware_vcenter_server_resource_pool_mem_breakdown_overhead
+  - id: consumed_overhead
+    signal: vmware_vcenter_server_resource_pool_mem_breakdown_consumed_overhead
+  - id: compressed
+    signal: vmware_vcenter_server_resource_pool_mem_breakdown_compressed
+- id: vsphere.resource_pool_cpu_config
+  title: Resource Pool CPU configured reservation and limit
+  units: MHz
+  family: resource
+  chart_type: line
+  priority: 60113
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    resource_pool: sim-resource_pool-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: reservation
+    signal: vmware_vcenter_server_resource_pool_cpu_config_reservation
+  - id: limit
+    signal: vmware_vcenter_server_resource_pool_cpu_config_limit
+- id: vsphere.resource_pool_mem_config
+  title: Resource Pool memory configured reservation and limit
+  units: MB
+  family: resource
+  chart_type: line
+  priority: 60114
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    resource_pool: sim-resource_pool-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: reservation
+    signal: vmware_vcenter_server_resource_pool_mem_config_reservation
+  - id: limit
+    signal: vmware_vcenter_server_resource_pool_mem_config_limit
+- id: vsphere.resource_pool_overall_status
+  title: Resource Pool overall alarm status
+  units: status
+  family: resource
+  chart_type: line
+  priority: 60115
+  shape: independent
+  labels:
+    id: sim-id-1
+    datacenter: sim-datacenter-1
+    cluster: sim-cluster-1
+    resource_pool: sim-resource_pool-1
+    vsphere_tag_\<category>: sim-vsphere_tag_category-1
+    vsphere_custom_attribute_\<name>: sim-vsphere_custom_attribute_name-1
+  dimensions:
+  - id: green
+    signal: vmware_vcenter_server_resource_pool_overall_status_green
+  - id: red
+    signal: vmware_vcenter_server_resource_pool_overall_status_red
+  - id: yellow
+    signal: vmware_vcenter_server_resource_pool_overall_status_yellow
+  - id: gray
+    signal: vmware_vcenter_server_resource_pool_overall_status_gray

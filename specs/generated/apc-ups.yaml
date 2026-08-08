@@ -1,0 +1,438 @@
+version: 1
+name: apc-ups
+description: APC UPS metrics, generated from Netdata's own collector metadata so the contexts, units and
+  dimension names match what a real APC UPS node reports. Signals are independent and plausible rather
+  than causally coupled - see scripts/sync-integrations.py.
+signals:
+  apc_ups_ups_status_trim:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  apc_ups_ups_status_boost:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  apc_ups_ups_status_cal:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  apc_ups_ups_status_online:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  apc_ups_ups_status_onbatt:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  apc_ups_ups_status_overload:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  apc_ups_ups_status_lowbatt:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  apc_ups_ups_status_replacebatt:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  apc_ups_ups_status_nobatt:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  apc_ups_ups_status_slave:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  apc_ups_ups_status_slavedown:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  apc_ups_ups_status_commlost:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  apc_ups_ups_status_shutting_down:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  apc_ups_ups_selftest_ng:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  apc_ups_ups_selftest_wn:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  apc_ups_ups_selftest_ip:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  apc_ups_ups_selftest_ok:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  apc_ups_ups_selftest_bt:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  apc_ups_ups_selftest_unk:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  apc_ups_ups_battery_charge_charge:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apc_ups_ups_battery_time_remaining_timeleft:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apc_ups_ups_battery_time_since_replacement_since_replacement:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apc_ups_ups_battery_voltage_voltage:
+    base: 12.0
+    min: 0.0
+    max: 480.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apc_ups_ups_battery_voltage_nominal_voltage:
+    base: 12.0
+    min: 0.0
+    max: 480.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apc_ups_ups_load_capacity_utilization_load:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apc_ups_ups_load_load:
+    base: 145.0
+    min: 0.0
+    max: 2000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apc_ups_ups_temperature_temperature:
+    base: 41.0
+    min: 0.0
+    max: 120.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apc_ups_ups_input_voltage_voltage:
+    base: 12.0
+    min: 0.0
+    max: 480.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apc_ups_ups_input_voltage_min_voltage:
+    base: 12.0
+    min: 0.0
+    max: 480.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apc_ups_ups_input_voltage_max_voltage:
+    base: 12.0
+    min: 0.0
+    max: 480.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apc_ups_ups_input_frequency_frequency:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apc_ups_ups_output_voltage_voltage:
+    base: 12.0
+    min: 0.0
+    max: 480.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: apcupsd.ups_status
+  title: UPS Status
+  units: status
+  family: ups
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: TRIM
+    signal: apc_ups_ups_status_trim
+  - id: BOOST
+    signal: apc_ups_ups_status_boost
+  - id: CAL
+    signal: apc_ups_ups_status_cal
+  - id: ONLINE
+    signal: apc_ups_ups_status_online
+  - id: ONBATT
+    signal: apc_ups_ups_status_onbatt
+  - id: OVERLOAD
+    signal: apc_ups_ups_status_overload
+  - id: LOWBATT
+    signal: apc_ups_ups_status_lowbatt
+  - id: REPLACEBATT
+    signal: apc_ups_ups_status_replacebatt
+  - id: NOBATT
+    signal: apc_ups_ups_status_nobatt
+  - id: SLAVE
+    signal: apc_ups_ups_status_slave
+  - id: SLAVEDOWN
+    signal: apc_ups_ups_status_slavedown
+  - id: COMMLOST
+    signal: apc_ups_ups_status_commlost
+  - id: SHUTTING_DOWN
+    signal: apc_ups_ups_status_shutting_down
+- id: apcupsd.ups_selftest
+  title: UPS Self-Test Status
+  units: status
+  family: ups
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: NG
+    signal: apc_ups_ups_selftest_ng
+  - id: WN
+    signal: apc_ups_ups_selftest_wn
+  - id: IP
+    signal: apc_ups_ups_selftest_ip
+  - id: OK
+    signal: apc_ups_ups_selftest_ok
+  - id: BT
+    signal: apc_ups_ups_selftest_bt
+  - id: UNK
+    signal: apc_ups_ups_selftest_unk
+- id: apcupsd.ups_battery_charge
+  title: UPS Battery Charge
+  units: percent
+  family: ups
+  chart_type: area
+  priority: 60003
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: charge
+    signal: apc_ups_ups_battery_charge_charge
+- id: apcupsd.ups_battery_time_remaining
+  title: UPS Estimated Runtime on Battery
+  units: seconds
+  family: ups
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: timeleft
+    signal: apc_ups_ups_battery_time_remaining_timeleft
+- id: apcupsd.ups_battery_time_since_replacement
+  title: UPS Time Since Battery Replacement
+  units: seconds
+  family: ups
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: since_replacement
+    signal: apc_ups_ups_battery_time_since_replacement_since_replacement
+- id: apcupsd.ups_battery_voltage
+  title: UPS Battery Voltage
+  units: Volts
+  family: ups
+  chart_type: line
+  priority: 60006
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: voltage
+    signal: apc_ups_ups_battery_voltage_voltage
+  - id: nominal_voltage
+    signal: apc_ups_ups_battery_voltage_nominal_voltage
+- id: apcupsd.ups_load_capacity_utilization
+  title: UPS Load Capacity Utilization
+  units: percent
+  family: ups
+  chart_type: area
+  priority: 60007
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: load
+    signal: apc_ups_ups_load_capacity_utilization_load
+- id: apcupsd.ups_load
+  title: UPS Load
+  units: Watts
+  family: ups
+  chart_type: line
+  priority: 60008
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: load
+    signal: apc_ups_ups_load_load
+- id: apcupsd.ups_temperature
+  title: UPS Internal Temperature
+  units: Celsius
+  family: ups
+  chart_type: line
+  priority: 60009
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: temperature
+    signal: apc_ups_ups_temperature_temperature
+- id: apcupsd.ups_input_voltage
+  title: UPS Input Voltage
+  units: Volts
+  family: ups
+  chart_type: line
+  priority: 60010
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: voltage
+    signal: apc_ups_ups_input_voltage_voltage
+  - id: min_voltage
+    signal: apc_ups_ups_input_voltage_min_voltage
+  - id: max_voltage
+    signal: apc_ups_ups_input_voltage_max_voltage
+- id: apcupsd.ups_input_frequency
+  title: UPS Input Frequency
+  units: Hz
+  family: ups
+  chart_type: line
+  priority: 60011
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: frequency
+    signal: apc_ups_ups_input_frequency_frequency
+- id: apcupsd.ups_output_voltage
+  title: UPS Output Voltage
+  units: Volts
+  family: ups
+  chart_type: line
+  priority: 60012
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: voltage
+    signal: apc_ups_ups_output_voltage_voltage

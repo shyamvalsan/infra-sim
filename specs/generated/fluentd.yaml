@@ -1,0 +1,73 @@
+version: 1
+name: fluentd
+description: Fluentd metrics, generated from Netdata's own collector metadata so the contexts, units and
+  dimension names match what a real Fluentd node reports. Signals are independent and plausible rather
+  than causally coupled - see scripts/sync-integrations.py.
+signals:
+  fluentd_retry_count_a_dimension_per_plugin:
+    base: 320.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fluentd_buffer_queue_length_a_dimension_per_plugin:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fluentd_buffer_total_queued_size_a_dimension_per_plugin:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: fluentd.retry_count
+  title: Plugin Retry Count
+  units: count
+  family: retry
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: a dimension per plugin
+    signal: fluentd_retry_count_a_dimension_per_plugin
+- id: fluentd.buffer_queue_length
+  title: Plugin Buffer Queue Length
+  units: queue_length
+  family: buffer
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: a dimension per plugin
+    signal: fluentd_buffer_queue_length_a_dimension_per_plugin
+- id: fluentd.buffer_total_queued_size
+  title: Plugin Buffer Total Size
+  units: queued_size
+  family: buffer
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: a dimension per plugin
+    signal: fluentd_buffer_total_queued_size_a_dimension_per_plugin

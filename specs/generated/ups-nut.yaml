@@ -1,0 +1,676 @@
+version: 1
+name: ups-nut
+description: UPS (NUT) metrics, generated from Netdata's own collector metadata so the contexts, units
+  and dimension names match what a real UPS (NUT) node reports. Signals are independent and plausible
+  rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  ups_nut_ups_load_load:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ups_nut_ups_load_usage_load_usage:
+    base: 145.0
+    min: 0.0
+    max: 2000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ups_nut_ups_status_on_line:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ups_nut_ups_status_on_battery:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ups_nut_ups_status_low_battery:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ups_nut_ups_status_high_battery:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ups_nut_ups_status_replace_battery:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ups_nut_ups_status_charging:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ups_nut_ups_status_discharging:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ups_nut_ups_status_bypass:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ups_nut_ups_status_calibration:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ups_nut_ups_status_offline:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ups_nut_ups_status_overloaded:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ups_nut_ups_status_trim_input_voltage:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ups_nut_ups_status_boost_input_voltage:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ups_nut_ups_status_forced_shutdown:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ups_nut_ups_status_other:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ups_nut_ups_temperature_temperature:
+    base: 41.0
+    min: 0.0
+    max: 120.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ups_nut_ups_battery_charge_charge:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ups_nut_ups_battery_estimated_runtime_runtime:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ups_nut_ups_battery_voltage_voltage:
+    base: 12.0
+    min: 0.0
+    max: 480.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ups_nut_ups_battery_voltage_nominal_nominal_voltage:
+    base: 12.0
+    min: 0.0
+    max: 480.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ups_nut_ups_input_voltage_voltage:
+    base: 12.0
+    min: 0.0
+    max: 480.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ups_nut_ups_input_voltage_nominal_nominal_voltage:
+    base: 12.0
+    min: 0.0
+    max: 480.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ups_nut_ups_input_current_current:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ups_nut_ups_input_current_nominal_nominal_current:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ups_nut_ups_input_frequency_frequency:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ups_nut_ups_input_frequency_nominal_nominal_frequency:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ups_nut_ups_output_voltage_voltage:
+    base: 12.0
+    min: 0.0
+    max: 480.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ups_nut_ups_output_voltage_nominal_nominal_voltage:
+    base: 12.0
+    min: 0.0
+    max: 480.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ups_nut_ups_output_current_current:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ups_nut_ups_output_current_nominal_nominal_current:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ups_nut_ups_output_frequency_frequency:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ups_nut_ups_output_frequency_nominal_nominal_frequency:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: upsd.ups_load
+  title: UPS load
+  units: percentage
+  family: ups
+  chart_type: area
+  priority: 60001
+  shape: independent
+  labels:
+    ups_name: sim-ups_name-1
+    battery_type: sim-battery_type-1
+    device_model: sim-device_model-1
+    device_serial: sim-device_serial-1
+    device_manufacturer: sim-device_manufacturer-1
+    device_type: sim-device_type-1
+  dimensions:
+  - id: load
+    signal: ups_nut_ups_load_load
+- id: upsd.ups_load_usage
+  title: UPS load usage (power output)
+  units: Watts
+  family: ups
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels:
+    ups_name: sim-ups_name-1
+    battery_type: sim-battery_type-1
+    device_model: sim-device_model-1
+    device_serial: sim-device_serial-1
+    device_manufacturer: sim-device_manufacturer-1
+    device_type: sim-device_type-1
+  dimensions:
+  - id: load_usage
+    signal: ups_nut_ups_load_usage_load_usage
+- id: upsd.ups_status
+  title: UPS status
+  units: status
+  family: ups
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels:
+    ups_name: sim-ups_name-1
+    battery_type: sim-battery_type-1
+    device_model: sim-device_model-1
+    device_serial: sim-device_serial-1
+    device_manufacturer: sim-device_manufacturer-1
+    device_type: sim-device_type-1
+  dimensions:
+  - id: on_line
+    signal: ups_nut_ups_status_on_line
+  - id: on_battery
+    signal: ups_nut_ups_status_on_battery
+  - id: low_battery
+    signal: ups_nut_ups_status_low_battery
+  - id: high_battery
+    signal: ups_nut_ups_status_high_battery
+  - id: replace_battery
+    signal: ups_nut_ups_status_replace_battery
+  - id: charging
+    signal: ups_nut_ups_status_charging
+  - id: discharging
+    signal: ups_nut_ups_status_discharging
+  - id: bypass
+    signal: ups_nut_ups_status_bypass
+  - id: calibration
+    signal: ups_nut_ups_status_calibration
+  - id: offline
+    signal: ups_nut_ups_status_offline
+  - id: overloaded
+    signal: ups_nut_ups_status_overloaded
+  - id: trim_input_voltage
+    signal: ups_nut_ups_status_trim_input_voltage
+  - id: boost_input_voltage
+    signal: ups_nut_ups_status_boost_input_voltage
+  - id: forced_shutdown
+    signal: ups_nut_ups_status_forced_shutdown
+  - id: other
+    signal: ups_nut_ups_status_other
+- id: upsd.ups_temperature
+  title: UPS temperature
+  units: Celsius
+  family: ups
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels:
+    ups_name: sim-ups_name-1
+    battery_type: sim-battery_type-1
+    device_model: sim-device_model-1
+    device_serial: sim-device_serial-1
+    device_manufacturer: sim-device_manufacturer-1
+    device_type: sim-device_type-1
+  dimensions:
+  - id: temperature
+    signal: ups_nut_ups_temperature_temperature
+- id: upsd.ups_battery_charge
+  title: UPS Battery charge
+  units: percentage
+  family: ups
+  chart_type: area
+  priority: 60005
+  shape: independent
+  labels:
+    ups_name: sim-ups_name-1
+    battery_type: sim-battery_type-1
+    device_model: sim-device_model-1
+    device_serial: sim-device_serial-1
+    device_manufacturer: sim-device_manufacturer-1
+    device_type: sim-device_type-1
+  dimensions:
+  - id: charge
+    signal: ups_nut_ups_battery_charge_charge
+- id: upsd.ups_battery_estimated_runtime
+  title: UPS Battery estimated runtime
+  units: seconds
+  family: ups
+  chart_type: line
+  priority: 60006
+  shape: independent
+  labels:
+    ups_name: sim-ups_name-1
+    battery_type: sim-battery_type-1
+    device_model: sim-device_model-1
+    device_serial: sim-device_serial-1
+    device_manufacturer: sim-device_manufacturer-1
+    device_type: sim-device_type-1
+  dimensions:
+  - id: runtime
+    signal: ups_nut_ups_battery_estimated_runtime_runtime
+- id: upsd.ups_battery_voltage
+  title: UPS Battery voltage
+  units: Volts
+  family: ups
+  chart_type: line
+  priority: 60007
+  shape: independent
+  labels:
+    ups_name: sim-ups_name-1
+    battery_type: sim-battery_type-1
+    device_model: sim-device_model-1
+    device_serial: sim-device_serial-1
+    device_manufacturer: sim-device_manufacturer-1
+    device_type: sim-device_type-1
+  dimensions:
+  - id: voltage
+    signal: ups_nut_ups_battery_voltage_voltage
+- id: upsd.ups_battery_voltage_nominal
+  title: UPS Battery voltage nominal
+  units: Volts
+  family: ups
+  chart_type: line
+  priority: 60008
+  shape: independent
+  labels:
+    ups_name: sim-ups_name-1
+    battery_type: sim-battery_type-1
+    device_model: sim-device_model-1
+    device_serial: sim-device_serial-1
+    device_manufacturer: sim-device_manufacturer-1
+    device_type: sim-device_type-1
+  dimensions:
+  - id: nominal_voltage
+    signal: ups_nut_ups_battery_voltage_nominal_nominal_voltage
+- id: upsd.ups_input_voltage
+  title: UPS Input voltage
+  units: Volts
+  family: ups
+  chart_type: line
+  priority: 60009
+  shape: independent
+  labels:
+    ups_name: sim-ups_name-1
+    battery_type: sim-battery_type-1
+    device_model: sim-device_model-1
+    device_serial: sim-device_serial-1
+    device_manufacturer: sim-device_manufacturer-1
+    device_type: sim-device_type-1
+  dimensions:
+  - id: voltage
+    signal: ups_nut_ups_input_voltage_voltage
+- id: upsd.ups_input_voltage_nominal
+  title: UPS Input voltage nominal
+  units: Volts
+  family: ups
+  chart_type: line
+  priority: 60010
+  shape: independent
+  labels:
+    ups_name: sim-ups_name-1
+    battery_type: sim-battery_type-1
+    device_model: sim-device_model-1
+    device_serial: sim-device_serial-1
+    device_manufacturer: sim-device_manufacturer-1
+    device_type: sim-device_type-1
+  dimensions:
+  - id: nominal_voltage
+    signal: ups_nut_ups_input_voltage_nominal_nominal_voltage
+- id: upsd.ups_input_current
+  title: UPS Input current
+  units: Ampere
+  family: ups
+  chart_type: line
+  priority: 60011
+  shape: independent
+  labels:
+    ups_name: sim-ups_name-1
+    battery_type: sim-battery_type-1
+    device_model: sim-device_model-1
+    device_serial: sim-device_serial-1
+    device_manufacturer: sim-device_manufacturer-1
+    device_type: sim-device_type-1
+  dimensions:
+  - id: current
+    signal: ups_nut_ups_input_current_current
+- id: upsd.ups_input_current_nominal
+  title: UPS Input current nominal
+  units: Ampere
+  family: ups
+  chart_type: line
+  priority: 60012
+  shape: independent
+  labels:
+    ups_name: sim-ups_name-1
+    battery_type: sim-battery_type-1
+    device_model: sim-device_model-1
+    device_serial: sim-device_serial-1
+    device_manufacturer: sim-device_manufacturer-1
+    device_type: sim-device_type-1
+  dimensions:
+  - id: nominal_current
+    signal: ups_nut_ups_input_current_nominal_nominal_current
+- id: upsd.ups_input_frequency
+  title: UPS Input frequency
+  units: Hz
+  family: ups
+  chart_type: line
+  priority: 60013
+  shape: independent
+  labels:
+    ups_name: sim-ups_name-1
+    battery_type: sim-battery_type-1
+    device_model: sim-device_model-1
+    device_serial: sim-device_serial-1
+    device_manufacturer: sim-device_manufacturer-1
+    device_type: sim-device_type-1
+  dimensions:
+  - id: frequency
+    signal: ups_nut_ups_input_frequency_frequency
+- id: upsd.ups_input_frequency_nominal
+  title: UPS Input frequency nominal
+  units: Hz
+  family: ups
+  chart_type: line
+  priority: 60014
+  shape: independent
+  labels:
+    ups_name: sim-ups_name-1
+    battery_type: sim-battery_type-1
+    device_model: sim-device_model-1
+    device_serial: sim-device_serial-1
+    device_manufacturer: sim-device_manufacturer-1
+    device_type: sim-device_type-1
+  dimensions:
+  - id: nominal_frequency
+    signal: ups_nut_ups_input_frequency_nominal_nominal_frequency
+- id: upsd.ups_output_voltage
+  title: UPS Output voltage
+  units: Volts
+  family: ups
+  chart_type: line
+  priority: 60015
+  shape: independent
+  labels:
+    ups_name: sim-ups_name-1
+    battery_type: sim-battery_type-1
+    device_model: sim-device_model-1
+    device_serial: sim-device_serial-1
+    device_manufacturer: sim-device_manufacturer-1
+    device_type: sim-device_type-1
+  dimensions:
+  - id: voltage
+    signal: ups_nut_ups_output_voltage_voltage
+- id: upsd.ups_output_voltage_nominal
+  title: UPS Output voltage nominal
+  units: Volts
+  family: ups
+  chart_type: line
+  priority: 60016
+  shape: independent
+  labels:
+    ups_name: sim-ups_name-1
+    battery_type: sim-battery_type-1
+    device_model: sim-device_model-1
+    device_serial: sim-device_serial-1
+    device_manufacturer: sim-device_manufacturer-1
+    device_type: sim-device_type-1
+  dimensions:
+  - id: nominal_voltage
+    signal: ups_nut_ups_output_voltage_nominal_nominal_voltage
+- id: upsd.ups_output_current
+  title: UPS Output current
+  units: Ampere
+  family: ups
+  chart_type: line
+  priority: 60017
+  shape: independent
+  labels:
+    ups_name: sim-ups_name-1
+    battery_type: sim-battery_type-1
+    device_model: sim-device_model-1
+    device_serial: sim-device_serial-1
+    device_manufacturer: sim-device_manufacturer-1
+    device_type: sim-device_type-1
+  dimensions:
+  - id: current
+    signal: ups_nut_ups_output_current_current
+- id: upsd.ups_output_current_nominal
+  title: UPS Output current nominal
+  units: Ampere
+  family: ups
+  chart_type: line
+  priority: 60018
+  shape: independent
+  labels:
+    ups_name: sim-ups_name-1
+    battery_type: sim-battery_type-1
+    device_model: sim-device_model-1
+    device_serial: sim-device_serial-1
+    device_manufacturer: sim-device_manufacturer-1
+    device_type: sim-device_type-1
+  dimensions:
+  - id: nominal_current
+    signal: ups_nut_ups_output_current_nominal_nominal_current
+- id: upsd.ups_output_frequency
+  title: UPS Output frequency
+  units: Hz
+  family: ups
+  chart_type: line
+  priority: 60019
+  shape: independent
+  labels:
+    ups_name: sim-ups_name-1
+    battery_type: sim-battery_type-1
+    device_model: sim-device_model-1
+    device_serial: sim-device_serial-1
+    device_manufacturer: sim-device_manufacturer-1
+    device_type: sim-device_type-1
+  dimensions:
+  - id: frequency
+    signal: ups_nut_ups_output_frequency_frequency
+- id: upsd.ups_output_frequency_nominal
+  title: UPS Output frequency nominal
+  units: Hz
+  family: ups
+  chart_type: line
+  priority: 60020
+  shape: independent
+  labels:
+    ups_name: sim-ups_name-1
+    battery_type: sim-battery_type-1
+    device_model: sim-device_model-1
+    device_serial: sim-device_serial-1
+    device_manufacturer: sim-device_manufacturer-1
+    device_type: sim-device_type-1
+  dimensions:
+  - id: nominal_frequency
+    signal: ups_nut_ups_output_frequency_nominal_nominal_frequency

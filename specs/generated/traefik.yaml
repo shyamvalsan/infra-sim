@@ -1,0 +1,177 @@
+version: 1
+name: traefik
+description: Traefik metrics, generated from Netdata's own collector metadata so the contexts, units and
+  dimension names match what a real Traefik node reports. Signals are independent and plausible rather
+  than causally coupled - see scripts/sync-integrations.py.
+signals:
+  traefik_entrypoint_requests_1xx:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  traefik_entrypoint_requests_2xx:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  traefik_entrypoint_requests_3xx:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  traefik_entrypoint_requests_4xx:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  traefik_entrypoint_requests_5xx:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  traefik_entrypoint_request_duration_average_1xx:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  traefik_entrypoint_request_duration_average_2xx:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  traefik_entrypoint_request_duration_average_3xx:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  traefik_entrypoint_request_duration_average_4xx:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  traefik_entrypoint_request_duration_average_5xx:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  traefik_entrypoint_open_connections_a_dimension_per_http_method:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: traefik.entrypoint_requests
+  title: Processed HTTP requests
+  units: requests/s
+  family: entrypoint
+  chart_type: stacked
+  priority: 60001
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: 1xx
+    rate_signal: traefik_entrypoint_requests_1xx
+  - id: 2xx
+    rate_signal: traefik_entrypoint_requests_2xx
+  - id: 3xx
+    rate_signal: traefik_entrypoint_requests_3xx
+  - id: 4xx
+    rate_signal: traefik_entrypoint_requests_4xx
+  - id: 5xx
+    rate_signal: traefik_entrypoint_requests_5xx
+- id: traefik.entrypoint_request_duration_average
+  title: Average HTTP request processing time
+  units: milliseconds
+  family: entrypoint
+  chart_type: stacked
+  priority: 60002
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: 1xx
+    signal: traefik_entrypoint_request_duration_average_1xx
+  - id: 2xx
+    signal: traefik_entrypoint_request_duration_average_2xx
+  - id: 3xx
+    signal: traefik_entrypoint_request_duration_average_3xx
+  - id: 4xx
+    signal: traefik_entrypoint_request_duration_average_4xx
+  - id: 5xx
+    signal: traefik_entrypoint_request_duration_average_5xx
+- id: traefik.entrypoint_open_connections
+  title: Open connections
+  units: connections
+  family: entrypoint
+  chart_type: stacked
+  priority: 60003
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: a dimension per HTTP method
+    signal: traefik_entrypoint_open_connections_a_dimension_per_http_method

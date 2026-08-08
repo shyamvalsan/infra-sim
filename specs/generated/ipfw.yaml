@@ -1,0 +1,130 @@
+version: 1
+name: ipfw
+description: ipfw metrics, generated from Netdata's own collector metadata so the contexts, units and
+  dimension names match what a real ipfw node reports. Signals are independent and plausible rather than
+  causally coupled - see scripts/sync-integrations.py.
+signals:
+  ipfw_mem_dynamic:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ipfw_mem_static:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ipfw_packets_a_dimension_per_static_rule:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ipfw_bytes_a_dimension_per_static_rule:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ipfw_active_a_dimension_per_dynamic_rule:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ipfw_expired_a_dimension_per_dynamic_rule:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: ipfw.mem
+  title: Memory allocated by rules
+  units: bytes
+  family: mem
+  chart_type: stacked
+  priority: 60001
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: dynamic
+    signal: ipfw_mem_dynamic
+  - id: static
+    signal: ipfw_mem_static
+- id: ipfw.packets
+  title: Packets
+  units: packets/s
+  family: packets
+  chart_type: stacked
+  priority: 60002
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per static rule
+    rate_signal: ipfw_packets_a_dimension_per_static_rule
+- id: ipfw.bytes
+  title: Bytes
+  units: bytes/s
+  family: bytes
+  chart_type: stacked
+  priority: 60003
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per static rule
+    rate_signal: ipfw_bytes_a_dimension_per_static_rule
+- id: ipfw.active
+  title: Active rules
+  units: rules
+  family: active
+  chart_type: stacked
+  priority: 60004
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: a dimension per dynamic rule
+    signal: ipfw_active_a_dimension_per_dynamic_rule
+- id: ipfw.expired
+  title: Expired rules
+  units: rules
+  family: expired
+  chart_type: stacked
+  priority: 60005
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: a dimension per dynamic rule
+    signal: ipfw_expired_a_dimension_per_dynamic_rule

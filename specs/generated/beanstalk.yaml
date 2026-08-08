@@ -1,0 +1,811 @@
+version: 1
+name: beanstalk
+description: Beanstalk metrics, generated from Netdata's own collector metadata so the contexts, units
+  and dimension names match what a real Beanstalk node reports. Signals are independent and plausible
+  rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  beanstalk_current_jobs_ready:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  beanstalk_current_jobs_buried:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  beanstalk_current_jobs_urgent:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  beanstalk_current_jobs_delayed:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  beanstalk_current_jobs_reserved:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  beanstalk_jobs_rate_created:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  beanstalk_jobs_timeouts_timeouts:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  beanstalk_current_tubes_tubes:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  beanstalk_commands_rate_put:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  beanstalk_commands_rate_peek:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  beanstalk_commands_rate_peek_ready:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  beanstalk_commands_rate_peek_delayed:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  beanstalk_commands_rate_peek_buried:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  beanstalk_commands_rate_reserve:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  beanstalk_commands_rate_reserve_with_timeout:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  beanstalk_commands_rate_touch:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  beanstalk_commands_rate_use:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  beanstalk_commands_rate_watch:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  beanstalk_commands_rate_ignore:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  beanstalk_commands_rate_delete:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  beanstalk_commands_rate_bury:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  beanstalk_commands_rate_kick:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  beanstalk_commands_rate_stats:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  beanstalk_commands_rate_stats_job:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  beanstalk_commands_rate_stats_tube:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  beanstalk_commands_rate_list_tubes:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  beanstalk_commands_rate_list_tube_used:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  beanstalk_commands_rate_list_tubes_watched:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  beanstalk_commands_rate_pause_tube:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  beanstalk_current_connections_open:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  beanstalk_current_connections_producers:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  beanstalk_current_connections_workers:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  beanstalk_current_connections_waiting:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  beanstalk_connections_rate_created:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  beanstalk_binlog_records_written:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  beanstalk_binlog_records_migrated:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  beanstalk_cpu_usage_user:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  beanstalk_cpu_usage_system:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  beanstalk_uptime_uptime:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  beanstalk_tube_current_jobs_ready:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  beanstalk_tube_current_jobs_buried:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  beanstalk_tube_current_jobs_urgent:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  beanstalk_tube_current_jobs_delayed:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  beanstalk_tube_current_jobs_reserved:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  beanstalk_tube_jobs_rate_created:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  beanstalk_tube_commands_rate_delete:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  beanstalk_tube_commands_rate_pause_tube:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  beanstalk_tube_current_connections_using:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  beanstalk_tube_current_connections_waiting:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  beanstalk_tube_current_connections_watching:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  beanstalk_tube_pause_time_since:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  beanstalk_tube_pause_time_left:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: beanstalk.current_jobs
+  title: Current Jobs
+  units: jobs
+  family: current
+  chart_type: stacked
+  priority: 60001
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: ready
+    signal: beanstalk_current_jobs_ready
+  - id: buried
+    signal: beanstalk_current_jobs_buried
+  - id: urgent
+    signal: beanstalk_current_jobs_urgent
+  - id: delayed
+    signal: beanstalk_current_jobs_delayed
+  - id: reserved
+    signal: beanstalk_current_jobs_reserved
+- id: beanstalk.jobs_rate
+  title: Jobs Rate
+  units: jobs/s
+  family: jobs
+  chart_type: line
+  priority: 60002
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: created
+    rate_signal: beanstalk_jobs_rate_created
+- id: beanstalk.jobs_timeouts
+  title: Timed Out Jobs
+  units: jobs/s
+  family: jobs
+  chart_type: line
+  priority: 60003
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: timeouts
+    rate_signal: beanstalk_jobs_timeouts_timeouts
+- id: beanstalk.current_tubes
+  title: Current Tubes
+  units: tubes
+  family: current
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: tubes
+    signal: beanstalk_current_tubes_tubes
+- id: beanstalk.commands_rate
+  title: Commands Rate
+  units: commands/s
+  family: commands
+  chart_type: stacked
+  priority: 60005
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: put
+    rate_signal: beanstalk_commands_rate_put
+  - id: peek
+    rate_signal: beanstalk_commands_rate_peek
+  - id: peek-ready
+    rate_signal: beanstalk_commands_rate_peek_ready
+  - id: peek-delayed
+    rate_signal: beanstalk_commands_rate_peek_delayed
+  - id: peek-buried
+    rate_signal: beanstalk_commands_rate_peek_buried
+  - id: reserve
+    rate_signal: beanstalk_commands_rate_reserve
+  - id: reserve-with-timeout
+    rate_signal: beanstalk_commands_rate_reserve_with_timeout
+  - id: touch
+    rate_signal: beanstalk_commands_rate_touch
+  - id: use
+    rate_signal: beanstalk_commands_rate_use
+  - id: watch
+    rate_signal: beanstalk_commands_rate_watch
+  - id: ignore
+    rate_signal: beanstalk_commands_rate_ignore
+  - id: delete
+    rate_signal: beanstalk_commands_rate_delete
+  - id: bury
+    rate_signal: beanstalk_commands_rate_bury
+  - id: kick
+    rate_signal: beanstalk_commands_rate_kick
+  - id: stats
+    rate_signal: beanstalk_commands_rate_stats
+  - id: stats-job
+    rate_signal: beanstalk_commands_rate_stats_job
+  - id: stats-tube
+    rate_signal: beanstalk_commands_rate_stats_tube
+  - id: list-tubes
+    rate_signal: beanstalk_commands_rate_list_tubes
+  - id: list-tube-used
+    rate_signal: beanstalk_commands_rate_list_tube_used
+  - id: list-tubes-watched
+    rate_signal: beanstalk_commands_rate_list_tubes_watched
+  - id: pause-tube
+    rate_signal: beanstalk_commands_rate_pause_tube
+- id: beanstalk.current_connections
+  title: Current Connections
+  units: connections
+  family: current
+  chart_type: line
+  priority: 60006
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: open
+    signal: beanstalk_current_connections_open
+  - id: producers
+    signal: beanstalk_current_connections_producers
+  - id: workers
+    signal: beanstalk_current_connections_workers
+  - id: waiting
+    signal: beanstalk_current_connections_waiting
+- id: beanstalk.connections_rate
+  title: Connections Rate
+  units: connections/s
+  family: connections
+  chart_type: area
+  priority: 60007
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: created
+    rate_signal: beanstalk_connections_rate_created
+- id: beanstalk.binlog_records
+  title: Binlog Records
+  units: records/s
+  family: binlog
+  chart_type: line
+  priority: 60008
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: written
+    rate_signal: beanstalk_binlog_records_written
+  - id: migrated
+    rate_signal: beanstalk_binlog_records_migrated
+- id: beanstalk.cpu_usage
+  title: Cpu Usage
+  units: percent
+  family: cpu
+  chart_type: stacked
+  priority: 60009
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: user
+    signal: beanstalk_cpu_usage_user
+  - id: system
+    signal: beanstalk_cpu_usage_system
+- id: beanstalk.uptime
+  title: seconds
+  units: seconds
+  family: uptime
+  chart_type: line
+  priority: 60010
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: uptime
+    signal: beanstalk_uptime_uptime
+- id: beanstalk.tube_current_jobs
+  title: Tube Current Jobs
+  units: jobs
+  family: tube
+  chart_type: stacked
+  priority: 60011
+  shape: independent
+  labels:
+    tube_name: sim-tube_name-1
+  dimensions:
+  - id: ready
+    signal: beanstalk_tube_current_jobs_ready
+  - id: buried
+    signal: beanstalk_tube_current_jobs_buried
+  - id: urgent
+    signal: beanstalk_tube_current_jobs_urgent
+  - id: delayed
+    signal: beanstalk_tube_current_jobs_delayed
+  - id: reserved
+    signal: beanstalk_tube_current_jobs_reserved
+- id: beanstalk.tube_jobs_rate
+  title: Tube Jobs Rate
+  units: jobs/s
+  family: tube
+  chart_type: line
+  priority: 60012
+  shape: counters
+  labels:
+    tube_name: sim-tube_name-1
+  dimensions:
+  - id: created
+    rate_signal: beanstalk_tube_jobs_rate_created
+- id: beanstalk.tube_commands_rate
+  title: Tube Commands
+  units: commands/s
+  family: tube
+  chart_type: stacked
+  priority: 60013
+  shape: counters
+  labels:
+    tube_name: sim-tube_name-1
+  dimensions:
+  - id: delete
+    rate_signal: beanstalk_tube_commands_rate_delete
+  - id: pause-tube
+    rate_signal: beanstalk_tube_commands_rate_pause_tube
+- id: beanstalk.tube_current_connections
+  title: Tube Current Connections
+  units: connections
+  family: tube
+  chart_type: stacked
+  priority: 60014
+  shape: independent
+  labels:
+    tube_name: sim-tube_name-1
+  dimensions:
+  - id: using
+    signal: beanstalk_tube_current_connections_using
+  - id: waiting
+    signal: beanstalk_tube_current_connections_waiting
+  - id: watching
+    signal: beanstalk_tube_current_connections_watching
+- id: beanstalk.tube_pause_time
+  title: Tube Pause Time
+  units: seconds
+  family: tube
+  chart_type: line
+  priority: 60015
+  shape: independent
+  labels:
+    tube_name: sim-tube_name-1
+  dimensions:
+  - id: since
+    signal: beanstalk_tube_pause_time_since
+  - id: left
+    signal: beanstalk_tube_pause_time_left

@@ -1,0 +1,221 @@
+version: 1
+name: powerdns-authoritative-server
+description: PowerDNS Authoritative Server metrics, generated from Netdata's own collector metadata so
+  the contexts, units and dimension names match what a real PowerDNS Authoritative Server node reports.
+  Signals are independent and plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  powerdns_authoritative_server_questions_in_udp:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  powerdns_authoritative_server_questions_in_tcp:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  powerdns_authoritative_server_questions_out_udp:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  powerdns_authoritative_server_questions_out_tcp:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  powerdns_authoritative_server_cache_usage_query_cache_hit:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  powerdns_authoritative_server_cache_usage_query_cache_miss:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  powerdns_authoritative_server_cache_usage_packetcache_hit:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  powerdns_authoritative_server_cache_usage_packetcache_miss:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  powerdns_authoritative_server_cache_size_query_cache:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  powerdns_authoritative_server_cache_size_packet_cache:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  powerdns_authoritative_server_cache_size_key_cache:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  powerdns_authoritative_server_cache_size_meta_cache:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  powerdns_authoritative_server_latency_latency:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: powerdns.questions_in
+  title: Incoming questions
+  units: questions/s
+  family: questions
+  chart_type: line
+  priority: 60001
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: udp
+    rate_signal: powerdns_authoritative_server_questions_in_udp
+  - id: tcp
+    rate_signal: powerdns_authoritative_server_questions_in_tcp
+- id: powerdns.questions_out
+  title: Outgoing questions
+  units: questions/s
+  family: questions
+  chart_type: line
+  priority: 60002
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: udp
+    rate_signal: powerdns_authoritative_server_questions_out_udp
+  - id: tcp
+    rate_signal: powerdns_authoritative_server_questions_out_tcp
+- id: powerdns.cache_usage
+  title: Cache Usage
+  units: events/s
+  family: cache
+  chart_type: line
+  priority: 60003
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: query-cache-hit
+    rate_signal: powerdns_authoritative_server_cache_usage_query_cache_hit
+  - id: query-cache-miss
+    rate_signal: powerdns_authoritative_server_cache_usage_query_cache_miss
+  - id: packetcache-hit
+    rate_signal: powerdns_authoritative_server_cache_usage_packetcache_hit
+  - id: packetcache-miss
+    rate_signal: powerdns_authoritative_server_cache_usage_packetcache_miss
+- id: powerdns.cache_size
+  title: Cache Size
+  units: entries
+  family: cache
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: query-cache
+    signal: powerdns_authoritative_server_cache_size_query_cache
+  - id: packet-cache
+    signal: powerdns_authoritative_server_cache_size_packet_cache
+  - id: key-cache
+    signal: powerdns_authoritative_server_cache_size_key_cache
+  - id: meta-cache
+    signal: powerdns_authoritative_server_cache_size_meta_cache
+- id: powerdns.latency
+  title: Answer latency
+  units: microseconds
+  family: latency
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: latency
+    signal: powerdns_authoritative_server_latency_latency

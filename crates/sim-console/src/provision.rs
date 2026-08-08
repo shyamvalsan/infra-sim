@@ -27,7 +27,7 @@ pub const INSTALL_DIR: &str = "/etc/netdata/infra-sim";
 pub const PLUGIN_DIR: &str = "/etc/netdata/custom-plugins.d";
 
 /// One role's row in the create form.
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Clone, Serialize, serde::Deserialize)]
 pub struct GroupRequest {
     pub role: String,
     pub count: usize,
@@ -48,6 +48,10 @@ pub struct CreateRequest {
     /// the UI does not offer — an unlinted fleet is how a bad demo happens.
     #[serde(default = "default_lint_hours")]
     pub lint_hours: u32,
+    /// Also publish a simulated Prometheus exporter per node and point
+    /// Netdata's own go.d prometheus collector at it.
+    #[serde(default)]
+    pub exporters: bool,
 }
 
 fn default_lint_hours() -> u32 {
@@ -70,6 +74,43 @@ pub struct Catalogue {
     pub roles: Vec<RoleOption>,
     pub services: Vec<String>,
     pub templates: Vec<TemplateOption>,
+    /// Every integration the picker can offer, with its Netdata icon.
+    pub integrations: Vec<Integration>,
+}
+
+/// One selectable collector.
+#[derive(Debug, Clone, Serialize, serde::Deserialize)]
+pub struct Integration {
+    pub id: String,
+    pub name: String,
+    /// Netdata's own icon URL. Served from their CDN rather than vendored:
+    /// 150-odd SVGs is repo clutter, and the picker degrades to initials when
+    /// offline rather than showing broken images.
+    #[serde(default)]
+    pub icon: String,
+    #[serde(default)]
+    pub category: String,
+    #[serde(default)]
+    pub charts: usize,
+    /// "deep" for the hand-authored specs whose signals are causally coupled
+    /// and which the hero scenarios target by name; "generated" for the ones
+    /// built from Netdata's collector metadata. The picker shows the
+    /// difference rather than implying every integration is equal.
+    #[serde(default)]
+    pub modelled: String,
+}
+
+/// Read the committed integration catalogue.
+pub fn integrations(repo: &Path) -> Vec<Integration> {
+    #[derive(serde::Deserialize)]
+    struct File {
+        integrations: Vec<Integration>,
+    }
+    std::fs::read_to_string(repo.join("integrations").join("catalogue.json"))
+        .ok()
+        .and_then(|t| serde_json::from_str::<File>(&t).ok())
+        .map(|f| f.integrations)
+        .unwrap_or_default()
 }
 
 #[derive(Debug, Serialize)]
@@ -82,10 +123,11 @@ pub struct RoleOption {
     pub default_services: Vec<String>,
 }
 
-pub fn catalogue(specs_dir: &Path, env_dir: &Path) -> Catalogue {
+pub fn catalogue(specs_dir: &Path, env_dir: &Path, repo: &Path) -> Catalogue {
     let services = available_services(specs_dir);
     Catalogue {
         templates: templates(env_dir),
+        integrations: integrations(repo),
         roles: roles()
             .into_iter()
             .map(|r| RoleOption {
@@ -129,8 +171,12 @@ pub fn create(repo: &Path, req: &CreateRequest) -> Result<CreateResponse, String
         return Err("a name is required; it fixes the seed and every node GUID".into());
     }
 
-    let specs_dir = repo.join("specs");
-    let known = available_services(&specs_dir);
+    // Hand-authored specs sit in specs/, the ones generated from Netdata's
+    // collector metadata in specs/generated. Both are installable.
+    let mut known = available_services(&repo.join("specs"));
+    known.extend(available_services(&repo.join("specs").join("generated")));
+    known.sort();
+    known.dedup();
     let known_roles: Vec<String> = roles().iter().map(|r| r.role.to_string()).collect();
 
     let mut notes = Vec::new();
@@ -205,9 +251,31 @@ pub fn create(repo: &Path, req: &CreateRequest) -> Result<CreateResponse, String
         String::new()
     };
 
-    install(repo, &binary, &env_path)?;
+    let used: Vec<String> = {
+        let mut v: Vec<String> = reading
+            .groups
+            .iter()
+            .flat_map(|g| g.services.iter().cloned())
+            .collect();
+        v.sort();
+        v.dedup();
+        v
+    };
+    install(repo, &binary, &env_path, &used)?;
     notes.push(format!("installed to {INSTALL_DIR}"));
     notes.push("the agent rescans for plugins every 60s".into());
+
+    if req.exporters {
+        match exporters::enable(repo, &binary, &env_path) {
+            Ok(more) => notes.extend(more),
+            // A fleet that installed cleanly is still a usable fleet; failing
+            // the whole create because the optional scrape target could not be
+            // set up would be the wrong trade.
+            Err(e) => notes.push(format!("Prometheus exporters NOT enabled: {e}")),
+        }
+    } else {
+        exporters::disable();
+    }
 
     Ok(CreateResponse {
         environment: env_path.display().to_string(),
@@ -216,6 +284,368 @@ pub fn create(repo: &Path, req: &CreateRequest) -> Result<CreateResponse, String
         installed: true,
         notes,
     })
+}
+
+/// Simulated Prometheus exporters, and the Netdata config that scrapes them.
+///
+/// This is the one place the console writes into Netdata's *own* configuration
+/// rather than its own directory, so every write is namespaced to an
+/// `infra-sim` filename and guarded against clobbering an operator's file.
+pub mod exporters {
+    use super::{inherit_owner, INSTALL_DIR};
+    use std::path::Path;
+
+    const VNODES_CONF: &str = "/etc/netdata/vnodes/infra-sim.conf";
+    const GO_D_CONF: &str = "/etc/netdata/go.d/prometheus.conf";
+    const PORT: u16 = 19998;
+    /// First line of every file this writes. Its absence in an existing file
+    /// means an operator wrote it, and it is not ours to overwrite.
+    const MARKER: &str = "# managed by infra-sim - safe to delete when the simulation is torn down";
+
+    /// Write the vnode registry and scrape jobs, then start the exporter.
+    pub fn enable(repo: &Path, binary: &Path, env_path: &Path) -> Result<Vec<String>, String> {
+        let text = std::fs::read_to_string(env_path).map_err(|e| e.to_string())?;
+        let nodes = hostnames_and_guids(&text);
+        if nodes.is_empty() {
+            return Err("no nodes to export".into());
+        }
+
+        guard(Path::new(GO_D_CONF))?;
+
+        // go.d needs the vnode declared before a job may attribute to it. The
+        // GUIDs are the fleet's own, so scraped charts land on the same virtual
+        // node the plugins.d path already owns rather than on a second copy.
+        let mut vnodes = format!("{MARKER}\n");
+        for (host, guid) in &nodes {
+            vnodes.push_str(&format!("- hostname: {host}\n  guid: {guid}\n"));
+        }
+        write_conf(Path::new(VNODES_CONF), &vnodes)?;
+
+        let mut jobs = format!("{MARKER}\njobs:\n");
+        for (host, _) in &nodes {
+            jobs.push_str(&format!(
+                "  - name: infra_sim_app_{slug}\n    vnode: {host}\n    url: http://127.0.0.1:{PORT}/metrics/{host}\n",
+                slug = host.replace(['-', '.'], "_"),
+            ));
+        }
+        write_conf(Path::new(GO_D_CONF), &jobs)?;
+
+        // The installed environment, not the repo copy: the exporter must move
+        // on the same scenario timeline as the plugin, which means reading the
+        // same control.yaml beside the installed file.
+        let installed = Path::new(INSTALL_DIR).join("environment.yaml");
+        let spec = repo.join("specs").join("prometheus-app.yaml");
+        std::fs::copy(
+            &spec,
+            Path::new(INSTALL_DIR)
+                .join("specs")
+                .join("prometheus-app.yaml"),
+        )
+        .map_err(|e| format!("cannot install '{}': {e}", spec.display()))?;
+
+        start(binary, &installed)?;
+
+        // go.d reads its vnode registry once, at startup
+        // (netdata/netdata src/go/plugin/agent/setup.go:179), so a job
+        // referencing a vnode declared after it started attributes nowhere.
+        // Stopping the plugin is the supported way to reload it: the daemon
+        // respawns external plugins within seconds, and no netdatacli command
+        // exists for this.
+        let reloaded = reload_go_d();
+        Ok(vec![
+            format!("{} Prometheus exporters on 127.0.0.1:{PORT}", nodes.len()),
+            format!("scrape jobs written to {GO_D_CONF}, vnodes to {VNODES_CONF}"),
+            if reloaded {
+                "go.d.plugin restarted so it picks up the new vnodes; charts appear within a minute"
+                    .into()
+            } else {
+                format!(
+                    "could not restart go.d.plugin - it reads its vnode registry only at \
+                     startup, so until it restarts the scraped charts will not attach. \
+                     Restart the agent, or delete {GO_D_CONF} and {VNODES_CONF} to undo."
+                )
+            },
+        ])
+    }
+
+    /// Remove the config and stop the exporter. Idempotent.
+    pub fn disable() {
+        stop();
+        for path in [GO_D_CONF, VNODES_CONF] {
+            let p = Path::new(path);
+            // Only ever remove a file this module wrote.
+            if std::fs::read_to_string(p)
+                .map(|t| t.starts_with(MARKER))
+                .unwrap_or(false)
+            {
+                let _ = std::fs::remove_file(p);
+            }
+        }
+    }
+
+    /// Restart go.d.plugin by stopping it; netdata respawns external plugins.
+    ///
+    /// Matched on the executable path from /proc, never on a process name.
+    fn reload_go_d() -> bool {
+        const GO_D: &str = "/usr/libexec/netdata/plugins.d/go.d.plugin";
+        let Ok(entries) = std::fs::read_dir("/proc") else {
+            return false;
+        };
+        let mut stopped = false;
+        for pid in entries
+            .flatten()
+            .filter_map(|e| e.file_name().to_str()?.parse::<i32>().ok())
+        {
+            let is_go_d = std::fs::read_link(format!("/proc/{pid}/exe"))
+                .map(|p| p == Path::new(GO_D))
+                .unwrap_or(false);
+            if is_go_d
+                && std::process::Command::new("kill")
+                    .arg(pid.to_string())
+                    .status()
+                    .map(|s| s.success())
+                    .unwrap_or(false)
+            {
+                stopped = true;
+            }
+        }
+        stopped
+    }
+
+    pub fn running() -> bool {
+        !pids().is_empty()
+    }
+
+    fn start(binary: &Path, environment: &Path) -> Result<(), String> {
+        stop();
+        let exe = Path::new(INSTALL_DIR).join("infra-sim");
+        // Copy the binary in so the exporter does not hold the repo's build
+        // directory open, and so a rebuild cannot swap it mid-demo.
+        //
+        // Staged and renamed rather than copied over: the previous exporter may
+        // still be exiting and writing to its own executable fails with
+        // ETXTBSY. Rename is atomic and leaves the dying process on the old
+        // inode - the same fix the plugin install needed.
+        let staged = Path::new(INSTALL_DIR).join(".infra-sim.new");
+        std::fs::copy(binary, &staged).map_err(|e| format!("cannot stage the exporter: {e}"))?;
+        #[cfg(unix)]
+        {
+            use std::os::unix::fs::PermissionsExt;
+            let _ = std::fs::set_permissions(&staged, std::fs::Permissions::from_mode(0o755));
+        }
+        std::fs::rename(&staged, &exe).map_err(|e| {
+            let _ = std::fs::remove_file(&staged);
+            format!("cannot install the exporter: {e}")
+        })?;
+        std::process::Command::new(&exe)
+            .arg("--exporters")
+            .arg("--environment")
+            .arg(environment)
+            .stdin(std::process::Stdio::null())
+            .stdout(std::process::Stdio::null())
+            .stderr(std::process::Stdio::null())
+            .spawn()
+            .map(|_| ())
+            .map_err(|e| format!("cannot start the exporter: {e}"))
+    }
+
+    fn stop() {
+        for pid in pids() {
+            stop_plugin_pid(pid);
+        }
+    }
+
+    /// PIDs running *our* exporter binary, matched on the executable path and
+    /// the `--exporters` argument rather than on a process name.
+    fn pids() -> Vec<i32> {
+        let exe = Path::new(INSTALL_DIR).join("infra-sim");
+        let Ok(entries) = std::fs::read_dir("/proc") else {
+            return Vec::new();
+        };
+        entries
+            .flatten()
+            .filter_map(|e| e.file_name().to_str()?.parse::<i32>().ok())
+            .filter(|pid| {
+                std::fs::read_link(format!("/proc/{pid}/exe"))
+                    .map(|p| p == exe)
+                    .unwrap_or(false)
+                    && std::fs::read(format!("/proc/{pid}/cmdline"))
+                        .map(|c| c.split(|b| *b == 0).any(|a| a == b"--exporters"))
+                        .unwrap_or(false)
+            })
+            .collect()
+    }
+
+    fn stop_plugin_pid(pid: i32) {
+        // The PID came from /proc, matched on our own executable path *and* our
+        // own `--exporters` argument, so this cannot reach an unrelated process.
+        let _ = std::process::Command::new("kill")
+            .arg(pid.to_string())
+            .status();
+    }
+
+    fn guard(path: &Path) -> Result<(), String> {
+        match std::fs::read_to_string(path) {
+            Ok(text) if !text.starts_with(MARKER) => Err(format!(
+                "'{}' already exists and was not written by infra-sim. Move it aside \
+                 first - overwriting an operator's collector config is not something \
+                 this will do silently.",
+                path.display()
+            )),
+            _ => Ok(()),
+        }
+    }
+
+    fn write_conf(path: &Path, body: &str) -> Result<(), String> {
+        if let Some(dir) = path.parent() {
+            std::fs::create_dir_all(dir).map_err(|e| format!("cannot create {dir:?}: {e}"))?;
+        }
+        std::fs::write(path, body)
+            .map_err(|e| format!("cannot write '{}': {e}", path.display()))?;
+        if let Some(dir) = path.parent() {
+            inherit_owner(dir, path);
+        }
+        Ok(())
+    }
+
+    /// Pull `hostname:` / `guid:` pairs out of a rendered environment.
+    fn hostnames_and_guids(text: &str) -> Vec<(String, String)> {
+        let mut out = Vec::new();
+        let mut host: Option<String> = None;
+        for line in text.lines() {
+            let t = line.trim_start().trim_start_matches("- ");
+            if let Some(v) = t.strip_prefix("hostname:") {
+                host = Some(v.trim().to_string());
+            } else if let Some(v) = t.strip_prefix("guid:") {
+                if let Some(h) = host.take() {
+                    out.push((h, v.trim().to_string()));
+                }
+            }
+        }
+        out
+    }
+
+    #[cfg(test)]
+    mod tests {
+        use super::*;
+
+        #[test]
+        fn nodes_are_read_in_pairs() {
+            let env = "nodes:\n  - hostname: sim-web-01\n    guid: aaaa\n    role: web\n                       \x20 - hostname: sim-db-01\n    guid: bbbb\n";
+            assert_eq!(
+                hostnames_and_guids(env),
+                vec![
+                    ("sim-web-01".to_string(), "aaaa".to_string()),
+                    ("sim-db-01".to_string(), "bbbb".to_string()),
+                ]
+            );
+        }
+
+        #[test]
+        fn an_operators_own_config_is_never_overwritten() {
+            let dir = std::env::temp_dir().join("infra-sim-guard-test");
+            std::fs::create_dir_all(&dir).unwrap();
+            let theirs = dir.join("prometheus.conf");
+            std::fs::write(&theirs, "jobs:\n  - name: their_real_exporter\n").unwrap();
+            assert!(guard(&theirs).is_err());
+
+            std::fs::write(&theirs, format!("{MARKER}\njobs: []\n")).unwrap();
+            assert!(guard(&theirs).is_ok(), "our own file may be replaced");
+
+            std::fs::remove_file(&theirs).unwrap();
+            assert!(guard(&theirs).is_ok(), "absent is fine");
+        }
+    }
+}
+
+/// A free-form description of an estate, and how to read it.
+#[derive(Debug, Clone, serde::Deserialize)]
+pub struct DescribeRequest {
+    pub text: String,
+    /// Empty for the built-in keyword reader. "anthropic" or "openai" asks a
+    /// real model, using the key already in the console's environment - the SE
+    /// never types a key into a web form.
+    #[serde(default)]
+    pub provider: String,
+    #[serde(default)]
+    pub model: String,
+}
+
+#[derive(Debug, Clone, Serialize)]
+pub struct DescribeResponse {
+    pub groups: Vec<GroupRequest>,
+    /// What produced this: "keywords", or the model id.
+    pub source: String,
+    /// Phrases the reader could not place. Shown, never silently dropped - the
+    /// SE has to know which half of their sentence was understood.
+    pub unrecognised: Vec<String>,
+    /// Things the model recognised but this simulator cannot represent.
+    pub unsupported: Vec<String>,
+    pub notes: Vec<String>,
+    pub suggested_name: String,
+}
+
+/// Turn a sentence into a proposed fleet. Nothing is written or installed; the
+/// SE reviews and edits the result in the form before creating anything.
+pub fn describe(repo: &Path, req: &DescribeRequest) -> Result<DescribeResponse, String> {
+    let specs_dir = repo.join("specs");
+    if req.text.trim().is_empty() {
+        return Err("describe what the prospect runs, in your own words".into());
+    }
+
+    // Everything installable, so a description naming haproxy or kafka resolves
+    // to that collector instead of the role's default.
+    let mut installable = available_services(&specs_dir);
+    installable.extend(available_services(&specs_dir.join("generated")));
+    installable.sort();
+    installable.dedup();
+
+    let (reading, source, notes, unsupported, suggested) = if req.provider.is_empty() {
+        let r = sim_engine::describe::parse_with_services(&req.text, &installable);
+        (r, "keywords".to_string(), Vec::new(), Vec::new(), None)
+    } else {
+        let provider = sim_engine::llm::Provider::parse(&req.provider)?;
+        let mut cfg = sim_engine::llm::Config::new(provider);
+        if !req.model.is_empty() {
+            cfg.model = req.model.clone();
+        }
+        let p = sim_engine::llm::propose(&cfg, &req.text, &specs_dir)?;
+        let mut notes = p.notes;
+        notes.extend(p.corrections);
+        (p.reading, p.model, notes, p.unsupported, p.suggested_name)
+    };
+
+    Ok(DescribeResponse {
+        groups: reading
+            .groups
+            .iter()
+            .map(|g| GroupRequest {
+                role: g.role.clone(),
+                count: g.count,
+                services: g.services.clone(),
+            })
+            .collect(),
+        source,
+        unrecognised: reading.unrecognised.clone(),
+        unsupported,
+        notes,
+        suggested_name: suggested.unwrap_or_default(),
+    })
+}
+
+/// Whether a provider key is present in the console's own environment, so the
+/// UI can offer the model only when it would actually work.
+pub fn llm_providers() -> Vec<String> {
+    ["anthropic", "openai"]
+        .iter()
+        .filter(|p| {
+            let env = sim_engine::llm::Provider::parse(p)
+                .map(|x| x.default_key_env())
+                .unwrap_or("");
+            std::env::var(env).map(|v| !v.is_empty()).unwrap_or(false)
+        })
+        .map(|p| p.to_string())
+        .collect()
 }
 
 /// GUIDs already used by another environment file in the same directory.
@@ -308,7 +738,7 @@ fn tail(s: &str, n: usize) -> String {
 
 /// Copy the binary, environment, specs and scenarios into place, then stop the
 /// previous plugin process so the agent starts the new one.
-fn install(repo: &Path, binary: &Path, env_path: &Path) -> Result<(), String> {
+fn install(repo: &Path, binary: &Path, env_path: &Path, services: &[String]) -> Result<(), String> {
     let install_dir = Path::new(INSTALL_DIR);
     std::fs::create_dir_all(install_dir.join("specs"))
         .and_then(|_| std::fs::create_dir_all(install_dir.join("scenarios")))
@@ -318,6 +748,21 @@ fn install(repo: &Path, binary: &Path, env_path: &Path) -> Result<(), String> {
         })?;
 
     copy_dir(&repo.join("specs"), &install_dir.join("specs"))?;
+    // 150-odd generated specs is 2.4MB of YAML the fleet mostly does not use.
+    // Copy the ones it names, into the same `generated` subdirectory the plugin
+    // falls back to.
+    if !services.is_empty() {
+        let gen_src = repo.join("specs").join("generated");
+        let gen_dst = install_dir.join("specs").join("generated");
+        std::fs::create_dir_all(&gen_dst).map_err(|e| format!("cannot create {gen_dst:?}: {e}"))?;
+        for svc in services {
+            let from = gen_src.join(format!("{svc}.yaml"));
+            if from.exists() {
+                std::fs::copy(&from, gen_dst.join(format!("{svc}.yaml")))
+                    .map_err(|e| format!("cannot copy '{}': {e}", from.display()))?;
+            }
+        }
+    }
     copy_dir(&repo.join("scenarios"), &install_dir.join("scenarios"))?;
 
     std::fs::copy(env_path, install_dir.join("environment.yaml"))
@@ -409,11 +854,6 @@ pub struct ClaimRequest {
     pub rooms: String,
     #[serde(default = "default_claim_url")]
     pub url: String,
-    /// The Space this is going into. `spec.md` requires a fresh Space per
-    /// prospect named `<Prospect> (Simulated Demo)`; the console cannot read
-    /// Cloud membership, so it asks the SE to type it and checks the shape.
-    #[serde(default)]
-    pub space_name: String,
 }
 
 fn default_claim_url() -> String {
@@ -438,14 +878,6 @@ pub async fn claim(
     if req.token.trim().is_empty() {
         return Err("a claim token is required".into());
     }
-    if !req.space_name.contains("(Simulated Demo)") {
-        return Err(
-            "Space name must end with '(Simulated Demo)'. Every simulated environment is \
-             visibly labelled as one - that is a hard rule, not a convention."
-                .into(),
-        );
-    }
-
     // The agent requires proof of local root access before it will accept a
     // claim over HTTP, which is what stops a web page claiming someone's agent.
     let key = std::fs::read_to_string("/var/lib/netdata/netdata_random_session_id")
@@ -596,7 +1028,21 @@ pub fn teardown(repo: &Path, control_path: &Path, env_path: &Path) -> Vec<Teardo
         manual: false,
     });
 
-    // 3. Archive what replays the world.
+    // 3. Stop the exporters and take back the Netdata config they installed.
+    let had_exporters = exporters::running();
+    exporters::disable();
+    steps.push(TeardownStep {
+        name: "Stop the Prometheus exporters".into(),
+        done: true,
+        detail: if had_exporters {
+            "stopped, and the scrape jobs and vnode entries this wrote were removed".into()
+        } else {
+            "none were running".into()
+        },
+        manual: false,
+    });
+
+    // 4. Archive what replays the world.
     let archive = repo.join("archive");
     let stamp = std::time::SystemTime::now()
         .duration_since(std::time::UNIX_EPOCH)
@@ -662,27 +1108,11 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn a_claim_needs_the_simulated_demo_space_naming() {
-        // Every simulated environment is visibly labelled as one. This is the
-        // hard rule, not a preference.
-        let req = ClaimRequest {
-            token: "t".into(),
-            rooms: String::new(),
-            url: default_claim_url(),
-            space_name: "Acme Production".into(),
-        };
-        let agent = crate::agent::Agent::new("127.0.0.1", 19999);
-        let err = claim(&agent, &req).await.unwrap_err();
-        assert!(err.contains("Simulated Demo"), "{err}");
-    }
-
-    #[tokio::test]
     async fn a_claim_without_a_token_is_refused_before_anything_else() {
         let req = ClaimRequest {
             token: "  ".into(),
             rooms: String::new(),
             url: default_claim_url(),
-            space_name: "Acme (Simulated Demo)".into(),
         };
         let agent = crate::agent::Agent::new("127.0.0.1", 19999);
         assert!(claim(&agent, &req)
@@ -709,7 +1139,7 @@ mod tests {
         let _ = std::fs::create_dir_all(&dir);
         std::fs::write(dir.join("redis.yaml"), "name: redis\n").unwrap();
         std::fs::write(dir.join("linux-system.yaml"), "name: base\n").unwrap();
-        let c = catalogue(&dir, &dir);
+        let c = catalogue(&dir, &dir, &dir);
         assert_eq!(c.services, vec!["redis"]);
         // The base spec is composed onto every node already; offering it as a
         // service would merge it into itself.

@@ -1,0 +1,490 @@
+version: 1
+name: azure-event-hubs-namespace
+description: Azure Event Hubs Namespace metrics, generated from Netdata's own collector metadata so the
+  contexts, units and dimension names match what a real Azure Event Hubs Namespace node reports. Signals
+  are independent and plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  azure_event_hubs_namespace_event_hubs_message_flow_in:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_event_hubs_namespace_event_hubs_message_flow_out:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_event_hubs_namespace_event_hubs_data_throughput_in:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_event_hubs_namespace_event_hubs_data_throughput_out:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_event_hubs_namespace_event_hubs_requests_incoming:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_event_hubs_namespace_event_hubs_requests_successful:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_event_hubs_namespace_event_hubs_errors_server:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_event_hubs_namespace_event_hubs_errors_user:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_event_hubs_namespace_event_hubs_errors_throttled:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_event_hubs_namespace_event_hubs_errors_quota_exceeded:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_event_hubs_namespace_event_hubs_connections_active:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_event_hubs_namespace_event_hubs_connection_events_opened:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_event_hubs_namespace_event_hubs_connection_events_closed:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_event_hubs_namespace_event_hubs_captured_messages_total:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_event_hubs_namespace_event_hubs_captured_data_total:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_event_hubs_namespace_event_hubs_namespace_size_average:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_event_hubs_namespace_event_hubs_capture_backlog_backlog:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_event_hubs_namespace_event_hubs_namespace_resources_cpu:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_event_hubs_namespace_event_hubs_namespace_resources_memory:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_event_hubs_namespace_event_hubs_replication_lag_messages:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_event_hubs_namespace_event_hubs_replication_lag_duration_duration:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: azure_monitor.event_hubs.message_flow
+  title: Azure Event Hubs Message Flow
+  units: messages/s
+  family: event
+  chart_type: line
+  priority: 60001
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: in
+    rate_signal: azure_event_hubs_namespace_event_hubs_message_flow_in
+  - id: out
+    rate_signal: azure_event_hubs_namespace_event_hubs_message_flow_out
+- id: azure_monitor.event_hubs.data_throughput
+  title: Azure Event Hubs Data Throughput
+  units: bytes/s
+  family: event
+  chart_type: line
+  priority: 60002
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: in
+    rate_signal: azure_event_hubs_namespace_event_hubs_data_throughput_in
+  - id: out
+    rate_signal: azure_event_hubs_namespace_event_hubs_data_throughput_out
+- id: azure_monitor.event_hubs.requests
+  title: Azure Event Hubs Requests
+  units: requests/s
+  family: event
+  chart_type: line
+  priority: 60003
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: incoming
+    rate_signal: azure_event_hubs_namespace_event_hubs_requests_incoming
+  - id: successful
+    rate_signal: azure_event_hubs_namespace_event_hubs_requests_successful
+- id: azure_monitor.event_hubs.errors
+  title: Azure Event Hubs Errors
+  units: errors/s
+  family: event
+  chart_type: line
+  priority: 60004
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: server
+    rate_signal: azure_event_hubs_namespace_event_hubs_errors_server
+  - id: user
+    rate_signal: azure_event_hubs_namespace_event_hubs_errors_user
+  - id: throttled
+    rate_signal: azure_event_hubs_namespace_event_hubs_errors_throttled
+  - id: quota_exceeded
+    rate_signal: azure_event_hubs_namespace_event_hubs_errors_quota_exceeded
+- id: azure_monitor.event_hubs.connections
+  title: Azure Event Hubs Active Connections
+  units: connections
+  family: event
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: active
+    signal: azure_event_hubs_namespace_event_hubs_connections_active
+- id: azure_monitor.event_hubs.connection_events
+  title: Azure Event Hubs Connection Events
+  units: connections
+  family: event
+  chart_type: line
+  priority: 60006
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: opened
+    signal: azure_event_hubs_namespace_event_hubs_connection_events_opened
+  - id: closed
+    signal: azure_event_hubs_namespace_event_hubs_connection_events_closed
+- id: azure_monitor.event_hubs.captured_messages
+  title: Azure Event Hubs Captured Messages
+  units: messages/s
+  family: event
+  chart_type: line
+  priority: 60007
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: total
+    rate_signal: azure_event_hubs_namespace_event_hubs_captured_messages_total
+- id: azure_monitor.event_hubs.captured_data
+  title: Azure Event Hubs Captured Data
+  units: bytes/s
+  family: event
+  chart_type: line
+  priority: 60008
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: total
+    rate_signal: azure_event_hubs_namespace_event_hubs_captured_data_total
+- id: azure_monitor.event_hubs.namespace_size
+  title: Azure Event Hubs Namespace Size
+  units: bytes
+  family: event
+  chart_type: line
+  priority: 60009
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_event_hubs_namespace_event_hubs_namespace_size_average
+- id: azure_monitor.event_hubs.capture_backlog
+  title: Azure Event Hubs Capture Backlog
+  units: messages
+  family: event
+  chart_type: line
+  priority: 60010
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: backlog
+    signal: azure_event_hubs_namespace_event_hubs_capture_backlog_backlog
+- id: azure_monitor.event_hubs.namespace_resources
+  title: Azure Event Hubs Namespace Resources
+  units: percentage
+  family: event
+  chart_type: line
+  priority: 60011
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: cpu
+    signal: azure_event_hubs_namespace_event_hubs_namespace_resources_cpu
+  - id: memory
+    signal: azure_event_hubs_namespace_event_hubs_namespace_resources_memory
+- id: azure_monitor.event_hubs.replication_lag
+  title: Azure Event Hubs Replication Lag
+  units: messages
+  family: event
+  chart_type: line
+  priority: 60012
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: messages
+    signal: azure_event_hubs_namespace_event_hubs_replication_lag_messages
+- id: azure_monitor.event_hubs.replication_lag_duration
+  title: Azure Event Hubs Replication Lag Duration
+  units: seconds
+  family: event
+  chart_type: line
+  priority: 60013
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: duration
+    signal: azure_event_hubs_namespace_event_hubs_replication_lag_duration_duration

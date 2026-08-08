@@ -1,0 +1,722 @@
+version: 1
+name: azure-application-insights
+description: Azure Application Insights metrics, generated from Netdata's own collector metadata so the
+  contexts, units and dimension names match what a real Azure Application Insights node reports. Signals
+  are independent and plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  azure_application_insights_application_insights_availability_percentage_average:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_application_insights_application_insights_availability_tests_tests:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_application_insights_application_insights_availability_duration_average:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_application_insights_application_insights_server_requests_total:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_application_insights_application_insights_server_requests_failed:
+    base: 0.0
+    min: 0.0
+    max: 5000000.0
+  azure_application_insights_application_insights_server_request_rate_average:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_application_insights_application_insights_server_response_time_average:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_application_insights_application_insights_dependency_calls_total:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_application_insights_application_insights_dependency_calls_failed:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  azure_application_insights_application_insights_dependency_duration_average:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_application_insights_application_insights_exceptions_total:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_application_insights_application_insights_exceptions_browser:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_application_insights_application_insights_exceptions_server:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_application_insights_application_insights_browser_page_load_time_total:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_application_insights_application_insights_browser_timing_breakdown_network:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_application_insights_application_insights_browser_timing_breakdown_send:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_application_insights_application_insights_browser_timing_breakdown_receive:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_application_insights_application_insights_browser_timing_breakdown_processing:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_application_insights_application_insights_cpu_utilization_process:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_application_insights_application_insights_cpu_utilization_processor:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_application_insights_application_insights_memory_available:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_application_insights_application_insights_memory_private:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_application_insights_application_insights_process_io_rate_average:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_application_insights_application_insights_exception_rate_average:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_application_insights_application_insights_http_request_execution_time_average:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_application_insights_application_insights_http_request_queue_queued:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_application_insights_application_insights_http_request_rate_average:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_application_insights_application_insights_page_views_views:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_application_insights_application_insights_page_view_load_time_average:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_application_insights_application_insights_traces_traces:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: azure_monitor.application_insights.availability_percentage
+  title: Azure Application Insights Availability
+  units: percentage
+  family: application
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_application_insights_application_insights_availability_percentage_average
+- id: azure_monitor.application_insights.availability_tests
+  title: Azure Application Insights Availability Tests
+  units: tests/s
+  family: application
+  chart_type: line
+  priority: 60002
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: tests
+    rate_signal: azure_application_insights_application_insights_availability_tests_tests
+- id: azure_monitor.application_insights.availability_duration
+  title: Azure Application Insights Availability Test Duration
+  units: milliseconds
+  family: application
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_application_insights_application_insights_availability_duration_average
+- id: azure_monitor.application_insights.server_requests
+  title: Azure Application Insights Server Requests
+  units: requests/s
+  family: application
+  chart_type: line
+  priority: 60004
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: total
+    rate_signal: azure_application_insights_application_insights_server_requests_total
+  - id: failed
+    rate_signal: azure_application_insights_application_insights_server_requests_failed
+- id: azure_monitor.application_insights.server_request_rate
+  title: Azure Application Insights Server Request Rate
+  units: requests/s
+  family: application
+  chart_type: line
+  priority: 60005
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    rate_signal: azure_application_insights_application_insights_server_request_rate_average
+- id: azure_monitor.application_insights.server_response_time
+  title: Azure Application Insights Server Response Time
+  units: milliseconds
+  family: application
+  chart_type: line
+  priority: 60006
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_application_insights_application_insights_server_response_time_average
+- id: azure_monitor.application_insights.dependency_calls
+  title: Azure Application Insights Dependency Calls
+  units: calls/s
+  family: application
+  chart_type: line
+  priority: 60007
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: total
+    rate_signal: azure_application_insights_application_insights_dependency_calls_total
+  - id: failed
+    rate_signal: azure_application_insights_application_insights_dependency_calls_failed
+- id: azure_monitor.application_insights.dependency_duration
+  title: Azure Application Insights Dependency Duration
+  units: milliseconds
+  family: application
+  chart_type: line
+  priority: 60008
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_application_insights_application_insights_dependency_duration_average
+- id: azure_monitor.application_insights.exceptions
+  title: Azure Application Insights Exceptions
+  units: exceptions/s
+  family: application
+  chart_type: line
+  priority: 60009
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: total
+    rate_signal: azure_application_insights_application_insights_exceptions_total
+  - id: browser
+    rate_signal: azure_application_insights_application_insights_exceptions_browser
+  - id: server
+    rate_signal: azure_application_insights_application_insights_exceptions_server
+- id: azure_monitor.application_insights.browser_page_load_time
+  title: Azure Application Insights Browser Page Load Time
+  units: milliseconds
+  family: application
+  chart_type: line
+  priority: 60010
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: total
+    signal: azure_application_insights_application_insights_browser_page_load_time_total
+- id: azure_monitor.application_insights.browser_timing_breakdown
+  title: Azure Application Insights Browser Timing Breakdown
+  units: milliseconds
+  family: application
+  chart_type: line
+  priority: 60011
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: network
+    signal: azure_application_insights_application_insights_browser_timing_breakdown_network
+  - id: send
+    signal: azure_application_insights_application_insights_browser_timing_breakdown_send
+  - id: receive
+    signal: azure_application_insights_application_insights_browser_timing_breakdown_receive
+  - id: processing
+    signal: azure_application_insights_application_insights_browser_timing_breakdown_processing
+- id: azure_monitor.application_insights.cpu_utilization
+  title: Azure Application Insights CPU Utilization
+  units: percentage
+  family: application
+  chart_type: line
+  priority: 60012
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: process
+    signal: azure_application_insights_application_insights_cpu_utilization_process
+  - id: processor
+    signal: azure_application_insights_application_insights_cpu_utilization_processor
+- id: azure_monitor.application_insights.memory
+  title: Azure Application Insights Memory
+  units: bytes
+  family: application
+  chart_type: line
+  priority: 60013
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: available
+    signal: azure_application_insights_application_insights_memory_available
+  - id: private
+    signal: azure_application_insights_application_insights_memory_private
+- id: azure_monitor.application_insights.process_io_rate
+  title: Azure Application Insights Process IO Rate
+  units: bytes/s
+  family: application
+  chart_type: line
+  priority: 60014
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    rate_signal: azure_application_insights_application_insights_process_io_rate_average
+- id: azure_monitor.application_insights.exception_rate
+  title: Azure Application Insights Exception Rate
+  units: exceptions/s
+  family: application
+  chart_type: line
+  priority: 60015
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    rate_signal: azure_application_insights_application_insights_exception_rate_average
+- id: azure_monitor.application_insights.http_request_execution_time
+  title: Azure Application Insights HTTP Request Execution Time
+  units: milliseconds
+  family: application
+  chart_type: line
+  priority: 60016
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_application_insights_application_insights_http_request_execution_time_average
+- id: azure_monitor.application_insights.http_request_queue
+  title: Azure Application Insights HTTP Requests in Queue
+  units: requests
+  family: application
+  chart_type: line
+  priority: 60017
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: queued
+    signal: azure_application_insights_application_insights_http_request_queue_queued
+- id: azure_monitor.application_insights.http_request_rate
+  title: Azure Application Insights HTTP Request Rate
+  units: requests/s
+  family: application
+  chart_type: line
+  priority: 60018
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    rate_signal: azure_application_insights_application_insights_http_request_rate_average
+- id: azure_monitor.application_insights.page_views
+  title: Azure Application Insights Page Views
+  units: views/s
+  family: application
+  chart_type: line
+  priority: 60019
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: views
+    rate_signal: azure_application_insights_application_insights_page_views_views
+- id: azure_monitor.application_insights.page_view_load_time
+  title: Azure Application Insights Page View Load Time
+  units: milliseconds
+  family: application
+  chart_type: line
+  priority: 60020
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_application_insights_application_insights_page_view_load_time_average
+- id: azure_monitor.application_insights.traces
+  title: Azure Application Insights Traces
+  units: traces/s
+  family: application
+  chart_type: line
+  priority: 60021
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: traces
+    rate_signal: azure_application_insights_application_insights_traces_traces

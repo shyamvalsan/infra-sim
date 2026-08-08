@@ -1,0 +1,550 @@
+version: 1
+name: docker-engine
+description: Docker Engine metrics, generated from Netdata's own collector metadata so the contexts, units
+  and dimension names match what a real Docker Engine node reports. Signals are independent and plausible
+  rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  docker_engine_engine_daemon_container_actions_changes:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  docker_engine_engine_daemon_container_actions_commit:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  docker_engine_engine_daemon_container_actions_create:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  docker_engine_engine_daemon_container_actions_delete:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  docker_engine_engine_daemon_container_actions_start:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  docker_engine_engine_daemon_container_states_containers_running:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  docker_engine_engine_daemon_container_states_containers_paused:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  docker_engine_engine_daemon_container_states_containers_stopped:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  docker_engine_builder_builds_failed_total_build_canceled:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  docker_engine_builder_builds_failed_total_build_target_not_reachable_error:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  docker_engine_builder_builds_failed_total_command_not_supported_error:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  docker_engine_builder_builds_failed_total_dockerfile_empty_error:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  docker_engine_builder_builds_failed_total_dockerfile_syntax_error:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  docker_engine_builder_builds_failed_total_error_processing_commands_error:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  docker_engine_builder_builds_failed_total_missing_onbuild_arguments_error:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  docker_engine_builder_builds_failed_total_unknown_instruction_error:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  docker_engine_engine_daemon_health_checks_failed_total_fails:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  docker_engine_swarm_manager_leader_is_leader:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  docker_engine_swarm_manager_object_store_nodes:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  docker_engine_swarm_manager_object_store_services:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  docker_engine_swarm_manager_object_store_tasks:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  docker_engine_swarm_manager_object_store_networks:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  docker_engine_swarm_manager_object_store_secrets:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  docker_engine_swarm_manager_object_store_configs:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  docker_engine_swarm_manager_nodes_per_state_ready:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  docker_engine_swarm_manager_nodes_per_state_down:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  docker_engine_swarm_manager_nodes_per_state_unknown:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  docker_engine_swarm_manager_nodes_per_state_disconnected:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  docker_engine_swarm_manager_tasks_per_state_running:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  docker_engine_swarm_manager_tasks_per_state_failed:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  docker_engine_swarm_manager_tasks_per_state_ready:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  docker_engine_swarm_manager_tasks_per_state_rejected:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  docker_engine_swarm_manager_tasks_per_state_starting:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  docker_engine_swarm_manager_tasks_per_state_shutdown:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  docker_engine_swarm_manager_tasks_per_state_new:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  docker_engine_swarm_manager_tasks_per_state_orphaned:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  docker_engine_swarm_manager_tasks_per_state_preparing:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  docker_engine_swarm_manager_tasks_per_state_pending:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  docker_engine_swarm_manager_tasks_per_state_complete:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  docker_engine_swarm_manager_tasks_per_state_remove:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  docker_engine_swarm_manager_tasks_per_state_accepted:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  docker_engine_swarm_manager_tasks_per_state_assigned:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: docker_engine.engine_daemon_container_actions
+  title: Container Actions
+  units: actions/s
+  family: engine
+  chart_type: stacked
+  priority: 60001
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: changes
+    rate_signal: docker_engine_engine_daemon_container_actions_changes
+  - id: commit
+    rate_signal: docker_engine_engine_daemon_container_actions_commit
+  - id: create
+    rate_signal: docker_engine_engine_daemon_container_actions_create
+  - id: delete
+    rate_signal: docker_engine_engine_daemon_container_actions_delete
+  - id: start
+    rate_signal: docker_engine_engine_daemon_container_actions_start
+- id: docker_engine.engine_daemon_container_states_containers
+  title: Containers In Various States
+  units: containers
+  family: engine
+  chart_type: stacked
+  priority: 60002
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: running
+    signal: docker_engine_engine_daemon_container_states_containers_running
+  - id: paused
+    signal: docker_engine_engine_daemon_container_states_containers_paused
+  - id: stopped
+    signal: docker_engine_engine_daemon_container_states_containers_stopped
+- id: docker_engine.builder_builds_failed_total
+  title: Builder Builds Fails By Reason
+  units: fails/s
+  family: builder
+  chart_type: stacked
+  priority: 60003
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: build_canceled
+    rate_signal: docker_engine_builder_builds_failed_total_build_canceled
+  - id: build_target_not_reachable_error
+    rate_signal: docker_engine_builder_builds_failed_total_build_target_not_reachable_error
+  - id: command_not_supported_error
+    rate_signal: docker_engine_builder_builds_failed_total_command_not_supported_error
+  - id: dockerfile_empty_error
+    rate_signal: docker_engine_builder_builds_failed_total_dockerfile_empty_error
+  - id: dockerfile_syntax_error
+    rate_signal: docker_engine_builder_builds_failed_total_dockerfile_syntax_error
+  - id: error_processing_commands_error
+    rate_signal: docker_engine_builder_builds_failed_total_error_processing_commands_error
+  - id: missing_onbuild_arguments_error
+    rate_signal: docker_engine_builder_builds_failed_total_missing_onbuild_arguments_error
+  - id: unknown_instruction_error
+    rate_signal: docker_engine_builder_builds_failed_total_unknown_instruction_error
+- id: docker_engine.engine_daemon_health_checks_failed_total
+  title: Health Checks
+  units: events/s
+  family: engine
+  chart_type: line
+  priority: 60004
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: fails
+    rate_signal: docker_engine_engine_daemon_health_checks_failed_total_fails
+- id: docker_engine.swarm_manager_leader
+  title: Swarm Manager Leader
+  units: bool
+  family: swarm
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: is_leader
+    signal: docker_engine_swarm_manager_leader_is_leader
+- id: docker_engine.swarm_manager_object_store
+  title: Swarm Manager Object Store
+  units: objects
+  family: swarm
+  chart_type: stacked
+  priority: 60006
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: nodes
+    signal: docker_engine_swarm_manager_object_store_nodes
+  - id: services
+    signal: docker_engine_swarm_manager_object_store_services
+  - id: tasks
+    signal: docker_engine_swarm_manager_object_store_tasks
+  - id: networks
+    signal: docker_engine_swarm_manager_object_store_networks
+  - id: secrets
+    signal: docker_engine_swarm_manager_object_store_secrets
+  - id: configs
+    signal: docker_engine_swarm_manager_object_store_configs
+- id: docker_engine.swarm_manager_nodes_per_state
+  title: Swarm Manager Nodes Per State
+  units: nodes
+  family: swarm
+  chart_type: stacked
+  priority: 60007
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: ready
+    signal: docker_engine_swarm_manager_nodes_per_state_ready
+  - id: down
+    signal: docker_engine_swarm_manager_nodes_per_state_down
+  - id: unknown
+    signal: docker_engine_swarm_manager_nodes_per_state_unknown
+  - id: disconnected
+    signal: docker_engine_swarm_manager_nodes_per_state_disconnected
+- id: docker_engine.swarm_manager_tasks_per_state
+  title: Swarm Manager Tasks Per State
+  units: tasks
+  family: swarm
+  chart_type: stacked
+  priority: 60008
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: running
+    signal: docker_engine_swarm_manager_tasks_per_state_running
+  - id: failed
+    signal: docker_engine_swarm_manager_tasks_per_state_failed
+  - id: ready
+    signal: docker_engine_swarm_manager_tasks_per_state_ready
+  - id: rejected
+    signal: docker_engine_swarm_manager_tasks_per_state_rejected
+  - id: starting
+    signal: docker_engine_swarm_manager_tasks_per_state_starting
+  - id: shutdown
+    signal: docker_engine_swarm_manager_tasks_per_state_shutdown
+  - id: new
+    signal: docker_engine_swarm_manager_tasks_per_state_new
+  - id: orphaned
+    signal: docker_engine_swarm_manager_tasks_per_state_orphaned
+  - id: preparing
+    signal: docker_engine_swarm_manager_tasks_per_state_preparing
+  - id: pending
+    signal: docker_engine_swarm_manager_tasks_per_state_pending
+  - id: complete
+    signal: docker_engine_swarm_manager_tasks_per_state_complete
+  - id: remove
+    signal: docker_engine_swarm_manager_tasks_per_state_remove
+  - id: accepted
+    signal: docker_engine_swarm_manager_tasks_per_state_accepted
+  - id: assigned
+    signal: docker_engine_swarm_manager_tasks_per_state_assigned

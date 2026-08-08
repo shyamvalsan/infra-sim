@@ -1,0 +1,1065 @@
+version: 1
+name: zfs-adaptive-replacement-cache
+description: ZFS Adaptive Replacement Cache metrics, generated from Netdata's own collector metadata so
+  the contexts, units and dimension names match what a real ZFS Adaptive Replacement Cache node reports.
+  Signals are independent and plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  zfs_adaptive_replacement_cache_arc_size_arcsz:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zfs_adaptive_replacement_cache_arc_size_target:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zfs_adaptive_replacement_cache_arc_size_min:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zfs_adaptive_replacement_cache_arc_size_max:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zfs_adaptive_replacement_cache_l2_size_actual:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zfs_adaptive_replacement_cache_l2_size_size:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zfs_adaptive_replacement_cache_reads_arc:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zfs_adaptive_replacement_cache_reads_demand:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zfs_adaptive_replacement_cache_reads_prefetch:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zfs_adaptive_replacement_cache_reads_metadata:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zfs_adaptive_replacement_cache_reads_l2:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zfs_adaptive_replacement_cache_bytes_read:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zfs_adaptive_replacement_cache_bytes_write:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zfs_adaptive_replacement_cache_hits_hits:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zfs_adaptive_replacement_cache_hits_misses:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zfs_adaptive_replacement_cache_hits_rate_hits:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zfs_adaptive_replacement_cache_hits_rate_misses:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zfs_adaptive_replacement_cache_dhits_hits:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zfs_adaptive_replacement_cache_dhits_misses:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zfs_adaptive_replacement_cache_dhits_rate_hits:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zfs_adaptive_replacement_cache_dhits_rate_misses:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zfs_adaptive_replacement_cache_phits_hits:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zfs_adaptive_replacement_cache_phits_misses:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zfs_adaptive_replacement_cache_phits_rate_hits:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zfs_adaptive_replacement_cache_phits_rate_misses:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zfs_adaptive_replacement_cache_mhits_hits:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zfs_adaptive_replacement_cache_mhits_misses:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zfs_adaptive_replacement_cache_mhits_rate_hits:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zfs_adaptive_replacement_cache_mhits_rate_misses:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zfs_adaptive_replacement_cache_l2hits_hits:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zfs_adaptive_replacement_cache_l2hits_misses:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zfs_adaptive_replacement_cache_l2hits_rate_hits:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zfs_adaptive_replacement_cache_l2hits_rate_misses:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zfs_adaptive_replacement_cache_list_hits_mfu:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zfs_adaptive_replacement_cache_list_hits_mfu_ghost:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zfs_adaptive_replacement_cache_list_hits_mru:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zfs_adaptive_replacement_cache_list_hits_mru_ghost:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zfs_adaptive_replacement_cache_arc_size_breakdown_recent:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zfs_adaptive_replacement_cache_arc_size_breakdown_frequent:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zfs_adaptive_replacement_cache_memory_ops_direct:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zfs_adaptive_replacement_cache_memory_ops_throttled:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zfs_adaptive_replacement_cache_memory_ops_indirect:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zfs_adaptive_replacement_cache_important_ops_evict_skip:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zfs_adaptive_replacement_cache_important_ops_deleted:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zfs_adaptive_replacement_cache_important_ops_mutex_miss:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zfs_adaptive_replacement_cache_important_ops_hash_collisions:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zfs_adaptive_replacement_cache_actual_hits_hits:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zfs_adaptive_replacement_cache_actual_hits_misses:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zfs_adaptive_replacement_cache_actual_hits_rate_hits:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zfs_adaptive_replacement_cache_actual_hits_rate_misses:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zfs_adaptive_replacement_cache_demand_data_hits_hits:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zfs_adaptive_replacement_cache_demand_data_hits_misses:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zfs_adaptive_replacement_cache_demand_data_hits_rate_hits:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zfs_adaptive_replacement_cache_demand_data_hits_rate_misses:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zfs_adaptive_replacement_cache_prefetch_data_hits_hits:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zfs_adaptive_replacement_cache_prefetch_data_hits_misses:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zfs_adaptive_replacement_cache_prefetch_data_hits_rate_hits:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zfs_adaptive_replacement_cache_prefetch_data_hits_rate_misses:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zfs_adaptive_replacement_cache_hash_elements_current:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zfs_adaptive_replacement_cache_hash_elements_max:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zfs_adaptive_replacement_cache_hash_chains_current:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zfs_adaptive_replacement_cache_hash_chains_max:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: zfs.arc_size
+  title: ZFS ARC Size
+  units: MiB
+  family: arc
+  chart_type: area
+  priority: 60001
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: arcsz
+    signal: zfs_adaptive_replacement_cache_arc_size_arcsz
+  - id: target
+    signal: zfs_adaptive_replacement_cache_arc_size_target
+  - id: min
+    signal: zfs_adaptive_replacement_cache_arc_size_min
+  - id: max
+    signal: zfs_adaptive_replacement_cache_arc_size_max
+- id: zfs.l2_size
+  title: ZFS L2 ARC Size
+  units: MiB
+  family: l2
+  chart_type: area
+  priority: 60002
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: actual
+    signal: zfs_adaptive_replacement_cache_l2_size_actual
+  - id: size
+    signal: zfs_adaptive_replacement_cache_l2_size_size
+- id: zfs.reads
+  title: ZFS Reads
+  units: reads/s
+  family: reads
+  chart_type: area
+  priority: 60003
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: arc
+    rate_signal: zfs_adaptive_replacement_cache_reads_arc
+  - id: demand
+    rate_signal: zfs_adaptive_replacement_cache_reads_demand
+  - id: prefetch
+    rate_signal: zfs_adaptive_replacement_cache_reads_prefetch
+  - id: metadata
+    rate_signal: zfs_adaptive_replacement_cache_reads_metadata
+  - id: l2
+    rate_signal: zfs_adaptive_replacement_cache_reads_l2
+- id: zfs.bytes
+  title: ZFS ARC L2 Read/Write Rate
+  units: KiB/s
+  family: bytes
+  chart_type: area
+  priority: 60004
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: read
+    signal: zfs_adaptive_replacement_cache_bytes_read
+  - id: write
+    signal: zfs_adaptive_replacement_cache_bytes_write
+- id: zfs.hits
+  title: ZFS ARC Hits
+  units: percentage
+  family: hits
+  chart_type: stacked
+  priority: 60005
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: hits
+    signal: zfs_adaptive_replacement_cache_hits_hits
+  - id: misses
+    signal: zfs_adaptive_replacement_cache_hits_misses
+- id: zfs.hits_rate
+  title: ZFS ARC Hits Rate
+  units: events/s
+  family: hits
+  chart_type: stacked
+  priority: 60006
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: hits
+    rate_signal: zfs_adaptive_replacement_cache_hits_rate_hits
+  - id: misses
+    rate_signal: zfs_adaptive_replacement_cache_hits_rate_misses
+- id: zfs.dhits
+  title: ZFS Demand Hits
+  units: percentage
+  family: dhits
+  chart_type: stacked
+  priority: 60007
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: hits
+    signal: zfs_adaptive_replacement_cache_dhits_hits
+  - id: misses
+    signal: zfs_adaptive_replacement_cache_dhits_misses
+- id: zfs.dhits_rate
+  title: ZFS Demand Hits Rate
+  units: events/s
+  family: dhits
+  chart_type: stacked
+  priority: 60008
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: hits
+    rate_signal: zfs_adaptive_replacement_cache_dhits_rate_hits
+  - id: misses
+    rate_signal: zfs_adaptive_replacement_cache_dhits_rate_misses
+- id: zfs.phits
+  title: ZFS Prefetch Hits
+  units: percentage
+  family: phits
+  chart_type: stacked
+  priority: 60009
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: hits
+    signal: zfs_adaptive_replacement_cache_phits_hits
+  - id: misses
+    signal: zfs_adaptive_replacement_cache_phits_misses
+- id: zfs.phits_rate
+  title: ZFS Prefetch Hits Rate
+  units: events/s
+  family: phits
+  chart_type: stacked
+  priority: 60010
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: hits
+    rate_signal: zfs_adaptive_replacement_cache_phits_rate_hits
+  - id: misses
+    rate_signal: zfs_adaptive_replacement_cache_phits_rate_misses
+- id: zfs.mhits
+  title: ZFS Metadata Hits
+  units: percentage
+  family: mhits
+  chart_type: stacked
+  priority: 60011
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: hits
+    signal: zfs_adaptive_replacement_cache_mhits_hits
+  - id: misses
+    signal: zfs_adaptive_replacement_cache_mhits_misses
+- id: zfs.mhits_rate
+  title: ZFS Metadata Hits Rate
+  units: events/s
+  family: mhits
+  chart_type: stacked
+  priority: 60012
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: hits
+    rate_signal: zfs_adaptive_replacement_cache_mhits_rate_hits
+  - id: misses
+    rate_signal: zfs_adaptive_replacement_cache_mhits_rate_misses
+- id: zfs.l2hits
+  title: ZFS L2 Hits
+  units: percentage
+  family: l2hits
+  chart_type: stacked
+  priority: 60013
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: hits
+    signal: zfs_adaptive_replacement_cache_l2hits_hits
+  - id: misses
+    signal: zfs_adaptive_replacement_cache_l2hits_misses
+- id: zfs.l2hits_rate
+  title: ZFS L2 Hits Rate
+  units: events/s
+  family: l2hits
+  chart_type: stacked
+  priority: 60014
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: hits
+    rate_signal: zfs_adaptive_replacement_cache_l2hits_rate_hits
+  - id: misses
+    rate_signal: zfs_adaptive_replacement_cache_l2hits_rate_misses
+- id: zfs.list_hits
+  title: ZFS List Hits
+  units: hits/s
+  family: list
+  chart_type: area
+  priority: 60015
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: mfu
+    rate_signal: zfs_adaptive_replacement_cache_list_hits_mfu
+  - id: mfu_ghost
+    rate_signal: zfs_adaptive_replacement_cache_list_hits_mfu_ghost
+  - id: mru
+    rate_signal: zfs_adaptive_replacement_cache_list_hits_mru
+  - id: mru_ghost
+    rate_signal: zfs_adaptive_replacement_cache_list_hits_mru_ghost
+- id: zfs.arc_size_breakdown
+  title: ZFS ARC Size Breakdown
+  units: percentage
+  family: arc
+  chart_type: stacked
+  priority: 60016
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: recent
+    signal: zfs_adaptive_replacement_cache_arc_size_breakdown_recent
+  - id: frequent
+    signal: zfs_adaptive_replacement_cache_arc_size_breakdown_frequent
+- id: zfs.memory_ops
+  title: ZFS Memory Operations
+  units: operations/s
+  family: memory
+  chart_type: line
+  priority: 60017
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: direct
+    rate_signal: zfs_adaptive_replacement_cache_memory_ops_direct
+  - id: throttled
+    rate_signal: zfs_adaptive_replacement_cache_memory_ops_throttled
+  - id: indirect
+    rate_signal: zfs_adaptive_replacement_cache_memory_ops_indirect
+- id: zfs.important_ops
+  title: ZFS Important Operations
+  units: operations/s
+  family: important
+  chart_type: line
+  priority: 60018
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: evict_skip
+    rate_signal: zfs_adaptive_replacement_cache_important_ops_evict_skip
+  - id: deleted
+    rate_signal: zfs_adaptive_replacement_cache_important_ops_deleted
+  - id: mutex_miss
+    rate_signal: zfs_adaptive_replacement_cache_important_ops_mutex_miss
+  - id: hash_collisions
+    rate_signal: zfs_adaptive_replacement_cache_important_ops_hash_collisions
+- id: zfs.actual_hits
+  title: ZFS Actual Cache Hits
+  units: percentage
+  family: actual
+  chart_type: stacked
+  priority: 60019
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: hits
+    signal: zfs_adaptive_replacement_cache_actual_hits_hits
+  - id: misses
+    signal: zfs_adaptive_replacement_cache_actual_hits_misses
+- id: zfs.actual_hits_rate
+  title: ZFS Actual Cache Hits Rate
+  units: events/s
+  family: actual
+  chart_type: stacked
+  priority: 60020
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: hits
+    rate_signal: zfs_adaptive_replacement_cache_actual_hits_rate_hits
+  - id: misses
+    rate_signal: zfs_adaptive_replacement_cache_actual_hits_rate_misses
+- id: zfs.demand_data_hits
+  title: ZFS Data Demand Efficiency
+  units: percentage
+  family: demand
+  chart_type: stacked
+  priority: 60021
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: hits
+    signal: zfs_adaptive_replacement_cache_demand_data_hits_hits
+  - id: misses
+    signal: zfs_adaptive_replacement_cache_demand_data_hits_misses
+- id: zfs.demand_data_hits_rate
+  title: ZFS Data Demand Efficiency Rate
+  units: events/s
+  family: demand
+  chart_type: stacked
+  priority: 60022
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: hits
+    rate_signal: zfs_adaptive_replacement_cache_demand_data_hits_rate_hits
+  - id: misses
+    rate_signal: zfs_adaptive_replacement_cache_demand_data_hits_rate_misses
+- id: zfs.prefetch_data_hits
+  title: ZFS Data Prefetch Efficiency
+  units: percentage
+  family: prefetch
+  chart_type: stacked
+  priority: 60023
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: hits
+    signal: zfs_adaptive_replacement_cache_prefetch_data_hits_hits
+  - id: misses
+    signal: zfs_adaptive_replacement_cache_prefetch_data_hits_misses
+- id: zfs.prefetch_data_hits_rate
+  title: ZFS Data Prefetch Efficiency Rate
+  units: events/s
+  family: prefetch
+  chart_type: stacked
+  priority: 60024
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: hits
+    rate_signal: zfs_adaptive_replacement_cache_prefetch_data_hits_rate_hits
+  - id: misses
+    rate_signal: zfs_adaptive_replacement_cache_prefetch_data_hits_rate_misses
+- id: zfs.hash_elements
+  title: ZFS ARC Hash Elements
+  units: elements
+  family: hash
+  chart_type: line
+  priority: 60025
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: current
+    signal: zfs_adaptive_replacement_cache_hash_elements_current
+  - id: max
+    signal: zfs_adaptive_replacement_cache_hash_elements_max
+- id: zfs.hash_chains
+  title: ZFS ARC Hash Chains
+  units: chains
+  family: hash
+  chart_type: line
+  priority: 60026
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: current
+    signal: zfs_adaptive_replacement_cache_hash_chains_current
+  - id: max
+    signal: zfs_adaptive_replacement_cache_hash_chains_max

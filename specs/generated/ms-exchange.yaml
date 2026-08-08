@@ -1,0 +1,685 @@
+version: 1
+name: ms-exchange
+description: MS Exchange metrics, generated from Netdata's own collector metadata so the contexts, units
+  and dimension names match what a real MS Exchange node reports. Signals are independent and plausible
+  rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  ms_exchange_transport_queues_active_mail_box_delivery_active:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ms_exchange_transport_queues_external_active_remote_delivery_active:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ms_exchange_transport_queues_internal_active_remote_delivery_active:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ms_exchange_transport_queues_unreachable_unreachable:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ms_exchange_transport_queues_poison_unreachable:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ms_exchange_activesync_ping_cmds_pending_pending:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ms_exchange_activesync_requests_received:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ms_exchange_activesync_sync_cmds_processed:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ms_exchange_rpc_active_user_count_active:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ms_exchange_rpc_avg_latency_latency:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ms_exchange_rpc_connection_count_connections:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ms_exchange_rpc_requests_processed:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ms_exchange_rpc_active_user_users:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ms_exchange_rpc_connection_connections:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ms_exchange_rpc_operations_operations:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ms_exchange_rpc_user_count_users:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ms_exchange_owa_current_unique_users_logged_in:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ms_exchange_owa_requests_total_handled:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ms_exchange_workload_active_tasks_active:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ms_exchange_workload_completed_tasks_completed:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ms_exchange_workload_queued_tasks_queued:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ms_exchange_workload_yielded_tasks_yielded:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ms_exchange_workload_activity_status_active:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ms_exchange_workload_activity_status_paused:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ms_exchange_http_proxy_avg_auth_latency_latency:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ms_exchange_http_proxy_avg_cas_processing_latency_sec_latency:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ms_exchange_http_proxy_mailbox_proxy_failure_rate_failures:
+    base: 0.0
+    min: 0.0
+    max: 86400.0
+  ms_exchange_http_proxy_mailbox_server_locator_avg_latency_sec_latency:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ms_exchange_http_proxy_outstanding_proxy_requests_requests:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ms_exchange_http_proxy_requests_requests:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ms_exchange_autodiscover_requests_processed:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ms_exchange_avail_service_requests_serviced:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: exchange.transport_queues_active_mail_box_delivery
+  title: Active Mailbox Delivery Queue length.
+  units: messages
+  family: transport
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: active
+    signal: ms_exchange_transport_queues_active_mail_box_delivery_active
+- id: exchange.transport_queues_external_active_remote_delivery
+  title: External Active Remote Delivery Queue length.
+  units: messages
+  family: transport
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: active
+    signal: ms_exchange_transport_queues_external_active_remote_delivery_active
+- id: exchange.transport_queues_internal_active_remote_delivery
+  title: Internal Active Remote Delivery Queue length.
+  units: messages
+  family: transport
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: active
+    signal: ms_exchange_transport_queues_internal_active_remote_delivery_active
+- id: exchange.transport_queues_unreachable
+  title: Unreachable Queue length.
+  units: messages
+  family: transport
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: unreachable
+    signal: ms_exchange_transport_queues_unreachable_unreachable
+- id: exchange.transport_queues_poison
+  title: Poison Queue Length.
+  units: messages
+  family: transport
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: unreachable
+    signal: ms_exchange_transport_queues_poison_unreachable
+- id: exchange.activesync_ping_cmds_pending
+  title: Ping commands pending in queue.
+  units: commands
+  family: activesync
+  chart_type: line
+  priority: 60006
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: pending
+    signal: ms_exchange_activesync_ping_cmds_pending_pending
+- id: exchange.activesync_requests
+  title: HTTP requests received from ASP.NET.
+  units: requests/s
+  family: activesync
+  chart_type: line
+  priority: 60007
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: received
+    rate_signal: ms_exchange_activesync_requests_received
+- id: exchange.activesync_sync_cmds
+  title: Sync commands processed.
+  units: commands/s
+  family: activesync
+  chart_type: line
+  priority: 60008
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: processed
+    rate_signal: ms_exchange_activesync_sync_cmds_processed
+- id: exchange.rpc_active_user_count
+  title: Active unique users in the last 2 minutes.
+  units: users
+  family: rpc
+  chart_type: line
+  priority: 60009
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: active
+    signal: ms_exchange_rpc_active_user_count_active
+- id: exchange.rpc_avg_latency
+  title: Average latency.
+  units: seconds
+  family: rpc
+  chart_type: line
+  priority: 60010
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: latency
+    signal: ms_exchange_rpc_avg_latency_latency
+- id: exchange.rpc_connection_count
+  title: Client connections.
+  units: connections
+  family: rpc
+  chart_type: line
+  priority: 60011
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: connections
+    signal: ms_exchange_rpc_connection_count_connections
+- id: exchange.rpc_requests
+  title: Clients requests currently being processed.
+  units: requests
+  family: rpc
+  chart_type: line
+  priority: 60012
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: processed
+    signal: ms_exchange_rpc_requests_processed
+- id: exchange.rpc_active_user
+  title: Active unique users in the last 2 minutes.
+  units: users
+  family: rpc
+  chart_type: line
+  priority: 60013
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: users
+    signal: ms_exchange_rpc_active_user_users
+- id: exchange.rpc_connection
+  title: Client connections.
+  units: connections
+  family: rpc
+  chart_type: line
+  priority: 60014
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: connections
+    signal: ms_exchange_rpc_connection_connections
+- id: exchange.rpc_operations
+  title: RPC operations.
+  units: operations/s
+  family: rpc
+  chart_type: line
+  priority: 60015
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: operations
+    rate_signal: ms_exchange_rpc_operations_operations
+- id: exchange.rpc_user_count
+  title: RPC users.
+  units: users
+  family: rpc
+  chart_type: line
+  priority: 60016
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: users
+    signal: ms_exchange_rpc_user_count_users
+- id: exchange.owa_current_unique_users
+  title: Unique users currently logged on to Outlook Web App.
+  units: users
+  family: owa
+  chart_type: line
+  priority: 60017
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: logged-in
+    signal: ms_exchange_owa_current_unique_users_logged_in
+- id: exchange.owa_requests_total
+  title: Requests handled by Outlook Web App.
+  units: requests/s
+  family: owa
+  chart_type: line
+  priority: 60018
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: handled
+    rate_signal: ms_exchange_owa_requests_total_handled
+- id: exchange.workload_active_tasks
+  title: Workload active tasks.
+  units: tasks
+  family: workload
+  chart_type: line
+  priority: 60019
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: active
+    signal: ms_exchange_workload_active_tasks_active
+- id: exchange.workload_completed_tasks
+  title: Workload completed tasks.
+  units: tasks/s
+  family: workload
+  chart_type: line
+  priority: 60020
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: completed
+    rate_signal: ms_exchange_workload_completed_tasks_completed
+- id: exchange.workload_queued_tasks
+  title: Workload queued tasks.
+  units: tasks/s
+  family: workload
+  chart_type: line
+  priority: 60021
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: queued
+    rate_signal: ms_exchange_workload_queued_tasks_queued
+- id: exchange.workload_yielded_tasks
+  title: Workload yielded tasks.
+  units: tasks/s
+  family: workload
+  chart_type: line
+  priority: 60022
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: yielded
+    rate_signal: ms_exchange_workload_yielded_tasks_yielded
+- id: exchange.workload_activity_status
+  title: Workload activity status
+  units: status
+  family: workload
+  chart_type: line
+  priority: 60023
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: active
+    signal: ms_exchange_workload_activity_status_active
+  - id: paused
+    signal: ms_exchange_workload_activity_status_paused
+- id: exchange.http_proxy_avg_auth_latency
+  title: Average time spent authenticating CAS requests.
+  units: seconds
+  family: http
+  chart_type: line
+  priority: 60024
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: latency
+    signal: ms_exchange_http_proxy_avg_auth_latency_latency
+- id: exchange.http_proxy_avg_cas_processing_latency_sec
+  title: Average latency (sec) of CAS processing time.
+  units: seconds
+  family: http
+  chart_type: line
+  priority: 60025
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: latency
+    signal: ms_exchange_http_proxy_avg_cas_processing_latency_sec_latency
+- id: exchange.http_proxy_mailbox_proxy_failure_rate
+  title: Percentage of failures between this CAS and MBX servers.
+  units: seconds
+  family: http
+  chart_type: line
+  priority: 60026
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: failures
+    signal: ms_exchange_http_proxy_mailbox_proxy_failure_rate_failures
+- id: exchange.http_proxy_mailbox_server_locator_avg_latency_sec
+  title: Average latency of MailboxServerLocator web service calls.
+  units: seconds
+  family: http
+  chart_type: line
+  priority: 60027
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: latency
+    signal: ms_exchange_http_proxy_mailbox_server_locator_avg_latency_sec_latency
+- id: exchange.http_proxy_outstanding_proxy_requests
+  title: Concurrent outstanding proxy requests.
+  units: seconds
+  family: http
+  chart_type: line
+  priority: 60028
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: requests
+    signal: ms_exchange_http_proxy_outstanding_proxy_requests_requests
+- id: exchange.http_proxy_requests
+  title: Number of proxy requests processed each second.
+  units: seconds
+  family: http
+  chart_type: line
+  priority: 60029
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: requests
+    signal: ms_exchange_http_proxy_requests_requests
+- id: exchange.autodiscover_requests
+  title: Autodiscover service requests processed
+  units: requests/s
+  family: autodiscover
+  chart_type: line
+  priority: 60030
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: processed
+    rate_signal: ms_exchange_autodiscover_requests_processed
+- id: exchange.avail_service_requests
+  title: Requests serviced
+  units: requests/s
+  family: avail
+  chart_type: line
+  priority: 60031
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: serviced
+    rate_signal: ms_exchange_avail_service_requests_serviced

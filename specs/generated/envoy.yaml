@@ -1,0 +1,1553 @@
+version: 1
+name: envoy
+description: Envoy metrics, generated from Netdata's own collector metadata so the contexts, units and
+  dimension names match what a real Envoy node reports. Signals are independent and plausible rather than
+  causally coupled - see scripts/sync-integrations.py.
+signals:
+  envoy_server_state_live:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  envoy_server_state_draining:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  envoy_server_state_pre_initializing:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  envoy_server_state_initializing:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  envoy_server_connections_count_connections:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_server_parent_connections_count_connections:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_server_memory_allocated_size_allocated:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_server_memory_heap_size_heap:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_server_memory_physical_size_physical:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_server_uptime_uptime:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_cluster_manager_cluster_count_active:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_cluster_manager_cluster_count_not_active:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_cluster_manager_cluster_changes_rate_added:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_cluster_manager_cluster_changes_rate_modified:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_cluster_manager_cluster_changes_rate_removed:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_cluster_manager_cluster_updates_rate_cluster:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_cluster_manager_cluster_updated_via_merge_rate_via_merge:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_cluster_manager_update_merge_cancelled_rate_merge_cancelled:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_cluster_manager_update_out_of_merge_window_rate_out_of_merge_window:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_cluster_membership_endpoints_count_healthy:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_cluster_membership_endpoints_count_degraded:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_cluster_membership_endpoints_count_excluded:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_cluster_membership_changes_rate_membership:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_cluster_membership_updates_rate_success:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_cluster_membership_updates_rate_failure:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  envoy_cluster_membership_updates_rate_empty:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_cluster_membership_updates_rate_no_rebuild:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_cluster_upstream_cx_active_count_active:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_cluster_upstream_cx_rate_created:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_cluster_upstream_cx_http_rate_http1:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_cluster_upstream_cx_http_rate_http2:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_cluster_upstream_cx_http_rate_http3:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_cluster_upstream_cx_destroy_rate_local:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_cluster_upstream_cx_destroy_rate_remote:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_cluster_upstream_cx_connect_fail_rate_failed:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  envoy_cluster_upstream_cx_connect_timeout_rate_timeout:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  envoy_cluster_upstream_cx_bytes_rate_received:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_cluster_upstream_cx_bytes_rate_sent:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_cluster_upstream_cx_bytes_buffered_size_received:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_cluster_upstream_cx_bytes_buffered_size_send:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_cluster_upstream_rq_active_count_active:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_cluster_upstream_rq_rate_requests:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_cluster_upstream_rq_failed_rate_cancelled:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_cluster_upstream_rq_failed_rate_maintenance_mode:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_cluster_upstream_rq_failed_rate_timeout:
+    base: 0.0
+    min: 0.0
+    max: 5000000.0
+  envoy_cluster_upstream_rq_failed_rate_max_duration_reached:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_cluster_upstream_rq_failed_rate_per_try_timeout:
+    base: 0.0
+    min: 0.0
+    max: 5000000.0
+  envoy_cluster_upstream_rq_failed_rate_reset_local:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_cluster_upstream_rq_failed_rate_reset_remote:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_cluster_upstream_rq_pending_active_count_active_pending:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_cluster_upstream_rq_pending_rate_pending:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_cluster_upstream_rq_pending_failed_rate_overflow:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_cluster_upstream_rq_pending_failed_rate_failure_eject:
+    base: 0.0
+    min: 0.0
+    max: 5000000.0
+  envoy_cluster_upstream_rq_retry_rate_request:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_cluster_upstream_rq_retry_success_rate_success:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_cluster_upstream_rq_retry_backoff_rate_exponential:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_cluster_upstream_rq_retry_backoff_rate_ratelimited:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_listener_manager_listeners_count_active:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_listener_manager_listeners_count_warming:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_listener_manager_listeners_count_draining:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_listener_manager_listener_changes_rate_added:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_listener_manager_listener_changes_rate_modified:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_listener_manager_listener_changes_rate_removed:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_listener_manager_listener_changes_rate_stopped:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_listener_manager_listener_object_events_rate_create_success:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_listener_manager_listener_object_events_rate_create_failure:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  envoy_listener_manager_listener_object_events_rate_in_place_updated:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_listener_admin_downstream_cx_active_count_active:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_listener_admin_downstream_cx_rate_created:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_listener_admin_downstream_cx_destroy_rate_destroyed:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_listener_admin_downstream_cx_transport_socket_connect_timeout_rate_timeout:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  envoy_listener_admin_downstream_cx_rejected_rate_overflow:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_listener_admin_downstream_cx_rejected_rate_overload:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_listener_admin_downstream_cx_rejected_rate_global_overflow:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_listener_admin_downstream_listener_filter_remote_close_rate_closed:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_listener_admin_downstream_listener_filter_error_rate_read:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_listener_admin_downstream_pre_cx_active_count_active:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_listener_admin_downstream_pre_cx_timeout_rate_timeout:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  envoy_listener_downstream_cx_active_count_active:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_listener_downstream_cx_rate_created:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_listener_downstream_cx_destroy_rate_destroyed:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_listener_downstream_cx_transport_socket_connect_timeout_rate_timeout:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  envoy_listener_downstream_cx_rejected_rate_overflow:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_listener_downstream_cx_rejected_rate_overload:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_listener_downstream_cx_rejected_rate_global_overflow:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_listener_downstream_listener_filter_remote_close_rate_closed:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_listener_downstream_listener_filter_error_rate_read:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_listener_downstream_pre_cx_active_count_active:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  envoy_listener_downstream_pre_cx_timeout_rate_timeout:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+contexts:
+- id: envoy.server_state
+  title: Server current state
+  units: state
+  family: server
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: live
+    signal: envoy_server_state_live
+  - id: draining
+    signal: envoy_server_state_draining
+  - id: pre_initializing
+    signal: envoy_server_state_pre_initializing
+  - id: initializing
+    signal: envoy_server_state_initializing
+- id: envoy.server_connections_count
+  title: Server current connections
+  units: connections
+  family: server
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: connections
+    signal: envoy_server_connections_count_connections
+- id: envoy.server_parent_connections_count
+  title: Server current parent connections
+  units: connections
+  family: server
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: connections
+    signal: envoy_server_parent_connections_count_connections
+- id: envoy.server_memory_allocated_size
+  title: Server memory allocated size
+  units: bytes
+  family: server
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: allocated
+    signal: envoy_server_memory_allocated_size_allocated
+- id: envoy.server_memory_heap_size
+  title: Server memory heap size
+  units: bytes
+  family: server
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: heap
+    signal: envoy_server_memory_heap_size_heap
+- id: envoy.server_memory_physical_size
+  title: Server memory physical size
+  units: bytes
+  family: server
+  chart_type: line
+  priority: 60006
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: physical
+    signal: envoy_server_memory_physical_size_physical
+- id: envoy.server_uptime
+  title: Server uptime
+  units: seconds
+  family: server
+  chart_type: line
+  priority: 60007
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: uptime
+    signal: envoy_server_uptime_uptime
+- id: envoy.cluster_manager_cluster_count
+  title: Cluster manager current clusters
+  units: clusters
+  family: cluster
+  chart_type: line
+  priority: 60008
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: active
+    signal: envoy_cluster_manager_cluster_count_active
+  - id: not_active
+    signal: envoy_cluster_manager_cluster_count_not_active
+- id: envoy.cluster_manager_cluster_changes_rate
+  title: Cluster manager cluster changes
+  units: clusters/s
+  family: cluster
+  chart_type: line
+  priority: 60009
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: added
+    rate_signal: envoy_cluster_manager_cluster_changes_rate_added
+  - id: modified
+    rate_signal: envoy_cluster_manager_cluster_changes_rate_modified
+  - id: removed
+    rate_signal: envoy_cluster_manager_cluster_changes_rate_removed
+- id: envoy.cluster_manager_cluster_updates_rate
+  title: Cluster manager updates
+  units: updates/s
+  family: cluster
+  chart_type: line
+  priority: 60010
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: cluster
+    rate_signal: envoy_cluster_manager_cluster_updates_rate_cluster
+- id: envoy.cluster_manager_cluster_updated_via_merge_rate
+  title: Cluster manager updates applied as merged updates
+  units: updates/s
+  family: cluster
+  chart_type: line
+  priority: 60011
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: via_merge
+    rate_signal: envoy_cluster_manager_cluster_updated_via_merge_rate_via_merge
+- id: envoy.cluster_manager_update_merge_cancelled_rate
+  title: Cluster manager cancelled merged updates
+  units: updates/s
+  family: cluster
+  chart_type: line
+  priority: 60012
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: merge_cancelled
+    rate_signal: envoy_cluster_manager_update_merge_cancelled_rate_merge_cancelled
+- id: envoy.cluster_manager_update_out_of_merge_window_rate
+  title: Cluster manager out of a merge window updates
+  units: updates/s
+  family: cluster
+  chart_type: line
+  priority: 60013
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: out_of_merge_window
+    rate_signal: envoy_cluster_manager_update_out_of_merge_window_rate_out_of_merge_window
+- id: envoy.cluster_membership_endpoints_count
+  title: Cluster membership current endpoints
+  units: endpoints
+  family: cluster
+  chart_type: line
+  priority: 60014
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: healthy
+    signal: envoy_cluster_membership_endpoints_count_healthy
+  - id: degraded
+    signal: envoy_cluster_membership_endpoints_count_degraded
+  - id: excluded
+    signal: envoy_cluster_membership_endpoints_count_excluded
+- id: envoy.cluster_membership_changes_rate
+  title: Cluster membership changes
+  units: changes/s
+  family: cluster
+  chart_type: line
+  priority: 60015
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: membership
+    rate_signal: envoy_cluster_membership_changes_rate_membership
+- id: envoy.cluster_membership_updates_rate
+  title: Cluster membership updates
+  units: updates/s
+  family: cluster
+  chart_type: line
+  priority: 60016
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: success
+    rate_signal: envoy_cluster_membership_updates_rate_success
+  - id: failure
+    rate_signal: envoy_cluster_membership_updates_rate_failure
+  - id: empty
+    rate_signal: envoy_cluster_membership_updates_rate_empty
+  - id: no_rebuild
+    rate_signal: envoy_cluster_membership_updates_rate_no_rebuild
+- id: envoy.cluster_upstream_cx_active_count
+  title: Cluster upstream current active connections
+  units: connections
+  family: cluster
+  chart_type: line
+  priority: 60017
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: active
+    signal: envoy_cluster_upstream_cx_active_count_active
+- id: envoy.cluster_upstream_cx_rate
+  title: Cluster upstream connections
+  units: connections/s
+  family: cluster
+  chart_type: line
+  priority: 60018
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: created
+    rate_signal: envoy_cluster_upstream_cx_rate_created
+- id: envoy.cluster_upstream_cx_http_rate
+  title: Cluster upstream connections by HTTP version
+  units: connections/s
+  family: cluster
+  chart_type: line
+  priority: 60019
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: http1
+    rate_signal: envoy_cluster_upstream_cx_http_rate_http1
+  - id: http2
+    rate_signal: envoy_cluster_upstream_cx_http_rate_http2
+  - id: http3
+    rate_signal: envoy_cluster_upstream_cx_http_rate_http3
+- id: envoy.cluster_upstream_cx_destroy_rate
+  title: Cluster upstream destroyed connections
+  units: connections/s
+  family: cluster
+  chart_type: line
+  priority: 60020
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: local
+    rate_signal: envoy_cluster_upstream_cx_destroy_rate_local
+  - id: remote
+    rate_signal: envoy_cluster_upstream_cx_destroy_rate_remote
+- id: envoy.cluster_upstream_cx_connect_fail_rate
+  title: Cluster upstream failed connections
+  units: connections/s
+  family: cluster
+  chart_type: line
+  priority: 60021
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: failed
+    rate_signal: envoy_cluster_upstream_cx_connect_fail_rate_failed
+- id: envoy.cluster_upstream_cx_connect_timeout_rate
+  title: Cluster upstream timed out connections
+  units: connections/s
+  family: cluster
+  chart_type: line
+  priority: 60022
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: timeout
+    rate_signal: envoy_cluster_upstream_cx_connect_timeout_rate_timeout
+- id: envoy.cluster_upstream_cx_bytes_rate
+  title: Cluster upstream connection traffic
+  units: bytes/s
+  family: cluster
+  chart_type: line
+  priority: 60023
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: received
+    rate_signal: envoy_cluster_upstream_cx_bytes_rate_received
+  - id: sent
+    rate_signal: envoy_cluster_upstream_cx_bytes_rate_sent
+- id: envoy.cluster_upstream_cx_bytes_buffered_size
+  title: Cluster upstream current connection buffered size
+  units: bytes
+  family: cluster
+  chart_type: line
+  priority: 60024
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: received
+    signal: envoy_cluster_upstream_cx_bytes_buffered_size_received
+  - id: send
+    signal: envoy_cluster_upstream_cx_bytes_buffered_size_send
+- id: envoy.cluster_upstream_rq_active_count
+  title: Cluster upstream current active requests
+  units: requests
+  family: cluster
+  chart_type: line
+  priority: 60025
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: active
+    signal: envoy_cluster_upstream_rq_active_count_active
+- id: envoy.cluster_upstream_rq_rate
+  title: Cluster upstream requests
+  units: requests/s
+  family: cluster
+  chart_type: line
+  priority: 60026
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: requests
+    rate_signal: envoy_cluster_upstream_rq_rate_requests
+- id: envoy.cluster_upstream_rq_failed_rate
+  title: Cluster upstream failed requests
+  units: requests/s
+  family: cluster
+  chart_type: line
+  priority: 60027
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: cancelled
+    rate_signal: envoy_cluster_upstream_rq_failed_rate_cancelled
+  - id: maintenance_mode
+    rate_signal: envoy_cluster_upstream_rq_failed_rate_maintenance_mode
+  - id: timeout
+    rate_signal: envoy_cluster_upstream_rq_failed_rate_timeout
+  - id: max_duration_reached
+    rate_signal: envoy_cluster_upstream_rq_failed_rate_max_duration_reached
+  - id: per_try_timeout
+    rate_signal: envoy_cluster_upstream_rq_failed_rate_per_try_timeout
+  - id: reset_local
+    rate_signal: envoy_cluster_upstream_rq_failed_rate_reset_local
+  - id: reset_remote
+    rate_signal: envoy_cluster_upstream_rq_failed_rate_reset_remote
+- id: envoy.cluster_upstream_rq_pending_active_count
+  title: Cluster upstream current active pending requests
+  units: requests
+  family: cluster
+  chart_type: line
+  priority: 60028
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: active_pending
+    signal: envoy_cluster_upstream_rq_pending_active_count_active_pending
+- id: envoy.cluster_upstream_rq_pending_rate
+  title: Cluster upstream pending requests
+  units: requests/s
+  family: cluster
+  chart_type: line
+  priority: 60029
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: pending
+    rate_signal: envoy_cluster_upstream_rq_pending_rate_pending
+- id: envoy.cluster_upstream_rq_pending_failed_rate
+  title: Cluster upstream failed pending requests
+  units: requests/s
+  family: cluster
+  chart_type: line
+  priority: 60030
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: overflow
+    rate_signal: envoy_cluster_upstream_rq_pending_failed_rate_overflow
+  - id: failure_eject
+    rate_signal: envoy_cluster_upstream_rq_pending_failed_rate_failure_eject
+- id: envoy.cluster_upstream_rq_retry_rate
+  title: Cluster upstream request retries
+  units: retries/s
+  family: cluster
+  chart_type: line
+  priority: 60031
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: request
+    rate_signal: envoy_cluster_upstream_rq_retry_rate_request
+- id: envoy.cluster_upstream_rq_retry_success_rate
+  title: Cluster upstream request successful retries
+  units: retries/s
+  family: cluster
+  chart_type: line
+  priority: 60032
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: success
+    rate_signal: envoy_cluster_upstream_rq_retry_success_rate_success
+- id: envoy.cluster_upstream_rq_retry_backoff_rate
+  title: Cluster upstream request backoff retries
+  units: retries/s
+  family: cluster
+  chart_type: line
+  priority: 60033
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: exponential
+    rate_signal: envoy_cluster_upstream_rq_retry_backoff_rate_exponential
+  - id: ratelimited
+    rate_signal: envoy_cluster_upstream_rq_retry_backoff_rate_ratelimited
+- id: envoy.listener_manager_listeners_count
+  title: Listener manager current listeners
+  units: listeners
+  family: listener
+  chart_type: line
+  priority: 60034
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: active
+    signal: envoy_listener_manager_listeners_count_active
+  - id: warming
+    signal: envoy_listener_manager_listeners_count_warming
+  - id: draining
+    signal: envoy_listener_manager_listeners_count_draining
+- id: envoy.listener_manager_listener_changes_rate
+  title: Listener manager listener changes
+  units: listeners/s
+  family: listener
+  chart_type: line
+  priority: 60035
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: added
+    rate_signal: envoy_listener_manager_listener_changes_rate_added
+  - id: modified
+    rate_signal: envoy_listener_manager_listener_changes_rate_modified
+  - id: removed
+    rate_signal: envoy_listener_manager_listener_changes_rate_removed
+  - id: stopped
+    rate_signal: envoy_listener_manager_listener_changes_rate_stopped
+- id: envoy.listener_manager_listener_object_events_rate
+  title: Listener manager listener object events
+  units: objects/s
+  family: listener
+  chart_type: line
+  priority: 60036
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: create_success
+    rate_signal: envoy_listener_manager_listener_object_events_rate_create_success
+  - id: create_failure
+    rate_signal: envoy_listener_manager_listener_object_events_rate_create_failure
+  - id: in_place_updated
+    rate_signal: envoy_listener_manager_listener_object_events_rate_in_place_updated
+- id: envoy.listener_admin_downstream_cx_active_count
+  title: Listener admin downstream current active connections
+  units: connections
+  family: listener
+  chart_type: line
+  priority: 60037
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: active
+    signal: envoy_listener_admin_downstream_cx_active_count_active
+- id: envoy.listener_admin_downstream_cx_rate
+  title: Listener admin downstream connections
+  units: connections/s
+  family: listener
+  chart_type: line
+  priority: 60038
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: created
+    rate_signal: envoy_listener_admin_downstream_cx_rate_created
+- id: envoy.listener_admin_downstream_cx_destroy_rate
+  title: Listener admin downstream destroyed connections
+  units: connections/s
+  family: listener
+  chart_type: line
+  priority: 60039
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: destroyed
+    rate_signal: envoy_listener_admin_downstream_cx_destroy_rate_destroyed
+- id: envoy.listener_admin_downstream_cx_transport_socket_connect_timeout_rate
+  title: Listener admin downstream timed out connections
+  units: connections/s
+  family: listener
+  chart_type: line
+  priority: 60040
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: timeout
+    rate_signal: envoy_listener_admin_downstream_cx_transport_socket_connect_timeout_rate_timeout
+- id: envoy.listener_admin_downstream_cx_rejected_rate
+  title: Listener admin downstream rejected connections
+  units: connections/s
+  family: listener
+  chart_type: line
+  priority: 60041
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: overflow
+    rate_signal: envoy_listener_admin_downstream_cx_rejected_rate_overflow
+  - id: overload
+    rate_signal: envoy_listener_admin_downstream_cx_rejected_rate_overload
+  - id: global_overflow
+    rate_signal: envoy_listener_admin_downstream_cx_rejected_rate_global_overflow
+- id: envoy.listener_admin_downstream_listener_filter_remote_close_rate
+  title: Listener admin downstream connections closed by remote when peek data for listener filters
+  units: connections/s
+  family: listener
+  chart_type: line
+  priority: 60042
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: closed
+    rate_signal: envoy_listener_admin_downstream_listener_filter_remote_close_rate_closed
+- id: envoy.listener_admin_downstream_listener_filter_error_rate
+  title: Listener admin downstream read errors when peeking data for listener filters
+  units: errors/s
+  family: listener
+  chart_type: line
+  priority: 60043
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: read
+    rate_signal: envoy_listener_admin_downstream_listener_filter_error_rate_read
+- id: envoy.listener_admin_downstream_pre_cx_active_count
+  title: Listener admin downstream current active sockets
+  units: sockets
+  family: listener
+  chart_type: line
+  priority: 60044
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: active
+    signal: envoy_listener_admin_downstream_pre_cx_active_count_active
+- id: envoy.listener_admin_downstream_pre_cx_timeout_rate
+  title: Listener admin downstream timed out sockets
+  units: sockets/s
+  family: listener
+  chart_type: line
+  priority: 60045
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: timeout
+    rate_signal: envoy_listener_admin_downstream_pre_cx_timeout_rate_timeout
+- id: envoy.listener_downstream_cx_active_count
+  title: Listener downstream current active connections
+  units: connections
+  family: listener
+  chart_type: line
+  priority: 60046
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: active
+    signal: envoy_listener_downstream_cx_active_count_active
+- id: envoy.listener_downstream_cx_rate
+  title: Listener downstream connections
+  units: connections/s
+  family: listener
+  chart_type: line
+  priority: 60047
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: created
+    rate_signal: envoy_listener_downstream_cx_rate_created
+- id: envoy.listener_downstream_cx_destroy_rate
+  title: Listener downstream destroyed connections
+  units: connections/s
+  family: listener
+  chart_type: line
+  priority: 60048
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: destroyed
+    rate_signal: envoy_listener_downstream_cx_destroy_rate_destroyed
+- id: envoy.listener_downstream_cx_transport_socket_connect_timeout_rate
+  title: Listener downstream timed out connections
+  units: connections/s
+  family: listener
+  chart_type: line
+  priority: 60049
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: timeout
+    rate_signal: envoy_listener_downstream_cx_transport_socket_connect_timeout_rate_timeout
+- id: envoy.listener_downstream_cx_rejected_rate
+  title: Listener downstream rejected connections
+  units: connections/s
+  family: listener
+  chart_type: line
+  priority: 60050
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: overflow
+    rate_signal: envoy_listener_downstream_cx_rejected_rate_overflow
+  - id: overload
+    rate_signal: envoy_listener_downstream_cx_rejected_rate_overload
+  - id: global_overflow
+    rate_signal: envoy_listener_downstream_cx_rejected_rate_global_overflow
+- id: envoy.listener_downstream_listener_filter_remote_close_rate
+  title: Listener downstream connections closed by remote when peek data for listener filters
+  units: connections/s
+  family: listener
+  chart_type: line
+  priority: 60051
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: closed
+    rate_signal: envoy_listener_downstream_listener_filter_remote_close_rate_closed
+- id: envoy.listener_downstream_listener_filter_error_rate
+  title: Listener downstream read errors when peeking data for listener filters
+  units: errors/s
+  family: listener
+  chart_type: line
+  priority: 60052
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: read
+    rate_signal: envoy_listener_downstream_listener_filter_error_rate_read
+- id: envoy.listener_downstream_pre_cx_active_count
+  title: Listener downstream current active sockets
+  units: sockets
+  family: listener
+  chart_type: line
+  priority: 60053
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: active
+    signal: envoy_listener_downstream_pre_cx_active_count_active
+- id: envoy.listener_downstream_pre_cx_timeout_rate
+  title: Listener downstream timed out sockets
+  units: sockets/s
+  family: listener
+  chart_type: line
+  priority: 60054
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: timeout
+    rate_signal: envoy_listener_downstream_pre_cx_timeout_rate_timeout

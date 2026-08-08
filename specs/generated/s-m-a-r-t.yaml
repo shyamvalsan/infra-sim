@@ -1,0 +1,302 @@
+version: 1
+name: s-m-a-r-t
+description: S.M.A.R.T. metrics, generated from Netdata's own collector metadata so the contexts, units
+  and dimension names match what a real S.M.A.R.T. node reports. Signals are independent and plausible
+  rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  s_m_a_r_t_device_smart_status_passed:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  s_m_a_r_t_device_smart_status_failed:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  s_m_a_r_t_device_ata_smart_error_log_count_error_log:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  s_m_a_r_t_device_power_on_time_power_on_time:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  s_m_a_r_t_device_temperature_temperature:
+    base: 41.0
+    min: 0.0
+    max: 120.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  s_m_a_r_t_device_power_cycles_count_power:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  s_m_a_r_t_device_read_errors_rate_corrected:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  s_m_a_r_t_device_read_errors_rate_uncorrected:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  s_m_a_r_t_device_write_errors_rate_corrected:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  s_m_a_r_t_device_write_errors_rate_uncorrected:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  s_m_a_r_t_device_verify_errors_rate_corrected:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  s_m_a_r_t_device_verify_errors_rate_uncorrected:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  s_m_a_r_t_device_smart_attr_attribute_name_attribute_name:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  s_m_a_r_t_device_smart_attr_attribute_name_normalized_attribute_name:
+    base: 320.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: smartctl.device_smart_status
+  title: Device smart status
+  units: status
+  family: device
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels:
+    device_name: sim-device_name-1
+    device_type: sim-device_type-1
+    model_name: sim-model_name-1
+    serial_number: sim-serial_number-1
+  dimensions:
+  - id: passed
+    signal: s_m_a_r_t_device_smart_status_passed
+  - id: failed
+    signal: s_m_a_r_t_device_smart_status_failed
+- id: smartctl.device_ata_smart_error_log_count
+  title: Device ATA smart error log count
+  units: logs
+  family: device
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels:
+    device_name: sim-device_name-1
+    device_type: sim-device_type-1
+    model_name: sim-model_name-1
+    serial_number: sim-serial_number-1
+  dimensions:
+  - id: error_log
+    signal: s_m_a_r_t_device_ata_smart_error_log_count_error_log
+- id: smartctl.device_power_on_time
+  title: Device power on time
+  units: seconds
+  family: device
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels:
+    device_name: sim-device_name-1
+    device_type: sim-device_type-1
+    model_name: sim-model_name-1
+    serial_number: sim-serial_number-1
+  dimensions:
+  - id: power_on_time
+    signal: s_m_a_r_t_device_power_on_time_power_on_time
+- id: smartctl.device_temperature
+  title: Device temperature
+  units: Celsius
+  family: device
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels:
+    device_name: sim-device_name-1
+    device_type: sim-device_type-1
+    model_name: sim-model_name-1
+    serial_number: sim-serial_number-1
+  dimensions:
+  - id: temperature
+    signal: s_m_a_r_t_device_temperature_temperature
+- id: smartctl.device_power_cycles_count
+  title: Device power cycles
+  units: cycles
+  family: device
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels:
+    device_name: sim-device_name-1
+    device_type: sim-device_type-1
+    model_name: sim-model_name-1
+    serial_number: sim-serial_number-1
+  dimensions:
+  - id: power
+    signal: s_m_a_r_t_device_power_cycles_count_power
+- id: smartctl.device_read_errors_rate
+  title: Device read errors
+  units: errors/s
+  family: device
+  chart_type: line
+  priority: 60006
+  shape: counters
+  labels:
+    device_name: sim-device_name-1
+    device_type: sim-device_type-1
+    model_name: sim-model_name-1
+    serial_number: sim-serial_number-1
+  dimensions:
+  - id: corrected
+    rate_signal: s_m_a_r_t_device_read_errors_rate_corrected
+  - id: uncorrected
+    rate_signal: s_m_a_r_t_device_read_errors_rate_uncorrected
+- id: smartctl.device_write_errors_rate
+  title: Device write errors
+  units: errors/s
+  family: device
+  chart_type: line
+  priority: 60007
+  shape: counters
+  labels:
+    device_name: sim-device_name-1
+    device_type: sim-device_type-1
+    model_name: sim-model_name-1
+    serial_number: sim-serial_number-1
+  dimensions:
+  - id: corrected
+    rate_signal: s_m_a_r_t_device_write_errors_rate_corrected
+  - id: uncorrected
+    rate_signal: s_m_a_r_t_device_write_errors_rate_uncorrected
+- id: smartctl.device_verify_errors_rate
+  title: Device verify errors
+  units: errors/s
+  family: device
+  chart_type: line
+  priority: 60008
+  shape: counters
+  labels:
+    device_name: sim-device_name-1
+    device_type: sim-device_type-1
+    model_name: sim-model_name-1
+    serial_number: sim-serial_number-1
+  dimensions:
+  - id: corrected
+    rate_signal: s_m_a_r_t_device_verify_errors_rate_corrected
+  - id: uncorrected
+    rate_signal: s_m_a_r_t_device_verify_errors_rate_uncorrected
+- id: smartctl.device_smart_attr_{attribute_name}
+  title: Device smart attribute {attribute_name}
+  units: '{attribute_unit}'
+  family: device
+  chart_type: line
+  priority: 60009
+  shape: independent
+  labels:
+    device_name: sim-device_name-1
+    device_type: sim-device_type-1
+    model_name: sim-model_name-1
+    serial_number: sim-serial_number-1
+  dimensions:
+  - id: '{attribute_name}'
+    signal: s_m_a_r_t_device_smart_attr_attribute_name_attribute_name
+- id: smartctl.device_smart_attr_{attribute_name}_normalized
+  title: Device smart attribute {attribute_name} normalized
+  units: value
+  family: device
+  chart_type: line
+  priority: 60010
+  shape: independent
+  labels:
+    device_name: sim-device_name-1
+    device_type: sim-device_type-1
+    model_name: sim-model_name-1
+    serial_number: sim-serial_number-1
+  dimensions:
+  - id: '{attribute_name}'
+    signal: s_m_a_r_t_device_smart_attr_attribute_name_normalized_attribute_name

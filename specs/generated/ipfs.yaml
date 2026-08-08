@@ -1,0 +1,166 @@
+version: 1
+name: ipfs
+description: IPFS metrics, generated from Netdata's own collector metadata so the contexts, units and
+  dimension names match what a real IPFS node reports. Signals are independent and plausible rather than
+  causally coupled - see scripts/sync-integrations.py.
+signals:
+  ipfs_bandwidth_in:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ipfs_bandwidth_out:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ipfs_peers_peers:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ipfs_datastore_space_utilization_used:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ipfs_repo_size_size:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ipfs_repo_objects_objects:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ipfs_repo_pinned_objects_pinned:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ipfs_repo_pinned_objects_recursive_pins:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: ipfs.bandwidth
+  title: IPFS Bandwidth
+  units: bytes/s
+  family: bandwidth
+  chart_type: area
+  priority: 60001
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: in
+    rate_signal: ipfs_bandwidth_in
+  - id: out
+    rate_signal: ipfs_bandwidth_out
+- id: ipfs.peers
+  title: IPFS Peers
+  units: peers
+  family: peers
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: peers
+    signal: ipfs_peers_peers
+- id: ipfs.datastore_space_utilization
+  title: IPFS Datastore Space Utilization
+  units: percent
+  family: datastore
+  chart_type: area
+  priority: 60003
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: used
+    signal: ipfs_datastore_space_utilization_used
+- id: ipfs.repo_size
+  title: IPFS Repo Size
+  units: bytes
+  family: repo
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: size
+    signal: ipfs_repo_size_size
+- id: ipfs.repo_objects
+  title: IPFS Repo Objects
+  units: objects
+  family: repo
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: objects
+    signal: ipfs_repo_objects_objects
+- id: ipfs.repo_pinned_objects
+  title: IPFS Repo Pinned Objects
+  units: objects
+  family: repo
+  chart_type: line
+  priority: 60006
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: pinned
+    signal: ipfs_repo_pinned_objects_pinned
+  - id: recursive_pins
+    signal: ipfs_repo_pinned_objects_recursive_pins

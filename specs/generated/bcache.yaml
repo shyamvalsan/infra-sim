@@ -1,0 +1,379 @@
+version: 1
+name: bcache
+description: BCache metrics, generated from Netdata's own collector metadata so the contexts, units and
+  dimension names match what a real BCache node reports. Signals are independent and plausible rather
+  than causally coupled - see scripts/sync-integrations.py.
+signals:
+  bcache_bcache_cache_alloc_ununsed:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  bcache_bcache_cache_alloc_dirty:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  bcache_bcache_cache_alloc_clean:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  bcache_bcache_cache_alloc_metadata:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  bcache_bcache_cache_alloc_undefined:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  bcache_bcache_hit_ratio_5min:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  bcache_bcache_hit_ratio_1hour:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  bcache_bcache_hit_ratio_1day:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  bcache_bcache_hit_ratio_ever:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  bcache_bcache_rates_congested:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  bcache_bcache_rates_writeback:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  bcache_bcache_size_dirty:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  bcache_bcache_usage_avail:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  bcache_bcache_cache_read_races_races:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  bcache_bcache_cache_read_races_errors:
+    base: 0.0
+    min: 0.0
+    max: 5000000.0
+  bcache_bcache_hits:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  bcache_bcache_misses:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  bcache_bcache_collisions:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  bcache_bcache_readaheads:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  bcache_bcache_bypass_hits:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  bcache_bcache_bypass_misses:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: disk.bcache_cache_alloc
+  title: BCache Cache Allocations
+  units: percentage
+  family: bcache
+  chart_type: stacked
+  priority: 60001
+  shape: independent
+  labels:
+    device: sim-device-1
+    mount_point: sim-mount_point-1
+    device_type: sim-device_type-1
+  dimensions:
+  - id: ununsed
+    signal: bcache_bcache_cache_alloc_ununsed
+  - id: dirty
+    signal: bcache_bcache_cache_alloc_dirty
+  - id: clean
+    signal: bcache_bcache_cache_alloc_clean
+  - id: metadata
+    signal: bcache_bcache_cache_alloc_metadata
+  - id: undefined
+    signal: bcache_bcache_cache_alloc_undefined
+- id: disk.bcache_hit_ratio
+  title: BCache Cache Hit Ratio
+  units: percentage
+  family: bcache
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels:
+    device: sim-device-1
+    mount_point: sim-mount_point-1
+    device_type: sim-device_type-1
+  dimensions:
+  - id: 5min
+    signal: bcache_bcache_hit_ratio_5min
+  - id: 1hour
+    signal: bcache_bcache_hit_ratio_1hour
+  - id: 1day
+    signal: bcache_bcache_hit_ratio_1day
+  - id: ever
+    signal: bcache_bcache_hit_ratio_ever
+- id: disk.bcache_rates
+  title: BCache Rates
+  units: KiB/s
+  family: bcache
+  chart_type: area
+  priority: 60003
+  shape: independent
+  labels:
+    device: sim-device-1
+    mount_point: sim-mount_point-1
+    device_type: sim-device_type-1
+  dimensions:
+  - id: congested
+    signal: bcache_bcache_rates_congested
+  - id: writeback
+    signal: bcache_bcache_rates_writeback
+- id: disk.bcache_size
+  title: BCache Cache Sizes
+  units: MiB
+  family: bcache
+  chart_type: area
+  priority: 60004
+  shape: independent
+  labels:
+    device: sim-device-1
+    mount_point: sim-mount_point-1
+    device_type: sim-device_type-1
+  dimensions:
+  - id: dirty
+    signal: bcache_bcache_size_dirty
+- id: disk.bcache_usage
+  title: BCache Cache Usage
+  units: percentage
+  family: bcache
+  chart_type: area
+  priority: 60005
+  shape: independent
+  labels:
+    device: sim-device-1
+    mount_point: sim-mount_point-1
+    device_type: sim-device_type-1
+  dimensions:
+  - id: avail
+    signal: bcache_bcache_usage_avail
+- id: disk.bcache_cache_read_races
+  title: BCache Cache Read Races
+  units: operations/s
+  family: bcache
+  chart_type: line
+  priority: 60006
+  shape: counters
+  labels:
+    device: sim-device-1
+    mount_point: sim-mount_point-1
+    device_type: sim-device_type-1
+  dimensions:
+  - id: races
+    rate_signal: bcache_bcache_cache_read_races_races
+  - id: errors
+    rate_signal: bcache_bcache_cache_read_races_errors
+- id: disk.bcache
+  title: BCache Cache I/O Operations
+  units: operations/s
+  family: bcache
+  chart_type: line
+  priority: 60007
+  shape: counters
+  labels:
+    device: sim-device-1
+    mount_point: sim-mount_point-1
+    device_type: sim-device_type-1
+  dimensions:
+  - id: hits
+    rate_signal: bcache_bcache_hits
+  - id: misses
+    rate_signal: bcache_bcache_misses
+  - id: collisions
+    rate_signal: bcache_bcache_collisions
+  - id: readaheads
+    rate_signal: bcache_bcache_readaheads
+- id: disk.bcache_bypass
+  title: BCache Cache Bypass I/O Operations
+  units: operations/s
+  family: bcache
+  chart_type: line
+  priority: 60008
+  shape: counters
+  labels:
+    device: sim-device-1
+    mount_point: sim-mount_point-1
+    device_type: sim-device_type-1
+  dimensions:
+  - id: hits
+    rate_signal: bcache_bcache_bypass_hits
+  - id: misses
+    rate_signal: bcache_bcache_bypass_misses

@@ -67,20 +67,35 @@ is running. Stop with `./scripts/logs.sh stop`.
 ## 6. Console — or do all of the above from one screen
 
 ```bash
-sudo ./target/release/infra-sim-console --repo "$PWD"
+sudo ./target/release/infra-sim-console
+# with a model reading free-form descriptions:
+# sudo -E ANTHROPIC_API_KEY="$ANTHROPIC_API_KEY" ./target/release/infra-sim-console
 ```
 
 Then open <http://127.0.0.1:8080>.
 
-Steps 1-4 above are the command line. The console does the same work with a
-form: pick node counts per role, tick the collectors you want (including
-`otel-collector`), name the prospect, and press **Create & install** — it
-builds the environment, lints it, refuses to install if the lint fails, and
-swaps the running fleet.
+Steps 1-4 above are the command line. The **Build** tab does the same work in
+about a minute:
 
-It also holds **Claim** (token + Space name; the token is never written
-anywhere) and **Teardown** (disarm, remove the plugin, stop its process,
-archive the artifacts that replay the world).
+1. Type what the prospect runs — "6 nginx web servers behind two haproxy load
+   balancers, a 3-node postgres cluster and an elasticsearch cluster of 3" —
+   and press **Read this**. It fills the fleet below.
+2. Adjust: change counts, swap roles, search **261 integrations** by name and
+   tick what they actually run. The six with a `DEEP` badge are the ones hero
+   scenarios can target.
+3. Optionally tick **Simulate Prometheus exporters** — each node then publishes
+   a real `/metrics` endpoint that Netdata's own prometheus collector scrapes
+   and charts.
+4. Name the prospect and press **Create & install**. It builds the environment,
+   lints it, **refuses to install if the lint fails**, and swaps the running
+   fleet.
+
+The same tab holds **Connect to Netdata Cloud** (claim token plus an optional
+room id — the token is never written anywhere and is cleared from the page once
+used), **Re-skin**, and **Tear down**.
+
+The **Run** tab is the demo surface: preflight verdict, scenario triggers with
+escalate/rewind, and the live node table.
 
 Root is required for create, claim and teardown.
 

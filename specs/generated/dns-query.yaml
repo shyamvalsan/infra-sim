@@ -1,0 +1,68 @@
+version: 1
+name: dns-query
+description: DNS query metrics, generated from Netdata's own collector metadata so the contexts, units
+  and dimension names match what a real DNS query node reports. Signals are independent and plausible
+  rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  dns_query_query_status_success:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  dns_query_query_status_network_error:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  dns_query_query_status_dns_error:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  dns_query_query_time_query_time:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: dns_query.query_status
+  title: DNS Query Status
+  units: status
+  family: query
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels:
+    server: sim-server-1
+    network: sim-network-1
+    record_type: sim-record_type-1
+  dimensions:
+  - id: success
+    signal: dns_query_query_status_success
+  - id: network_error
+    signal: dns_query_query_status_network_error
+  - id: dns_error
+    signal: dns_query_query_status_dns_error
+- id: dns_query.query_time
+  title: DNS Query Time
+  units: seconds
+  family: query
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels:
+    server: sim-server-1
+    network: sim-network-1
+    record_type: sim-record_type-1
+  dimensions:
+  - id: query_time
+    signal: dns_query_query_time_query_time

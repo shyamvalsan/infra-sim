@@ -1,0 +1,198 @@
+version: 1
+name: gearman
+description: Gearman metrics, generated from Netdata's own collector metadata so the contexts, units and
+  dimension names match what a real Gearman node reports. Signals are independent and plausible rather
+  than causally coupled - see scripts/sync-integrations.py.
+signals:
+  gearman_queued_jobs_activity_running:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  gearman_queued_jobs_activity_waiting:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  gearman_queued_jobs_priority_high:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  gearman_queued_jobs_priority_normal:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  gearman_queued_jobs_priority_low:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  gearman_function_queued_jobs_activity_running:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  gearman_function_queued_jobs_activity_waiting:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  gearman_function_queued_jobs_priority_high:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  gearman_function_queued_jobs_priority_normal:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  gearman_function_queued_jobs_priority_low:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  gearman_function_workers_available:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: gearman.queued_jobs_activity
+  title: Jobs Activity
+  units: jobs
+  family: queued
+  chart_type: stacked
+  priority: 60001
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: running
+    signal: gearman_queued_jobs_activity_running
+  - id: waiting
+    signal: gearman_queued_jobs_activity_waiting
+- id: gearman.queued_jobs_priority
+  title: Jobs Priority
+  units: jobs
+  family: queued
+  chart_type: stacked
+  priority: 60002
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: high
+    signal: gearman_queued_jobs_priority_high
+  - id: normal
+    signal: gearman_queued_jobs_priority_normal
+  - id: low
+    signal: gearman_queued_jobs_priority_low
+- id: gearman.function_queued_jobs_activity
+  title: Function Jobs Activity
+  units: jobs
+  family: function
+  chart_type: stacked
+  priority: 60003
+  shape: independent
+  labels:
+    function_name: sim-function_name-1
+  dimensions:
+  - id: running
+    signal: gearman_function_queued_jobs_activity_running
+  - id: waiting
+    signal: gearman_function_queued_jobs_activity_waiting
+- id: gearman.function_queued_jobs_priority
+  title: Function Jobs Priority
+  units: jobs
+  family: function
+  chart_type: stacked
+  priority: 60004
+  shape: independent
+  labels:
+    function_name: sim-function_name-1
+  dimensions:
+  - id: high
+    signal: gearman_function_queued_jobs_priority_high
+  - id: normal
+    signal: gearman_function_queued_jobs_priority_normal
+  - id: low
+    signal: gearman_function_queued_jobs_priority_low
+- id: gearman.function_workers
+  title: Function Workers
+  units: workers
+  family: function
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels:
+    function_name: sim-function_name-1
+  dimensions:
+  - id: available
+    signal: gearman_function_workers_available

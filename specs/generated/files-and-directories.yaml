@@ -1,0 +1,174 @@
+version: 1
+name: files-and-directories
+description: Files and directories metrics, generated from Netdata's own collector metadata so the contexts,
+  units and dimension names match what a real Files and directories node reports. Signals are independent
+  and plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  files_and_directories_file_existence_status_exist:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  files_and_directories_file_existence_status_not_exist:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  files_and_directories_file_modification_time_ago_mtime_ago:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  files_and_directories_file_size_bytes_size:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  files_and_directories_dir_existence_status_exist:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  files_and_directories_dir_existence_status_not_exist:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  files_and_directories_dir_modification_time_ago_mtime_ago:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  files_and_directories_dir_size_bytes_size:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  files_and_directories_dir_files_count_files:
+    base: 1200.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: filecheck.file_existence_status
+  title: File existence
+  units: status
+  family: file
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels:
+    file_path: sim-file_path-1
+  dimensions:
+  - id: exist
+    signal: files_and_directories_file_existence_status_exist
+  - id: not_exist
+    signal: files_and_directories_file_existence_status_not_exist
+- id: filecheck.file_modification_time_ago
+  title: File time since the last modification
+  units: seconds
+  family: file
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels:
+    file_path: sim-file_path-1
+  dimensions:
+  - id: mtime_ago
+    signal: files_and_directories_file_modification_time_ago_mtime_ago
+- id: filecheck.file_size_bytes
+  title: File size
+  units: bytes
+  family: file
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels:
+    file_path: sim-file_path-1
+  dimensions:
+  - id: size
+    signal: files_and_directories_file_size_bytes_size
+- id: filecheck.dir_existence_status
+  title: Directory existence
+  units: status
+  family: dir
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels:
+    dir_path: sim-dir_path-1
+  dimensions:
+  - id: exist
+    signal: files_and_directories_dir_existence_status_exist
+  - id: not_exist
+    signal: files_and_directories_dir_existence_status_not_exist
+- id: filecheck.dir_modification_time_ago
+  title: Directory time since the last modification
+  units: seconds
+  family: dir
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels:
+    dir_path: sim-dir_path-1
+  dimensions:
+  - id: mtime_ago
+    signal: files_and_directories_dir_modification_time_ago_mtime_ago
+- id: filecheck.dir_size_bytes
+  title: Directory size
+  units: bytes
+  family: dir
+  chart_type: line
+  priority: 60006
+  shape: independent
+  labels:
+    dir_path: sim-dir_path-1
+  dimensions:
+  - id: size
+    signal: files_and_directories_dir_size_bytes_size
+- id: filecheck.dir_files count
+  title: Directory files count
+  units: files
+  family: dir
+  chart_type: line
+  priority: 60007
+  shape: independent
+  labels:
+    dir_path: sim-dir_path-1
+  dimensions:
+  - id: files
+    signal: files_and_directories_dir_files_count_files

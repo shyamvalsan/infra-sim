@@ -1,0 +1,77 @@
+version: 1
+name: ebpf-mount
+description: eBPF Mount metrics, generated from Netdata's own collector metadata so the contexts, units
+  and dimension names match what a real eBPF Mount node reports. Signals are independent and plausible
+  rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  ebpf_mount_call_mount:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_mount_call_umount:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_mount_error_mount:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_mount_error_umount:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: mount_points.call
+  title: Calls to mount and umount syscalls
+  units: calls/s
+  family: call
+  chart_type: line
+  priority: 60001
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: mount
+    rate_signal: ebpf_mount_call_mount
+  - id: umount
+    rate_signal: ebpf_mount_call_umount
+- id: mount_points.error
+  title: Errors to mount and umount file systems
+  units: calls/s
+  family: error
+  chart_type: line
+  priority: 60002
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: mount
+    rate_signal: ebpf_mount_error_mount
+  - id: umount
+    rate_signal: ebpf_mount_error_umount

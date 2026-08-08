@@ -1,0 +1,276 @@
+version: 1
+name: netfilter
+description: Netfilter metrics, generated from Netdata's own collector metadata so the contexts, units
+  and dimension names match what a real Netfilter node reports. Signals are independent and plausible
+  rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  netfilter_netlink_new_new:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  netfilter_netlink_new_ignore:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  netfilter_netlink_new_invalid:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  netfilter_netlink_changes_insert:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  netfilter_netlink_changes_delete:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  netfilter_netlink_changes_delete_list:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  netfilter_netlink_search_searched:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  netfilter_netlink_search_search_restart:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  netfilter_netlink_search_found:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  netfilter_netlink_errors_icmp_error:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  netfilter_netlink_errors_insert_failed:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  netfilter_netlink_errors_drop:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  netfilter_netlink_errors_early_drop:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  netfilter_netlink_expect_created:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  netfilter_netlink_expect_deleted:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  netfilter_netlink_expect_new:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  netfilter_nfacct_packets_a_dimension_per_nfacct_object:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  netfilter_nfacct_bytes_a_dimension_per_nfacct_object:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: netfilter.netlink_new
+  title: Connection Tracker New Connections
+  units: connections/s
+  family: netlink
+  chart_type: line
+  priority: 60001
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: new
+    rate_signal: netfilter_netlink_new_new
+  - id: ignore
+    rate_signal: netfilter_netlink_new_ignore
+  - id: invalid
+    rate_signal: netfilter_netlink_new_invalid
+- id: netfilter.netlink_changes
+  title: Connection Tracker Changes
+  units: changes/s
+  family: netlink
+  chart_type: line
+  priority: 60002
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: insert
+    rate_signal: netfilter_netlink_changes_insert
+  - id: delete
+    rate_signal: netfilter_netlink_changes_delete
+  - id: delete_list
+    rate_signal: netfilter_netlink_changes_delete_list
+- id: netfilter.netlink_search
+  title: Connection Tracker Searches
+  units: searches/s
+  family: netlink
+  chart_type: line
+  priority: 60003
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: searched
+    rate_signal: netfilter_netlink_search_searched
+  - id: search_restart
+    rate_signal: netfilter_netlink_search_search_restart
+  - id: found
+    rate_signal: netfilter_netlink_search_found
+- id: netfilter.netlink_errors
+  title: Connection Tracker Errors
+  units: events/s
+  family: netlink
+  chart_type: line
+  priority: 60004
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: icmp_error
+    rate_signal: netfilter_netlink_errors_icmp_error
+  - id: insert_failed
+    rate_signal: netfilter_netlink_errors_insert_failed
+  - id: drop
+    rate_signal: netfilter_netlink_errors_drop
+  - id: early_drop
+    rate_signal: netfilter_netlink_errors_early_drop
+- id: netfilter.netlink_expect
+  title: Connection Tracker Expectations
+  units: expectations/s
+  family: netlink
+  chart_type: line
+  priority: 60005
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: created
+    rate_signal: netfilter_netlink_expect_created
+  - id: deleted
+    rate_signal: netfilter_netlink_expect_deleted
+  - id: new
+    rate_signal: netfilter_netlink_expect_new
+- id: netfilter.nfacct_packets
+  title: Netfilter Accounting Packets
+  units: packets/s
+  family: nfacct
+  chart_type: line
+  priority: 60006
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per nfacct object
+    rate_signal: netfilter_nfacct_packets_a_dimension_per_nfacct_object
+- id: netfilter.nfacct_bytes
+  title: Netfilter Accounting Bandwidth
+  units: kilobytes/s
+  family: nfacct
+  chart_type: line
+  priority: 60007
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per nfacct object
+    rate_signal: netfilter_nfacct_bytes_a_dimension_per_nfacct_object

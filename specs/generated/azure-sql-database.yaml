@@ -1,0 +1,821 @@
+version: 1
+name: azure-sql-database
+description: Azure SQL Database metrics, generated from Netdata's own collector metadata so the contexts,
+  units and dimension names match what a real Azure SQL Database node reports. Signals are independent
+  and plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  azure_sql_database_sql_database_cpu_average:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_sql_database_sql_database_cpu_maximum:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_sql_database_sql_database_instance_cpu_average:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_sql_database_sql_database_instance_memory_average:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_sql_database_sql_database_dtu_consumption_average:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_sql_database_sql_database_io_utilization_data_read:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_sql_database_sql_database_io_utilization_log_write:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_sql_database_sql_database_resource_utilization_workers:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_sql_database_sql_database_resource_utilization_sessions:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_sql_database_sql_database_availability_average:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_sql_database_sql_database_connections_successful:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_sql_database_sql_database_connections_failed_system:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  azure_sql_database_sql_database_connections_failed_user:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  azure_sql_database_sql_database_connections_firewall_blocked:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_sql_database_sql_database_deadlocks_total:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_sql_database_sql_database_storage_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_sql_database_sql_database_storage_allocated:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_sql_database_sql_database_storage_utilization_average:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_sql_database_sql_database_tempdb_size_data:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_sql_database_sql_database_tempdb_size_log:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_sql_database_sql_database_tempdb_log_utilization_average:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_sql_database_sql_database_vcore_usage_used:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_sql_database_sql_database_vcore_usage_limit:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_sql_database_sql_database_dtu_usage_used:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_sql_database_sql_database_dtu_usage_limit:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_sql_database_sql_database_sessions_count_average:
+    base: 64.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_sql_database_sql_database_replication_lag_average:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_sql_database_sql_database_xtp_storage_average:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_sql_database_sql_database_serverless_utilization_cpu:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_sql_database_sql_database_serverless_utilization_memory:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_sql_database_sql_database_serverless_billing_total:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_sql_database_sql_database_serverless_billing_ha_replicas:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_sql_database_sql_database_free_tier_usage_consumed:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_sql_database_sql_database_free_tier_usage_remaining:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_sql_database_sql_database_ledger_digest_success:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_sql_database_sql_database_ledger_digest_failed:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+contexts:
+- id: azure_monitor.sql_database.cpu
+  title: Azure SQL Database CPU Utilization
+  units: percentage
+  family: sql
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_sql_database_sql_database_cpu_average
+  - id: maximum
+    signal: azure_sql_database_sql_database_cpu_maximum
+- id: azure_monitor.sql_database.instance_cpu
+  title: Azure SQL Database Instance CPU Utilization
+  units: percentage
+  family: sql
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_sql_database_sql_database_instance_cpu_average
+- id: azure_monitor.sql_database.instance_memory
+  title: Azure SQL Database Instance Memory Utilization
+  units: percentage
+  family: sql
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_sql_database_sql_database_instance_memory_average
+- id: azure_monitor.sql_database.dtu_consumption
+  title: Azure SQL Database DTU Consumption
+  units: percentage
+  family: sql
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_sql_database_sql_database_dtu_consumption_average
+- id: azure_monitor.sql_database.io_utilization
+  title: Azure SQL Database I/O Utilization
+  units: percentage
+  family: sql
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: data_read
+    signal: azure_sql_database_sql_database_io_utilization_data_read
+  - id: log_write
+    signal: azure_sql_database_sql_database_io_utilization_log_write
+- id: azure_monitor.sql_database.resource_utilization
+  title: Azure SQL Database Resource Utilization
+  units: percentage
+  family: sql
+  chart_type: line
+  priority: 60006
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: workers
+    signal: azure_sql_database_sql_database_resource_utilization_workers
+  - id: sessions
+    signal: azure_sql_database_sql_database_resource_utilization_sessions
+- id: azure_monitor.sql_database.availability
+  title: Azure SQL Database Availability
+  units: percentage
+  family: sql
+  chart_type: line
+  priority: 60007
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_sql_database_sql_database_availability_average
+- id: azure_monitor.sql_database.connections
+  title: Azure SQL Database Connection Events
+  units: connections/s
+  family: sql
+  chart_type: line
+  priority: 60008
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: successful
+    rate_signal: azure_sql_database_sql_database_connections_successful
+  - id: failed_system
+    rate_signal: azure_sql_database_sql_database_connections_failed_system
+  - id: failed_user
+    rate_signal: azure_sql_database_sql_database_connections_failed_user
+  - id: firewall_blocked
+    rate_signal: azure_sql_database_sql_database_connections_firewall_blocked
+- id: azure_monitor.sql_database.deadlocks
+  title: Azure SQL Database Deadlocks
+  units: deadlocks/s
+  family: sql
+  chart_type: line
+  priority: 60009
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: total
+    rate_signal: azure_sql_database_sql_database_deadlocks_total
+- id: azure_monitor.sql_database.storage
+  title: Azure SQL Database Storage
+  units: bytes
+  family: sql
+  chart_type: line
+  priority: 60010
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: used
+    signal: azure_sql_database_sql_database_storage_used
+  - id: allocated
+    signal: azure_sql_database_sql_database_storage_allocated
+- id: azure_monitor.sql_database.storage_utilization
+  title: Azure SQL Database Storage Utilization
+  units: percentage
+  family: sql
+  chart_type: line
+  priority: 60011
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_sql_database_sql_database_storage_utilization_average
+- id: azure_monitor.sql_database.tempdb_size
+  title: Azure SQL Database Tempdb Size
+  units: KiB
+  family: sql
+  chart_type: line
+  priority: 60012
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: data
+    signal: azure_sql_database_sql_database_tempdb_size_data
+  - id: log
+    signal: azure_sql_database_sql_database_tempdb_size_log
+- id: azure_monitor.sql_database.tempdb_log_utilization
+  title: Azure SQL Database Tempdb Log Utilization
+  units: percentage
+  family: sql
+  chart_type: line
+  priority: 60013
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_sql_database_sql_database_tempdb_log_utilization_average
+- id: azure_monitor.sql_database.vcore_usage
+  title: Azure SQL Database vCore Usage
+  units: vCores
+  family: sql
+  chart_type: line
+  priority: 60014
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: used
+    signal: azure_sql_database_sql_database_vcore_usage_used
+  - id: limit
+    signal: azure_sql_database_sql_database_vcore_usage_limit
+- id: azure_monitor.sql_database.dtu_usage
+  title: Azure SQL Database DTU Usage
+  units: DTU
+  family: sql
+  chart_type: line
+  priority: 60015
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: used
+    signal: azure_sql_database_sql_database_dtu_usage_used
+  - id: limit
+    signal: azure_sql_database_sql_database_dtu_usage_limit
+- id: azure_monitor.sql_database.sessions_count
+  title: Azure SQL Database Sessions Count
+  units: sessions
+  family: sql
+  chart_type: line
+  priority: 60016
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_sql_database_sql_database_sessions_count_average
+- id: azure_monitor.sql_database.replication_lag
+  title: Azure SQL Database Replication Lag
+  units: seconds
+  family: sql
+  chart_type: line
+  priority: 60017
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_sql_database_sql_database_replication_lag_average
+- id: azure_monitor.sql_database.xtp_storage
+  title: Azure SQL Database In-Memory OLTP Storage
+  units: percentage
+  family: sql
+  chart_type: line
+  priority: 60018
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_sql_database_sql_database_xtp_storage_average
+- id: azure_monitor.sql_database.serverless_utilization
+  title: Azure SQL Database Serverless Utilization
+  units: percentage
+  family: sql
+  chart_type: line
+  priority: 60019
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: cpu
+    signal: azure_sql_database_sql_database_serverless_utilization_cpu
+  - id: memory
+    signal: azure_sql_database_sql_database_serverless_utilization_memory
+- id: azure_monitor.sql_database.serverless_billing
+  title: Azure SQL Database Serverless Billing
+  units: vCore-seconds/s
+  family: sql
+  chart_type: line
+  priority: 60020
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: total
+    signal: azure_sql_database_sql_database_serverless_billing_total
+  - id: ha_replicas
+    signal: azure_sql_database_sql_database_serverless_billing_ha_replicas
+- id: azure_monitor.sql_database.free_tier_usage
+  title: Azure SQL Database Free Tier Usage
+  units: vCore-seconds
+  family: sql
+  chart_type: line
+  priority: 60021
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: consumed
+    signal: azure_sql_database_sql_database_free_tier_usage_consumed
+  - id: remaining
+    signal: azure_sql_database_sql_database_free_tier_usage_remaining
+- id: azure_monitor.sql_database.ledger_digest
+  title: Azure SQL Database Ledger Digest Uploads
+  units: events/s
+  family: sql
+  chart_type: line
+  priority: 60022
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: success
+    rate_signal: azure_sql_database_sql_database_ledger_digest_success
+  - id: failed
+    rate_signal: azure_sql_database_sql_database_ledger_digest_failed

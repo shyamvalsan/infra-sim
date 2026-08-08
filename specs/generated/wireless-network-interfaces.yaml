@@ -1,0 +1,182 @@
+version: 1
+name: wireless-network-interfaces
+description: Wireless network interfaces metrics, generated from Netdata's own collector metadata so the
+  contexts, units and dimension names match what a real Wireless network interfaces node reports. Signals
+  are independent and plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  wireless_network_interfaces_status_status:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  wireless_network_interfaces_link_quality_link_quality:
+    base: 320.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  wireless_network_interfaces_signal_level_signal_level:
+    base: -62.0
+    min: -120.0
+    max: 30.0
+    noise:
+      kind: walk
+      sigma: 0.04
+      reversion: 0.1
+  wireless_network_interfaces_noise_level_noise_level:
+    base: -62.0
+    min: -120.0
+    max: 30.0
+    noise:
+      kind: walk
+      sigma: 0.04
+      reversion: 0.1
+  wireless_network_interfaces_discarded_packets_nwid:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  wireless_network_interfaces_discarded_packets_crypt:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  wireless_network_interfaces_discarded_packets_frag:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  wireless_network_interfaces_discarded_packets_retry:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  wireless_network_interfaces_discarded_packets_misc:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  wireless_network_interfaces_missed_beacons_missed_beacons:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: wireless.status
+  title: Internal status reported by interface.
+  units: status
+  family: status
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: status
+    signal: wireless_network_interfaces_status_status
+- id: wireless.link_quality
+  title: Overall quality of the link. This is an aggregate value, and depends on the driver and hardware.
+  units: value
+  family: link
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: link_quality
+    signal: wireless_network_interfaces_link_quality_link_quality
+- id: wireless.signal_level
+  title: The signal level is the wireless signal power level received by the wireless client. The closer
+    the value is t
+  units: dBm
+  family: signal
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: signal_level
+    signal: wireless_network_interfaces_signal_level_signal_level
+- id: wireless.noise_level
+  title: The noise level indicates the amount of background noise in your environment. The closer the
+    value to 0, the g
+  units: dBm
+  family: noise
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: noise_level
+    signal: wireless_network_interfaces_noise_level_noise_level
+- id: wireless.discarded_packets
+  title: Packet discarded in the wireless adapter due to wireless specific problems.
+  units: packets/s
+  family: discarded
+  chart_type: line
+  priority: 60005
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: nwid
+    rate_signal: wireless_network_interfaces_discarded_packets_nwid
+  - id: crypt
+    rate_signal: wireless_network_interfaces_discarded_packets_crypt
+  - id: frag
+    rate_signal: wireless_network_interfaces_discarded_packets_frag
+  - id: retry
+    rate_signal: wireless_network_interfaces_discarded_packets_retry
+  - id: misc
+    rate_signal: wireless_network_interfaces_discarded_packets_misc
+- id: wireless.missed_beacons
+  title: Number of missed beacons.
+  units: frames/s
+  family: missed
+  chart_type: line
+  priority: 60006
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: missed_beacons
+    rate_signal: wireless_network_interfaces_missed_beacons_missed_beacons

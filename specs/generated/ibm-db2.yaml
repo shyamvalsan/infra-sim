@@ -1,0 +1,3485 @@
+version: 1
+name: ibm-db2
+description: IBM DB2 metrics, generated from Netdata's own collector metadata so the contexts, units and
+  dimension names match what a real IBM DB2 node reports. Signals are independent and plausible rather
+  than causally coupled - see scripts/sync-integrations.py.
+signals:
+  ibm_db2_bufferpool_instance_hit_ratio_overall:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_bufferpool_instance_detailed_hit_ratio_data:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_bufferpool_instance_detailed_hit_ratio_index:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_bufferpool_instance_detailed_hit_ratio_xda:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_bufferpool_instance_detailed_hit_ratio_column:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_bufferpool_instance_reads_logical:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_bufferpool_instance_reads_physical:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_bufferpool_instance_data_reads_logical:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_bufferpool_instance_data_reads_physical:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_bufferpool_instance_index_reads_logical:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_bufferpool_instance_index_reads_physical:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_bufferpool_instance_pages_used:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_bufferpool_instance_pages_total:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_bufferpool_instance_writes_writes:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_bufferpool_group_hit_ratio_overall:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_bufferpool_group_detailed_hit_ratio_data:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_bufferpool_group_detailed_hit_ratio_index:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_bufferpool_group_detailed_hit_ratio_xda:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_bufferpool_group_detailed_hit_ratio_column:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_bufferpool_group_reads_logical:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_bufferpool_group_reads_physical:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_bufferpool_group_data_reads_logical:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_bufferpool_group_data_reads_physical:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_bufferpool_group_index_reads_logical:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_bufferpool_group_index_reads_physical:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_bufferpool_group_pages_used:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_bufferpool_group_pages_total:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_bufferpool_group_writes_writes:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_connection_state_state:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ibm_db2_connection_activity_read:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_connection_activity_written:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_connection_wait_time_lock:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_connection_wait_time_log_disk:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_connection_wait_time_log_buffer:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_connection_wait_time_pool_read:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_connection_wait_time_pool_write:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_connection_wait_time_direct_read:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_connection_wait_time_direct_write:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_connection_wait_time_fcm_recv:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_connection_wait_time_fcm_send:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_connection_processing_time_routine:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_connection_processing_time_compile:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_connection_processing_time_section:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_connection_processing_time_commit:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_connection_processing_time_rollback:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_connection_group_count_count:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_connection_group_state_state:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ibm_db2_connection_group_activity_read:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_connection_group_activity_written:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_connection_group_wait_time_lock:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_connection_group_wait_time_log_disk:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_connection_group_wait_time_log_buffer:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_connection_group_wait_time_pool_read:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_connection_group_wait_time_pool_write:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_connection_group_wait_time_direct_read:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_connection_group_wait_time_direct_write:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_connection_group_wait_time_fcm_recv:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_connection_group_wait_time_fcm_send:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_connection_group_processing_time_routine:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_connection_group_processing_time_compile:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_connection_group_processing_time_section:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_connection_group_processing_time_commit:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_connection_group_processing_time_rollback:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_database_instance_status_status:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ibm_db2_database_applications_applications:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_index_usage_index:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_index_usage_full:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_index_group_usage_index:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_index_group_usage_full:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_memory_pool_usage_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_memory_pool_hwm_hwm:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_memory_set_usage_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_memory_set_committed_committed:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_memory_set_high_water_mark_hwm:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_memory_set_additional_committed_additional:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_memory_set_percent_used_hwm_used_hwm:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_prefetcher_prefetch_ratio_ratio:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_prefetcher_cleaner_ratio_ratio:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_prefetcher_physical_reads_reads:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_prefetcher_async_reads_reads:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_prefetcher_wait_time_wait_time:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_prefetcher_unread_pages_unread:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_service_health_connection:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ibm_db2_service_health_database:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ibm_db2_connections_total:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_connections_active:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_connections_executing:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_connections_idle:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_connections_max_allowed:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_locking_waits:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_locking_timeouts:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  ibm_db2_locking_escalations:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_deadlocks_deadlocks:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  ibm_db2_lock_details_active:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_lock_details_waiting_agents:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_lock_details_memory_pages:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_lock_wait_time_wait_time:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_sorting_sorts:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_sorting_overflows:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_row_activity_read:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_row_activity_returned:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_row_activity_modified:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_bufferpool_hit_ratio_hits:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_bufferpool_hit_ratio_misses:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_bufferpool_data_hit_ratio_hits:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_bufferpool_data_hit_ratio_misses:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_bufferpool_index_hit_ratio_hits:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_bufferpool_index_hit_ratio_misses:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_bufferpool_xda_hit_ratio_hits:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_bufferpool_xda_hit_ratio_misses:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_bufferpool_column_hit_ratio_hits:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_bufferpool_column_hit_ratio_misses:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_bufferpool_reads_logical:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_bufferpool_reads_physical:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_bufferpool_data_reads_logical:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_bufferpool_data_reads_physical:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_bufferpool_index_reads_logical:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_bufferpool_index_reads_physical:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_bufferpool_xda_reads_logical:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_bufferpool_xda_reads_physical:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_bufferpool_column_reads_logical:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_bufferpool_column_reads_physical:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_bufferpool_writes_writes:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_log_space_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_log_space_available:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_log_utilization_utilization:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_log_io_reads:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_log_io_writes:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_log_operations_commits:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_log_operations_rollbacks:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_log_operations_reads:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_log_operations_writes:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_log_timing_avg_commit:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_log_timing_avg_read:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_log_timing_avg_write:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_log_buffer_events_buffer_full:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_long_running_queries_total:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_long_running_queries_warning:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_long_running_queries_critical:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_backup_status_status:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ibm_db2_backup_age_full:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_backup_age_incremental:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_federation_connections_active:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_federation_connections_idle:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_federation_operations_rows_read:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_federation_operations_selects:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_federation_operations_waits:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_database_status_active:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ibm_db2_database_status_inactive:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ibm_db2_database_count_active:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_database_count_inactive:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_cpu_usage_user:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_cpu_usage_system:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_cpu_usage_idle:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_cpu_usage_iowait:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_active_connections_active:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_active_connections_total:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_memory_usage_database:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_memory_usage_instance:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_memory_usage_bufferpool:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_memory_usage_shared_sort:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_sql_statements_selects:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_sql_statements_modifications:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_transaction_activity_committed:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_transaction_activity_aborted:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  ibm_db2_time_spent_direct_read:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_time_spent_direct_write:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_time_spent_pool_read:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_time_spent_pool_write:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_table_size_data:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_table_size_index:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_table_size_long_obj:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_table_activity_read:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_table_activity_written:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_table_group_size_data:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_table_group_size_index:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_table_group_size_long_obj:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_table_group_activity_read:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_table_group_activity_written:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_table_io_scans_scans:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_table_io_rows_read:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_table_io_activity_inserts:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_table_io_activity_updates:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_table_io_activity_deletes:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_table_io_overflow_overflow:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_tablespace_usage_used:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_tablespace_size_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_tablespace_size_free:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_tablespace_usable_size_total:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_tablespace_usable_size_usable:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_tablespace_state_state:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ibm_db2_tablespace_group_usage_used:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_tablespace_group_size_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_tablespace_group_size_free:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_tablespace_group_usable_size_total:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_tablespace_group_usable_size_usable:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_db2_tablespace_group_state_state:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+contexts:
+- id: db2.bufferpool_instance_hit_ratio
+  title: Buffer Pool Hit Ratio
+  units: percentage
+  family: bufferpool
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels:
+    bufferpool: sim-bufferpool-1
+    page_size: sim-page_size-1
+  dimensions:
+  - id: overall
+    signal: ibm_db2_bufferpool_instance_hit_ratio_overall
+- id: db2.bufferpool_instance_detailed_hit_ratio
+  title: Buffer Pool Detailed Hit Ratios
+  units: percentage
+  family: bufferpool
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels:
+    bufferpool: sim-bufferpool-1
+    page_size: sim-page_size-1
+  dimensions:
+  - id: data
+    signal: ibm_db2_bufferpool_instance_detailed_hit_ratio_data
+  - id: index
+    signal: ibm_db2_bufferpool_instance_detailed_hit_ratio_index
+  - id: xda
+    signal: ibm_db2_bufferpool_instance_detailed_hit_ratio_xda
+  - id: column
+    signal: ibm_db2_bufferpool_instance_detailed_hit_ratio_column
+- id: db2.bufferpool_instance_reads
+  title: Buffer Pool Reads
+  units: reads/s
+  family: bufferpool
+  chart_type: stacked
+  priority: 60003
+  shape: counters
+  labels:
+    bufferpool: sim-bufferpool-1
+    page_size: sim-page_size-1
+  dimensions:
+  - id: logical
+    rate_signal: ibm_db2_bufferpool_instance_reads_logical
+  - id: physical
+    rate_signal: ibm_db2_bufferpool_instance_reads_physical
+- id: db2.bufferpool_instance_data_reads
+  title: Buffer Pool Data Page Reads
+  units: reads/s
+  family: bufferpool
+  chart_type: stacked
+  priority: 60004
+  shape: counters
+  labels:
+    bufferpool: sim-bufferpool-1
+    page_size: sim-page_size-1
+  dimensions:
+  - id: logical
+    rate_signal: ibm_db2_bufferpool_instance_data_reads_logical
+  - id: physical
+    rate_signal: ibm_db2_bufferpool_instance_data_reads_physical
+- id: db2.bufferpool_instance_index_reads
+  title: Buffer Pool Index Page Reads
+  units: reads/s
+  family: bufferpool
+  chart_type: stacked
+  priority: 60005
+  shape: counters
+  labels:
+    bufferpool: sim-bufferpool-1
+    page_size: sim-page_size-1
+  dimensions:
+  - id: logical
+    rate_signal: ibm_db2_bufferpool_instance_index_reads_logical
+  - id: physical
+    rate_signal: ibm_db2_bufferpool_instance_index_reads_physical
+- id: db2.bufferpool_instance_pages
+  title: Buffer Pool Pages
+  units: pages
+  family: bufferpool
+  chart_type: stacked
+  priority: 60006
+  shape: independent
+  labels:
+    bufferpool: sim-bufferpool-1
+    page_size: sim-page_size-1
+  dimensions:
+  - id: used
+    signal: ibm_db2_bufferpool_instance_pages_used
+  - id: total
+    signal: ibm_db2_bufferpool_instance_pages_total
+- id: db2.bufferpool_instance_writes
+  title: Buffer Pool Writes
+  units: writes/s
+  family: bufferpool
+  chart_type: line
+  priority: 60007
+  shape: counters
+  labels:
+    bufferpool: sim-bufferpool-1
+    page_size: sim-page_size-1
+  dimensions:
+  - id: writes
+    rate_signal: ibm_db2_bufferpool_instance_writes_writes
+- id: db2.bufferpool_group_hit_ratio
+  title: Buffer Pool Group Hit Ratio
+  units: percentage
+  family: bufferpool
+  chart_type: line
+  priority: 60008
+  shape: independent
+  labels:
+    group: sim-group-1
+  dimensions:
+  - id: overall
+    signal: ibm_db2_bufferpool_group_hit_ratio_overall
+- id: db2.bufferpool_group_detailed_hit_ratio
+  title: Buffer Pool Group Detailed Hit Ratios
+  units: percentage
+  family: bufferpool
+  chart_type: line
+  priority: 60009
+  shape: independent
+  labels:
+    group: sim-group-1
+  dimensions:
+  - id: data
+    signal: ibm_db2_bufferpool_group_detailed_hit_ratio_data
+  - id: index
+    signal: ibm_db2_bufferpool_group_detailed_hit_ratio_index
+  - id: xda
+    signal: ibm_db2_bufferpool_group_detailed_hit_ratio_xda
+  - id: column
+    signal: ibm_db2_bufferpool_group_detailed_hit_ratio_column
+- id: db2.bufferpool_group_reads
+  title: Buffer Pool Group Reads
+  units: reads/s
+  family: bufferpool
+  chart_type: stacked
+  priority: 60010
+  shape: counters
+  labels:
+    group: sim-group-1
+  dimensions:
+  - id: logical
+    rate_signal: ibm_db2_bufferpool_group_reads_logical
+  - id: physical
+    rate_signal: ibm_db2_bufferpool_group_reads_physical
+- id: db2.bufferpool_group_data_reads
+  title: Buffer Pool Group Data Reads
+  units: reads/s
+  family: bufferpool
+  chart_type: stacked
+  priority: 60011
+  shape: counters
+  labels:
+    group: sim-group-1
+  dimensions:
+  - id: logical
+    rate_signal: ibm_db2_bufferpool_group_data_reads_logical
+  - id: physical
+    rate_signal: ibm_db2_bufferpool_group_data_reads_physical
+- id: db2.bufferpool_group_index_reads
+  title: Buffer Pool Group Index Reads
+  units: reads/s
+  family: bufferpool
+  chart_type: stacked
+  priority: 60012
+  shape: counters
+  labels:
+    group: sim-group-1
+  dimensions:
+  - id: logical
+    rate_signal: ibm_db2_bufferpool_group_index_reads_logical
+  - id: physical
+    rate_signal: ibm_db2_bufferpool_group_index_reads_physical
+- id: db2.bufferpool_group_pages
+  title: Buffer Pool Group Pages
+  units: pages
+  family: bufferpool
+  chart_type: stacked
+  priority: 60013
+  shape: independent
+  labels:
+    group: sim-group-1
+  dimensions:
+  - id: used
+    signal: ibm_db2_bufferpool_group_pages_used
+  - id: total
+    signal: ibm_db2_bufferpool_group_pages_total
+- id: db2.bufferpool_group_writes
+  title: Buffer Pool Group Writes
+  units: writes/s
+  family: bufferpool
+  chart_type: line
+  priority: 60014
+  shape: counters
+  labels:
+    group: sim-group-1
+  dimensions:
+  - id: writes
+    rate_signal: ibm_db2_bufferpool_group_writes_writes
+- id: db2.connection_state
+  title: Connection State
+  units: state
+  family: connection
+  chart_type: line
+  priority: 60015
+  shape: independent
+  labels:
+    application_id: sim-application_id-1
+    application_name: sim-application_name-1
+    client_hostname: sim-client_hostname-1
+    client_ip: sim-client_ip-1
+    client_user: sim-client_user-1
+    state: sim-state-1
+  dimensions:
+  - id: state
+    signal: ibm_db2_connection_state_state
+- id: db2.connection_activity
+  title: Connection Row Activity
+  units: rows/s
+  family: connection
+  chart_type: area
+  priority: 60016
+  shape: counters
+  labels:
+    application_id: sim-application_id-1
+    application_name: sim-application_name-1
+    client_hostname: sim-client_hostname-1
+    client_ip: sim-client_ip-1
+    client_user: sim-client_user-1
+    state: sim-state-1
+  dimensions:
+  - id: read
+    rate_signal: ibm_db2_connection_activity_read
+  - id: written
+    rate_signal: ibm_db2_connection_activity_written
+- id: db2.connection_wait_time
+  title: Connection Wait Time
+  units: milliseconds
+  family: connection
+  chart_type: stacked
+  priority: 60017
+  shape: independent
+  labels:
+    application_id: sim-application_id-1
+    application_name: sim-application_name-1
+    client_hostname: sim-client_hostname-1
+    client_ip: sim-client_ip-1
+    client_user: sim-client_user-1
+    state: sim-state-1
+  dimensions:
+  - id: lock
+    signal: ibm_db2_connection_wait_time_lock
+  - id: log_disk
+    signal: ibm_db2_connection_wait_time_log_disk
+  - id: log_buffer
+    signal: ibm_db2_connection_wait_time_log_buffer
+  - id: pool_read
+    signal: ibm_db2_connection_wait_time_pool_read
+  - id: pool_write
+    signal: ibm_db2_connection_wait_time_pool_write
+  - id: direct_read
+    signal: ibm_db2_connection_wait_time_direct_read
+  - id: direct_write
+    signal: ibm_db2_connection_wait_time_direct_write
+  - id: fcm_recv
+    signal: ibm_db2_connection_wait_time_fcm_recv
+  - id: fcm_send
+    signal: ibm_db2_connection_wait_time_fcm_send
+- id: db2.connection_processing_time
+  title: Connection Processing Time
+  units: milliseconds
+  family: connection
+  chart_type: stacked
+  priority: 60018
+  shape: independent
+  labels:
+    application_id: sim-application_id-1
+    application_name: sim-application_name-1
+    client_hostname: sim-client_hostname-1
+    client_ip: sim-client_ip-1
+    client_user: sim-client_user-1
+    state: sim-state-1
+  dimensions:
+  - id: routine
+    signal: ibm_db2_connection_processing_time_routine
+  - id: compile
+    signal: ibm_db2_connection_processing_time_compile
+  - id: section
+    signal: ibm_db2_connection_processing_time_section
+  - id: commit
+    signal: ibm_db2_connection_processing_time_commit
+  - id: rollback
+    signal: ibm_db2_connection_processing_time_rollback
+- id: db2.connection_group.count
+  title: Connection Group Count
+  units: connections
+  family: connection
+  chart_type: line
+  priority: 60019
+  shape: independent
+  labels:
+    group: sim-group-1
+  dimensions:
+  - id: count
+    signal: ibm_db2_connection_group_count_count
+- id: db2.connection_group.state
+  title: Connection Group State Sum
+  units: state
+  family: connection
+  chart_type: line
+  priority: 60020
+  shape: independent
+  labels:
+    group: sim-group-1
+  dimensions:
+  - id: state
+    signal: ibm_db2_connection_group_state_state
+- id: db2.connection_group.activity
+  title: Connection Group Row Activity
+  units: rows/s
+  family: connection
+  chart_type: area
+  priority: 60021
+  shape: counters
+  labels:
+    group: sim-group-1
+  dimensions:
+  - id: read
+    rate_signal: ibm_db2_connection_group_activity_read
+  - id: written
+    rate_signal: ibm_db2_connection_group_activity_written
+- id: db2.connection_group.wait_time
+  title: Connection Group Wait Time
+  units: milliseconds
+  family: connection
+  chart_type: stacked
+  priority: 60022
+  shape: independent
+  labels:
+    group: sim-group-1
+  dimensions:
+  - id: lock
+    signal: ibm_db2_connection_group_wait_time_lock
+  - id: log_disk
+    signal: ibm_db2_connection_group_wait_time_log_disk
+  - id: log_buffer
+    signal: ibm_db2_connection_group_wait_time_log_buffer
+  - id: pool_read
+    signal: ibm_db2_connection_group_wait_time_pool_read
+  - id: pool_write
+    signal: ibm_db2_connection_group_wait_time_pool_write
+  - id: direct_read
+    signal: ibm_db2_connection_group_wait_time_direct_read
+  - id: direct_write
+    signal: ibm_db2_connection_group_wait_time_direct_write
+  - id: fcm_recv
+    signal: ibm_db2_connection_group_wait_time_fcm_recv
+  - id: fcm_send
+    signal: ibm_db2_connection_group_wait_time_fcm_send
+- id: db2.connection_group.processing_time
+  title: Connection Group Processing Time
+  units: milliseconds
+  family: connection
+  chart_type: stacked
+  priority: 60023
+  shape: independent
+  labels:
+    group: sim-group-1
+  dimensions:
+  - id: routine
+    signal: ibm_db2_connection_group_processing_time_routine
+  - id: compile
+    signal: ibm_db2_connection_group_processing_time_compile
+  - id: section
+    signal: ibm_db2_connection_group_processing_time_section
+  - id: commit
+    signal: ibm_db2_connection_group_processing_time_commit
+  - id: rollback
+    signal: ibm_db2_connection_group_processing_time_rollback
+- id: db2.database_instance_status
+  title: Database Status
+  units: status
+  family: database
+  chart_type: line
+  priority: 60024
+  shape: independent
+  labels:
+    database: sim-database-1
+    status: sim-status-1
+  dimensions:
+  - id: status
+    signal: ibm_db2_database_instance_status_status
+- id: db2.database_applications
+  title: Database Applications
+  units: applications
+  family: database
+  chart_type: line
+  priority: 60025
+  shape: independent
+  labels:
+    database: sim-database-1
+    status: sim-status-1
+  dimensions:
+  - id: applications
+    signal: ibm_db2_database_applications_applications
+- id: db2.index_usage
+  title: Index Usage
+  units: scans/s
+  family: index
+  chart_type: area
+  priority: 60026
+  shape: counters
+  labels:
+    index: sim-index-1
+  dimensions:
+  - id: index
+    rate_signal: ibm_db2_index_usage_index
+  - id: full
+    rate_signal: ibm_db2_index_usage_full
+- id: db2.index_group_usage
+  title: Index Group Usage
+  units: scans/s
+  family: index
+  chart_type: area
+  priority: 60027
+  shape: counters
+  labels:
+    group: sim-group-1
+  dimensions:
+  - id: index
+    rate_signal: ibm_db2_index_group_usage_index
+  - id: full
+    rate_signal: ibm_db2_index_group_usage_full
+- id: db2.memory_pool_usage
+  title: Memory Pool Usage
+  units: bytes
+  family: memory
+  chart_type: line
+  priority: 60028
+  shape: independent
+  labels:
+    pool_type: sim-pool_type-1
+  dimensions:
+  - id: used
+    signal: ibm_db2_memory_pool_usage_used
+- id: db2.memory_pool_hwm
+  title: Memory Pool High Water Mark
+  units: bytes
+  family: memory
+  chart_type: line
+  priority: 60029
+  shape: independent
+  labels:
+    pool_type: sim-pool_type-1
+  dimensions:
+  - id: hwm
+    signal: ibm_db2_memory_pool_hwm_hwm
+- id: db2.memory_set_usage
+  title: Memory Set Usage
+  units: bytes
+  family: memory
+  chart_type: line
+  priority: 60030
+  shape: independent
+  labels:
+    host: sim-host-1
+    database: sim-database-1
+    set_type: sim-set_type-1
+    member: sim-member-1
+  dimensions:
+  - id: used
+    signal: ibm_db2_memory_set_usage_used
+- id: db2.memory_set_committed
+  title: Memory Set Committed
+  units: bytes
+  family: memory
+  chart_type: line
+  priority: 60031
+  shape: independent
+  labels:
+    host: sim-host-1
+    database: sim-database-1
+    set_type: sim-set_type-1
+    member: sim-member-1
+  dimensions:
+  - id: committed
+    signal: ibm_db2_memory_set_committed_committed
+- id: db2.memory_set_high_water_mark
+  title: Memory Set High Water Mark
+  units: bytes
+  family: memory
+  chart_type: line
+  priority: 60032
+  shape: independent
+  labels:
+    host: sim-host-1
+    database: sim-database-1
+    set_type: sim-set_type-1
+    member: sim-member-1
+  dimensions:
+  - id: hwm
+    signal: ibm_db2_memory_set_high_water_mark_hwm
+- id: db2.memory_set_additional_committed
+  title: Memory Set Additional Committed
+  units: bytes
+  family: memory
+  chart_type: line
+  priority: 60033
+  shape: independent
+  labels:
+    host: sim-host-1
+    database: sim-database-1
+    set_type: sim-set_type-1
+    member: sim-member-1
+  dimensions:
+  - id: additional
+    signal: ibm_db2_memory_set_additional_committed_additional
+- id: db2.memory_set_percent_used_hwm
+  title: Memory Set Percent Used vs HWM
+  units: percentage
+  family: memory
+  chart_type: line
+  priority: 60034
+  shape: independent
+  labels:
+    host: sim-host-1
+    database: sim-database-1
+    set_type: sim-set_type-1
+    member: sim-member-1
+  dimensions:
+  - id: used_hwm
+    signal: ibm_db2_memory_set_percent_used_hwm_used_hwm
+- id: db2.prefetcher_prefetch_ratio
+  title: Prefetcher Prefetch Ratio
+  units: percentage
+  family: prefetcher
+  chart_type: line
+  priority: 60035
+  shape: independent
+  labels:
+    bufferpool: sim-bufferpool-1
+  dimensions:
+  - id: ratio
+    signal: ibm_db2_prefetcher_prefetch_ratio_ratio
+- id: db2.prefetcher_cleaner_ratio
+  title: Prefetcher Cleaner Ratio
+  units: percentage
+  family: prefetcher
+  chart_type: line
+  priority: 60036
+  shape: independent
+  labels:
+    bufferpool: sim-bufferpool-1
+  dimensions:
+  - id: ratio
+    signal: ibm_db2_prefetcher_cleaner_ratio_ratio
+- id: db2.prefetcher_physical_reads
+  title: Prefetcher Physical Reads
+  units: reads/s
+  family: prefetcher
+  chart_type: line
+  priority: 60037
+  shape: counters
+  labels:
+    bufferpool: sim-bufferpool-1
+  dimensions:
+  - id: reads
+    rate_signal: ibm_db2_prefetcher_physical_reads_reads
+- id: db2.prefetcher_async_reads
+  title: Prefetcher Asynchronous Reads
+  units: reads/s
+  family: prefetcher
+  chart_type: line
+  priority: 60038
+  shape: counters
+  labels:
+    bufferpool: sim-bufferpool-1
+  dimensions:
+  - id: reads
+    rate_signal: ibm_db2_prefetcher_async_reads_reads
+- id: db2.prefetcher_wait_time
+  title: Prefetcher Wait Time
+  units: milliseconds
+  family: prefetcher
+  chart_type: line
+  priority: 60039
+  shape: independent
+  labels:
+    bufferpool: sim-bufferpool-1
+  dimensions:
+  - id: wait_time
+    signal: ibm_db2_prefetcher_wait_time_wait_time
+- id: db2.prefetcher_unread_pages
+  title: Prefetcher Unread Pages
+  units: pages/s
+  family: prefetcher
+  chart_type: line
+  priority: 60040
+  shape: counters
+  labels:
+    bufferpool: sim-bufferpool-1
+  dimensions:
+  - id: unread
+    rate_signal: ibm_db2_prefetcher_unread_pages_unread
+- id: db2.service_health
+  title: Service Health Status
+  units: status
+  family: service
+  chart_type: line
+  priority: 60041
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: connection
+    signal: ibm_db2_service_health_connection
+  - id: database
+    signal: ibm_db2_service_health_database
+- id: db2.connections
+  title: Database Connections
+  units: connections
+  family: connections
+  chart_type: line
+  priority: 60042
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: total
+    signal: ibm_db2_connections_total
+  - id: active
+    signal: ibm_db2_connections_active
+  - id: executing
+    signal: ibm_db2_connections_executing
+  - id: idle
+    signal: ibm_db2_connections_idle
+  - id: max_allowed
+    signal: ibm_db2_connections_max_allowed
+- id: db2.locking
+  title: Database Locking
+  units: events/s
+  family: locking
+  chart_type: line
+  priority: 60043
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: waits
+    rate_signal: ibm_db2_locking_waits
+  - id: timeouts
+    rate_signal: ibm_db2_locking_timeouts
+  - id: escalations
+    rate_signal: ibm_db2_locking_escalations
+- id: db2.deadlocks
+  title: Database Deadlocks
+  units: deadlocks/s
+  family: deadlocks
+  chart_type: line
+  priority: 60044
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: deadlocks
+    rate_signal: ibm_db2_deadlocks_deadlocks
+- id: db2.lock_details
+  title: Lock Details
+  units: locks
+  family: lock
+  chart_type: line
+  priority: 60045
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: active
+    signal: ibm_db2_lock_details_active
+  - id: waiting_agents
+    signal: ibm_db2_lock_details_waiting_agents
+  - id: memory_pages
+    signal: ibm_db2_lock_details_memory_pages
+- id: db2.lock_wait_time
+  title: Average Lock Wait Time
+  units: milliseconds
+  family: lock
+  chart_type: line
+  priority: 60046
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: wait_time
+    signal: ibm_db2_lock_wait_time_wait_time
+- id: db2.sorting
+  title: Database Sorting
+  units: sorts/s
+  family: sorting
+  chart_type: stacked
+  priority: 60047
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: sorts
+    rate_signal: ibm_db2_sorting_sorts
+  - id: overflows
+    rate_signal: ibm_db2_sorting_overflows
+- id: db2.row_activity
+  title: Row Activity
+  units: rows/s
+  family: row
+  chart_type: area
+  priority: 60048
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: read
+    rate_signal: ibm_db2_row_activity_read
+  - id: returned
+    rate_signal: ibm_db2_row_activity_returned
+  - id: modified
+    rate_signal: ibm_db2_row_activity_modified
+- id: db2.bufferpool_hit_ratio
+  title: Buffer Pool Hit Ratio
+  units: percentage
+  family: bufferpool
+  chart_type: line
+  priority: 60049
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: hits
+    signal: ibm_db2_bufferpool_hit_ratio_hits
+  - id: misses
+    signal: ibm_db2_bufferpool_hit_ratio_misses
+- id: db2.bufferpool_data_hit_ratio
+  title: Buffer Pool Data Page Hit Ratio
+  units: percentage
+  family: bufferpool
+  chart_type: line
+  priority: 60050
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: hits
+    signal: ibm_db2_bufferpool_data_hit_ratio_hits
+  - id: misses
+    signal: ibm_db2_bufferpool_data_hit_ratio_misses
+- id: db2.bufferpool_index_hit_ratio
+  title: Buffer Pool Index Page Hit Ratio
+  units: percentage
+  family: bufferpool
+  chart_type: line
+  priority: 60051
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: hits
+    signal: ibm_db2_bufferpool_index_hit_ratio_hits
+  - id: misses
+    signal: ibm_db2_bufferpool_index_hit_ratio_misses
+- id: db2.bufferpool_xda_hit_ratio
+  title: Buffer Pool XDA Page Hit Ratio
+  units: percentage
+  family: bufferpool
+  chart_type: line
+  priority: 60052
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: hits
+    signal: ibm_db2_bufferpool_xda_hit_ratio_hits
+  - id: misses
+    signal: ibm_db2_bufferpool_xda_hit_ratio_misses
+- id: db2.bufferpool_column_hit_ratio
+  title: Buffer Pool Column Page Hit Ratio
+  units: percentage
+  family: bufferpool
+  chart_type: line
+  priority: 60053
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: hits
+    signal: ibm_db2_bufferpool_column_hit_ratio_hits
+  - id: misses
+    signal: ibm_db2_bufferpool_column_hit_ratio_misses
+- id: db2.bufferpool_reads
+  title: Buffer Pool Reads
+  units: reads/s
+  family: bufferpool
+  chart_type: stacked
+  priority: 60054
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: logical
+    rate_signal: ibm_db2_bufferpool_reads_logical
+  - id: physical
+    rate_signal: ibm_db2_bufferpool_reads_physical
+- id: db2.bufferpool_data_reads
+  title: Buffer Pool Data Page Reads
+  units: reads/s
+  family: bufferpool
+  chart_type: stacked
+  priority: 60055
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: logical
+    rate_signal: ibm_db2_bufferpool_data_reads_logical
+  - id: physical
+    rate_signal: ibm_db2_bufferpool_data_reads_physical
+- id: db2.bufferpool_index_reads
+  title: Buffer Pool Index Page Reads
+  units: reads/s
+  family: bufferpool
+  chart_type: stacked
+  priority: 60056
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: logical
+    rate_signal: ibm_db2_bufferpool_index_reads_logical
+  - id: physical
+    rate_signal: ibm_db2_bufferpool_index_reads_physical
+- id: db2.bufferpool_xda_reads
+  title: Buffer Pool XDA Page Reads
+  units: reads/s
+  family: bufferpool
+  chart_type: stacked
+  priority: 60057
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: logical
+    rate_signal: ibm_db2_bufferpool_xda_reads_logical
+  - id: physical
+    rate_signal: ibm_db2_bufferpool_xda_reads_physical
+- id: db2.bufferpool_column_reads
+  title: Buffer Pool Column Page Reads
+  units: reads/s
+  family: bufferpool
+  chart_type: stacked
+  priority: 60058
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: logical
+    rate_signal: ibm_db2_bufferpool_column_reads_logical
+  - id: physical
+    rate_signal: ibm_db2_bufferpool_column_reads_physical
+- id: db2.bufferpool_writes
+  title: Buffer Pool Writes
+  units: writes/s
+  family: bufferpool
+  chart_type: line
+  priority: 60059
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: writes
+    rate_signal: ibm_db2_bufferpool_writes_writes
+- id: db2.log_space
+  title: Log Space Usage
+  units: bytes
+  family: log
+  chart_type: stacked
+  priority: 60060
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: used
+    signal: ibm_db2_log_space_used
+  - id: available
+    signal: ibm_db2_log_space_available
+- id: db2.log_utilization
+  title: Log Space Utilization
+  units: percentage
+  family: log
+  chart_type: line
+  priority: 60061
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: utilization
+    signal: ibm_db2_log_utilization_utilization
+- id: db2.log_io
+  title: Log I/O Operations
+  units: operations/s
+  family: log
+  chart_type: area
+  priority: 60062
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: reads
+    rate_signal: ibm_db2_log_io_reads
+  - id: writes
+    rate_signal: ibm_db2_log_io_writes
+- id: db2.log_operations
+  title: Log Operations
+  units: operations/s
+  family: log
+  chart_type: line
+  priority: 60063
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: commits
+    rate_signal: ibm_db2_log_operations_commits
+  - id: rollbacks
+    rate_signal: ibm_db2_log_operations_rollbacks
+  - id: reads
+    rate_signal: ibm_db2_log_operations_reads
+  - id: writes
+    rate_signal: ibm_db2_log_operations_writes
+- id: db2.log_timing
+  title: Log Operation Times
+  units: milliseconds
+  family: log
+  chart_type: line
+  priority: 60064
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: avg_commit
+    signal: ibm_db2_log_timing_avg_commit
+  - id: avg_read
+    signal: ibm_db2_log_timing_avg_read
+  - id: avg_write
+    signal: ibm_db2_log_timing_avg_write
+- id: db2.log_buffer_events
+  title: Log Buffer Full Events
+  units: events/s
+  family: log
+  chart_type: line
+  priority: 60065
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: buffer_full
+    rate_signal: ibm_db2_log_buffer_events_buffer_full
+- id: db2.long_running_queries
+  title: Long Running Queries
+  units: queries
+  family: long
+  chart_type: stacked
+  priority: 60066
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: total
+    signal: ibm_db2_long_running_queries_total
+  - id: warning
+    signal: ibm_db2_long_running_queries_warning
+  - id: critical
+    signal: ibm_db2_long_running_queries_critical
+- id: db2.backup_status
+  title: Last Backup Status
+  units: status
+  family: backup
+  chart_type: line
+  priority: 60067
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: status
+    signal: ibm_db2_backup_status_status
+- id: db2.backup_age
+  title: Time Since Last Backup
+  units: hours
+  family: backup
+  chart_type: line
+  priority: 60068
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: full
+    signal: ibm_db2_backup_age_full
+  - id: incremental
+    signal: ibm_db2_backup_age_incremental
+- id: db2.federation_connections
+  title: Federated Connections
+  units: connections
+  family: federation
+  chart_type: line
+  priority: 60069
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: active
+    signal: ibm_db2_federation_connections_active
+  - id: idle
+    signal: ibm_db2_federation_connections_idle
+- id: db2.federation_operations
+  title: Federated Operations
+  units: operations/s
+  family: federation
+  chart_type: line
+  priority: 60070
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: rows_read
+    rate_signal: ibm_db2_federation_operations_rows_read
+  - id: selects
+    rate_signal: ibm_db2_federation_operations_selects
+  - id: waits
+    rate_signal: ibm_db2_federation_operations_waits
+- id: db2.database_status
+  title: Current Database Status
+  units: status
+  family: database
+  chart_type: line
+  priority: 60071
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: active
+    signal: ibm_db2_database_status_active
+  - id: inactive
+    signal: ibm_db2_database_status_inactive
+- id: db2.database_count
+  title: Database Count
+  units: databases
+  family: database
+  chart_type: line
+  priority: 60072
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: active
+    signal: ibm_db2_database_count_active
+  - id: inactive
+    signal: ibm_db2_database_count_inactive
+- id: db2.cpu_usage
+  title: CPU Usage (100% = 1 CPU core)
+  units: percentage
+  family: cpu
+  chart_type: stacked
+  priority: 60073
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: user
+    signal: ibm_db2_cpu_usage_user
+  - id: system
+    signal: ibm_db2_cpu_usage_system
+  - id: idle
+    signal: ibm_db2_cpu_usage_idle
+  - id: iowait
+    signal: ibm_db2_cpu_usage_iowait
+- id: db2.active_connections
+  title: Active Connections
+  units: connections
+  family: active
+  chart_type: line
+  priority: 60074
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: active
+    signal: ibm_db2_active_connections_active
+  - id: total
+    signal: ibm_db2_active_connections_total
+- id: db2.memory_usage
+  title: Memory Usage
+  units: MiB
+  family: memory
+  chart_type: stacked
+  priority: 60075
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: database
+    signal: ibm_db2_memory_usage_database
+  - id: instance
+    signal: ibm_db2_memory_usage_instance
+  - id: bufferpool
+    signal: ibm_db2_memory_usage_bufferpool
+  - id: shared_sort
+    signal: ibm_db2_memory_usage_shared_sort
+- id: db2.sql_statements
+  title: SQL Statements
+  units: statements/s
+  family: sql
+  chart_type: stacked
+  priority: 60076
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: selects
+    rate_signal: ibm_db2_sql_statements_selects
+  - id: modifications
+    rate_signal: ibm_db2_sql_statements_modifications
+- id: db2.transaction_activity
+  title: Transaction Activity
+  units: transactions/s
+  family: transaction
+  chart_type: stacked
+  priority: 60077
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: committed
+    rate_signal: ibm_db2_transaction_activity_committed
+  - id: aborted
+    rate_signal: ibm_db2_transaction_activity_aborted
+- id: db2.time_spent
+  title: Average Operation Times
+  units: milliseconds
+  family: time
+  chart_type: line
+  priority: 60078
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: direct_read
+    signal: ibm_db2_time_spent_direct_read
+  - id: direct_write
+    signal: ibm_db2_time_spent_direct_write
+  - id: pool_read
+    signal: ibm_db2_time_spent_pool_read
+  - id: pool_write
+    signal: ibm_db2_time_spent_pool_write
+- id: db2.table_size
+  title: Table Size
+  units: bytes
+  family: table
+  chart_type: stacked
+  priority: 60079
+  shape: independent
+  labels:
+    table: sim-table-1
+  dimensions:
+  - id: data
+    signal: ibm_db2_table_size_data
+  - id: index
+    signal: ibm_db2_table_size_index
+  - id: long_obj
+    signal: ibm_db2_table_size_long_obj
+- id: db2.table_activity
+  title: Table Activity
+  units: rows/s
+  family: table
+  chart_type: area
+  priority: 60080
+  shape: counters
+  labels:
+    table: sim-table-1
+  dimensions:
+  - id: read
+    rate_signal: ibm_db2_table_activity_read
+  - id: written
+    rate_signal: ibm_db2_table_activity_written
+- id: db2.table_group_size
+  title: Table Group Size
+  units: bytes
+  family: table
+  chart_type: stacked
+  priority: 60081
+  shape: independent
+  labels:
+    group: sim-group-1
+  dimensions:
+  - id: data
+    signal: ibm_db2_table_group_size_data
+  - id: index
+    signal: ibm_db2_table_group_size_index
+  - id: long_obj
+    signal: ibm_db2_table_group_size_long_obj
+- id: db2.table_group_activity
+  title: Table Group Activity
+  units: rows/s
+  family: table
+  chart_type: area
+  priority: 60082
+  shape: counters
+  labels:
+    group: sim-group-1
+  dimensions:
+  - id: read
+    rate_signal: ibm_db2_table_group_activity_read
+  - id: written
+    rate_signal: ibm_db2_table_group_activity_written
+- id: db2.table_io_scans
+  title: Table Scans
+  units: scans/s
+  family: table
+  chart_type: line
+  priority: 60083
+  shape: counters
+  labels:
+    table: sim-table-1
+  dimensions:
+  - id: scans
+    rate_signal: ibm_db2_table_io_scans_scans
+- id: db2.table_io_rows
+  title: Table Row Operations
+  units: rows/s
+  family: table
+  chart_type: line
+  priority: 60084
+  shape: counters
+  labels:
+    table: sim-table-1
+  dimensions:
+  - id: read
+    rate_signal: ibm_db2_table_io_rows_read
+- id: db2.table_io_activity
+  title: Table DML Activity
+  units: operations/s
+  family: table
+  chart_type: stacked
+  priority: 60085
+  shape: counters
+  labels:
+    table: sim-table-1
+  dimensions:
+  - id: inserts
+    rate_signal: ibm_db2_table_io_activity_inserts
+  - id: updates
+    rate_signal: ibm_db2_table_io_activity_updates
+  - id: deletes
+    rate_signal: ibm_db2_table_io_activity_deletes
+- id: db2.table_io_overflow
+  title: Table Overflow Accesses
+  units: accesses/s
+  family: table
+  chart_type: line
+  priority: 60086
+  shape: counters
+  labels:
+    table: sim-table-1
+  dimensions:
+  - id: overflow
+    rate_signal: ibm_db2_table_io_overflow_overflow
+- id: db2.tablespace_usage
+  title: Tablespace Usage
+  units: percentage
+  family: tablespace
+  chart_type: line
+  priority: 60087
+  shape: independent
+  labels:
+    tablespace: sim-tablespace-1
+    type: sim-type-1
+    content_type: sim-content_type-1
+    state: sim-state-1
+  dimensions:
+  - id: used
+    signal: ibm_db2_tablespace_usage_used
+- id: db2.tablespace_size
+  title: Tablespace Size
+  units: bytes
+  family: tablespace
+  chart_type: stacked
+  priority: 60088
+  shape: independent
+  labels:
+    tablespace: sim-tablespace-1
+    type: sim-type-1
+    content_type: sim-content_type-1
+    state: sim-state-1
+  dimensions:
+  - id: used
+    signal: ibm_db2_tablespace_size_used
+  - id: free
+    signal: ibm_db2_tablespace_size_free
+- id: db2.tablespace_usable_size
+  title: Tablespace Usable Size
+  units: bytes
+  family: tablespace
+  chart_type: line
+  priority: 60089
+  shape: independent
+  labels:
+    tablespace: sim-tablespace-1
+    type: sim-type-1
+    content_type: sim-content_type-1
+    state: sim-state-1
+  dimensions:
+  - id: total
+    signal: ibm_db2_tablespace_usable_size_total
+  - id: usable
+    signal: ibm_db2_tablespace_usable_size_usable
+- id: db2.tablespace_state
+  title: Tablespace State
+  units: state
+  family: tablespace
+  chart_type: line
+  priority: 60090
+  shape: independent
+  labels:
+    tablespace: sim-tablespace-1
+    type: sim-type-1
+    content_type: sim-content_type-1
+    state: sim-state-1
+  dimensions:
+  - id: state
+    signal: ibm_db2_tablespace_state_state
+- id: db2.tablespace_group_usage
+  title: Tablespace Group Usage
+  units: percentage
+  family: tablespace
+  chart_type: line
+  priority: 60091
+  shape: independent
+  labels:
+    group: sim-group-1
+  dimensions:
+  - id: used
+    signal: ibm_db2_tablespace_group_usage_used
+- id: db2.tablespace_group_size
+  title: Tablespace Group Size
+  units: bytes
+  family: tablespace
+  chart_type: stacked
+  priority: 60092
+  shape: independent
+  labels:
+    group: sim-group-1
+  dimensions:
+  - id: used
+    signal: ibm_db2_tablespace_group_size_used
+  - id: free
+    signal: ibm_db2_tablespace_group_size_free
+- id: db2.tablespace_group_usable_size
+  title: Tablespace Group Usable Size
+  units: bytes
+  family: tablespace
+  chart_type: line
+  priority: 60093
+  shape: independent
+  labels:
+    group: sim-group-1
+  dimensions:
+  - id: total
+    signal: ibm_db2_tablespace_group_usable_size_total
+  - id: usable
+    signal: ibm_db2_tablespace_group_usable_size_usable
+- id: db2.tablespace_group_state
+  title: Tablespace Group State
+  units: state
+  family: tablespace
+  chart_type: line
+  priority: 60094
+  shape: independent
+  labels:
+    group: sim-group-1
+  dimensions:
+  - id: state
+    signal: ibm_db2_tablespace_group_state_state

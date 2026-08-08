@@ -1,0 +1,1378 @@
+version: 1
+name: azure-data-explorer-cluster
+description: Azure Data Explorer Cluster metrics, generated from Netdata's own collector metadata so the
+  contexts, units and dimension names match what a real Azure Data Explorer Cluster node reports. Signals
+  are independent and plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  azure_data_explorer_cluster_data_explorer_cpu_utilization_average:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_data_explorer_cluster_data_explorer_utilization_ingestion:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_data_explorer_cluster_data_explorer_utilization_cache:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_data_explorer_cluster_data_explorer_keep_alive_average:
+    base: 320.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_data_explorer_cluster_data_explorer_instance_count_average:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_data_explorer_cluster_data_explorer_instance_count_maximum:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_data_explorer_cluster_data_explorer_instance_count_minimum:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_data_explorer_cluster_data_explorer_extents_average:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_data_explorer_cluster_data_explorer_throttled_commands_total:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_data_explorer_cluster_data_explorer_follower_latency_average:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_data_explorer_cluster_data_explorer_query_duration_average:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_data_explorer_cluster_data_explorer_query_count_count:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_data_explorer_cluster_data_explorer_concurrent_queries_average:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_data_explorer_cluster_data_explorer_concurrent_queries_maximum:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_data_explorer_cluster_data_explorer_throttled_queries_total:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_data_explorer_cluster_data_explorer_weak_consistency_latency_average:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_data_explorer_cluster_data_explorer_ingestion_result_total:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_data_explorer_cluster_data_explorer_ingestion_volume_total:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_data_explorer_cluster_data_explorer_ingestion_latency_average:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_data_explorer_cluster_data_explorer_events_received:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_data_explorer_cluster_data_explorer_events_processed:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_data_explorer_cluster_data_explorer_events_dropped:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  azure_data_explorer_cluster_data_explorer_blobs_received:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_data_explorer_cluster_data_explorer_blobs_processed:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_data_explorer_cluster_data_explorer_blobs_dropped:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  azure_data_explorer_cluster_data_explorer_discovery_latency_average:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_data_explorer_cluster_data_explorer_stage_latency_average:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_data_explorer_cluster_data_explorer_ingestion_queue_length:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_data_explorer_cluster_data_explorer_queue_oldest_message_age:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_data_explorer_cluster_data_explorer_received_data_size_total:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_data_explorer_cluster_data_explorer_batches_processed_total:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_data_explorer_cluster_data_explorer_batch_blob_count_average:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_data_explorer_cluster_data_explorer_batch_size_average:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_data_explorer_cluster_data_explorer_batch_duration_average:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_data_explorer_cluster_data_explorer_export_utilization_maximum:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_data_explorer_cluster_data_explorer_continuous_export_records_total:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_data_explorer_cluster_data_explorer_continuous_export_result_count:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_data_explorer_cluster_data_explorer_continuous_export_pending_maximum:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_data_explorer_cluster_data_explorer_continuous_export_lateness_maximum:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_data_explorer_cluster_data_explorer_streaming_ingest_data_rate_average:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_data_explorer_cluster_data_explorer_streaming_ingest_duration_average:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_data_explorer_cluster_data_explorer_streaming_ingest_result_count:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_data_explorer_cluster_data_explorer_streaming_ingest_utilization_average:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_data_explorer_cluster_data_explorer_materialized_view_health_health:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  azure_data_explorer_cluster_data_explorer_materialized_view_age_minutes:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_data_explorer_cluster_data_explorer_materialized_view_age_seconds_average:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_data_explorer_cluster_data_explorer_materialized_view_records_in_delta_average:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_data_explorer_cluster_data_explorer_materialized_view_extents_rebuild_average:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_data_explorer_cluster_data_explorer_materialized_view_data_loss_maximum:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  azure_data_explorer_cluster_data_explorer_materialized_view_result_average:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  azure_data_explorer_cluster_data_explorer_partitioning_percentage_total:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_data_explorer_cluster_data_explorer_partitioning_percentage_hot:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_data_explorer_cluster_data_explorer_partitioned_records_average:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: azure_monitor.data_explorer.cpu_utilization
+  title: Azure Data Explorer CPU Utilization
+  units: percentage
+  family: data
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_data_explorer_cluster_data_explorer_cpu_utilization_average
+- id: azure_monitor.data_explorer.utilization
+  title: Azure Data Explorer Utilization
+  units: percentage
+  family: data
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: ingestion
+    signal: azure_data_explorer_cluster_data_explorer_utilization_ingestion
+  - id: cache
+    signal: azure_data_explorer_cluster_data_explorer_utilization_cache
+- id: azure_monitor.data_explorer.keep_alive
+  title: Azure Data Explorer Keep Alive
+  units: count
+  family: data
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_data_explorer_cluster_data_explorer_keep_alive_average
+- id: azure_monitor.data_explorer.instance_count
+  title: Azure Data Explorer Instance Count
+  units: instances
+  family: data
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_data_explorer_cluster_data_explorer_instance_count_average
+  - id: maximum
+    signal: azure_data_explorer_cluster_data_explorer_instance_count_maximum
+  - id: minimum
+    signal: azure_data_explorer_cluster_data_explorer_instance_count_minimum
+- id: azure_monitor.data_explorer.extents
+  title: Azure Data Explorer Total Extents
+  units: extents
+  family: data
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_data_explorer_cluster_data_explorer_extents_average
+- id: azure_monitor.data_explorer.throttled_commands
+  title: Azure Data Explorer Throttled Commands
+  units: commands/s
+  family: data
+  chart_type: line
+  priority: 60006
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: total
+    rate_signal: azure_data_explorer_cluster_data_explorer_throttled_commands_total
+- id: azure_monitor.data_explorer.follower_latency
+  title: Azure Data Explorer Follower Latency
+  units: milliseconds
+  family: data
+  chart_type: line
+  priority: 60007
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_data_explorer_cluster_data_explorer_follower_latency_average
+- id: azure_monitor.data_explorer.query_duration
+  title: Azure Data Explorer Query Duration
+  units: milliseconds
+  family: data
+  chart_type: line
+  priority: 60008
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_data_explorer_cluster_data_explorer_query_duration_average
+- id: azure_monitor.data_explorer.query_count
+  title: Azure Data Explorer Query Count
+  units: queries/s
+  family: data
+  chart_type: line
+  priority: 60009
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: count
+    rate_signal: azure_data_explorer_cluster_data_explorer_query_count_count
+- id: azure_monitor.data_explorer.concurrent_queries
+  title: Azure Data Explorer Concurrent Queries
+  units: queries
+  family: data
+  chart_type: line
+  priority: 60010
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_data_explorer_cluster_data_explorer_concurrent_queries_average
+  - id: maximum
+    signal: azure_data_explorer_cluster_data_explorer_concurrent_queries_maximum
+- id: azure_monitor.data_explorer.throttled_queries
+  title: Azure Data Explorer Throttled Queries
+  units: queries/s
+  family: data
+  chart_type: line
+  priority: 60011
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: total
+    rate_signal: azure_data_explorer_cluster_data_explorer_throttled_queries_total
+- id: azure_monitor.data_explorer.weak_consistency_latency
+  title: Azure Data Explorer Weak Consistency Latency
+  units: seconds
+  family: data
+  chart_type: line
+  priority: 60012
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_data_explorer_cluster_data_explorer_weak_consistency_latency_average
+- id: azure_monitor.data_explorer.ingestion_result
+  title: Azure Data Explorer Ingestion Result
+  units: sources/s
+  family: data
+  chart_type: line
+  priority: 60013
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: total
+    rate_signal: azure_data_explorer_cluster_data_explorer_ingestion_result_total
+- id: azure_monitor.data_explorer.ingestion_volume
+  title: Azure Data Explorer Ingestion Volume
+  units: bytes/s
+  family: data
+  chart_type: line
+  priority: 60014
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: total
+    rate_signal: azure_data_explorer_cluster_data_explorer_ingestion_volume_total
+- id: azure_monitor.data_explorer.ingestion_latency
+  title: Azure Data Explorer Ingestion Latency
+  units: seconds
+  family: data
+  chart_type: line
+  priority: 60015
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_data_explorer_cluster_data_explorer_ingestion_latency_average
+- id: azure_monitor.data_explorer.events
+  title: Azure Data Explorer Events
+  units: events/s
+  family: data
+  chart_type: line
+  priority: 60016
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: received
+    rate_signal: azure_data_explorer_cluster_data_explorer_events_received
+  - id: processed
+    rate_signal: azure_data_explorer_cluster_data_explorer_events_processed
+  - id: dropped
+    rate_signal: azure_data_explorer_cluster_data_explorer_events_dropped
+- id: azure_monitor.data_explorer.blobs
+  title: Azure Data Explorer Blobs
+  units: blobs/s
+  family: data
+  chart_type: line
+  priority: 60017
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: received
+    rate_signal: azure_data_explorer_cluster_data_explorer_blobs_received
+  - id: processed
+    rate_signal: azure_data_explorer_cluster_data_explorer_blobs_processed
+  - id: dropped
+    rate_signal: azure_data_explorer_cluster_data_explorer_blobs_dropped
+- id: azure_monitor.data_explorer.discovery_latency
+  title: Azure Data Explorer Discovery Latency
+  units: seconds
+  family: data
+  chart_type: line
+  priority: 60018
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_data_explorer_cluster_data_explorer_discovery_latency_average
+- id: azure_monitor.data_explorer.stage_latency
+  title: Azure Data Explorer Stage Latency
+  units: seconds
+  family: data
+  chart_type: line
+  priority: 60019
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_data_explorer_cluster_data_explorer_stage_latency_average
+- id: azure_monitor.data_explorer.ingestion_queue
+  title: Azure Data Explorer Ingestion Queue
+  units: messages
+  family: data
+  chart_type: line
+  priority: 60020
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: length
+    signal: azure_data_explorer_cluster_data_explorer_ingestion_queue_length
+- id: azure_monitor.data_explorer.queue_oldest_message
+  title: Azure Data Explorer Queue Oldest Message Age
+  units: seconds
+  family: data
+  chart_type: line
+  priority: 60021
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: age
+    signal: azure_data_explorer_cluster_data_explorer_queue_oldest_message_age
+- id: azure_monitor.data_explorer.received_data_size
+  title: Azure Data Explorer Received Data Size
+  units: bytes/s
+  family: data
+  chart_type: line
+  priority: 60022
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: total
+    rate_signal: azure_data_explorer_cluster_data_explorer_received_data_size_total
+- id: azure_monitor.data_explorer.batches_processed
+  title: Azure Data Explorer Batches Processed
+  units: batches/s
+  family: data
+  chart_type: line
+  priority: 60023
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: total
+    rate_signal: azure_data_explorer_cluster_data_explorer_batches_processed_total
+- id: azure_monitor.data_explorer.batch_blob_count
+  title: Azure Data Explorer Batch Blob Count
+  units: blobs
+  family: data
+  chart_type: line
+  priority: 60024
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_data_explorer_cluster_data_explorer_batch_blob_count_average
+- id: azure_monitor.data_explorer.batch_size
+  title: Azure Data Explorer Batch Size
+  units: bytes
+  family: data
+  chart_type: line
+  priority: 60025
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_data_explorer_cluster_data_explorer_batch_size_average
+- id: azure_monitor.data_explorer.batch_duration
+  title: Azure Data Explorer Batch Duration
+  units: seconds
+  family: data
+  chart_type: line
+  priority: 60026
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_data_explorer_cluster_data_explorer_batch_duration_average
+- id: azure_monitor.data_explorer.export_utilization
+  title: Azure Data Explorer Export Utilization
+  units: percentage
+  family: data
+  chart_type: line
+  priority: 60027
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: maximum
+    signal: azure_data_explorer_cluster_data_explorer_export_utilization_maximum
+- id: azure_monitor.data_explorer.continuous_export_records
+  title: Azure Data Explorer Continuous Export Records
+  units: records/s
+  family: data
+  chart_type: line
+  priority: 60028
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: total
+    rate_signal: azure_data_explorer_cluster_data_explorer_continuous_export_records_total
+- id: azure_monitor.data_explorer.continuous_export_result
+  title: Azure Data Explorer Continuous Export Result
+  units: results/s
+  family: data
+  chart_type: line
+  priority: 60029
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: count
+    rate_signal: azure_data_explorer_cluster_data_explorer_continuous_export_result_count
+- id: azure_monitor.data_explorer.continuous_export_pending
+  title: Azure Data Explorer Continuous Export Pending Jobs
+  units: jobs
+  family: data
+  chart_type: line
+  priority: 60030
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: maximum
+    signal: azure_data_explorer_cluster_data_explorer_continuous_export_pending_maximum
+- id: azure_monitor.data_explorer.continuous_export_lateness
+  title: Azure Data Explorer Continuous Export Lateness
+  units: minutes
+  family: data
+  chart_type: line
+  priority: 60031
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: maximum
+    signal: azure_data_explorer_cluster_data_explorer_continuous_export_lateness_maximum
+- id: azure_monitor.data_explorer.streaming_ingest_data_rate
+  title: Azure Data Explorer Streaming Ingest Data Rate
+  units: bytes/s
+  family: data
+  chart_type: line
+  priority: 60032
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    rate_signal: azure_data_explorer_cluster_data_explorer_streaming_ingest_data_rate_average
+- id: azure_monitor.data_explorer.streaming_ingest_duration
+  title: Azure Data Explorer Streaming Ingest Duration
+  units: milliseconds
+  family: data
+  chart_type: line
+  priority: 60033
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_data_explorer_cluster_data_explorer_streaming_ingest_duration_average
+- id: azure_monitor.data_explorer.streaming_ingest_result
+  title: Azure Data Explorer Streaming Ingest Result
+  units: results/s
+  family: data
+  chart_type: line
+  priority: 60034
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: count
+    rate_signal: azure_data_explorer_cluster_data_explorer_streaming_ingest_result_count
+- id: azure_monitor.data_explorer.streaming_ingest_utilization
+  title: Azure Data Explorer Streaming Ingest Utilization
+  units: percentage
+  family: data
+  chart_type: line
+  priority: 60035
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_data_explorer_cluster_data_explorer_streaming_ingest_utilization_average
+- id: azure_monitor.data_explorer.materialized_view_health
+  title: Azure Data Explorer Materialized View Health
+  units: status
+  family: data
+  chart_type: line
+  priority: 60036
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: health
+    signal: azure_data_explorer_cluster_data_explorer_materialized_view_health_health
+- id: azure_monitor.data_explorer.materialized_view_age
+  title: Azure Data Explorer Materialized View Age
+  units: minutes
+  family: data
+  chart_type: line
+  priority: 60037
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: minutes
+    signal: azure_data_explorer_cluster_data_explorer_materialized_view_age_minutes
+- id: azure_monitor.data_explorer.materialized_view_age_seconds
+  title: Azure Data Explorer Materialized View Age (Seconds)
+  units: seconds
+  family: data
+  chart_type: line
+  priority: 60038
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_data_explorer_cluster_data_explorer_materialized_view_age_seconds_average
+- id: azure_monitor.data_explorer.materialized_view_records_in_delta
+  title: Azure Data Explorer Materialized View Records in Delta
+  units: records
+  family: data
+  chart_type: line
+  priority: 60039
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_data_explorer_cluster_data_explorer_materialized_view_records_in_delta_average
+- id: azure_monitor.data_explorer.materialized_view_extents_rebuild
+  title: Azure Data Explorer Materialized View Extents Rebuild
+  units: extents
+  family: data
+  chart_type: line
+  priority: 60040
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_data_explorer_cluster_data_explorer_materialized_view_extents_rebuild_average
+- id: azure_monitor.data_explorer.materialized_view_data_loss
+  title: Azure Data Explorer Materialized View Data Loss
+  units: status
+  family: data
+  chart_type: line
+  priority: 60041
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: maximum
+    signal: azure_data_explorer_cluster_data_explorer_materialized_view_data_loss_maximum
+- id: azure_monitor.data_explorer.materialized_view_result
+  title: Azure Data Explorer Materialized View Result
+  units: status
+  family: data
+  chart_type: line
+  priority: 60042
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_data_explorer_cluster_data_explorer_materialized_view_result_average
+- id: azure_monitor.data_explorer.partitioning_percentage
+  title: Azure Data Explorer Partitioning Percentage
+  units: percentage
+  family: data
+  chart_type: line
+  priority: 60043
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: total
+    signal: azure_data_explorer_cluster_data_explorer_partitioning_percentage_total
+  - id: hot
+    signal: azure_data_explorer_cluster_data_explorer_partitioning_percentage_hot
+- id: azure_monitor.data_explorer.partitioned_records
+  title: Azure Data Explorer Processed Partitioned Records
+  units: records
+  family: data
+  chart_type: line
+  priority: 60044
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_data_explorer_cluster_data_explorer_partitioned_records_average

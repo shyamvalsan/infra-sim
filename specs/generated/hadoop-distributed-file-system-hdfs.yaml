@@ -1,0 +1,760 @@
+version: 1
+name: hadoop-distributed-file-system-hdfs
+description: Hadoop Distributed File System (HDFS) metrics, generated from Netdata's own collector metadata
+  so the contexts, units and dimension names match what a real Hadoop Distributed File System (HDFS) node
+  reports. Signals are independent and plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  hadoop_distributed_file_system_hdfs_heap_memory_committed:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hadoop_distributed_file_system_hdfs_heap_memory_used:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hadoop_distributed_file_system_hdfs_gc_count_total_gc:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hadoop_distributed_file_system_hdfs_gc_time_total_ms:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hadoop_distributed_file_system_hdfs_gc_threshold_info:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hadoop_distributed_file_system_hdfs_gc_threshold_warn:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hadoop_distributed_file_system_hdfs_threads_new:
+    base: 320.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hadoop_distributed_file_system_hdfs_threads_runnable:
+    base: 320.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hadoop_distributed_file_system_hdfs_threads_blocked:
+    base: 320.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hadoop_distributed_file_system_hdfs_threads_waiting:
+    base: 320.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hadoop_distributed_file_system_hdfs_threads_timed_waiting:
+    base: 320.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hadoop_distributed_file_system_hdfs_threads_terminated:
+    base: 320.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hadoop_distributed_file_system_hdfs_logs_total_info:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hadoop_distributed_file_system_hdfs_logs_total_error:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  hadoop_distributed_file_system_hdfs_logs_total_warn:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hadoop_distributed_file_system_hdfs_logs_total_fatal:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hadoop_distributed_file_system_hdfs_rpc_bandwidth_received:
+    base: 18000.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hadoop_distributed_file_system_hdfs_rpc_bandwidth_sent:
+    base: 18000.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hadoop_distributed_file_system_hdfs_rpc_calls_calls:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hadoop_distributed_file_system_hdfs_open_connections_open:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hadoop_distributed_file_system_hdfs_call_queue_length_length:
+    base: 320.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hadoop_distributed_file_system_hdfs_avg_queue_time_time:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hadoop_distributed_file_system_hdfs_avg_processing_time_time:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hadoop_distributed_file_system_hdfs_capacity_remaining:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hadoop_distributed_file_system_hdfs_capacity_used:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hadoop_distributed_file_system_hdfs_used_capacity_dfs:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hadoop_distributed_file_system_hdfs_used_capacity_non_dfs:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hadoop_distributed_file_system_hdfs_load_load:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hadoop_distributed_file_system_hdfs_volume_failures_total_failures:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  hadoop_distributed_file_system_hdfs_files_total_files:
+    base: 320.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hadoop_distributed_file_system_hdfs_blocks_total_blocks:
+    base: 320.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hadoop_distributed_file_system_hdfs_blocks_corrupt:
+    base: 320.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hadoop_distributed_file_system_hdfs_blocks_missing:
+    base: 320.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hadoop_distributed_file_system_hdfs_blocks_under_replicated:
+    base: 320.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hadoop_distributed_file_system_hdfs_data_nodes_live:
+    base: 320.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hadoop_distributed_file_system_hdfs_data_nodes_dead:
+    base: 0.0
+    min: 0.0
+    max: 10000000.0
+  hadoop_distributed_file_system_hdfs_data_nodes_stale:
+    base: 0.0
+    min: 0.0
+    max: 10000000.0
+  hadoop_distributed_file_system_hdfs_datanode_capacity_remaining:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hadoop_distributed_file_system_hdfs_datanode_capacity_used:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hadoop_distributed_file_system_hdfs_datanode_used_capacity_dfs:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hadoop_distributed_file_system_hdfs_datanode_used_capacity_non_dfs:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hadoop_distributed_file_system_hdfs_datanode_failed_volumes_failed_volumes:
+    base: 0.0
+    min: 0.0
+    max: 10000000.0
+  hadoop_distributed_file_system_hdfs_datanode_bandwidth_reads:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hadoop_distributed_file_system_hdfs_datanode_bandwidth_writes:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: hdfs.heap_memory
+  title: Heap Memory
+  units: MiB
+  family: heap
+  chart_type: area
+  priority: 60001
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: committed
+    signal: hadoop_distributed_file_system_hdfs_heap_memory_committed
+  - id: used
+    signal: hadoop_distributed_file_system_hdfs_heap_memory_used
+- id: hdfs.gc_count_total
+  title: GC Events
+  units: events/s
+  family: gc
+  chart_type: line
+  priority: 60002
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: gc
+    rate_signal: hadoop_distributed_file_system_hdfs_gc_count_total_gc
+- id: hdfs.gc_time_total
+  title: GC Time
+  units: ms
+  family: gc
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: ms
+    signal: hadoop_distributed_file_system_hdfs_gc_time_total_ms
+- id: hdfs.gc_threshold
+  title: Number of Times That the GC Threshold is Exceeded
+  units: events/s
+  family: gc
+  chart_type: line
+  priority: 60004
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: info
+    rate_signal: hadoop_distributed_file_system_hdfs_gc_threshold_info
+  - id: warn
+    rate_signal: hadoop_distributed_file_system_hdfs_gc_threshold_warn
+- id: hdfs.threads
+  title: Number of Threads
+  units: num
+  family: threads
+  chart_type: stacked
+  priority: 60005
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: new
+    signal: hadoop_distributed_file_system_hdfs_threads_new
+  - id: runnable
+    signal: hadoop_distributed_file_system_hdfs_threads_runnable
+  - id: blocked
+    signal: hadoop_distributed_file_system_hdfs_threads_blocked
+  - id: waiting
+    signal: hadoop_distributed_file_system_hdfs_threads_waiting
+  - id: timed_waiting
+    signal: hadoop_distributed_file_system_hdfs_threads_timed_waiting
+  - id: terminated
+    signal: hadoop_distributed_file_system_hdfs_threads_terminated
+- id: hdfs.logs_total
+  title: Number of Logs
+  units: logs/s
+  family: logs
+  chart_type: stacked
+  priority: 60006
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: info
+    rate_signal: hadoop_distributed_file_system_hdfs_logs_total_info
+  - id: error
+    rate_signal: hadoop_distributed_file_system_hdfs_logs_total_error
+  - id: warn
+    rate_signal: hadoop_distributed_file_system_hdfs_logs_total_warn
+  - id: fatal
+    rate_signal: hadoop_distributed_file_system_hdfs_logs_total_fatal
+- id: hdfs.rpc_bandwidth
+  title: RPC Bandwidth
+  units: kilobits/s
+  family: rpc
+  chart_type: area
+  priority: 60007
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: received
+    rate_signal: hadoop_distributed_file_system_hdfs_rpc_bandwidth_received
+  - id: sent
+    rate_signal: hadoop_distributed_file_system_hdfs_rpc_bandwidth_sent
+- id: hdfs.rpc_calls
+  title: RPC Calls
+  units: calls/s
+  family: rpc
+  chart_type: line
+  priority: 60008
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: calls
+    rate_signal: hadoop_distributed_file_system_hdfs_rpc_calls_calls
+- id: hdfs.open_connections
+  title: RPC Open Connections
+  units: connections
+  family: open
+  chart_type: line
+  priority: 60009
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: open
+    signal: hadoop_distributed_file_system_hdfs_open_connections_open
+- id: hdfs.call_queue_length
+  title: RPC Call Queue Length
+  units: num
+  family: call
+  chart_type: line
+  priority: 60010
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: length
+    signal: hadoop_distributed_file_system_hdfs_call_queue_length_length
+- id: hdfs.avg_queue_time
+  title: RPC Avg Queue Time
+  units: ms
+  family: avg
+  chart_type: line
+  priority: 60011
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: time
+    signal: hadoop_distributed_file_system_hdfs_avg_queue_time_time
+- id: hdfs.avg_processing_time
+  title: RPC Avg Processing Time
+  units: ms
+  family: avg
+  chart_type: line
+  priority: 60012
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: time
+    signal: hadoop_distributed_file_system_hdfs_avg_processing_time_time
+- id: hdfs.capacity
+  title: Capacity Across All Datanodes
+  units: KiB
+  family: capacity
+  chart_type: stacked
+  priority: 60013
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: remaining
+    signal: hadoop_distributed_file_system_hdfs_capacity_remaining
+  - id: used
+    signal: hadoop_distributed_file_system_hdfs_capacity_used
+- id: hdfs.used_capacity
+  title: Used Capacity Across All Datanodes
+  units: KiB
+  family: used
+  chart_type: stacked
+  priority: 60014
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: dfs
+    signal: hadoop_distributed_file_system_hdfs_used_capacity_dfs
+  - id: non_dfs
+    signal: hadoop_distributed_file_system_hdfs_used_capacity_non_dfs
+- id: hdfs.load
+  title: Number of Concurrent File Accesses (read/write) Across All DataNodes
+  units: load
+  family: load
+  chart_type: line
+  priority: 60015
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: load
+    signal: hadoop_distributed_file_system_hdfs_load_load
+- id: hdfs.volume_failures_total
+  title: Number of Volume Failures Across All Datanodes
+  units: events/s
+  family: volume
+  chart_type: line
+  priority: 60016
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: failures
+    rate_signal: hadoop_distributed_file_system_hdfs_volume_failures_total_failures
+- id: hdfs.files_total
+  title: Number of Tracked Files
+  units: num
+  family: files
+  chart_type: line
+  priority: 60017
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: files
+    signal: hadoop_distributed_file_system_hdfs_files_total_files
+- id: hdfs.blocks_total
+  title: Number of Allocated Blocks in the System
+  units: num
+  family: blocks
+  chart_type: line
+  priority: 60018
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: blocks
+    signal: hadoop_distributed_file_system_hdfs_blocks_total_blocks
+- id: hdfs.blocks
+  title: Number of Problem Blocks (can point to an unhealthy cluster)
+  units: num
+  family: blocks
+  chart_type: line
+  priority: 60019
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: corrupt
+    signal: hadoop_distributed_file_system_hdfs_blocks_corrupt
+  - id: missing
+    signal: hadoop_distributed_file_system_hdfs_blocks_missing
+  - id: under_replicated
+    signal: hadoop_distributed_file_system_hdfs_blocks_under_replicated
+- id: hdfs.data_nodes
+  title: Number of Data Nodes By Status
+  units: num
+  family: data
+  chart_type: stacked
+  priority: 60020
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: live
+    signal: hadoop_distributed_file_system_hdfs_data_nodes_live
+  - id: dead
+    signal: hadoop_distributed_file_system_hdfs_data_nodes_dead
+  - id: stale
+    signal: hadoop_distributed_file_system_hdfs_data_nodes_stale
+- id: hdfs.datanode_capacity
+  title: Capacity
+  units: KiB
+  family: datanode
+  chart_type: stacked
+  priority: 60021
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: remaining
+    signal: hadoop_distributed_file_system_hdfs_datanode_capacity_remaining
+  - id: used
+    signal: hadoop_distributed_file_system_hdfs_datanode_capacity_used
+- id: hdfs.datanode_used_capacity
+  title: Used Capacity
+  units: KiB
+  family: datanode
+  chart_type: stacked
+  priority: 60022
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: dfs
+    signal: hadoop_distributed_file_system_hdfs_datanode_used_capacity_dfs
+  - id: non_dfs
+    signal: hadoop_distributed_file_system_hdfs_datanode_used_capacity_non_dfs
+- id: hdfs.datanode_failed_volumes
+  title: Number of Failed Volumes
+  units: num
+  family: datanode
+  chart_type: line
+  priority: 60023
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: failed volumes
+    signal: hadoop_distributed_file_system_hdfs_datanode_failed_volumes_failed_volumes
+- id: hdfs.datanode_bandwidth
+  title: Bandwidth
+  units: KiB/s
+  family: datanode
+  chart_type: area
+  priority: 60024
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: reads
+    signal: hadoop_distributed_file_system_hdfs_datanode_bandwidth_reads
+  - id: writes
+    signal: hadoop_distributed_file_system_hdfs_datanode_bandwidth_writes

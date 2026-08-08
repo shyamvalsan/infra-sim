@@ -1,0 +1,132 @@
+version: 1
+name: tc-qos-classes
+description: tc QoS classes metrics, generated from Netdata's own collector metadata so the contexts,
+  units and dimension names match what a real tc QoS classes node reports. Signals are independent and
+  plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  tc_qos_classes_qos_a_dimension_per_class:
+    base: 18000.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  tc_qos_classes_qos_packets_a_dimension_per_class:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  tc_qos_classes_qos_dropped_a_dimension_per_class:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  tc_qos_classes_qos_tokens_a_dimension_per_class:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  tc_qos_classes_qos_ctokens_a_dimension_per_class:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: tc.qos
+  title: Class Usage
+  units: kilobits/s
+  family: qos
+  chart_type: stacked
+  priority: 60001
+  shape: counters
+  labels:
+    device: sim-device-1
+    device_name: sim-device_name-1
+    group: sim-group-1
+  dimensions:
+  - id: a dimension per class
+    rate_signal: tc_qos_classes_qos_a_dimension_per_class
+- id: tc.qos_packets
+  title: Class Packets
+  units: packets/s
+  family: qos
+  chart_type: stacked
+  priority: 60002
+  shape: counters
+  labels:
+    device: sim-device-1
+    device_name: sim-device_name-1
+    group: sim-group-1
+  dimensions:
+  - id: a dimension per class
+    rate_signal: tc_qos_classes_qos_packets_a_dimension_per_class
+- id: tc.qos_dropped
+  title: Class Dropped Packets
+  units: packets/s
+  family: qos
+  chart_type: stacked
+  priority: 60003
+  shape: counters
+  labels:
+    device: sim-device-1
+    device_name: sim-device_name-1
+    group: sim-group-1
+  dimensions:
+  - id: a dimension per class
+    rate_signal: tc_qos_classes_qos_dropped_a_dimension_per_class
+- id: tc.qos_tokens
+  title: Class Tokens
+  units: tokens
+  family: qos
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels:
+    device: sim-device-1
+    device_name: sim-device_name-1
+    group: sim-group-1
+  dimensions:
+  - id: a dimension per class
+    signal: tc_qos_classes_qos_tokens_a_dimension_per_class
+- id: tc.qos_ctokens
+  title: Class cTokens
+  units: ctokens
+  family: qos
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels:
+    device: sim-device-1
+    device_name: sim-device_name-1
+    group: sim-group-1
+  dimensions:
+  - id: a dimension per class
+    signal: tc_qos_classes_qos_ctokens_a_dimension_per_class

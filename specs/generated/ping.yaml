@@ -1,0 +1,211 @@
+version: 1
+name: ping
+description: Ping metrics, generated from Netdata's own collector metadata so the contexts, units and
+  dimension names match what a real Ping node reports. Signals are independent and plausible rather than
+  causally coupled - see scripts/sync-integrations.py.
+signals:
+  ping_host_rtt_min:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ping_host_rtt_max:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ping_host_rtt_avg:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ping_host_std_dev_rtt_std_dev:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ping_host_jitter_mean:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ping_host_jitter_ewma:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ping_host_jitter_sma:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ping_host_rtt_variance_variance:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ping_host_packet_loss_loss:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ping_host_packets_received:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ping_host_packets_sent:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: ping.host_rtt
+  title: Ping round-trip time
+  units: milliseconds
+  family: host
+  chart_type: area
+  priority: 60001
+  shape: independent
+  labels:
+    host: sim-host-1
+  dimensions:
+  - id: min
+    signal: ping_host_rtt_min
+  - id: max
+    signal: ping_host_rtt_max
+  - id: avg
+    signal: ping_host_rtt_avg
+- id: ping.host_std_dev_rtt
+  title: Ping round-trip time standard deviation
+  units: milliseconds
+  family: host
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels:
+    host: sim-host-1
+  dimensions:
+  - id: std_dev
+    signal: ping_host_std_dev_rtt_std_dev
+- id: ping.host_jitter
+  title: Ping latency jitter
+  units: milliseconds
+  family: host
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels:
+    host: sim-host-1
+  dimensions:
+  - id: mean
+    signal: ping_host_jitter_mean
+  - id: ewma
+    signal: ping_host_jitter_ewma
+  - id: sma
+    signal: ping_host_jitter_sma
+- id: ping.host_rtt_variance
+  title: Ping round-trip time variance
+  units: "ms\xB2"
+  family: host
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels:
+    host: sim-host-1
+  dimensions:
+  - id: variance
+    signal: ping_host_rtt_variance_variance
+- id: ping.host_packet_loss
+  title: Ping packet loss
+  units: percentage
+  family: host
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels:
+    host: sim-host-1
+  dimensions:
+  - id: loss
+    signal: ping_host_packet_loss_loss
+- id: ping.host_packets
+  title: Ping packets transferred
+  units: packets
+  family: host
+  chart_type: line
+  priority: 60006
+  shape: independent
+  labels:
+    host: sim-host-1
+  dimensions:
+  - id: received
+    signal: ping_host_packets_received
+  - id: sent
+    signal: ping_host_packets_sent

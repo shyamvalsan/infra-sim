@@ -1,0 +1,64 @@
+version: 1
+name: libreswan
+description: Libreswan metrics, generated from Netdata's own collector metadata so the contexts, units
+  and dimension names match what a real Libreswan node reports. Signals are independent and plausible
+  rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  libreswan_net_in:
+    base: 18000.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  libreswan_net_out:
+    base: 18000.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  libreswan_uptime_uptime:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: libreswan.net
+  title: LibreSWAN Tunnel ${name} Traffic
+  units: kilobits/s
+  family: net
+  chart_type: area
+  priority: 60001
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: in
+    rate_signal: libreswan_net_in
+  - id: out
+    rate_signal: libreswan_net_out
+- id: libreswan.uptime
+  title: LibreSWAN Tunnel ${name} Uptime
+  units: seconds
+  family: uptime
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: uptime
+    signal: libreswan_uptime_uptime

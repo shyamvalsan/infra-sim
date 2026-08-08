@@ -1,0 +1,616 @@
+version: 1
+name: azure-sql-elastic-pool
+description: Azure SQL Elastic Pool metrics, generated from Netdata's own collector metadata so the contexts,
+  units and dimension names match what a real Azure SQL Elastic Pool node reports. Signals are independent
+  and plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  azure_sql_elastic_pool_sql_elastic_pool_cpu_average:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_sql_elastic_pool_sql_elastic_pool_cpu_maximum:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_sql_elastic_pool_sql_elastic_pool_instance_cpu_average:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_sql_elastic_pool_sql_elastic_pool_instance_memory_average:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_sql_elastic_pool_sql_elastic_pool_dtu_consumption_average:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_sql_elastic_pool_sql_elastic_pool_io_utilization_data_read:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_sql_elastic_pool_sql_elastic_pool_io_utilization_log_write:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_sql_elastic_pool_sql_elastic_pool_resource_utilization_workers:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_sql_elastic_pool_sql_elastic_pool_resource_utilization_sessions:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_sql_elastic_pool_sql_elastic_pool_sessions_count_average:
+    base: 64.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_sql_elastic_pool_sql_elastic_pool_storage_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_sql_elastic_pool_sql_elastic_pool_storage_allocated:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_sql_elastic_pool_sql_elastic_pool_storage_limit:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_sql_elastic_pool_sql_elastic_pool_storage_utilization_used:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_sql_elastic_pool_sql_elastic_pool_storage_utilization_allocated:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_sql_elastic_pool_sql_elastic_pool_xtp_storage_average:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_sql_elastic_pool_sql_elastic_pool_tempdb_size_data:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_sql_elastic_pool_sql_elastic_pool_tempdb_size_log:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_sql_elastic_pool_sql_elastic_pool_tempdb_log_utilization_average:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_sql_elastic_pool_sql_elastic_pool_vcore_usage_used:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_sql_elastic_pool_sql_elastic_pool_vcore_usage_limit:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_sql_elastic_pool_sql_elastic_pool_edtu_usage_used:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_sql_elastic_pool_sql_elastic_pool_edtu_usage_limit:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_sql_elastic_pool_sql_elastic_pool_serverless_utilization_cpu:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_sql_elastic_pool_sql_elastic_pool_serverless_utilization_memory:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_sql_elastic_pool_sql_elastic_pool_serverless_billing_total:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: azure_monitor.sql_elastic_pool.cpu
+  title: Azure SQL Elastic Pool CPU Utilization
+  units: percentage
+  family: sql
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_sql_elastic_pool_sql_elastic_pool_cpu_average
+  - id: maximum
+    signal: azure_sql_elastic_pool_sql_elastic_pool_cpu_maximum
+- id: azure_monitor.sql_elastic_pool.instance_cpu
+  title: Azure SQL Elastic Pool Instance CPU Utilization
+  units: percentage
+  family: sql
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_sql_elastic_pool_sql_elastic_pool_instance_cpu_average
+- id: azure_monitor.sql_elastic_pool.instance_memory
+  title: Azure SQL Elastic Pool Instance Memory Utilization
+  units: percentage
+  family: sql
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_sql_elastic_pool_sql_elastic_pool_instance_memory_average
+- id: azure_monitor.sql_elastic_pool.dtu_consumption
+  title: Azure SQL Elastic Pool DTU Consumption
+  units: percentage
+  family: sql
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_sql_elastic_pool_sql_elastic_pool_dtu_consumption_average
+- id: azure_monitor.sql_elastic_pool.io_utilization
+  title: Azure SQL Elastic Pool I/O Utilization
+  units: percentage
+  family: sql
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: data_read
+    signal: azure_sql_elastic_pool_sql_elastic_pool_io_utilization_data_read
+  - id: log_write
+    signal: azure_sql_elastic_pool_sql_elastic_pool_io_utilization_log_write
+- id: azure_monitor.sql_elastic_pool.resource_utilization
+  title: Azure SQL Elastic Pool Resource Utilization
+  units: percentage
+  family: sql
+  chart_type: line
+  priority: 60006
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: workers
+    signal: azure_sql_elastic_pool_sql_elastic_pool_resource_utilization_workers
+  - id: sessions
+    signal: azure_sql_elastic_pool_sql_elastic_pool_resource_utilization_sessions
+- id: azure_monitor.sql_elastic_pool.sessions_count
+  title: Azure SQL Elastic Pool Sessions Count
+  units: sessions
+  family: sql
+  chart_type: line
+  priority: 60007
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_sql_elastic_pool_sql_elastic_pool_sessions_count_average
+- id: azure_monitor.sql_elastic_pool.storage
+  title: Azure SQL Elastic Pool Storage
+  units: bytes
+  family: sql
+  chart_type: line
+  priority: 60008
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: used
+    signal: azure_sql_elastic_pool_sql_elastic_pool_storage_used
+  - id: allocated
+    signal: azure_sql_elastic_pool_sql_elastic_pool_storage_allocated
+  - id: limit
+    signal: azure_sql_elastic_pool_sql_elastic_pool_storage_limit
+- id: azure_monitor.sql_elastic_pool.storage_utilization
+  title: Azure SQL Elastic Pool Storage Utilization
+  units: percentage
+  family: sql
+  chart_type: line
+  priority: 60009
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: used
+    signal: azure_sql_elastic_pool_sql_elastic_pool_storage_utilization_used
+  - id: allocated
+    signal: azure_sql_elastic_pool_sql_elastic_pool_storage_utilization_allocated
+- id: azure_monitor.sql_elastic_pool.xtp_storage
+  title: Azure SQL Elastic Pool In-Memory OLTP Storage
+  units: percentage
+  family: sql
+  chart_type: line
+  priority: 60010
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_sql_elastic_pool_sql_elastic_pool_xtp_storage_average
+- id: azure_monitor.sql_elastic_pool.tempdb_size
+  title: Azure SQL Elastic Pool Tempdb Size
+  units: KiB
+  family: sql
+  chart_type: line
+  priority: 60011
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: data
+    signal: azure_sql_elastic_pool_sql_elastic_pool_tempdb_size_data
+  - id: log
+    signal: azure_sql_elastic_pool_sql_elastic_pool_tempdb_size_log
+- id: azure_monitor.sql_elastic_pool.tempdb_log_utilization
+  title: Azure SQL Elastic Pool Tempdb Log Utilization
+  units: percentage
+  family: sql
+  chart_type: line
+  priority: 60012
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_sql_elastic_pool_sql_elastic_pool_tempdb_log_utilization_average
+- id: azure_monitor.sql_elastic_pool.vcore_usage
+  title: Azure SQL Elastic Pool vCore Usage
+  units: vCores
+  family: sql
+  chart_type: line
+  priority: 60013
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: used
+    signal: azure_sql_elastic_pool_sql_elastic_pool_vcore_usage_used
+  - id: limit
+    signal: azure_sql_elastic_pool_sql_elastic_pool_vcore_usage_limit
+- id: azure_monitor.sql_elastic_pool.edtu_usage
+  title: Azure SQL Elastic Pool eDTU Usage
+  units: eDTU
+  family: sql
+  chart_type: line
+  priority: 60014
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: used
+    signal: azure_sql_elastic_pool_sql_elastic_pool_edtu_usage_used
+  - id: limit
+    signal: azure_sql_elastic_pool_sql_elastic_pool_edtu_usage_limit
+- id: azure_monitor.sql_elastic_pool.serverless_utilization
+  title: Azure SQL Elastic Pool Serverless Utilization
+  units: percentage
+  family: sql
+  chart_type: line
+  priority: 60015
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: cpu
+    signal: azure_sql_elastic_pool_sql_elastic_pool_serverless_utilization_cpu
+  - id: memory
+    signal: azure_sql_elastic_pool_sql_elastic_pool_serverless_utilization_memory
+- id: azure_monitor.sql_elastic_pool.serverless_billing
+  title: Azure SQL Elastic Pool Serverless Billing
+  units: vCore-seconds/s
+  family: sql
+  chart_type: line
+  priority: 60016
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: total
+    signal: azure_sql_elastic_pool_sql_elastic_pool_serverless_billing_total

@@ -1,0 +1,1214 @@
+version: 1
+name: nats
+description: NATS metrics, generated from Netdata's own collector metadata so the contexts, units and
+  dimension names match what a real NATS node reports. Signals are independent and plausible rather than
+  causally coupled - see scripts/sync-integrations.py.
+signals:
+  nats_server_traffic_received:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nats_server_traffic_sent:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nats_server_messages_received:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nats_server_messages_sent:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nats_server_connections_active:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nats_server_connections_rate_connections:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nats_server_health_probe_status_ok:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  nats_server_health_probe_status_error:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  nats_server_cpu_usage_used:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nats_server_mem_usage_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nats_server_uptime_uptime:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nats_jetstream_streams_active:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nats_jetstream_streams_storage_bytes_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nats_jetstream_streams_storage_messages_stored:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nats_jetstream_consumers_active:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nats_jetstream_api_requests_requests:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nats_jetstream_api_errors_errors:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+  nats_jetstream_api_inflight_inflight:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nats_jetstream_memory_used_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nats_jetstream_storage_used_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nats_http_endpoint_requests_requests:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nats_account_traffic_received:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nats_account_traffic_sent:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nats_account_messages_received:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nats_account_messages_sent:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nats_account_connections_active:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nats_account_connections_rate_connections:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nats_account_subscriptions_active:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nats_account_slow_consumers_slow:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nats_account_leaf_nodes_leafnode:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nats_route_traffic_in:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nats_route_traffic_out:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nats_route_messages_in:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nats_route_messages_out:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nats_route_subscriptions_active:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nats_inbound_gateway_conn_traffic_in:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nats_inbound_gateway_conn_traffic_out:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nats_inbound_gateway_conn_messages_in:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nats_inbound_gateway_conn_messages_out:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nats_inbound_gateway_conn_subscriptions_active:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nats_inbound_gateway_conn_uptime_uptime:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nats_outbound_gateway_conn_traffic_in:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nats_outbound_gateway_conn_traffic_out:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nats_outbound_gateway_conn_messages_in:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nats_outbound_gateway_conn_messages_out:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nats_outbound_gateway_conn_subscriptions_active:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nats_outbound_gateway_conn_uptime_uptime:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nats_leaf_node_conn_traffic_in:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nats_leaf_node_conn_traffic_out:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nats_leaf_node_conn_messages_in:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nats_leaf_node_conn_messages_out:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nats_leaf_node_conn_subscriptions_active:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nats_leaf_node_conn_rtt_rtt:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: nats.server_traffic
+  title: Server Traffic
+  units: bytes/s
+  family: server
+  chart_type: area
+  priority: 60001
+  shape: counters
+  labels:
+    cluster_name: sim-cluster_name-1
+    server_id: sim-server_id-1
+    server_name: sim-server_name-1
+  dimensions:
+  - id: received
+    rate_signal: nats_server_traffic_received
+  - id: sent
+    rate_signal: nats_server_traffic_sent
+- id: nats.server_messages
+  title: Server Messages
+  units: messages/s
+  family: server
+  chart_type: line
+  priority: 60002
+  shape: counters
+  labels:
+    cluster_name: sim-cluster_name-1
+    server_id: sim-server_id-1
+    server_name: sim-server_name-1
+  dimensions:
+  - id: received
+    rate_signal: nats_server_messages_received
+  - id: sent
+    rate_signal: nats_server_messages_sent
+- id: nats.server_connections
+  title: Server Active Connections
+  units: connections
+  family: server
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels:
+    cluster_name: sim-cluster_name-1
+    server_id: sim-server_id-1
+    server_name: sim-server_name-1
+  dimensions:
+  - id: active
+    signal: nats_server_connections_active
+- id: nats.server_connections_rate
+  title: Server Connections
+  units: connections/s
+  family: server
+  chart_type: line
+  priority: 60004
+  shape: counters
+  labels:
+    cluster_name: sim-cluster_name-1
+    server_id: sim-server_id-1
+    server_name: sim-server_name-1
+  dimensions:
+  - id: connections
+    rate_signal: nats_server_connections_rate_connections
+- id: nats.server_health_probe_status
+  title: Server Health Probe Status
+  units: status
+  family: server
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels:
+    cluster_name: sim-cluster_name-1
+    server_id: sim-server_id-1
+    server_name: sim-server_name-1
+  dimensions:
+  - id: ok
+    signal: nats_server_health_probe_status_ok
+  - id: error
+    signal: nats_server_health_probe_status_error
+- id: nats.server_cpu_usage
+  title: Server CPU Usage
+  units: percent
+  family: server
+  chart_type: area
+  priority: 60006
+  shape: independent
+  labels:
+    cluster_name: sim-cluster_name-1
+    server_id: sim-server_id-1
+    server_name: sim-server_name-1
+  dimensions:
+  - id: used
+    signal: nats_server_cpu_usage_used
+- id: nats.server_mem_usage
+  title: Server Memory Usage
+  units: bytes
+  family: server
+  chart_type: area
+  priority: 60007
+  shape: independent
+  labels:
+    cluster_name: sim-cluster_name-1
+    server_id: sim-server_id-1
+    server_name: sim-server_name-1
+  dimensions:
+  - id: used
+    signal: nats_server_mem_usage_used
+- id: nats.server_uptime
+  title: Server Uptime
+  units: seconds
+  family: server
+  chart_type: line
+  priority: 60008
+  shape: independent
+  labels:
+    cluster_name: sim-cluster_name-1
+    server_id: sim-server_id-1
+    server_name: sim-server_name-1
+  dimensions:
+  - id: uptime
+    signal: nats_server_uptime_uptime
+- id: nats.jetstream_streams
+  title: JetStream Streams
+  units: streams
+  family: jetstream
+  chart_type: line
+  priority: 60009
+  shape: independent
+  labels:
+    cluster_name: sim-cluster_name-1
+    server_id: sim-server_id-1
+    server_name: sim-server_name-1
+  dimensions:
+  - id: active
+    signal: nats_jetstream_streams_active
+- id: nats.jetstream_streams_storage_bytes
+  title: JetStream Bytes
+  units: bytes
+  family: jetstream
+  chart_type: area
+  priority: 60010
+  shape: independent
+  labels:
+    cluster_name: sim-cluster_name-1
+    server_id: sim-server_id-1
+    server_name: sim-server_name-1
+  dimensions:
+  - id: used
+    signal: nats_jetstream_streams_storage_bytes_used
+- id: nats.jetstream_streams_storage_messages
+  title: JetStream Messages
+  units: messaged
+  family: jetstream
+  chart_type: line
+  priority: 60011
+  shape: independent
+  labels:
+    cluster_name: sim-cluster_name-1
+    server_id: sim-server_id-1
+    server_name: sim-server_name-1
+  dimensions:
+  - id: stored
+    signal: nats_jetstream_streams_storage_messages_stored
+- id: nats.jetstream_consumers
+  title: JetStream Consumers
+  units: consumers
+  family: jetstream
+  chart_type: line
+  priority: 60012
+  shape: independent
+  labels:
+    cluster_name: sim-cluster_name-1
+    server_id: sim-server_id-1
+    server_name: sim-server_name-1
+  dimensions:
+  - id: active
+    signal: nats_jetstream_consumers_active
+- id: nats.jetstream_api_requests
+  title: JetStream API Requests
+  units: requests/s
+  family: jetstream
+  chart_type: line
+  priority: 60013
+  shape: counters
+  labels:
+    cluster_name: sim-cluster_name-1
+    server_id: sim-server_id-1
+    server_name: sim-server_name-1
+  dimensions:
+  - id: requests
+    rate_signal: nats_jetstream_api_requests_requests
+- id: nats.jetstream_api_errors
+  title: JetStream API Errors
+  units: errors/s
+  family: jetstream
+  chart_type: line
+  priority: 60014
+  shape: counters
+  labels:
+    cluster_name: sim-cluster_name-1
+    server_id: sim-server_id-1
+    server_name: sim-server_name-1
+  dimensions:
+  - id: errors
+    rate_signal: nats_jetstream_api_errors_errors
+- id: nats.jetstream_api_inflight
+  title: JetStream API Inflight
+  units: requests
+  family: jetstream
+  chart_type: line
+  priority: 60015
+  shape: independent
+  labels:
+    cluster_name: sim-cluster_name-1
+    server_id: sim-server_id-1
+    server_name: sim-server_name-1
+  dimensions:
+  - id: inflight
+    signal: nats_jetstream_api_inflight_inflight
+- id: nats.jetstream_memory_used
+  title: JetStream Used Memory
+  units: bytes
+  family: jetstream
+  chart_type: area
+  priority: 60016
+  shape: independent
+  labels:
+    cluster_name: sim-cluster_name-1
+    server_id: sim-server_id-1
+    server_name: sim-server_name-1
+  dimensions:
+  - id: used
+    signal: nats_jetstream_memory_used_used
+- id: nats.jetstream_storage_used
+  title: JetStream Used Storage
+  units: bytes
+  family: jetstream
+  chart_type: line
+  priority: 60017
+  shape: independent
+  labels:
+    cluster_name: sim-cluster_name-1
+    server_id: sim-server_id-1
+    server_name: sim-server_name-1
+  dimensions:
+  - id: used
+    signal: nats_jetstream_storage_used_used
+- id: nats.http_endpoint_requests
+  title: HTTP Endpoint Requests
+  units: requests/s
+  family: http
+  chart_type: line
+  priority: 60018
+  shape: counters
+  labels:
+    cluster_name: sim-cluster_name-1
+    server_id: sim-server_id-1
+    server_name: sim-server_name-1
+    http_endpoint: sim-http_endpoint-1
+  dimensions:
+  - id: requests
+    rate_signal: nats_http_endpoint_requests_requests
+- id: nats.account_traffic
+  title: Account Traffic
+  units: bytes/s
+  family: account
+  chart_type: area
+  priority: 60019
+  shape: counters
+  labels:
+    cluster_name: sim-cluster_name-1
+    server_id: sim-server_id-1
+    server_name: sim-server_name-1
+    account: sim-account-1
+  dimensions:
+  - id: received
+    rate_signal: nats_account_traffic_received
+  - id: sent
+    rate_signal: nats_account_traffic_sent
+- id: nats.account_messages
+  title: Account Messages
+  units: messages/s
+  family: account
+  chart_type: line
+  priority: 60020
+  shape: counters
+  labels:
+    cluster_name: sim-cluster_name-1
+    server_id: sim-server_id-1
+    server_name: sim-server_name-1
+    account: sim-account-1
+  dimensions:
+  - id: received
+    rate_signal: nats_account_messages_received
+  - id: sent
+    rate_signal: nats_account_messages_sent
+- id: nats.account_connections
+  title: Account Active Connections
+  units: connections
+  family: account
+  chart_type: line
+  priority: 60021
+  shape: independent
+  labels:
+    cluster_name: sim-cluster_name-1
+    server_id: sim-server_id-1
+    server_name: sim-server_name-1
+    account: sim-account-1
+  dimensions:
+  - id: active
+    signal: nats_account_connections_active
+- id: nats.account_connections_rate
+  title: Account Connections
+  units: connections/s
+  family: account
+  chart_type: line
+  priority: 60022
+  shape: counters
+  labels:
+    cluster_name: sim-cluster_name-1
+    server_id: sim-server_id-1
+    server_name: sim-server_name-1
+    account: sim-account-1
+  dimensions:
+  - id: connections
+    rate_signal: nats_account_connections_rate_connections
+- id: nats.account_subscriptions
+  title: Account Active Subscriptions
+  units: subscriptions
+  family: account
+  chart_type: line
+  priority: 60023
+  shape: independent
+  labels:
+    cluster_name: sim-cluster_name-1
+    server_id: sim-server_id-1
+    server_name: sim-server_name-1
+    account: sim-account-1
+  dimensions:
+  - id: active
+    signal: nats_account_subscriptions_active
+- id: nats.account_slow_consumers
+  title: Account Slow Consumers
+  units: consumers/s
+  family: account
+  chart_type: line
+  priority: 60024
+  shape: counters
+  labels:
+    cluster_name: sim-cluster_name-1
+    server_id: sim-server_id-1
+    server_name: sim-server_name-1
+    account: sim-account-1
+  dimensions:
+  - id: slow
+    rate_signal: nats_account_slow_consumers_slow
+- id: nats.account_leaf_nodes
+  title: Account Leaf Nodes
+  units: servers
+  family: account
+  chart_type: line
+  priority: 60025
+  shape: independent
+  labels:
+    cluster_name: sim-cluster_name-1
+    server_id: sim-server_id-1
+    server_name: sim-server_name-1
+    account: sim-account-1
+  dimensions:
+  - id: leafnode
+    signal: nats_account_leaf_nodes_leafnode
+- id: nats.route_traffic
+  title: Route Traffic
+  units: bytes/s
+  family: route
+  chart_type: area
+  priority: 60026
+  shape: counters
+  labels:
+    cluster_name: sim-cluster_name-1
+    server_id: sim-server_id-1
+    server_name: sim-server_name-1
+    route_id: sim-route_id-1
+    remote_id: sim-remote_id-1
+  dimensions:
+  - id: in
+    rate_signal: nats_route_traffic_in
+  - id: out
+    rate_signal: nats_route_traffic_out
+- id: nats.route_messages
+  title: Route Messages
+  units: messages/s
+  family: route
+  chart_type: line
+  priority: 60027
+  shape: counters
+  labels:
+    cluster_name: sim-cluster_name-1
+    server_id: sim-server_id-1
+    server_name: sim-server_name-1
+    route_id: sim-route_id-1
+    remote_id: sim-remote_id-1
+  dimensions:
+  - id: in
+    rate_signal: nats_route_messages_in
+  - id: out
+    rate_signal: nats_route_messages_out
+- id: nats.route_subscriptions
+  title: Route Active Subscriptions
+  units: subscriptions
+  family: route
+  chart_type: line
+  priority: 60028
+  shape: independent
+  labels:
+    cluster_name: sim-cluster_name-1
+    server_id: sim-server_id-1
+    server_name: sim-server_name-1
+    route_id: sim-route_id-1
+    remote_id: sim-remote_id-1
+  dimensions:
+  - id: active
+    signal: nats_route_subscriptions_active
+- id: nats.inbound_gateway_conn_traffic
+  title: Inbound Gateway Traffic
+  units: bytes/s
+  family: inbound
+  chart_type: area
+  priority: 60029
+  shape: counters
+  labels:
+    cluster_name: sim-cluster_name-1
+    server_id: sim-server_id-1
+    server_name: sim-server_name-1
+    gateway: sim-gateway-1
+    remote_gateway: sim-remote_gateway-1
+    cid: sim-cid-1
+  dimensions:
+  - id: in
+    rate_signal: nats_inbound_gateway_conn_traffic_in
+  - id: out
+    rate_signal: nats_inbound_gateway_conn_traffic_out
+- id: nats.inbound_gateway_conn_messages
+  title: Inbound Gateway Messages
+  units: messages/s
+  family: inbound
+  chart_type: line
+  priority: 60030
+  shape: counters
+  labels:
+    cluster_name: sim-cluster_name-1
+    server_id: sim-server_id-1
+    server_name: sim-server_name-1
+    gateway: sim-gateway-1
+    remote_gateway: sim-remote_gateway-1
+    cid: sim-cid-1
+  dimensions:
+  - id: in
+    rate_signal: nats_inbound_gateway_conn_messages_in
+  - id: out
+    rate_signal: nats_inbound_gateway_conn_messages_out
+- id: nats.inbound_gateway_conn_subscriptions
+  title: Inbound Gateway Active Subscriptions
+  units: subscriptions
+  family: inbound
+  chart_type: line
+  priority: 60031
+  shape: independent
+  labels:
+    cluster_name: sim-cluster_name-1
+    server_id: sim-server_id-1
+    server_name: sim-server_name-1
+    gateway: sim-gateway-1
+    remote_gateway: sim-remote_gateway-1
+    cid: sim-cid-1
+  dimensions:
+  - id: active
+    signal: nats_inbound_gateway_conn_subscriptions_active
+- id: nats.inbound_gateway_conn_uptime
+  title: Inbound Gateway Connection Uptime
+  units: seconds
+  family: inbound
+  chart_type: line
+  priority: 60032
+  shape: independent
+  labels:
+    cluster_name: sim-cluster_name-1
+    server_id: sim-server_id-1
+    server_name: sim-server_name-1
+    gateway: sim-gateway-1
+    remote_gateway: sim-remote_gateway-1
+    cid: sim-cid-1
+  dimensions:
+  - id: uptime
+    signal: nats_inbound_gateway_conn_uptime_uptime
+- id: nats.outbound_gateway_conn_traffic
+  title: Outbound Gateway Traffic
+  units: bytes/s
+  family: outbound
+  chart_type: area
+  priority: 60033
+  shape: counters
+  labels:
+    cluster_name: sim-cluster_name-1
+    server_id: sim-server_id-1
+    server_name: sim-server_name-1
+    gateway: sim-gateway-1
+    remote_gateway: sim-remote_gateway-1
+    cid: sim-cid-1
+  dimensions:
+  - id: in
+    rate_signal: nats_outbound_gateway_conn_traffic_in
+  - id: out
+    rate_signal: nats_outbound_gateway_conn_traffic_out
+- id: nats.outbound_gateway_conn_messages
+  title: Outbound Gateway Messages
+  units: messages/s
+  family: outbound
+  chart_type: line
+  priority: 60034
+  shape: counters
+  labels:
+    cluster_name: sim-cluster_name-1
+    server_id: sim-server_id-1
+    server_name: sim-server_name-1
+    gateway: sim-gateway-1
+    remote_gateway: sim-remote_gateway-1
+    cid: sim-cid-1
+  dimensions:
+  - id: in
+    rate_signal: nats_outbound_gateway_conn_messages_in
+  - id: out
+    rate_signal: nats_outbound_gateway_conn_messages_out
+- id: nats.outbound_gateway_conn_subscriptions
+  title: Outbound Gateway Active Subscriptions
+  units: subscriptions
+  family: outbound
+  chart_type: line
+  priority: 60035
+  shape: independent
+  labels:
+    cluster_name: sim-cluster_name-1
+    server_id: sim-server_id-1
+    server_name: sim-server_name-1
+    gateway: sim-gateway-1
+    remote_gateway: sim-remote_gateway-1
+    cid: sim-cid-1
+  dimensions:
+  - id: active
+    signal: nats_outbound_gateway_conn_subscriptions_active
+- id: nats.outbound_gateway_conn_uptime
+  title: Outbound Gateway Connection Uptime
+  units: seconds
+  family: outbound
+  chart_type: line
+  priority: 60036
+  shape: independent
+  labels:
+    cluster_name: sim-cluster_name-1
+    server_id: sim-server_id-1
+    server_name: sim-server_name-1
+    gateway: sim-gateway-1
+    remote_gateway: sim-remote_gateway-1
+    cid: sim-cid-1
+  dimensions:
+  - id: uptime
+    signal: nats_outbound_gateway_conn_uptime_uptime
+- id: nats.leaf_node_conn_traffic
+  title: Leaf Node Connection Traffic
+  units: bytes/s
+  family: leaf
+  chart_type: area
+  priority: 60037
+  shape: counters
+  labels:
+    cluster_name: sim-cluster_name-1
+    server_id: sim-server_id-1
+    server_name: sim-server_name-1
+    remote_name: sim-remote_name-1
+    account: sim-account-1
+    ip: sim-ip-1
+    port: sim-port-1
+  dimensions:
+  - id: in
+    rate_signal: nats_leaf_node_conn_traffic_in
+  - id: out
+    rate_signal: nats_leaf_node_conn_traffic_out
+- id: nats.leaf_node_conn_messages
+  title: Leaf Node Connection Messages
+  units: messages/s
+  family: leaf
+  chart_type: line
+  priority: 60038
+  shape: counters
+  labels:
+    cluster_name: sim-cluster_name-1
+    server_id: sim-server_id-1
+    server_name: sim-server_name-1
+    remote_name: sim-remote_name-1
+    account: sim-account-1
+    ip: sim-ip-1
+    port: sim-port-1
+  dimensions:
+  - id: in
+    rate_signal: nats_leaf_node_conn_messages_in
+  - id: out
+    rate_signal: nats_leaf_node_conn_messages_out
+- id: nats.leaf_node_conn_subscriptions
+  title: Leaf Node Connection Active Subscriptions
+  units: subscriptions
+  family: leaf
+  chart_type: line
+  priority: 60039
+  shape: independent
+  labels:
+    cluster_name: sim-cluster_name-1
+    server_id: sim-server_id-1
+    server_name: sim-server_name-1
+    remote_name: sim-remote_name-1
+    account: sim-account-1
+    ip: sim-ip-1
+    port: sim-port-1
+  dimensions:
+  - id: active
+    signal: nats_leaf_node_conn_subscriptions_active
+- id: nats.leaf_node_conn_rtt
+  title: Leaf Node Connection RTT
+  units: microseconds
+  family: leaf
+  chart_type: line
+  priority: 60040
+  shape: independent
+  labels:
+    cluster_name: sim-cluster_name-1
+    server_id: sim-server_id-1
+    server_name: sim-server_name-1
+    remote_name: sim-remote_name-1
+    account: sim-account-1
+    ip: sim-ip-1
+    port: sim-port-1
+  dimensions:
+  - id: rtt
+    signal: nats_leaf_node_conn_rtt_rtt

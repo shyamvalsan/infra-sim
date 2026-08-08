@@ -1,0 +1,116 @@
+version: 1
+name: optical-modules
+description: Optical modules metrics, generated from Netdata's own collector metadata so the contexts,
+  units and dimension names match what a real Optical modules node reports. Signals are independent and
+  plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  optical_modules_optical_module_receiver_signal_power_rx_power:
+    base: -62.0
+    min: -120.0
+    max: 30.0
+    noise:
+      kind: walk
+      sigma: 0.04
+      reversion: 0.1
+  optical_modules_optical_module_laser_output_power_tx_power:
+    base: -62.0
+    min: -120.0
+    max: 30.0
+    noise:
+      kind: walk
+      sigma: 0.04
+      reversion: 0.1
+  optical_modules_optical_module_laser_bias_current_bias_current:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  optical_modules_optical_module_temperature_temperature:
+    base: 41.0
+    min: 0.0
+    max: 120.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  optical_modules_optical_module_voltage_voltage:
+    base: 12.0
+    min: 0.0
+    max: 480.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: ethtool.optical_module_receiver_signal_power
+  title: Module Receiver Signal Average Optical Power
+  units: dBm
+  family: optical
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels:
+    iface: sim-iface-1
+  dimensions:
+  - id: rx_power
+    signal: optical_modules_optical_module_receiver_signal_power_rx_power
+- id: ethtool.optical_module_laser_output_power
+  title: Module Laser Output Power
+  units: dBm
+  family: optical
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels:
+    iface: sim-iface-1
+  dimensions:
+  - id: tx_power
+    signal: optical_modules_optical_module_laser_output_power_tx_power
+- id: ethtool.optical_module_laser_bias_current
+  title: Module Laser Bias Current
+  units: mA
+  family: optical
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels:
+    iface: sim-iface-1
+  dimensions:
+  - id: bias_current
+    signal: optical_modules_optical_module_laser_bias_current_bias_current
+- id: ethtool.optical_module_temperature
+  title: Module Temperature
+  units: Celsius
+  family: optical
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels:
+    iface: sim-iface-1
+  dimensions:
+  - id: temperature
+    signal: optical_modules_optical_module_temperature_temperature
+- id: ethtool.optical_module_voltage
+  title: Module Voltage
+  units: Volts
+  family: optical
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels:
+    iface: sim-iface-1
+  dimensions:
+  - id: voltage
+    signal: optical_modules_optical_module_voltage_voltage

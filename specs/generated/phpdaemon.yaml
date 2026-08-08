@@ -1,0 +1,160 @@
+version: 1
+name: phpdaemon
+description: phpDaemon metrics, generated from Netdata's own collector metadata so the contexts, units
+  and dimension names match what a real phpDaemon node reports. Signals are independent and plausible
+  rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  phpdaemon_workers_alive:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  phpdaemon_workers_shutdown:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  phpdaemon_alive_workers_idle:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  phpdaemon_alive_workers_busy:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  phpdaemon_alive_workers_reloading:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  phpdaemon_idle_workers_preinit:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  phpdaemon_idle_workers_init:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  phpdaemon_idle_workers_initialized:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  phpdaemon_uptime_time:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: phpdaemon.workers
+  title: Workers
+  units: workers
+  family: workers
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: alive
+    signal: phpdaemon_workers_alive
+  - id: shutdown
+    signal: phpdaemon_workers_shutdown
+- id: phpdaemon.alive_workers
+  title: Alive Workers State
+  units: workers
+  family: alive
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: idle
+    signal: phpdaemon_alive_workers_idle
+  - id: busy
+    signal: phpdaemon_alive_workers_busy
+  - id: reloading
+    signal: phpdaemon_alive_workers_reloading
+- id: phpdaemon.idle_workers
+  title: Idle Workers State
+  units: workers
+  family: idle
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: preinit
+    signal: phpdaemon_idle_workers_preinit
+  - id: init
+    signal: phpdaemon_idle_workers_init
+  - id: initialized
+    signal: phpdaemon_idle_workers_initialized
+- id: phpdaemon.uptime
+  title: Uptime
+  units: seconds
+  family: uptime
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: time
+    signal: phpdaemon_uptime_time

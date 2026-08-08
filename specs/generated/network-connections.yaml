@@ -1,0 +1,398 @@
+version: 1
+name: network-connections
+description: Network Connections metrics, generated from Netdata's own collector metadata so the contexts,
+  units and dimension names match what a real Network Connections node reports. Signals are independent
+  and plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  network_connections_collector_ipc_apps_lookup_client_requests_requests_sent:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_connections_collector_ipc_apps_lookup_client_requests_requests_responded:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_connections_collector_ipc_apps_lookup_client_requests_requests_failed:
+    base: 0.0
+    min: 0.0
+    max: 5000000.0
+  network_connections_collector_ipc_apps_lookup_client_cache_cache_hits:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_connections_collector_ipc_apps_lookup_client_cache_cache_misses_unknown:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_connections_collector_ipc_apps_lookup_client_cache_cache_misses_intake_dropped:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  network_connections_collector_ipc_apps_lookup_client_cache_cache_evictions_pid_reuse:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_connections_collector_ipc_apps_lookup_client_cache_cache_evictions_lru:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_connections_collector_ipc_apps_lookup_client_peer_peer_connect_attempts:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_connections_collector_ipc_apps_lookup_client_peer_peer_disconnects:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_connections_collector_ipc_apps_lookup_client_worker_request_duration_ms_le_1ms:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_connections_collector_ipc_apps_lookup_client_worker_request_duration_ms_le_5ms:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_connections_collector_ipc_apps_lookup_client_worker_request_duration_ms_le_10ms:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_connections_collector_ipc_apps_lookup_client_worker_request_duration_ms_le_50ms:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_connections_collector_ipc_apps_lookup_client_worker_request_duration_ms_le_100ms:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_connections_collector_ipc_apps_lookup_client_worker_request_duration_ms_le_500ms:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_connections_collector_ipc_apps_lookup_client_worker_request_duration_ms_le_1000ms:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_connections_collector_ipc_apps_lookup_client_worker_request_duration_ms_gt_1000ms:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_connections_collector_ipc_apps_lookup_client_function_handler_overhead_ms_le_1ms:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_connections_collector_ipc_apps_lookup_client_function_handler_overhead_ms_le_5ms:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_connections_collector_ipc_apps_lookup_client_function_handler_overhead_ms_le_10ms:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_connections_collector_ipc_apps_lookup_client_function_handler_overhead_ms_le_50ms:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_connections_collector_ipc_apps_lookup_client_function_handler_overhead_ms_le_100ms:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_connections_collector_ipc_apps_lookup_client_function_handler_overhead_ms_le_500ms:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_connections_collector_ipc_apps_lookup_client_function_handler_overhead_ms_le_1000ms:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_connections_collector_ipc_apps_lookup_client_function_handler_overhead_ms_gt_1000ms:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_connections_collector_ipc_apps_lookup_client_intake_depth_intake_depth:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: netdata.collector.ipc.apps_lookup.client.requests
+  title: APPS_LOOKUP client request outcomes
+  units: requests/s
+  family: collector.ipc.apps
+  chart_type: line
+  priority: 60001
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: requests_sent
+    rate_signal: network_connections_collector_ipc_apps_lookup_client_requests_requests_sent
+  - id: requests_responded
+    rate_signal: network_connections_collector_ipc_apps_lookup_client_requests_requests_responded
+  - id: requests_failed
+    rate_signal: network_connections_collector_ipc_apps_lookup_client_requests_requests_failed
+- id: netdata.collector.ipc.apps_lookup.client.cache
+  title: APPS_LOOKUP client cache outcomes
+  units: events/s
+  family: collector.ipc.apps
+  chart_type: line
+  priority: 60002
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: cache_hits
+    rate_signal: network_connections_collector_ipc_apps_lookup_client_cache_cache_hits
+  - id: cache_misses_unknown
+    rate_signal: network_connections_collector_ipc_apps_lookup_client_cache_cache_misses_unknown
+  - id: cache_misses_intake_dropped
+    rate_signal: network_connections_collector_ipc_apps_lookup_client_cache_cache_misses_intake_dropped
+  - id: cache_evictions_pid_reuse
+    rate_signal: network_connections_collector_ipc_apps_lookup_client_cache_cache_evictions_pid_reuse
+  - id: cache_evictions_lru
+    rate_signal: network_connections_collector_ipc_apps_lookup_client_cache_cache_evictions_lru
+- id: netdata.collector.ipc.apps_lookup.client.peer
+  title: APPS_LOOKUP client peer connection events
+  units: events/s
+  family: collector.ipc.apps
+  chart_type: line
+  priority: 60003
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: peer_connect_attempts
+    rate_signal: network_connections_collector_ipc_apps_lookup_client_peer_peer_connect_attempts
+  - id: peer_disconnects
+    rate_signal: network_connections_collector_ipc_apps_lookup_client_peer_peer_disconnects
+- id: netdata.collector.ipc.apps_lookup.client.worker_request_duration_ms
+  title: APPS_LOOKUP worker request duration buckets
+  units: requests/s
+  family: collector.ipc.apps
+  chart_type: stacked
+  priority: 60004
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: le_1ms
+    rate_signal: network_connections_collector_ipc_apps_lookup_client_worker_request_duration_ms_le_1ms
+  - id: le_5ms
+    rate_signal: network_connections_collector_ipc_apps_lookup_client_worker_request_duration_ms_le_5ms
+  - id: le_10ms
+    rate_signal: network_connections_collector_ipc_apps_lookup_client_worker_request_duration_ms_le_10ms
+  - id: le_50ms
+    rate_signal: network_connections_collector_ipc_apps_lookup_client_worker_request_duration_ms_le_50ms
+  - id: le_100ms
+    rate_signal: network_connections_collector_ipc_apps_lookup_client_worker_request_duration_ms_le_100ms
+  - id: le_500ms
+    rate_signal: network_connections_collector_ipc_apps_lookup_client_worker_request_duration_ms_le_500ms
+  - id: le_1000ms
+    rate_signal: network_connections_collector_ipc_apps_lookup_client_worker_request_duration_ms_le_1000ms
+  - id: gt_1000ms
+    rate_signal: network_connections_collector_ipc_apps_lookup_client_worker_request_duration_ms_gt_1000ms
+- id: netdata.collector.ipc.apps_lookup.client.function_handler_overhead_ms
+  title: APPS_LOOKUP Function handler cache-check and intake-enqueue overhead buckets
+  units: calls/s
+  family: collector.ipc.apps
+  chart_type: stacked
+  priority: 60005
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: le_1ms
+    rate_signal: network_connections_collector_ipc_apps_lookup_client_function_handler_overhead_ms_le_1ms
+  - id: le_5ms
+    rate_signal: network_connections_collector_ipc_apps_lookup_client_function_handler_overhead_ms_le_5ms
+  - id: le_10ms
+    rate_signal: network_connections_collector_ipc_apps_lookup_client_function_handler_overhead_ms_le_10ms
+  - id: le_50ms
+    rate_signal: network_connections_collector_ipc_apps_lookup_client_function_handler_overhead_ms_le_50ms
+  - id: le_100ms
+    rate_signal: network_connections_collector_ipc_apps_lookup_client_function_handler_overhead_ms_le_100ms
+  - id: le_500ms
+    rate_signal: network_connections_collector_ipc_apps_lookup_client_function_handler_overhead_ms_le_500ms
+  - id: le_1000ms
+    rate_signal: network_connections_collector_ipc_apps_lookup_client_function_handler_overhead_ms_le_1000ms
+  - id: gt_1000ms
+    rate_signal: network_connections_collector_ipc_apps_lookup_client_function_handler_overhead_ms_gt_1000ms
+- id: netdata.collector.ipc.apps_lookup.client.intake_depth
+  title: APPS_LOOKUP client queued PIDs awaiting worker lookup
+  units: pids
+  family: collector.ipc.apps
+  chart_type: line
+  priority: 60006
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: intake_depth
+    signal: network_connections_collector_ipc_apps_lookup_client_intake_depth_intake_depth

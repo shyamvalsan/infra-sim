@@ -1,0 +1,761 @@
+version: 1
+name: active-directory-federation-service
+description: Active Directory Federation Service metrics, generated from Netdata's own collector metadata
+  so the contexts, units and dimension names match what a real Active Directory Federation Service node
+  reports. Signals are independent and plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  active_directory_federation_service_ad_login_connection_failures_connection:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  active_directory_federation_service_certificate_authentications_authentications:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  active_directory_federation_service_db_artifact_failures_connection:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  active_directory_federation_service_db_artifact_query_time_seconds_query_time:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  active_directory_federation_service_db_config_failures_connection:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  active_directory_federation_service_db_config_query_time_seconds_query_time:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  active_directory_federation_service_device_authentications_authentications:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  active_directory_federation_service_extranet_account_lockouts_lockouts:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  active_directory_federation_service_external_authentications_success:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  active_directory_federation_service_external_authentications_failure:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  active_directory_federation_service_federated_authentications_authentications:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  active_directory_federation_service_federation_metadata_requests_requests:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  active_directory_federation_service_oauth_authorization_requests_requests:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  active_directory_federation_service_oauth_client_authentications_success:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  active_directory_federation_service_oauth_client_authentications_failure:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  active_directory_federation_service_oauth_client_credentials_requests_success:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  active_directory_federation_service_oauth_client_credentials_requests_failure:
+    base: 0.0
+    min: 0.0
+    max: 5000000.0
+  active_directory_federation_service_oauth_client_privkey_jwt_authentications_success:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  active_directory_federation_service_oauth_client_privkey_jwt_authentications_failure:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  active_directory_federation_service_oauth_client_secret_basic_authentications_success:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  active_directory_federation_service_oauth_client_secret_basic_authentications_failure:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  active_directory_federation_service_oauth_client_secret_post_authentications_success:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  active_directory_federation_service_oauth_client_secret_post_authentications_failure:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  active_directory_federation_service_oauth_client_windows_authentications_success:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  active_directory_federation_service_oauth_client_windows_authentications_failure:
+    base: 0.0
+    min: 0.0
+    max: 5000000.0
+  active_directory_federation_service_oauth_logon_certificate_requests_success:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  active_directory_federation_service_oauth_logon_certificate_requests_failure:
+    base: 0.0
+    min: 0.0
+    max: 5000000.0
+  active_directory_federation_service_oauth_password_grant_requests_success:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  active_directory_federation_service_oauth_password_grant_requests_failure:
+    base: 0.0
+    min: 0.0
+    max: 5000000.0
+  active_directory_federation_service_oauth_token_requests_success_success:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  active_directory_federation_service_passive_requests_passive:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  active_directory_federation_service_passport_authentications_passport:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  active_directory_federation_service_password_change_requests_success:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  active_directory_federation_service_password_change_requests_failure:
+    base: 0.0
+    min: 0.0
+    max: 5000000.0
+  active_directory_federation_service_samlp_token_requests_success_success:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  active_directory_federation_service_sso_authentications_success:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  active_directory_federation_service_sso_authentications_failure:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  active_directory_federation_service_token_requests_requests:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  active_directory_federation_service_userpassword_authentications_success:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  active_directory_federation_service_userpassword_authentications_failure:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  active_directory_federation_service_windows_integrated_authentications_authentications:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  active_directory_federation_service_wsfed_token_requests_success_success:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  active_directory_federation_service_wstrust_token_requests_success_success:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: adfs.ad_login_connection_failures
+  title: Connection failures
+  units: failures/s
+  family: ad
+  chart_type: line
+  priority: 60001
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: connection
+    rate_signal: active_directory_federation_service_ad_login_connection_failures_connection
+- id: adfs.certificate_authentications
+  title: User Certificate authentications
+  units: authentications/s
+  family: certificate
+  chart_type: line
+  priority: 60002
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: authentications
+    rate_signal: active_directory_federation_service_certificate_authentications_authentications
+- id: adfs.db_artifact_failures
+  title: Connection failures to the artifact database
+  units: failures/s
+  family: db
+  chart_type: line
+  priority: 60003
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: connection
+    rate_signal: active_directory_federation_service_db_artifact_failures_connection
+- id: adfs.db_artifact_query_time_seconds
+  title: Time taken for an artifact database query
+  units: seconds/s
+  family: db
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: query_time
+    signal: active_directory_federation_service_db_artifact_query_time_seconds_query_time
+- id: adfs.db_config_failures
+  title: Connection failures to the configuration database
+  units: failures/s
+  family: db
+  chart_type: line
+  priority: 60005
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: connection
+    rate_signal: active_directory_federation_service_db_config_failures_connection
+- id: adfs.db_config_query_time_seconds
+  title: Time taken for a configuration database query
+  units: seconds/s
+  family: db
+  chart_type: line
+  priority: 60006
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: query_time
+    signal: active_directory_federation_service_db_config_query_time_seconds_query_time
+- id: adfs.device_authentications
+  title: Device authentications
+  units: authentications/s
+  family: device
+  chart_type: line
+  priority: 60007
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: authentications
+    rate_signal: active_directory_federation_service_device_authentications_authentications
+- id: adfs.extranet_account_lockouts
+  title: Extranet account lockouts
+  units: lockouts/s
+  family: extranet
+  chart_type: line
+  priority: 60008
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: lockouts
+    rate_signal: active_directory_federation_service_extranet_account_lockouts_lockouts
+- id: adfs.external_authentications
+  title: Authentications from external MFA providers
+  units: authentications/s
+  family: external
+  chart_type: line
+  priority: 60009
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: success
+    rate_signal: active_directory_federation_service_external_authentications_success
+  - id: failure
+    rate_signal: active_directory_federation_service_external_authentications_failure
+- id: adfs.federated_authentications
+  title: Authentications from Federated Sources
+  units: authentications/s
+  family: federated
+  chart_type: line
+  priority: 60010
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: authentications
+    rate_signal: active_directory_federation_service_federated_authentications_authentications
+- id: adfs.federation_metadata_requests
+  title: Federation Metadata requests
+  units: requests/s
+  family: federation
+  chart_type: line
+  priority: 60011
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: requests
+    rate_signal: active_directory_federation_service_federation_metadata_requests_requests
+- id: adfs.oauth_authorization_requests
+  title: Incoming requests to the OAuth Authorization endpoint
+  units: requests/s
+  family: oauth
+  chart_type: line
+  priority: 60012
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: requests
+    rate_signal: active_directory_federation_service_oauth_authorization_requests_requests
+- id: adfs.oauth_client_authentications
+  title: OAuth client credentials requests
+  units: authentications/s
+  family: oauth
+  chart_type: line
+  priority: 60013
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: success
+    rate_signal: active_directory_federation_service_oauth_client_authentications_success
+  - id: failure
+    rate_signal: active_directory_federation_service_oauth_client_authentications_failure
+- id: adfs.oauth_client_credentials_requests
+  title: OAuth client credentials requests
+  units: requests/s
+  family: oauth
+  chart_type: line
+  priority: 60014
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: success
+    rate_signal: active_directory_federation_service_oauth_client_credentials_requests_success
+  - id: failure
+    rate_signal: active_directory_federation_service_oauth_client_credentials_requests_failure
+- id: adfs.oauth_client_privkey_jwt_authentications
+  title: OAuth client private key JWT authentications
+  units: authentications/s
+  family: oauth
+  chart_type: line
+  priority: 60015
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: success
+    rate_signal: active_directory_federation_service_oauth_client_privkey_jwt_authentications_success
+  - id: failure
+    rate_signal: active_directory_federation_service_oauth_client_privkey_jwt_authentications_failure
+- id: adfs.oauth_client_secret_basic_authentications
+  title: OAuth client secret basic authentications
+  units: authentications/s
+  family: oauth
+  chart_type: line
+  priority: 60016
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: success
+    rate_signal: active_directory_federation_service_oauth_client_secret_basic_authentications_success
+  - id: failure
+    rate_signal: active_directory_federation_service_oauth_client_secret_basic_authentications_failure
+- id: adfs.oauth_client_secret_post_authentications
+  title: OAuth client secret post authentications
+  units: authentications/s
+  family: oauth
+  chart_type: line
+  priority: 60017
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: success
+    rate_signal: active_directory_federation_service_oauth_client_secret_post_authentications_success
+  - id: failure
+    rate_signal: active_directory_federation_service_oauth_client_secret_post_authentications_failure
+- id: adfs.oauth_client_windows_authentications
+  title: OAuth client windows integrated authentications
+  units: requests/s
+  family: oauth
+  chart_type: line
+  priority: 60018
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: success
+    rate_signal: active_directory_federation_service_oauth_client_windows_authentications_success
+  - id: failure
+    rate_signal: active_directory_federation_service_oauth_client_windows_authentications_failure
+- id: adfs.oauth_logon_certificate_requests
+  title: OAuth logon certificate requests
+  units: requests/s
+  family: oauth
+  chart_type: line
+  priority: 60019
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: success
+    rate_signal: active_directory_federation_service_oauth_logon_certificate_requests_success
+  - id: failure
+    rate_signal: active_directory_federation_service_oauth_logon_certificate_requests_failure
+- id: adfs.oauth_password_grant_requests
+  title: OAuth password grant requests
+  units: requests/s
+  family: oauth
+  chart_type: line
+  priority: 60020
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: success
+    rate_signal: active_directory_federation_service_oauth_password_grant_requests_success
+  - id: failure
+    rate_signal: active_directory_federation_service_oauth_password_grant_requests_failure
+- id: adfs.oauth_token_requests_success
+  title: Successful RP token requests over OAuth protocol
+  units: requests/s
+  family: oauth
+  chart_type: line
+  priority: 60021
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: success
+    rate_signal: active_directory_federation_service_oauth_token_requests_success_success
+- id: adfs.passive_requests
+  title: Passive requests
+  units: requests/s
+  family: passive
+  chart_type: line
+  priority: 60022
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: passive
+    rate_signal: active_directory_federation_service_passive_requests_passive
+- id: adfs.passport_authentications
+  title: Microsoft Passport SSO authentications
+  units: authentications/s
+  family: passport
+  chart_type: line
+  priority: 60023
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: passport
+    rate_signal: active_directory_federation_service_passport_authentications_passport
+- id: adfs.password_change_requests
+  title: Password change requests
+  units: requests/s
+  family: password
+  chart_type: line
+  priority: 60024
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: success
+    rate_signal: active_directory_federation_service_password_change_requests_success
+  - id: failure
+    rate_signal: active_directory_federation_service_password_change_requests_failure
+- id: adfs.samlp_token_requests_success
+  title: Successful RP token requests over SAML-P protocol
+  units: requests/s
+  family: samlp
+  chart_type: line
+  priority: 60025
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: success
+    rate_signal: active_directory_federation_service_samlp_token_requests_success_success
+- id: adfs.sso_authentications
+  title: SSO authentications
+  units: authentications/s
+  family: sso
+  chart_type: line
+  priority: 60026
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: success
+    rate_signal: active_directory_federation_service_sso_authentications_success
+  - id: failure
+    rate_signal: active_directory_federation_service_sso_authentications_failure
+- id: adfs.token_requests
+  title: Token access requests
+  units: requests/s
+  family: token
+  chart_type: line
+  priority: 60027
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: requests
+    rate_signal: active_directory_federation_service_token_requests_requests
+- id: adfs.userpassword_authentications
+  title: AD U/P authentications
+  units: authentications/s
+  family: userpassword
+  chart_type: line
+  priority: 60028
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: success
+    rate_signal: active_directory_federation_service_userpassword_authentications_success
+  - id: failure
+    rate_signal: active_directory_federation_service_userpassword_authentications_failure
+- id: adfs.windows_integrated_authentications
+  title: Windows integrated authentications using Kerberos or NTLM
+  units: authentications/s
+  family: windows
+  chart_type: line
+  priority: 60029
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: authentications
+    rate_signal: active_directory_federation_service_windows_integrated_authentications_authentications
+- id: adfs.wsfed_token_requests_success
+  title: Successful RP token requests over WS-Fed protocol
+  units: requests/s
+  family: wsfed
+  chart_type: line
+  priority: 60030
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: success
+    rate_signal: active_directory_federation_service_wsfed_token_requests_success_success
+- id: adfs.wstrust_token_requests_success
+  title: Successful RP token requests over WS-Trust protocol
+  units: requests/s
+  family: wstrust
+  chart_type: line
+  priority: 60031
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: success
+    rate_signal: active_directory_federation_service_wstrust_token_requests_success_success

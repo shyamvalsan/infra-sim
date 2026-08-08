@@ -1,0 +1,257 @@
+version: 1
+name: litespeed
+description: Litespeed metrics, generated from Netdata's own collector metadata so the contexts, units
+  and dimension names match what a real Litespeed node reports. Signals are independent and plausible
+  rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  litespeed_requests_requests:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  litespeed_requests_processing_processing:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  litespeed_net_throughput_in:
+    base: 18000.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  litespeed_net_throughput_out:
+    base: 18000.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  litespeed_net_ssl_throughput_in:
+    base: 18000.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  litespeed_net_ssl_throughput_out:
+    base: 18000.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  litespeed_connections_free:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  litespeed_connections_used:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  litespeed_ssl_connections_free:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  litespeed_ssl_connections_used:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  litespeed_public_cache_hits:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  litespeed_private_cache_hits:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  litespeed_static_hits:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: litespeed.requests
+  title: Requests
+  units: requests/s
+  family: requests
+  chart_type: line
+  priority: 60001
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: requests
+    rate_signal: litespeed_requests_requests
+- id: litespeed.requests_processing
+  title: Requests In Processing
+  units: requests
+  family: requests
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: processing
+    signal: litespeed_requests_processing_processing
+- id: litespeed.net_throughput
+  title: Network Throughput HTTP
+  units: kilobits/s
+  family: net
+  chart_type: area
+  priority: 60003
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: in
+    rate_signal: litespeed_net_throughput_in
+  - id: out
+    rate_signal: litespeed_net_throughput_out
+- id: litespeed.net_ssl_throughput
+  title: Network Throughput HTTPS
+  units: kilobits/s
+  family: net
+  chart_type: area
+  priority: 60004
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: in
+    rate_signal: litespeed_net_ssl_throughput_in
+  - id: out
+    rate_signal: litespeed_net_ssl_throughput_out
+- id: litespeed.connections
+  title: Connections HTTP
+  units: conns
+  family: connections
+  chart_type: stacked
+  priority: 60005
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: free
+    signal: litespeed_connections_free
+  - id: used
+    signal: litespeed_connections_used
+- id: litespeed.ssl_connections
+  title: Connections HTTPS
+  units: conns
+  family: ssl
+  chart_type: stacked
+  priority: 60006
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: free
+    signal: litespeed_ssl_connections_free
+  - id: used
+    signal: litespeed_ssl_connections_used
+- id: litespeed.public_cache
+  title: Public Cache Hits
+  units: hits/s
+  family: public
+  chart_type: line
+  priority: 60007
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: hits
+    rate_signal: litespeed_public_cache_hits
+- id: litespeed.private_cache
+  title: Private Cache Hits
+  units: hits/s
+  family: private
+  chart_type: line
+  priority: 60008
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: hits
+    rate_signal: litespeed_private_cache_hits
+- id: litespeed.static
+  title: Static Hits
+  units: hits/s
+  family: static
+  chart_type: line
+  priority: 60009
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: hits
+    rate_signal: litespeed_static_hits

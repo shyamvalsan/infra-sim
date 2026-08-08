@@ -1,0 +1,278 @@
+version: 1
+name: storecli-raid
+description: StoreCLI RAID metrics, generated from Netdata's own collector metadata so the contexts, units
+  and dimension names match what a real StoreCLI RAID node reports. Signals are independent and plausible
+  rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  storecli_raid_controller_health_status_healthy:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  storecli_raid_controller_health_status_unhealthy:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  storecli_raid_controller_status_optimal:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  storecli_raid_controller_status_degraded:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  storecli_raid_controller_status_partially_degraded:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  storecli_raid_controller_status_failed:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  storecli_raid_controller_bbu_status_healthy:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  storecli_raid_controller_bbu_status_unhealthy:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  storecli_raid_controller_bbu_status_na:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  storecli_raid_controller_roc_temperature_temperature:
+    base: 41.0
+    min: 0.0
+    max: 120.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  storecli_raid_phys_drive_errors_media:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  storecli_raid_phys_drive_errors_other:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  storecli_raid_phys_drive_predictive_failures_predictive_failures:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  storecli_raid_phys_drive_smart_alert_status_active:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  storecli_raid_phys_drive_smart_alert_status_inactive:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  storecli_raid_phys_drive_temperature_temperature:
+    base: 41.0
+    min: 0.0
+    max: 120.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  storecli_raid_bbu_temperature_temperature:
+    base: 41.0
+    min: 0.0
+    max: 120.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: storcli.controller_health_status
+  title: Controller health status
+  units: status
+  family: controller
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels:
+    controller_number: sim-controller_number-1
+    model: sim-model-1
+    driver_name: sim-driver_name-1
+  dimensions:
+  - id: healthy
+    signal: storecli_raid_controller_health_status_healthy
+  - id: unhealthy
+    signal: storecli_raid_controller_health_status_unhealthy
+- id: storcli.controller_status
+  title: Controller status
+  units: status
+  family: controller
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels:
+    controller_number: sim-controller_number-1
+    model: sim-model-1
+    driver_name: sim-driver_name-1
+  dimensions:
+  - id: optimal
+    signal: storecli_raid_controller_status_optimal
+  - id: degraded
+    signal: storecli_raid_controller_status_degraded
+  - id: partially_degraded
+    signal: storecli_raid_controller_status_partially_degraded
+  - id: failed
+    signal: storecli_raid_controller_status_failed
+- id: storcli.controller_bbu_status
+  title: Controller BBU status
+  units: status
+  family: controller
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels:
+    controller_number: sim-controller_number-1
+    model: sim-model-1
+    driver_name: sim-driver_name-1
+  dimensions:
+  - id: healthy
+    signal: storecli_raid_controller_bbu_status_healthy
+  - id: unhealthy
+    signal: storecli_raid_controller_bbu_status_unhealthy
+  - id: na
+    signal: storecli_raid_controller_bbu_status_na
+- id: storcli.controller_roc_temperature
+  title: Controller ROC temperature
+  units: Celsius
+  family: controller
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels:
+    controller_number: sim-controller_number-1
+    model: sim-model-1
+    driver_name: sim-driver_name-1
+  dimensions:
+  - id: temperature
+    signal: storecli_raid_controller_roc_temperature_temperature
+- id: storcli.phys_drive_errors
+  title: Physical Drive media errors rate
+  units: errors/s
+  family: phys
+  chart_type: line
+  priority: 60005
+  shape: counters
+  labels:
+    controller_number: sim-controller_number-1
+    enclosure_number: sim-enclosure_number-1
+    slot_number: sim-slot_number-1
+    media type: sim-media_type-1
+  dimensions:
+  - id: media
+    rate_signal: storecli_raid_phys_drive_errors_media
+  - id: other
+    rate_signal: storecli_raid_phys_drive_errors_other
+- id: storcli.phys_drive_predictive_failures
+  title: Physical Drive predictive failures rate
+  units: failures/s
+  family: phys
+  chart_type: line
+  priority: 60006
+  shape: counters
+  labels:
+    controller_number: sim-controller_number-1
+    enclosure_number: sim-enclosure_number-1
+    slot_number: sim-slot_number-1
+    media type: sim-media_type-1
+  dimensions:
+  - id: predictive_failures
+    rate_signal: storecli_raid_phys_drive_predictive_failures_predictive_failures
+- id: storcli.phys_drive_smart_alert_status
+  title: Physical Drive SMART alert status
+  units: status
+  family: phys
+  chart_type: line
+  priority: 60007
+  shape: independent
+  labels:
+    controller_number: sim-controller_number-1
+    enclosure_number: sim-enclosure_number-1
+    slot_number: sim-slot_number-1
+    media type: sim-media_type-1
+  dimensions:
+  - id: active
+    signal: storecli_raid_phys_drive_smart_alert_status_active
+  - id: inactive
+    signal: storecli_raid_phys_drive_smart_alert_status_inactive
+- id: storcli.phys_drive_temperature
+  title: Physical Drive temperature
+  units: Celsius
+  family: phys
+  chart_type: line
+  priority: 60008
+  shape: independent
+  labels:
+    controller_number: sim-controller_number-1
+    enclosure_number: sim-enclosure_number-1
+    slot_number: sim-slot_number-1
+    media type: sim-media_type-1
+  dimensions:
+  - id: temperature
+    signal: storecli_raid_phys_drive_temperature_temperature
+- id: storcli.bbu_temperature
+  title: BBU temperature
+  units: Celsius
+  family: bbu
+  chart_type: line
+  priority: 60009
+  shape: independent
+  labels:
+    controller_number: sim-controller_number-1
+    bbu_number: sim-bbu_number-1
+    model: sim-model-1
+  dimensions:
+  - id: temperature
+    signal: storecli_raid_bbu_temperature_temperature

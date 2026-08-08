@@ -312,10 +312,34 @@ fn mutate<F: FnOnce(&mut ControlFile)>(app: &AppState, f: F) -> impl IntoRespons
 
 /// Roles and collectors the create form can offer, read from disk.
 async fn catalogue(State(app): State<Arc<AppState>>) -> impl IntoResponse {
-    Json(serde_json::json!(provision::catalogue(
+    let cat = provision::catalogue(
         &app.repo.join("specs"),
         &app.repo.join("environments"),
-    )))
+        &app.repo,
+    );
+    let mut v = serde_json::json!(cat);
+    v["llm_providers"] = serde_json::json!(provision::llm_providers());
+    Json(v)
+}
+
+/// Free-form text to a proposed fleet. Read-only: nothing is written.
+async fn describe(
+    State(app): State<Arc<AppState>>,
+    Json(req): Json<provision::DescribeRequest>,
+) -> impl IntoResponse {
+    // The model call is a blocking subprocess and can take tens of seconds.
+    let repo = app.repo.clone();
+    match tokio::task::spawn_blocking(move || provision::describe(&repo, &req)).await {
+        Ok(Ok(r)) => (StatusCode::OK, Json(serde_json::json!(r))),
+        Ok(Err(e)) => (
+            StatusCode::BAD_REQUEST,
+            Json(serde_json::json!({ "error": e })),
+        ),
+        Err(e) => (
+            StatusCode::INTERNAL_SERVER_ERROR,
+            Json(serde_json::json!({ "error": e.to_string() })),
+        ),
+    }
 }
 
 async fn create(
@@ -503,6 +527,7 @@ async fn main() -> std::process::ExitCode {
         .route("/api/scenario/{name}/resolve", post(resolve))
         .route("/api/scenario/resolve-all", post(resolve_all))
         .route("/api/catalogue", get(catalogue))
+        .route("/api/describe", post(describe))
         .route("/api/create", post(create))
         .route("/api/claim", post(claim))
         .route("/api/teardown", post(teardown))

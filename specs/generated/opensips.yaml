@@ -1,0 +1,859 @@
+version: 1
+name: opensips
+description: OpenSIPS metrics, generated from Netdata's own collector metadata so the contexts, units
+  and dimension names match what a real OpenSIPS node reports. Signals are independent and plausible rather
+  than causally coupled - see scripts/sync-integrations.py.
+signals:
+  opensips_dialogs_active_active:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensips_dialogs_active_early:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensips_users_registered:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensips_users_location:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensips_users_contacts:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensips_users_expires:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensips_registrar_accepted:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensips_registrar_rejected:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  opensips_transactions_uas:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensips_transactions_uac:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensips_core_rcv_requests:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensips_core_rcv_replies:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensips_core_fwd_requests:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensips_core_fwd_replies:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensips_core_drop_requests:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensips_core_drop_replies:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensips_core_err_requests:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensips_core_err_replies:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensips_core_bad_bad_uris_rcvd:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensips_core_bad_unsupported_methods:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensips_core_bad_bad_msg_hdr:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensips_tm_replies_received:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensips_tm_replies_relayed:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensips_tm_replies_local:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensips_transactions_status_2xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensips_transactions_status_3xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensips_transactions_status_4xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensips_transactions_status_5xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensips_transactions_status_6xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensips_transactions_inuse_inuse:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensips_sl_replies_1xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensips_sl_replies_2xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensips_sl_replies_3xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensips_sl_replies_4xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensips_sl_replies_5xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensips_sl_replies_6xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensips_sl_replies_sent:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensips_sl_replies_error:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  opensips_sl_replies_acked:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensips_dialogs_processed:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensips_dialogs_expire:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensips_dialogs_failed:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  opensips_net_waiting_udp:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensips_net_waiting_tcp:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensips_uri_checks_positive:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensips_uri_checks_negative:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensips_traces_requests:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensips_traces_replies:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensips_shmem_total:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensips_shmem_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensips_shmem_real_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensips_shmem_max_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensips_shmem_free:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensips_shmem_fragment_fragments:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: opensips.dialogs_active
+  title: OpenSIPS Active Dialogs
+  units: dialogs
+  family: dialogs
+  chart_type: area
+  priority: 60001
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: active
+    signal: opensips_dialogs_active_active
+  - id: early
+    signal: opensips_dialogs_active_early
+- id: opensips.users
+  title: OpenSIPS Users
+  units: users
+  family: users
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: registered
+    signal: opensips_users_registered
+  - id: location
+    signal: opensips_users_location
+  - id: contacts
+    signal: opensips_users_contacts
+  - id: expires
+    signal: opensips_users_expires
+- id: opensips.registrar
+  title: OpenSIPS Registrar
+  units: registrations/s
+  family: registrar
+  chart_type: line
+  priority: 60003
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: accepted
+    rate_signal: opensips_registrar_accepted
+  - id: rejected
+    rate_signal: opensips_registrar_rejected
+- id: opensips.transactions
+  title: OpenSIPS Transactions
+  units: transactions/s
+  family: transactions
+  chart_type: line
+  priority: 60004
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: UAS
+    rate_signal: opensips_transactions_uas
+  - id: UAC
+    rate_signal: opensips_transactions_uac
+- id: opensips.core_rcv
+  title: OpenSIPS Core Receives
+  units: queries/s
+  family: core
+  chart_type: line
+  priority: 60005
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: requests
+    rate_signal: opensips_core_rcv_requests
+  - id: replies
+    rate_signal: opensips_core_rcv_replies
+- id: opensips.core_fwd
+  title: OpenSIPS Core Forwards
+  units: queries/s
+  family: core
+  chart_type: line
+  priority: 60006
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: requests
+    rate_signal: opensips_core_fwd_requests
+  - id: replies
+    rate_signal: opensips_core_fwd_replies
+- id: opensips.core_drop
+  title: OpenSIPS Core Drops
+  units: queries/s
+  family: core
+  chart_type: line
+  priority: 60007
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: requests
+    rate_signal: opensips_core_drop_requests
+  - id: replies
+    rate_signal: opensips_core_drop_replies
+- id: opensips.core_err
+  title: OpenSIPS Core Errors
+  units: queries/s
+  family: core
+  chart_type: line
+  priority: 60008
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: requests
+    rate_signal: opensips_core_err_requests
+  - id: replies
+    rate_signal: opensips_core_err_replies
+- id: opensips.core_bad
+  title: OpenSIPS Core Bad
+  units: queries/s
+  family: core
+  chart_type: line
+  priority: 60009
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: bad_URIs_rcvd
+    rate_signal: opensips_core_bad_bad_uris_rcvd
+  - id: unsupported_methods
+    rate_signal: opensips_core_bad_unsupported_methods
+  - id: bad_msg_hdr
+    rate_signal: opensips_core_bad_bad_msg_hdr
+- id: opensips.tm_replies
+  title: OpenSIPS TM Replies
+  units: replies/s
+  family: tm
+  chart_type: line
+  priority: 60010
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: received
+    rate_signal: opensips_tm_replies_received
+  - id: relayed
+    rate_signal: opensips_tm_replies_relayed
+  - id: local
+    rate_signal: opensips_tm_replies_local
+- id: opensips.transactions_status
+  title: OpenSIPS Transactions Status
+  units: transactions/s
+  family: transactions
+  chart_type: line
+  priority: 60011
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: 2xx
+    rate_signal: opensips_transactions_status_2xx
+  - id: 3xx
+    rate_signal: opensips_transactions_status_3xx
+  - id: 4xx
+    rate_signal: opensips_transactions_status_4xx
+  - id: 5xx
+    rate_signal: opensips_transactions_status_5xx
+  - id: 6xx
+    rate_signal: opensips_transactions_status_6xx
+- id: opensips.transactions_inuse
+  title: OpenSIPS InUse Transactions
+  units: transactions
+  family: transactions
+  chart_type: line
+  priority: 60012
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: inuse
+    signal: opensips_transactions_inuse_inuse
+- id: opensips.sl_replies
+  title: OpenSIPS SL Replies
+  units: replies/s
+  family: sl
+  chart_type: line
+  priority: 60013
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: 1xx
+    rate_signal: opensips_sl_replies_1xx
+  - id: 2xx
+    rate_signal: opensips_sl_replies_2xx
+  - id: 3xx
+    rate_signal: opensips_sl_replies_3xx
+  - id: 4xx
+    rate_signal: opensips_sl_replies_4xx
+  - id: 5xx
+    rate_signal: opensips_sl_replies_5xx
+  - id: 6xx
+    rate_signal: opensips_sl_replies_6xx
+  - id: sent
+    rate_signal: opensips_sl_replies_sent
+  - id: error
+    rate_signal: opensips_sl_replies_error
+  - id: ACKed
+    rate_signal: opensips_sl_replies_acked
+- id: opensips.dialogs
+  title: OpenSIPS Dialogs
+  units: dialogs/s
+  family: dialogs
+  chart_type: line
+  priority: 60014
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: processed
+    rate_signal: opensips_dialogs_processed
+  - id: expire
+    rate_signal: opensips_dialogs_expire
+  - id: failed
+    rate_signal: opensips_dialogs_failed
+- id: opensips.net_waiting
+  title: OpenSIPS Network Waiting
+  units: kilobytes
+  family: net
+  chart_type: line
+  priority: 60015
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: UDP
+    signal: opensips_net_waiting_udp
+  - id: TCP
+    signal: opensips_net_waiting_tcp
+- id: opensips.uri_checks
+  title: OpenSIPS URI Checks
+  units: checks / sec
+  family: uri
+  chart_type: line
+  priority: 60016
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: positive
+    signal: opensips_uri_checks_positive
+  - id: negative
+    signal: opensips_uri_checks_negative
+- id: opensips.traces
+  title: OpenSIPS Traces
+  units: traces / sec
+  family: traces
+  chart_type: line
+  priority: 60017
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: requests
+    signal: opensips_traces_requests
+  - id: replies
+    signal: opensips_traces_replies
+- id: opensips.shmem
+  title: OpenSIPS Shared Memory
+  units: kilobytes
+  family: shmem
+  chart_type: line
+  priority: 60018
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: total
+    signal: opensips_shmem_total
+  - id: used
+    signal: opensips_shmem_used
+  - id: real_used
+    signal: opensips_shmem_real_used
+  - id: max_used
+    signal: opensips_shmem_max_used
+  - id: free
+    signal: opensips_shmem_free
+- id: opensips.shmem_fragment
+  title: OpenSIPS Shared Memory Fragmentation
+  units: fragments
+  family: shmem
+  chart_type: line
+  priority: 60019
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: fragments
+    signal: opensips_shmem_fragment_fragments

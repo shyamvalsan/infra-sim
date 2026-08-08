@@ -1,0 +1,262 @@
+version: 1
+name: boinc
+description: BOINC metrics, generated from Netdata's own collector metadata so the contexts, units and
+  dimension names match what a real BOINC node reports. Signals are independent and plausible rather than
+  causally coupled - see scripts/sync-integrations.py.
+signals:
+  boinc_tasks_total:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  boinc_tasks_active:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  boinc_tasks_per_state_new:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  boinc_tasks_per_state_downloading:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  boinc_tasks_per_state_downloaded:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  boinc_tasks_per_state_compute_error:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  boinc_tasks_per_state_uploading:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  boinc_tasks_per_state_uploaded:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  boinc_tasks_per_state_aborted:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  boinc_tasks_per_state_upload_failed:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  boinc_active_tasks_per_state_uninitialized:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  boinc_active_tasks_per_state_executing:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  boinc_active_tasks_per_state_abort_pending:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  boinc_active_tasks_per_state_quit_pending:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  boinc_active_tasks_per_state_suspended:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  boinc_active_tasks_per_state_copy_pending:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  boinc_active_tasks_per_scheduler_state_uninitialized:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  boinc_active_tasks_per_scheduler_state_preempted:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  boinc_active_tasks_per_scheduler_state_scheduled:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: boinc.tasks
+  title: Overall Tasks
+  units: tasks
+  family: tasks
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: total
+    signal: boinc_tasks_total
+  - id: active
+    signal: boinc_tasks_active
+- id: boinc.tasks_per_state
+  title: Tasks per State
+  units: tasks
+  family: tasks
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: new
+    signal: boinc_tasks_per_state_new
+  - id: downloading
+    signal: boinc_tasks_per_state_downloading
+  - id: downloaded
+    signal: boinc_tasks_per_state_downloaded
+  - id: compute_error
+    signal: boinc_tasks_per_state_compute_error
+  - id: uploading
+    signal: boinc_tasks_per_state_uploading
+  - id: uploaded
+    signal: boinc_tasks_per_state_uploaded
+  - id: aborted
+    signal: boinc_tasks_per_state_aborted
+  - id: upload_failed
+    signal: boinc_tasks_per_state_upload_failed
+- id: boinc.active_tasks_per_state
+  title: Active Tasks per State
+  units: tasks
+  family: active
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: uninitialized
+    signal: boinc_active_tasks_per_state_uninitialized
+  - id: executing
+    signal: boinc_active_tasks_per_state_executing
+  - id: abort_pending
+    signal: boinc_active_tasks_per_state_abort_pending
+  - id: quit_pending
+    signal: boinc_active_tasks_per_state_quit_pending
+  - id: suspended
+    signal: boinc_active_tasks_per_state_suspended
+  - id: copy_pending
+    signal: boinc_active_tasks_per_state_copy_pending
+- id: boinc.active_tasks_per_scheduler_state
+  title: Active Tasks per Scheduler State
+  units: tasks
+  family: active
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: uninitialized
+    signal: boinc_active_tasks_per_scheduler_state_uninitialized
+  - id: preempted
+    signal: boinc_active_tasks_per_scheduler_state_preempted
+  - id: scheduled
+    signal: boinc_active_tasks_per_scheduler_state_scheduled

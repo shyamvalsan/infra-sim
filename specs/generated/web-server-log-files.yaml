@@ -1,0 +1,990 @@
+version: 1
+name: web-server-log-files
+description: Web server log files metrics, generated from Netdata's own collector metadata so the contexts,
+  units and dimension names match what a real Web server log files node reports. Signals are independent
+  and plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  web_server_log_files_requests_requests:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  web_server_log_files_excluded_requests_unmatched:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  web_server_log_files_type_requests_success:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  web_server_log_files_type_requests_bad:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  web_server_log_files_type_requests_redirect:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  web_server_log_files_type_requests_error:
+    base: 0.0
+    min: 0.0
+    max: 5000000.0
+  web_server_log_files_status_code_class_responses_1xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  web_server_log_files_status_code_class_responses_2xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  web_server_log_files_status_code_class_responses_3xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  web_server_log_files_status_code_class_responses_4xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  web_server_log_files_status_code_class_responses_5xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  web_server_log_files_status_code_class_1xx_responses_a_dimension_per_1xx_code:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  web_server_log_files_status_code_class_2xx_responses_a_dimension_per_2xx_code:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  web_server_log_files_status_code_class_3xx_responses_a_dimension_per_3xx_code:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  web_server_log_files_status_code_class_4xx_responses_a_dimension_per_4xx_code:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  web_server_log_files_status_code_class_5xx_responses_a_dimension_per_5xx_code:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  web_server_log_files_bandwidth_received:
+    base: 18000.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  web_server_log_files_bandwidth_sent:
+    base: 18000.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  web_server_log_files_request_processing_time_min:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  web_server_log_files_request_processing_time_max:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  web_server_log_files_request_processing_time_avg:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  web_server_log_files_requests_processing_time_histogram_a_dimension_per_bucket:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  web_server_log_files_upstream_response_time_min:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  web_server_log_files_upstream_response_time_max:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  web_server_log_files_upstream_response_time_avg:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  web_server_log_files_upstream_responses_time_histogram_a_dimension_per_bucket:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  web_server_log_files_current_poll_uniq_clients_ipv4:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  web_server_log_files_current_poll_uniq_clients_ipv6:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  web_server_log_files_vhost_requests_a_dimension_per_vhost:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  web_server_log_files_port_requests_a_dimension_per_port:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  web_server_log_files_scheme_requests_http:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  web_server_log_files_scheme_requests_https:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  web_server_log_files_http_method_requests_a_dimension_per_http_method:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  web_server_log_files_http_version_requests_a_dimension_per_http_version:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  web_server_log_files_ip_proto_requests_ipv4:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  web_server_log_files_ip_proto_requests_ipv6:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  web_server_log_files_ssl_proto_requests_a_dimension_per_ssl_protocol:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  web_server_log_files_ssl_cipher_suite_requests_a_dimension_per_ssl_cipher_suite:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  web_server_log_files_url_pattern_requests_a_dimension_per_url_pattern:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  web_server_log_files_custom_field_pattern_requests_a_dimension_per_custom_field_pattern:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  web_server_log_files_custom_time_field_summary_min:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  web_server_log_files_custom_time_field_summary_max:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  web_server_log_files_custom_time_field_summary_avg:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  web_server_log_files_custom_time_field_histogram_a_dimension_per_bucket:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  web_server_log_files_custom_numeric_field_field_name_summary_min:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  web_server_log_files_custom_numeric_field_field_name_summary_max:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  web_server_log_files_custom_numeric_field_field_name_summary_avg:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  web_server_log_files_url_pattern_status_code_responses_a_dimension_per_pattern:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  web_server_log_files_url_pattern_http_method_requests_a_dimension_per_http_method:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  web_server_log_files_url_pattern_bandwidth_received:
+    base: 18000.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  web_server_log_files_url_pattern_bandwidth_sent:
+    base: 18000.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  web_server_log_files_url_pattern_request_processing_time_min:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  web_server_log_files_url_pattern_request_processing_time_max:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  web_server_log_files_url_pattern_request_processing_time_avg:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: web_log.requests
+  title: Total Requests
+  units: requests/s
+  family: requests
+  chart_type: line
+  priority: 60001
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: requests
+    rate_signal: web_server_log_files_requests_requests
+- id: web_log.excluded_requests
+  title: Excluded Requests
+  units: requests/s
+  family: excluded
+  chart_type: stacked
+  priority: 60002
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: unmatched
+    rate_signal: web_server_log_files_excluded_requests_unmatched
+- id: web_log.type_requests
+  title: Requests By Type
+  units: requests/s
+  family: type
+  chart_type: stacked
+  priority: 60003
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: success
+    rate_signal: web_server_log_files_type_requests_success
+  - id: bad
+    rate_signal: web_server_log_files_type_requests_bad
+  - id: redirect
+    rate_signal: web_server_log_files_type_requests_redirect
+  - id: error
+    rate_signal: web_server_log_files_type_requests_error
+- id: web_log.status_code_class_responses
+  title: Responses By Status Code Class
+  units: responses/s
+  family: status
+  chart_type: stacked
+  priority: 60004
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: 1xx
+    rate_signal: web_server_log_files_status_code_class_responses_1xx
+  - id: 2xx
+    rate_signal: web_server_log_files_status_code_class_responses_2xx
+  - id: 3xx
+    rate_signal: web_server_log_files_status_code_class_responses_3xx
+  - id: 4xx
+    rate_signal: web_server_log_files_status_code_class_responses_4xx
+  - id: 5xx
+    rate_signal: web_server_log_files_status_code_class_responses_5xx
+- id: web_log.status_code_class_1xx_responses
+  title: Informational Responses By Status Code
+  units: responses/s
+  family: status
+  chart_type: stacked
+  priority: 60005
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per 1xx code
+    rate_signal: web_server_log_files_status_code_class_1xx_responses_a_dimension_per_1xx_code
+- id: web_log.status_code_class_2xx_responses
+  title: Successful Responses By Status Code
+  units: responses/s
+  family: status
+  chart_type: stacked
+  priority: 60006
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per 2xx code
+    rate_signal: web_server_log_files_status_code_class_2xx_responses_a_dimension_per_2xx_code
+- id: web_log.status_code_class_3xx_responses
+  title: Redirects Responses By Status Code
+  units: responses/s
+  family: status
+  chart_type: stacked
+  priority: 60007
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per 3xx code
+    rate_signal: web_server_log_files_status_code_class_3xx_responses_a_dimension_per_3xx_code
+- id: web_log.status_code_class_4xx_responses
+  title: Client Errors Responses By Status Code
+  units: responses/s
+  family: status
+  chart_type: stacked
+  priority: 60008
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per 4xx code
+    rate_signal: web_server_log_files_status_code_class_4xx_responses_a_dimension_per_4xx_code
+- id: web_log.status_code_class_5xx_responses
+  title: Server Errors Responses By Status Code
+  units: responses/s
+  family: status
+  chart_type: stacked
+  priority: 60009
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per 5xx code
+    rate_signal: web_server_log_files_status_code_class_5xx_responses_a_dimension_per_5xx_code
+- id: web_log.bandwidth
+  title: Bandwidth
+  units: kilobits/s
+  family: bandwidth
+  chart_type: area
+  priority: 60010
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: received
+    rate_signal: web_server_log_files_bandwidth_received
+  - id: sent
+    rate_signal: web_server_log_files_bandwidth_sent
+- id: web_log.request_processing_time
+  title: Request Processing Time
+  units: milliseconds
+  family: request
+  chart_type: line
+  priority: 60011
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: min
+    signal: web_server_log_files_request_processing_time_min
+  - id: max
+    signal: web_server_log_files_request_processing_time_max
+  - id: avg
+    signal: web_server_log_files_request_processing_time_avg
+- id: web_log.requests_processing_time_histogram
+  title: Requests Processing Time Histogram
+  units: requests/s
+  family: requests
+  chart_type: line
+  priority: 60012
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per bucket
+    rate_signal: web_server_log_files_requests_processing_time_histogram_a_dimension_per_bucket
+- id: web_log.upstream_response_time
+  title: Upstream Response Time
+  units: milliseconds
+  family: upstream
+  chart_type: line
+  priority: 60013
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: min
+    signal: web_server_log_files_upstream_response_time_min
+  - id: max
+    signal: web_server_log_files_upstream_response_time_max
+  - id: avg
+    signal: web_server_log_files_upstream_response_time_avg
+- id: web_log.upstream_responses_time_histogram
+  title: Upstream Responses Time Histogram
+  units: requests/s
+  family: upstream
+  chart_type: line
+  priority: 60014
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per bucket
+    rate_signal: web_server_log_files_upstream_responses_time_histogram_a_dimension_per_bucket
+- id: web_log.current_poll_uniq_clients
+  title: Current Poll Unique Clients
+  units: clients
+  family: current
+  chart_type: stacked
+  priority: 60015
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: ipv4
+    signal: web_server_log_files_current_poll_uniq_clients_ipv4
+  - id: ipv6
+    signal: web_server_log_files_current_poll_uniq_clients_ipv6
+- id: web_log.vhost_requests
+  title: Requests By Vhost
+  units: requests/s
+  family: vhost
+  chart_type: stacked
+  priority: 60016
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per vhost
+    rate_signal: web_server_log_files_vhost_requests_a_dimension_per_vhost
+- id: web_log.port_requests
+  title: Requests By Port
+  units: requests/s
+  family: port
+  chart_type: stacked
+  priority: 60017
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per port
+    rate_signal: web_server_log_files_port_requests_a_dimension_per_port
+- id: web_log.scheme_requests
+  title: Requests By Scheme
+  units: requests/s
+  family: scheme
+  chart_type: stacked
+  priority: 60018
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: http
+    rate_signal: web_server_log_files_scheme_requests_http
+  - id: https
+    rate_signal: web_server_log_files_scheme_requests_https
+- id: web_log.http_method_requests
+  title: Requests By HTTP Method
+  units: requests/s
+  family: http
+  chart_type: stacked
+  priority: 60019
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per HTTP method
+    rate_signal: web_server_log_files_http_method_requests_a_dimension_per_http_method
+- id: web_log.http_version_requests
+  title: Requests By HTTP Version
+  units: requests/s
+  family: http
+  chart_type: stacked
+  priority: 60020
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per HTTP version
+    rate_signal: web_server_log_files_http_version_requests_a_dimension_per_http_version
+- id: web_log.ip_proto_requests
+  title: Requests By IP Protocol
+  units: requests/s
+  family: ip
+  chart_type: stacked
+  priority: 60021
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: ipv4
+    rate_signal: web_server_log_files_ip_proto_requests_ipv4
+  - id: ipv6
+    rate_signal: web_server_log_files_ip_proto_requests_ipv6
+- id: web_log.ssl_proto_requests
+  title: Requests By SSL Connection Protocol
+  units: requests/s
+  family: ssl
+  chart_type: stacked
+  priority: 60022
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per SSL protocol
+    rate_signal: web_server_log_files_ssl_proto_requests_a_dimension_per_ssl_protocol
+- id: web_log.ssl_cipher_suite_requests
+  title: Requests By SSL Connection Cipher Suite
+  units: requests/s
+  family: ssl
+  chart_type: stacked
+  priority: 60023
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per SSL cipher suite
+    rate_signal: web_server_log_files_ssl_cipher_suite_requests_a_dimension_per_ssl_cipher_suite
+- id: web_log.url_pattern_requests
+  title: URL Field Requests By Pattern
+  units: requests/s
+  family: url
+  chart_type: stacked
+  priority: 60024
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per URL pattern
+    rate_signal: web_server_log_files_url_pattern_requests_a_dimension_per_url_pattern
+- id: web_log.custom_field_pattern_requests
+  title: Custom Field Requests By Pattern
+  units: requests/s
+  family: custom
+  chart_type: stacked
+  priority: 60025
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per custom field pattern
+    rate_signal: web_server_log_files_custom_field_pattern_requests_a_dimension_per_custom_field_pattern
+- id: web_log.custom_time_field_summary
+  title: Custom Time Field Summary
+  units: milliseconds
+  family: custom
+  chart_type: line
+  priority: 60026
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: min
+    signal: web_server_log_files_custom_time_field_summary_min
+  - id: max
+    signal: web_server_log_files_custom_time_field_summary_max
+  - id: avg
+    signal: web_server_log_files_custom_time_field_summary_avg
+- id: web_log.custom_time_field_histogram
+  title: Custom Time Field Histogram
+  units: observations
+  family: custom
+  chart_type: line
+  priority: 60027
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: a dimension per bucket
+    signal: web_server_log_files_custom_time_field_histogram_a_dimension_per_bucket
+- id: web_log.custom_numeric_field_{{field_name}}_summary
+  title: Custom Numeric Field Summary
+  units: '{{units}}'
+  family: custom
+  chart_type: line
+  priority: 60028
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: min
+    signal: web_server_log_files_custom_numeric_field_field_name_summary_min
+  - id: max
+    signal: web_server_log_files_custom_numeric_field_field_name_summary_max
+  - id: avg
+    signal: web_server_log_files_custom_numeric_field_field_name_summary_avg
+- id: web_log.url_pattern_status_code_responses
+  title: Responses By Status Code
+  units: responses/s
+  family: url
+  chart_type: line
+  priority: 60029
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per pattern
+    rate_signal: web_server_log_files_url_pattern_status_code_responses_a_dimension_per_pattern
+- id: web_log.url_pattern_http_method_requests
+  title: Requests By HTTP Method
+  units: requests/s
+  family: url
+  chart_type: line
+  priority: 60030
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per HTTP method
+    rate_signal: web_server_log_files_url_pattern_http_method_requests_a_dimension_per_http_method
+- id: web_log.url_pattern_bandwidth
+  title: Bandwidth
+  units: kilobits/s
+  family: url
+  chart_type: area
+  priority: 60031
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: received
+    rate_signal: web_server_log_files_url_pattern_bandwidth_received
+  - id: sent
+    rate_signal: web_server_log_files_url_pattern_bandwidth_sent
+- id: web_log.url_pattern_request_processing_time
+  title: Request Processing Time
+  units: milliseconds
+  family: url
+  chart_type: line
+  priority: 60032
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: min
+    signal: web_server_log_files_url_pattern_request_processing_time_min
+  - id: max
+    signal: web_server_log_files_url_pattern_request_processing_time_max
+  - id: avg
+    signal: web_server_log_files_url_pattern_request_processing_time_avg

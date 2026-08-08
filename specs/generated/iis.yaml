@@ -1,0 +1,1088 @@
+version: 1
+name: iis
+description: IIS metrics, generated from Netdata's own collector metadata so the contexts, units and dimension
+  names match what a real IIS node reports. Signals are independent and plausible rather than causally
+  coupled - see scripts/sync-integrations.py.
+signals:
+  iis_website_traffic_received:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  iis_website_traffic_sent:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  iis_website_requests_rate_requests:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  iis_website_requests_by_type_rate_options:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  iis_website_requests_by_type_rate_get:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  iis_website_requests_by_type_rate_post:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  iis_website_requests_by_type_rate_head:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  iis_website_requests_by_type_rate_put:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  iis_website_requests_by_type_rate_delete:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  iis_website_requests_by_type_rate_trace:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  iis_website_requests_by_type_rate_move:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  iis_website_requests_by_type_rate_copy:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  iis_website_requests_by_type_rate_mkcol:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  iis_website_requests_by_type_rate_propfind:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  iis_website_requests_by_type_rate_proppatch:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  iis_website_requests_by_type_rate_search:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  iis_website_requests_by_type_rate_lock:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  iis_website_requests_by_type_rate_unlock:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  iis_website_requests_by_type_rate_other:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  iis_website_active_connections_count_active:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  iis_website_users_count_anonymous:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  iis_website_users_count_non_anonymous:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  iis_website_connection_attempts_rate_connection:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  iis_website_isapi_extension_requests_count_isapi:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  iis_website_isapi_extension_requests_rate_isapi:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  iis_website_ftp_file_transfer_rate_received:
+    base: 22.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  iis_website_ftp_file_transfer_rate_sent:
+    base: 22.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  iis_website_logon_attempts_rate_logon:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  iis_website_errors_rate_document_locked:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  iis_website_errors_rate_document_not_found:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  iis_website_uptime_uptime:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  iis_application_pool_current_status_uninitialized:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  iis_application_pool_current_status_initialized:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  iis_application_pool_current_status_running:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  iis_application_pool_current_status_disabling:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  iis_application_pool_current_status_disabled:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  iis_application_pool_current_status_shutdown_pending:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  iis_application_pool_current_status_delete_pending:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  iis_application_pool_current_worker_processes_running:
+    base: 210.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  iis_application_pool_worker_processes_created_created:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  iis_application_pool_maximum_worker_processes_created:
+    base: 210.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  iis_application_pool_recent_worker_process_failures_failures:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  iis_application_pool_worker_process_failures_crash:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  iis_application_pool_worker_process_failures_ping:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  iis_application_pool_worker_process_failures_startup:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  iis_application_pool_worker_process_failures_shutdown:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  iis_application_pool_recycles_recycles:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  iis_application_pool_uptime_uptime:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  iis_w3svc_w3wp_active_threads_threads:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  iis_w3svc_w3wp_requests_total_requests:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  iis_w3svc_w3wp_requests_active_requests:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  iis_w3svc_w3wp_file_cache_mem_usage_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  iis_w3svc_w3wp_files_cache_total_cached_files:
+    base: 22.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  iis_w3svc_w3wp_files_flushed_total_file_handles:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  iis_w3svc_w3wp_uri_cache_flushed_cached_uris:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  iis_w3svc_w3wp_total_uri_cached_uri_cache_blocks:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  iis_w3svc_w3wp_total_metadata_cached_metadata_blocks:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  iis_w3svc_w3wp_total_metadata_flushed_metadata_blocks:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  iis_w3svc_w3wp_output_cache_active_flushed_items_used:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  iis_w3svc_w3wp_output_cache_memory_usage_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  iis_w3svc_w3wp_output_cache_flushed_total_output_cache_entries:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: iis.website_traffic
+  title: Website traffic
+  units: bytes/s
+  family: website
+  chart_type: area
+  priority: 60001
+  shape: counters
+  labels:
+    website: sim-website-1
+  dimensions:
+  - id: received
+    rate_signal: iis_website_traffic_received
+  - id: sent
+    rate_signal: iis_website_traffic_sent
+- id: iis.website_requests_rate
+  title: Website requests rate
+  units: requests/s
+  family: website
+  chart_type: line
+  priority: 60002
+  shape: counters
+  labels:
+    website: sim-website-1
+  dimensions:
+  - id: requests
+    rate_signal: iis_website_requests_rate_requests
+- id: iis.website_requests_by_type_rate
+  title: Website requests rate
+  units: requests/s
+  family: website
+  chart_type: stacked
+  priority: 60003
+  shape: counters
+  labels:
+    website: sim-website-1
+  dimensions:
+  - id: options
+    rate_signal: iis_website_requests_by_type_rate_options
+  - id: get
+    rate_signal: iis_website_requests_by_type_rate_get
+  - id: post
+    rate_signal: iis_website_requests_by_type_rate_post
+  - id: head
+    rate_signal: iis_website_requests_by_type_rate_head
+  - id: put
+    rate_signal: iis_website_requests_by_type_rate_put
+  - id: delete
+    rate_signal: iis_website_requests_by_type_rate_delete
+  - id: trace
+    rate_signal: iis_website_requests_by_type_rate_trace
+  - id: move
+    rate_signal: iis_website_requests_by_type_rate_move
+  - id: copy
+    rate_signal: iis_website_requests_by_type_rate_copy
+  - id: mkcol
+    rate_signal: iis_website_requests_by_type_rate_mkcol
+  - id: propfind
+    rate_signal: iis_website_requests_by_type_rate_propfind
+  - id: proppatch
+    rate_signal: iis_website_requests_by_type_rate_proppatch
+  - id: search
+    rate_signal: iis_website_requests_by_type_rate_search
+  - id: lock
+    rate_signal: iis_website_requests_by_type_rate_lock
+  - id: unlock
+    rate_signal: iis_website_requests_by_type_rate_unlock
+  - id: other
+    rate_signal: iis_website_requests_by_type_rate_other
+- id: iis.website_active_connections_count
+  title: Website active connections
+  units: connections
+  family: website
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels:
+    website: sim-website-1
+  dimensions:
+  - id: active
+    signal: iis_website_active_connections_count_active
+- id: iis.website_users_count
+  title: Website users with pending requests
+  units: users
+  family: website
+  chart_type: stacked
+  priority: 60005
+  shape: independent
+  labels:
+    website: sim-website-1
+  dimensions:
+  - id: anonymous
+    signal: iis_website_users_count_anonymous
+  - id: non_anonymous
+    signal: iis_website_users_count_non_anonymous
+- id: iis.website_connection_attempts_rate
+  title: Website connections attempts
+  units: attempts/s
+  family: website
+  chart_type: line
+  priority: 60006
+  shape: counters
+  labels:
+    website: sim-website-1
+  dimensions:
+  - id: connection
+    rate_signal: iis_website_connection_attempts_rate_connection
+- id: iis.website_isapi_extension_requests_count
+  title: ISAPI extension requests
+  units: requests
+  family: website
+  chart_type: line
+  priority: 60007
+  shape: independent
+  labels:
+    website: sim-website-1
+  dimensions:
+  - id: isapi
+    signal: iis_website_isapi_extension_requests_count_isapi
+- id: iis.website_isapi_extension_requests_rate
+  title: Website extensions request
+  units: requests/s
+  family: website
+  chart_type: line
+  priority: 60008
+  shape: counters
+  labels:
+    website: sim-website-1
+  dimensions:
+  - id: isapi
+    rate_signal: iis_website_isapi_extension_requests_rate_isapi
+- id: iis.website_ftp_file_transfer_rate
+  title: Website FTP file transfer rate
+  units: files/s
+  family: website
+  chart_type: line
+  priority: 60009
+  shape: counters
+  labels:
+    website: sim-website-1
+  dimensions:
+  - id: received
+    rate_signal: iis_website_ftp_file_transfer_rate_received
+  - id: sent
+    rate_signal: iis_website_ftp_file_transfer_rate_sent
+- id: iis.website_logon_attempts_rate
+  title: Website logon attempts
+  units: attempts/s
+  family: website
+  chart_type: line
+  priority: 60010
+  shape: counters
+  labels:
+    website: sim-website-1
+  dimensions:
+  - id: logon
+    rate_signal: iis_website_logon_attempts_rate_logon
+- id: iis.website_errors_rate
+  title: Website errors
+  units: errors/s
+  family: website
+  chart_type: stacked
+  priority: 60011
+  shape: counters
+  labels:
+    website: sim-website-1
+  dimensions:
+  - id: document_locked
+    rate_signal: iis_website_errors_rate_document_locked
+  - id: document_not_found
+    rate_signal: iis_website_errors_rate_document_not_found
+- id: iis.website_uptime
+  title: Website uptime
+  units: seconds
+  family: website
+  chart_type: line
+  priority: 60012
+  shape: independent
+  labels:
+    website: sim-website-1
+  dimensions:
+  - id: uptime
+    signal: iis_website_uptime_uptime
+- id: iis.application_pool_current_status
+  title: IIS App Pool current status
+  units: status
+  family: application
+  chart_type: line
+  priority: 60013
+  shape: independent
+  labels:
+    app: sim-app-1
+  dimensions:
+  - id: uninitialized
+    signal: iis_application_pool_current_status_uninitialized
+  - id: initialized
+    signal: iis_application_pool_current_status_initialized
+  - id: running
+    signal: iis_application_pool_current_status_running
+  - id: disabling
+    signal: iis_application_pool_current_status_disabling
+  - id: disabled
+    signal: iis_application_pool_current_status_disabled
+  - id: shutdown_pending
+    signal: iis_application_pool_current_status_shutdown_pending
+  - id: delete_pending
+    signal: iis_application_pool_current_status_delete_pending
+- id: iis.application_pool_current_worker_processes
+  title: IIS App Pool worker processes currently running
+  units: processes
+  family: application
+  chart_type: line
+  priority: 60014
+  shape: independent
+  labels:
+    app: sim-app-1
+  dimensions:
+  - id: running
+    signal: iis_application_pool_current_worker_processes_running
+- id: iis.application_pool_worker_processes_created
+  title: IIS App Pool worker processes created
+  units: processes/s
+  family: application
+  chart_type: line
+  priority: 60015
+  shape: counters
+  labels:
+    app: sim-app-1
+  dimensions:
+  - id: created
+    rate_signal: iis_application_pool_worker_processes_created_created
+- id: iis.application_pool_maximum_worker_processes
+  title: IIS App Pool maximum created worker processes
+  units: processes
+  family: application
+  chart_type: line
+  priority: 60016
+  shape: independent
+  labels:
+    app: sim-app-1
+  dimensions:
+  - id: created
+    signal: iis_application_pool_maximum_worker_processes_created
+- id: iis.application_pool_recent_worker_process_failures
+  title: IIS App Pool worker process failures during the rapid-fail protection interval
+  units: failures/s
+  family: application
+  chart_type: line
+  priority: 60017
+  shape: counters
+  labels:
+    app: sim-app-1
+  dimensions:
+  - id: failures
+    rate_signal: iis_application_pool_recent_worker_process_failures_failures
+- id: iis.application_pool_worker_process_failures
+  title: IIS App Pool worker process crashes
+  units: failures/s
+  family: application
+  chart_type: line
+  priority: 60018
+  shape: counters
+  labels:
+    app: sim-app-1
+  dimensions:
+  - id: crash
+    rate_signal: iis_application_pool_worker_process_failures_crash
+  - id: ping
+    rate_signal: iis_application_pool_worker_process_failures_ping
+  - id: startup
+    rate_signal: iis_application_pool_worker_process_failures_startup
+  - id: shutdown
+    rate_signal: iis_application_pool_worker_process_failures_shutdown
+- id: iis.application_pool_recycles
+  title: IIS App Pool recycles
+  units: recycles/s
+  family: application
+  chart_type: line
+  priority: 60019
+  shape: counters
+  labels:
+    app: sim-app-1
+  dimensions:
+  - id: recycles
+    rate_signal: iis_application_pool_recycles_recycles
+- id: iis.application_pool_uptime
+  title: IIS App Pool uptime
+  units: seconds
+  family: application
+  chart_type: line
+  priority: 60020
+  shape: independent
+  labels:
+    app: sim-app-1
+  dimensions:
+  - id: uptime
+    signal: iis_application_pool_uptime_uptime
+- id: iis.w3svc_w3wp_active_threads
+  title: Threads actively processing requests in the worker process
+  units: threads
+  family: w3svc
+  chart_type: line
+  priority: 60021
+  shape: independent
+  labels:
+    app: sim-app-1
+  dimensions:
+  - id: threads
+    signal: iis_w3svc_w3wp_active_threads_threads
+- id: iis.w3svc_w3wp_requests_total
+  title: HTTP requests served by the worker process
+  units: requests/s
+  family: w3svc
+  chart_type: line
+  priority: 60022
+  shape: counters
+  labels:
+    app: sim-app-1
+  dimensions:
+  - id: requests
+    rate_signal: iis_w3svc_w3wp_requests_total_requests
+- id: iis.w3svc_w3wp_requests_active
+  title: Current number of requests being processed by the worker process
+  units: requests
+  family: w3svc
+  chart_type: line
+  priority: 60023
+  shape: independent
+  labels:
+    app: sim-app-1
+  dimensions:
+  - id: requests
+    signal: iis_w3svc_w3wp_requests_active_requests
+- id: iis.w3svc_w3wp_file_cache_mem_usage
+  title: Current memory usage by the worker process
+  units: bytes
+  family: w3svc
+  chart_type: area
+  priority: 60024
+  shape: independent
+  labels:
+    app: sim-app-1
+  dimensions:
+  - id: used
+    signal: iis_w3svc_w3wp_file_cache_mem_usage_used
+- id: iis.w3svc_w3wp_files_cache_total
+  title: Files whose contents were ever added to the cache
+  units: files/s
+  family: w3svc
+  chart_type: line
+  priority: 60025
+  shape: counters
+  labels:
+    app: sim-app-1
+  dimensions:
+  - id: cached_files
+    rate_signal: iis_w3svc_w3wp_files_cache_total_cached_files
+- id: iis.w3svc_w3wp_files_flushed_total
+  title: File handles that have been removed from the cache
+  units: flushes/s
+  family: w3svc
+  chart_type: line
+  priority: 60026
+  shape: counters
+  labels:
+    app: sim-app-1
+  dimensions:
+  - id: file_handles
+    rate_signal: iis_w3svc_w3wp_files_flushed_total_file_handles
+- id: iis.w3svc_w3wp_uri_cache_flushed
+  title: URI cache flushes
+  units: flushes/s
+  family: w3svc
+  chart_type: line
+  priority: 60027
+  shape: counters
+  labels:
+    app: sim-app-1
+  dimensions:
+  - id: cached_uris
+    rate_signal: iis_w3svc_w3wp_uri_cache_flushed_cached_uris
+- id: iis.w3svc_w3wp_total_uri_cached
+  title: URI information blocks added to the cache
+  units: blocks/s
+  family: w3svc
+  chart_type: line
+  priority: 60028
+  shape: counters
+  labels:
+    app: sim-app-1
+  dimensions:
+  - id: uri_cache_blocks
+    rate_signal: iis_w3svc_w3wp_total_uri_cached_uri_cache_blocks
+- id: iis.w3svc_w3wp_total_metadata_cached
+  title: Metadata information blocks added to the user-mode cache
+  units: blocks/s
+  family: w3svc
+  chart_type: line
+  priority: 60029
+  shape: counters
+  labels:
+    app: sim-app-1
+  dimensions:
+  - id: metadata_blocks
+    rate_signal: iis_w3svc_w3wp_total_metadata_cached_metadata_blocks
+- id: iis.w3svc_w3wp_total_metadata_flushed
+  title: User-mode metadata cache flushes
+  units: flushes/s
+  family: w3svc
+  chart_type: line
+  priority: 60030
+  shape: counters
+  labels:
+    app: sim-app-1
+  dimensions:
+  - id: metadata_blocks
+    rate_signal: iis_w3svc_w3wp_total_metadata_flushed_metadata_blocks
+- id: iis.w3svc_w3wp_output_cache_active_flushed_items
+  title: Items flushed but still in memory for active responses
+  units: items
+  family: w3svc
+  chart_type: line
+  priority: 60031
+  shape: independent
+  labels:
+    app: sim-app-1
+  dimensions:
+  - id: used
+    signal: iis_w3svc_w3wp_output_cache_active_flushed_items_used
+- id: iis.w3svc_w3wp_output_cache_memory_usage
+  title: Current number of bytes used by output cache
+  units: bytes
+  family: w3svc
+  chart_type: area
+  priority: 60032
+  shape: independent
+  labels:
+    app: sim-app-1
+  dimensions:
+  - id: used
+    signal: iis_w3svc_w3wp_output_cache_memory_usage_used
+- id: iis.w3svc_w3wp_output_cache_flushed_total
+  title: Flushes of output cache
+  units: flushes
+  family: w3svc
+  chart_type: line
+  priority: 60033
+  shape: independent
+  labels:
+    app: sim-app-1
+  dimensions:
+  - id: output_cache_entries
+    signal: iis_w3svc_w3wp_output_cache_flushed_total_output_cache_entries

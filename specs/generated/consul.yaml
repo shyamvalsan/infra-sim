@@ -1,0 +1,1079 @@
+version: 1
+name: consul
+description: Consul metrics, generated from Netdata's own collector metadata so the contexts, units and
+  dimension names match what a real Consul node reports. Signals are independent and plausible rather
+  than causally coupled - see scripts/sync-integrations.py.
+signals:
+  consul_client_rpc_requests_rate_rpc:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  consul_client_rpc_requests_exceeded_rate_exceeded:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  consul_client_rpc_requests_failed_rate_failed:
+    base: 0.0
+    min: 0.0
+    max: 5000000.0
+  consul_memory_allocated_allocated:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  consul_memory_sys_sys:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  consul_gc_pause_time_gc_pause:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  consul_kvs_apply_time_quantile_0_5:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  consul_kvs_apply_time_quantile_0_9:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  consul_kvs_apply_time_quantile_0_99:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  consul_kvs_apply_operations_rate_kvs_apply:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  consul_txn_apply_time_quantile_0_5:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  consul_txn_apply_time_quantile_0_9:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  consul_txn_apply_time_quantile_0_99:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  consul_txn_apply_operations_rate_txn_apply:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  consul_autopilot_health_status_healthy:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  consul_autopilot_health_status_unhealthy:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  consul_autopilot_failure_tolerance_failure_tolerance:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  consul_autopilot_server_health_status_healthy:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  consul_autopilot_server_health_status_unhealthy:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  consul_autopilot_server_stable_time_stable:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  consul_autopilot_server_serf_status_active:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  consul_autopilot_server_serf_status_failed:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  consul_autopilot_server_serf_status_left:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  consul_autopilot_server_serf_status_none:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  consul_autopilot_server_voter_status_voter:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  consul_autopilot_server_voter_status_not_voter:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  consul_network_lan_rtt_min:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  consul_network_lan_rtt_max:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  consul_network_lan_rtt_avg:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  consul_raft_commit_time_quantile_0_5:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  consul_raft_commit_time_quantile_0_9:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  consul_raft_commit_time_quantile_0_99:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  consul_raft_commits_rate_commits:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  consul_raft_leader_last_contact_time_quantile_0_5:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  consul_raft_leader_last_contact_time_quantile_0_9:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  consul_raft_leader_last_contact_time_quantile_0_99:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  consul_raft_leader_oldest_log_age_oldest_log_age:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  consul_raft_follower_last_contact_leader_time_leader_last_contact:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  consul_raft_rpc_install_snapshot_time_quantile_0_5:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  consul_raft_rpc_install_snapshot_time_quantile_0_9:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  consul_raft_rpc_install_snapshot_time_quantile_0_99:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  consul_raft_leader_elections_rate_leader:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  consul_raft_leadership_transitions_rate_leadership:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  consul_server_leadership_status_leader:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  consul_server_leadership_status_not_leader:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  consul_raft_thread_main_saturation_perc_quantile_0_5:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  consul_raft_thread_main_saturation_perc_quantile_0_9:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  consul_raft_thread_main_saturation_perc_quantile_0_99:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  consul_raft_thread_fsm_saturation_perc_quantile_0_5:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  consul_raft_thread_fsm_saturation_perc_quantile_0_9:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  consul_raft_thread_fsm_saturation_perc_quantile_0_99:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  consul_raft_fsm_last_restore_duration_last_restore_duration:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  consul_raft_boltdb_freelist_bytes_freelist:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  consul_raft_boltdb_logs_per_batch_rate_written:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  consul_raft_boltdb_store_logs_time_quantile_0_5:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  consul_raft_boltdb_store_logs_time_quantile_0_9:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  consul_raft_boltdb_store_logs_time_quantile_0_99:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  consul_license_expiration_time_license_expiration:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  consul_node_health_check_status_passing:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  consul_node_health_check_status_maintenance:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  consul_node_health_check_status_warning:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  consul_node_health_check_status_critical:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  consul_service_health_check_status_passing:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  consul_service_health_check_status_maintenance:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  consul_service_health_check_status_warning:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  consul_service_health_check_status_critical:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+contexts:
+- id: consul.client_rpc_requests_rate
+  title: Client RPC requests
+  units: requests/s
+  family: client
+  chart_type: line
+  priority: 60001
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: rpc
+    rate_signal: consul_client_rpc_requests_rate_rpc
+- id: consul.client_rpc_requests_exceeded_rate
+  title: Client rate-limited RPC requests
+  units: requests/s
+  family: client
+  chart_type: line
+  priority: 60002
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: exceeded
+    rate_signal: consul_client_rpc_requests_exceeded_rate_exceeded
+- id: consul.client_rpc_requests_failed_rate
+  title: Client failed RPC requests
+  units: requests/s
+  family: client
+  chart_type: line
+  priority: 60003
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: failed
+    rate_signal: consul_client_rpc_requests_failed_rate_failed
+- id: consul.memory_allocated
+  title: Memory allocated by the Consul process
+  units: bytes
+  family: memory
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: allocated
+    signal: consul_memory_allocated_allocated
+- id: consul.memory_sys
+  title: Memory obtained from the OS
+  units: bytes
+  family: memory
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: sys
+    signal: consul_memory_sys_sys
+- id: consul.gc_pause_time
+  title: Garbage collection stop-the-world pause time
+  units: seconds
+  family: gc
+  chart_type: line
+  priority: 60006
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: gc_pause
+    signal: consul_gc_pause_time_gc_pause
+- id: consul.kvs_apply_time
+  title: KVS apply time
+  units: ms
+  family: kvs
+  chart_type: line
+  priority: 60007
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: quantile_0.5
+    signal: consul_kvs_apply_time_quantile_0_5
+  - id: quantile_0.9
+    signal: consul_kvs_apply_time_quantile_0_9
+  - id: quantile_0.99
+    signal: consul_kvs_apply_time_quantile_0_99
+- id: consul.kvs_apply_operations_rate
+  title: KVS apply operations
+  units: ops/s
+  family: kvs
+  chart_type: line
+  priority: 60008
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: kvs_apply
+    rate_signal: consul_kvs_apply_operations_rate_kvs_apply
+- id: consul.txn_apply_time
+  title: Transaction apply time
+  units: ms
+  family: txn
+  chart_type: line
+  priority: 60009
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: quantile_0.5
+    signal: consul_txn_apply_time_quantile_0_5
+  - id: quantile_0.9
+    signal: consul_txn_apply_time_quantile_0_9
+  - id: quantile_0.99
+    signal: consul_txn_apply_time_quantile_0_99
+- id: consul.txn_apply_operations_rate
+  title: Transaction apply operations
+  units: ops/s
+  family: txn
+  chart_type: line
+  priority: 60010
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: txn_apply
+    rate_signal: consul_txn_apply_operations_rate_txn_apply
+- id: consul.autopilot_health_status
+  title: Autopilot cluster health status
+  units: status
+  family: autopilot
+  chart_type: line
+  priority: 60011
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: healthy
+    signal: consul_autopilot_health_status_healthy
+  - id: unhealthy
+    signal: consul_autopilot_health_status_unhealthy
+- id: consul.autopilot_failure_tolerance
+  title: Autopilot cluster failure tolerance
+  units: servers
+  family: autopilot
+  chart_type: line
+  priority: 60012
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: failure_tolerance
+    signal: consul_autopilot_failure_tolerance_failure_tolerance
+- id: consul.autopilot_server_health_status
+  title: Autopilot server health status
+  units: status
+  family: autopilot
+  chart_type: line
+  priority: 60013
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: healthy
+    signal: consul_autopilot_server_health_status_healthy
+  - id: unhealthy
+    signal: consul_autopilot_server_health_status_unhealthy
+- id: consul.autopilot_server_stable_time
+  title: Autopilot server stable time
+  units: seconds
+  family: autopilot
+  chart_type: line
+  priority: 60014
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: stable
+    signal: consul_autopilot_server_stable_time_stable
+- id: consul.autopilot_server_serf_status
+  title: Autopilot server Serf status
+  units: status
+  family: autopilot
+  chart_type: line
+  priority: 60015
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: active
+    signal: consul_autopilot_server_serf_status_active
+  - id: failed
+    signal: consul_autopilot_server_serf_status_failed
+  - id: left
+    signal: consul_autopilot_server_serf_status_left
+  - id: none
+    signal: consul_autopilot_server_serf_status_none
+- id: consul.autopilot_server_voter_status
+  title: Autopilot server Raft voting membership
+  units: status
+  family: autopilot
+  chart_type: line
+  priority: 60016
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: voter
+    signal: consul_autopilot_server_voter_status_voter
+  - id: not_voter
+    signal: consul_autopilot_server_voter_status_not_voter
+- id: consul.network_lan_rtt
+  title: Network lan RTT
+  units: ms
+  family: network
+  chart_type: line
+  priority: 60017
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: min
+    signal: consul_network_lan_rtt_min
+  - id: max
+    signal: consul_network_lan_rtt_max
+  - id: avg
+    signal: consul_network_lan_rtt_avg
+- id: consul.raft_commit_time
+  title: Raft commit time
+  units: ms
+  family: raft
+  chart_type: line
+  priority: 60018
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: quantile_0.5
+    signal: consul_raft_commit_time_quantile_0_5
+  - id: quantile_0.9
+    signal: consul_raft_commit_time_quantile_0_9
+  - id: quantile_0.99
+    signal: consul_raft_commit_time_quantile_0_99
+- id: consul.raft_commits_rate
+  title: Raft commits rate
+  units: commits/s
+  family: raft
+  chart_type: line
+  priority: 60019
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: commits
+    rate_signal: consul_raft_commits_rate_commits
+- id: consul.raft_leader_last_contact_time
+  title: Raft leader last contact time
+  units: ms
+  family: raft
+  chart_type: line
+  priority: 60020
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: quantile_0.5
+    signal: consul_raft_leader_last_contact_time_quantile_0_5
+  - id: quantile_0.9
+    signal: consul_raft_leader_last_contact_time_quantile_0_9
+  - id: quantile_0.99
+    signal: consul_raft_leader_last_contact_time_quantile_0_99
+- id: consul.raft_leader_oldest_log_age
+  title: Raft leader oldest log age
+  units: seconds
+  family: raft
+  chart_type: line
+  priority: 60021
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: oldest_log_age
+    signal: consul_raft_leader_oldest_log_age_oldest_log_age
+- id: consul.raft_follower_last_contact_leader_time
+  title: Raft follower last contact with the leader time
+  units: ms
+  family: raft
+  chart_type: line
+  priority: 60022
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: leader_last_contact
+    signal: consul_raft_follower_last_contact_leader_time_leader_last_contact
+- id: consul.raft_rpc_install_snapshot_time
+  title: Raft RPC install snapshot time
+  units: ms
+  family: raft
+  chart_type: line
+  priority: 60023
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: quantile_0.5
+    signal: consul_raft_rpc_install_snapshot_time_quantile_0_5
+  - id: quantile_0.9
+    signal: consul_raft_rpc_install_snapshot_time_quantile_0_9
+  - id: quantile_0.99
+    signal: consul_raft_rpc_install_snapshot_time_quantile_0_99
+- id: consul.raft_leader_elections_rate
+  title: Raft leader elections rate
+  units: elections/s
+  family: raft
+  chart_type: line
+  priority: 60024
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: leader
+    rate_signal: consul_raft_leader_elections_rate_leader
+- id: consul.raft_leadership_transitions_rate
+  title: Raft leadership transitions rate
+  units: transitions/s
+  family: raft
+  chart_type: line
+  priority: 60025
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: leadership
+    rate_signal: consul_raft_leadership_transitions_rate_leadership
+- id: consul.server_leadership_status
+  title: Server leadership status
+  units: status
+  family: server
+  chart_type: line
+  priority: 60026
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: leader
+    signal: consul_server_leadership_status_leader
+  - id: not_leader
+    signal: consul_server_leadership_status_not_leader
+- id: consul.raft_thread_main_saturation_perc
+  title: Raft main thread saturation
+  units: percentage
+  family: raft
+  chart_type: line
+  priority: 60027
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: quantile_0.5
+    signal: consul_raft_thread_main_saturation_perc_quantile_0_5
+  - id: quantile_0.9
+    signal: consul_raft_thread_main_saturation_perc_quantile_0_9
+  - id: quantile_0.99
+    signal: consul_raft_thread_main_saturation_perc_quantile_0_99
+- id: consul.raft_thread_fsm_saturation_perc
+  title: Raft FSM thread saturation
+  units: percentage
+  family: raft
+  chart_type: line
+  priority: 60028
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: quantile_0.5
+    signal: consul_raft_thread_fsm_saturation_perc_quantile_0_5
+  - id: quantile_0.9
+    signal: consul_raft_thread_fsm_saturation_perc_quantile_0_9
+  - id: quantile_0.99
+    signal: consul_raft_thread_fsm_saturation_perc_quantile_0_99
+- id: consul.raft_fsm_last_restore_duration
+  title: Raft last restore duration
+  units: ms
+  family: raft
+  chart_type: line
+  priority: 60029
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: last_restore_duration
+    signal: consul_raft_fsm_last_restore_duration_last_restore_duration
+- id: consul.raft_boltdb_freelist_bytes
+  title: Raft BoltDB freelist
+  units: bytes
+  family: raft
+  chart_type: line
+  priority: 60030
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: freelist
+    signal: consul_raft_boltdb_freelist_bytes_freelist
+- id: consul.raft_boltdb_logs_per_batch_rate
+  title: Raft BoltDB logs written per batch
+  units: logs/s
+  family: raft
+  chart_type: line
+  priority: 60031
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: written
+    rate_signal: consul_raft_boltdb_logs_per_batch_rate_written
+- id: consul.raft_boltdb_store_logs_time
+  title: Raft BoltDB store logs time
+  units: ms
+  family: raft
+  chart_type: line
+  priority: 60032
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: quantile_0.5
+    signal: consul_raft_boltdb_store_logs_time_quantile_0_5
+  - id: quantile_0.9
+    signal: consul_raft_boltdb_store_logs_time_quantile_0_9
+  - id: quantile_0.99
+    signal: consul_raft_boltdb_store_logs_time_quantile_0_99
+- id: consul.license_expiration_time
+  title: License expiration time
+  units: seconds
+  family: license
+  chart_type: line
+  priority: 60033
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: license_expiration
+    signal: consul_license_expiration_time_license_expiration
+- id: consul.node_health_check_status
+  title: Node health check status
+  units: status
+  family: node
+  chart_type: line
+  priority: 60034
+  shape: independent
+  labels:
+    datacenter: sim-datacenter-1
+    node_name: sim-node_name-1
+    check_name: sim-check_name-1
+  dimensions:
+  - id: passing
+    signal: consul_node_health_check_status_passing
+  - id: maintenance
+    signal: consul_node_health_check_status_maintenance
+  - id: warning
+    signal: consul_node_health_check_status_warning
+  - id: critical
+    signal: consul_node_health_check_status_critical
+- id: consul.service_health_check_status
+  title: Service health check status
+  units: status
+  family: service
+  chart_type: line
+  priority: 60035
+  shape: independent
+  labels:
+    datacenter: sim-datacenter-1
+    node_name: sim-node_name-1
+    check_name: sim-check_name-1
+    service_name: sim-service_name-1
+  dimensions:
+  - id: passing
+    signal: consul_service_health_check_status_passing
+  - id: maintenance
+    signal: consul_service_health_check_status_maintenance
+  - id: warning
+    signal: consul_service_health_check_status_warning
+  - id: critical
+    signal: consul_service_health_check_status_critical

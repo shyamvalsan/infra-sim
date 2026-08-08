@@ -1,0 +1,1079 @@
+version: 1
+name: kubernetes-api-server
+description: Kubernetes API Server metrics, generated from Netdata's own collector metadata so the contexts,
+  units and dimension names match what a real Kubernetes API Server node reports. Signals are independent
+  and plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  kubernetes_api_server_requests_total_requests:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_api_server_requests_dropped_dropped:
+    base: 0.0
+    min: 0.0
+    max: 5000000.0
+  kubernetes_api_server_requests_by_verb_a_dimension_per_http_verb:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_api_server_requests_by_code_a_dimension_per_http_status_code:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_api_server_requests_by_resource_a_dimension_per_kubernetes_resource:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_api_server_request_latency_p50:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_api_server_request_latency_p90:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_api_server_request_latency_p99:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_api_server_response_size_p50:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_api_server_response_size_p90:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_api_server_response_size_p99:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_api_server_inflight_requests_mutating:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_api_server_inflight_requests_read_only:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_api_server_longrunning_requests_longrunning:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_api_server_rest_client_requests_by_code_a_dimension_per_http_status_code:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_api_server_rest_client_requests_by_method_a_dimension_per_http_method:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_api_server_rest_client_latency_p50:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_api_server_rest_client_latency_p90:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_api_server_rest_client_latency_p99:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_api_server_admission_step_latency_validate:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_api_server_admission_step_latency_admit:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_api_server_etcd_object_counts_a_dimension_per_resource_type:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_api_server_audit_events_events:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_api_server_audit_events_rejected:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  kubernetes_api_server_authentication_requests_authenticated:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_api_server_goroutines_goroutines:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_api_server_threads_threads:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_api_server_process_memory_resident:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_api_server_process_memory_virtual:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_api_server_heap_memory_alloc:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_api_server_heap_memory_inuse:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_api_server_heap_memory_stack:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_api_server_gc_duration_min:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_api_server_gc_duration_p25:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_api_server_gc_duration_p50:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_api_server_gc_duration_p75:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_api_server_gc_duration_max:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_api_server_open_fds_open:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_api_server_open_fds_max:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_api_server_cpu_usage_cpu:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_api_server_workqueue_depth_depth:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_api_server_workqueue_latency_p50:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_api_server_workqueue_latency_p90:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_api_server_workqueue_latency_p99:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_api_server_workqueue_adds_adds:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_api_server_workqueue_adds_retries:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_api_server_workqueue_duration_p50:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_api_server_workqueue_duration_p90:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_api_server_workqueue_duration_p99:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_api_server_admission_controller_latency_5ms:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_api_server_admission_controller_latency_25ms:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_api_server_admission_controller_latency_100ms:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_api_server_admission_controller_latency_500ms:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_api_server_admission_controller_latency_1s:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_api_server_admission_controller_latency_2_5s:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_api_server_admission_controller_latency_inf:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_api_server_admission_webhook_latency_5ms:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_api_server_admission_webhook_latency_25ms:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_api_server_admission_webhook_latency_100ms:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_api_server_admission_webhook_latency_500ms:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_api_server_admission_webhook_latency_1s:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_api_server_admission_webhook_latency_2_5s:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_api_server_admission_webhook_latency_inf:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: k8s_apiserver.requests_total
+  title: API Server Request Rate
+  units: requests/s
+  family: requests
+  chart_type: line
+  priority: 60001
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: requests
+    rate_signal: kubernetes_api_server_requests_total_requests
+- id: k8s_apiserver.requests_dropped
+  title: API Server Dropped Requests
+  units: requests/s
+  family: requests
+  chart_type: line
+  priority: 60002
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: dropped
+    rate_signal: kubernetes_api_server_requests_dropped_dropped
+- id: k8s_apiserver.requests_by_verb
+  title: API Server Requests By Verb
+  units: requests/s
+  family: requests
+  chart_type: stacked
+  priority: 60003
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per HTTP verb
+    rate_signal: kubernetes_api_server_requests_by_verb_a_dimension_per_http_verb
+- id: k8s_apiserver.requests_by_code
+  title: API Server Requests By Status Code
+  units: requests/s
+  family: requests
+  chart_type: stacked
+  priority: 60004
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per HTTP status code
+    rate_signal: kubernetes_api_server_requests_by_code_a_dimension_per_http_status_code
+- id: k8s_apiserver.requests_by_resource
+  title: API Server Requests By Resource
+  units: requests/s
+  family: requests
+  chart_type: stacked
+  priority: 60005
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per Kubernetes resource
+    rate_signal: kubernetes_api_server_requests_by_resource_a_dimension_per_kubernetes_resource
+- id: k8s_apiserver.request_latency
+  title: API Server Request Latency
+  units: milliseconds
+  family: request
+  chart_type: line
+  priority: 60006
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: p50
+    signal: kubernetes_api_server_request_latency_p50
+  - id: p90
+    signal: kubernetes_api_server_request_latency_p90
+  - id: p99
+    signal: kubernetes_api_server_request_latency_p99
+- id: k8s_apiserver.response_size
+  title: API Server Response Size
+  units: bytes
+  family: response
+  chart_type: line
+  priority: 60007
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: p50
+    signal: kubernetes_api_server_response_size_p50
+  - id: p90
+    signal: kubernetes_api_server_response_size_p90
+  - id: p99
+    signal: kubernetes_api_server_response_size_p99
+- id: k8s_apiserver.inflight_requests
+  title: API Server Inflight Requests
+  units: requests
+  family: inflight
+  chart_type: stacked
+  priority: 60008
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: mutating
+    signal: kubernetes_api_server_inflight_requests_mutating
+  - id: read_only
+    signal: kubernetes_api_server_inflight_requests_read_only
+- id: k8s_apiserver.longrunning_requests
+  title: API Server Long-Running Requests
+  units: requests
+  family: longrunning
+  chart_type: line
+  priority: 60009
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: longrunning
+    signal: kubernetes_api_server_longrunning_requests_longrunning
+- id: k8s_apiserver.rest_client_requests_by_code
+  title: REST Client Requests By Status Code
+  units: requests/s
+  family: rest
+  chart_type: stacked
+  priority: 60010
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per HTTP status code
+    rate_signal: kubernetes_api_server_rest_client_requests_by_code_a_dimension_per_http_status_code
+- id: k8s_apiserver.rest_client_requests_by_method
+  title: REST Client Requests By Method
+  units: requests/s
+  family: rest
+  chart_type: stacked
+  priority: 60011
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per HTTP method
+    rate_signal: kubernetes_api_server_rest_client_requests_by_method_a_dimension_per_http_method
+- id: k8s_apiserver.rest_client_latency
+  title: REST Client Request Latency
+  units: milliseconds
+  family: rest
+  chart_type: line
+  priority: 60012
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: p50
+    signal: kubernetes_api_server_rest_client_latency_p50
+  - id: p90
+    signal: kubernetes_api_server_rest_client_latency_p90
+  - id: p99
+    signal: kubernetes_api_server_rest_client_latency_p99
+- id: k8s_apiserver.admission_step_latency
+  title: Admission Step Latency
+  units: milliseconds
+  family: admission
+  chart_type: line
+  priority: 60013
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: validate
+    signal: kubernetes_api_server_admission_step_latency_validate
+  - id: admit
+    signal: kubernetes_api_server_admission_step_latency_admit
+- id: k8s_apiserver.etcd_object_counts
+  title: Objects Stored In Etcd
+  units: objects
+  family: etcd
+  chart_type: stacked
+  priority: 60014
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: a dimension per resource type
+    signal: kubernetes_api_server_etcd_object_counts_a_dimension_per_resource_type
+- id: k8s_apiserver.audit_events
+  title: API Server Audit Events
+  units: events/s
+  family: audit
+  chart_type: line
+  priority: 60015
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: events
+    rate_signal: kubernetes_api_server_audit_events_events
+  - id: rejected
+    rate_signal: kubernetes_api_server_audit_events_rejected
+- id: k8s_apiserver.authentication_requests
+  title: API Server Authenticated Requests
+  units: requests/s
+  family: authentication
+  chart_type: line
+  priority: 60016
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: authenticated
+    rate_signal: kubernetes_api_server_authentication_requests_authenticated
+- id: k8s_apiserver.goroutines
+  title: Goroutines
+  units: goroutines
+  family: goroutines
+  chart_type: line
+  priority: 60017
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: goroutines
+    signal: kubernetes_api_server_goroutines_goroutines
+- id: k8s_apiserver.threads
+  title: OS Threads
+  units: threads
+  family: threads
+  chart_type: line
+  priority: 60018
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: threads
+    signal: kubernetes_api_server_threads_threads
+- id: k8s_apiserver.process_memory
+  title: Process Memory
+  units: bytes
+  family: process
+  chart_type: stacked
+  priority: 60019
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: resident
+    signal: kubernetes_api_server_process_memory_resident
+  - id: virtual
+    signal: kubernetes_api_server_process_memory_virtual
+- id: k8s_apiserver.heap_memory
+  title: Go Heap Memory
+  units: bytes
+  family: heap
+  chart_type: stacked
+  priority: 60020
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: alloc
+    signal: kubernetes_api_server_heap_memory_alloc
+  - id: inuse
+    signal: kubernetes_api_server_heap_memory_inuse
+  - id: stack
+    signal: kubernetes_api_server_heap_memory_stack
+- id: k8s_apiserver.gc_duration
+  title: GC Duration
+  units: seconds
+  family: gc
+  chart_type: line
+  priority: 60021
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: min
+    signal: kubernetes_api_server_gc_duration_min
+  - id: p25
+    signal: kubernetes_api_server_gc_duration_p25
+  - id: p50
+    signal: kubernetes_api_server_gc_duration_p50
+  - id: p75
+    signal: kubernetes_api_server_gc_duration_p75
+  - id: max
+    signal: kubernetes_api_server_gc_duration_max
+- id: k8s_apiserver.open_fds
+  title: Open File Descriptors
+  units: file descriptors
+  family: open
+  chart_type: line
+  priority: 60022
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: open
+    signal: kubernetes_api_server_open_fds_open
+  - id: max
+    signal: kubernetes_api_server_open_fds_max
+- id: k8s_apiserver.cpu_usage
+  title: CPU Usage
+  units: seconds/s
+  family: cpu
+  chart_type: line
+  priority: 60023
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: cpu
+    signal: kubernetes_api_server_cpu_usage_cpu
+- id: k8s_apiserver.workqueue_depth
+  title: Work Queue Depth
+  units: items
+  family: workqueue
+  chart_type: line
+  priority: 60024
+  shape: independent
+  labels:
+    controller: sim-controller-1
+  dimensions:
+  - id: depth
+    signal: kubernetes_api_server_workqueue_depth_depth
+- id: k8s_apiserver.workqueue_latency
+  title: Work Queue Latency
+  units: microseconds
+  family: workqueue
+  chart_type: line
+  priority: 60025
+  shape: independent
+  labels:
+    controller: sim-controller-1
+  dimensions:
+  - id: p50
+    signal: kubernetes_api_server_workqueue_latency_p50
+  - id: p90
+    signal: kubernetes_api_server_workqueue_latency_p90
+  - id: p99
+    signal: kubernetes_api_server_workqueue_latency_p99
+- id: k8s_apiserver.workqueue_adds
+  title: Work Queue Adds
+  units: items/s
+  family: workqueue
+  chart_type: line
+  priority: 60026
+  shape: counters
+  labels:
+    controller: sim-controller-1
+  dimensions:
+  - id: adds
+    rate_signal: kubernetes_api_server_workqueue_adds_adds
+  - id: retries
+    rate_signal: kubernetes_api_server_workqueue_adds_retries
+- id: k8s_apiserver.workqueue_duration
+  title: Work Queue Work Duration
+  units: microseconds
+  family: workqueue
+  chart_type: line
+  priority: 60027
+  shape: independent
+  labels:
+    controller: sim-controller-1
+  dimensions:
+  - id: p50
+    signal: kubernetes_api_server_workqueue_duration_p50
+  - id: p90
+    signal: kubernetes_api_server_workqueue_duration_p90
+  - id: p99
+    signal: kubernetes_api_server_workqueue_duration_p99
+- id: k8s_apiserver.admission_controller_latency
+  title: Admission Controller Latency
+  units: events/s
+  family: admission
+  chart_type: line
+  priority: 60028
+  shape: counters
+  labels:
+    name: sim-name-1
+  dimensions:
+  - id: 5ms
+    rate_signal: kubernetes_api_server_admission_controller_latency_5ms
+  - id: 25ms
+    rate_signal: kubernetes_api_server_admission_controller_latency_25ms
+  - id: 100ms
+    rate_signal: kubernetes_api_server_admission_controller_latency_100ms
+  - id: 500ms
+    rate_signal: kubernetes_api_server_admission_controller_latency_500ms
+  - id: 1s
+    rate_signal: kubernetes_api_server_admission_controller_latency_1s
+  - id: 2.5s
+    rate_signal: kubernetes_api_server_admission_controller_latency_2_5s
+  - id: +Inf
+    rate_signal: kubernetes_api_server_admission_controller_latency_inf
+- id: k8s_apiserver.admission_webhook_latency
+  title: Admission Webhook Latency
+  units: events/s
+  family: admission
+  chart_type: line
+  priority: 60029
+  shape: counters
+  labels:
+    name: sim-name-1
+  dimensions:
+  - id: 5ms
+    rate_signal: kubernetes_api_server_admission_webhook_latency_5ms
+  - id: 25ms
+    rate_signal: kubernetes_api_server_admission_webhook_latency_25ms
+  - id: 100ms
+    rate_signal: kubernetes_api_server_admission_webhook_latency_100ms
+  - id: 500ms
+    rate_signal: kubernetes_api_server_admission_webhook_latency_500ms
+  - id: 1s
+    rate_signal: kubernetes_api_server_admission_webhook_latency_1s
+  - id: 2.5s
+    rate_signal: kubernetes_api_server_admission_webhook_latency_2_5s
+  - id: +Inf
+    rate_signal: kubernetes_api_server_admission_webhook_latency_inf

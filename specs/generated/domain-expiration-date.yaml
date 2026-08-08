@@ -1,0 +1,30 @@
+version: 1
+name: domain-expiration-date
+description: Domain expiration date metrics, generated from Netdata's own collector metadata so the contexts,
+  units and dimension names match what a real Domain expiration date node reports. Signals are independent
+  and plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  domain_expiration_date_time_until_expiration_expiry:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: whoisquery.time_until_expiration
+  title: Time Until Domain Expiration
+  units: seconds
+  family: time
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels:
+    domain: sim-domain-1
+  dimensions:
+  - id: expiry
+    signal: domain_expiration_date_time_until_expiration_expiry

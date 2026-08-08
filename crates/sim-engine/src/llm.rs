@@ -37,7 +37,7 @@ use std::process::{Command, Stdio};
 
 use serde_json::{json, Value};
 
-use sim_engine::describe::{available_services, roles, Group, Reading};
+use crate::describe::{available_services, roles, Group, Reading};
 
 /// Which API to call.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]

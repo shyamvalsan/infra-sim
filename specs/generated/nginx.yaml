@@ -1,0 +1,134 @@
+version: 1
+name: nginx
+description: NGINX metrics, generated from Netdata's own collector metadata so the contexts, units and
+  dimension names match what a real NGINX node reports. Signals are independent and plausible rather than
+  causally coupled - see scripts/sync-integrations.py.
+signals:
+  nginx_connections_active:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_connections_status_reading:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_connections_status_writing:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_connections_status_idle:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_connections_accepted_handled_accepted:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_connections_accepted_handled_handled:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_requests_requests:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: nginx.connections
+  title: Active Client Connections Including Waiting Connections
+  units: connections
+  family: connections
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: active
+    signal: nginx_connections_active
+- id: nginx.connections_status
+  title: Active Connections Per Status
+  units: connections
+  family: connections
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: reading
+    signal: nginx_connections_status_reading
+  - id: writing
+    signal: nginx_connections_status_writing
+  - id: idle
+    signal: nginx_connections_status_idle
+- id: nginx.connections_accepted_handled
+  title: Accepted And Handled Connections
+  units: connections/s
+  family: connections
+  chart_type: line
+  priority: 60003
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: accepted
+    rate_signal: nginx_connections_accepted_handled_accepted
+  - id: handled
+    rate_signal: nginx_connections_accepted_handled_handled
+- id: nginx.requests
+  title: Client Requests
+  units: requests/s
+  family: requests
+  chart_type: line
+  priority: 60004
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: requests
+    rate_signal: nginx_requests_requests

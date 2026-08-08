@@ -1,0 +1,1224 @@
+version: 1
+name: hyper-v
+description: Hyper-V metrics, generated from Netdata's own collector metadata so the contexts, units and
+  dimension names match what a real Hyper-V node reports. Signals are independent and plausible rather
+  than causally coupled - see scripts/sync-integrations.py.
+signals:
+  hyper_v_vms_health_ok:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hyper_v_vms_health_critical:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hyper_v_root_partition_io_tlb_flush_gpa:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hyper_v_root_partition_virtual_tlb_flush_entries_flushes:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hyper_v_root_partition_virtual_tlb_pages_used:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hyper_v_root_partition_address_space_address_spaces:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hyper_v_root_partition_attached_devices_attached:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hyper_v_root_partition_device_dma_errors_illegal_dma:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hyper_v_root_partition_device_interrupt_errors_illegal_interrupt:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hyper_v_root_partition_device_interrupt_throttle_events_throttling:
+    base: 90.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hyper_v_root_partition_deposited_pages_gpa:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hyper_v_root_partition_device_space_pages_4k:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hyper_v_root_partition_device_space_pages_2m:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hyper_v_root_partition_device_space_pages_1g:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hyper_v_root_partition_gpa_space_pages_4k:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hyper_v_root_partition_gpa_space_pages_2m:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hyper_v_root_partition_gpa_space_pages_1g:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hyper_v_root_partition_gpa_space_modifications_gpa:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hyper_v_vm_cpu_usage_usage:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hyper_v_vm_cpu_usage_by_run_context_guest:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hyper_v_vm_cpu_usage_by_run_context_hypervisor:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hyper_v_vm_cpu_usage_by_run_context_remote:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hyper_v_vm_memory_physical_assigned:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hyper_v_vm_memory_physical_guest_visible_visible:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hyper_v_vm_memory_physical_guest_visible_available:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hyper_v_vm_memory_pressure_current_pressure:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hyper_v_vm_vid_physical_pages_allocated_allocated:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hyper_v_vm_vid_remote_physical_pages_remote_physical:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hyper_v_vm_storage_device_bytes_read:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hyper_v_vm_storage_device_bytes_write:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hyper_v_vm_storage_device_operations_read:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hyper_v_vm_storage_device_operations_write:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hyper_v_vm_storage_device_errors_errors:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+  hyper_v_vm_net_interface_traffic_received:
+    base: 18000.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hyper_v_vm_net_interface_traffic_sent:
+    base: 18000.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hyper_v_vm_net_interface_ipsec_traffic_received:
+    base: 18000.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hyper_v_vm_net_interface_ipsec_traffic_sent:
+    base: 18000.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hyper_v_vm_net_interface_packets_received:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hyper_v_vm_net_interface_packets_sent:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hyper_v_vm_net_interface_directed_packets_received:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hyper_v_vm_net_interface_directed_packets_sent:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hyper_v_vm_net_interface_broadcast_packets_received:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hyper_v_vm_net_interface_broadcast_packets_sent:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hyper_v_vm_net_interface_multicast_packets_received:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hyper_v_vm_net_interface_multicast_packets_sent:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hyper_v_vm_net_interface_packets_dropped_incoming:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hyper_v_vm_net_interface_packets_dropped_outgoing:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hyper_v_vswitch_traffic_received:
+    base: 18000.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hyper_v_vswitch_traffic_sent:
+    base: 18000.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hyper_v_vswitch_packets_received:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hyper_v_vswitch_packets_sent:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hyper_v_vswitch_directed_packets_received:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hyper_v_vswitch_directed_packets_sent:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hyper_v_vswitch_broadcast_packets_received:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hyper_v_vswitch_broadcast_packets_sent:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hyper_v_vswitch_multicast_packets_received:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hyper_v_vswitch_multicast_packets_sent:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hyper_v_vswitch_dropped_packets_incoming:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hyper_v_vswitch_dropped_packets_outgoing:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hyper_v_vswitch_extensions_dropped_packets_incoming:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hyper_v_vswitch_extensions_dropped_packets_outgoing:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hyper_v_vswitch_packets_flooded_flooded:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hyper_v_vswitch_learned_mac_addresses_learned:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hyper_v_vswitch_purged_mac_addresses_purged:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: hyperv.vms_health
+  title: Virtual machines health status
+  units: vms
+  family: vms
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: ok
+    signal: hyper_v_vms_health_ok
+  - id: critical
+    signal: hyper_v_vms_health_critical
+- id: hyperv.root_partition_io_tlb_flush
+  title: Root partition flushes of I/O TLBs
+  units: flushes/s
+  family: root
+  chart_type: line
+  priority: 60002
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: gpa
+    rate_signal: hyper_v_root_partition_io_tlb_flush_gpa
+- id: hyperv.root_partition_virtual_tlb_flush_entries
+  title: Root partition flushes of the entire virtual TLB
+  units: flushes/s
+  family: root
+  chart_type: line
+  priority: 60003
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: flushes
+    rate_signal: hyper_v_root_partition_virtual_tlb_flush_entries_flushes
+- id: hyperv.root_partition_virtual_tlb_pages
+  title: Root partition pages used by the virtual TLB
+  units: pages
+  family: root
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: used
+    signal: hyper_v_root_partition_virtual_tlb_pages_used
+- id: hyperv.root_partition_address_space
+  title: Root partition address spaces in the virtual TLB
+  units: address spaces
+  family: root
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: address_spaces
+    signal: hyper_v_root_partition_address_space_address_spaces
+- id: hyperv.root_partition_attached_devices
+  title: Root partition attached devices
+  units: devices
+  family: root
+  chart_type: line
+  priority: 60006
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: attached
+    signal: hyper_v_root_partition_attached_devices_attached
+- id: hyperv.root_partition_device_dma_errors
+  title: Root partition illegal DMA requests
+  units: requests
+  family: root
+  chart_type: line
+  priority: 60007
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: illegal_dma
+    signal: hyper_v_root_partition_device_dma_errors_illegal_dma
+- id: hyperv.root_partition_device_interrupt_errors
+  title: Root partition illegal interrupt requests
+  units: requests
+  family: root
+  chart_type: line
+  priority: 60008
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: illegal_interrupt
+    signal: hyper_v_root_partition_device_interrupt_errors_illegal_interrupt
+- id: hyperv.root_partition_device_interrupt_throttle_events
+  title: Root partition throttled interrupts
+  units: events
+  family: root
+  chart_type: line
+  priority: 60009
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: throttling
+    signal: hyper_v_root_partition_device_interrupt_throttle_events_throttling
+- id: hyperv.root_partition_deposited_pages
+  title: Root partition deposited pages
+  units: pages
+  family: root
+  chart_type: line
+  priority: 60010
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: gpa
+    signal: hyper_v_root_partition_deposited_pages_gpa
+- id: hyperv.root_partition_device_space_pages
+  title: Root partition device space pages
+  units: pages
+  family: root
+  chart_type: line
+  priority: 60011
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: 4K
+    signal: hyper_v_root_partition_device_space_pages_4k
+  - id: 2M
+    signal: hyper_v_root_partition_device_space_pages_2m
+  - id: 1G
+    signal: hyper_v_root_partition_device_space_pages_1g
+- id: hyperv.root_partition_gpa_space_pages
+  title: Root partition GPA space pages
+  units: pages
+  family: root
+  chart_type: line
+  priority: 60012
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: 4K
+    signal: hyper_v_root_partition_gpa_space_pages_4k
+  - id: 2M
+    signal: hyper_v_root_partition_gpa_space_pages_2m
+  - id: 1G
+    signal: hyper_v_root_partition_gpa_space_pages_1g
+- id: hyperv.root_partition_gpa_space_modifications
+  title: Root partition GPA space modifications
+  units: modifications/s
+  family: root
+  chart_type: line
+  priority: 60013
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: gpa
+    rate_signal: hyper_v_root_partition_gpa_space_modifications_gpa
+- id: hyperv.vm_cpu_usage
+  title: VM CPU usage
+  units: percentage
+  family: vm
+  chart_type: area
+  priority: 60014
+  shape: independent
+  labels:
+    vm_name: sim-vm_name-1
+  dimensions:
+  - id: usage
+    signal: hyper_v_vm_cpu_usage_usage
+- id: hyperv.vm_cpu_usage_by_run_context
+  title: VM CPU usage by run context
+  units: percentage
+  family: vm
+  chart_type: stacked
+  priority: 60015
+  shape: independent
+  labels:
+    vm_name: sim-vm_name-1
+  dimensions:
+  - id: guest
+    signal: hyper_v_vm_cpu_usage_by_run_context_guest
+  - id: hypervisor
+    signal: hyper_v_vm_cpu_usage_by_run_context_hypervisor
+  - id: remote
+    signal: hyper_v_vm_cpu_usage_by_run_context_remote
+- id: hyperv.vm_memory_physical
+  title: VM assigned memory
+  units: bytes
+  family: vm
+  chart_type: line
+  priority: 60016
+  shape: independent
+  labels:
+    vm_name: sim-vm_name-1
+  dimensions:
+  - id: assigned
+    signal: hyper_v_vm_memory_physical_assigned
+- id: hyperv.vm_memory_physical_guest_visible
+  title: VM guest visible memory
+  units: bytes
+  family: vm
+  chart_type: line
+  priority: 60017
+  shape: independent
+  labels:
+    vm_name: sim-vm_name-1
+  dimensions:
+  - id: visible
+    signal: hyper_v_vm_memory_physical_guest_visible_visible
+  - id: available
+    signal: hyper_v_vm_memory_physical_guest_visible_available
+- id: hyperv.vm_memory_pressure_current
+  title: VM Memory Pressure
+  units: percentage
+  family: vm
+  chart_type: line
+  priority: 60018
+  shape: independent
+  labels:
+    vm_name: sim-vm_name-1
+  dimensions:
+  - id: pressure
+    signal: hyper_v_vm_memory_pressure_current_pressure
+- id: hyperv.vm_vid_physical_pages_allocated
+  title: VM physical pages allocated
+  units: pages
+  family: vm
+  chart_type: line
+  priority: 60019
+  shape: independent
+  labels:
+    vm_name: sim-vm_name-1
+  dimensions:
+  - id: allocated
+    signal: hyper_v_vm_vid_physical_pages_allocated_allocated
+- id: hyperv.vm_vid_remote_physical_pages
+  title: VM physical pages not allocated from the preferred NUMA node
+  units: pages
+  family: vm
+  chart_type: line
+  priority: 60020
+  shape: independent
+  labels:
+    vm_name: sim-vm_name-1
+  dimensions:
+  - id: remote_physical
+    signal: hyper_v_vm_vid_remote_physical_pages_remote_physical
+- id: hyperv.vm_storage_device_bytes
+  title: VM storage device IO
+  units: bytes/s
+  family: vm
+  chart_type: area
+  priority: 60021
+  shape: counters
+  labels:
+    vm_storage_device: sim-vm_storage_device-1
+  dimensions:
+  - id: read
+    rate_signal: hyper_v_vm_storage_device_bytes_read
+  - id: write
+    rate_signal: hyper_v_vm_storage_device_bytes_write
+- id: hyperv.vm_storage_device_operations
+  title: VM storage device IOPS"
+  units: operations/s
+  family: vm
+  chart_type: line
+  priority: 60022
+  shape: counters
+  labels:
+    vm_storage_device: sim-vm_storage_device-1
+  dimensions:
+  - id: read
+    rate_signal: hyper_v_vm_storage_device_operations_read
+  - id: write
+    rate_signal: hyper_v_vm_storage_device_operations_write
+- id: hyperv.vm_storage_device_errors
+  title: VM storage device errors
+  units: errors/s
+  family: vm
+  chart_type: line
+  priority: 60023
+  shape: counters
+  labels:
+    vm_storage_device: sim-vm_storage_device-1
+  dimensions:
+  - id: errors
+    rate_signal: hyper_v_vm_storage_device_errors_errors
+- id: hyperv.vm_net_interface_traffic
+  title: VM interface traffic
+  units: kilobits/s
+  family: vm
+  chart_type: line
+  priority: 60024
+  shape: counters
+  labels:
+    vm_net_interface: sim-vm_net_interface-1
+  dimensions:
+  - id: received
+    rate_signal: hyper_v_vm_net_interface_traffic_received
+  - id: sent
+    rate_signal: hyper_v_vm_net_interface_traffic_sent
+- id: hyperv.vm_net_interface_ipsec_traffic
+  title: VM interface traffic
+  units: kilobits/s
+  family: vm
+  chart_type: line
+  priority: 60025
+  shape: counters
+  labels:
+    vm_net_interface: sim-vm_net_interface-1
+  dimensions:
+  - id: received
+    rate_signal: hyper_v_vm_net_interface_ipsec_traffic_received
+  - id: sent
+    rate_signal: hyper_v_vm_net_interface_ipsec_traffic_sent
+- id: hyperv.vm_net_interface_packets
+  title: VM interface packets
+  units: packets/s
+  family: vm
+  chart_type: line
+  priority: 60026
+  shape: counters
+  labels:
+    vm_net_interface: sim-vm_net_interface-1
+  dimensions:
+  - id: received
+    rate_signal: hyper_v_vm_net_interface_packets_received
+  - id: sent
+    rate_signal: hyper_v_vm_net_interface_packets_sent
+- id: hyperv.vm_net_interface_directed_packets
+  title: VM interface directed packets
+  units: packets/s
+  family: vm
+  chart_type: line
+  priority: 60027
+  shape: counters
+  labels:
+    vm_net_interface: sim-vm_net_interface-1
+  dimensions:
+  - id: received
+    rate_signal: hyper_v_vm_net_interface_directed_packets_received
+  - id: sent
+    rate_signal: hyper_v_vm_net_interface_directed_packets_sent
+- id: hyperv.vm_net_interface_broadcast_packets
+  title: VM interface broadcast
+  units: packets/s
+  family: vm
+  chart_type: line
+  priority: 60028
+  shape: counters
+  labels:
+    vm_net_interface: sim-vm_net_interface-1
+  dimensions:
+  - id: received
+    rate_signal: hyper_v_vm_net_interface_broadcast_packets_received
+  - id: sent
+    rate_signal: hyper_v_vm_net_interface_broadcast_packets_sent
+- id: hyperv.vm_net_interface_multicast_packets
+  title: VM interface multicast
+  units: packets/s
+  family: vm
+  chart_type: line
+  priority: 60029
+  shape: counters
+  labels:
+    vm_net_interface: sim-vm_net_interface-1
+  dimensions:
+  - id: received
+    rate_signal: hyper_v_vm_net_interface_multicast_packets_received
+  - id: sent
+    rate_signal: hyper_v_vm_net_interface_multicast_packets_sent
+- id: hyperv.vm_net_interface_packets_dropped
+  title: VM interface packets dropped
+  units: drops/s
+  family: vm
+  chart_type: line
+  priority: 60030
+  shape: counters
+  labels:
+    vm_net_interface: sim-vm_net_interface-1
+  dimensions:
+  - id: incoming
+    rate_signal: hyper_v_vm_net_interface_packets_dropped_incoming
+  - id: outgoing
+    rate_signal: hyper_v_vm_net_interface_packets_dropped_outgoing
+- id: hyperv.vswitch_traffic
+  title: Virtual switch traffic
+  units: kilobits/s
+  family: vswitch
+  chart_type: area
+  priority: 60031
+  shape: counters
+  labels:
+    vswitch: sim-vswitch-1
+  dimensions:
+  - id: received
+    rate_signal: hyper_v_vswitch_traffic_received
+  - id: sent
+    rate_signal: hyper_v_vswitch_traffic_sent
+- id: hyperv.vswitch_packets
+  title: Virtual switch packets
+  units: packets/s
+  family: vswitch
+  chart_type: line
+  priority: 60032
+  shape: counters
+  labels:
+    vswitch: sim-vswitch-1
+  dimensions:
+  - id: received
+    rate_signal: hyper_v_vswitch_packets_received
+  - id: sent
+    rate_signal: hyper_v_vswitch_packets_sent
+- id: hyperv.vswitch_directed_packets
+  title: Virtual switch directed packets
+  units: packets/s
+  family: vswitch
+  chart_type: line
+  priority: 60033
+  shape: counters
+  labels:
+    vswitch: sim-vswitch-1
+  dimensions:
+  - id: received
+    rate_signal: hyper_v_vswitch_directed_packets_received
+  - id: sent
+    rate_signal: hyper_v_vswitch_directed_packets_sent
+- id: hyperv.vswitch_broadcast_packets
+  title: Virtual switch broadcast packets
+  units: packets/s
+  family: vswitch
+  chart_type: line
+  priority: 60034
+  shape: counters
+  labels:
+    vswitch: sim-vswitch-1
+  dimensions:
+  - id: received
+    rate_signal: hyper_v_vswitch_broadcast_packets_received
+  - id: sent
+    rate_signal: hyper_v_vswitch_broadcast_packets_sent
+- id: hyperv.vswitch_multicast_packets
+  title: Virtual switch multicast packets
+  units: packets/s
+  family: vswitch
+  chart_type: line
+  priority: 60035
+  shape: counters
+  labels:
+    vswitch: sim-vswitch-1
+  dimensions:
+  - id: received
+    rate_signal: hyper_v_vswitch_multicast_packets_received
+  - id: sent
+    rate_signal: hyper_v_vswitch_multicast_packets_sent
+- id: hyperv.vswitch_dropped_packets
+  title: Virtual switch dropped packets
+  units: drops/s
+  family: vswitch
+  chart_type: line
+  priority: 60036
+  shape: counters
+  labels:
+    vswitch: sim-vswitch-1
+  dimensions:
+  - id: incoming
+    rate_signal: hyper_v_vswitch_dropped_packets_incoming
+  - id: outgoing
+    rate_signal: hyper_v_vswitch_dropped_packets_outgoing
+- id: hyperv.vswitch_extensions_dropped_packets
+  title: Virtual switch extensions dropped packets
+  units: drops/s
+  family: vswitch
+  chart_type: line
+  priority: 60037
+  shape: counters
+  labels:
+    vswitch: sim-vswitch-1
+  dimensions:
+  - id: incoming
+    rate_signal: hyper_v_vswitch_extensions_dropped_packets_incoming
+  - id: outgoing
+    rate_signal: hyper_v_vswitch_extensions_dropped_packets_outgoing
+- id: hyperv.vswitch_packets_flooded
+  title: Virtual switch flooded packets
+  units: packets/s
+  family: vswitch
+  chart_type: line
+  priority: 60038
+  shape: counters
+  labels:
+    vswitch: sim-vswitch-1
+  dimensions:
+  - id: flooded
+    rate_signal: hyper_v_vswitch_packets_flooded_flooded
+- id: hyperv.vswitch_learned_mac_addresses
+  title: Virtual switch learned MAC addresses
+  units: mac addresses/s
+  family: vswitch
+  chart_type: line
+  priority: 60039
+  shape: counters
+  labels:
+    vswitch: sim-vswitch-1
+  dimensions:
+  - id: learned
+    rate_signal: hyper_v_vswitch_learned_mac_addresses_learned
+- id: hyperv.vswitch_purged_mac_addresses
+  title: Virtual switch purged MAC addresses
+  units: mac addresses/s
+  family: vswitch
+  chart_type: line
+  priority: 60040
+  shape: counters
+  labels:
+    vswitch: sim-vswitch-1
+  dimensions:
+  - id: purged
+    rate_signal: hyper_v_vswitch_purged_mac_addresses_purged

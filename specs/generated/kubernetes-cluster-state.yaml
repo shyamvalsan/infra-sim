@@ -1,0 +1,1809 @@
+version: 1
+name: kubernetes-cluster-state
+description: Kubernetes Cluster State metrics, generated from Netdata's own collector metadata so the
+  contexts, units and dimension names match what a real Kubernetes Cluster State node reports. Signals
+  are independent and plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  kubernetes_cluster_state_node_allocatable_cpu_requests_utilization_requests:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_cluster_state_node_allocatable_cpu_requests_used_requests:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_cluster_state_node_allocatable_cpu_limits_utilization_limits:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_cluster_state_node_allocatable_cpu_limits_used_limits:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_cluster_state_node_allocatable_mem_requests_utilization_requests:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_cluster_state_node_allocatable_mem_requests_used_requests:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_cluster_state_node_allocatable_mem_limits_utilization_limits:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_cluster_state_node_allocatable_mem_limits_used_limits:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_cluster_state_node_allocatable_pods_utilization_allocated:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_cluster_state_node_allocatable_pods_usage_available:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_cluster_state_node_allocatable_pods_usage_allocated:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_cluster_state_node_condition_ready:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  kubernetes_cluster_state_node_condition_diskpressure:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  kubernetes_cluster_state_node_condition_memorypressure:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  kubernetes_cluster_state_node_condition_networkunavailable:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  kubernetes_cluster_state_node_condition_pidpressure:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  kubernetes_cluster_state_node_schedulability_schedulable:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  kubernetes_cluster_state_node_schedulability_unschedulable:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  kubernetes_cluster_state_node_pods_readiness_ready:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_cluster_state_node_pods_readiness_state_ready:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_cluster_state_node_pods_readiness_state_unready:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_cluster_state_node_pods_condition_pod_ready:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_cluster_state_node_pods_condition_pod_scheduled:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_cluster_state_node_pods_condition_pod_initialized:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_cluster_state_node_pods_condition_containers_ready:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_cluster_state_node_pods_phase_running:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_cluster_state_node_pods_phase_failed:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  kubernetes_cluster_state_node_pods_phase_succeeded:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_cluster_state_node_pods_phase_pending:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_cluster_state_node_containers_containers:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_cluster_state_node_containers_init_containers:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_cluster_state_node_containers_state_running:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_cluster_state_node_containers_state_waiting:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_cluster_state_node_containers_state_terminated:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_cluster_state_node_init_containers_state_running:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_cluster_state_node_init_containers_state_waiting:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_cluster_state_node_init_containers_state_terminated:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_cluster_state_node_age_age:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_cluster_state_deployment_conditions_available:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  kubernetes_cluster_state_deployment_conditions_replica_failure:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  kubernetes_cluster_state_deployment_conditions_progressing:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  kubernetes_cluster_state_deployment_replicas_desired:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_cluster_state_deployment_replicas_current:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_cluster_state_deployment_replicas_ready:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_cluster_state_deployment_age_age:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_cluster_state_cronjob_jobs_count_by_status_completed:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_cluster_state_cronjob_jobs_count_by_status_failed:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  kubernetes_cluster_state_cronjob_jobs_count_by_status_running:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_cluster_state_cronjob_jobs_count_by_status_suspended:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_cluster_state_cronjob_jobs_failed_by_reason_pod_failure_policy:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  kubernetes_cluster_state_cronjob_jobs_failed_by_reason_backoff_limit_exceeded:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_cluster_state_cronjob_jobs_failed_by_reason_deadline_exceeded:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  kubernetes_cluster_state_cronjob_last_execution_status_completed:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  kubernetes_cluster_state_cronjob_last_execution_status_failed:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  kubernetes_cluster_state_cronjob_last_completion_duration_last_completion:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_cluster_state_cronjob_last_completed_time_ago_last_completed_ago:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_cluster_state_cronjob_last_schedule_time_ago_last_schedule_ago:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_cluster_state_cronjob_suspend_status_enabled:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  kubernetes_cluster_state_cronjob_suspend_status_suspended:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  kubernetes_cluster_state_cronjob_age_age:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_cluster_state_pod_cpu_requests_used_requests:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_cluster_state_pod_cpu_limits_used_limits:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_cluster_state_pod_mem_requests_used_requests:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_cluster_state_pod_mem_limits_used_limits:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_cluster_state_pod_condition_pod_ready:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  kubernetes_cluster_state_pod_condition_pod_scheduled:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  kubernetes_cluster_state_pod_condition_pod_initialized:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  kubernetes_cluster_state_pod_condition_containers_ready:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  kubernetes_cluster_state_pod_phase_running:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  kubernetes_cluster_state_pod_phase_failed:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  kubernetes_cluster_state_pod_phase_succeeded:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  kubernetes_cluster_state_pod_phase_pending:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  kubernetes_cluster_state_pod_status_reason_evicted:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  kubernetes_cluster_state_pod_status_reason_nodeaffinity:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  kubernetes_cluster_state_pod_status_reason_nodelost:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  kubernetes_cluster_state_pod_status_reason_shutdown:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  kubernetes_cluster_state_pod_status_reason_unexpectedadmissionerror:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  kubernetes_cluster_state_pod_status_reason_other:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  kubernetes_cluster_state_pod_age_age:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_cluster_state_pod_containers_containers:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_cluster_state_pod_containers_init_containers:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_cluster_state_pod_containers_state_running:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_cluster_state_pod_containers_state_waiting:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_cluster_state_pod_containers_state_terminated:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_cluster_state_pod_init_containers_state_running:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_cluster_state_pod_init_containers_state_waiting:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_cluster_state_pod_init_containers_state_terminated:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_cluster_state_pod_container_readiness_state_ready:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  kubernetes_cluster_state_pod_container_restarts_restarts:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  kubernetes_cluster_state_pod_container_state_running:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  kubernetes_cluster_state_pod_container_state_waiting:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  kubernetes_cluster_state_pod_container_state_terminated:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  kubernetes_cluster_state_pod_container_waiting_state_reason_containercreating:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  kubernetes_cluster_state_pod_container_waiting_state_reason_crashloopbackoff:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  kubernetes_cluster_state_pod_container_waiting_state_reason_createcontainerconfigerror:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  kubernetes_cluster_state_pod_container_waiting_state_reason_createcontainererror:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  kubernetes_cluster_state_pod_container_waiting_state_reason_errimagepull:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  kubernetes_cluster_state_pod_container_waiting_state_reason_imagepullbackoff:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  kubernetes_cluster_state_pod_container_waiting_state_reason_invalidimagename:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  kubernetes_cluster_state_pod_container_waiting_state_reason_podinitializing:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  kubernetes_cluster_state_pod_container_waiting_state_reason_other:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  kubernetes_cluster_state_pod_container_terminated_state_reason_completed:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  kubernetes_cluster_state_pod_container_terminated_state_reason_containercannotrun:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  kubernetes_cluster_state_pod_container_terminated_state_reason_deadlineexceeded:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  kubernetes_cluster_state_pod_container_terminated_state_reason_error:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  kubernetes_cluster_state_pod_container_terminated_state_reason_evicted:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  kubernetes_cluster_state_pod_container_terminated_state_reason_oomkilled:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  kubernetes_cluster_state_pod_container_terminated_state_reason_other:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+contexts:
+- id: k8s_state.node_allocatable_cpu_requests_utilization
+  title: CPU requests utilization
+  units: '%'
+  family: node
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels:
+    k8s_cluster_id: sim-k8s_cluster_id-1
+    k8s_cluster_name: sim-k8s_cluster_name-1
+    k8s_node_name: sim-k8s_node_name-1
+  dimensions:
+  - id: requests
+    signal: kubernetes_cluster_state_node_allocatable_cpu_requests_utilization_requests
+- id: k8s_state.node_allocatable_cpu_requests_used
+  title: CPU requests used
+  units: millicpu
+  family: node
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels:
+    k8s_cluster_id: sim-k8s_cluster_id-1
+    k8s_cluster_name: sim-k8s_cluster_name-1
+    k8s_node_name: sim-k8s_node_name-1
+  dimensions:
+  - id: requests
+    signal: kubernetes_cluster_state_node_allocatable_cpu_requests_used_requests
+- id: k8s_state.node_allocatable_cpu_limits_utilization
+  title: CPU limits utilization
+  units: '%'
+  family: node
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels:
+    k8s_cluster_id: sim-k8s_cluster_id-1
+    k8s_cluster_name: sim-k8s_cluster_name-1
+    k8s_node_name: sim-k8s_node_name-1
+  dimensions:
+  - id: limits
+    signal: kubernetes_cluster_state_node_allocatable_cpu_limits_utilization_limits
+- id: k8s_state.node_allocatable_cpu_limits_used
+  title: CPU limits used
+  units: millicpu
+  family: node
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels:
+    k8s_cluster_id: sim-k8s_cluster_id-1
+    k8s_cluster_name: sim-k8s_cluster_name-1
+    k8s_node_name: sim-k8s_node_name-1
+  dimensions:
+  - id: limits
+    signal: kubernetes_cluster_state_node_allocatable_cpu_limits_used_limits
+- id: k8s_state.node_allocatable_mem_requests_utilization
+  title: Memory requests utilization
+  units: '%'
+  family: node
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels:
+    k8s_cluster_id: sim-k8s_cluster_id-1
+    k8s_cluster_name: sim-k8s_cluster_name-1
+    k8s_node_name: sim-k8s_node_name-1
+  dimensions:
+  - id: requests
+    signal: kubernetes_cluster_state_node_allocatable_mem_requests_utilization_requests
+- id: k8s_state.node_allocatable_mem_requests_used
+  title: Memory requests used
+  units: bytes
+  family: node
+  chart_type: line
+  priority: 60006
+  shape: independent
+  labels:
+    k8s_cluster_id: sim-k8s_cluster_id-1
+    k8s_cluster_name: sim-k8s_cluster_name-1
+    k8s_node_name: sim-k8s_node_name-1
+  dimensions:
+  - id: requests
+    signal: kubernetes_cluster_state_node_allocatable_mem_requests_used_requests
+- id: k8s_state.node_allocatable_mem_limits_utilization
+  title: Memory limits utilization
+  units: '%'
+  family: node
+  chart_type: line
+  priority: 60007
+  shape: independent
+  labels:
+    k8s_cluster_id: sim-k8s_cluster_id-1
+    k8s_cluster_name: sim-k8s_cluster_name-1
+    k8s_node_name: sim-k8s_node_name-1
+  dimensions:
+  - id: limits
+    signal: kubernetes_cluster_state_node_allocatable_mem_limits_utilization_limits
+- id: k8s_state.node_allocatable_mem_limits_used
+  title: Memory limits used
+  units: bytes
+  family: node
+  chart_type: line
+  priority: 60008
+  shape: independent
+  labels:
+    k8s_cluster_id: sim-k8s_cluster_id-1
+    k8s_cluster_name: sim-k8s_cluster_name-1
+    k8s_node_name: sim-k8s_node_name-1
+  dimensions:
+  - id: limits
+    signal: kubernetes_cluster_state_node_allocatable_mem_limits_used_limits
+- id: k8s_state.node_allocatable_pods_utilization
+  title: Pods resource utilization
+  units: '%'
+  family: node
+  chart_type: line
+  priority: 60009
+  shape: independent
+  labels:
+    k8s_cluster_id: sim-k8s_cluster_id-1
+    k8s_cluster_name: sim-k8s_cluster_name-1
+    k8s_node_name: sim-k8s_node_name-1
+  dimensions:
+  - id: allocated
+    signal: kubernetes_cluster_state_node_allocatable_pods_utilization_allocated
+- id: k8s_state.node_allocatable_pods_usage
+  title: Pods resource usage
+  units: pods
+  family: node
+  chart_type: stacked
+  priority: 60010
+  shape: independent
+  labels:
+    k8s_cluster_id: sim-k8s_cluster_id-1
+    k8s_cluster_name: sim-k8s_cluster_name-1
+    k8s_node_name: sim-k8s_node_name-1
+  dimensions:
+  - id: available
+    signal: kubernetes_cluster_state_node_allocatable_pods_usage_available
+  - id: allocated
+    signal: kubernetes_cluster_state_node_allocatable_pods_usage_allocated
+- id: k8s_state.node_condition
+  title: Condition status
+  units: status
+  family: node
+  chart_type: line
+  priority: 60011
+  shape: independent
+  labels:
+    k8s_cluster_id: sim-k8s_cluster_id-1
+    k8s_cluster_name: sim-k8s_cluster_name-1
+    k8s_node_name: sim-k8s_node_name-1
+  dimensions:
+  - id: Ready
+    signal: kubernetes_cluster_state_node_condition_ready
+  - id: DiskPressure
+    signal: kubernetes_cluster_state_node_condition_diskpressure
+  - id: MemoryPressure
+    signal: kubernetes_cluster_state_node_condition_memorypressure
+  - id: NetworkUnavailable
+    signal: kubernetes_cluster_state_node_condition_networkunavailable
+  - id: PIDPressure
+    signal: kubernetes_cluster_state_node_condition_pidpressure
+- id: k8s_state.node_schedulability
+  title: Schedulability
+  units: state
+  family: node
+  chart_type: line
+  priority: 60012
+  shape: independent
+  labels:
+    k8s_cluster_id: sim-k8s_cluster_id-1
+    k8s_cluster_name: sim-k8s_cluster_name-1
+    k8s_node_name: sim-k8s_node_name-1
+  dimensions:
+  - id: schedulable
+    signal: kubernetes_cluster_state_node_schedulability_schedulable
+  - id: unschedulable
+    signal: kubernetes_cluster_state_node_schedulability_unschedulable
+- id: k8s_state.node_pods_readiness
+  title: Pods readiness
+  units: '%'
+  family: node
+  chart_type: line
+  priority: 60013
+  shape: independent
+  labels:
+    k8s_cluster_id: sim-k8s_cluster_id-1
+    k8s_cluster_name: sim-k8s_cluster_name-1
+    k8s_node_name: sim-k8s_node_name-1
+  dimensions:
+  - id: ready
+    signal: kubernetes_cluster_state_node_pods_readiness_ready
+- id: k8s_state.node_pods_readiness_state
+  title: Pods readiness state
+  units: pods
+  family: node
+  chart_type: line
+  priority: 60014
+  shape: independent
+  labels:
+    k8s_cluster_id: sim-k8s_cluster_id-1
+    k8s_cluster_name: sim-k8s_cluster_name-1
+    k8s_node_name: sim-k8s_node_name-1
+  dimensions:
+  - id: ready
+    signal: kubernetes_cluster_state_node_pods_readiness_state_ready
+  - id: unready
+    signal: kubernetes_cluster_state_node_pods_readiness_state_unready
+- id: k8s_state.node_pods_condition
+  title: Pods condition
+  units: pods
+  family: node
+  chart_type: line
+  priority: 60015
+  shape: independent
+  labels:
+    k8s_cluster_id: sim-k8s_cluster_id-1
+    k8s_cluster_name: sim-k8s_cluster_name-1
+    k8s_node_name: sim-k8s_node_name-1
+  dimensions:
+  - id: pod_ready
+    signal: kubernetes_cluster_state_node_pods_condition_pod_ready
+  - id: pod_scheduled
+    signal: kubernetes_cluster_state_node_pods_condition_pod_scheduled
+  - id: pod_initialized
+    signal: kubernetes_cluster_state_node_pods_condition_pod_initialized
+  - id: containers_ready
+    signal: kubernetes_cluster_state_node_pods_condition_containers_ready
+- id: k8s_state.node_pods_phase
+  title: Pods phase
+  units: pods
+  family: node
+  chart_type: stacked
+  priority: 60016
+  shape: independent
+  labels:
+    k8s_cluster_id: sim-k8s_cluster_id-1
+    k8s_cluster_name: sim-k8s_cluster_name-1
+    k8s_node_name: sim-k8s_node_name-1
+  dimensions:
+  - id: running
+    signal: kubernetes_cluster_state_node_pods_phase_running
+  - id: failed
+    signal: kubernetes_cluster_state_node_pods_phase_failed
+  - id: succeeded
+    signal: kubernetes_cluster_state_node_pods_phase_succeeded
+  - id: pending
+    signal: kubernetes_cluster_state_node_pods_phase_pending
+- id: k8s_state.node_containers
+  title: Containers
+  units: containers
+  family: node
+  chart_type: line
+  priority: 60017
+  shape: independent
+  labels:
+    k8s_cluster_id: sim-k8s_cluster_id-1
+    k8s_cluster_name: sim-k8s_cluster_name-1
+    k8s_node_name: sim-k8s_node_name-1
+  dimensions:
+  - id: containers
+    signal: kubernetes_cluster_state_node_containers_containers
+  - id: init_containers
+    signal: kubernetes_cluster_state_node_containers_init_containers
+- id: k8s_state.node_containers_state
+  title: Containers state
+  units: containers
+  family: node
+  chart_type: stacked
+  priority: 60018
+  shape: independent
+  labels:
+    k8s_cluster_id: sim-k8s_cluster_id-1
+    k8s_cluster_name: sim-k8s_cluster_name-1
+    k8s_node_name: sim-k8s_node_name-1
+  dimensions:
+  - id: running
+    signal: kubernetes_cluster_state_node_containers_state_running
+  - id: waiting
+    signal: kubernetes_cluster_state_node_containers_state_waiting
+  - id: terminated
+    signal: kubernetes_cluster_state_node_containers_state_terminated
+- id: k8s_state.node_init_containers_state
+  title: Init containers state
+  units: containers
+  family: node
+  chart_type: stacked
+  priority: 60019
+  shape: independent
+  labels:
+    k8s_cluster_id: sim-k8s_cluster_id-1
+    k8s_cluster_name: sim-k8s_cluster_name-1
+    k8s_node_name: sim-k8s_node_name-1
+  dimensions:
+  - id: running
+    signal: kubernetes_cluster_state_node_init_containers_state_running
+  - id: waiting
+    signal: kubernetes_cluster_state_node_init_containers_state_waiting
+  - id: terminated
+    signal: kubernetes_cluster_state_node_init_containers_state_terminated
+- id: k8s_state.node_age
+  title: Age
+  units: seconds
+  family: node
+  chart_type: line
+  priority: 60020
+  shape: independent
+  labels:
+    k8s_cluster_id: sim-k8s_cluster_id-1
+    k8s_cluster_name: sim-k8s_cluster_name-1
+    k8s_node_name: sim-k8s_node_name-1
+  dimensions:
+  - id: age
+    signal: kubernetes_cluster_state_node_age_age
+- id: k8s_state.deployment_conditions
+  title: Deployment Conditions
+  units: status
+  family: deployment
+  chart_type: line
+  priority: 60021
+  shape: independent
+  labels:
+    k8s_cluster_id: sim-k8s_cluster_id-1
+    k8s_cluster_name: sim-k8s_cluster_name-1
+    k8s_deployment_name: sim-k8s_deployment_name-1
+    k8s_namespace: sim-k8s_namespace-1
+  dimensions:
+  - id: available
+    signal: kubernetes_cluster_state_deployment_conditions_available
+  - id: replica_failure
+    signal: kubernetes_cluster_state_deployment_conditions_replica_failure
+  - id: progressing
+    signal: kubernetes_cluster_state_deployment_conditions_progressing
+- id: k8s_state.deployment_replicas
+  title: Deployment Replicas
+  units: replicas
+  family: deployment
+  chart_type: line
+  priority: 60022
+  shape: independent
+  labels:
+    k8s_cluster_id: sim-k8s_cluster_id-1
+    k8s_cluster_name: sim-k8s_cluster_name-1
+    k8s_deployment_name: sim-k8s_deployment_name-1
+    k8s_namespace: sim-k8s_namespace-1
+  dimensions:
+  - id: desired
+    signal: kubernetes_cluster_state_deployment_replicas_desired
+  - id: current
+    signal: kubernetes_cluster_state_deployment_replicas_current
+  - id: ready
+    signal: kubernetes_cluster_state_deployment_replicas_ready
+- id: k8s_state.deployment_age
+  title: Deployment Age
+  units: seconds
+  family: deployment
+  chart_type: line
+  priority: 60023
+  shape: independent
+  labels:
+    k8s_cluster_id: sim-k8s_cluster_id-1
+    k8s_cluster_name: sim-k8s_cluster_name-1
+    k8s_deployment_name: sim-k8s_deployment_name-1
+    k8s_namespace: sim-k8s_namespace-1
+  dimensions:
+  - id: age
+    signal: kubernetes_cluster_state_deployment_age_age
+- id: k8s_state.cronjob_jobs_count_by_status
+  title: CronJob Jobs Count by Status
+  units: jobs
+  family: cronjob
+  chart_type: line
+  priority: 60024
+  shape: independent
+  labels:
+    k8s_cluster_id: sim-k8s_cluster_id-1
+    k8s_cluster_name: sim-k8s_cluster_name-1
+    k8s_cronjob_name: sim-k8s_cronjob_name-1
+    k8s_namespace: sim-k8s_namespace-1
+  dimensions:
+  - id: completed
+    signal: kubernetes_cluster_state_cronjob_jobs_count_by_status_completed
+  - id: failed
+    signal: kubernetes_cluster_state_cronjob_jobs_count_by_status_failed
+  - id: running
+    signal: kubernetes_cluster_state_cronjob_jobs_count_by_status_running
+  - id: suspended
+    signal: kubernetes_cluster_state_cronjob_jobs_count_by_status_suspended
+- id: k8s_state.cronjob_jobs_failed_by_reason
+  title: CronJob Jobs Failed by Reason
+  units: jobs
+  family: cronjob
+  chart_type: line
+  priority: 60025
+  shape: independent
+  labels:
+    k8s_cluster_id: sim-k8s_cluster_id-1
+    k8s_cluster_name: sim-k8s_cluster_name-1
+    k8s_cronjob_name: sim-k8s_cronjob_name-1
+    k8s_namespace: sim-k8s_namespace-1
+  dimensions:
+  - id: pod_failure_policy
+    signal: kubernetes_cluster_state_cronjob_jobs_failed_by_reason_pod_failure_policy
+  - id: backoff_limit_exceeded
+    signal: kubernetes_cluster_state_cronjob_jobs_failed_by_reason_backoff_limit_exceeded
+  - id: deadline_exceeded
+    signal: kubernetes_cluster_state_cronjob_jobs_failed_by_reason_deadline_exceeded
+- id: k8s_state.cronjob_last_execution_status
+  title: CronJob Last Execution Status
+  units: status
+  family: cronjob
+  chart_type: line
+  priority: 60026
+  shape: independent
+  labels:
+    k8s_cluster_id: sim-k8s_cluster_id-1
+    k8s_cluster_name: sim-k8s_cluster_name-1
+    k8s_cronjob_name: sim-k8s_cronjob_name-1
+    k8s_namespace: sim-k8s_namespace-1
+  dimensions:
+  - id: completed
+    signal: kubernetes_cluster_state_cronjob_last_execution_status_completed
+  - id: failed
+    signal: kubernetes_cluster_state_cronjob_last_execution_status_failed
+- id: k8s_state.cronjob_last_completion_duration
+  title: CronJob Last Completion Duration
+  units: seconds
+  family: cronjob
+  chart_type: line
+  priority: 60027
+  shape: independent
+  labels:
+    k8s_cluster_id: sim-k8s_cluster_id-1
+    k8s_cluster_name: sim-k8s_cluster_name-1
+    k8s_cronjob_name: sim-k8s_cronjob_name-1
+    k8s_namespace: sim-k8s_namespace-1
+  dimensions:
+  - id: last_completion
+    signal: kubernetes_cluster_state_cronjob_last_completion_duration_last_completion
+- id: k8s_state.cronjob_last_completed_time_ago
+  title: CronJob Last Completed Time Ago
+  units: seconds
+  family: cronjob
+  chart_type: line
+  priority: 60028
+  shape: independent
+  labels:
+    k8s_cluster_id: sim-k8s_cluster_id-1
+    k8s_cluster_name: sim-k8s_cluster_name-1
+    k8s_cronjob_name: sim-k8s_cronjob_name-1
+    k8s_namespace: sim-k8s_namespace-1
+  dimensions:
+  - id: last_completed_ago
+    signal: kubernetes_cluster_state_cronjob_last_completed_time_ago_last_completed_ago
+- id: k8s_state.cronjob_last_schedule_time_ago
+  title: CronJob Last Schedule Time Ago
+  units: seconds
+  family: cronjob
+  chart_type: line
+  priority: 60029
+  shape: independent
+  labels:
+    k8s_cluster_id: sim-k8s_cluster_id-1
+    k8s_cluster_name: sim-k8s_cluster_name-1
+    k8s_cronjob_name: sim-k8s_cronjob_name-1
+    k8s_namespace: sim-k8s_namespace-1
+  dimensions:
+  - id: last_schedule_ago
+    signal: kubernetes_cluster_state_cronjob_last_schedule_time_ago_last_schedule_ago
+- id: k8s_state.cronjob_suspend_status
+  title: CronJob Suspend Status
+  units: status
+  family: cronjob
+  chart_type: line
+  priority: 60030
+  shape: independent
+  labels:
+    k8s_cluster_id: sim-k8s_cluster_id-1
+    k8s_cluster_name: sim-k8s_cluster_name-1
+    k8s_cronjob_name: sim-k8s_cronjob_name-1
+    k8s_namespace: sim-k8s_namespace-1
+  dimensions:
+  - id: enabled
+    signal: kubernetes_cluster_state_cronjob_suspend_status_enabled
+  - id: suspended
+    signal: kubernetes_cluster_state_cronjob_suspend_status_suspended
+- id: k8s_state.cronjob_age
+  title: CronJob Age
+  units: seconds
+  family: cronjob
+  chart_type: line
+  priority: 60031
+  shape: independent
+  labels:
+    k8s_cluster_id: sim-k8s_cluster_id-1
+    k8s_cluster_name: sim-k8s_cluster_name-1
+    k8s_cronjob_name: sim-k8s_cronjob_name-1
+    k8s_namespace: sim-k8s_namespace-1
+  dimensions:
+  - id: age
+    signal: kubernetes_cluster_state_cronjob_age_age
+- id: k8s_state.pod_cpu_requests_used
+  title: CPU requests used
+  units: millicpu
+  family: pod
+  chart_type: line
+  priority: 60032
+  shape: independent
+  labels:
+    k8s_cluster_id: sim-k8s_cluster_id-1
+    k8s_cluster_name: sim-k8s_cluster_name-1
+    k8s_node_name: sim-k8s_node_name-1
+    k8s_namespace: sim-k8s_namespace-1
+    k8s_controller_kind: sim-k8s_controller_kind-1
+    k8s_controller_name: sim-k8s_controller_name-1
+    k8s_pod_name: sim-k8s_pod_name-1
+    k8s_qos_class: sim-k8s_qos_class-1
+  dimensions:
+  - id: requests
+    signal: kubernetes_cluster_state_pod_cpu_requests_used_requests
+- id: k8s_state.pod_cpu_limits_used
+  title: CPU limits used
+  units: millicpu
+  family: pod
+  chart_type: line
+  priority: 60033
+  shape: independent
+  labels:
+    k8s_cluster_id: sim-k8s_cluster_id-1
+    k8s_cluster_name: sim-k8s_cluster_name-1
+    k8s_node_name: sim-k8s_node_name-1
+    k8s_namespace: sim-k8s_namespace-1
+    k8s_controller_kind: sim-k8s_controller_kind-1
+    k8s_controller_name: sim-k8s_controller_name-1
+    k8s_pod_name: sim-k8s_pod_name-1
+    k8s_qos_class: sim-k8s_qos_class-1
+  dimensions:
+  - id: limits
+    signal: kubernetes_cluster_state_pod_cpu_limits_used_limits
+- id: k8s_state.pod_mem_requests_used
+  title: Memory requests used
+  units: bytes
+  family: pod
+  chart_type: line
+  priority: 60034
+  shape: independent
+  labels:
+    k8s_cluster_id: sim-k8s_cluster_id-1
+    k8s_cluster_name: sim-k8s_cluster_name-1
+    k8s_node_name: sim-k8s_node_name-1
+    k8s_namespace: sim-k8s_namespace-1
+    k8s_controller_kind: sim-k8s_controller_kind-1
+    k8s_controller_name: sim-k8s_controller_name-1
+    k8s_pod_name: sim-k8s_pod_name-1
+    k8s_qos_class: sim-k8s_qos_class-1
+  dimensions:
+  - id: requests
+    signal: kubernetes_cluster_state_pod_mem_requests_used_requests
+- id: k8s_state.pod_mem_limits_used
+  title: Memory limits used
+  units: bytes
+  family: pod
+  chart_type: line
+  priority: 60035
+  shape: independent
+  labels:
+    k8s_cluster_id: sim-k8s_cluster_id-1
+    k8s_cluster_name: sim-k8s_cluster_name-1
+    k8s_node_name: sim-k8s_node_name-1
+    k8s_namespace: sim-k8s_namespace-1
+    k8s_controller_kind: sim-k8s_controller_kind-1
+    k8s_controller_name: sim-k8s_controller_name-1
+    k8s_pod_name: sim-k8s_pod_name-1
+    k8s_qos_class: sim-k8s_qos_class-1
+  dimensions:
+  - id: limits
+    signal: kubernetes_cluster_state_pod_mem_limits_used_limits
+- id: k8s_state.pod_condition
+  title: Condition
+  units: state
+  family: pod
+  chart_type: line
+  priority: 60036
+  shape: independent
+  labels:
+    k8s_cluster_id: sim-k8s_cluster_id-1
+    k8s_cluster_name: sim-k8s_cluster_name-1
+    k8s_node_name: sim-k8s_node_name-1
+    k8s_namespace: sim-k8s_namespace-1
+    k8s_controller_kind: sim-k8s_controller_kind-1
+    k8s_controller_name: sim-k8s_controller_name-1
+    k8s_pod_name: sim-k8s_pod_name-1
+    k8s_qos_class: sim-k8s_qos_class-1
+  dimensions:
+  - id: pod_ready
+    signal: kubernetes_cluster_state_pod_condition_pod_ready
+  - id: pod_scheduled
+    signal: kubernetes_cluster_state_pod_condition_pod_scheduled
+  - id: pod_initialized
+    signal: kubernetes_cluster_state_pod_condition_pod_initialized
+  - id: containers_ready
+    signal: kubernetes_cluster_state_pod_condition_containers_ready
+- id: k8s_state.pod_phase
+  title: Phase
+  units: state
+  family: pod
+  chart_type: line
+  priority: 60037
+  shape: independent
+  labels:
+    k8s_cluster_id: sim-k8s_cluster_id-1
+    k8s_cluster_name: sim-k8s_cluster_name-1
+    k8s_node_name: sim-k8s_node_name-1
+    k8s_namespace: sim-k8s_namespace-1
+    k8s_controller_kind: sim-k8s_controller_kind-1
+    k8s_controller_name: sim-k8s_controller_name-1
+    k8s_pod_name: sim-k8s_pod_name-1
+    k8s_qos_class: sim-k8s_qos_class-1
+  dimensions:
+  - id: running
+    signal: kubernetes_cluster_state_pod_phase_running
+  - id: failed
+    signal: kubernetes_cluster_state_pod_phase_failed
+  - id: succeeded
+    signal: kubernetes_cluster_state_pod_phase_succeeded
+  - id: pending
+    signal: kubernetes_cluster_state_pod_phase_pending
+- id: k8s_state.pod_status_reason
+  title: Status reason
+  units: status
+  family: pod
+  chart_type: line
+  priority: 60038
+  shape: independent
+  labels:
+    k8s_cluster_id: sim-k8s_cluster_id-1
+    k8s_cluster_name: sim-k8s_cluster_name-1
+    k8s_node_name: sim-k8s_node_name-1
+    k8s_namespace: sim-k8s_namespace-1
+    k8s_controller_kind: sim-k8s_controller_kind-1
+    k8s_controller_name: sim-k8s_controller_name-1
+    k8s_pod_name: sim-k8s_pod_name-1
+    k8s_qos_class: sim-k8s_qos_class-1
+  dimensions:
+  - id: Evicted
+    signal: kubernetes_cluster_state_pod_status_reason_evicted
+  - id: NodeAffinity
+    signal: kubernetes_cluster_state_pod_status_reason_nodeaffinity
+  - id: NodeLost
+    signal: kubernetes_cluster_state_pod_status_reason_nodelost
+  - id: Shutdown
+    signal: kubernetes_cluster_state_pod_status_reason_shutdown
+  - id: UnexpectedAdmissionError
+    signal: kubernetes_cluster_state_pod_status_reason_unexpectedadmissionerror
+  - id: Other
+    signal: kubernetes_cluster_state_pod_status_reason_other
+- id: k8s_state.pod_age
+  title: Age
+  units: seconds
+  family: pod
+  chart_type: line
+  priority: 60039
+  shape: independent
+  labels:
+    k8s_cluster_id: sim-k8s_cluster_id-1
+    k8s_cluster_name: sim-k8s_cluster_name-1
+    k8s_node_name: sim-k8s_node_name-1
+    k8s_namespace: sim-k8s_namespace-1
+    k8s_controller_kind: sim-k8s_controller_kind-1
+    k8s_controller_name: sim-k8s_controller_name-1
+    k8s_pod_name: sim-k8s_pod_name-1
+    k8s_qos_class: sim-k8s_qos_class-1
+  dimensions:
+  - id: age
+    signal: kubernetes_cluster_state_pod_age_age
+- id: k8s_state.pod_containers
+  title: Containers
+  units: containers
+  family: pod
+  chart_type: line
+  priority: 60040
+  shape: independent
+  labels:
+    k8s_cluster_id: sim-k8s_cluster_id-1
+    k8s_cluster_name: sim-k8s_cluster_name-1
+    k8s_node_name: sim-k8s_node_name-1
+    k8s_namespace: sim-k8s_namespace-1
+    k8s_controller_kind: sim-k8s_controller_kind-1
+    k8s_controller_name: sim-k8s_controller_name-1
+    k8s_pod_name: sim-k8s_pod_name-1
+    k8s_qos_class: sim-k8s_qos_class-1
+  dimensions:
+  - id: containers
+    signal: kubernetes_cluster_state_pod_containers_containers
+  - id: init_containers
+    signal: kubernetes_cluster_state_pod_containers_init_containers
+- id: k8s_state.pod_containers_state
+  title: Containers state
+  units: containers
+  family: pod
+  chart_type: stacked
+  priority: 60041
+  shape: independent
+  labels:
+    k8s_cluster_id: sim-k8s_cluster_id-1
+    k8s_cluster_name: sim-k8s_cluster_name-1
+    k8s_node_name: sim-k8s_node_name-1
+    k8s_namespace: sim-k8s_namespace-1
+    k8s_controller_kind: sim-k8s_controller_kind-1
+    k8s_controller_name: sim-k8s_controller_name-1
+    k8s_pod_name: sim-k8s_pod_name-1
+    k8s_qos_class: sim-k8s_qos_class-1
+  dimensions:
+  - id: running
+    signal: kubernetes_cluster_state_pod_containers_state_running
+  - id: waiting
+    signal: kubernetes_cluster_state_pod_containers_state_waiting
+  - id: terminated
+    signal: kubernetes_cluster_state_pod_containers_state_terminated
+- id: k8s_state.pod_init_containers_state
+  title: Init containers state
+  units: containers
+  family: pod
+  chart_type: stacked
+  priority: 60042
+  shape: independent
+  labels:
+    k8s_cluster_id: sim-k8s_cluster_id-1
+    k8s_cluster_name: sim-k8s_cluster_name-1
+    k8s_node_name: sim-k8s_node_name-1
+    k8s_namespace: sim-k8s_namespace-1
+    k8s_controller_kind: sim-k8s_controller_kind-1
+    k8s_controller_name: sim-k8s_controller_name-1
+    k8s_pod_name: sim-k8s_pod_name-1
+    k8s_qos_class: sim-k8s_qos_class-1
+  dimensions:
+  - id: running
+    signal: kubernetes_cluster_state_pod_init_containers_state_running
+  - id: waiting
+    signal: kubernetes_cluster_state_pod_init_containers_state_waiting
+  - id: terminated
+    signal: kubernetes_cluster_state_pod_init_containers_state_terminated
+- id: k8s_state.pod_container_readiness_state
+  title: Readiness state
+  units: state
+  family: pod
+  chart_type: line
+  priority: 60043
+  shape: independent
+  labels:
+    k8s_cluster_id: sim-k8s_cluster_id-1
+    k8s_cluster_name: sim-k8s_cluster_name-1
+    k8s_node_name: sim-k8s_node_name-1
+    k8s_namespace: sim-k8s_namespace-1
+    k8s_controller_kind: sim-k8s_controller_kind-1
+    k8s_controller_name: sim-k8s_controller_name-1
+    k8s_pod_name: sim-k8s_pod_name-1
+    k8s_qos_class: sim-k8s_qos_class-1
+    k8s_container_name: sim-k8s_container_name-1
+  dimensions:
+  - id: ready
+    signal: kubernetes_cluster_state_pod_container_readiness_state_ready
+- id: k8s_state.pod_container_restarts
+  title: Restarts
+  units: restarts
+  family: pod
+  chart_type: line
+  priority: 60044
+  shape: independent
+  labels:
+    k8s_cluster_id: sim-k8s_cluster_id-1
+    k8s_cluster_name: sim-k8s_cluster_name-1
+    k8s_node_name: sim-k8s_node_name-1
+    k8s_namespace: sim-k8s_namespace-1
+    k8s_controller_kind: sim-k8s_controller_kind-1
+    k8s_controller_name: sim-k8s_controller_name-1
+    k8s_pod_name: sim-k8s_pod_name-1
+    k8s_qos_class: sim-k8s_qos_class-1
+    k8s_container_name: sim-k8s_container_name-1
+  dimensions:
+  - id: restarts
+    signal: kubernetes_cluster_state_pod_container_restarts_restarts
+- id: k8s_state.pod_container_state
+  title: Container state
+  units: state
+  family: pod
+  chart_type: line
+  priority: 60045
+  shape: independent
+  labels:
+    k8s_cluster_id: sim-k8s_cluster_id-1
+    k8s_cluster_name: sim-k8s_cluster_name-1
+    k8s_node_name: sim-k8s_node_name-1
+    k8s_namespace: sim-k8s_namespace-1
+    k8s_controller_kind: sim-k8s_controller_kind-1
+    k8s_controller_name: sim-k8s_controller_name-1
+    k8s_pod_name: sim-k8s_pod_name-1
+    k8s_qos_class: sim-k8s_qos_class-1
+    k8s_container_name: sim-k8s_container_name-1
+  dimensions:
+  - id: running
+    signal: kubernetes_cluster_state_pod_container_state_running
+  - id: waiting
+    signal: kubernetes_cluster_state_pod_container_state_waiting
+  - id: terminated
+    signal: kubernetes_cluster_state_pod_container_state_terminated
+- id: k8s_state.pod_container_waiting_state_reason
+  title: Container waiting state reason
+  units: state
+  family: pod
+  chart_type: line
+  priority: 60046
+  shape: independent
+  labels:
+    k8s_cluster_id: sim-k8s_cluster_id-1
+    k8s_cluster_name: sim-k8s_cluster_name-1
+    k8s_node_name: sim-k8s_node_name-1
+    k8s_namespace: sim-k8s_namespace-1
+    k8s_controller_kind: sim-k8s_controller_kind-1
+    k8s_controller_name: sim-k8s_controller_name-1
+    k8s_pod_name: sim-k8s_pod_name-1
+    k8s_qos_class: sim-k8s_qos_class-1
+    k8s_container_name: sim-k8s_container_name-1
+  dimensions:
+  - id: ContainerCreating
+    signal: kubernetes_cluster_state_pod_container_waiting_state_reason_containercreating
+  - id: CrashLoopBackOff
+    signal: kubernetes_cluster_state_pod_container_waiting_state_reason_crashloopbackoff
+  - id: CreateContainerConfigError
+    signal: kubernetes_cluster_state_pod_container_waiting_state_reason_createcontainerconfigerror
+  - id: CreateContainerError
+    signal: kubernetes_cluster_state_pod_container_waiting_state_reason_createcontainererror
+  - id: ErrImagePull
+    signal: kubernetes_cluster_state_pod_container_waiting_state_reason_errimagepull
+  - id: ImagePullBackOff
+    signal: kubernetes_cluster_state_pod_container_waiting_state_reason_imagepullbackoff
+  - id: InvalidImageName
+    signal: kubernetes_cluster_state_pod_container_waiting_state_reason_invalidimagename
+  - id: PodInitializing
+    signal: kubernetes_cluster_state_pod_container_waiting_state_reason_podinitializing
+  - id: Other
+    signal: kubernetes_cluster_state_pod_container_waiting_state_reason_other
+- id: k8s_state.pod_container_terminated_state_reason
+  title: Container terminated state reason
+  units: state
+  family: pod
+  chart_type: line
+  priority: 60047
+  shape: independent
+  labels:
+    k8s_cluster_id: sim-k8s_cluster_id-1
+    k8s_cluster_name: sim-k8s_cluster_name-1
+    k8s_node_name: sim-k8s_node_name-1
+    k8s_namespace: sim-k8s_namespace-1
+    k8s_controller_kind: sim-k8s_controller_kind-1
+    k8s_controller_name: sim-k8s_controller_name-1
+    k8s_pod_name: sim-k8s_pod_name-1
+    k8s_qos_class: sim-k8s_qos_class-1
+    k8s_container_name: sim-k8s_container_name-1
+  dimensions:
+  - id: Completed
+    signal: kubernetes_cluster_state_pod_container_terminated_state_reason_completed
+  - id: ContainerCannotRun
+    signal: kubernetes_cluster_state_pod_container_terminated_state_reason_containercannotrun
+  - id: DeadlineExceeded
+    signal: kubernetes_cluster_state_pod_container_terminated_state_reason_deadlineexceeded
+  - id: Error
+    signal: kubernetes_cluster_state_pod_container_terminated_state_reason_error
+  - id: Evicted
+    signal: kubernetes_cluster_state_pod_container_terminated_state_reason_evicted
+  - id: OOMKilled
+    signal: kubernetes_cluster_state_pod_container_terminated_state_reason_oomkilled
+  - id: Other
+    signal: kubernetes_cluster_state_pod_container_terminated_state_reason_other

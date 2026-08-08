@@ -1,0 +1,121 @@
+version: 1
+name: ebpf-sync
+description: eBPF Sync metrics, generated from Netdata's own collector metadata so the contexts, units
+  and dimension names match what a real eBPF Sync node reports. Signals are independent and plausible
+  rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  ebpf_sync_file_sync_fsync:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_sync_file_sync_fdatasync:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_sync_memory_map_msync:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_sync_sync_sync:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_sync_sync_syncfs:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ebpf_sync_file_segment_sync_file_range:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: mem.file_sync
+  title: Monitor calls to fsync(2) and fdatasync(2).
+  units: calls/s
+  family: file
+  chart_type: stacked
+  priority: 60001
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: fsync
+    rate_signal: ebpf_sync_file_sync_fsync
+  - id: fdatasync
+    rate_signal: ebpf_sync_file_sync_fdatasync
+- id: mem.memory_map
+  title: Monitor calls to msync(2).
+  units: calls/s
+  family: memory
+  chart_type: line
+  priority: 60002
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: msync
+    rate_signal: ebpf_sync_memory_map_msync
+- id: mem.sync
+  title: Monitor calls to sync(2) and syncfs(2).
+  units: calls/s
+  family: sync
+  chart_type: line
+  priority: 60003
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: sync
+    rate_signal: ebpf_sync_sync_sync
+  - id: syncfs
+    rate_signal: ebpf_sync_sync_syncfs
+- id: mem.file_segment
+  title: Monitor calls to sync_file_range(2).
+  units: calls/s
+  family: file
+  chart_type: line
+  priority: 60004
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: sync_file_range
+    rate_signal: ebpf_sync_file_segment_sync_file_range

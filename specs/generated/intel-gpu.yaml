@@ -1,0 +1,89 @@
+version: 1
+name: intel-gpu
+description: Intel GPU metrics, generated from Netdata's own collector metadata so the contexts, units
+  and dimension names match what a real Intel GPU node reports. Signals are independent and plausible
+  rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  intel_gpu_frequency_frequency:
+    base: 2400.0
+    min: 0.0
+    max: 6000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  intel_gpu_power_gpu:
+    base: 145.0
+    min: 0.0
+    max: 2000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  intel_gpu_power_package:
+    base: 145.0
+    min: 0.0
+    max: 2000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  intel_gpu_engine_busy_perc_busy:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: intelgpu.frequency
+  title: Intel GPU frequency
+  units: MHz
+  family: frequency
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: frequency
+    signal: intel_gpu_frequency_frequency
+- id: intelgpu.power
+  title: Intel GPU power
+  units: Watts
+  family: power
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: gpu
+    signal: intel_gpu_power_gpu
+  - id: package
+    signal: intel_gpu_power_package
+- id: intelgpu.engine_busy_perc
+  title: Intel GPU engine busy time percentage
+  units: percentage
+  family: engine
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels:
+    engine_class: sim-engine_class-1
+    engine_instance: sim-engine_instance-1
+  dimensions:
+  - id: busy
+    signal: intel_gpu_engine_busy_perc_busy

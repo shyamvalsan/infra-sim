@@ -1,0 +1,497 @@
+version: 1
+name: freeradius
+description: FreeRADIUS metrics, generated from Netdata's own collector metadata so the contexts, units
+  and dimension names match what a real FreeRADIUS node reports. Signals are independent and plausible
+  rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  freeradius_authentication_requests:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  freeradius_authentication_responses:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  freeradius_authentication_access_responses_accepts:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  freeradius_authentication_access_responses_rejects:
+    base: 0.0
+    min: 0.0
+    max: 20000000.0
+  freeradius_authentication_access_responses_challenges:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  freeradius_bad_authentication_dropped:
+    base: 0.0
+    min: 0.0
+    max: 20000000.0
+  freeradius_bad_authentication_duplicate:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  freeradius_bad_authentication_invalid:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  freeradius_bad_authentication_malformed:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  freeradius_bad_authentication_unknown_types:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  freeradius_proxy_authentication_requests:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  freeradius_proxy_authentication_responses:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  freeradius_proxy_authentication_access_responses_accepts:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  freeradius_proxy_authentication_access_responses_rejects:
+    base: 0.0
+    min: 0.0
+    max: 20000000.0
+  freeradius_proxy_authentication_access_responses_challenges:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  freeradius_proxy_bad_authentication_dropped:
+    base: 0.0
+    min: 0.0
+    max: 20000000.0
+  freeradius_proxy_bad_authentication_duplicate:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  freeradius_proxy_bad_authentication_invalid:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  freeradius_proxy_bad_authentication_malformed:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  freeradius_proxy_bad_authentication_unknown_types:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  freeradius_accounting_requests:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  freeradius_accounting_responses:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  freeradius_bad_accounting_dropped:
+    base: 0.0
+    min: 0.0
+    max: 20000000.0
+  freeradius_bad_accounting_duplicate:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  freeradius_bad_accounting_invalid:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  freeradius_bad_accounting_malformed:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  freeradius_bad_accounting_unknown_types:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  freeradius_proxy_accounting_requests:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  freeradius_proxy_accounting_responses:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  freeradius_proxy_bad_accounting_dropped:
+    base: 0.0
+    min: 0.0
+    max: 20000000.0
+  freeradius_proxy_bad_accounting_duplicate:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  freeradius_proxy_bad_accounting_invalid:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  freeradius_proxy_bad_accounting_malformed:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  freeradius_proxy_bad_accounting_unknown_types:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: freeradius.authentication
+  title: Authentication
+  units: packets/s
+  family: authentication
+  chart_type: line
+  priority: 60001
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: requests
+    rate_signal: freeradius_authentication_requests
+  - id: responses
+    rate_signal: freeradius_authentication_responses
+- id: freeradius.authentication_access_responses
+  title: Authentication Responses
+  units: packets/s
+  family: authentication
+  chart_type: line
+  priority: 60002
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: accepts
+    rate_signal: freeradius_authentication_access_responses_accepts
+  - id: rejects
+    rate_signal: freeradius_authentication_access_responses_rejects
+  - id: challenges
+    rate_signal: freeradius_authentication_access_responses_challenges
+- id: freeradius.bad_authentication
+  title: Bad Authentication Requests
+  units: packets/s
+  family: bad
+  chart_type: line
+  priority: 60003
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: dropped
+    rate_signal: freeradius_bad_authentication_dropped
+  - id: duplicate
+    rate_signal: freeradius_bad_authentication_duplicate
+  - id: invalid
+    rate_signal: freeradius_bad_authentication_invalid
+  - id: malformed
+    rate_signal: freeradius_bad_authentication_malformed
+  - id: unknown-types
+    rate_signal: freeradius_bad_authentication_unknown_types
+- id: freeradius.proxy_authentication
+  title: Authentication
+  units: packets/s
+  family: proxy
+  chart_type: line
+  priority: 60004
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: requests
+    rate_signal: freeradius_proxy_authentication_requests
+  - id: responses
+    rate_signal: freeradius_proxy_authentication_responses
+- id: freeradius.proxy_authentication_access_responses
+  title: Authentication Responses
+  units: packets/s
+  family: proxy
+  chart_type: line
+  priority: 60005
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: accepts
+    rate_signal: freeradius_proxy_authentication_access_responses_accepts
+  - id: rejects
+    rate_signal: freeradius_proxy_authentication_access_responses_rejects
+  - id: challenges
+    rate_signal: freeradius_proxy_authentication_access_responses_challenges
+- id: freeradius.proxy_bad_authentication
+  title: Bad Authentication Requests
+  units: packets/s
+  family: proxy
+  chart_type: line
+  priority: 60006
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: dropped
+    rate_signal: freeradius_proxy_bad_authentication_dropped
+  - id: duplicate
+    rate_signal: freeradius_proxy_bad_authentication_duplicate
+  - id: invalid
+    rate_signal: freeradius_proxy_bad_authentication_invalid
+  - id: malformed
+    rate_signal: freeradius_proxy_bad_authentication_malformed
+  - id: unknown-types
+    rate_signal: freeradius_proxy_bad_authentication_unknown_types
+- id: freeradius.accounting
+  title: Accounting
+  units: packets/s
+  family: accounting
+  chart_type: line
+  priority: 60007
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: requests
+    rate_signal: freeradius_accounting_requests
+  - id: responses
+    rate_signal: freeradius_accounting_responses
+- id: freeradius.bad_accounting
+  title: Bad Accounting Requests
+  units: packets/s
+  family: bad
+  chart_type: line
+  priority: 60008
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: dropped
+    rate_signal: freeradius_bad_accounting_dropped
+  - id: duplicate
+    rate_signal: freeradius_bad_accounting_duplicate
+  - id: invalid
+    rate_signal: freeradius_bad_accounting_invalid
+  - id: malformed
+    rate_signal: freeradius_bad_accounting_malformed
+  - id: unknown-types
+    rate_signal: freeradius_bad_accounting_unknown_types
+- id: freeradius.proxy_accounting
+  title: Accounting
+  units: packets/s
+  family: proxy
+  chart_type: line
+  priority: 60009
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: requests
+    rate_signal: freeradius_proxy_accounting_requests
+  - id: responses
+    rate_signal: freeradius_proxy_accounting_responses
+- id: freeradius.proxy_bad_accounting
+  title: Bad Accounting Requests
+  units: packets/s
+  family: proxy
+  chart_type: line
+  priority: 60010
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: dropped
+    rate_signal: freeradius_proxy_bad_accounting_dropped
+  - id: duplicate
+    rate_signal: freeradius_proxy_bad_accounting_duplicate
+  - id: invalid
+    rate_signal: freeradius_proxy_bad_accounting_invalid
+  - id: malformed
+    rate_signal: freeradius_proxy_bad_accounting_malformed
+  - id: unknown-types
+    rate_signal: freeradius_proxy_bad_accounting_unknown_types

@@ -1,0 +1,127 @@
+version: 1
+name: wireguard
+description: WireGuard metrics, generated from Netdata's own collector metadata so the contexts, units
+  and dimension names match what a real WireGuard node reports. Signals are independent and plausible
+  rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  wireguard_device_network_io_receive:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  wireguard_device_network_io_transmit:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  wireguard_device_peers_peers:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  wireguard_peer_network_io_receive:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  wireguard_peer_network_io_transmit:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  wireguard_peer_latest_handshake_ago_time:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: wireguard.device_network_io
+  title: Device traffic
+  units: B/s
+  family: device
+  chart_type: area
+  priority: 60001
+  shape: counters
+  labels:
+    device: sim-device-1
+  dimensions:
+  - id: receive
+    rate_signal: wireguard_device_network_io_receive
+  - id: transmit
+    rate_signal: wireguard_device_network_io_transmit
+- id: wireguard.device_peers
+  title: Device peers
+  units: peers
+  family: device
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels:
+    device: sim-device-1
+  dimensions:
+  - id: peers
+    signal: wireguard_device_peers_peers
+- id: wireguard.peer_network_io
+  title: Peer traffic
+  units: B/s
+  family: peer
+  chart_type: area
+  priority: 60003
+  shape: counters
+  labels:
+    device: sim-device-1
+    public_key: sim-public_key-1
+  dimensions:
+  - id: receive
+    rate_signal: wireguard_peer_network_io_receive
+  - id: transmit
+    rate_signal: wireguard_peer_network_io_transmit
+- id: wireguard.peer_latest_handshake_ago
+  title: Peer time elapsed since the latest handshake
+  units: seconds
+  family: peer
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels:
+    device: sim-device-1
+    public_key: sim-public_key-1
+  dimensions:
+  - id: time
+    signal: wireguard_peer_latest_handshake_ago_time

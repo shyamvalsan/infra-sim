@@ -1,0 +1,99 @@
+version: 1
+name: ip-virtual-server
+description: IP Virtual Server metrics, generated from Netdata's own collector metadata so the contexts,
+  units and dimension names match what a real IP Virtual Server node reports. Signals are independent
+  and plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  ip_virtual_server_sockets_connections:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ip_virtual_server_packets_received:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ip_virtual_server_packets_sent:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ip_virtual_server_net_received:
+    base: 18000.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ip_virtual_server_net_sent:
+    base: 18000.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: ipvs.sockets
+  title: IPVS New Connections
+  units: connections/s
+  family: sockets
+  chart_type: line
+  priority: 60001
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: connections
+    rate_signal: ip_virtual_server_sockets_connections
+- id: ipvs.packets
+  title: IPVS Packets
+  units: packets/s
+  family: packets
+  chart_type: line
+  priority: 60002
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: received
+    rate_signal: ip_virtual_server_packets_received
+  - id: sent
+    rate_signal: ip_virtual_server_packets_sent
+- id: ipvs.net
+  title: IPVS Bandwidth
+  units: kilobits/s
+  family: net
+  chart_type: area
+  priority: 60003
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: received
+    rate_signal: ip_virtual_server_net_received
+  - id: sent
+    rate_signal: ip_virtual_server_net_sent

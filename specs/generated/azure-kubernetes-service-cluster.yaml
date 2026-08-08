@@ -1,0 +1,877 @@
+version: 1
+name: azure-kubernetes-service-cluster
+description: Azure Kubernetes Service Cluster metrics, generated from Netdata's own collector metadata
+  so the contexts, units and dimension names match what a real Azure Kubernetes Service Cluster node reports.
+  Signals are independent and plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  azure_kubernetes_service_cluster_aks_apiserver_cpu_average:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_kubernetes_service_cluster_aks_apiserver_cpu_maximum:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_kubernetes_service_cluster_aks_apiserver_memory_average:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_kubernetes_service_cluster_aks_apiserver_memory_maximum:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_kubernetes_service_cluster_aks_apiserver_inflight_requests_average:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_kubernetes_service_cluster_aks_etcd_cpu_average:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_kubernetes_service_cluster_aks_etcd_cpu_maximum:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_kubernetes_service_cluster_aks_etcd_memory_average:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_kubernetes_service_cluster_aks_etcd_memory_maximum:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_kubernetes_service_cluster_aks_etcd_database_average:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_kubernetes_service_cluster_aks_etcd_database_maximum:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_kubernetes_service_cluster_aks_pod_status_phase_average:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_kubernetes_service_cluster_aks_pod_status_ready_average:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_kubernetes_service_cluster_aks_allocatable_cpu_average:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_kubernetes_service_cluster_aks_allocatable_memory_average:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_kubernetes_service_cluster_aks_node_conditions_average:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_kubernetes_service_cluster_aks_autoscaler_health_safe_to_autoscale:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  azure_kubernetes_service_cluster_aks_autoscaler_health_cooldown:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  azure_kubernetes_service_cluster_aks_autoscaler_unschedulable_pods_average:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_kubernetes_service_cluster_aks_autoscaler_unneeded_nodes_average:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_kubernetes_service_cluster_aks_node_cpu_millicores_average:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_kubernetes_service_cluster_aks_node_cpu_millicores_maximum:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_kubernetes_service_cluster_aks_node_cpu_percentage_average:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_kubernetes_service_cluster_aks_node_cpu_percentage_maximum:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_kubernetes_service_cluster_aks_node_memory_working_set_average:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_kubernetes_service_cluster_aks_node_memory_working_set_maximum:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_kubernetes_service_cluster_aks_node_memory_working_set_percentage_average:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_kubernetes_service_cluster_aks_node_memory_working_set_percentage_maximum:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_kubernetes_service_cluster_aks_node_memory_rss_average:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_kubernetes_service_cluster_aks_node_memory_rss_maximum:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_kubernetes_service_cluster_aks_node_memory_rss_percentage_average:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_kubernetes_service_cluster_aks_node_memory_rss_percentage_maximum:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_kubernetes_service_cluster_aks_node_disk_usage_average:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_kubernetes_service_cluster_aks_node_disk_usage_maximum:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_kubernetes_service_cluster_aks_node_disk_percentage_average:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_kubernetes_service_cluster_aks_node_disk_percentage_maximum:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_kubernetes_service_cluster_aks_node_network_in:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_kubernetes_service_cluster_aks_node_network_out:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: azure_monitor.aks.apiserver_cpu
+  title: AKS API Server CPU Utilization
+  units: percentage
+  family: aks.apiserver
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_kubernetes_service_cluster_aks_apiserver_cpu_average
+  - id: maximum
+    signal: azure_kubernetes_service_cluster_aks_apiserver_cpu_maximum
+- id: azure_monitor.aks.apiserver_memory
+  title: AKS API Server Memory Utilization
+  units: percentage
+  family: aks.apiserver
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_kubernetes_service_cluster_aks_apiserver_memory_average
+  - id: maximum
+    signal: azure_kubernetes_service_cluster_aks_apiserver_memory_maximum
+- id: azure_monitor.aks.apiserver_inflight_requests
+  title: AKS API Server Inflight Requests
+  units: requests
+  family: aks.apiserver
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_kubernetes_service_cluster_aks_apiserver_inflight_requests_average
+- id: azure_monitor.aks.etcd_cpu
+  title: AKS etcd CPU Utilization
+  units: percentage
+  family: aks.etcd
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_kubernetes_service_cluster_aks_etcd_cpu_average
+  - id: maximum
+    signal: azure_kubernetes_service_cluster_aks_etcd_cpu_maximum
+- id: azure_monitor.aks.etcd_memory
+  title: AKS etcd Memory Utilization
+  units: percentage
+  family: aks.etcd
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_kubernetes_service_cluster_aks_etcd_memory_average
+  - id: maximum
+    signal: azure_kubernetes_service_cluster_aks_etcd_memory_maximum
+- id: azure_monitor.aks.etcd_database
+  title: AKS etcd Database Utilization
+  units: percentage
+  family: aks.etcd
+  chart_type: line
+  priority: 60006
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_kubernetes_service_cluster_aks_etcd_database_average
+  - id: maximum
+    signal: azure_kubernetes_service_cluster_aks_etcd_database_maximum
+- id: azure_monitor.aks.pod_status_phase
+  title: AKS Pods by Phase
+  units: pods
+  family: aks.pod
+  chart_type: line
+  priority: 60007
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_kubernetes_service_cluster_aks_pod_status_phase_average
+- id: azure_monitor.aks.pod_status_ready
+  title: AKS Pods in Ready State
+  units: pods
+  family: aks.pod
+  chart_type: line
+  priority: 60008
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_kubernetes_service_cluster_aks_pod_status_ready_average
+- id: azure_monitor.aks.allocatable_cpu
+  title: AKS Allocatable CPU Cores
+  units: cores
+  family: aks.allocatable
+  chart_type: line
+  priority: 60009
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_kubernetes_service_cluster_aks_allocatable_cpu_average
+- id: azure_monitor.aks.allocatable_memory
+  title: AKS Allocatable Memory
+  units: bytes
+  family: aks.allocatable
+  chart_type: line
+  priority: 60010
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_kubernetes_service_cluster_aks_allocatable_memory_average
+- id: azure_monitor.aks.node_conditions
+  title: AKS Node Conditions
+  units: nodes
+  family: aks.node
+  chart_type: line
+  priority: 60011
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_kubernetes_service_cluster_aks_node_conditions_average
+- id: azure_monitor.aks.autoscaler_health
+  title: AKS Cluster Autoscaler Health
+  units: state
+  family: aks.autoscaler
+  chart_type: line
+  priority: 60012
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: safe_to_autoscale
+    signal: azure_kubernetes_service_cluster_aks_autoscaler_health_safe_to_autoscale
+  - id: cooldown
+    signal: azure_kubernetes_service_cluster_aks_autoscaler_health_cooldown
+- id: azure_monitor.aks.autoscaler_unschedulable_pods
+  title: AKS Autoscaler Unschedulable Pods
+  units: pods
+  family: aks.autoscaler
+  chart_type: line
+  priority: 60013
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_kubernetes_service_cluster_aks_autoscaler_unschedulable_pods_average
+- id: azure_monitor.aks.autoscaler_unneeded_nodes
+  title: AKS Autoscaler Unneeded Nodes
+  units: nodes
+  family: aks.autoscaler
+  chart_type: line
+  priority: 60014
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_kubernetes_service_cluster_aks_autoscaler_unneeded_nodes_average
+- id: azure_monitor.aks.node_cpu_millicores
+  title: AKS Node CPU Usage
+  units: millicores
+  family: aks.node
+  chart_type: line
+  priority: 60015
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_kubernetes_service_cluster_aks_node_cpu_millicores_average
+  - id: maximum
+    signal: azure_kubernetes_service_cluster_aks_node_cpu_millicores_maximum
+- id: azure_monitor.aks.node_cpu_percentage
+  title: AKS Node CPU Percentage
+  units: percentage
+  family: aks.node
+  chart_type: line
+  priority: 60016
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_kubernetes_service_cluster_aks_node_cpu_percentage_average
+  - id: maximum
+    signal: azure_kubernetes_service_cluster_aks_node_cpu_percentage_maximum
+- id: azure_monitor.aks.node_memory_working_set
+  title: AKS Node Memory Working Set
+  units: bytes
+  family: aks.node
+  chart_type: line
+  priority: 60017
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_kubernetes_service_cluster_aks_node_memory_working_set_average
+  - id: maximum
+    signal: azure_kubernetes_service_cluster_aks_node_memory_working_set_maximum
+- id: azure_monitor.aks.node_memory_working_set_percentage
+  title: AKS Node Memory Working Set Percentage
+  units: percentage
+  family: aks.node
+  chart_type: line
+  priority: 60018
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_kubernetes_service_cluster_aks_node_memory_working_set_percentage_average
+  - id: maximum
+    signal: azure_kubernetes_service_cluster_aks_node_memory_working_set_percentage_maximum
+- id: azure_monitor.aks.node_memory_rss
+  title: AKS Node Memory RSS
+  units: bytes
+  family: aks.node
+  chart_type: line
+  priority: 60019
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_kubernetes_service_cluster_aks_node_memory_rss_average
+  - id: maximum
+    signal: azure_kubernetes_service_cluster_aks_node_memory_rss_maximum
+- id: azure_monitor.aks.node_memory_rss_percentage
+  title: AKS Node Memory RSS Percentage
+  units: percentage
+  family: aks.node
+  chart_type: line
+  priority: 60020
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_kubernetes_service_cluster_aks_node_memory_rss_percentage_average
+  - id: maximum
+    signal: azure_kubernetes_service_cluster_aks_node_memory_rss_percentage_maximum
+- id: azure_monitor.aks.node_disk_usage
+  title: AKS Node Disk Usage
+  units: bytes
+  family: aks.node
+  chart_type: line
+  priority: 60021
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_kubernetes_service_cluster_aks_node_disk_usage_average
+  - id: maximum
+    signal: azure_kubernetes_service_cluster_aks_node_disk_usage_maximum
+- id: azure_monitor.aks.node_disk_percentage
+  title: AKS Node Disk Usage Percentage
+  units: percentage
+  family: aks.node
+  chart_type: line
+  priority: 60022
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_kubernetes_service_cluster_aks_node_disk_percentage_average
+  - id: maximum
+    signal: azure_kubernetes_service_cluster_aks_node_disk_percentage_maximum
+- id: azure_monitor.aks.node_network
+  title: AKS Node Network Traffic
+  units: bytes
+  family: aks.node
+  chart_type: line
+  priority: 60023
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: in
+    signal: azure_kubernetes_service_cluster_aks_node_network_in
+  - id: out
+    signal: azure_kubernetes_service_cluster_aks_node_network_out

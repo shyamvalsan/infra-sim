@@ -124,7 +124,7 @@ a durable identity, which is what makes the re-skin workflow possible.
 The full lifecycle — create, claim, warm up, demo, tear down — from one screen.
 
 ```bash
-sudo ./target/release/infra-sim-console --repo "$PWD"
+sudo ./target/release/infra-sim-console
 # then open http://127.0.0.1:8080
 ```
 
@@ -132,12 +132,23 @@ Root is required: create writes under `/etc/netdata`, manages the plugin
 process, and claim reads the agent's local-proof file. Shelling out to `sudo`
 per action would put a password prompt in the middle of a demo instead.
 
-- **New simulation** — start from a committed template or blank, then set node
-  count per role and tick a checkbox per collector (`nginx`, `postgres`,
-  `redis`, `containers`, `kubernetes`, `otel-collector`), each role's defaults
-  pre-ticked. Builds `environment.yaml`, runs the fidelity lint, and **refuses
-  to install a fleet that fails it**. A template fills the form rather than
-  being installed directly, so one code path builds every environment.
+Two tabs: **Build** and **Run**.
+
+- **Describe the estate** — type what the prospect runs, in the words they used
+  it. "6 nginx web servers behind two haproxy load balancers, a 3-node postgres
+  cluster and an elasticsearch cluster of 3" fills the fleet below, which you
+  then edit. Read offline by keyword matching, or by Claude or OpenAI when
+  `ANTHROPIC_API_KEY` / `OPENAI_API_KEY` is in the console's environment — the
+  key never reaches a web form or a command line.
+- **Fleet** — a list of groups, each one *N nodes of a role running these
+  integrations*. Two groups can share a role and differ in software, because
+  "6 nginx web servers and 3 Elasticsearch nodes" is two groups, not nine nodes
+  running both. The picker searches **261 integrations** with Netdata's own
+  icons; the six hand-authored ones are badged `DEEP`. Builds
+  `environment.yaml`, runs the fidelity lint, and **refuses to install a fleet
+  that fails it**. A template fills the form rather than being installed
+  directly, so one code path builds every environment.
+- **Simulate Prometheus exporters** — a checkbox. See below.
 - **Preflight** — a green board it verifies against the live agent, not a
   checklist it trusts you to have done.
 - **Scenarios** — trigger, resolve, and move the demo clock. **Escalate** pushes
@@ -146,9 +157,10 @@ per action would put a password prompt in the middle of a demo instead.
   can never disagree. The same control rewinds.
 - **Re-skin** — rename the running fleet for a new prospect. GUIDs are never
   touched, so it keeps its history, trained ML and alert log.
-- **Claim** — one claim covers the whole fleet. The token goes straight to the
-  agent and is never stored, logged, or written to any file. The Space name
-  must end `(Simulated Demo)`; that is enforced, not suggested.
+- **Connect to Netdata Cloud** — a claim token and an optional room id. One
+  claim covers the whole fleet. The token goes straight to the agent and is
+  never stored, logged, or written to any file, and is cleared from the page as
+  soon as it is used.
 - **Teardown** — disarms scenarios, removes the plugin *and* stops its process
   (either alone is not enough), and archives the environment, seed and scenario
   manifests. Cloud-side steps stay manual and say so.
@@ -226,6 +238,37 @@ appears in the process table — and it is never written to the environment file
 This is authoring-time only. `spec.md`'s non-goal is per-datapoint LLM
 generation; the runtime is deterministic code with no inference in the data
 path.
+
+## Simulated Prometheus exporters
+
+Prospects run their own services, instrumented with a Prometheus client library.
+Tick **Simulate Prometheus exporters** and each node publishes a real `/metrics`
+endpoint that **Netdata's own `go.d prometheus` collector** scrapes and charts —
+the charts are Netdata's work, not ours.
+
+```bash
+# or run it by hand, like the logs process
+sudo ./target/release/infra-sim --exporters --environment /etc/netdata/infra-sim/environment.yaml
+curl http://127.0.0.1:19998/metrics/<hostname>
+```
+
+The metrics are deliberately application-level — orders, carts, payment
+declines, queue depth, worker pools, a latency summary — because Netdata's own
+collectors already cover the infrastructure layer, and emitting CPU here would
+put the same series on a node twice.
+
+The console writes the scrape jobs to `/etc/netdata/go.d/prometheus.conf` and
+the matching vnode entries to `/etc/netdata/vnodes/infra-sim.conf`, with
+`vnode: <hostname>` on each job so the scraped charts land on the **same virtual
+node** as the plugins.d ones. Both files carry a marker line and are never
+overwritten without it; teardown removes only files carrying that marker.
+
+go.d reads its vnode registry once at startup, so the console restarts
+`go.d.plugin` (the daemon respawns it) — without that, the jobs attribute
+nowhere and nothing says so.
+
+The exporter reads the same `control.yaml` as the metrics plugin, so a triggered
+fault moves application metrics on the same timeline as everything else.
 
 ## OpenTelemetry
 

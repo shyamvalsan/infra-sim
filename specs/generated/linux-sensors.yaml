@@ -1,0 +1,442 @@
+version: 1
+name: linux-sensors
+description: Linux Sensors metrics, generated from Netdata's own collector metadata so the contexts, units
+  and dimension names match what a real Linux Sensors node reports. Signals are independent and plausible
+  rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  linux_sensors_chip_sensor_temperature_input:
+    base: 41.0
+    min: 0.0
+    max: 120.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  linux_sensors_chip_sensor_temperature_alarm_clear:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_sensors_chip_sensor_temperature_alarm_triggered:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_sensors_chip_sensor_voltage_input:
+    base: 12.0
+    min: 0.0
+    max: 480.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  linux_sensors_chip_sensor_voltage_average_average:
+    base: 12.0
+    min: 0.0
+    max: 480.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  linux_sensors_chip_sensor_voltage_alarm_clear:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_sensors_chip_sensor_voltage_alarm_triggered:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_sensors_chip_sensor_fan_input:
+    base: 2400.0
+    min: 0.0
+    max: 30000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  linux_sensors_chip_sensor_fan_alarm_clear:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_sensors_chip_sensor_fan_alarm_triggered:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_sensors_chip_sensor_current_input:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  linux_sensors_chip_sensor_current_average_average:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  linux_sensors_chip_sensor_current_alarm_clear:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_sensors_chip_sensor_current_alarm_triggered:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_sensors_chip_sensor_power_input:
+    base: 145.0
+    min: 0.0
+    max: 2000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  linux_sensors_chip_sensor_power_average_average:
+    base: 145.0
+    min: 0.0
+    max: 2000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  linux_sensors_chip_sensor_power_alarm_clear:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_sensors_chip_sensor_power_alarm_triggered:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_sensors_chip_sensor_energy_input:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  linux_sensors_chip_sensor_humidity_input:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  linux_sensors_chip_sensor_intrusion_alarm_clear:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_sensors_chip_sensor_intrusion_alarm_triggered:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+contexts:
+- id: sensors.chip_sensor_temperature
+  title: Sensor Temperature
+  units: Celsius
+  family: chip
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels:
+    chip: sim-chip-1
+    chip_id: sim-chip_id-1
+    sensor: sim-sensor-1
+    label: sim-label-1
+  dimensions:
+  - id: input
+    signal: linux_sensors_chip_sensor_temperature_input
+- id: sensors.chip_sensor_temperature_alarm
+  title: Temperature Sensor Alarm
+  units: status
+  family: chip
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels:
+    chip: sim-chip-1
+    chip_id: sim-chip_id-1
+    sensor: sim-sensor-1
+    label: sim-label-1
+  dimensions:
+  - id: clear
+    signal: linux_sensors_chip_sensor_temperature_alarm_clear
+  - id: triggered
+    signal: linux_sensors_chip_sensor_temperature_alarm_triggered
+- id: sensors.chip_sensor_voltage
+  title: Sensor Voltage
+  units: Volts
+  family: chip
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels:
+    chip: sim-chip-1
+    chip_id: sim-chip_id-1
+    sensor: sim-sensor-1
+    label: sim-label-1
+  dimensions:
+  - id: input
+    signal: linux_sensors_chip_sensor_voltage_input
+- id: sensors.chip_sensor_voltage_average
+  title: Sensor Voltage Average
+  units: Volts
+  family: chip
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels:
+    chip: sim-chip-1
+    chip_id: sim-chip_id-1
+    sensor: sim-sensor-1
+    label: sim-label-1
+  dimensions:
+  - id: average
+    signal: linux_sensors_chip_sensor_voltage_average_average
+- id: sensors.chip_sensor_voltage_alarm
+  title: Voltage Sensor Alarm
+  units: status
+  family: chip
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels:
+    chip: sim-chip-1
+    chip_id: sim-chip_id-1
+    sensor: sim-sensor-1
+    label: sim-label-1
+  dimensions:
+  - id: clear
+    signal: linux_sensors_chip_sensor_voltage_alarm_clear
+  - id: triggered
+    signal: linux_sensors_chip_sensor_voltage_alarm_triggered
+- id: sensors.chip_sensor_fan
+  title: Sensor Fan
+  units: RPM
+  family: chip
+  chart_type: line
+  priority: 60006
+  shape: independent
+  labels:
+    chip: sim-chip-1
+    chip_id: sim-chip_id-1
+    sensor: sim-sensor-1
+    label: sim-label-1
+  dimensions:
+  - id: input
+    signal: linux_sensors_chip_sensor_fan_input
+- id: sensors.chip_sensor_fan_alarm
+  title: Fan Sensor Alarm
+  units: status
+  family: chip
+  chart_type: line
+  priority: 60007
+  shape: independent
+  labels:
+    chip: sim-chip-1
+    chip_id: sim-chip_id-1
+    sensor: sim-sensor-1
+    label: sim-label-1
+  dimensions:
+  - id: clear
+    signal: linux_sensors_chip_sensor_fan_alarm_clear
+  - id: triggered
+    signal: linux_sensors_chip_sensor_fan_alarm_triggered
+- id: sensors.chip_sensor_current
+  title: Sensor Current
+  units: Amperes
+  family: chip
+  chart_type: line
+  priority: 60008
+  shape: independent
+  labels:
+    chip: sim-chip-1
+    chip_id: sim-chip_id-1
+    sensor: sim-sensor-1
+    label: sim-label-1
+  dimensions:
+  - id: input
+    signal: linux_sensors_chip_sensor_current_input
+- id: sensors.chip_sensor_current_average
+  title: Sensor Current Average
+  units: Amperes
+  family: chip
+  chart_type: line
+  priority: 60009
+  shape: independent
+  labels:
+    chip: sim-chip-1
+    chip_id: sim-chip_id-1
+    sensor: sim-sensor-1
+    label: sim-label-1
+  dimensions:
+  - id: average
+    signal: linux_sensors_chip_sensor_current_average_average
+- id: sensors.chip_sensor_current_alarm
+  title: Current Sensor Alarm
+  units: status
+  family: chip
+  chart_type: line
+  priority: 60010
+  shape: independent
+  labels:
+    chip: sim-chip-1
+    chip_id: sim-chip_id-1
+    sensor: sim-sensor-1
+    label: sim-label-1
+  dimensions:
+  - id: clear
+    signal: linux_sensors_chip_sensor_current_alarm_clear
+  - id: triggered
+    signal: linux_sensors_chip_sensor_current_alarm_triggered
+- id: sensors.chip_sensor_power
+  title: Sensor Power
+  units: Watts
+  family: chip
+  chart_type: line
+  priority: 60011
+  shape: independent
+  labels:
+    chip: sim-chip-1
+    chip_id: sim-chip_id-1
+    sensor: sim-sensor-1
+    label: sim-label-1
+  dimensions:
+  - id: input
+    signal: linux_sensors_chip_sensor_power_input
+- id: sensors.chip_sensor_power_average
+  title: Sensor Power Average
+  units: Watts
+  family: chip
+  chart_type: line
+  priority: 60012
+  shape: independent
+  labels:
+    chip: sim-chip-1
+    chip_id: sim-chip_id-1
+    sensor: sim-sensor-1
+    label: sim-label-1
+  dimensions:
+  - id: average
+    signal: linux_sensors_chip_sensor_power_average_average
+- id: sensors.chip_sensor_power_alarm
+  title: Power Sensor Alarm
+  units: status
+  family: chip
+  chart_type: line
+  priority: 60013
+  shape: independent
+  labels:
+    chip: sim-chip-1
+    chip_id: sim-chip_id-1
+    sensor: sim-sensor-1
+    label: sim-label-1
+  dimensions:
+  - id: clear
+    signal: linux_sensors_chip_sensor_power_alarm_clear
+  - id: triggered
+    signal: linux_sensors_chip_sensor_power_alarm_triggered
+- id: sensors.chip_sensor_energy
+  title: Sensor Energy
+  units: Joules
+  family: chip
+  chart_type: line
+  priority: 60014
+  shape: independent
+  labels:
+    chip: sim-chip-1
+    chip_id: sim-chip_id-1
+    sensor: sim-sensor-1
+    label: sim-label-1
+  dimensions:
+  - id: input
+    signal: linux_sensors_chip_sensor_energy_input
+- id: sensors.chip_sensor_humidity
+  title: Sensor Humidity
+  units: percent
+  family: chip
+  chart_type: line
+  priority: 60015
+  shape: independent
+  labels:
+    chip: sim-chip-1
+    chip_id: sim-chip_id-1
+    sensor: sim-sensor-1
+    label: sim-label-1
+  dimensions:
+  - id: input
+    signal: linux_sensors_chip_sensor_humidity_input
+- id: sensors.chip_sensor_intrusion_alarm
+  title: Intrusion Sensor Alarm
+  units: status
+  family: chip
+  chart_type: line
+  priority: 60016
+  shape: independent
+  labels:
+    chip: sim-chip-1
+    chip_id: sim-chip_id-1
+    sensor: sim-sensor-1
+    label: sim-label-1
+  dimensions:
+  - id: clear
+    signal: linux_sensors_chip_sensor_intrusion_alarm_clear
+  - id: triggered
+    signal: linux_sensors_chip_sensor_intrusion_alarm_triggered

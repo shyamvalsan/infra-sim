@@ -1,0 +1,218 @@
+version: 1
+name: azure-event-grid-topic
+description: Azure Event Grid Topic metrics, generated from Netdata's own collector metadata so the contexts,
+  units and dimension names match what a real Azure Event Grid Topic node reports. Signals are independent
+  and plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  azure_event_grid_topic_event_grid_publish_rate_success:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_event_grid_topic_event_grid_publish_rate_failed:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  azure_event_grid_topic_event_grid_publish_latency_latency:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_event_grid_topic_event_grid_routing_matched:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_event_grid_topic_event_grid_routing_unmatched:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_event_grid_topic_event_grid_advanced_filter_evaluations_evaluations:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_event_grid_topic_event_grid_delivery_delivered:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_event_grid_topic_event_grid_delivery_failed:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  azure_event_grid_topic_event_grid_delivery_dropped:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  azure_event_grid_topic_event_grid_delivery_dead_lettered:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  azure_event_grid_topic_event_grid_destination_processing_duration_average:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: azure_monitor.event_grid.publish_rate
+  title: Azure Event Grid Publish Rate
+  units: events/s
+  family: event
+  chart_type: line
+  priority: 60001
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: success
+    rate_signal: azure_event_grid_topic_event_grid_publish_rate_success
+  - id: failed
+    rate_signal: azure_event_grid_topic_event_grid_publish_rate_failed
+- id: azure_monitor.event_grid.publish_latency
+  title: Azure Event Grid Publish Latency
+  units: milliseconds
+  family: event
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: latency
+    signal: azure_event_grid_topic_event_grid_publish_latency_latency
+- id: azure_monitor.event_grid.routing
+  title: Azure Event Grid Event Routing
+  units: events/s
+  family: event
+  chart_type: line
+  priority: 60003
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: matched
+    rate_signal: azure_event_grid_topic_event_grid_routing_matched
+  - id: unmatched
+    rate_signal: azure_event_grid_topic_event_grid_routing_unmatched
+- id: azure_monitor.event_grid.advanced_filter_evaluations
+  title: Azure Event Grid Advanced Filter Evaluations
+  units: evaluations/s
+  family: event
+  chart_type: line
+  priority: 60004
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: evaluations
+    rate_signal: azure_event_grid_topic_event_grid_advanced_filter_evaluations_evaluations
+- id: azure_monitor.event_grid.delivery
+  title: Azure Event Grid Event Delivery
+  units: events/s
+  family: event
+  chart_type: line
+  priority: 60005
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: delivered
+    rate_signal: azure_event_grid_topic_event_grid_delivery_delivered
+  - id: failed
+    rate_signal: azure_event_grid_topic_event_grid_delivery_failed
+  - id: dropped
+    rate_signal: azure_event_grid_topic_event_grid_delivery_dropped
+  - id: dead_lettered
+    rate_signal: azure_event_grid_topic_event_grid_delivery_dead_lettered
+- id: azure_monitor.event_grid.destination_processing_duration
+  title: Azure Event Grid Destination Processing Duration
+  units: milliseconds
+  family: event
+  chart_type: line
+  priority: 60006
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_event_grid_topic_event_grid_destination_processing_duration_average

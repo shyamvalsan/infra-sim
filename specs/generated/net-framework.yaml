@@ -1,0 +1,715 @@
+version: 1
+name: net-framework
+description: NET Framework metrics, generated from Netdata's own collector metadata so the contexts, units
+  and dimension names match what a real NET Framework node reports. Signals are independent and plausible
+  rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  net_framework_clrexception_thrown_exceptions:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_framework_clrexception_filters_filters:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_framework_clrexception_finallys_finallys:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_framework_clrexception_throw_to_catch_depth_traversed:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_framework_clrinterop_com_callable_wrappers_com_callable_wrappers:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_framework_clrinterop_interop_marshallings_marshallings:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_framework_clrinterop_interop_stubs_created_created:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_framework_clrjit_methods_jit_compiled:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_framework_clrjit_time_time:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_framework_clrjit_standard_failures_failures:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  net_framework_clrjit_il_bytes_compiled_msil:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_framework_clrloading_loader_heap_size_committed:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_framework_clrloading_appdomains_loaded_loaded:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_framework_clrloading_appdomains_unloaded_unloaded:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_framework_clrloading_assemblies_loaded_loaded:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_framework_clrloading_classes_loaded_loaded:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_framework_clrloading_class_load_failures_class_load:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_framework_clrremoting_channels_registered:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_framework_clrremoting_context_bound_classes_loaded_loaded:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_framework_clrremoting_context_bound_objects_allocated:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_framework_clrremoting_context_proxies_objects:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_framework_clrremoting_remote_calls_calls:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_framework_clrsecurity_link_time_checks_linktime:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_framework_clrsecurity_checks_time_time:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_framework_clrsecurity_stack_walk_depth_stack:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_framework_clrsecurity_runtime_checks_runtime:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_framework_clrlocksandthreads_queue_length_threads:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_framework_clrlocksandthreads_current_logical_threads_logical:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_framework_clrlocksandthreads_current_physical_threads_physical:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_framework_clrlocksandthreads_recognized_threads_threads:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_framework_clrlocksandthreads_contentions_contentions:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: netframework.clrexception_thrown
+  title: Thrown exceptions
+  units: exceptions/s
+  family: clrexception
+  chart_type: line
+  priority: 60001
+  shape: counters
+  labels:
+    process: sim-process-1
+  dimensions:
+  - id: exceptions
+    rate_signal: net_framework_clrexception_thrown_exceptions
+- id: netframework.clrexception_filters
+  title: Thrown exceptions filters
+  units: filters/s
+  family: clrexception
+  chart_type: line
+  priority: 60002
+  shape: counters
+  labels:
+    process: sim-process-1
+  dimensions:
+  - id: filters
+    rate_signal: net_framework_clrexception_filters_filters
+- id: netframework.clrexception_finallys
+  title: Executed finally blocks
+  units: finallys/s
+  family: clrexception
+  chart_type: line
+  priority: 60003
+  shape: counters
+  labels:
+    process: sim-process-1
+  dimensions:
+  - id: finallys
+    rate_signal: net_framework_clrexception_finallys_finallys
+- id: netframework.clrexception_throw_to_catch_depth
+  title: Traversed stack frames
+  units: stack_frames/s
+  family: clrexception
+  chart_type: line
+  priority: 60004
+  shape: counters
+  labels:
+    process: sim-process-1
+  dimensions:
+  - id: traversed
+    rate_signal: net_framework_clrexception_throw_to_catch_depth_traversed
+- id: netframework.clrinterop_com_callable_wrappers
+  title: COM callable wrappers (CCW)
+  units: ccw/s
+  family: clrinterop
+  chart_type: line
+  priority: 60005
+  shape: counters
+  labels:
+    process: sim-process-1
+  dimensions:
+  - id: com_callable_wrappers
+    rate_signal: net_framework_clrinterop_com_callable_wrappers_com_callable_wrappers
+- id: netframework.clrinterop_interop_marshallings
+  title: Arguments and return values marshallings
+  units: marshallings/s
+  family: clrinterop
+  chart_type: line
+  priority: 60006
+  shape: counters
+  labels:
+    process: sim-process-1
+  dimensions:
+  - id: marshallings
+    rate_signal: net_framework_clrinterop_interop_marshallings_marshallings
+- id: netframework.clrinterop_interop_stubs_created
+  title: Created stubs
+  units: stubs/s
+  family: clrinterop
+  chart_type: line
+  priority: 60007
+  shape: counters
+  labels:
+    process: sim-process-1
+  dimensions:
+  - id: created
+    rate_signal: net_framework_clrinterop_interop_stubs_created_created
+- id: netframework.clrjit_methods
+  title: JIT-compiled methods
+  units: methods/s
+  family: clrjit
+  chart_type: line
+  priority: 60008
+  shape: counters
+  labels:
+    process: sim-process-1
+  dimensions:
+  - id: jit-compiled
+    rate_signal: net_framework_clrjit_methods_jit_compiled
+- id: netframework.clrjit_time
+  title: Time spent in JIT compilation
+  units: percentage
+  family: clrjit
+  chart_type: line
+  priority: 60009
+  shape: independent
+  labels:
+    process: sim-process-1
+  dimensions:
+  - id: time
+    signal: net_framework_clrjit_time_time
+- id: netframework.clrjit_standard_failures
+  title: JIT compiler failures
+  units: failures/s
+  family: clrjit
+  chart_type: line
+  priority: 60010
+  shape: counters
+  labels:
+    process: sim-process-1
+  dimensions:
+  - id: failures
+    rate_signal: net_framework_clrjit_standard_failures_failures
+- id: netframework.clrjit_il_bytes
+  title: Compiled Microsoft intermediate language (MSIL) bytes
+  units: bytes/s
+  family: clrjit
+  chart_type: line
+  priority: 60011
+  shape: counters
+  labels:
+    process: sim-process-1
+  dimensions:
+  - id: compiled_msil
+    rate_signal: net_framework_clrjit_il_bytes_compiled_msil
+- id: netframework.clrloading_loader_heap_size
+  title: Memory committed by class loader
+  units: bytes
+  family: clrloading
+  chart_type: line
+  priority: 60012
+  shape: independent
+  labels:
+    process: sim-process-1
+  dimensions:
+  - id: committed
+    signal: net_framework_clrloading_loader_heap_size_committed
+- id: netframework.clrloading_appdomains_loaded
+  title: Loaded application domains
+  units: domain/s
+  family: clrloading
+  chart_type: line
+  priority: 60013
+  shape: counters
+  labels:
+    process: sim-process-1
+  dimensions:
+  - id: loaded
+    rate_signal: net_framework_clrloading_appdomains_loaded_loaded
+- id: netframework.clrloading_appdomains_unloaded
+  title: Unloaded application domains
+  units: domain/s
+  family: clrloading
+  chart_type: line
+  priority: 60014
+  shape: counters
+  labels:
+    process: sim-process-1
+  dimensions:
+  - id: unloaded
+    rate_signal: net_framework_clrloading_appdomains_unloaded_unloaded
+- id: netframework.clrloading_assemblies_loaded
+  title: Loaded assemblies
+  units: assemblies/s
+  family: clrloading
+  chart_type: line
+  priority: 60015
+  shape: counters
+  labels:
+    process: sim-process-1
+  dimensions:
+  - id: loaded
+    rate_signal: net_framework_clrloading_assemblies_loaded_loaded
+- id: netframework.clrloading_classes_loaded
+  title: Loaded classes in all assemblies
+  units: classes/s
+  family: clrloading
+  chart_type: line
+  priority: 60016
+  shape: counters
+  labels:
+    process: sim-process-1
+  dimensions:
+  - id: loaded
+    rate_signal: net_framework_clrloading_classes_loaded_loaded
+- id: netframework.clrloading_class_load_failures
+  title: Class load failures
+  units: failures/s
+  family: clrloading
+  chart_type: line
+  priority: 60017
+  shape: counters
+  labels:
+    process: sim-process-1
+  dimensions:
+  - id: class_load
+    rate_signal: net_framework_clrloading_class_load_failures_class_load
+- id: netframework.clrremoting_channels
+  title: Registered channels
+  units: channels/s
+  family: clrremoting
+  chart_type: line
+  priority: 60018
+  shape: counters
+  labels:
+    process: sim-process-1
+  dimensions:
+  - id: registered
+    rate_signal: net_framework_clrremoting_channels_registered
+- id: netframework.clrremoting_context_bound_classes_loaded
+  title: Loaded context-bound classes
+  units: classes
+  family: clrremoting
+  chart_type: line
+  priority: 60019
+  shape: independent
+  labels:
+    process: sim-process-1
+  dimensions:
+  - id: loaded
+    signal: net_framework_clrremoting_context_bound_classes_loaded_loaded
+- id: netframework.clrremoting_context_bound_objects
+  title: Allocated context-bound objects
+  units: objects/s
+  family: clrremoting
+  chart_type: line
+  priority: 60020
+  shape: counters
+  labels:
+    process: sim-process-1
+  dimensions:
+  - id: allocated
+    rate_signal: net_framework_clrremoting_context_bound_objects_allocated
+- id: netframework.clrremoting_context_proxies
+  title: Remoting proxy objects
+  units: objects/s
+  family: clrremoting
+  chart_type: line
+  priority: 60021
+  shape: counters
+  labels:
+    process: sim-process-1
+  dimensions:
+  - id: objects
+    rate_signal: net_framework_clrremoting_context_proxies_objects
+- id: netframework.clrremoting_remote_calls
+  title: Remote Procedure Calls (RPC) invoked
+  units: calls/s
+  family: clrremoting
+  chart_type: line
+  priority: 60022
+  shape: counters
+  labels:
+    process: sim-process-1
+  dimensions:
+  - id: calls
+    rate_signal: net_framework_clrremoting_remote_calls_calls
+- id: netframework.clrsecurity_link_time_checks
+  title: Link-time code access security checks
+  units: checks/s
+  family: clrsecurity
+  chart_type: line
+  priority: 60023
+  shape: counters
+  labels:
+    process: sim-process-1
+  dimensions:
+  - id: linktime
+    rate_signal: net_framework_clrsecurity_link_time_checks_linktime
+- id: netframework.clrsecurity_checks_time
+  title: Time spent performing runtime code access security checks
+  units: percentage
+  family: clrsecurity
+  chart_type: line
+  priority: 60024
+  shape: independent
+  labels:
+    process: sim-process-1
+  dimensions:
+  - id: time
+    signal: net_framework_clrsecurity_checks_time_time
+- id: netframework.clrsecurity_stack_walk_depth
+  title: Depth of the stack
+  units: depth
+  family: clrsecurity
+  chart_type: line
+  priority: 60025
+  shape: independent
+  labels:
+    process: sim-process-1
+  dimensions:
+  - id: stack
+    signal: net_framework_clrsecurity_stack_walk_depth_stack
+- id: netframework.clrsecurity_runtime_checks
+  title: Runtime code access security checks performed
+  units: checks/s
+  family: clrsecurity
+  chart_type: line
+  priority: 60026
+  shape: counters
+  labels:
+    process: sim-process-1
+  dimensions:
+  - id: runtime
+    rate_signal: net_framework_clrsecurity_runtime_checks_runtime
+- id: netframework.clrlocksandthreads_queue_length
+  title: Threads waited to acquire a managed lock
+  units: threads/s
+  family: clrlocksandthreads
+  chart_type: line
+  priority: 60027
+  shape: counters
+  labels:
+    process: sim-process-1
+  dimensions:
+  - id: threads
+    rate_signal: net_framework_clrlocksandthreads_queue_length_threads
+- id: netframework.clrlocksandthreads_current_logical_threads
+  title: Logical threads
+  units: threads
+  family: clrlocksandthreads
+  chart_type: line
+  priority: 60028
+  shape: independent
+  labels:
+    process: sim-process-1
+  dimensions:
+  - id: logical
+    signal: net_framework_clrlocksandthreads_current_logical_threads_logical
+- id: netframework.clrlocksandthreads_current_physical_threads
+  title: Physical threads
+  units: threads
+  family: clrlocksandthreads
+  chart_type: line
+  priority: 60029
+  shape: independent
+  labels:
+    process: sim-process-1
+  dimensions:
+  - id: physical
+    signal: net_framework_clrlocksandthreads_current_physical_threads_physical
+- id: netframework.clrlocksandthreads_recognized_threads
+  title: Threads recognized by the runtime
+  units: threads/s
+  family: clrlocksandthreads
+  chart_type: line
+  priority: 60030
+  shape: counters
+  labels:
+    process: sim-process-1
+  dimensions:
+  - id: threads
+    rate_signal: net_framework_clrlocksandthreads_recognized_threads_threads
+- id: netframework.clrlocksandthreads_contentions
+  title: Fails to acquire a managed lock
+  units: contentions/s
+  family: clrlocksandthreads
+  chart_type: line
+  priority: 60031
+  shape: counters
+  labels:
+    process: sim-process-1
+  dimensions:
+  - id: contentions
+    rate_signal: net_framework_clrlocksandthreads_contentions_contentions

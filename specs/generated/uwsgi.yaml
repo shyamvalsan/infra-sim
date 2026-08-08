@@ -1,0 +1,378 @@
+version: 1
+name: uwsgi
+description: uWSGI metrics, generated from Netdata's own collector metadata so the contexts, units and
+  dimension names match what a real uWSGI node reports. Signals are independent and plausible rather than
+  causally coupled - see scripts/sync-integrations.py.
+signals:
+  uwsgi_transmitted_data_tx:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  uwsgi_requests_requests:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  uwsgi_harakiris_harakiris:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  uwsgi_respawns_respawns:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  uwsgi_worker_transmitted_data_tx:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  uwsgi_worker_requests_requests:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  uwsgi_worker_delta_requests_delta_requests:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  uwsgi_worker_average_request_time_avg:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  uwsgi_worker_harakiris_harakiris:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  uwsgi_worker_exceptions_exceptions:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  uwsgi_worker_status_idle:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  uwsgi_worker_status_busy:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  uwsgi_worker_status_cheap:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  uwsgi_worker_status_pause:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  uwsgi_worker_status_sig:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  uwsgi_worker_request_handling_status_accepting:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  uwsgi_worker_request_handling_status_not_accepting:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  uwsgi_worker_respawns_respawns:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  uwsgi_worker_memory_rss_rss:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  uwsgi_worker_memory_vsz_vsz:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: uwsgi.transmitted_data
+  title: UWSGI Transmitted Data
+  units: bytes/s
+  family: transmitted
+  chart_type: area
+  priority: 60001
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: tx
+    rate_signal: uwsgi_transmitted_data_tx
+- id: uwsgi.requests
+  title: UWSGI Requests
+  units: requests/s
+  family: requests
+  chart_type: line
+  priority: 60002
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: requests
+    rate_signal: uwsgi_requests_requests
+- id: uwsgi.harakiris
+  title: UWSGI Dropped Requests
+  units: harakiris/s
+  family: harakiris
+  chart_type: line
+  priority: 60003
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: harakiris
+    rate_signal: uwsgi_harakiris_harakiris
+- id: uwsgi.respawns
+  title: UWSGI Respawns
+  units: respawns/s
+  family: respawns
+  chart_type: line
+  priority: 60004
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: respawns
+    rate_signal: uwsgi_respawns_respawns
+- id: uwsgi.worker_transmitted_data
+  title: UWSGI Worker Transmitted Data
+  units: bytes/s
+  family: worker
+  chart_type: area
+  priority: 60005
+  shape: counters
+  labels:
+    worker_id: sim-worker_id-1
+  dimensions:
+  - id: tx
+    rate_signal: uwsgi_worker_transmitted_data_tx
+- id: uwsgi.worker_requests
+  title: UWSGI Worker Requests
+  units: requests/s
+  family: worker
+  chart_type: line
+  priority: 60006
+  shape: counters
+  labels:
+    worker_id: sim-worker_id-1
+  dimensions:
+  - id: requests
+    rate_signal: uwsgi_worker_requests_requests
+- id: uwsgi.worker_delta_requests
+  title: UWSGI Worker Delta Requests
+  units: requests/s
+  family: worker
+  chart_type: line
+  priority: 60007
+  shape: counters
+  labels:
+    worker_id: sim-worker_id-1
+  dimensions:
+  - id: delta_requests
+    rate_signal: uwsgi_worker_delta_requests_delta_requests
+- id: uwsgi.worker_average_request_time
+  title: UWSGI Worker Average Request Time
+  units: milliseconds
+  family: worker
+  chart_type: line
+  priority: 60008
+  shape: independent
+  labels:
+    worker_id: sim-worker_id-1
+  dimensions:
+  - id: avg
+    signal: uwsgi_worker_average_request_time_avg
+- id: uwsgi.worker_harakiris
+  title: UWSGI Worker Dropped Requests
+  units: harakiris/s
+  family: worker
+  chart_type: line
+  priority: 60009
+  shape: counters
+  labels:
+    worker_id: sim-worker_id-1
+  dimensions:
+  - id: harakiris
+    rate_signal: uwsgi_worker_harakiris_harakiris
+- id: uwsgi.worker_exceptions
+  title: UWSGI Worker Raised Exceptions
+  units: exceptions/s
+  family: worker
+  chart_type: line
+  priority: 60010
+  shape: counters
+  labels:
+    worker_id: sim-worker_id-1
+  dimensions:
+  - id: exceptions
+    rate_signal: uwsgi_worker_exceptions_exceptions
+- id: uwsgi.worker_status
+  title: UWSGI Worker Status
+  units: status
+  family: worker
+  chart_type: line
+  priority: 60011
+  shape: independent
+  labels:
+    worker_id: sim-worker_id-1
+  dimensions:
+  - id: idle
+    signal: uwsgi_worker_status_idle
+  - id: busy
+    signal: uwsgi_worker_status_busy
+  - id: cheap
+    signal: uwsgi_worker_status_cheap
+  - id: pause
+    signal: uwsgi_worker_status_pause
+  - id: sig
+    signal: uwsgi_worker_status_sig
+- id: uwsgi.worker_request_handling_status
+  title: UWSGI Worker Request Handling Status
+  units: status
+  family: worker
+  chart_type: line
+  priority: 60012
+  shape: independent
+  labels:
+    worker_id: sim-worker_id-1
+  dimensions:
+  - id: accepting
+    signal: uwsgi_worker_request_handling_status_accepting
+  - id: not_accepting
+    signal: uwsgi_worker_request_handling_status_not_accepting
+- id: uwsgi.worker_respawns
+  title: UWSGI Worker Respawns
+  units: respawns/s
+  family: worker
+  chart_type: line
+  priority: 60013
+  shape: counters
+  labels:
+    worker_id: sim-worker_id-1
+  dimensions:
+  - id: respawns
+    rate_signal: uwsgi_worker_respawns_respawns
+- id: uwsgi.worker_memory_rss
+  title: UWSGI Worker Memory RSS (Resident Set Size)
+  units: bytes
+  family: worker
+  chart_type: area
+  priority: 60014
+  shape: independent
+  labels:
+    worker_id: sim-worker_id-1
+  dimensions:
+  - id: rss
+    signal: uwsgi_worker_memory_rss_rss
+- id: uwsgi.worker_memory_vsz
+  title: UWSGI Worker Memory VSZ (Virtual Memory Size)
+  units: bytes
+  family: worker
+  chart_type: area
+  priority: 60015
+  shape: independent
+  labels:
+    worker_id: sim-worker_id-1
+  dimensions:
+  - id: vsz
+    signal: uwsgi_worker_memory_vsz_vsz

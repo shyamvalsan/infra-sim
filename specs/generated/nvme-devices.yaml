@@ -1,0 +1,434 @@
+version: 1
+name: nvme-devices
+description: NVMe devices metrics, generated from Netdata's own collector metadata so the contexts, units
+  and dimension names match what a real NVMe devices node reports. Signals are independent and plausible
+  rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  nvme_devices_device_estimated_endurance_perc_used:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nvme_devices_device_available_spare_perc_spare:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nvme_devices_device_composite_temperature_temperature:
+    base: 41.0
+    min: 0.0
+    max: 120.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nvme_devices_device_io_transferred_count_read:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nvme_devices_device_io_transferred_count_written:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nvme_devices_device_power_cycles_count_power:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nvme_devices_device_power_on_time_power_on:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nvme_devices_device_critical_warnings_state_available_spare:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  nvme_devices_device_critical_warnings_state_temp_threshold:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  nvme_devices_device_critical_warnings_state_nvm_subsystem_reliability:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  nvme_devices_device_critical_warnings_state_read_only:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  nvme_devices_device_critical_warnings_state_volatile_mem_backup_failed:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  nvme_devices_device_critical_warnings_state_persistent_memory_read_only:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  nvme_devices_device_unsafe_shutdowns_count_unsafe:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nvme_devices_device_media_errors_rate_media:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nvme_devices_device_error_log_entries_rate_error_log:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  nvme_devices_device_warning_composite_temperature_time_wctemp:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nvme_devices_device_critical_composite_temperature_time_cctemp:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nvme_devices_device_thermal_mgmt_temp1_transitions_rate_temp1:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nvme_devices_device_thermal_mgmt_temp2_transitions_rate_temp2:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nvme_devices_device_thermal_mgmt_temp1_time_temp1:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nvme_devices_device_thermal_mgmt_temp2_time_temp2:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: nvme.device_estimated_endurance_perc
+  title: Estimated endurance
+  units: '%'
+  family: device
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels:
+    device: sim-device-1
+    model_number: sim-model_number-1
+  dimensions:
+  - id: used
+    signal: nvme_devices_device_estimated_endurance_perc_used
+- id: nvme.device_available_spare_perc
+  title: Remaining spare capacity
+  units: '%'
+  family: device
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels:
+    device: sim-device-1
+    model_number: sim-model_number-1
+  dimensions:
+  - id: spare
+    signal: nvme_devices_device_available_spare_perc_spare
+- id: nvme.device_composite_temperature
+  title: Composite temperature
+  units: celsius
+  family: device
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels:
+    device: sim-device-1
+    model_number: sim-model_number-1
+  dimensions:
+  - id: temperature
+    signal: nvme_devices_device_composite_temperature_temperature
+- id: nvme.device_io_transferred_count
+  title: Amount of data transferred to and from device
+  units: bytes
+  family: device
+  chart_type: area
+  priority: 60004
+  shape: independent
+  labels:
+    device: sim-device-1
+    model_number: sim-model_number-1
+  dimensions:
+  - id: read
+    signal: nvme_devices_device_io_transferred_count_read
+  - id: written
+    signal: nvme_devices_device_io_transferred_count_written
+- id: nvme.device_power_cycles_count
+  title: Power cycles
+  units: cycles
+  family: device
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels:
+    device: sim-device-1
+    model_number: sim-model_number-1
+  dimensions:
+  - id: power
+    signal: nvme_devices_device_power_cycles_count_power
+- id: nvme.device_power_on_time
+  title: Power-on time
+  units: seconds
+  family: device
+  chart_type: line
+  priority: 60006
+  shape: independent
+  labels:
+    device: sim-device-1
+    model_number: sim-model_number-1
+  dimensions:
+  - id: power-on
+    signal: nvme_devices_device_power_on_time_power_on
+- id: nvme.device_critical_warnings_state
+  title: Critical warnings state
+  units: state
+  family: device
+  chart_type: line
+  priority: 60007
+  shape: independent
+  labels:
+    device: sim-device-1
+    model_number: sim-model_number-1
+  dimensions:
+  - id: available_spare
+    signal: nvme_devices_device_critical_warnings_state_available_spare
+  - id: temp_threshold
+    signal: nvme_devices_device_critical_warnings_state_temp_threshold
+  - id: nvm_subsystem_reliability
+    signal: nvme_devices_device_critical_warnings_state_nvm_subsystem_reliability
+  - id: read_only
+    signal: nvme_devices_device_critical_warnings_state_read_only
+  - id: volatile_mem_backup_failed
+    signal: nvme_devices_device_critical_warnings_state_volatile_mem_backup_failed
+  - id: persistent_memory_read_only
+    signal: nvme_devices_device_critical_warnings_state_persistent_memory_read_only
+- id: nvme.device_unsafe_shutdowns_count
+  title: Unsafe shutdowns
+  units: shutdowns
+  family: device
+  chart_type: line
+  priority: 60008
+  shape: independent
+  labels:
+    device: sim-device-1
+    model_number: sim-model_number-1
+  dimensions:
+  - id: unsafe
+    signal: nvme_devices_device_unsafe_shutdowns_count_unsafe
+- id: nvme.device_media_errors_rate
+  title: Media and data integrity errors
+  units: errors/s
+  family: device
+  chart_type: line
+  priority: 60009
+  shape: counters
+  labels:
+    device: sim-device-1
+    model_number: sim-model_number-1
+  dimensions:
+  - id: media
+    rate_signal: nvme_devices_device_media_errors_rate_media
+- id: nvme.device_error_log_entries_rate
+  title: Error log entries
+  units: entries/s
+  family: device
+  chart_type: line
+  priority: 60010
+  shape: counters
+  labels:
+    device: sim-device-1
+    model_number: sim-model_number-1
+  dimensions:
+  - id: error_log
+    rate_signal: nvme_devices_device_error_log_entries_rate_error_log
+- id: nvme.device_warning_composite_temperature_time
+  title: Warning composite temperature time
+  units: seconds
+  family: device
+  chart_type: line
+  priority: 60011
+  shape: independent
+  labels:
+    device: sim-device-1
+    model_number: sim-model_number-1
+  dimensions:
+  - id: wctemp
+    signal: nvme_devices_device_warning_composite_temperature_time_wctemp
+- id: nvme.device_critical_composite_temperature_time
+  title: Critical composite temperature time
+  units: seconds
+  family: device
+  chart_type: line
+  priority: 60012
+  shape: independent
+  labels:
+    device: sim-device-1
+    model_number: sim-model_number-1
+  dimensions:
+  - id: cctemp
+    signal: nvme_devices_device_critical_composite_temperature_time_cctemp
+- id: nvme.device_thermal_mgmt_temp1_transitions_rate
+  title: Thermal management temp1 transitions
+  units: transitions/s
+  family: device
+  chart_type: line
+  priority: 60013
+  shape: counters
+  labels:
+    device: sim-device-1
+    model_number: sim-model_number-1
+  dimensions:
+  - id: temp1
+    rate_signal: nvme_devices_device_thermal_mgmt_temp1_transitions_rate_temp1
+- id: nvme.device_thermal_mgmt_temp2_transitions_rate
+  title: Thermal management temp2 transitions
+  units: transitions/s
+  family: device
+  chart_type: line
+  priority: 60014
+  shape: counters
+  labels:
+    device: sim-device-1
+    model_number: sim-model_number-1
+  dimensions:
+  - id: temp2
+    rate_signal: nvme_devices_device_thermal_mgmt_temp2_transitions_rate_temp2
+- id: nvme.device_thermal_mgmt_temp1_time
+  title: Thermal management temp1 time
+  units: seconds
+  family: device
+  chart_type: line
+  priority: 60015
+  shape: independent
+  labels:
+    device: sim-device-1
+    model_number: sim-model_number-1
+  dimensions:
+  - id: temp1
+    signal: nvme_devices_device_thermal_mgmt_temp1_time_temp1
+- id: nvme.device_thermal_mgmt_temp2_time
+  title: Thermal management temp2 time
+  units: seconds
+  family: device
+  chart_type: line
+  priority: 60016
+  shape: independent
+  labels:
+    device: sim-device-1
+    model_number: sim-model_number-1
+  dimensions:
+  - id: temp2
+    signal: nvme_devices_device_thermal_mgmt_temp2_time_temp2

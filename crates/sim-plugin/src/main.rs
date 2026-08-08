@@ -18,11 +18,12 @@ use std::time::{Duration, SystemTime, UNIX_EPOCH};
 mod control;
 mod emitter;
 mod environment;
-mod llm;
+mod exporters;
 mod logs_runtime;
 mod warmup;
 
 use environment::Environment;
+use sim_engine::llm;
 use sim_engine::{NodeEngine, ScenarioSet};
 use sim_spec::GeneratorSpec;
 
@@ -34,6 +35,15 @@ const CONTROL_FILE: &str = "control.yaml";
 const ENV_VAR: &str = "INFRA_SIM_ENVIRONMENT";
 /// Default journal output directory, named in the help text.
 const DEFAULT_JOURNAL_DIR: &str = logs_runtime::DEFAULT_JOURNAL_DIR;
+
+/// Port the simulated Prometheus exporters listen on. Above the agent's 19999
+/// and outside the range go.d's own service discovery probes, so it cannot be
+/// picked up twice.
+const DEFAULT_EXPORTER_PORT: u16 = 19998;
+
+/// The application spec the exporters publish. Never a node `service`: the
+/// plugins.d path must not emit these series as well.
+const EXPORTER_SPEC: &str = "prometheus-app.yaml";
 
 fn main() -> ExitCode {
     match run() {
@@ -61,6 +71,9 @@ struct Args {
     llm: Option<llm::Config>,
     /// Emit correlated logs into the journal instead of metrics.
     logs: bool,
+    /// Serve simulated Prometheus exporters instead of collecting.
+    exporters: bool,
+    exporter_port: u16,
     /// Where journal files are written; Netdata scans this path.
     journal_dir: PathBuf,
     /// Override the `systemd-journal-remote` binary location.
@@ -111,6 +124,8 @@ fn parse_args() -> Result<Args, String> {
     let mut llm_model: Option<String> = None;
     let mut llm_key_env: Option<String> = None;
     let mut logs = false;
+    let mut exporters = false;
+    let mut exporter_port = DEFAULT_EXPORTER_PORT;
     let mut journal_dir: Option<PathBuf> = None;
     let mut journal_remote: Option<PathBuf> = None;
 
@@ -153,6 +168,14 @@ fn parse_args() -> Result<Args, String> {
                 })?);
             }
             "--logs" => logs = true,
+            "--exporters" => exporters = true,
+            "--exporter-port" => {
+                exporter_port = args
+                    .next()
+                    .ok_or_else(|| "--exporter-port requires a port".to_string())?
+                    .parse()
+                    .map_err(|e| format!("--exporter-port: {e}"))?;
+            }
             "--journal-dir" => {
                 journal_dir =
                     Some(PathBuf::from(args.next().ok_or_else(|| {
@@ -227,6 +250,12 @@ fn parse_args() -> Result<Args, String> {
                      Each node becomes its own log source in Netdata; fault \
                      lines follow whatever scenario is running.\n\
                      \n\
+                     simulated Prometheus exporters (a separate process;                      Netdata's own go.d prometheus collector scrapes them):\n\
+                     infra-sim --exporters --environment PATH\n\
+                     --exporter-port N     listen port (default:                      {DEFAULT_EXPORTER_PORT})\n\
+                     Serves GET /metrics/<hostname> per node, in Prometheus \n\
+                     text format, moved by whatever scenario is running.\n\
+                     \n\
                      build an environment from a description:\n\
                      --describe \"3 web servers behind an nginx load balancer, a \\\n\
                        postgres primary and 2 redis caches\" --name acme \\\n\
@@ -300,6 +329,8 @@ fn parse_args() -> Result<Args, String> {
         journal_dir: journal_dir
             .unwrap_or_else(|| PathBuf::from(logs_runtime::DEFAULT_JOURNAL_DIR)),
         journal_remote,
+        exporters,
+        exporter_port,
     })
 }
 
@@ -325,6 +356,10 @@ fn run() -> Result<(), String> {
     // so this branches before the (much heavier) spec composition.
     if args.logs {
         return do_logs(&env, &args);
+    }
+
+    if args.exporters {
+        return do_exporters(&env, &args);
     }
 
     let spec_path = env.generator_path(&args.environment);
@@ -353,7 +388,16 @@ fn run() -> Result<(), String> {
         }
         let mut merged = spec.clone();
         for service in &node.services {
+            // Hand-authored specs sit directly in the specs directory; the ones
+            // synced from Netdata's collector metadata sit in its `generated`
+            // subdirectory. A hand-authored spec wins, so a service can be
+            // promoted from generated to deeply modelled without renaming it.
             let path = specs_dir.join(format!("{service}.yaml"));
+            let path = if path.exists() {
+                path
+            } else {
+                specs_dir.join("generated").join(format!("{service}.yaml"))
+            };
             let raw = std::fs::read_to_string(&path).map_err(|e| {
                 format!(
                     "node '{}' needs service spec '{}': {e}",
@@ -562,6 +606,76 @@ fn do_logs(env: &Environment, args: &Args) -> Result<(), String> {
             reported = tick_at;
         }
     }
+}
+
+/// Serve one simulated Prometheus exporter per node until killed.
+fn do_exporters(env: &Environment, args: &Args) -> Result<(), String> {
+    // The exporter spec is deliberately *not* one of the node's `services`: it
+    // must not also be composed onto the plugins.d path, or every series would
+    // appear on the node twice.
+    let spec_path = env.specs_path(&args.environment).join(EXPORTER_SPEC);
+    let raw = std::fs::read_to_string(&spec_path).map_err(|e| {
+        format!(
+            "exporters need the application spec '{}': {e}",
+            spec_path.display()
+        )
+    })?;
+    let spec = Arc::new(GeneratorSpec::from_yaml(&raw).map_err(|e| e.to_string())?);
+
+    let built: Vec<exporters::Exporter> = env
+        .profiles()
+        .into_iter()
+        .map(|profile| {
+            let hostname = profile.hostname.clone();
+            let role = profile.role.clone().unwrap_or_else(|| "node".into());
+            exporters::Exporter::new(
+                hostname,
+                role,
+                NodeEngine::new(Arc::clone(&spec), profile, env.seed),
+            )
+        })
+        .collect();
+
+    let addr = (std::net::Ipv4Addr::LOCALHOST, args.exporter_port);
+    let listener = std::net::TcpListener::bind(addr)
+        .map_err(|e| format!("cannot listen on 127.0.0.1:{}: {e}", args.exporter_port))?;
+
+    eprintln!(
+        "infra-sim exporters: {} endpoint(s) on http://127.0.0.1:{}",
+        built.len(),
+        args.exporter_port
+    );
+    for e in &built {
+        eprintln!("  /metrics/{}", e.hostname);
+    }
+
+    // The control channel is polled on its own thread so a scrape never waits
+    // on a file read, and so scenario state is shared with the metrics plugin
+    // through exactly the same file.
+    let base_dir = args
+        .environment
+        .parent()
+        .map(Path::to_path_buf)
+        .unwrap_or_else(|| PathBuf::from("."));
+    let library = control::load_library(&env.scenario_path(&args.environment))?;
+    let shared = Arc::new(std::sync::Mutex::new(sim_engine::ScenarioSet::default()));
+    let poller = Arc::clone(&shared);
+    let control_path = base_dir.join(CONTROL_FILE);
+    std::thread::spawn(move || {
+        let mut control = control::ControlChannel::new(control_path, library);
+        loop {
+            let at = now_secs();
+            if let Some(change) = control.poll(at) {
+                eprintln!("infra-sim exporters: {change}");
+            }
+            if let Ok(mut guard) = poller.lock() {
+                *guard = control.scenarios().clone();
+            }
+            std::thread::sleep(std::time::Duration::from_secs(1));
+        }
+    });
+
+    exporters::serve(listener, built, shared).map_err(|e| e.to_string())
 }
 
 /// Build an environment from a text description and write it out.

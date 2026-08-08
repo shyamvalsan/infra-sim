@@ -1,0 +1,1265 @@
+version: 1
+name: azure-vpn-gateway
+description: Azure VPN Gateway metrics, generated from Netdata's own collector metadata so the contexts,
+  units and dimension names match what a real Azure VPN Gateway node reports. Signals are independent
+  and plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  azure_vpn_gateway_vpn_gateway_s2s_bandwidth_average:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_vpn_gateway_vpn_gateway_p2s_bandwidth_average:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_vpn_gateway_vpn_gateway_p2s_connections_total:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_vpn_gateway_vpn_gateway_gateway_flows_inbound:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_vpn_gateway_vpn_gateway_gateway_flows_outbound:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_vpn_gateway_vpn_gateway_tunnel_bandwidth_average:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_vpn_gateway_vpn_gateway_tunnel_bytes_egress:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_vpn_gateway_vpn_gateway_tunnel_bytes_ingress:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_vpn_gateway_vpn_gateway_tunnel_packets_egress:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_vpn_gateway_vpn_gateway_tunnel_packets_ingress:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_vpn_gateway_vpn_gateway_tunnel_peak_pps_peak:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_vpn_gateway_vpn_gateway_tunnel_total_flows_total:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_vpn_gateway_vpn_gateway_tunnel_nat_allocations_total:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_vpn_gateway_vpn_gateway_tunnel_nated_bytes_nated:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_vpn_gateway_vpn_gateway_tunnel_nated_bytes_reverse_nated:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_vpn_gateway_vpn_gateway_tunnel_nated_packets_nated:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_vpn_gateway_vpn_gateway_tunnel_nated_packets_reverse_nated:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_vpn_gateway_vpn_gateway_tunnel_nat_flows_total:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_vpn_gateway_vpn_gateway_tunnel_packet_drops_egress:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_vpn_gateway_vpn_gateway_tunnel_packet_drops_ingress:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_vpn_gateway_vpn_gateway_tunnel_ts_mismatch_drops_egress:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_vpn_gateway_vpn_gateway_tunnel_ts_mismatch_drops_ingress:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_vpn_gateway_vpn_gateway_tunnel_nat_packet_drops_total:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_vpn_gateway_vpn_gateway_ipsec_sa_mmsa:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_vpn_gateway_vpn_gateway_ipsec_sa_qmsa:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_vpn_gateway_vpn_gateway_bgp_peer_status_average:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  azure_vpn_gateway_vpn_gateway_bgp_routes_advertised:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_vpn_gateway_vpn_gateway_bgp_routes_learned:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_vpn_gateway_vpn_gateway_route_counts_user_vpn:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_vpn_gateway_vpn_gateway_route_counts_vnet_prefix:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_vpn_gateway_vpn_gateway_er_gateway_bandwidth_average:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_vpn_gateway_vpn_gateway_er_gateway_cpu_average:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_vpn_gateway_vpn_gateway_er_gateway_packets_average:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_vpn_gateway_vpn_gateway_er_gateway_active_flows_average:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_vpn_gateway_vpn_gateway_er_gateway_routes_advertised_maximum:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_vpn_gateway_vpn_gateway_er_gateway_routes_learned_maximum:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_vpn_gateway_vpn_gateway_er_gateway_route_changes_total:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_vpn_gateway_vpn_gateway_er_gateway_max_flows_rate_maximum:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_vpn_gateway_vpn_gateway_er_gateway_vm_count_maximum:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_vpn_gateway_vpn_gateway_scalable_er_bandwidth_average:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_vpn_gateway_vpn_gateway_scalable_er_cpu_average:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_vpn_gateway_vpn_gateway_scalable_er_packets_average:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_vpn_gateway_vpn_gateway_scalable_er_active_flows_average:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_vpn_gateway_vpn_gateway_scalable_er_routes_advertised_maximum:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_vpn_gateway_vpn_gateway_scalable_er_routes_learned_maximum:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_vpn_gateway_vpn_gateway_scalable_er_route_changes_total:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_vpn_gateway_vpn_gateway_scalable_er_max_flows_rate_maximum:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_vpn_gateway_vpn_gateway_scalable_er_vm_count_maximum:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_vpn_gateway_vpn_gateway_scalable_er_scale_units_maximum:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: azure_monitor.vpn_gateway.s2s_bandwidth
+  title: Azure VPN Gateway S2S Bandwidth
+  units: bytes/s
+  family: vpn
+  chart_type: line
+  priority: 60001
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    rate_signal: azure_vpn_gateway_vpn_gateway_s2s_bandwidth_average
+- id: azure_monitor.vpn_gateway.p2s_bandwidth
+  title: Azure VPN Gateway P2S Bandwidth
+  units: bytes/s
+  family: vpn
+  chart_type: line
+  priority: 60002
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    rate_signal: azure_vpn_gateway_vpn_gateway_p2s_bandwidth_average
+- id: azure_monitor.vpn_gateway.p2s_connections
+  title: Azure VPN Gateway P2S Connection Count
+  units: connections
+  family: vpn
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: total
+    signal: azure_vpn_gateway_vpn_gateway_p2s_connections_total
+- id: azure_monitor.vpn_gateway.gateway_flows
+  title: Azure VPN Gateway Flows
+  units: flows
+  family: vpn
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: inbound
+    signal: azure_vpn_gateway_vpn_gateway_gateway_flows_inbound
+  - id: outbound
+    signal: azure_vpn_gateway_vpn_gateway_gateway_flows_outbound
+- id: azure_monitor.vpn_gateway.tunnel_bandwidth
+  title: Azure VPN Gateway Tunnel Bandwidth
+  units: bytes/s
+  family: vpn
+  chart_type: line
+  priority: 60005
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    rate_signal: azure_vpn_gateway_vpn_gateway_tunnel_bandwidth_average
+- id: azure_monitor.vpn_gateway.tunnel_bytes
+  title: Azure VPN Gateway Tunnel Bytes
+  units: bytes/s
+  family: vpn
+  chart_type: line
+  priority: 60006
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: egress
+    rate_signal: azure_vpn_gateway_vpn_gateway_tunnel_bytes_egress
+  - id: ingress
+    rate_signal: azure_vpn_gateway_vpn_gateway_tunnel_bytes_ingress
+- id: azure_monitor.vpn_gateway.tunnel_packets
+  title: Azure VPN Gateway Tunnel Packets
+  units: packets/s
+  family: vpn
+  chart_type: line
+  priority: 60007
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: egress
+    rate_signal: azure_vpn_gateway_vpn_gateway_tunnel_packets_egress
+  - id: ingress
+    rate_signal: azure_vpn_gateway_vpn_gateway_tunnel_packets_ingress
+- id: azure_monitor.vpn_gateway.tunnel_peak_pps
+  title: Azure VPN Gateway Tunnel Peak PPS
+  units: packets/s
+  family: vpn
+  chart_type: line
+  priority: 60008
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: peak
+    rate_signal: azure_vpn_gateway_vpn_gateway_tunnel_peak_pps_peak
+- id: azure_monitor.vpn_gateway.tunnel_total_flows
+  title: Azure VPN Gateway Tunnel Total Flows
+  units: flows/s
+  family: vpn
+  chart_type: line
+  priority: 60009
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: total
+    rate_signal: azure_vpn_gateway_vpn_gateway_tunnel_total_flows_total
+- id: azure_monitor.vpn_gateway.tunnel_nat_allocations
+  title: Azure VPN Gateway Tunnel NAT Allocations
+  units: allocations/s
+  family: vpn
+  chart_type: line
+  priority: 60010
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: total
+    rate_signal: azure_vpn_gateway_vpn_gateway_tunnel_nat_allocations_total
+- id: azure_monitor.vpn_gateway.tunnel_nated_bytes
+  title: Azure VPN Gateway Tunnel NATed Bytes
+  units: bytes/s
+  family: vpn
+  chart_type: line
+  priority: 60011
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: nated
+    rate_signal: azure_vpn_gateway_vpn_gateway_tunnel_nated_bytes_nated
+  - id: reverse_nated
+    rate_signal: azure_vpn_gateway_vpn_gateway_tunnel_nated_bytes_reverse_nated
+- id: azure_monitor.vpn_gateway.tunnel_nated_packets
+  title: Azure VPN Gateway Tunnel NATed Packets
+  units: packets/s
+  family: vpn
+  chart_type: line
+  priority: 60012
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: nated
+    rate_signal: azure_vpn_gateway_vpn_gateway_tunnel_nated_packets_nated
+  - id: reverse_nated
+    rate_signal: azure_vpn_gateway_vpn_gateway_tunnel_nated_packets_reverse_nated
+- id: azure_monitor.vpn_gateway.tunnel_nat_flows
+  title: Azure VPN Gateway Tunnel NAT Flows
+  units: flows/s
+  family: vpn
+  chart_type: line
+  priority: 60013
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: total
+    rate_signal: azure_vpn_gateway_vpn_gateway_tunnel_nat_flows_total
+- id: azure_monitor.vpn_gateway.tunnel_packet_drops
+  title: Azure VPN Gateway Tunnel Packet Drops
+  units: packets/s
+  family: vpn
+  chart_type: line
+  priority: 60014
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: egress
+    rate_signal: azure_vpn_gateway_vpn_gateway_tunnel_packet_drops_egress
+  - id: ingress
+    rate_signal: azure_vpn_gateway_vpn_gateway_tunnel_packet_drops_ingress
+- id: azure_monitor.vpn_gateway.tunnel_ts_mismatch_drops
+  title: Azure VPN Gateway Tunnel TS Mismatch Drops
+  units: packets/s
+  family: vpn
+  chart_type: line
+  priority: 60015
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: egress
+    rate_signal: azure_vpn_gateway_vpn_gateway_tunnel_ts_mismatch_drops_egress
+  - id: ingress
+    rate_signal: azure_vpn_gateway_vpn_gateway_tunnel_ts_mismatch_drops_ingress
+- id: azure_monitor.vpn_gateway.tunnel_nat_packet_drops
+  title: Azure VPN Gateway Tunnel NAT Packet Drops
+  units: packets/s
+  family: vpn
+  chart_type: line
+  priority: 60016
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: total
+    rate_signal: azure_vpn_gateway_vpn_gateway_tunnel_nat_packet_drops_total
+- id: azure_monitor.vpn_gateway.ipsec_sa
+  title: Azure VPN Gateway IPsec Security Associations
+  units: associations
+  family: vpn
+  chart_type: line
+  priority: 60017
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: mmsa
+    signal: azure_vpn_gateway_vpn_gateway_ipsec_sa_mmsa
+  - id: qmsa
+    signal: azure_vpn_gateway_vpn_gateway_ipsec_sa_qmsa
+- id: azure_monitor.vpn_gateway.bgp_peer_status
+  title: Azure VPN Gateway BGP Peer Status
+  units: status
+  family: vpn
+  chart_type: line
+  priority: 60018
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_vpn_gateway_vpn_gateway_bgp_peer_status_average
+- id: azure_monitor.vpn_gateway.bgp_routes
+  title: Azure VPN Gateway BGP Routes
+  units: routes/s
+  family: vpn
+  chart_type: line
+  priority: 60019
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: advertised
+    rate_signal: azure_vpn_gateway_vpn_gateway_bgp_routes_advertised
+  - id: learned
+    rate_signal: azure_vpn_gateway_vpn_gateway_bgp_routes_learned
+- id: azure_monitor.vpn_gateway.route_counts
+  title: Azure VPN Gateway Route Counts
+  units: routes
+  family: vpn
+  chart_type: line
+  priority: 60020
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: user_vpn
+    signal: azure_vpn_gateway_vpn_gateway_route_counts_user_vpn
+  - id: vnet_prefix
+    signal: azure_vpn_gateway_vpn_gateway_route_counts_vnet_prefix
+- id: azure_monitor.vpn_gateway.er_gateway_bandwidth
+  title: Azure VPN Gateway ExpressRoute Bandwidth
+  units: bits/s
+  family: vpn
+  chart_type: line
+  priority: 60021
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    rate_signal: azure_vpn_gateway_vpn_gateway_er_gateway_bandwidth_average
+- id: azure_monitor.vpn_gateway.er_gateway_cpu
+  title: Azure VPN Gateway ExpressRoute CPU Utilization
+  units: percentage
+  family: vpn
+  chart_type: line
+  priority: 60022
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_vpn_gateway_vpn_gateway_er_gateway_cpu_average
+- id: azure_monitor.vpn_gateway.er_gateway_packets
+  title: Azure VPN Gateway ExpressRoute Packets
+  units: packets/s
+  family: vpn
+  chart_type: line
+  priority: 60023
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    rate_signal: azure_vpn_gateway_vpn_gateway_er_gateway_packets_average
+- id: azure_monitor.vpn_gateway.er_gateway_active_flows
+  title: Azure VPN Gateway ExpressRoute Active Flows
+  units: flows
+  family: vpn
+  chart_type: line
+  priority: 60024
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_vpn_gateway_vpn_gateway_er_gateway_active_flows_average
+- id: azure_monitor.vpn_gateway.er_gateway_routes_advertised
+  title: Azure VPN Gateway ExpressRoute Routes Advertised to Peer
+  units: routes
+  family: vpn
+  chart_type: line
+  priority: 60025
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: maximum
+    signal: azure_vpn_gateway_vpn_gateway_er_gateway_routes_advertised_maximum
+- id: azure_monitor.vpn_gateway.er_gateway_routes_learned
+  title: Azure VPN Gateway ExpressRoute Routes Learned from Peer
+  units: routes
+  family: vpn
+  chart_type: line
+  priority: 60026
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: maximum
+    signal: azure_vpn_gateway_vpn_gateway_er_gateway_routes_learned_maximum
+- id: azure_monitor.vpn_gateway.er_gateway_route_changes
+  title: Azure VPN Gateway ExpressRoute Route Changes
+  units: changes/s
+  family: vpn
+  chart_type: line
+  priority: 60027
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: total
+    rate_signal: azure_vpn_gateway_vpn_gateway_er_gateway_route_changes_total
+- id: azure_monitor.vpn_gateway.er_gateway_max_flows_rate
+  title: Azure VPN Gateway ExpressRoute Max Flow Creation Rate
+  units: flows/s
+  family: vpn
+  chart_type: line
+  priority: 60028
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: maximum
+    rate_signal: azure_vpn_gateway_vpn_gateway_er_gateway_max_flows_rate_maximum
+- id: azure_monitor.vpn_gateway.er_gateway_vm_count
+  title: Azure VPN Gateway ExpressRoute VMs in VNet
+  units: VMs
+  family: vpn
+  chart_type: line
+  priority: 60029
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: maximum
+    signal: azure_vpn_gateway_vpn_gateway_er_gateway_vm_count_maximum
+- id: azure_monitor.vpn_gateway.scalable_er_bandwidth
+  title: Azure VPN Gateway Scalable ExpressRoute Bandwidth
+  units: bits/s
+  family: vpn
+  chart_type: line
+  priority: 60030
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    rate_signal: azure_vpn_gateway_vpn_gateway_scalable_er_bandwidth_average
+- id: azure_monitor.vpn_gateway.scalable_er_cpu
+  title: Azure VPN Gateway Scalable ExpressRoute CPU Utilization
+  units: percentage
+  family: vpn
+  chart_type: line
+  priority: 60031
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_vpn_gateway_vpn_gateway_scalable_er_cpu_average
+- id: azure_monitor.vpn_gateway.scalable_er_packets
+  title: Azure VPN Gateway Scalable ExpressRoute Packets
+  units: packets/s
+  family: vpn
+  chart_type: line
+  priority: 60032
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    rate_signal: azure_vpn_gateway_vpn_gateway_scalable_er_packets_average
+- id: azure_monitor.vpn_gateway.scalable_er_active_flows
+  title: Azure VPN Gateway Scalable ExpressRoute Active Flows
+  units: flows
+  family: vpn
+  chart_type: line
+  priority: 60033
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_vpn_gateway_vpn_gateway_scalable_er_active_flows_average
+- id: azure_monitor.vpn_gateway.scalable_er_routes_advertised
+  title: Azure VPN Gateway Scalable ExpressRoute Routes Advertised
+  units: routes
+  family: vpn
+  chart_type: line
+  priority: 60034
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: maximum
+    signal: azure_vpn_gateway_vpn_gateway_scalable_er_routes_advertised_maximum
+- id: azure_monitor.vpn_gateway.scalable_er_routes_learned
+  title: Azure VPN Gateway Scalable ExpressRoute Routes Learned
+  units: routes
+  family: vpn
+  chart_type: line
+  priority: 60035
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: maximum
+    signal: azure_vpn_gateway_vpn_gateway_scalable_er_routes_learned_maximum
+- id: azure_monitor.vpn_gateway.scalable_er_route_changes
+  title: Azure VPN Gateway Scalable ExpressRoute Route Changes
+  units: changes/s
+  family: vpn
+  chart_type: line
+  priority: 60036
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: total
+    rate_signal: azure_vpn_gateway_vpn_gateway_scalable_er_route_changes_total
+- id: azure_monitor.vpn_gateway.scalable_er_max_flows_rate
+  title: Azure VPN Gateway Scalable ExpressRoute Max Flow Creation Rate
+  units: flows/s
+  family: vpn
+  chart_type: line
+  priority: 60037
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: maximum
+    rate_signal: azure_vpn_gateway_vpn_gateway_scalable_er_max_flows_rate_maximum
+- id: azure_monitor.vpn_gateway.scalable_er_vm_count
+  title: Azure VPN Gateway Scalable ExpressRoute VMs in VNet
+  units: VMs
+  family: vpn
+  chart_type: line
+  priority: 60038
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: maximum
+    signal: azure_vpn_gateway_vpn_gateway_scalable_er_vm_count_maximum
+- id: azure_monitor.vpn_gateway.scalable_er_scale_units
+  title: Azure VPN Gateway Scalable ExpressRoute Scale Units
+  units: units
+  family: vpn
+  chart_type: line
+  priority: 60039
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: maximum
+    signal: azure_vpn_gateway_vpn_gateway_scalable_er_scale_units_maximum

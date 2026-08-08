@@ -1,0 +1,2148 @@
+version: 1
+name: cockroachdb
+description: CockroachDB metrics, generated from Netdata's own collector metadata so the contexts, units
+  and dimension names match what a real CockroachDB node reports. Signals are independent and plausible
+  rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  cockroachdb_process_cpu_time_combined_percentage_used:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_process_cpu_time_percentage_user:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_process_cpu_time_percentage_sys:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_process_cpu_time_user:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_process_cpu_time_sys:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_process_memory_rss:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_process_file_descriptors_open:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_process_uptime_uptime:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_host_disk_bandwidth_read:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_host_disk_bandwidth_write:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_host_disk_operations_reads:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_host_disk_operations_writes:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_host_disk_iops_in_progress_in_progress:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_host_network_bandwidth_received:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_host_network_bandwidth_sent:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_host_network_packets_received:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_host_network_packets_sent:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_live_nodes_live_nodes:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_node_liveness_heartbeats_successful:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_node_liveness_heartbeats_failed:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  cockroachdb_total_storage_capacity_total:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_storage_capacity_usability_usable:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_storage_capacity_usability_unusable:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_storage_usable_capacity_available:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_storage_usable_capacity_used:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_storage_used_capacity_percentage_total:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_storage_used_capacity_percentage_usable:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_sql_connections_active:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_sql_bandwidth_received:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_sql_bandwidth_sent:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_sql_statements_total_started:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_sql_statements_total_executed:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_sql_errors_statement:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  cockroachdb_sql_errors_transaction:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  cockroachdb_sql_started_ddl_statements_ddl:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_sql_executed_ddl_statements_ddl:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_sql_started_dml_statements_select:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_sql_started_dml_statements_update:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_sql_started_dml_statements_delete:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_sql_started_dml_statements_insert:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_sql_executed_dml_statements_select:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_sql_executed_dml_statements_update:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_sql_executed_dml_statements_delete:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_sql_executed_dml_statements_insert:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_sql_started_tcl_statements_begin:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_sql_started_tcl_statements_commit:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_sql_started_tcl_statements_rollback:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_sql_started_tcl_statements_savepoint:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_sql_started_tcl_statements_savepoint_cockroach_restart:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_sql_started_tcl_statements_release_savepoint_cockroach_restart:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_sql_started_tcl_statements_rollback_to_savepoint_cockroach_restart:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_sql_executed_tcl_statements_begin:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_sql_executed_tcl_statements_commit:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_sql_executed_tcl_statements_rollback:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_sql_executed_tcl_statements_savepoint:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_sql_executed_tcl_statements_savepoint_cockroach_restart:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_sql_executed_tcl_statements_release_savepoint_cockroach_restart:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_sql_executed_tcl_statements_rollback_to_savepoint_cockroach_restart:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_sql_active_distributed_queries_active:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_sql_distributed_flows_active:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_sql_distributed_flows_queued:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_live_bytes_applications:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_live_bytes_system:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_logical_data_keys:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_logical_data_values:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_logical_data_count_keys:
+    base: 320.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_logical_data_count_values:
+    base: 320.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_kv_transactions_committed:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_kv_transactions_fast_path_committed:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_kv_transactions_aborted:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  cockroachdb_kv_transaction_restarts_write_too_old:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_kv_transaction_restarts_write_too_old_multiple:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_kv_transaction_restarts_forwarded_timestamp:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_kv_transaction_restarts_possible_reply:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_kv_transaction_restarts_async_consensus_failure:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  cockroachdb_kv_transaction_restarts_read_within_uncertainty_interval:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_kv_transaction_restarts_aborted:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  cockroachdb_kv_transaction_restarts_push_failure:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  cockroachdb_kv_transaction_restarts_unknown:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_ranges_ranges:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_ranges_replication_problem_unavailable:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_ranges_replication_problem_under_replicated:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_ranges_replication_problem_over_replicated:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_range_events_split:
+    base: 90.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_range_events_add:
+    base: 90.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_range_events_remove:
+    base: 90.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_range_events_merge:
+    base: 90.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_range_snapshot_events_generated:
+    base: 90.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_range_snapshot_events_applied_raft_initiated:
+    base: 90.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_range_snapshot_events_applied_learner:
+    base: 90.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_range_snapshot_events_applied_preemptive:
+    base: 90.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_rocksdb_read_amplification_reads:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_rocksdb_table_operations_compactions:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_rocksdb_table_operations_flushes:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_rocksdb_cache_usage_used:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_rocksdb_cache_operations_hits:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_rocksdb_cache_operations_misses:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_rocksdb_cache_hit_rate_hit_rate:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_rocksdb_sstables_sstables:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_replicas_replicas:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_replicas_quiescence_quiescent:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_replicas_quiescence_active:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_replicas_leaders_leaders:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_replicas_leaders_not_leaseholders:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_replicas_leaseholders_leaseholders:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_queue_processing_failures_gc:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_queue_processing_failures_replica_gc:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_queue_processing_failures_replication:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_queue_processing_failures_split:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_queue_processing_failures_consistency:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_queue_processing_failures_raft_log:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_queue_processing_failures_raft_snapshot:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_queue_processing_failures_time_series_maintenance:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_rebalancing_queries_avg:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_rebalancing_writes_avg:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_timeseries_samples_written:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_timeseries_write_errors_write:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  cockroachdb_timeseries_write_bytes_written:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_slow_requests_acquiring_latches:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_slow_requests_acquiring_lease:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_slow_requests_in_raft:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_code_heap_memory_usage_go:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_code_heap_memory_usage_cgo:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_goroutines_goroutines:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_gc_count_gc:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_gc_pause_pause:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cockroachdb_cgo_calls_cgo:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: cockroachdb.process_cpu_time_combined_percentage
+  title: Combined CPU Time Percentage, Normalized 0-1 by Number of Cores
+  units: percentage
+  family: process
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: used
+    signal: cockroachdb_process_cpu_time_combined_percentage_used
+- id: cockroachdb.process_cpu_time_percentage
+  title: CPU Time Percentage
+  units: percentage
+  family: process
+  chart_type: stacked
+  priority: 60002
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: user
+    signal: cockroachdb_process_cpu_time_percentage_user
+  - id: sys
+    signal: cockroachdb_process_cpu_time_percentage_sys
+- id: cockroachdb.process_cpu_time
+  title: CPU Time
+  units: ms
+  family: process
+  chart_type: stacked
+  priority: 60003
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: user
+    signal: cockroachdb_process_cpu_time_user
+  - id: sys
+    signal: cockroachdb_process_cpu_time_sys
+- id: cockroachdb.process_memory
+  title: Memory Usage
+  units: KiB
+  family: process
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: rss
+    signal: cockroachdb_process_memory_rss
+- id: cockroachdb.process_file_descriptors
+  title: File Descriptors
+  units: fd
+  family: process
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: open
+    signal: cockroachdb_process_file_descriptors_open
+- id: cockroachdb.process_uptime
+  title: Uptime
+  units: seconds
+  family: process
+  chart_type: line
+  priority: 60006
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: uptime
+    signal: cockroachdb_process_uptime_uptime
+- id: cockroachdb.host_disk_bandwidth
+  title: Host Disk Cumulative Bandwidth
+  units: KiB
+  family: host
+  chart_type: area
+  priority: 60007
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: read
+    signal: cockroachdb_host_disk_bandwidth_read
+  - id: write
+    signal: cockroachdb_host_disk_bandwidth_write
+- id: cockroachdb.host_disk_operations
+  title: Host Disk Cumulative Operations
+  units: operations
+  family: host
+  chart_type: line
+  priority: 60008
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: reads
+    signal: cockroachdb_host_disk_operations_reads
+  - id: writes
+    signal: cockroachdb_host_disk_operations_writes
+- id: cockroachdb.host_disk_iops_in_progress
+  title: Host Disk Cumulative IOPS In Progress
+  units: iops
+  family: host
+  chart_type: line
+  priority: 60009
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: in_progress
+    rate_signal: cockroachdb_host_disk_iops_in_progress_in_progress
+- id: cockroachdb.host_network_bandwidth
+  title: Host Network Cumulative Bandwidth
+  units: kilobits
+  family: host
+  chart_type: area
+  priority: 60010
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: received
+    signal: cockroachdb_host_network_bandwidth_received
+  - id: sent
+    signal: cockroachdb_host_network_bandwidth_sent
+- id: cockroachdb.host_network_packets
+  title: Host Network Cumulative Packets
+  units: packets
+  family: host
+  chart_type: line
+  priority: 60011
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: received
+    signal: cockroachdb_host_network_packets_received
+  - id: sent
+    signal: cockroachdb_host_network_packets_sent
+- id: cockroachdb.live_nodes
+  title: Live Nodes in the Cluster
+  units: nodes
+  family: live
+  chart_type: line
+  priority: 60012
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: live_nodes
+    signal: cockroachdb_live_nodes_live_nodes
+- id: cockroachdb.node_liveness_heartbeats
+  title: Node Liveness Heartbeats
+  units: heartbeats
+  family: node
+  chart_type: stacked
+  priority: 60013
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: successful
+    signal: cockroachdb_node_liveness_heartbeats_successful
+  - id: failed
+    signal: cockroachdb_node_liveness_heartbeats_failed
+- id: cockroachdb.total_storage_capacity
+  title: Total Storage Capacity
+  units: KiB
+  family: total
+  chart_type: line
+  priority: 60014
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: total
+    signal: cockroachdb_total_storage_capacity_total
+- id: cockroachdb.storage_capacity_usability
+  title: Storage Capacity Usability
+  units: KiB
+  family: storage
+  chart_type: stacked
+  priority: 60015
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: usable
+    signal: cockroachdb_storage_capacity_usability_usable
+  - id: unusable
+    signal: cockroachdb_storage_capacity_usability_unusable
+- id: cockroachdb.storage_usable_capacity
+  title: Storage Usable Capacity
+  units: KiB
+  family: storage
+  chart_type: stacked
+  priority: 60016
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: available
+    signal: cockroachdb_storage_usable_capacity_available
+  - id: used
+    signal: cockroachdb_storage_usable_capacity_used
+- id: cockroachdb.storage_used_capacity_percentage
+  title: Storage Used Capacity Utilization
+  units: percentage
+  family: storage
+  chart_type: line
+  priority: 60017
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: total
+    signal: cockroachdb_storage_used_capacity_percentage_total
+  - id: usable
+    signal: cockroachdb_storage_used_capacity_percentage_usable
+- id: cockroachdb.sql_connections
+  title: Active SQL Connections
+  units: connections
+  family: sql
+  chart_type: line
+  priority: 60018
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: active
+    signal: cockroachdb_sql_connections_active
+- id: cockroachdb.sql_bandwidth
+  title: SQL Bandwidth
+  units: KiB
+  family: sql
+  chart_type: area
+  priority: 60019
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: received
+    signal: cockroachdb_sql_bandwidth_received
+  - id: sent
+    signal: cockroachdb_sql_bandwidth_sent
+- id: cockroachdb.sql_statements_total
+  title: SQL Statements Total
+  units: statements
+  family: sql
+  chart_type: area
+  priority: 60020
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: started
+    signal: cockroachdb_sql_statements_total_started
+  - id: executed
+    signal: cockroachdb_sql_statements_total_executed
+- id: cockroachdb.sql_errors
+  title: SQL Statements and Transaction Errors
+  units: errors
+  family: sql
+  chart_type: line
+  priority: 60021
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: statement
+    signal: cockroachdb_sql_errors_statement
+  - id: transaction
+    signal: cockroachdb_sql_errors_transaction
+- id: cockroachdb.sql_started_ddl_statements
+  title: SQL Started DDL Statements
+  units: statements
+  family: sql
+  chart_type: line
+  priority: 60022
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: ddl
+    signal: cockroachdb_sql_started_ddl_statements_ddl
+- id: cockroachdb.sql_executed_ddl_statements
+  title: SQL Executed DDL Statements
+  units: statements
+  family: sql
+  chart_type: line
+  priority: 60023
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: ddl
+    signal: cockroachdb_sql_executed_ddl_statements_ddl
+- id: cockroachdb.sql_started_dml_statements
+  title: SQL Started DML Statements
+  units: statements
+  family: sql
+  chart_type: stacked
+  priority: 60024
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: select
+    signal: cockroachdb_sql_started_dml_statements_select
+  - id: update
+    signal: cockroachdb_sql_started_dml_statements_update
+  - id: delete
+    signal: cockroachdb_sql_started_dml_statements_delete
+  - id: insert
+    signal: cockroachdb_sql_started_dml_statements_insert
+- id: cockroachdb.sql_executed_dml_statements
+  title: SQL Executed DML Statements
+  units: statements
+  family: sql
+  chart_type: stacked
+  priority: 60025
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: select
+    signal: cockroachdb_sql_executed_dml_statements_select
+  - id: update
+    signal: cockroachdb_sql_executed_dml_statements_update
+  - id: delete
+    signal: cockroachdb_sql_executed_dml_statements_delete
+  - id: insert
+    signal: cockroachdb_sql_executed_dml_statements_insert
+- id: cockroachdb.sql_started_tcl_statements
+  title: SQL Started TCL Statements
+  units: statements
+  family: sql
+  chart_type: stacked
+  priority: 60026
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: begin
+    signal: cockroachdb_sql_started_tcl_statements_begin
+  - id: commit
+    signal: cockroachdb_sql_started_tcl_statements_commit
+  - id: rollback
+    signal: cockroachdb_sql_started_tcl_statements_rollback
+  - id: savepoint
+    signal: cockroachdb_sql_started_tcl_statements_savepoint
+  - id: savepoint_cockroach_restart
+    signal: cockroachdb_sql_started_tcl_statements_savepoint_cockroach_restart
+  - id: release_savepoint_cockroach_restart
+    signal: cockroachdb_sql_started_tcl_statements_release_savepoint_cockroach_restart
+  - id: rollback_to_savepoint_cockroach_restart
+    signal: cockroachdb_sql_started_tcl_statements_rollback_to_savepoint_cockroach_restart
+- id: cockroachdb.sql_executed_tcl_statements
+  title: SQL Executed TCL Statements
+  units: statements
+  family: sql
+  chart_type: stacked
+  priority: 60027
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: begin
+    signal: cockroachdb_sql_executed_tcl_statements_begin
+  - id: commit
+    signal: cockroachdb_sql_executed_tcl_statements_commit
+  - id: rollback
+    signal: cockroachdb_sql_executed_tcl_statements_rollback
+  - id: savepoint
+    signal: cockroachdb_sql_executed_tcl_statements_savepoint
+  - id: savepoint_cockroach_restart
+    signal: cockroachdb_sql_executed_tcl_statements_savepoint_cockroach_restart
+  - id: release_savepoint_cockroach_restart
+    signal: cockroachdb_sql_executed_tcl_statements_release_savepoint_cockroach_restart
+  - id: rollback_to_savepoint_cockroach_restart
+    signal: cockroachdb_sql_executed_tcl_statements_rollback_to_savepoint_cockroach_restart
+- id: cockroachdb.sql_active_distributed_queries
+  title: Active Distributed SQL Queries
+  units: queries
+  family: sql
+  chart_type: line
+  priority: 60028
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: active
+    signal: cockroachdb_sql_active_distributed_queries_active
+- id: cockroachdb.sql_distributed_flows
+  title: Distributed SQL Flows
+  units: flows
+  family: sql
+  chart_type: stacked
+  priority: 60029
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: active
+    signal: cockroachdb_sql_distributed_flows_active
+  - id: queued
+    signal: cockroachdb_sql_distributed_flows_queued
+- id: cockroachdb.live_bytes
+  title: Used Live Data
+  units: KiB
+  family: live
+  chart_type: line
+  priority: 60030
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: applications
+    signal: cockroachdb_live_bytes_applications
+  - id: system
+    signal: cockroachdb_live_bytes_system
+- id: cockroachdb.logical_data
+  title: Logical Data
+  units: KiB
+  family: logical
+  chart_type: stacked
+  priority: 60031
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: keys
+    signal: cockroachdb_logical_data_keys
+  - id: values
+    signal: cockroachdb_logical_data_values
+- id: cockroachdb.logical_data_count
+  title: Logical Data Count
+  units: num
+  family: logical
+  chart_type: stacked
+  priority: 60032
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: keys
+    signal: cockroachdb_logical_data_count_keys
+  - id: values
+    signal: cockroachdb_logical_data_count_values
+- id: cockroachdb.kv_transactions
+  title: KV Transactions
+  units: transactions
+  family: kv
+  chart_type: area
+  priority: 60033
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: committed
+    signal: cockroachdb_kv_transactions_committed
+  - id: fast-path_committed
+    signal: cockroachdb_kv_transactions_fast_path_committed
+  - id: aborted
+    signal: cockroachdb_kv_transactions_aborted
+- id: cockroachdb.kv_transaction_restarts
+  title: KV Transaction Restarts
+  units: restarts
+  family: kv
+  chart_type: stacked
+  priority: 60034
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: write_too_old
+    signal: cockroachdb_kv_transaction_restarts_write_too_old
+  - id: write_too_old_multiple
+    signal: cockroachdb_kv_transaction_restarts_write_too_old_multiple
+  - id: forwarded_timestamp
+    signal: cockroachdb_kv_transaction_restarts_forwarded_timestamp
+  - id: possible_reply
+    signal: cockroachdb_kv_transaction_restarts_possible_reply
+  - id: async_consensus_failure
+    signal: cockroachdb_kv_transaction_restarts_async_consensus_failure
+  - id: read_within_uncertainty_interval
+    signal: cockroachdb_kv_transaction_restarts_read_within_uncertainty_interval
+  - id: aborted
+    signal: cockroachdb_kv_transaction_restarts_aborted
+  - id: push_failure
+    signal: cockroachdb_kv_transaction_restarts_push_failure
+  - id: unknown
+    signal: cockroachdb_kv_transaction_restarts_unknown
+- id: cockroachdb.ranges
+  title: Ranges
+  units: ranges
+  family: ranges
+  chart_type: line
+  priority: 60035
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: ranges
+    signal: cockroachdb_ranges_ranges
+- id: cockroachdb.ranges_replication_problem
+  title: Ranges Replication Problems
+  units: ranges
+  family: ranges
+  chart_type: stacked
+  priority: 60036
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: unavailable
+    signal: cockroachdb_ranges_replication_problem_unavailable
+  - id: under_replicated
+    signal: cockroachdb_ranges_replication_problem_under_replicated
+  - id: over_replicated
+    signal: cockroachdb_ranges_replication_problem_over_replicated
+- id: cockroachdb.range_events
+  title: Range Events
+  units: events
+  family: range
+  chart_type: stacked
+  priority: 60037
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: split
+    signal: cockroachdb_range_events_split
+  - id: add
+    signal: cockroachdb_range_events_add
+  - id: remove
+    signal: cockroachdb_range_events_remove
+  - id: merge
+    signal: cockroachdb_range_events_merge
+- id: cockroachdb.range_snapshot_events
+  title: Range Snapshot Events
+  units: events
+  family: range
+  chart_type: stacked
+  priority: 60038
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: generated
+    signal: cockroachdb_range_snapshot_events_generated
+  - id: applied_raft_initiated
+    signal: cockroachdb_range_snapshot_events_applied_raft_initiated
+  - id: applied_learner
+    signal: cockroachdb_range_snapshot_events_applied_learner
+  - id: applied_preemptive
+    signal: cockroachdb_range_snapshot_events_applied_preemptive
+- id: cockroachdb.rocksdb_read_amplification
+  title: RocksDB Read Amplification
+  units: reads/query
+  family: rocksdb
+  chart_type: line
+  priority: 60039
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: reads
+    signal: cockroachdb_rocksdb_read_amplification_reads
+- id: cockroachdb.rocksdb_table_operations
+  title: RocksDB Table Operations
+  units: operations
+  family: rocksdb
+  chart_type: line
+  priority: 60040
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: compactions
+    signal: cockroachdb_rocksdb_table_operations_compactions
+  - id: flushes
+    signal: cockroachdb_rocksdb_table_operations_flushes
+- id: cockroachdb.rocksdb_cache_usage
+  title: RocksDB Block Cache Usage
+  units: KiB
+  family: rocksdb
+  chart_type: area
+  priority: 60041
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: used
+    signal: cockroachdb_rocksdb_cache_usage_used
+- id: cockroachdb.rocksdb_cache_operations
+  title: RocksDB Block Cache Operations
+  units: operations
+  family: rocksdb
+  chart_type: stacked
+  priority: 60042
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: hits
+    signal: cockroachdb_rocksdb_cache_operations_hits
+  - id: misses
+    signal: cockroachdb_rocksdb_cache_operations_misses
+- id: cockroachdb.rocksdb_cache_hit_rate
+  title: RocksDB Block Cache Hit Rate
+  units: percentage
+  family: rocksdb
+  chart_type: area
+  priority: 60043
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: hit_rate
+    signal: cockroachdb_rocksdb_cache_hit_rate_hit_rate
+- id: cockroachdb.rocksdb_sstables
+  title: RocksDB SSTables
+  units: sstables
+  family: rocksdb
+  chart_type: line
+  priority: 60044
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: sstables
+    signal: cockroachdb_rocksdb_sstables_sstables
+- id: cockroachdb.replicas
+  title: Number of Replicas
+  units: replicas
+  family: replicas
+  chart_type: line
+  priority: 60045
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: replicas
+    signal: cockroachdb_replicas_replicas
+- id: cockroachdb.replicas_quiescence
+  title: Replicas Quiescence
+  units: replicas
+  family: replicas
+  chart_type: stacked
+  priority: 60046
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: quiescent
+    signal: cockroachdb_replicas_quiescence_quiescent
+  - id: active
+    signal: cockroachdb_replicas_quiescence_active
+- id: cockroachdb.replicas_leaders
+  title: Number of Raft Leaders
+  units: replicas
+  family: replicas
+  chart_type: area
+  priority: 60047
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: leaders
+    signal: cockroachdb_replicas_leaders_leaders
+  - id: not_leaseholders
+    signal: cockroachdb_replicas_leaders_not_leaseholders
+- id: cockroachdb.replicas_leaseholders
+  title: Number of Leaseholders
+  units: leaseholders
+  family: replicas
+  chart_type: line
+  priority: 60048
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: leaseholders
+    signal: cockroachdb_replicas_leaseholders_leaseholders
+- id: cockroachdb.queue_processing_failures
+  title: Queues Processing Failures
+  units: failures
+  family: queue
+  chart_type: stacked
+  priority: 60049
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: gc
+    signal: cockroachdb_queue_processing_failures_gc
+  - id: replica_gc
+    signal: cockroachdb_queue_processing_failures_replica_gc
+  - id: replication
+    signal: cockroachdb_queue_processing_failures_replication
+  - id: split
+    signal: cockroachdb_queue_processing_failures_split
+  - id: consistency
+    signal: cockroachdb_queue_processing_failures_consistency
+  - id: raft_log
+    signal: cockroachdb_queue_processing_failures_raft_log
+  - id: raft_snapshot
+    signal: cockroachdb_queue_processing_failures_raft_snapshot
+  - id: time_series_maintenance
+    signal: cockroachdb_queue_processing_failures_time_series_maintenance
+- id: cockroachdb.rebalancing_queries
+  title: Rebalancing Average Queries
+  units: queries/s
+  family: rebalancing
+  chart_type: line
+  priority: 60050
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: avg
+    rate_signal: cockroachdb_rebalancing_queries_avg
+- id: cockroachdb.rebalancing_writes
+  title: Rebalancing Average Writes
+  units: writes/s
+  family: rebalancing
+  chart_type: line
+  priority: 60051
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: avg
+    rate_signal: cockroachdb_rebalancing_writes_avg
+- id: cockroachdb.timeseries_samples
+  title: Time Series Written Samples
+  units: samples
+  family: timeseries
+  chart_type: line
+  priority: 60052
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: written
+    signal: cockroachdb_timeseries_samples_written
+- id: cockroachdb.timeseries_write_errors
+  title: Time Series Write Errors
+  units: errors
+  family: timeseries
+  chart_type: line
+  priority: 60053
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: write
+    signal: cockroachdb_timeseries_write_errors_write
+- id: cockroachdb.timeseries_write_bytes
+  title: Time Series Bytes Written
+  units: KiB
+  family: timeseries
+  chart_type: line
+  priority: 60054
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: written
+    signal: cockroachdb_timeseries_write_bytes_written
+- id: cockroachdb.slow_requests
+  title: Slow Requests
+  units: requests
+  family: slow
+  chart_type: stacked
+  priority: 60055
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: acquiring_latches
+    signal: cockroachdb_slow_requests_acquiring_latches
+  - id: acquiring_lease
+    signal: cockroachdb_slow_requests_acquiring_lease
+  - id: in_raft
+    signal: cockroachdb_slow_requests_in_raft
+- id: cockroachdb.code_heap_memory_usage
+  title: Heap Memory Usage
+  units: KiB
+  family: code
+  chart_type: stacked
+  priority: 60056
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: go
+    signal: cockroachdb_code_heap_memory_usage_go
+  - id: cgo
+    signal: cockroachdb_code_heap_memory_usage_cgo
+- id: cockroachdb.goroutines
+  title: Number of Goroutines
+  units: goroutines
+  family: goroutines
+  chart_type: line
+  priority: 60057
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: goroutines
+    signal: cockroachdb_goroutines_goroutines
+- id: cockroachdb.gc_count
+  title: GC Runs
+  units: invokes
+  family: gc
+  chart_type: line
+  priority: 60058
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: gc
+    signal: cockroachdb_gc_count_gc
+- id: cockroachdb.gc_pause
+  title: GC Pause Time
+  units: us
+  family: gc
+  chart_type: line
+  priority: 60059
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: pause
+    signal: cockroachdb_gc_pause_pause
+- id: cockroachdb.cgo_calls
+  title: Cgo Calls
+  units: calls
+  family: cgo
+  chart_type: line
+  priority: 60060
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: cgo
+    signal: cockroachdb_cgo_calls_cgo

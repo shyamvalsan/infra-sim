@@ -129,6 +129,49 @@ healthy node logs nothing above `notice`.
 
 Requires `systemd-journal-remote` installed and root.
 
+## Simulated Prometheus exporters
+
+Optional, and a **separate process** (`infra-sim --exporters`).
+
+```text
+infra-sim --exporters
+  -> GET http://127.0.0.1:19998/metrics/<hostname>   (Prometheus text format)
+  -> Netdata's own go.d prometheus collector
+  -> charts auto-generated on the matching virtual node
+```
+
+The point is that Netdata charts an exporter it has never seen. Nothing about
+the resulting charts is authored here.
+
+- **One listener, one path per node.** A port per node would mean 50 listeners
+  for a 50-node fleet, and the go.d job config carries the node identity anyway.
+- **`vnode: <hostname>` in the job attributes the scrape to the fleet's own
+  virtual node**, so a node carries both its plugins.d charts and its scraped
+  ones. `netdata/netdata @ c23face0bd94`
+  `src/go/plugin/framework/confgroup/config.go:23`.
+- **go.d reads its vnode registry once, at startup**
+  (`src/go/plugin/agent/setup.go:179`). A job referencing a vnode declared
+  afterwards attributes nowhere, with no error, so the console restarts
+  `go.d.plugin` - the daemon respawns it, and no netdatacli command exists for
+  this.
+- **The metrics are application-level only** (`specs/prometheus-app.yaml`):
+  orders, carts, queues, worker pools. Emitting CPU here would put the same
+  series on a node twice, once from plugins.d and once from the scrape.
+- **Counters integrate scrape by scrape.** `rate * uptime` is not monotonic,
+  because the rate has a daily cycle - it falls every evening and go.d reads the
+  drop as a counter reset.
+- **A summary must publish `_sum` and `_count`.** go.d skips one that does not
+  (`src/go/plugin/go.d/collector/prometheus/writer_schema.go:124`), so quantiles
+  alone produce no latency chart and no error anywhere.
+- **No `instance` label.** Prometheus adds that at scrape time from the target
+  address; an exporter does not publish it.
+- Scenario aware: the exporter reads the same `control.yaml` as the metrics
+  plugin, so a fault moves application metrics on the same timeline.
+
+The console writes `/etc/netdata/go.d/prometheus.conf` and
+`/etc/netdata/vnodes/infra-sim.conf`. Both carry a marker line and are never
+overwritten without it; teardown removes only files carrying that marker.
+
 ## Proven end to end
 
 With `disk-fill` running on a live agent:

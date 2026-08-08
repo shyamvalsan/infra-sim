@@ -1,0 +1,156 @@
+version: 1
+name: nfs-client
+description: NFS Client metrics, generated from Netdata's own collector metadata so the contexts, units
+  and dimension names match what a real NFS Client node reports. Signals are independent and plausible
+  rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  nfs_client_net_udp:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nfs_client_net_tcp:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nfs_client_rpc_calls:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nfs_client_rpc_retransmits:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nfs_client_rpc_auth_refresh:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nfs_client_proc2_a_dimension_per_proc2_call:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nfs_client_proc3_a_dimension_per_proc3_call:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nfs_client_proc4_a_dimension_per_proc4_call:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: nfs.net
+  title: NFS Client Network
+  units: operations/s
+  family: net
+  chart_type: stacked
+  priority: 60001
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: udp
+    rate_signal: nfs_client_net_udp
+  - id: tcp
+    rate_signal: nfs_client_net_tcp
+- id: nfs.rpc
+  title: NFS Client Remote Procedure Calls Statistics
+  units: calls/s
+  family: rpc
+  chart_type: line
+  priority: 60002
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: calls
+    rate_signal: nfs_client_rpc_calls
+  - id: retransmits
+    rate_signal: nfs_client_rpc_retransmits
+  - id: auth_refresh
+    rate_signal: nfs_client_rpc_auth_refresh
+- id: nfs.proc2
+  title: NFS v2 Client Remote Procedure Calls
+  units: calls/s
+  family: proc2
+  chart_type: stacked
+  priority: 60003
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per proc2 call
+    rate_signal: nfs_client_proc2_a_dimension_per_proc2_call
+- id: nfs.proc3
+  title: NFS v3 Client Remote Procedure Calls
+  units: calls/s
+  family: proc3
+  chart_type: stacked
+  priority: 60004
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per proc3 call
+    rate_signal: nfs_client_proc3_a_dimension_per_proc3_call
+- id: nfs.proc4
+  title: NFS v4 Client Remote Procedure Calls
+  units: calls/s
+  family: proc4
+  chart_type: stacked
+  priority: 60005
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per proc4 call
+    rate_signal: nfs_client_proc4_a_dimension_per_proc4_call

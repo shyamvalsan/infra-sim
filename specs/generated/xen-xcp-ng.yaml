@@ -1,0 +1,478 @@
+version: 1
+name: xen-xcp-ng
+description: Xen XCP-ng metrics, generated from Netdata's own collector metadata so the contexts, units
+  and dimension names match what a real Xen XCP-ng node reports. Signals are independent and plausible
+  rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  xen_xcp_ng_mem_free:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  xen_xcp_ng_mem_used:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  xen_xcp_ng_domains_domains:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  xen_xcp_ng_cpus_cpus:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  xen_xcp_ng_cpu_freq_frequency:
+    base: 2400.0
+    min: 0.0
+    max: 6000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  xen_xcp_ng_states_running:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  xen_xcp_ng_states_blocked:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  xen_xcp_ng_states_paused:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  xen_xcp_ng_states_shutdown:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  xen_xcp_ng_states_crashed:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  xen_xcp_ng_states_dying:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  xen_xcp_ng_cpu_used:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  xen_xcp_ng_mem_maximum:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  xen_xcp_ng_mem_current:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  xen_xcp_ng_vcpu_a_dimension_per_vcpu:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  xen_xcp_ng_oo_req_vbd_requests:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  xen_xcp_ng_requests_vbd_read:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  xen_xcp_ng_requests_vbd_write:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  xen_xcp_ng_sectors_vbd_read:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  xen_xcp_ng_sectors_vbd_write:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  xen_xcp_ng_bytes_network_received:
+    base: 18000.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  xen_xcp_ng_bytes_network_sent:
+    base: 18000.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  xen_xcp_ng_packets_network_received:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  xen_xcp_ng_packets_network_sent:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  xen_xcp_ng_errors_network_received:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  xen_xcp_ng_errors_network_sent:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  xen_xcp_ng_drops_network_received:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  xen_xcp_ng_drops_network_sent:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: xenstat.mem
+  title: Memory Usage
+  units: MiB
+  family: mem
+  chart_type: stacked
+  priority: 60001
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: free
+    signal: xen_xcp_ng_mem_free
+  - id: used
+    signal: xen_xcp_ng_mem_used
+- id: xenstat.domains
+  title: Number of Domains
+  units: domains
+  family: domains
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: domains
+    signal: xen_xcp_ng_domains_domains
+- id: xenstat.cpus
+  title: Number of CPUs
+  units: cpus
+  family: cpus
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: cpus
+    signal: xen_xcp_ng_cpus_cpus
+- id: xenstat.cpu_freq
+  title: CPU Frequency
+  units: MHz
+  family: cpu
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: frequency
+    signal: xen_xcp_ng_cpu_freq_frequency
+- id: xendomain.states
+  title: Domain States
+  units: boolean
+  family: states
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: running
+    signal: xen_xcp_ng_states_running
+  - id: blocked
+    signal: xen_xcp_ng_states_blocked
+  - id: paused
+    signal: xen_xcp_ng_states_paused
+  - id: shutdown
+    signal: xen_xcp_ng_states_shutdown
+  - id: crashed
+    signal: xen_xcp_ng_states_crashed
+  - id: dying
+    signal: xen_xcp_ng_states_dying
+- id: xendomain.cpu
+  title: CPU Usage (100% = 1 core)
+  units: percentage
+  family: cpu
+  chart_type: line
+  priority: 60006
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: used
+    signal: xen_xcp_ng_cpu_used
+- id: xendomain.mem
+  title: Memory Reservation
+  units: MiB
+  family: mem
+  chart_type: line
+  priority: 60007
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: maximum
+    signal: xen_xcp_ng_mem_maximum
+  - id: current
+    signal: xen_xcp_ng_mem_current
+- id: xendomain.vcpu
+  title: CPU Usage per VCPU
+  units: percentage
+  family: vcpu
+  chart_type: line
+  priority: 60008
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: a dimension per vcpu
+    signal: xen_xcp_ng_vcpu_a_dimension_per_vcpu
+- id: xendomain.oo_req_vbd
+  title: VBD{%u} Out Of Requests
+  units: requests/s
+  family: oo
+  chart_type: line
+  priority: 60009
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: requests
+    rate_signal: xen_xcp_ng_oo_req_vbd_requests
+- id: xendomain.requests_vbd
+  title: VBD{%u} Requests
+  units: requests/s
+  family: requests
+  chart_type: line
+  priority: 60010
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: read
+    rate_signal: xen_xcp_ng_requests_vbd_read
+  - id: write
+    rate_signal: xen_xcp_ng_requests_vbd_write
+- id: xendomain.sectors_vbd
+  title: VBD{%u} Read/Written Sectors
+  units: sectors/s
+  family: sectors
+  chart_type: line
+  priority: 60011
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: read
+    rate_signal: xen_xcp_ng_sectors_vbd_read
+  - id: write
+    rate_signal: xen_xcp_ng_sectors_vbd_write
+- id: xendomain.bytes_network
+  title: Network{%u} Received/Sent Bytes
+  units: kilobits/s
+  family: bytes
+  chart_type: line
+  priority: 60012
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: received
+    rate_signal: xen_xcp_ng_bytes_network_received
+  - id: sent
+    rate_signal: xen_xcp_ng_bytes_network_sent
+- id: xendomain.packets_network
+  title: Network{%u} Received/Sent Packets
+  units: packets/s
+  family: packets
+  chart_type: line
+  priority: 60013
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: received
+    rate_signal: xen_xcp_ng_packets_network_received
+  - id: sent
+    rate_signal: xen_xcp_ng_packets_network_sent
+- id: xendomain.errors_network
+  title: Network{%u} Receive/Transmit Errors
+  units: errors/s
+  family: errors
+  chart_type: line
+  priority: 60014
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: received
+    rate_signal: xen_xcp_ng_errors_network_received
+  - id: sent
+    rate_signal: xen_xcp_ng_errors_network_sent
+- id: xendomain.drops_network
+  title: Network{%u} Receive/Transmit Drops
+  units: drops/s
+  family: drops
+  chart_type: line
+  priority: 60015
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: received
+    rate_signal: xen_xcp_ng_drops_network_received
+  - id: sent
+    rate_signal: xen_xcp_ng_drops_network_sent

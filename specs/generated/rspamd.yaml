@@ -1,0 +1,242 @@
+version: 1
+name: rspamd
+description: Rspamd metrics, generated from Netdata's own collector metadata so the contexts, units and
+  dimension names match what a real Rspamd node reports. Signals are independent and plausible rather
+  than causally coupled - see scripts/sync-integrations.py.
+signals:
+  rspamd_classifications_ham:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rspamd_classifications_spam:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rspamd_actions_reject:
+    base: 0.0
+    min: 0.0
+    max: 2000000.0
+  rspamd_actions_soft_reject:
+    base: 0.0
+    min: 0.0
+    max: 2000000.0
+  rspamd_actions_rewrite_subject:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rspamd_actions_add_header:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rspamd_actions_greylist:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rspamd_actions_custom:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rspamd_actions_discard:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rspamd_actions_quarantine:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rspamd_actions_no_action:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rspamd_scans_scanned:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rspamd_learns_learned:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rspamd_connections_connections:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rspamd_control_connections_control_connections:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: rspamd.classifications
+  title: Classifications
+  units: messages/s
+  family: classifications
+  chart_type: stacked
+  priority: 60001
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: ham
+    rate_signal: rspamd_classifications_ham
+  - id: spam
+    rate_signal: rspamd_classifications_spam
+- id: rspamd.actions
+  title: Actions
+  units: messages/s
+  family: actions
+  chart_type: stacked
+  priority: 60002
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: reject
+    rate_signal: rspamd_actions_reject
+  - id: soft_reject
+    rate_signal: rspamd_actions_soft_reject
+  - id: rewrite_subject
+    rate_signal: rspamd_actions_rewrite_subject
+  - id: add_header
+    rate_signal: rspamd_actions_add_header
+  - id: greylist
+    rate_signal: rspamd_actions_greylist
+  - id: custom
+    rate_signal: rspamd_actions_custom
+  - id: discard
+    rate_signal: rspamd_actions_discard
+  - id: quarantine
+    rate_signal: rspamd_actions_quarantine
+  - id: no_action
+    rate_signal: rspamd_actions_no_action
+- id: rspamd.scans
+  title: Scanned messages
+  units: messages/s
+  family: scans
+  chart_type: line
+  priority: 60003
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: scanned
+    rate_signal: rspamd_scans_scanned
+- id: rspamd.learns
+  title: Learned messages
+  units: messages/s
+  family: learns
+  chart_type: line
+  priority: 60004
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: learned
+    rate_signal: rspamd_learns_learned
+- id: rspamd.connections
+  title: Connections
+  units: connections/s
+  family: connections
+  chart_type: line
+  priority: 60005
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: connections
+    rate_signal: rspamd_connections_connections
+- id: rspamd.control_connections
+  title: Control connections
+  units: connections/s
+  family: control
+  chart_type: line
+  priority: 60006
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: control_connections
+    rate_signal: rspamd_control_connections_control_connections

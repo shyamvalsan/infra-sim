@@ -1,0 +1,134 @@
+version: 1
+name: docker-hub-repository
+description: Docker Hub repository metrics, generated from Netdata's own collector metadata so the contexts,
+  units and dimension names match what a real Docker Hub repository node reports. Signals are independent
+  and plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  docker_hub_repository_pulls_sum_sum:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  docker_hub_repository_pulls_a_dimension_per_repository:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  docker_hub_repository_pulls_rate_a_dimension_per_repository:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  docker_hub_repository_stars_a_dimension_per_repository:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  docker_hub_repository_status_a_dimension_per_repository:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  docker_hub_repository_last_updated_a_dimension_per_repository:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: dockerhub.pulls_sum
+  title: Pulls Summary
+  units: pulls
+  family: pulls
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: sum
+    signal: docker_hub_repository_pulls_sum_sum
+- id: dockerhub.pulls
+  title: Pulls
+  units: pulls
+  family: pulls
+  chart_type: stacked
+  priority: 60002
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: a dimension per repository
+    signal: docker_hub_repository_pulls_a_dimension_per_repository
+- id: dockerhub.pulls_rate
+  title: Pulls Rate
+  units: pulls/s
+  family: pulls
+  chart_type: stacked
+  priority: 60003
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per repository
+    rate_signal: docker_hub_repository_pulls_rate_a_dimension_per_repository
+- id: dockerhub.stars
+  title: Stars
+  units: stars
+  family: stars
+  chart_type: stacked
+  priority: 60004
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: a dimension per repository
+    signal: docker_hub_repository_stars_a_dimension_per_repository
+- id: dockerhub.status
+  title: Current Status
+  units: status
+  family: status
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: a dimension per repository
+    signal: docker_hub_repository_status_a_dimension_per_repository
+- id: dockerhub.last_updated
+  title: Time Since Last Updated
+  units: seconds
+  family: last
+  chart_type: line
+  priority: 60006
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: a dimension per repository
+    signal: docker_hub_repository_last_updated_a_dimension_per_repository

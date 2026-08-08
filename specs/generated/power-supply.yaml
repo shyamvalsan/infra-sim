@@ -1,0 +1,279 @@
+version: 1
+name: power-supply
+description: Power Supply metrics, generated from Netdata's own collector metadata so the contexts, units
+  and dimension names match what a real Power Supply node reports. Signals are independent and plausible
+  rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  power_supply_capacity_capacity:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  power_supply_power_power:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  power_supply_charge_empty_design:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  power_supply_charge_empty:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  power_supply_charge_now:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  power_supply_charge_full:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  power_supply_charge_full_design:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  power_supply_energy_empty_design:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  power_supply_energy_empty:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  power_supply_energy_now:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  power_supply_energy_full:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  power_supply_energy_full_design:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  power_supply_voltage_min_design:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  power_supply_voltage_min:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  power_supply_voltage_now:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  power_supply_voltage_max:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  power_supply_voltage_max_design:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: powersupply.capacity
+  title: Battery capacity
+  units: percentage
+  family: capacity
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels:
+    device: sim-device-1
+  dimensions:
+  - id: capacity
+    signal: power_supply_capacity_capacity
+- id: powersupply.power
+  title: Battery discharge rate
+  units: W
+  family: power
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels:
+    device: sim-device-1
+  dimensions:
+  - id: power
+    signal: power_supply_power_power
+- id: powersupply.charge
+  title: Battery charge
+  units: Ah
+  family: charge
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels:
+    device: sim-device-1
+  dimensions:
+  - id: empty_design
+    signal: power_supply_charge_empty_design
+  - id: empty
+    signal: power_supply_charge_empty
+  - id: now
+    signal: power_supply_charge_now
+  - id: full
+    signal: power_supply_charge_full
+  - id: full_design
+    signal: power_supply_charge_full_design
+- id: powersupply.energy
+  title: Battery energy
+  units: Wh
+  family: energy
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels:
+    device: sim-device-1
+  dimensions:
+  - id: empty_design
+    signal: power_supply_energy_empty_design
+  - id: empty
+    signal: power_supply_energy_empty
+  - id: now
+    signal: power_supply_energy_now
+  - id: full
+    signal: power_supply_energy_full
+  - id: full_design
+    signal: power_supply_energy_full_design
+- id: powersupply.voltage
+  title: Power supply voltage
+  units: V
+  family: voltage
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels:
+    device: sim-device-1
+  dimensions:
+  - id: min_design
+    signal: power_supply_voltage_min_design
+  - id: min
+    signal: power_supply_voltage_min
+  - id: now
+    signal: power_supply_voltage_now
+  - id: max
+    signal: power_supply_voltage_max
+  - id: max_design
+    signal: power_supply_voltage_max_design

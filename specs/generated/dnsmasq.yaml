@@ -1,0 +1,127 @@
+version: 1
+name: dnsmasq
+description: Dnsmasq metrics, generated from Netdata's own collector metadata so the contexts, units and
+  dimension names match what a real Dnsmasq node reports. Signals are independent and plausible rather
+  than causally coupled - see scripts/sync-integrations.py.
+signals:
+  dnsmasq_servers_queries_success:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dnsmasq_servers_queries_failed:
+    base: 0.0
+    min: 0.0
+    max: 5000000.0
+  dnsmasq_cache_performance_hist:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dnsmasq_cache_performance_misses:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dnsmasq_cache_operations_insertions:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dnsmasq_cache_operations_evictions:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dnsmasq_cache_size_size:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: dnsmasq.servers_queries
+  title: Queries forwarded to the upstream servers
+  units: queries/s
+  family: servers
+  chart_type: line
+  priority: 60001
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: success
+    rate_signal: dnsmasq_servers_queries_success
+  - id: failed
+    rate_signal: dnsmasq_servers_queries_failed
+- id: dnsmasq.cache_performance
+  title: Cache performance
+  units: events/s
+  family: cache
+  chart_type: line
+  priority: 60002
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: hist
+    rate_signal: dnsmasq_cache_performance_hist
+  - id: misses
+    rate_signal: dnsmasq_cache_performance_misses
+- id: dnsmasq.cache_operations
+  title: Cache operations
+  units: operations/s
+  family: cache
+  chart_type: line
+  priority: 60003
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: insertions
+    rate_signal: dnsmasq_cache_operations_insertions
+  - id: evictions
+    rate_signal: dnsmasq_cache_operations_evictions
+- id: dnsmasq.cache_size
+  title: Cache size
+  units: entries
+  family: cache
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: size
+    signal: dnsmasq_cache_size_size

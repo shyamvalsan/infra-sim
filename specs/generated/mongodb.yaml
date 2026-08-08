@@ -1,0 +1,1928 @@
+version: 1
+name: mongodb
+description: MongoDB metrics, generated from Netdata's own collector metadata so the contexts, units and
+  dimension names match what a real MongoDB node reports. Signals are independent and plausible rather
+  than causally coupled - see scripts/sync-integrations.py.
+signals:
+  mongodb_operations_rate_reads:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_operations_rate_writes:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_operations_rate_commands:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_operations_latency_time_reads:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_operations_latency_time_writes:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_operations_latency_time_commands:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_operations_by_type_rate_insert:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_operations_by_type_rate_query:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_operations_by_type_rate_update:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_operations_by_type_rate_delete:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_operations_by_type_rate_getmore:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_operations_by_type_rate_command:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_document_operations_rate_inserted:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_document_operations_rate_deleted:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_document_operations_rate_returned:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_document_operations_rate_updated:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_scanned_indexes_rate_scanned:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_scanned_documents_rate_scanned:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_active_clients_count_readers:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_active_clients_count_writers:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_queued_operations_count_reads:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_queued_operations_count_writes:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_cursors_open_count_open:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_cursors_open_no_timeout_count_open_no_timeout:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  mongodb_cursors_opened_rate_opened:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_cursors_timed_out_rate_timed_out:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_cursors_by_lifespan_count_le_1s:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_cursors_by_lifespan_count_1s_5s:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_cursors_by_lifespan_count_5s_15s:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_cursors_by_lifespan_count_15s_30s:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_cursors_by_lifespan_count_30s_1m:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_cursors_by_lifespan_count_1m_10m:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_cursors_by_lifespan_count_ge_10m:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_transactions_count_active:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_transactions_count_inactive:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_transactions_count_open:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_transactions_count_prepared:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_transactions_rate_started:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_transactions_rate_aborted:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  mongodb_transactions_rate_committed:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_transactions_rate_prepared:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_connections_usage_available:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_connections_usage_used:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_connections_by_state_count_active:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_connections_by_state_count_threaded:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_connections_by_state_count_exhaust_is_master:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_connections_by_state_count_exhaust_hello:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_connections_by_state_count_awaiting_topology_changes:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_connections_rate_created:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_asserts_rate_regular:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_asserts_rate_warning:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_asserts_rate_msg:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_asserts_rate_user:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_asserts_rate_tripwire:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_asserts_rate_rollovers:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_network_traffic_rate_in:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_network_traffic_rate_out:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_network_requests_rate_requests:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_network_slow_dns_resolutions_rate_slow_dns:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_network_slow_ssl_handshakes_rate_slow_ssl:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_memory_resident_size_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_memory_virtual_size_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_memory_page_faults_rate_pgfaults:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_memory_tcmalloc_stats_allocated:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_memory_tcmalloc_stats_central_cache_freelist:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_memory_tcmalloc_stats_transfer_cache_freelist:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_memory_tcmalloc_stats_thread_cache_freelists:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_memory_tcmalloc_stats_pageheap_freelist:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_memory_tcmalloc_stats_pageheap_unmapped:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_wiredtiger_concurrent_read_transactions_usage_available:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_wiredtiger_concurrent_read_transactions_usage_used:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_wiredtiger_concurrent_write_transactions_usage_available:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_wiredtiger_concurrent_write_transactions_usage_used:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_wiredtiger_cache_usage_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_wiredtiger_cache_dirty_space_size_dirty:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_wiredtiger_cache_io_rate_read:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_wiredtiger_cache_io_rate_written:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_wiredtiger_cache_evictions_rate_unmodified:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_wiredtiger_cache_evictions_rate_modified:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_sharding_nodes_count_shard_aware:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_sharding_nodes_count_shard_unaware:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_sharding_sharded_databases_count_partitioned:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_sharding_sharded_databases_count_unpartitioned:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_sharding_sharded_collections_count_partitioned:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_sharding_sharded_collections_count_unpartitioned:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_lock_acquisitions_rate_shared:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_lock_acquisitions_rate_exclusive:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_lock_acquisitions_rate_intent_shared:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_lock_acquisitions_rate_intent_exclusive:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_transactions_commits_rate_success:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_transactions_commits_rate_fail:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  mongodb_transactions_commits_duration_time_commits:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_database_collection_count_collections:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_database_indexes_count_indexes:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_database_views_count_views:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_database_documents_count_documents:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_database_data_size_data_size:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_database_storage_size_storage_size:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_database_index_size_index_size:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_repl_set_member_state_primary:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  mongodb_repl_set_member_state_startup:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  mongodb_repl_set_member_state_secondary:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  mongodb_repl_set_member_state_recovering:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  mongodb_repl_set_member_state_startup2:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  mongodb_repl_set_member_state_unknown:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  mongodb_repl_set_member_state_arbiter:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  mongodb_repl_set_member_state_down:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  mongodb_repl_set_member_state_rollback:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  mongodb_repl_set_member_state_removed:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  mongodb_repl_set_member_health_status_up:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  mongodb_repl_set_member_health_status_down:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  mongodb_repl_set_member_replication_lag_time_replication_lag:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_repl_set_member_heartbeat_latency_time_heartbeat_latency:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_repl_set_member_ping_rtt_time_ping_rtt:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_repl_set_member_uptime_uptime:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mongodb_sharding_shard_chunks_count_chunks:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: mongodb.operations_rate
+  title: Operations rate
+  units: operations/s
+  family: operations
+  chart_type: line
+  priority: 60001
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: reads
+    rate_signal: mongodb_operations_rate_reads
+  - id: writes
+    rate_signal: mongodb_operations_rate_writes
+  - id: commands
+    rate_signal: mongodb_operations_rate_commands
+- id: mongodb.operations_latency_time
+  title: Operations Latency
+  units: milliseconds
+  family: operations
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: reads
+    signal: mongodb_operations_latency_time_reads
+  - id: writes
+    signal: mongodb_operations_latency_time_writes
+  - id: commands
+    signal: mongodb_operations_latency_time_commands
+- id: mongodb.operations_by_type_rate
+  title: Operations by type
+  units: operations/s
+  family: operations
+  chart_type: line
+  priority: 60003
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: insert
+    rate_signal: mongodb_operations_by_type_rate_insert
+  - id: query
+    rate_signal: mongodb_operations_by_type_rate_query
+  - id: update
+    rate_signal: mongodb_operations_by_type_rate_update
+  - id: delete
+    rate_signal: mongodb_operations_by_type_rate_delete
+  - id: getmore
+    rate_signal: mongodb_operations_by_type_rate_getmore
+  - id: command
+    rate_signal: mongodb_operations_by_type_rate_command
+- id: mongodb.document_operations_rate
+  title: Document operations
+  units: operations/s
+  family: document
+  chart_type: stacked
+  priority: 60004
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: inserted
+    rate_signal: mongodb_document_operations_rate_inserted
+  - id: deleted
+    rate_signal: mongodb_document_operations_rate_deleted
+  - id: returned
+    rate_signal: mongodb_document_operations_rate_returned
+  - id: updated
+    rate_signal: mongodb_document_operations_rate_updated
+- id: mongodb.scanned_indexes_rate
+  title: Scanned indexes
+  units: indexes/s
+  family: scanned
+  chart_type: line
+  priority: 60005
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: scanned
+    rate_signal: mongodb_scanned_indexes_rate_scanned
+- id: mongodb.scanned_documents_rate
+  title: Scanned documents
+  units: documents/s
+  family: scanned
+  chart_type: line
+  priority: 60006
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: scanned
+    rate_signal: mongodb_scanned_documents_rate_scanned
+- id: mongodb.active_clients_count
+  title: Connected clients
+  units: clients
+  family: active
+  chart_type: line
+  priority: 60007
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: readers
+    signal: mongodb_active_clients_count_readers
+  - id: writers
+    signal: mongodb_active_clients_count_writers
+- id: mongodb.queued_operations_count
+  title: Queued operations because of a lock
+  units: operations
+  family: queued
+  chart_type: line
+  priority: 60008
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: reads
+    signal: mongodb_queued_operations_count_reads
+  - id: writes
+    signal: mongodb_queued_operations_count_writes
+- id: mongodb.cursors_open_count
+  title: Open cursors
+  units: cursors
+  family: cursors
+  chart_type: line
+  priority: 60009
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: open
+    signal: mongodb_cursors_open_count_open
+- id: mongodb.cursors_open_no_timeout_count
+  title: Open cursors with disabled timeout
+  units: cursors
+  family: cursors
+  chart_type: line
+  priority: 60010
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: open_no_timeout
+    signal: mongodb_cursors_open_no_timeout_count_open_no_timeout
+- id: mongodb.cursors_opened_rate
+  title: Opened cursors rate
+  units: cursors/s
+  family: cursors
+  chart_type: line
+  priority: 60011
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: opened
+    rate_signal: mongodb_cursors_opened_rate_opened
+- id: mongodb.cursors_timed_out_rate
+  title: Timed-out cursors
+  units: cursors/s
+  family: cursors
+  chart_type: line
+  priority: 60012
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: timed_out
+    rate_signal: mongodb_cursors_timed_out_rate_timed_out
+- id: mongodb.cursors_by_lifespan_count
+  title: Cursors lifespan
+  units: cursors
+  family: cursors
+  chart_type: stacked
+  priority: 60013
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: le_1s
+    signal: mongodb_cursors_by_lifespan_count_le_1s
+  - id: 1s_5s
+    signal: mongodb_cursors_by_lifespan_count_1s_5s
+  - id: 5s_15s
+    signal: mongodb_cursors_by_lifespan_count_5s_15s
+  - id: 15s_30s
+    signal: mongodb_cursors_by_lifespan_count_15s_30s
+  - id: 30s_1m
+    signal: mongodb_cursors_by_lifespan_count_30s_1m
+  - id: 1m_10m
+    signal: mongodb_cursors_by_lifespan_count_1m_10m
+  - id: ge_10m
+    signal: mongodb_cursors_by_lifespan_count_ge_10m
+- id: mongodb.transactions_count
+  title: Current transactions
+  units: transactions
+  family: transactions
+  chart_type: line
+  priority: 60014
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: active
+    signal: mongodb_transactions_count_active
+  - id: inactive
+    signal: mongodb_transactions_count_inactive
+  - id: open
+    signal: mongodb_transactions_count_open
+  - id: prepared
+    signal: mongodb_transactions_count_prepared
+- id: mongodb.transactions_rate
+  title: Transactions rate
+  units: transactions/s
+  family: transactions
+  chart_type: line
+  priority: 60015
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: started
+    rate_signal: mongodb_transactions_rate_started
+  - id: aborted
+    rate_signal: mongodb_transactions_rate_aborted
+  - id: committed
+    rate_signal: mongodb_transactions_rate_committed
+  - id: prepared
+    rate_signal: mongodb_transactions_rate_prepared
+- id: mongodb.connections_usage
+  title: Connections usage
+  units: connections
+  family: connections
+  chart_type: stacked
+  priority: 60016
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: available
+    signal: mongodb_connections_usage_available
+  - id: used
+    signal: mongodb_connections_usage_used
+- id: mongodb.connections_by_state_count
+  title: Connections By State
+  units: connections
+  family: connections
+  chart_type: line
+  priority: 60017
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: active
+    signal: mongodb_connections_by_state_count_active
+  - id: threaded
+    signal: mongodb_connections_by_state_count_threaded
+  - id: exhaust_is_master
+    signal: mongodb_connections_by_state_count_exhaust_is_master
+  - id: exhaust_hello
+    signal: mongodb_connections_by_state_count_exhaust_hello
+  - id: awaiting_topology_changes
+    signal: mongodb_connections_by_state_count_awaiting_topology_changes
+- id: mongodb.connections_rate
+  title: Connections Rate
+  units: connections/s
+  family: connections
+  chart_type: line
+  priority: 60018
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: created
+    rate_signal: mongodb_connections_rate_created
+- id: mongodb.asserts_rate
+  title: Raised assertions
+  units: asserts/s
+  family: asserts
+  chart_type: stacked
+  priority: 60019
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: regular
+    rate_signal: mongodb_asserts_rate_regular
+  - id: warning
+    rate_signal: mongodb_asserts_rate_warning
+  - id: msg
+    rate_signal: mongodb_asserts_rate_msg
+  - id: user
+    rate_signal: mongodb_asserts_rate_user
+  - id: tripwire
+    rate_signal: mongodb_asserts_rate_tripwire
+  - id: rollovers
+    rate_signal: mongodb_asserts_rate_rollovers
+- id: mongodb.network_traffic_rate
+  title: Network traffic
+  units: bytes/s
+  family: network
+  chart_type: stacked
+  priority: 60020
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: in
+    rate_signal: mongodb_network_traffic_rate_in
+  - id: out
+    rate_signal: mongodb_network_traffic_rate_out
+- id: mongodb.network_requests_rate
+  title: Network Requests
+  units: requests/s
+  family: network
+  chart_type: line
+  priority: 60021
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: requests
+    rate_signal: mongodb_network_requests_rate_requests
+- id: mongodb.network_slow_dns_resolutions_rate
+  title: Slow DNS resolution operations
+  units: resolutions/s
+  family: network
+  chart_type: line
+  priority: 60022
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: slow_dns
+    rate_signal: mongodb_network_slow_dns_resolutions_rate_slow_dns
+- id: mongodb.network_slow_ssl_handshakes_rate
+  title: Slow SSL handshake operations
+  units: handshakes/s
+  family: network
+  chart_type: line
+  priority: 60023
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: slow_ssl
+    rate_signal: mongodb_network_slow_ssl_handshakes_rate_slow_ssl
+- id: mongodb.memory_resident_size
+  title: Used resident memory
+  units: bytes
+  family: memory
+  chart_type: line
+  priority: 60024
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: used
+    signal: mongodb_memory_resident_size_used
+- id: mongodb.memory_virtual_size
+  title: Used virtual memory
+  units: bytes
+  family: memory
+  chart_type: line
+  priority: 60025
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: used
+    signal: mongodb_memory_virtual_size_used
+- id: mongodb.memory_page_faults_rate
+  title: Memory page faults
+  units: pgfaults/s
+  family: memory
+  chart_type: line
+  priority: 60026
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: pgfaults
+    rate_signal: mongodb_memory_page_faults_rate_pgfaults
+- id: mongodb.memory_tcmalloc_stats
+  title: TCMalloc statistics
+  units: bytes
+  family: memory
+  chart_type: line
+  priority: 60027
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: allocated
+    signal: mongodb_memory_tcmalloc_stats_allocated
+  - id: central_cache_freelist
+    signal: mongodb_memory_tcmalloc_stats_central_cache_freelist
+  - id: transfer_cache_freelist
+    signal: mongodb_memory_tcmalloc_stats_transfer_cache_freelist
+  - id: thread_cache_freelists
+    signal: mongodb_memory_tcmalloc_stats_thread_cache_freelists
+  - id: pageheap_freelist
+    signal: mongodb_memory_tcmalloc_stats_pageheap_freelist
+  - id: pageheap_unmapped
+    signal: mongodb_memory_tcmalloc_stats_pageheap_unmapped
+- id: mongodb.wiredtiger_concurrent_read_transactions_usage
+  title: Wired Tiger concurrent read transactions usage
+  units: transactions
+  family: wiredtiger
+  chart_type: stacked
+  priority: 60028
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: available
+    signal: mongodb_wiredtiger_concurrent_read_transactions_usage_available
+  - id: used
+    signal: mongodb_wiredtiger_concurrent_read_transactions_usage_used
+- id: mongodb.wiredtiger_concurrent_write_transactions_usage
+  title: Wired Tiger concurrent write transactions usage
+  units: transactions
+  family: wiredtiger
+  chart_type: stacked
+  priority: 60029
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: available
+    signal: mongodb_wiredtiger_concurrent_write_transactions_usage_available
+  - id: used
+    signal: mongodb_wiredtiger_concurrent_write_transactions_usage_used
+- id: mongodb.wiredtiger_cache_usage
+  title: Wired Tiger cache usage
+  units: bytes
+  family: wiredtiger
+  chart_type: line
+  priority: 60030
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: used
+    signal: mongodb_wiredtiger_cache_usage_used
+- id: mongodb.wiredtiger_cache_dirty_space_size
+  title: Wired Tiger cache dirty space size
+  units: bytes
+  family: wiredtiger
+  chart_type: line
+  priority: 60031
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: dirty
+    signal: mongodb_wiredtiger_cache_dirty_space_size_dirty
+- id: mongodb.wiredtiger_cache_io_rate
+  title: Wired Tiger IO activity
+  units: pages/s
+  family: wiredtiger
+  chart_type: line
+  priority: 60032
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: read
+    rate_signal: mongodb_wiredtiger_cache_io_rate_read
+  - id: written
+    rate_signal: mongodb_wiredtiger_cache_io_rate_written
+- id: mongodb.wiredtiger_cache_evictions_rate
+  title: Wired Tiger cache evictions
+  units: pages/s
+  family: wiredtiger
+  chart_type: stacked
+  priority: 60033
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: unmodified
+    rate_signal: mongodb_wiredtiger_cache_evictions_rate_unmodified
+  - id: modified
+    rate_signal: mongodb_wiredtiger_cache_evictions_rate_modified
+- id: mongodb.sharding_nodes_count
+  title: Sharding Nodes
+  units: nodes
+  family: sharding
+  chart_type: stacked
+  priority: 60034
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: shard_aware
+    signal: mongodb_sharding_nodes_count_shard_aware
+  - id: shard_unaware
+    signal: mongodb_sharding_nodes_count_shard_unaware
+- id: mongodb.sharding_sharded_databases_count
+  title: Sharded databases
+  units: databases
+  family: sharding
+  chart_type: stacked
+  priority: 60035
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: partitioned
+    signal: mongodb_sharding_sharded_databases_count_partitioned
+  - id: unpartitioned
+    signal: mongodb_sharding_sharded_databases_count_unpartitioned
+- id: mongodb.sharding_sharded_collections_count
+  title: Sharded collections
+  units: collections
+  family: sharding
+  chart_type: stacked
+  priority: 60036
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: partitioned
+    signal: mongodb_sharding_sharded_collections_count_partitioned
+  - id: unpartitioned
+    signal: mongodb_sharding_sharded_collections_count_unpartitioned
+- id: mongodb.lock_acquisitions_rate
+  title: Lock acquisitions
+  units: acquisitions/s
+  family: lock
+  chart_type: line
+  priority: 60037
+  shape: counters
+  labels:
+    lock_type: sim-lock_type-1
+  dimensions:
+  - id: shared
+    rate_signal: mongodb_lock_acquisitions_rate_shared
+  - id: exclusive
+    rate_signal: mongodb_lock_acquisitions_rate_exclusive
+  - id: intent_shared
+    rate_signal: mongodb_lock_acquisitions_rate_intent_shared
+  - id: intent_exclusive
+    rate_signal: mongodb_lock_acquisitions_rate_intent_exclusive
+- id: mongodb.transactions_commits_rate
+  title: Transactions commits
+  units: commits/s
+  family: transactions
+  chart_type: line
+  priority: 60038
+  shape: counters
+  labels:
+    commit_type: sim-commit_type-1
+  dimensions:
+  - id: success
+    rate_signal: mongodb_transactions_commits_rate_success
+  - id: fail
+    rate_signal: mongodb_transactions_commits_rate_fail
+- id: mongodb.transactions_commits_duration_time
+  title: Transactions successful commits duration
+  units: milliseconds
+  family: transactions
+  chart_type: line
+  priority: 60039
+  shape: independent
+  labels:
+    commit_type: sim-commit_type-1
+  dimensions:
+  - id: commits
+    signal: mongodb_transactions_commits_duration_time_commits
+- id: mongodb.database_collection_count
+  title: Database collections
+  units: collections
+  family: database
+  chart_type: line
+  priority: 60040
+  shape: independent
+  labels:
+    database: sim-database-1
+  dimensions:
+  - id: collections
+    signal: mongodb_database_collection_count_collections
+- id: mongodb.database_indexes_count
+  title: Database indexes
+  units: indexes
+  family: database
+  chart_type: line
+  priority: 60041
+  shape: independent
+  labels:
+    database: sim-database-1
+  dimensions:
+  - id: indexes
+    signal: mongodb_database_indexes_count_indexes
+- id: mongodb.database_views_count
+  title: Database views
+  units: views
+  family: database
+  chart_type: line
+  priority: 60042
+  shape: independent
+  labels:
+    database: sim-database-1
+  dimensions:
+  - id: views
+    signal: mongodb_database_views_count_views
+- id: mongodb.database_documents_count
+  title: Database documents
+  units: documents
+  family: database
+  chart_type: line
+  priority: 60043
+  shape: independent
+  labels:
+    database: sim-database-1
+  dimensions:
+  - id: documents
+    signal: mongodb_database_documents_count_documents
+- id: mongodb.database_data_size
+  title: Database data size
+  units: bytes
+  family: database
+  chart_type: line
+  priority: 60044
+  shape: independent
+  labels:
+    database: sim-database-1
+  dimensions:
+  - id: data_size
+    signal: mongodb_database_data_size_data_size
+- id: mongodb.database_storage_size
+  title: Database storage size
+  units: bytes
+  family: database
+  chart_type: line
+  priority: 60045
+  shape: independent
+  labels:
+    database: sim-database-1
+  dimensions:
+  - id: storage_size
+    signal: mongodb_database_storage_size_storage_size
+- id: mongodb.database_index_size
+  title: Database index size
+  units: bytes
+  family: database
+  chart_type: line
+  priority: 60046
+  shape: independent
+  labels:
+    database: sim-database-1
+  dimensions:
+  - id: index_size
+    signal: mongodb_database_index_size_index_size
+- id: mongodb.repl_set_member_state
+  title: Replica Set member state
+  units: state
+  family: repl
+  chart_type: line
+  priority: 60047
+  shape: independent
+  labels:
+    repl_set_member: sim-repl_set_member-1
+  dimensions:
+  - id: primary
+    signal: mongodb_repl_set_member_state_primary
+  - id: startup
+    signal: mongodb_repl_set_member_state_startup
+  - id: secondary
+    signal: mongodb_repl_set_member_state_secondary
+  - id: recovering
+    signal: mongodb_repl_set_member_state_recovering
+  - id: startup2
+    signal: mongodb_repl_set_member_state_startup2
+  - id: unknown
+    signal: mongodb_repl_set_member_state_unknown
+  - id: arbiter
+    signal: mongodb_repl_set_member_state_arbiter
+  - id: down
+    signal: mongodb_repl_set_member_state_down
+  - id: rollback
+    signal: mongodb_repl_set_member_state_rollback
+  - id: removed
+    signal: mongodb_repl_set_member_state_removed
+- id: mongodb.repl_set_member_health_status
+  title: Replica Set member health status
+  units: status
+  family: repl
+  chart_type: line
+  priority: 60048
+  shape: independent
+  labels:
+    repl_set_member: sim-repl_set_member-1
+  dimensions:
+  - id: up
+    signal: mongodb_repl_set_member_health_status_up
+  - id: down
+    signal: mongodb_repl_set_member_health_status_down
+- id: mongodb.repl_set_member_replication_lag_time
+  title: Replica Set member replication lag
+  units: milliseconds
+  family: repl
+  chart_type: line
+  priority: 60049
+  shape: independent
+  labels:
+    repl_set_member: sim-repl_set_member-1
+  dimensions:
+  - id: replication_lag
+    signal: mongodb_repl_set_member_replication_lag_time_replication_lag
+- id: mongodb.repl_set_member_heartbeat_latency_time
+  title: Replica Set member heartbeat latency
+  units: milliseconds
+  family: repl
+  chart_type: line
+  priority: 60050
+  shape: independent
+  labels:
+    repl_set_member: sim-repl_set_member-1
+  dimensions:
+  - id: heartbeat_latency
+    signal: mongodb_repl_set_member_heartbeat_latency_time_heartbeat_latency
+- id: mongodb.repl_set_member_ping_rtt_time
+  title: Replica Set member ping RTT
+  units: milliseconds
+  family: repl
+  chart_type: line
+  priority: 60051
+  shape: independent
+  labels:
+    repl_set_member: sim-repl_set_member-1
+  dimensions:
+  - id: ping_rtt
+    signal: mongodb_repl_set_member_ping_rtt_time_ping_rtt
+- id: mongodb.repl_set_member_uptime
+  title: Replica Set member uptime
+  units: seconds
+  family: repl
+  chart_type: line
+  priority: 60052
+  shape: independent
+  labels:
+    repl_set_member: sim-repl_set_member-1
+  dimensions:
+  - id: uptime
+    signal: mongodb_repl_set_member_uptime_uptime
+- id: mongodb.sharding_shard_chunks_count
+  title: Shard chunks
+  units: chunks
+  family: sharding
+  chart_type: line
+  priority: 60053
+  shape: independent
+  labels:
+    shard_id: sim-shard_id-1
+  dimensions:
+  - id: chunks
+    signal: mongodb_sharding_shard_chunks_count_chunks

@@ -1,0 +1,1112 @@
+version: 1
+name: yugabytedb
+description: YugabyteDB metrics, generated from Netdata's own collector metadata so the contexts, units
+  and dimension names match what a real YugabyteDB node reports. Signals are independent and plausible
+  rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  yugabytedb_master_client_operations_operations:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  yugabytedb_master_client_operations_latency_latency:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  yugabytedb_master_ddl_operations_operations:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  yugabytedb_master_ddl_operations_latency_latency:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  yugabytedb_master_tabletserverservice_operations_operations:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  yugabytedb_master_tabletserverservice_operations_latency_latency:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  yugabytedb_master_tabletserverservice_traffic_received:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  yugabytedb_master_tabletserverservice_traffic_sent:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  yugabytedb_master_pgclientservice_operations_operations:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  yugabytedb_master_pgclientservice_operations_latency_latency:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  yugabytedb_master_pgclientservice_traffic_received:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  yugabytedb_master_pgclientservice_traffic_sent:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  yugabytedb_master_remotebootstrapservice_operations_operations:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  yugabytedb_master_remotebootstrapservice_operations_latency_latency:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  yugabytedb_master_remotebootstrapservice_traffic_received:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  yugabytedb_master_remotebootstrapservice_traffic_sent:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  yugabytedb_master_consensus_operations_operations:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  yugabytedb_master_consensus_operations_latency_latency:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  yugabytedb_master_consensus_traffic_received:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  yugabytedb_master_consensus_traffic_sent:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  yugabytedb_tserver_tabletserverservice_operations_operations:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  yugabytedb_tserver_tabletserverservice_operations_latency_latency:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  yugabytedb_tserver_tabletserverservice_traffic_received:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  yugabytedb_tserver_tabletserverservice_traffic_sent:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  yugabytedb_tserver_tabletserveradminservice_operations_operations:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  yugabytedb_tserver_tabletserveradminservice_operations_latency_latency:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  yugabytedb_tserver_tabletserveradminservice_traffic_received:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  yugabytedb_tserver_tabletserveradminservice_traffic_sent:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  yugabytedb_tserver_tabletserverbackupservice_operations_operations:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  yugabytedb_tserver_tabletserverbackupservice_operations_latency_latency:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  yugabytedb_tserver_tabletserverbackupservice_traffic_received:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  yugabytedb_tserver_tabletserverbackupservice_traffic_sent:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  yugabytedb_tserver_pgclientservice_operations_operations:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  yugabytedb_tserver_pgclientservice_operations_latency_latency:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  yugabytedb_tserver_pgclientservice_traffic_received:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  yugabytedb_tserver_pgclientservice_traffic_sent:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  yugabytedb_tserver_remotebootstrapservice_operations_operations:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  yugabytedb_tserver_remotebootstrapservice_operations_latency_latency:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  yugabytedb_tserver_remotebootstrapservice_traffic_received:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  yugabytedb_tserver_remotebootstrapservice_traffic_sent:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  yugabytedb_tserver_consensus_operations_operations:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  yugabytedb_tserver_consensus_operations_latency_latency:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  yugabytedb_tserver_consensus_traffic_received:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  yugabytedb_tserver_consensus_traffic_sent:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  yugabytedb_ycql_sql_statements_statements:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  yugabytedb_ycql_sql_statements_latency_latency:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  yugabytedb_ysql_connection_usage_available:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  yugabytedb_ysql_connection_usage_used:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  yugabytedb_ysql_active_connections_active:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  yugabytedb_ysql_established_connections_established:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  yugabytedb_ysql_over_limit_connections_over_limit:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  yugabytedb_ysql_sql_statements_statements:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  yugabytedb_ysql_sql_statements_latency_latency:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: yugabytedb.master_client_operations
+  title: Master Client Operations
+  units: ops/s
+  family: master
+  chart_type: line
+  priority: 60001
+  shape: counters
+  labels:
+    operation: sim-operation-1
+  dimensions:
+  - id: operations
+    rate_signal: yugabytedb_master_client_operations_operations
+- id: yugabytedb.master_client_operations_latency
+  title: Master Client Operations Latency
+  units: microseconds
+  family: master
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels:
+    operation: sim-operation-1
+  dimensions:
+  - id: latency
+    signal: yugabytedb_master_client_operations_latency_latency
+- id: yugabytedb.master_ddl_operations
+  title: Master DDL Operations
+  units: ops/s
+  family: master
+  chart_type: line
+  priority: 60003
+  shape: counters
+  labels:
+    operation: sim-operation-1
+  dimensions:
+  - id: operations
+    rate_signal: yugabytedb_master_ddl_operations_operations
+- id: yugabytedb.master_ddl_operations_latency
+  title: Master DDL Operations Latency
+  units: microseconds
+  family: master
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels:
+    operation: sim-operation-1
+  dimensions:
+  - id: latency
+    signal: yugabytedb_master_ddl_operations_latency_latency
+- id: yugabytedb.master_tabletserverservice_operations
+  title: Master TabletServerService Operations
+  units: ops/s
+  family: master
+  chart_type: line
+  priority: 60005
+  shape: counters
+  labels:
+    op: sim-op-1
+  dimensions:
+  - id: operations
+    rate_signal: yugabytedb_master_tabletserverservice_operations_operations
+- id: yugabytedb.master_tabletserverservice_operations_latency
+  title: Master TabletServerService Operations Latency
+  units: microseconds
+  family: master
+  chart_type: line
+  priority: 60006
+  shape: independent
+  labels:
+    op: sim-op-1
+  dimensions:
+  - id: latency
+    signal: yugabytedb_master_tabletserverservice_operations_latency_latency
+- id: yugabytedb.master_tabletserverservice_traffic
+  title: Master TabletServerService Traffic
+  units: bytes/s
+  family: master
+  chart_type: area
+  priority: 60007
+  shape: counters
+  labels:
+    op: sim-op-1
+  dimensions:
+  - id: received
+    rate_signal: yugabytedb_master_tabletserverservice_traffic_received
+  - id: sent
+    rate_signal: yugabytedb_master_tabletserverservice_traffic_sent
+- id: yugabytedb.master_pgclientservice_operations
+  title: Master PgClientService Operations
+  units: ops/s
+  family: master
+  chart_type: line
+  priority: 60008
+  shape: counters
+  labels:
+    operation: sim-operation-1
+  dimensions:
+  - id: operations
+    rate_signal: yugabytedb_master_pgclientservice_operations_operations
+- id: yugabytedb.master_pgclientservice_operations_latency
+  title: Master PgClientService Operations Latency
+  units: microseconds
+  family: master
+  chart_type: line
+  priority: 60009
+  shape: independent
+  labels:
+    operation: sim-operation-1
+  dimensions:
+  - id: latency
+    signal: yugabytedb_master_pgclientservice_operations_latency_latency
+- id: yugabytedb.master_pgclientservice_traffic
+  title: Master PgClientService Traffic
+  units: bytes/s
+  family: master
+  chart_type: area
+  priority: 60010
+  shape: counters
+  labels:
+    operation: sim-operation-1
+  dimensions:
+  - id: received
+    rate_signal: yugabytedb_master_pgclientservice_traffic_received
+  - id: sent
+    rate_signal: yugabytedb_master_pgclientservice_traffic_sent
+- id: yugabytedb.master_remotebootstrapservice_operations
+  title: Master RemoteBootstrapService Operations
+  units: ops/s
+  family: master
+  chart_type: line
+  priority: 60011
+  shape: counters
+  labels:
+    operation: sim-operation-1
+  dimensions:
+  - id: operations
+    rate_signal: yugabytedb_master_remotebootstrapservice_operations_operations
+- id: yugabytedb.master_remotebootstrapservice_operations_latency
+  title: Master RemoteBootstrapService Operations Latency
+  units: microseconds
+  family: master
+  chart_type: line
+  priority: 60012
+  shape: independent
+  labels:
+    operation: sim-operation-1
+  dimensions:
+  - id: latency
+    signal: yugabytedb_master_remotebootstrapservice_operations_latency_latency
+- id: yugabytedb.master_remotebootstrapservice_traffic
+  title: Master RemoteBootstrapService Traffic
+  units: bytes/s
+  family: master
+  chart_type: area
+  priority: 60013
+  shape: counters
+  labels:
+    operation: sim-operation-1
+  dimensions:
+  - id: received
+    rate_signal: yugabytedb_master_remotebootstrapservice_traffic_received
+  - id: sent
+    rate_signal: yugabytedb_master_remotebootstrapservice_traffic_sent
+- id: yugabytedb.master_consensus_operations
+  title: Master Consensus Operations
+  units: ops/s
+  family: master
+  chart_type: line
+  priority: 60014
+  shape: counters
+  labels:
+    operation: sim-operation-1
+  dimensions:
+  - id: operations
+    rate_signal: yugabytedb_master_consensus_operations_operations
+- id: yugabytedb.master_consensus_operations_latency
+  title: Master Consensus Operations Operations Latency
+  units: microseconds
+  family: master
+  chart_type: line
+  priority: 60015
+  shape: independent
+  labels:
+    operation: sim-operation-1
+  dimensions:
+  - id: latency
+    signal: yugabytedb_master_consensus_operations_latency_latency
+- id: yugabytedb.master_consensus_traffic
+  title: Master Consensus Traffic
+  units: bytes/s
+  family: master
+  chart_type: area
+  priority: 60016
+  shape: counters
+  labels:
+    operation: sim-operation-1
+  dimensions:
+  - id: received
+    rate_signal: yugabytedb_master_consensus_traffic_received
+  - id: sent
+    rate_signal: yugabytedb_master_consensus_traffic_sent
+- id: yugabytedb.tserver_tabletserverservice_operations
+  title: TServer TabletServerService Operations
+  units: ops/s
+  family: tserver
+  chart_type: line
+  priority: 60017
+  shape: counters
+  labels:
+    op: sim-op-1
+  dimensions:
+  - id: operations
+    rate_signal: yugabytedb_tserver_tabletserverservice_operations_operations
+- id: yugabytedb.tserver_tabletserverservice_operations_latency
+  title: TServer TabletServerService Operations Latency
+  units: microseconds
+  family: tserver
+  chart_type: line
+  priority: 60018
+  shape: independent
+  labels:
+    op: sim-op-1
+  dimensions:
+  - id: latency
+    signal: yugabytedb_tserver_tabletserverservice_operations_latency_latency
+- id: yugabytedb.tserver_tabletserverservice_traffic
+  title: TServer TabletServerService Traffic
+  units: bytes/s
+  family: tserver
+  chart_type: area
+  priority: 60019
+  shape: counters
+  labels:
+    op: sim-op-1
+  dimensions:
+  - id: received
+    rate_signal: yugabytedb_tserver_tabletserverservice_traffic_received
+  - id: sent
+    rate_signal: yugabytedb_tserver_tabletserverservice_traffic_sent
+- id: yugabytedb.tserver_tabletserveradminservice_operations
+  title: TServer TabletServerAdminService Operations
+  units: ops/s
+  family: tserver
+  chart_type: line
+  priority: 60020
+  shape: counters
+  labels:
+    op: sim-op-1
+  dimensions:
+  - id: operations
+    rate_signal: yugabytedb_tserver_tabletserveradminservice_operations_operations
+- id: yugabytedb.tserver_tabletserveradminservice_operations_latency
+  title: TServer TabletServerAdminService Operations Latency
+  units: microseconds
+  family: tserver
+  chart_type: line
+  priority: 60021
+  shape: independent
+  labels:
+    op: sim-op-1
+  dimensions:
+  - id: latency
+    signal: yugabytedb_tserver_tabletserveradminservice_operations_latency_latency
+- id: yugabytedb.tserver_tabletserveradminservice_traffic
+  title: TServer TabletServerAdminService Traffic
+  units: bytes/s
+  family: tserver
+  chart_type: area
+  priority: 60022
+  shape: counters
+  labels:
+    op: sim-op-1
+  dimensions:
+  - id: received
+    rate_signal: yugabytedb_tserver_tabletserveradminservice_traffic_received
+  - id: sent
+    rate_signal: yugabytedb_tserver_tabletserveradminservice_traffic_sent
+- id: yugabytedb.tserver_tabletserverbackupservice_operations
+  title: TServer TabletServerBackupService Operations
+  units: ops/s
+  family: tserver
+  chart_type: line
+  priority: 60023
+  shape: counters
+  labels:
+    op: sim-op-1
+  dimensions:
+  - id: operations
+    rate_signal: yugabytedb_tserver_tabletserverbackupservice_operations_operations
+- id: yugabytedb.tserver_tabletserverbackupservice_operations_latency
+  title: TServer TabletServerBackupService Operations Latency
+  units: microseconds
+  family: tserver
+  chart_type: line
+  priority: 60024
+  shape: independent
+  labels:
+    op: sim-op-1
+  dimensions:
+  - id: latency
+    signal: yugabytedb_tserver_tabletserverbackupservice_operations_latency_latency
+- id: yugabytedb.tserver_tabletserverbackupservice_traffic
+  title: TServer TabletServerBackupService Traffic
+  units: bytes/s
+  family: tserver
+  chart_type: area
+  priority: 60025
+  shape: counters
+  labels:
+    op: sim-op-1
+  dimensions:
+  - id: received
+    rate_signal: yugabytedb_tserver_tabletserverbackupservice_traffic_received
+  - id: sent
+    rate_signal: yugabytedb_tserver_tabletserverbackupservice_traffic_sent
+- id: yugabytedb.tserver_pgclientservice_operations
+  title: TServer PgClientService Operations
+  units: ops/s
+  family: tserver
+  chart_type: line
+  priority: 60026
+  shape: counters
+  labels:
+    operation: sim-operation-1
+  dimensions:
+  - id: operations
+    rate_signal: yugabytedb_tserver_pgclientservice_operations_operations
+- id: yugabytedb.tserver_pgclientservice_operations_latency
+  title: TServer PgClientService Operations Latency
+  units: microseconds
+  family: tserver
+  chart_type: line
+  priority: 60027
+  shape: independent
+  labels:
+    operation: sim-operation-1
+  dimensions:
+  - id: latency
+    signal: yugabytedb_tserver_pgclientservice_operations_latency_latency
+- id: yugabytedb.tserver_pgclientservice_traffic
+  title: TServer PgClientService Traffic
+  units: bytes/s
+  family: tserver
+  chart_type: area
+  priority: 60028
+  shape: counters
+  labels:
+    operation: sim-operation-1
+  dimensions:
+  - id: received
+    rate_signal: yugabytedb_tserver_pgclientservice_traffic_received
+  - id: sent
+    rate_signal: yugabytedb_tserver_pgclientservice_traffic_sent
+- id: yugabytedb.tserver_remotebootstrapservice_operations
+  title: TServer RemoteBootstrapService Operations
+  units: ops/s
+  family: tserver
+  chart_type: line
+  priority: 60029
+  shape: counters
+  labels:
+    operation: sim-operation-1
+  dimensions:
+  - id: operations
+    rate_signal: yugabytedb_tserver_remotebootstrapservice_operations_operations
+- id: yugabytedb.tserver_remotebootstrapservice_operations_latency
+  title: TServer RemoteBootstrapService Operations Latency
+  units: microseconds
+  family: tserver
+  chart_type: line
+  priority: 60030
+  shape: independent
+  labels:
+    operation: sim-operation-1
+  dimensions:
+  - id: latency
+    signal: yugabytedb_tserver_remotebootstrapservice_operations_latency_latency
+- id: yugabytedb.tserver_remotebootstrapservice_traffic
+  title: TServer RemoteBootstrapService Traffic
+  units: bytes/s
+  family: tserver
+  chart_type: area
+  priority: 60031
+  shape: counters
+  labels:
+    operation: sim-operation-1
+  dimensions:
+  - id: received
+    rate_signal: yugabytedb_tserver_remotebootstrapservice_traffic_received
+  - id: sent
+    rate_signal: yugabytedb_tserver_remotebootstrapservice_traffic_sent
+- id: yugabytedb.tserver_consensus_operations
+  title: TServer Consensus Operations
+  units: ops/s
+  family: tserver
+  chart_type: line
+  priority: 60032
+  shape: counters
+  labels:
+    operation: sim-operation-1
+  dimensions:
+  - id: operations
+    rate_signal: yugabytedb_tserver_consensus_operations_operations
+- id: yugabytedb.tserver_consensus_operations_latency
+  title: TServer Consensus Operations Operations Latency
+  units: microseconds
+  family: tserver
+  chart_type: line
+  priority: 60033
+  shape: independent
+  labels:
+    operation: sim-operation-1
+  dimensions:
+  - id: latency
+    signal: yugabytedb_tserver_consensus_operations_latency_latency
+- id: yugabytedb.tserver_consensus_traffic
+  title: TServer Consensus Traffic
+  units: bytes/s
+  family: tserver
+  chart_type: area
+  priority: 60034
+  shape: counters
+  labels:
+    operation: sim-operation-1
+  dimensions:
+  - id: received
+    rate_signal: yugabytedb_tserver_consensus_traffic_received
+  - id: sent
+    rate_signal: yugabytedb_tserver_consensus_traffic_sent
+- id: yugabytedb.ycql_sql_statements
+  title: YCQL SQL Statements
+  units: statements/s
+  family: ycql
+  chart_type: line
+  priority: 60035
+  shape: counters
+  labels:
+    statement: sim-statement-1
+  dimensions:
+  - id: statements
+    rate_signal: yugabytedb_ycql_sql_statements_statements
+- id: yugabytedb.yCql_sql_statements_latency
+  title: YCQL SQL Statements Latency
+  units: microseconds
+  family: yCql
+  chart_type: line
+  priority: 60036
+  shape: independent
+  labels:
+    statement: sim-statement-1
+  dimensions:
+  - id: latency
+    signal: yugabytedb_ycql_sql_statements_latency_latency
+- id: yugabytedb.ysql_connection_usage
+  title: YSQL Connections Usage
+  units: connections
+  family: ysql
+  chart_type: stacked
+  priority: 60037
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: available
+    signal: yugabytedb_ysql_connection_usage_available
+  - id: used
+    signal: yugabytedb_ysql_connection_usage_used
+- id: yugabytedb.ysql_active_connections
+  title: YSQL Active Connections
+  units: connections
+  family: ysql
+  chart_type: line
+  priority: 60038
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: active
+    signal: yugabytedb_ysql_active_connections_active
+- id: yugabytedb.ysql_established_connections
+  title: YSQL Established Connections
+  units: connections/s
+  family: ysql
+  chart_type: line
+  priority: 60039
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: established
+    rate_signal: yugabytedb_ysql_established_connections_established
+- id: yugabytedb.ysql_over_limit_connections
+  title: YSQL Rejected Over Limit Connections
+  units: rejects/s
+  family: ysql
+  chart_type: line
+  priority: 60040
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: over_limit
+    rate_signal: yugabytedb_ysql_over_limit_connections_over_limit
+- id: yugabytedb.ysql_sql_statements
+  title: YSQL SQL Statements
+  units: statements/s
+  family: ysql
+  chart_type: line
+  priority: 60041
+  shape: counters
+  labels:
+    statement: sim-statement-1
+  dimensions:
+  - id: statements
+    rate_signal: yugabytedb_ysql_sql_statements_statements
+- id: yugabytedb.ysql_sql_statements_latency
+  title: YSQL SQL Statements Latency
+  units: microseconds
+  family: ysql
+  chart_type: line
+  priority: 60042
+  shape: independent
+  labels:
+    statement: sim-statement-1
+  dimensions:
+  - id: latency
+    signal: yugabytedb_ysql_sql_statements_latency_latency

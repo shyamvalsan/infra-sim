@@ -1,0 +1,363 @@
+version: 1
+name: net-inet-tcp-stats
+description: net.inet.tcp.stats metrics, generated from Netdata's own collector metadata so the contexts,
+  units and dimension names match what a real net.inet.tcp.stats node reports. Signals are independent
+  and plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  net_inet_tcp_stats_tcppackets_received:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet_tcp_stats_tcppackets_sent:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet_tcp_stats_tcperrors_inerrs:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet_tcp_stats_tcperrors_incsumerrors:
+    base: 0.0
+    min: 0.0
+    max: 20000000.0
+  net_inet_tcp_stats_tcperrors_retranssegs:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet_tcp_stats_tcphandshake_estabresets:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet_tcp_stats_tcphandshake_activeopens:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet_tcp_stats_tcphandshake_passiveopens:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet_tcp_stats_tcphandshake_attemptfails:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  net_inet_tcp_stats_tcpconnaborts_baddata:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet_tcp_stats_tcpconnaborts_userclosed:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet_tcp_stats_tcpconnaborts_nomemory:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet_tcp_stats_tcpconnaborts_timeout:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  net_inet_tcp_stats_tcpconnaborts_linger:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet_tcp_stats_tcpofo_inqueue:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet_tcp_stats_tcpsyncookies_received:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet_tcp_stats_tcpsyncookies_sent:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet_tcp_stats_tcpsyncookies_failed:
+    base: 0.0
+    min: 0.0
+    max: 20000000.0
+  net_inet_tcp_stats_tcplistenissues_overflows:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet_tcp_stats_ecnpkts_incepkts:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet_tcp_stats_ecnpkts_inect0pkts:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet_tcp_stats_ecnpkts_inect1pkts:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet_tcp_stats_ecnpkts_outect0pkts:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet_tcp_stats_ecnpkts_outect1pkts:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: ipv4.tcppackets
+  title: IPv4 TCP Packets
+  units: packets/s
+  family: tcppackets
+  chart_type: line
+  priority: 60001
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: received
+    rate_signal: net_inet_tcp_stats_tcppackets_received
+  - id: sent
+    rate_signal: net_inet_tcp_stats_tcppackets_sent
+- id: ipv4.tcperrors
+  title: IPv4 TCP Errors
+  units: packets/s
+  family: tcperrors
+  chart_type: line
+  priority: 60002
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: InErrs
+    rate_signal: net_inet_tcp_stats_tcperrors_inerrs
+  - id: InCsumErrors
+    rate_signal: net_inet_tcp_stats_tcperrors_incsumerrors
+  - id: RetransSegs
+    rate_signal: net_inet_tcp_stats_tcperrors_retranssegs
+- id: ipv4.tcphandshake
+  title: IPv4 TCP Handshake Issues
+  units: events/s
+  family: tcphandshake
+  chart_type: line
+  priority: 60003
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: EstabResets
+    rate_signal: net_inet_tcp_stats_tcphandshake_estabresets
+  - id: ActiveOpens
+    rate_signal: net_inet_tcp_stats_tcphandshake_activeopens
+  - id: PassiveOpens
+    rate_signal: net_inet_tcp_stats_tcphandshake_passiveopens
+  - id: AttemptFails
+    rate_signal: net_inet_tcp_stats_tcphandshake_attemptfails
+- id: ipv4.tcpconnaborts
+  title: TCP Connection Aborts
+  units: connections/s
+  family: tcpconnaborts
+  chart_type: line
+  priority: 60004
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: baddata
+    rate_signal: net_inet_tcp_stats_tcpconnaborts_baddata
+  - id: userclosed
+    rate_signal: net_inet_tcp_stats_tcpconnaborts_userclosed
+  - id: nomemory
+    rate_signal: net_inet_tcp_stats_tcpconnaborts_nomemory
+  - id: timeout
+    rate_signal: net_inet_tcp_stats_tcpconnaborts_timeout
+  - id: linger
+    rate_signal: net_inet_tcp_stats_tcpconnaborts_linger
+- id: ipv4.tcpofo
+  title: TCP Out-Of-Order Queue
+  units: packets/s
+  family: tcpofo
+  chart_type: line
+  priority: 60005
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: inqueue
+    rate_signal: net_inet_tcp_stats_tcpofo_inqueue
+- id: ipv4.tcpsyncookies
+  title: TCP SYN Cookies
+  units: packets/s
+  family: tcpsyncookies
+  chart_type: line
+  priority: 60006
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: received
+    rate_signal: net_inet_tcp_stats_tcpsyncookies_received
+  - id: sent
+    rate_signal: net_inet_tcp_stats_tcpsyncookies_sent
+  - id: failed
+    rate_signal: net_inet_tcp_stats_tcpsyncookies_failed
+- id: ipv4.tcplistenissues
+  title: TCP Listen Socket Issues
+  units: packets/s
+  family: tcplistenissues
+  chart_type: line
+  priority: 60007
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: overflows
+    rate_signal: net_inet_tcp_stats_tcplistenissues_overflows
+- id: ipv4.ecnpkts
+  title: IPv4 ECN Statistics
+  units: packets/s
+  family: ecnpkts
+  chart_type: line
+  priority: 60008
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: InCEPkts
+    rate_signal: net_inet_tcp_stats_ecnpkts_incepkts
+  - id: InECT0Pkts
+    rate_signal: net_inet_tcp_stats_ecnpkts_inect0pkts
+  - id: InECT1Pkts
+    rate_signal: net_inet_tcp_stats_ecnpkts_inect1pkts
+  - id: OutECT0Pkts
+    rate_signal: net_inet_tcp_stats_ecnpkts_outect0pkts
+  - id: OutECT1Pkts
+    rate_signal: net_inet_tcp_stats_ecnpkts_outect1pkts

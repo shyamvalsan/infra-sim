@@ -1,0 +1,995 @@
+version: 1
+name: linux-hardware-sensors-libsensors
+description: Linux Hardware Sensors (libsensors) metrics, generated from Netdata's own collector metadata
+  so the contexts, units and dimension names match what a real Linux Hardware Sensors (libsensors) node
+  reports. Signals are independent and plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  linux_hardware_sensors_libsensors_hw_sensor_temperature_input_input:
+    base: 41.0
+    min: 0.0
+    max: 120.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  linux_hardware_sensors_libsensors_hw_sensor_temperature_alarm_clear:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_hardware_sensors_libsensors_hw_sensor_temperature_alarm_warning:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_hardware_sensors_libsensors_hw_sensor_temperature_alarm_cap:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_hardware_sensors_libsensors_hw_sensor_temperature_alarm_alarm:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_hardware_sensors_libsensors_hw_sensor_temperature_alarm_critical:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_hardware_sensors_libsensors_hw_sensor_temperature_alarm_emergency:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_hardware_sensors_libsensors_hw_sensor_temperature_alarm_fault:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_hardware_sensors_libsensors_hw_sensor_voltage_input_input:
+    base: 12.0
+    min: 0.0
+    max: 480.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  linux_hardware_sensors_libsensors_hw_sensor_voltage_average_average:
+    base: 12.0
+    min: 0.0
+    max: 480.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  linux_hardware_sensors_libsensors_hw_sensor_voltage_alarm_clear:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_hardware_sensors_libsensors_hw_sensor_voltage_alarm_warning:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_hardware_sensors_libsensors_hw_sensor_voltage_alarm_cap:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_hardware_sensors_libsensors_hw_sensor_voltage_alarm_alarm:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_hardware_sensors_libsensors_hw_sensor_voltage_alarm_critical:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_hardware_sensors_libsensors_hw_sensor_voltage_alarm_emergency:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_hardware_sensors_libsensors_hw_sensor_voltage_alarm_fault:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_hardware_sensors_libsensors_hw_sensor_fan_input_input:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  linux_hardware_sensors_libsensors_hw_sensor_fan_alarm_clear:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_hardware_sensors_libsensors_hw_sensor_fan_alarm_warning:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_hardware_sensors_libsensors_hw_sensor_fan_alarm_cap:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_hardware_sensors_libsensors_hw_sensor_fan_alarm_alarm:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_hardware_sensors_libsensors_hw_sensor_fan_alarm_critical:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_hardware_sensors_libsensors_hw_sensor_fan_alarm_emergency:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_hardware_sensors_libsensors_hw_sensor_fan_alarm_fault:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_hardware_sensors_libsensors_hw_sensor_current_input_input:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  linux_hardware_sensors_libsensors_hw_sensor_current_average_average:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  linux_hardware_sensors_libsensors_hw_sensor_current_alarm_clear:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_hardware_sensors_libsensors_hw_sensor_current_alarm_warning:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_hardware_sensors_libsensors_hw_sensor_current_alarm_cap:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_hardware_sensors_libsensors_hw_sensor_current_alarm_alarm:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_hardware_sensors_libsensors_hw_sensor_current_alarm_critical:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_hardware_sensors_libsensors_hw_sensor_current_alarm_emergency:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_hardware_sensors_libsensors_hw_sensor_current_alarm_fault:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_hardware_sensors_libsensors_hw_sensor_power_input_input:
+    base: 145.0
+    min: 0.0
+    max: 2000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  linux_hardware_sensors_libsensors_hw_sensor_power_average_average:
+    base: 145.0
+    min: 0.0
+    max: 2000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  linux_hardware_sensors_libsensors_hw_sensor_power_alarm_clear:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_hardware_sensors_libsensors_hw_sensor_power_alarm_warning:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_hardware_sensors_libsensors_hw_sensor_power_alarm_cap:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_hardware_sensors_libsensors_hw_sensor_power_alarm_alarm:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_hardware_sensors_libsensors_hw_sensor_power_alarm_critical:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_hardware_sensors_libsensors_hw_sensor_power_alarm_emergency:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_hardware_sensors_libsensors_hw_sensor_power_alarm_fault:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_hardware_sensors_libsensors_hw_sensor_energy_input_input:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  linux_hardware_sensors_libsensors_hw_sensor_energy_alarm_clear:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_hardware_sensors_libsensors_hw_sensor_energy_alarm_warning:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_hardware_sensors_libsensors_hw_sensor_energy_alarm_cap:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_hardware_sensors_libsensors_hw_sensor_energy_alarm_alarm:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_hardware_sensors_libsensors_hw_sensor_energy_alarm_critical:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_hardware_sensors_libsensors_hw_sensor_energy_alarm_emergency:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_hardware_sensors_libsensors_hw_sensor_energy_alarm_fault:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_hardware_sensors_libsensors_hw_sensor_humidity_input_input:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  linux_hardware_sensors_libsensors_hw_sensor_humidity_alarm_clear:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_hardware_sensors_libsensors_hw_sensor_humidity_alarm_warning:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_hardware_sensors_libsensors_hw_sensor_humidity_alarm_cap:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_hardware_sensors_libsensors_hw_sensor_humidity_alarm_alarm:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_hardware_sensors_libsensors_hw_sensor_humidity_alarm_critical:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_hardware_sensors_libsensors_hw_sensor_humidity_alarm_emergency:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_hardware_sensors_libsensors_hw_sensor_humidity_alarm_fault:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_hardware_sensors_libsensors_hw_sensor_intrusion_alarm_clear:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_hardware_sensors_libsensors_hw_sensor_intrusion_alarm_warning:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_hardware_sensors_libsensors_hw_sensor_intrusion_alarm_cap:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_hardware_sensors_libsensors_hw_sensor_intrusion_alarm_alarm:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_hardware_sensors_libsensors_hw_sensor_intrusion_alarm_critical:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_hardware_sensors_libsensors_hw_sensor_intrusion_alarm_emergency:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_hardware_sensors_libsensors_hw_sensor_intrusion_alarm_fault:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  linux_hardware_sensors_libsensors_hw_sensor_temperature_histogram_40:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  linux_hardware_sensors_libsensors_hw_sensor_temperature_histogram_50:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  linux_hardware_sensors_libsensors_hw_sensor_temperature_histogram_60:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  linux_hardware_sensors_libsensors_hw_sensor_temperature_histogram_70:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  linux_hardware_sensors_libsensors_hw_sensor_temperature_histogram_80:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  linux_hardware_sensors_libsensors_hw_sensor_temperature_histogram_85:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  linux_hardware_sensors_libsensors_hw_sensor_temperature_histogram_90:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  linux_hardware_sensors_libsensors_hw_sensor_temperature_histogram_95:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  linux_hardware_sensors_libsensors_hw_sensor_temperature_histogram_100:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  linux_hardware_sensors_libsensors_hw_sensor_temperature_histogram_inf:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: system.hw.sensor.temperature.input
+  title: Sensor Temperature
+  units: degrees Celsius
+  family: hw.sensor.temperature.input
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels:
+    feature: sim-feature-1
+    label: sim-label-1
+    chip_id: sim-chip_id-1
+    path: sim-path-1
+    subsystem: sim-subsystem-1
+    driver: sim-driver-1
+  dimensions:
+  - id: input
+    signal: linux_hardware_sensors_libsensors_hw_sensor_temperature_input_input
+- id: system.hw.sensor.temperature.alarm
+  title: Sensor Temperature Alarm Status
+  units: status
+  family: hw.sensor.temperature.alarm
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels:
+    feature: sim-feature-1
+    label: sim-label-1
+    chip_id: sim-chip_id-1
+    path: sim-path-1
+    subsystem: sim-subsystem-1
+    driver: sim-driver-1
+  dimensions:
+  - id: clear
+    signal: linux_hardware_sensors_libsensors_hw_sensor_temperature_alarm_clear
+  - id: warning
+    signal: linux_hardware_sensors_libsensors_hw_sensor_temperature_alarm_warning
+  - id: cap
+    signal: linux_hardware_sensors_libsensors_hw_sensor_temperature_alarm_cap
+  - id: alarm
+    signal: linux_hardware_sensors_libsensors_hw_sensor_temperature_alarm_alarm
+  - id: critical
+    signal: linux_hardware_sensors_libsensors_hw_sensor_temperature_alarm_critical
+  - id: emergency
+    signal: linux_hardware_sensors_libsensors_hw_sensor_temperature_alarm_emergency
+  - id: fault
+    signal: linux_hardware_sensors_libsensors_hw_sensor_temperature_alarm_fault
+- id: system.hw.sensor.voltage.input
+  title: Sensor Voltage
+  units: Volts
+  family: hw.sensor.voltage.input
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels:
+    feature: sim-feature-1
+    label: sim-label-1
+    chip_id: sim-chip_id-1
+    path: sim-path-1
+    subsystem: sim-subsystem-1
+    driver: sim-driver-1
+  dimensions:
+  - id: input
+    signal: linux_hardware_sensors_libsensors_hw_sensor_voltage_input_input
+- id: system.hw.sensor.voltage.average
+  title: Sensor Voltage Average
+  units: Volts
+  family: hw.sensor.voltage.average
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels:
+    feature: sim-feature-1
+    label: sim-label-1
+    chip_id: sim-chip_id-1
+    path: sim-path-1
+    subsystem: sim-subsystem-1
+    driver: sim-driver-1
+  dimensions:
+  - id: average
+    signal: linux_hardware_sensors_libsensors_hw_sensor_voltage_average_average
+- id: system.hw.sensor.voltage.alarm
+  title: Sensor Voltage Alarm Status
+  units: status
+  family: hw.sensor.voltage.alarm
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels:
+    feature: sim-feature-1
+    label: sim-label-1
+    chip_id: sim-chip_id-1
+    path: sim-path-1
+    subsystem: sim-subsystem-1
+    driver: sim-driver-1
+  dimensions:
+  - id: clear
+    signal: linux_hardware_sensors_libsensors_hw_sensor_voltage_alarm_clear
+  - id: warning
+    signal: linux_hardware_sensors_libsensors_hw_sensor_voltage_alarm_warning
+  - id: cap
+    signal: linux_hardware_sensors_libsensors_hw_sensor_voltage_alarm_cap
+  - id: alarm
+    signal: linux_hardware_sensors_libsensors_hw_sensor_voltage_alarm_alarm
+  - id: critical
+    signal: linux_hardware_sensors_libsensors_hw_sensor_voltage_alarm_critical
+  - id: emergency
+    signal: linux_hardware_sensors_libsensors_hw_sensor_voltage_alarm_emergency
+  - id: fault
+    signal: linux_hardware_sensors_libsensors_hw_sensor_voltage_alarm_fault
+- id: system.hw.sensor.fan.input
+  title: Sensor Fan Speed
+  units: rotations per minute
+  family: hw.sensor.fan.input
+  chart_type: line
+  priority: 60006
+  shape: independent
+  labels:
+    feature: sim-feature-1
+    label: sim-label-1
+    chip_id: sim-chip_id-1
+    path: sim-path-1
+    subsystem: sim-subsystem-1
+    driver: sim-driver-1
+  dimensions:
+  - id: input
+    signal: linux_hardware_sensors_libsensors_hw_sensor_fan_input_input
+- id: system.hw.sensor.fan.alarm
+  title: Sensor Fan Alarm Status
+  units: status
+  family: hw.sensor.fan.alarm
+  chart_type: line
+  priority: 60007
+  shape: independent
+  labels:
+    feature: sim-feature-1
+    label: sim-label-1
+    chip_id: sim-chip_id-1
+    path: sim-path-1
+    subsystem: sim-subsystem-1
+    driver: sim-driver-1
+  dimensions:
+  - id: clear
+    signal: linux_hardware_sensors_libsensors_hw_sensor_fan_alarm_clear
+  - id: warning
+    signal: linux_hardware_sensors_libsensors_hw_sensor_fan_alarm_warning
+  - id: cap
+    signal: linux_hardware_sensors_libsensors_hw_sensor_fan_alarm_cap
+  - id: alarm
+    signal: linux_hardware_sensors_libsensors_hw_sensor_fan_alarm_alarm
+  - id: critical
+    signal: linux_hardware_sensors_libsensors_hw_sensor_fan_alarm_critical
+  - id: emergency
+    signal: linux_hardware_sensors_libsensors_hw_sensor_fan_alarm_emergency
+  - id: fault
+    signal: linux_hardware_sensors_libsensors_hw_sensor_fan_alarm_fault
+- id: system.hw.sensor.current.input
+  title: Sensor Current
+  units: Amperes
+  family: hw.sensor.current.input
+  chart_type: line
+  priority: 60008
+  shape: independent
+  labels:
+    feature: sim-feature-1
+    label: sim-label-1
+    chip_id: sim-chip_id-1
+    path: sim-path-1
+    subsystem: sim-subsystem-1
+    driver: sim-driver-1
+  dimensions:
+  - id: input
+    signal: linux_hardware_sensors_libsensors_hw_sensor_current_input_input
+- id: system.hw.sensor.current.average
+  title: Sensor Current Average
+  units: Amperes
+  family: hw.sensor.current.average
+  chart_type: line
+  priority: 60009
+  shape: independent
+  labels:
+    feature: sim-feature-1
+    label: sim-label-1
+    chip_id: sim-chip_id-1
+    path: sim-path-1
+    subsystem: sim-subsystem-1
+    driver: sim-driver-1
+  dimensions:
+  - id: average
+    signal: linux_hardware_sensors_libsensors_hw_sensor_current_average_average
+- id: system.hw.sensor.current.alarm
+  title: Sensor Current Alarm Status
+  units: status
+  family: hw.sensor.current.alarm
+  chart_type: line
+  priority: 60010
+  shape: independent
+  labels:
+    feature: sim-feature-1
+    label: sim-label-1
+    chip_id: sim-chip_id-1
+    path: sim-path-1
+    subsystem: sim-subsystem-1
+    driver: sim-driver-1
+  dimensions:
+  - id: clear
+    signal: linux_hardware_sensors_libsensors_hw_sensor_current_alarm_clear
+  - id: warning
+    signal: linux_hardware_sensors_libsensors_hw_sensor_current_alarm_warning
+  - id: cap
+    signal: linux_hardware_sensors_libsensors_hw_sensor_current_alarm_cap
+  - id: alarm
+    signal: linux_hardware_sensors_libsensors_hw_sensor_current_alarm_alarm
+  - id: critical
+    signal: linux_hardware_sensors_libsensors_hw_sensor_current_alarm_critical
+  - id: emergency
+    signal: linux_hardware_sensors_libsensors_hw_sensor_current_alarm_emergency
+  - id: fault
+    signal: linux_hardware_sensors_libsensors_hw_sensor_current_alarm_fault
+- id: system.hw.sensor.power.input
+  title: Sensor Power
+  units: Watts
+  family: hw.sensor.power.input
+  chart_type: line
+  priority: 60011
+  shape: independent
+  labels:
+    feature: sim-feature-1
+    label: sim-label-1
+    chip_id: sim-chip_id-1
+    path: sim-path-1
+    subsystem: sim-subsystem-1
+    driver: sim-driver-1
+  dimensions:
+  - id: input
+    signal: linux_hardware_sensors_libsensors_hw_sensor_power_input_input
+- id: system.hw.sensor.power.average
+  title: Sensor Power Average
+  units: Watts
+  family: hw.sensor.power.average
+  chart_type: line
+  priority: 60012
+  shape: independent
+  labels:
+    feature: sim-feature-1
+    label: sim-label-1
+    chip_id: sim-chip_id-1
+    path: sim-path-1
+    subsystem: sim-subsystem-1
+    driver: sim-driver-1
+  dimensions:
+  - id: average
+    signal: linux_hardware_sensors_libsensors_hw_sensor_power_average_average
+- id: system.hw.sensor.power.alarm
+  title: Sensor Power Alarm Status
+  units: status
+  family: hw.sensor.power.alarm
+  chart_type: line
+  priority: 60013
+  shape: independent
+  labels:
+    feature: sim-feature-1
+    label: sim-label-1
+    chip_id: sim-chip_id-1
+    path: sim-path-1
+    subsystem: sim-subsystem-1
+    driver: sim-driver-1
+  dimensions:
+  - id: clear
+    signal: linux_hardware_sensors_libsensors_hw_sensor_power_alarm_clear
+  - id: warning
+    signal: linux_hardware_sensors_libsensors_hw_sensor_power_alarm_warning
+  - id: cap
+    signal: linux_hardware_sensors_libsensors_hw_sensor_power_alarm_cap
+  - id: alarm
+    signal: linux_hardware_sensors_libsensors_hw_sensor_power_alarm_alarm
+  - id: critical
+    signal: linux_hardware_sensors_libsensors_hw_sensor_power_alarm_critical
+  - id: emergency
+    signal: linux_hardware_sensors_libsensors_hw_sensor_power_alarm_emergency
+  - id: fault
+    signal: linux_hardware_sensors_libsensors_hw_sensor_power_alarm_fault
+- id: system.hw.sensor.energy.input
+  title: Sensor Energy
+  units: Joules
+  family: hw.sensor.energy.input
+  chart_type: line
+  priority: 60014
+  shape: independent
+  labels:
+    feature: sim-feature-1
+    label: sim-label-1
+    chip_id: sim-chip_id-1
+    path: sim-path-1
+    subsystem: sim-subsystem-1
+    driver: sim-driver-1
+  dimensions:
+  - id: input
+    signal: linux_hardware_sensors_libsensors_hw_sensor_energy_input_input
+- id: system.hw.sensor.energy.alarm
+  title: Sensor Energy Alarm Status
+  units: status
+  family: hw.sensor.energy.alarm
+  chart_type: line
+  priority: 60015
+  shape: independent
+  labels:
+    feature: sim-feature-1
+    label: sim-label-1
+    chip_id: sim-chip_id-1
+    path: sim-path-1
+    subsystem: sim-subsystem-1
+    driver: sim-driver-1
+  dimensions:
+  - id: clear
+    signal: linux_hardware_sensors_libsensors_hw_sensor_energy_alarm_clear
+  - id: warning
+    signal: linux_hardware_sensors_libsensors_hw_sensor_energy_alarm_warning
+  - id: cap
+    signal: linux_hardware_sensors_libsensors_hw_sensor_energy_alarm_cap
+  - id: alarm
+    signal: linux_hardware_sensors_libsensors_hw_sensor_energy_alarm_alarm
+  - id: critical
+    signal: linux_hardware_sensors_libsensors_hw_sensor_energy_alarm_critical
+  - id: emergency
+    signal: linux_hardware_sensors_libsensors_hw_sensor_energy_alarm_emergency
+  - id: fault
+    signal: linux_hardware_sensors_libsensors_hw_sensor_energy_alarm_fault
+- id: system.hw.sensor.humidity.input
+  title: Sensor Humidity
+  units: percentage
+  family: hw.sensor.humidity.input
+  chart_type: line
+  priority: 60016
+  shape: independent
+  labels:
+    feature: sim-feature-1
+    label: sim-label-1
+    chip_id: sim-chip_id-1
+    path: sim-path-1
+    subsystem: sim-subsystem-1
+    driver: sim-driver-1
+  dimensions:
+  - id: input
+    signal: linux_hardware_sensors_libsensors_hw_sensor_humidity_input_input
+- id: system.hw.sensor.humidity.alarm
+  title: Sensor Humidity Alarm Status
+  units: status
+  family: hw.sensor.humidity.alarm
+  chart_type: line
+  priority: 60017
+  shape: independent
+  labels:
+    feature: sim-feature-1
+    label: sim-label-1
+    chip_id: sim-chip_id-1
+    path: sim-path-1
+    subsystem: sim-subsystem-1
+    driver: sim-driver-1
+  dimensions:
+  - id: clear
+    signal: linux_hardware_sensors_libsensors_hw_sensor_humidity_alarm_clear
+  - id: warning
+    signal: linux_hardware_sensors_libsensors_hw_sensor_humidity_alarm_warning
+  - id: cap
+    signal: linux_hardware_sensors_libsensors_hw_sensor_humidity_alarm_cap
+  - id: alarm
+    signal: linux_hardware_sensors_libsensors_hw_sensor_humidity_alarm_alarm
+  - id: critical
+    signal: linux_hardware_sensors_libsensors_hw_sensor_humidity_alarm_critical
+  - id: emergency
+    signal: linux_hardware_sensors_libsensors_hw_sensor_humidity_alarm_emergency
+  - id: fault
+    signal: linux_hardware_sensors_libsensors_hw_sensor_humidity_alarm_fault
+- id: system.hw.sensor.intrusion.alarm
+  title: Sensor Intrusion Alarm Status
+  units: status
+  family: hw.sensor.intrusion.alarm
+  chart_type: line
+  priority: 60018
+  shape: independent
+  labels:
+    feature: sim-feature-1
+    label: sim-label-1
+    chip_id: sim-chip_id-1
+    path: sim-path-1
+    subsystem: sim-subsystem-1
+    driver: sim-driver-1
+  dimensions:
+  - id: clear
+    signal: linux_hardware_sensors_libsensors_hw_sensor_intrusion_alarm_clear
+  - id: warning
+    signal: linux_hardware_sensors_libsensors_hw_sensor_intrusion_alarm_warning
+  - id: cap
+    signal: linux_hardware_sensors_libsensors_hw_sensor_intrusion_alarm_cap
+  - id: alarm
+    signal: linux_hardware_sensors_libsensors_hw_sensor_intrusion_alarm_alarm
+  - id: critical
+    signal: linux_hardware_sensors_libsensors_hw_sensor_intrusion_alarm_critical
+  - id: emergency
+    signal: linux_hardware_sensors_libsensors_hw_sensor_intrusion_alarm_emergency
+  - id: fault
+    signal: linux_hardware_sensors_libsensors_hw_sensor_intrusion_alarm_fault
+- id: system.hw.sensor.temperature.histogram
+  title: Distribution of all temperature sensors in fixed bands
+  units: sensors
+  family: hw.sensor.temperature.histogram
+  chart_type: line
+  priority: 60019
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: '40'
+    signal: linux_hardware_sensors_libsensors_hw_sensor_temperature_histogram_40
+  - id: '50'
+    signal: linux_hardware_sensors_libsensors_hw_sensor_temperature_histogram_50
+  - id: '60'
+    signal: linux_hardware_sensors_libsensors_hw_sensor_temperature_histogram_60
+  - id: '70'
+    signal: linux_hardware_sensors_libsensors_hw_sensor_temperature_histogram_70
+  - id: '80'
+    signal: linux_hardware_sensors_libsensors_hw_sensor_temperature_histogram_80
+  - id: '85'
+    signal: linux_hardware_sensors_libsensors_hw_sensor_temperature_histogram_85
+  - id: '90'
+    signal: linux_hardware_sensors_libsensors_hw_sensor_temperature_histogram_90
+  - id: '95'
+    signal: linux_hardware_sensors_libsensors_hw_sensor_temperature_histogram_95
+  - id: '100'
+    signal: linux_hardware_sensors_libsensors_hw_sensor_temperature_histogram_100
+  - id: +Inf
+    signal: linux_hardware_sensors_libsensors_hw_sensor_temperature_histogram_inf

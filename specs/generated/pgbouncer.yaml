@@ -1,0 +1,410 @@
+version: 1
+name: pgbouncer
+description: PgBouncer metrics, generated from Netdata's own collector metadata so the contexts, units
+  and dimension names match what a real PgBouncer node reports. Signals are independent and plausible
+  rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  pgbouncer_client_connections_utilization_used:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pgbouncer_db_client_connections_active:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pgbouncer_db_client_connections_waiting:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pgbouncer_db_client_connections_cancel_req:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pgbouncer_db_server_connections_active:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pgbouncer_db_server_connections_idle:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pgbouncer_db_server_connections_used:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pgbouncer_db_server_connections_tested:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pgbouncer_db_server_connections_login:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pgbouncer_db_server_connections_utilization_used:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pgbouncer_db_clients_wait_time_time:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pgbouncer_db_client_max_wait_time_time:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pgbouncer_db_transactions_transactions:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pgbouncer_db_transactions_time_time:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pgbouncer_db_transaction_avg_time_time:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pgbouncer_db_queries_queries:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pgbouncer_db_queries_time_time:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pgbouncer_db_query_avg_time_time:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pgbouncer_db_network_io_received:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  pgbouncer_db_network_io_sent:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: pgbouncer.client_connections_utilization
+  title: Client connections utilization
+  units: percentage
+  family: client
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: used
+    signal: pgbouncer_client_connections_utilization_used
+- id: pgbouncer.db_client_connections
+  title: Database client connections
+  units: connections
+  family: db
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels:
+    database: sim-database-1
+    postgres_database: sim-postgres_database-1
+  dimensions:
+  - id: active
+    signal: pgbouncer_db_client_connections_active
+  - id: waiting
+    signal: pgbouncer_db_client_connections_waiting
+  - id: cancel_req
+    signal: pgbouncer_db_client_connections_cancel_req
+- id: pgbouncer.db_server_connections
+  title: Database server connections
+  units: connections
+  family: db
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels:
+    database: sim-database-1
+    postgres_database: sim-postgres_database-1
+  dimensions:
+  - id: active
+    signal: pgbouncer_db_server_connections_active
+  - id: idle
+    signal: pgbouncer_db_server_connections_idle
+  - id: used
+    signal: pgbouncer_db_server_connections_used
+  - id: tested
+    signal: pgbouncer_db_server_connections_tested
+  - id: login
+    signal: pgbouncer_db_server_connections_login
+- id: pgbouncer.db_server_connections_utilization
+  title: Database server connections utilization
+  units: percentage
+  family: db
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels:
+    database: sim-database-1
+    postgres_database: sim-postgres_database-1
+  dimensions:
+  - id: used
+    signal: pgbouncer_db_server_connections_utilization_used
+- id: pgbouncer.db_clients_wait_time
+  title: Database clients wait time
+  units: seconds
+  family: db
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels:
+    database: sim-database-1
+    postgres_database: sim-postgres_database-1
+  dimensions:
+  - id: time
+    signal: pgbouncer_db_clients_wait_time_time
+- id: pgbouncer.db_client_max_wait_time
+  title: Database client max wait time
+  units: seconds
+  family: db
+  chart_type: line
+  priority: 60006
+  shape: independent
+  labels:
+    database: sim-database-1
+    postgres_database: sim-postgres_database-1
+  dimensions:
+  - id: time
+    signal: pgbouncer_db_client_max_wait_time_time
+- id: pgbouncer.db_transactions
+  title: Database pooled SQL transactions
+  units: transactions/s
+  family: db
+  chart_type: line
+  priority: 60007
+  shape: counters
+  labels:
+    database: sim-database-1
+    postgres_database: sim-postgres_database-1
+  dimensions:
+  - id: transactions
+    rate_signal: pgbouncer_db_transactions_transactions
+- id: pgbouncer.db_transactions_time
+  title: Database transactions time
+  units: seconds
+  family: db
+  chart_type: line
+  priority: 60008
+  shape: independent
+  labels:
+    database: sim-database-1
+    postgres_database: sim-postgres_database-1
+  dimensions:
+  - id: time
+    signal: pgbouncer_db_transactions_time_time
+- id: pgbouncer.db_transaction_avg_time
+  title: Database transaction average time
+  units: seconds
+  family: db
+  chart_type: line
+  priority: 60009
+  shape: independent
+  labels:
+    database: sim-database-1
+    postgres_database: sim-postgres_database-1
+  dimensions:
+  - id: time
+    signal: pgbouncer_db_transaction_avg_time_time
+- id: pgbouncer.db_queries
+  title: Database pooled SQL queries
+  units: queries/s
+  family: db
+  chart_type: line
+  priority: 60010
+  shape: counters
+  labels:
+    database: sim-database-1
+    postgres_database: sim-postgres_database-1
+  dimensions:
+  - id: queries
+    rate_signal: pgbouncer_db_queries_queries
+- id: pgbouncer.db_queries_time
+  title: Database queries time
+  units: seconds
+  family: db
+  chart_type: line
+  priority: 60011
+  shape: independent
+  labels:
+    database: sim-database-1
+    postgres_database: sim-postgres_database-1
+  dimensions:
+  - id: time
+    signal: pgbouncer_db_queries_time_time
+- id: pgbouncer.db_query_avg_time
+  title: Database query average time
+  units: seconds
+  family: db
+  chart_type: line
+  priority: 60012
+  shape: independent
+  labels:
+    database: sim-database-1
+    postgres_database: sim-postgres_database-1
+  dimensions:
+  - id: time
+    signal: pgbouncer_db_query_avg_time_time
+- id: pgbouncer.db_network_io
+  title: Database traffic
+  units: B/s
+  family: db
+  chart_type: area
+  priority: 60013
+  shape: counters
+  labels:
+    database: sim-database-1
+    postgres_database: sim-postgres_database-1
+  dimensions:
+  - id: received
+    rate_signal: pgbouncer_db_network_io_received
+  - id: sent
+    rate_signal: pgbouncer_db_network_io_sent

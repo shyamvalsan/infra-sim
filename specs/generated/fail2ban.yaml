@@ -1,0 +1,46 @@
+version: 1
+name: fail2ban
+description: Fail2ban metrics, generated from Netdata's own collector metadata so the contexts, units
+  and dimension names match what a real Fail2ban node reports. Signals are independent and plausible rather
+  than causally coupled - see scripts/sync-integrations.py.
+signals:
+  fail2ban_jail_banned_ips_banned:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fail2ban_jail_active_failures_active_failures:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+contexts:
+- id: fail2ban.jail_banned_ips
+  title: Fail2Ban Jail banned IPs
+  units: addresses
+  family: jail
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels:
+    jail: sim-jail-1
+  dimensions:
+  - id: banned
+    signal: fail2ban_jail_banned_ips_banned
+- id: fail2ban.jail_active_failures
+  title: Fail2Ban Jail active failures
+  units: failures
+  family: jail
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels:
+    jail: sim-jail-1
+  dimensions:
+  - id: active_failures
+    signal: fail2ban_jail_active_failures_active_failures

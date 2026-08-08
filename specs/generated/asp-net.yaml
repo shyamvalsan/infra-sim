@@ -1,0 +1,622 @@
+version: 1
+name: asp-net
+description: ASP.NET metrics, generated from Netdata's own collector metadata so the contexts, units and
+  dimension names match what a real ASP.NET node reports. Signals are independent and plausible rather
+  than causally coupled - see scripts/sync-integrations.py.
+signals:
+  asp_net_application_restarts_restarts:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  asp_net_worker_process_restarts_restarts:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  asp_net_anonymous_request_requests:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  asp_net_compilation_totals_compilations:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  asp_net_errors_during_preprocessing_preprocessing:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  asp_net_errors_during_compilation_compilation:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  asp_net_errors_during_execution_execution:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  asp_net_errors_during_unhandled_execution_unhandled:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  asp_net_requests_byte_total_in:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  asp_net_requests_byte_total_out:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  asp_net_requests_executing_executing:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  asp_net_requests_failed_executing:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  asp_net_requests_not_found_not_found:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  asp_net_requests_not_authorized_not_authorized:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  asp_net_requests_in_application_queue_queue:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  asp_net_requests_timeout_timeout:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  asp_net_requests_succeeded_success:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  asp_net_sessions_active_active:
+    base: 64.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  asp_net_sessions_abandoned_abandoned:
+    base: 64.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  asp_net_sessions_timed_out_timed_out:
+    base: 64.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  asp_net_transactions_aborted_aborted:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  asp_net_transactions_committed_committed:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  asp_net_transactions_pending_pending:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  asp_net_events_raised_per_sec_raised:
+    base: 90.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  asp_net_error_events_raised_per_sec_events:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  asp_net_events_audit_success_events:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  asp_net_events_audit_failure_audit:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  asp_net_membership_auth_success_success:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  asp_net_form_authentication_success_success:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  asp_net_form_authentication_failure_failure:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+contexts:
+- id: aspnet.application_restarts
+  title: Number of times the application has been restarted.
+  units: restarts
+  family: application
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: restarts
+    signal: asp_net_application_restarts_restarts
+- id: aspnet.worker_process_restarts
+  title: Number of times a worker process has restarted on the machine.
+  units: restarts
+  family: worker
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: restarts
+    signal: asp_net_worker_process_restarts_restarts
+- id: aspnet.anonymous_request
+  title: Number of requests utilizing anonymous authentication.
+  units: requests
+  family: anonymous
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels:
+    aspnet_app: sim-aspnet_app-1
+  dimensions:
+  - id: requests
+    signal: asp_net_anonymous_request_requests
+- id: aspnet.compilation_totals
+  title: Number of source files dynamically compiled.
+  units: compilations
+  family: compilation
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels:
+    aspnet_app: sim-aspnet_app-1
+  dimensions:
+  - id: compilations
+    signal: asp_net_compilation_totals_compilations
+- id: aspnet.errors_during_preprocessing
+  title: Errors During Preprocessing.
+  units: errors
+  family: errors
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels:
+    aspnet_app: sim-aspnet_app-1
+  dimensions:
+  - id: preprocessing
+    signal: asp_net_errors_during_preprocessing_preprocessing
+- id: aspnet.errors_during_compilation
+  title: Errors During Compilation.
+  units: errors
+  family: errors
+  chart_type: line
+  priority: 60006
+  shape: independent
+  labels:
+    aspnet_app: sim-aspnet_app-1
+  dimensions:
+  - id: compilation
+    signal: asp_net_errors_during_compilation_compilation
+- id: aspnet.errors_during_execution
+  title: Errors During Execution.
+  units: errors
+  family: errors
+  chart_type: line
+  priority: 60007
+  shape: independent
+  labels:
+    aspnet_app: sim-aspnet_app-1
+  dimensions:
+  - id: execution
+    signal: asp_net_errors_during_execution_execution
+- id: aspnet.errors_during_unhandled_execution
+  title: Errors Unhandled During Execution.
+  units: errors
+  family: errors
+  chart_type: line
+  priority: 60008
+  shape: independent
+  labels:
+    aspnet_app: sim-aspnet_app-1
+  dimensions:
+  - id: unhandled
+    signal: asp_net_errors_during_unhandled_execution_unhandled
+- id: aspnet.requests_byte_total
+  title: Size of responses and request.
+  units: bytes
+  family: requests
+  chart_type: line
+  priority: 60009
+  shape: independent
+  labels:
+    aspnet_app: sim-aspnet_app-1
+  dimensions:
+  - id: in
+    signal: asp_net_requests_byte_total_in
+  - id: out
+    signal: asp_net_requests_byte_total_out
+- id: aspnet.requests_executing
+  title: The number of requests currently executing.
+  units: requests
+  family: requests
+  chart_type: line
+  priority: 60010
+  shape: independent
+  labels:
+    aspnet_app: sim-aspnet_app-1
+  dimensions:
+  - id: executing
+    signal: asp_net_requests_executing_executing
+- id: aspnet.requests_failed
+  title: Number of failed requests.
+  units: requests
+  family: requests
+  chart_type: line
+  priority: 60011
+  shape: independent
+  labels:
+    aspnet_app: sim-aspnet_app-1
+  dimensions:
+  - id: executing
+    signal: asp_net_requests_failed_executing
+- id: aspnet.requests_not_found
+  title: Requests for resources that were not found.
+  units: requests
+  family: requests
+  chart_type: line
+  priority: 60012
+  shape: independent
+  labels:
+    aspnet_app: sim-aspnet_app-1
+  dimensions:
+  - id: not found
+    signal: asp_net_requests_not_found_not_found
+- id: aspnet.requests_not_authorized
+  title: Requests that were not authorized.
+  units: requests
+  family: requests
+  chart_type: line
+  priority: 60013
+  shape: independent
+  labels:
+    aspnet_app: sim-aspnet_app-1
+  dimensions:
+  - id: not_authorized
+    signal: asp_net_requests_not_authorized_not_authorized
+- id: aspnet.requests_in_application_queue
+  title: Requests in the application queue.
+  units: requests
+  family: requests
+  chart_type: line
+  priority: 60014
+  shape: independent
+  labels:
+    aspnet_app: sim-aspnet_app-1
+  dimensions:
+  - id: queue
+    signal: asp_net_requests_in_application_queue_queue
+- id: aspnet.requests_timeout
+  title: Requests that timed out.
+  units: requests
+  family: requests
+  chart_type: line
+  priority: 60015
+  shape: independent
+  labels:
+    aspnet_app: sim-aspnet_app-1
+  dimensions:
+  - id: timeout
+    signal: asp_net_requests_timeout_timeout
+- id: aspnet.requests_succeeded
+  title: Requests that executed successfully.
+  units: requests
+  family: requests
+  chart_type: line
+  priority: 60016
+  shape: independent
+  labels:
+    aspnet_app: sim-aspnet_app-1
+  dimensions:
+  - id: success
+    signal: asp_net_requests_succeeded_success
+- id: aspnet.sessions_active
+  title: Sessions currently active.
+  units: sessions
+  family: sessions
+  chart_type: line
+  priority: 60017
+  shape: independent
+  labels:
+    aspnet_app: sim-aspnet_app-1
+  dimensions:
+  - id: active
+    signal: asp_net_sessions_active_active
+- id: aspnet.sessions_abandoned
+  title: Sessions explicitly abandoned.
+  units: sessions
+  family: sessions
+  chart_type: line
+  priority: 60018
+  shape: independent
+  labels:
+    aspnet_app: sim-aspnet_app-1
+  dimensions:
+  - id: abandoned
+    signal: asp_net_sessions_abandoned_abandoned
+- id: aspnet.sessions_timed_out
+  title: Sessions timed out.
+  units: sessions
+  family: sessions
+  chart_type: line
+  priority: 60019
+  shape: independent
+  labels:
+    aspnet_app: sim-aspnet_app-1
+  dimensions:
+  - id: timed out
+    signal: asp_net_sessions_timed_out_timed_out
+- id: aspnet.transactions_aborted
+  title: Transactions Aborted.
+  units: transactions
+  family: transactions
+  chart_type: line
+  priority: 60020
+  shape: independent
+  labels:
+    aspnet_app: sim-aspnet_app-1
+  dimensions:
+  - id: aborted
+    signal: asp_net_transactions_aborted_aborted
+- id: aspnet.transactions_committed
+  title: Transactions Committed.
+  units: transactions
+  family: transactions
+  chart_type: line
+  priority: 60021
+  shape: independent
+  labels:
+    aspnet_app: sim-aspnet_app-1
+  dimensions:
+  - id: committed
+    signal: asp_net_transactions_committed_committed
+- id: aspnet.transactions_pending
+  title: Transactions Pending.
+  units: transactions
+  family: transactions
+  chart_type: line
+  priority: 60022
+  shape: independent
+  labels:
+    aspnet_app: sim-aspnet_app-1
+  dimensions:
+  - id: pending
+    signal: asp_net_transactions_pending_pending
+- id: aspnet.events_raised_per_sec
+  title: Instrumentation events.
+  units: events
+  family: events
+  chart_type: line
+  priority: 60023
+  shape: independent
+  labels:
+    aspnet_app: sim-aspnet_app-1
+  dimensions:
+  - id: raised
+    signal: asp_net_events_raised_per_sec_raised
+- id: aspnet.error_events_raised_per_sec
+  title: Runtime error events raised.
+  units: errors
+  family: error
+  chart_type: line
+  priority: 60024
+  shape: independent
+  labels:
+    aspnet_app: sim-aspnet_app-1
+  dimensions:
+  - id: events
+    signal: asp_net_error_events_raised_per_sec_events
+- id: aspnet.events_audit_success
+  title: Audit successes in the application.
+  units: errors
+  family: events
+  chart_type: line
+  priority: 60025
+  shape: independent
+  labels:
+    aspnet_app: sim-aspnet_app-1
+  dimensions:
+  - id: events
+    signal: asp_net_events_audit_success_events
+- id: aspnet.events_audit_failure
+  title: Audit Failure Events Raised
+  units: failures
+  family: events
+  chart_type: line
+  priority: 60026
+  shape: independent
+  labels:
+    aspnet_app: sim-aspnet_app-1
+  dimensions:
+  - id: audit
+    signal: asp_net_events_audit_failure_audit
+- id: aspnet.membership_auth_success
+  title: Membership Authentication Success.
+  units: auth
+  family: membership
+  chart_type: line
+  priority: 60027
+  shape: independent
+  labels:
+    aspnet_app: sim-aspnet_app-1
+  dimensions:
+  - id: success
+    signal: asp_net_membership_auth_success_success
+- id: aspnet.form_authentication_success
+  title: Membership Authentication Failure.
+  units: auth
+  family: form
+  chart_type: line
+  priority: 60028
+  shape: independent
+  labels:
+    aspnet_app: sim-aspnet_app-1
+  dimensions:
+  - id: success
+    signal: asp_net_form_authentication_success_success
+- id: aspnet.form_authentication_failure
+  title: Forms Authentication Failure.
+  units: auth
+  family: form
+  chart_type: line
+  priority: 60029
+  shape: independent
+  labels:
+    aspnet_app: sim-aspnet_app-1
+  dimensions:
+  - id: failure
+    signal: asp_net_form_authentication_failure_failure

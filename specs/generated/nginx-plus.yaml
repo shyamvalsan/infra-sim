@@ -1,0 +1,1685 @@
+version: 1
+name: nginx-plus
+description: NGINX Plus metrics, generated from Netdata's own collector metadata so the contexts, units
+  and dimension names match what a real NGINX Plus node reports. Signals are independent and plausible
+  rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  nginx_plus_client_connections_rate_accepted:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_client_connections_rate_dropped:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  nginx_plus_client_connections_count_active:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_client_connections_count_idle:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_ssl_handshakes_rate_successful:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_ssl_handshakes_rate_failed:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  nginx_plus_ssl_handshakes_failures_rate_no_common_protocol:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_ssl_handshakes_failures_rate_no_common_cipher:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_ssl_handshakes_failures_rate_timeout:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  nginx_plus_ssl_handshakes_failures_rate_peer_rejected_cert:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  nginx_plus_ssl_verification_errors_rate_no_cert:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_ssl_verification_errors_rate_expired_cert:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_ssl_verification_errors_rate_revoked_cert:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_ssl_verification_errors_rate_hostname_mismatch:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_ssl_verification_errors_rate_other:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_ssl_session_reuses_rate_ssl_session:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_http_requests_rate_requests:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_http_requests_count_requests:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_uptime_uptime:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_http_server_zone_requests_rate_requests:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_http_server_zone_responses_per_code_class_rate_1xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_http_server_zone_responses_per_code_class_rate_2xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_http_server_zone_responses_per_code_class_rate_3xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_http_server_zone_responses_per_code_class_rate_4xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_http_server_zone_responses_per_code_class_rate_5xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_http_server_zone_traffic_rate_received:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_http_server_zone_traffic_rate_sent:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_http_server_zone_requests_processing_count_processing:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_http_server_zone_requests_discarded_rate_discarded:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_http_location_zone_requests_rate_requests:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_http_location_zone_responses_per_code_class_rate_1xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_http_location_zone_responses_per_code_class_rate_2xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_http_location_zone_responses_per_code_class_rate_3xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_http_location_zone_responses_per_code_class_rate_4xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_http_location_zone_responses_per_code_class_rate_5xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_http_location_zone_traffic_rate_received:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_http_location_zone_traffic_rate_sent:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_http_location_zone_requests_discarded_rate_discarded:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_http_upstream_peers_count_peers:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_http_upstream_zombies_count_zombie:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_http_upstream_keepalive_count_keepalive:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_http_upstream_server_requests_rate_requests:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_http_upstream_server_responses_per_code_class_rate_1xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_http_upstream_server_responses_per_code_class_rate_2xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_http_upstream_server_responses_per_code_class_rate_3xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_http_upstream_server_responses_per_code_class_rate_4xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_http_upstream_server_responses_per_code_class_rate_5xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_http_upstream_server_response_time_response:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_http_upstream_server_response_header_time_header:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_http_upstream_server_traffic_rate_received:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_http_upstream_server_traffic_rate_sent:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_http_upstream_server_state_up:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  nginx_plus_http_upstream_server_state_down:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  nginx_plus_http_upstream_server_state_draining:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  nginx_plus_http_upstream_server_state_unavail:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  nginx_plus_http_upstream_server_state_checking:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  nginx_plus_http_upstream_server_state_unhealthy:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  nginx_plus_http_upstream_server_connections_count_active:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_http_upstream_server_downtime_downtime:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_http_cache_state_warm:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  nginx_plus_http_cache_state_cold:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  nginx_plus_http_cache_iops_served:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_http_cache_iops_written:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_http_cache_iops_bypass:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_http_cache_io_served:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_http_cache_io_written:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_http_cache_io_bypass:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_http_cache_size_size:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_stream_server_zone_connections_rate_accepted:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_stream_server_zone_sessions_per_code_class_rate_2xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_stream_server_zone_sessions_per_code_class_rate_4xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_stream_server_zone_sessions_per_code_class_rate_5xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_stream_server_zone_traffic_rate_received:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_stream_server_zone_traffic_rate_sent:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_stream_server_zone_connections_processing_count_processing:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_stream_server_zone_connections_discarded_rate_discarded:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_stream_upstream_peers_count_peers:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_stream_upstream_zombies_count_zombie:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_stream_upstream_server_connections_rate_forwarded:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_stream_upstream_server_traffic_rate_received:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_stream_upstream_server_traffic_rate_sent:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_stream_upstream_server_state_up:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  nginx_plus_stream_upstream_server_state_down:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  nginx_plus_stream_upstream_server_state_unavail:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  nginx_plus_stream_upstream_server_state_checking:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  nginx_plus_stream_upstream_server_state_unhealthy:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  nginx_plus_stream_upstream_server_downtime_downtime:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_stream_upstream_server_connections_count_active:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_resolver_zone_requests_rate_name:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_resolver_zone_requests_rate_srv:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_resolver_zone_requests_rate_addr:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_resolver_zone_responses_rate_noerror:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  nginx_plus_resolver_zone_responses_rate_formerr:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_resolver_zone_responses_rate_servfail:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  nginx_plus_resolver_zone_responses_rate_nxdomain:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_resolver_zone_responses_rate_notimp:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_resolver_zone_responses_rate_refused:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  nginx_plus_resolver_zone_responses_rate_timedout:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_plus_resolver_zone_responses_rate_unknown:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: nginxplus.client_connections_rate
+  title: Client connections rate
+  units: connections/s
+  family: client
+  chart_type: line
+  priority: 60001
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: accepted
+    rate_signal: nginx_plus_client_connections_rate_accepted
+  - id: dropped
+    rate_signal: nginx_plus_client_connections_rate_dropped
+- id: nginxplus.client_connections_count
+  title: Client connections
+  units: connections
+  family: client
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: active
+    signal: nginx_plus_client_connections_count_active
+  - id: idle
+    signal: nginx_plus_client_connections_count_idle
+- id: nginxplus.ssl_handshakes_rate
+  title: SSL handshakes rate
+  units: handshakes/s
+  family: ssl
+  chart_type: line
+  priority: 60003
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: successful
+    rate_signal: nginx_plus_ssl_handshakes_rate_successful
+  - id: failed
+    rate_signal: nginx_plus_ssl_handshakes_rate_failed
+- id: nginxplus.ssl_handshakes_failures_rate
+  title: SSL handshakes failures rate
+  units: failures/s
+  family: ssl
+  chart_type: stacked
+  priority: 60004
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: no_common_protocol
+    rate_signal: nginx_plus_ssl_handshakes_failures_rate_no_common_protocol
+  - id: no_common_cipher
+    rate_signal: nginx_plus_ssl_handshakes_failures_rate_no_common_cipher
+  - id: timeout
+    rate_signal: nginx_plus_ssl_handshakes_failures_rate_timeout
+  - id: peer_rejected_cert
+    rate_signal: nginx_plus_ssl_handshakes_failures_rate_peer_rejected_cert
+- id: nginxplus.ssl_verification_errors_rate
+  title: SSL verification errors rate
+  units: errors/s
+  family: ssl
+  chart_type: stacked
+  priority: 60005
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: no_cert
+    rate_signal: nginx_plus_ssl_verification_errors_rate_no_cert
+  - id: expired_cert
+    rate_signal: nginx_plus_ssl_verification_errors_rate_expired_cert
+  - id: revoked_cert
+    rate_signal: nginx_plus_ssl_verification_errors_rate_revoked_cert
+  - id: hostname_mismatch
+    rate_signal: nginx_plus_ssl_verification_errors_rate_hostname_mismatch
+  - id: other
+    rate_signal: nginx_plus_ssl_verification_errors_rate_other
+- id: nginxplus.ssl_session_reuses_rate
+  title: Session reuses during SSL handshak
+  units: reuses/s
+  family: ssl
+  chart_type: line
+  priority: 60006
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: ssl_session
+    rate_signal: nginx_plus_ssl_session_reuses_rate_ssl_session
+- id: nginxplus.http_requests_rate
+  title: HTTP requests rate
+  units: requests/s
+  family: http
+  chart_type: line
+  priority: 60007
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: requests
+    rate_signal: nginx_plus_http_requests_rate_requests
+- id: nginxplus.http_requests_count
+  title: HTTP requests
+  units: requests
+  family: http
+  chart_type: line
+  priority: 60008
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: requests
+    signal: nginx_plus_http_requests_count_requests
+- id: nginxplus.uptime
+  title: Uptime
+  units: seconds
+  family: uptime
+  chart_type: line
+  priority: 60009
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: uptime
+    signal: nginx_plus_uptime_uptime
+- id: nginxplus.http_server_zone_requests_rate
+  title: HTTP Server Zone requests rate
+  units: requests/s
+  family: http
+  chart_type: line
+  priority: 60010
+  shape: counters
+  labels:
+    http_server_zone: sim-http_server_zone-1
+  dimensions:
+  - id: requests
+    rate_signal: nginx_plus_http_server_zone_requests_rate_requests
+- id: nginxplus.http_server_zone_responses_per_code_class_rate
+  title: HTTP Server Zone responses rate
+  units: responses/s
+  family: http
+  chart_type: stacked
+  priority: 60011
+  shape: counters
+  labels:
+    http_server_zone: sim-http_server_zone-1
+  dimensions:
+  - id: 1xx
+    rate_signal: nginx_plus_http_server_zone_responses_per_code_class_rate_1xx
+  - id: 2xx
+    rate_signal: nginx_plus_http_server_zone_responses_per_code_class_rate_2xx
+  - id: 3xx
+    rate_signal: nginx_plus_http_server_zone_responses_per_code_class_rate_3xx
+  - id: 4xx
+    rate_signal: nginx_plus_http_server_zone_responses_per_code_class_rate_4xx
+  - id: 5xx
+    rate_signal: nginx_plus_http_server_zone_responses_per_code_class_rate_5xx
+- id: nginxplus.http_server_zone_traffic_rate
+  title: HTTP Server Zone traffic
+  units: bytes/s
+  family: http
+  chart_type: area
+  priority: 60012
+  shape: counters
+  labels:
+    http_server_zone: sim-http_server_zone-1
+  dimensions:
+  - id: received
+    rate_signal: nginx_plus_http_server_zone_traffic_rate_received
+  - id: sent
+    rate_signal: nginx_plus_http_server_zone_traffic_rate_sent
+- id: nginxplus.http_server_zone_requests_processing_count
+  title: HTTP Server Zone currently processed requests
+  units: requests
+  family: http
+  chart_type: line
+  priority: 60013
+  shape: independent
+  labels:
+    http_server_zone: sim-http_server_zone-1
+  dimensions:
+  - id: processing
+    signal: nginx_plus_http_server_zone_requests_processing_count_processing
+- id: nginxplus.http_server_zone_requests_discarded_rate
+  title: HTTP Server Zone requests discarded rate
+  units: requests/s
+  family: http
+  chart_type: line
+  priority: 60014
+  shape: counters
+  labels:
+    http_server_zone: sim-http_server_zone-1
+  dimensions:
+  - id: discarded
+    rate_signal: nginx_plus_http_server_zone_requests_discarded_rate_discarded
+- id: nginxplus.http_location_zone_requests_rate
+  title: HTTP Location Zone requests rate
+  units: requests/s
+  family: http
+  chart_type: line
+  priority: 60015
+  shape: counters
+  labels:
+    http_location_zone: sim-http_location_zone-1
+  dimensions:
+  - id: requests
+    rate_signal: nginx_plus_http_location_zone_requests_rate_requests
+- id: nginxplus.http_location_zone_responses_per_code_class_rate
+  title: HTTP Location Zone responses rate
+  units: responses/s
+  family: http
+  chart_type: stacked
+  priority: 60016
+  shape: counters
+  labels:
+    http_location_zone: sim-http_location_zone-1
+  dimensions:
+  - id: 1xx
+    rate_signal: nginx_plus_http_location_zone_responses_per_code_class_rate_1xx
+  - id: 2xx
+    rate_signal: nginx_plus_http_location_zone_responses_per_code_class_rate_2xx
+  - id: 3xx
+    rate_signal: nginx_plus_http_location_zone_responses_per_code_class_rate_3xx
+  - id: 4xx
+    rate_signal: nginx_plus_http_location_zone_responses_per_code_class_rate_4xx
+  - id: 5xx
+    rate_signal: nginx_plus_http_location_zone_responses_per_code_class_rate_5xx
+- id: nginxplus.http_location_zone_traffic_rate
+  title: HTTP Location Zone traffic rate
+  units: bytes/s
+  family: http
+  chart_type: area
+  priority: 60017
+  shape: counters
+  labels:
+    http_location_zone: sim-http_location_zone-1
+  dimensions:
+  - id: received
+    rate_signal: nginx_plus_http_location_zone_traffic_rate_received
+  - id: sent
+    rate_signal: nginx_plus_http_location_zone_traffic_rate_sent
+- id: nginxplus.http_location_zone_requests_discarded_rate
+  title: HTTP Location Zone requests discarded rate
+  units: requests/s
+  family: http
+  chart_type: line
+  priority: 60018
+  shape: counters
+  labels:
+    http_location_zone: sim-http_location_zone-1
+  dimensions:
+  - id: discarded
+    rate_signal: nginx_plus_http_location_zone_requests_discarded_rate_discarded
+- id: nginxplus.http_upstream_peers_count
+  title: HTTP Upstream peers
+  units: peers
+  family: http
+  chart_type: line
+  priority: 60019
+  shape: independent
+  labels:
+    http_upstream_name: sim-http_upstream_name-1
+    http_upstream_zone: sim-http_upstream_zone-1
+  dimensions:
+  - id: peers
+    signal: nginx_plus_http_upstream_peers_count_peers
+- id: nginxplus.http_upstream_zombies_count
+  title: HTTP Upstream zombies
+  units: servers
+  family: http
+  chart_type: line
+  priority: 60020
+  shape: independent
+  labels:
+    http_upstream_name: sim-http_upstream_name-1
+    http_upstream_zone: sim-http_upstream_zone-1
+  dimensions:
+  - id: zombie
+    signal: nginx_plus_http_upstream_zombies_count_zombie
+- id: nginxplus.http_upstream_keepalive_count
+  title: HTTP Upstream keepalive
+  units: connections
+  family: http
+  chart_type: line
+  priority: 60021
+  shape: independent
+  labels:
+    http_upstream_name: sim-http_upstream_name-1
+    http_upstream_zone: sim-http_upstream_zone-1
+  dimensions:
+  - id: keepalive
+    signal: nginx_plus_http_upstream_keepalive_count_keepalive
+- id: nginxplus.http_upstream_server_requests_rate
+  title: HTTP Upstream Server requests
+  units: requests/s
+  family: http
+  chart_type: line
+  priority: 60022
+  shape: counters
+  labels:
+    http_upstream_name: sim-http_upstream_name-1
+    http_upstream_zone: sim-http_upstream_zone-1
+    http_upstream_server_address: sim-http_upstream_server_address-1
+    http_upstream_server_name: sim-http_upstream_server_name-1
+  dimensions:
+  - id: requests
+    rate_signal: nginx_plus_http_upstream_server_requests_rate_requests
+- id: nginxplus.http_upstream_server_responses_per_code_class_rate
+  title: HTTP Upstream Server responses
+  units: responses/s
+  family: http
+  chart_type: stacked
+  priority: 60023
+  shape: counters
+  labels:
+    http_upstream_name: sim-http_upstream_name-1
+    http_upstream_zone: sim-http_upstream_zone-1
+    http_upstream_server_address: sim-http_upstream_server_address-1
+    http_upstream_server_name: sim-http_upstream_server_name-1
+  dimensions:
+  - id: 1xx
+    rate_signal: nginx_plus_http_upstream_server_responses_per_code_class_rate_1xx
+  - id: 2xx
+    rate_signal: nginx_plus_http_upstream_server_responses_per_code_class_rate_2xx
+  - id: 3xx
+    rate_signal: nginx_plus_http_upstream_server_responses_per_code_class_rate_3xx
+  - id: 4xx
+    rate_signal: nginx_plus_http_upstream_server_responses_per_code_class_rate_4xx
+  - id: 5xx
+    rate_signal: nginx_plus_http_upstream_server_responses_per_code_class_rate_5xx
+- id: nginxplus.http_upstream_server_response_time
+  title: HTTP Upstream Server average response time
+  units: milliseconds
+  family: http
+  chart_type: line
+  priority: 60024
+  shape: independent
+  labels:
+    http_upstream_name: sim-http_upstream_name-1
+    http_upstream_zone: sim-http_upstream_zone-1
+    http_upstream_server_address: sim-http_upstream_server_address-1
+    http_upstream_server_name: sim-http_upstream_server_name-1
+  dimensions:
+  - id: response
+    signal: nginx_plus_http_upstream_server_response_time_response
+- id: nginxplus.http_upstream_server_response_header_time
+  title: HTTP Upstream Server average response header time
+  units: milliseconds
+  family: http
+  chart_type: line
+  priority: 60025
+  shape: independent
+  labels:
+    http_upstream_name: sim-http_upstream_name-1
+    http_upstream_zone: sim-http_upstream_zone-1
+    http_upstream_server_address: sim-http_upstream_server_address-1
+    http_upstream_server_name: sim-http_upstream_server_name-1
+  dimensions:
+  - id: header
+    signal: nginx_plus_http_upstream_server_response_header_time_header
+- id: nginxplus.http_upstream_server_traffic_rate
+  title: HTTP Upstream Server traffic rate
+  units: bytes/s
+  family: http
+  chart_type: area
+  priority: 60026
+  shape: counters
+  labels:
+    http_upstream_name: sim-http_upstream_name-1
+    http_upstream_zone: sim-http_upstream_zone-1
+    http_upstream_server_address: sim-http_upstream_server_address-1
+    http_upstream_server_name: sim-http_upstream_server_name-1
+  dimensions:
+  - id: received
+    rate_signal: nginx_plus_http_upstream_server_traffic_rate_received
+  - id: sent
+    rate_signal: nginx_plus_http_upstream_server_traffic_rate_sent
+- id: nginxplus.http_upstream_server_state
+  title: HTTP Upstream Server state
+  units: state
+  family: http
+  chart_type: line
+  priority: 60027
+  shape: independent
+  labels:
+    http_upstream_name: sim-http_upstream_name-1
+    http_upstream_zone: sim-http_upstream_zone-1
+    http_upstream_server_address: sim-http_upstream_server_address-1
+    http_upstream_server_name: sim-http_upstream_server_name-1
+  dimensions:
+  - id: up
+    signal: nginx_plus_http_upstream_server_state_up
+  - id: down
+    signal: nginx_plus_http_upstream_server_state_down
+  - id: draining
+    signal: nginx_plus_http_upstream_server_state_draining
+  - id: unavail
+    signal: nginx_plus_http_upstream_server_state_unavail
+  - id: checking
+    signal: nginx_plus_http_upstream_server_state_checking
+  - id: unhealthy
+    signal: nginx_plus_http_upstream_server_state_unhealthy
+- id: nginxplus.http_upstream_server_connections_count
+  title: HTTP Upstream Server connections
+  units: connections
+  family: http
+  chart_type: line
+  priority: 60028
+  shape: independent
+  labels:
+    http_upstream_name: sim-http_upstream_name-1
+    http_upstream_zone: sim-http_upstream_zone-1
+    http_upstream_server_address: sim-http_upstream_server_address-1
+    http_upstream_server_name: sim-http_upstream_server_name-1
+  dimensions:
+  - id: active
+    signal: nginx_plus_http_upstream_server_connections_count_active
+- id: nginxplus.http_upstream_server_downtime
+  title: HTTP Upstream Server downtime
+  units: seconds
+  family: http
+  chart_type: line
+  priority: 60029
+  shape: independent
+  labels:
+    http_upstream_name: sim-http_upstream_name-1
+    http_upstream_zone: sim-http_upstream_zone-1
+    http_upstream_server_address: sim-http_upstream_server_address-1
+    http_upstream_server_name: sim-http_upstream_server_name-1
+  dimensions:
+  - id: downtime
+    signal: nginx_plus_http_upstream_server_downtime_downtime
+- id: nginxplus.http_cache_state
+  title: HTTP Cache state
+  units: state
+  family: http
+  chart_type: line
+  priority: 60030
+  shape: independent
+  labels:
+    http_cache: sim-http_cache-1
+  dimensions:
+  - id: warm
+    signal: nginx_plus_http_cache_state_warm
+  - id: cold
+    signal: nginx_plus_http_cache_state_cold
+- id: nginxplus.http_cache_iops
+  title: HTTP Cache size
+  units: responses/s
+  family: http
+  chart_type: line
+  priority: 60031
+  shape: counters
+  labels:
+    http_cache: sim-http_cache-1
+  dimensions:
+  - id: served
+    rate_signal: nginx_plus_http_cache_iops_served
+  - id: written
+    rate_signal: nginx_plus_http_cache_iops_written
+  - id: bypass
+    rate_signal: nginx_plus_http_cache_iops_bypass
+- id: nginxplus.http_cache_io
+  title: HTTP Cache IOPS
+  units: bytes/s
+  family: http
+  chart_type: line
+  priority: 60032
+  shape: counters
+  labels:
+    http_cache: sim-http_cache-1
+  dimensions:
+  - id: served
+    rate_signal: nginx_plus_http_cache_io_served
+  - id: written
+    rate_signal: nginx_plus_http_cache_io_written
+  - id: bypass
+    rate_signal: nginx_plus_http_cache_io_bypass
+- id: nginxplus.http_cache_size
+  title: HTTP Cache IO
+  units: bytes
+  family: http
+  chart_type: line
+  priority: 60033
+  shape: independent
+  labels:
+    http_cache: sim-http_cache-1
+  dimensions:
+  - id: size
+    signal: nginx_plus_http_cache_size_size
+- id: nginxplus.stream_server_zone_connections_rate
+  title: Stream Server Zone connections rate
+  units: connections/s
+  family: stream
+  chart_type: line
+  priority: 60034
+  shape: counters
+  labels:
+    stream_server_zone: sim-stream_server_zone-1
+  dimensions:
+  - id: accepted
+    rate_signal: nginx_plus_stream_server_zone_connections_rate_accepted
+- id: nginxplus.stream_server_zone_sessions_per_code_class_rate
+  title: Stream Server Zone sessions rate
+  units: sessions/s
+  family: stream
+  chart_type: stacked
+  priority: 60035
+  shape: counters
+  labels:
+    stream_server_zone: sim-stream_server_zone-1
+  dimensions:
+  - id: 2xx
+    rate_signal: nginx_plus_stream_server_zone_sessions_per_code_class_rate_2xx
+  - id: 4xx
+    rate_signal: nginx_plus_stream_server_zone_sessions_per_code_class_rate_4xx
+  - id: 5xx
+    rate_signal: nginx_plus_stream_server_zone_sessions_per_code_class_rate_5xx
+- id: nginxplus.stream_server_zone_traffic_rate
+  title: Stream Server Zone traffic rate
+  units: bytes/s
+  family: stream
+  chart_type: area
+  priority: 60036
+  shape: counters
+  labels:
+    stream_server_zone: sim-stream_server_zone-1
+  dimensions:
+  - id: received
+    rate_signal: nginx_plus_stream_server_zone_traffic_rate_received
+  - id: sent
+    rate_signal: nginx_plus_stream_server_zone_traffic_rate_sent
+- id: nginxplus.stream_server_zone_connections_processing_count
+  title: Stream Server Zone connections processed
+  units: connections
+  family: stream
+  chart_type: line
+  priority: 60037
+  shape: independent
+  labels:
+    stream_server_zone: sim-stream_server_zone-1
+  dimensions:
+  - id: processing
+    signal: nginx_plus_stream_server_zone_connections_processing_count_processing
+- id: nginxplus.stream_server_zone_connections_discarded_rate
+  title: Stream Server Zone connections discarded
+  units: connections/s
+  family: stream
+  chart_type: line
+  priority: 60038
+  shape: counters
+  labels:
+    stream_server_zone: sim-stream_server_zone-1
+  dimensions:
+  - id: discarded
+    rate_signal: nginx_plus_stream_server_zone_connections_discarded_rate_discarded
+- id: nginxplus.stream_upstream_peers_count
+  title: Stream Upstream peers
+  units: peers
+  family: stream
+  chart_type: line
+  priority: 60039
+  shape: independent
+  labels:
+    stream_upstream_name: sim-stream_upstream_name-1
+    stream_upstream_zone: sim-stream_upstream_zone-1
+  dimensions:
+  - id: peers
+    signal: nginx_plus_stream_upstream_peers_count_peers
+- id: nginxplus.stream_upstream_zombies_count
+  title: Stream Upstream zombies
+  units: servers
+  family: stream
+  chart_type: line
+  priority: 60040
+  shape: independent
+  labels:
+    stream_upstream_name: sim-stream_upstream_name-1
+    stream_upstream_zone: sim-stream_upstream_zone-1
+  dimensions:
+  - id: zombie
+    signal: nginx_plus_stream_upstream_zombies_count_zombie
+- id: nginxplus.stream_upstream_server_connections_rate
+  title: Stream Upstream Server connections
+  units: connections/s
+  family: stream
+  chart_type: line
+  priority: 60041
+  shape: counters
+  labels:
+    stream_upstream_name: sim-stream_upstream_name-1
+    stream_upstream_zone: sim-stream_upstream_zone-1
+    stream_upstream_server_address: sim-stream_upstream_server_address-1
+    stream_upstream_server_name: sim-stream_upstream_server_name-1
+  dimensions:
+  - id: forwarded
+    rate_signal: nginx_plus_stream_upstream_server_connections_rate_forwarded
+- id: nginxplus.stream_upstream_server_traffic_rate
+  title: Stream Upstream Server traffic rate
+  units: bytes/s
+  family: stream
+  chart_type: area
+  priority: 60042
+  shape: counters
+  labels:
+    stream_upstream_name: sim-stream_upstream_name-1
+    stream_upstream_zone: sim-stream_upstream_zone-1
+    stream_upstream_server_address: sim-stream_upstream_server_address-1
+    stream_upstream_server_name: sim-stream_upstream_server_name-1
+  dimensions:
+  - id: received
+    rate_signal: nginx_plus_stream_upstream_server_traffic_rate_received
+  - id: sent
+    rate_signal: nginx_plus_stream_upstream_server_traffic_rate_sent
+- id: nginxplus.stream_upstream_server_state
+  title: Stream Upstream Server state
+  units: state
+  family: stream
+  chart_type: line
+  priority: 60043
+  shape: independent
+  labels:
+    stream_upstream_name: sim-stream_upstream_name-1
+    stream_upstream_zone: sim-stream_upstream_zone-1
+    stream_upstream_server_address: sim-stream_upstream_server_address-1
+    stream_upstream_server_name: sim-stream_upstream_server_name-1
+  dimensions:
+  - id: up
+    signal: nginx_plus_stream_upstream_server_state_up
+  - id: down
+    signal: nginx_plus_stream_upstream_server_state_down
+  - id: unavail
+    signal: nginx_plus_stream_upstream_server_state_unavail
+  - id: checking
+    signal: nginx_plus_stream_upstream_server_state_checking
+  - id: unhealthy
+    signal: nginx_plus_stream_upstream_server_state_unhealthy
+- id: nginxplus.stream_upstream_server_downtime
+  title: Stream Upstream Server downtime
+  units: seconds
+  family: stream
+  chart_type: line
+  priority: 60044
+  shape: independent
+  labels:
+    stream_upstream_name: sim-stream_upstream_name-1
+    stream_upstream_zone: sim-stream_upstream_zone-1
+    stream_upstream_server_address: sim-stream_upstream_server_address-1
+    stream_upstream_server_name: sim-stream_upstream_server_name-1
+  dimensions:
+  - id: downtime
+    signal: nginx_plus_stream_upstream_server_downtime_downtime
+- id: nginxplus.stream_upstream_server_connections_count
+  title: Stream Upstream Server connections
+  units: connections
+  family: stream
+  chart_type: line
+  priority: 60045
+  shape: independent
+  labels:
+    stream_upstream_name: sim-stream_upstream_name-1
+    stream_upstream_zone: sim-stream_upstream_zone-1
+    stream_upstream_server_address: sim-stream_upstream_server_address-1
+    stream_upstream_server_name: sim-stream_upstream_server_name-1
+  dimensions:
+  - id: active
+    signal: nginx_plus_stream_upstream_server_connections_count_active
+- id: nginxplus.resolver_zone_requests_rate
+  title: Resolver requests rate
+  units: requests/s
+  family: resolver
+  chart_type: stacked
+  priority: 60046
+  shape: counters
+  labels:
+    resolver_zone: sim-resolver_zone-1
+  dimensions:
+  - id: name
+    rate_signal: nginx_plus_resolver_zone_requests_rate_name
+  - id: srv
+    rate_signal: nginx_plus_resolver_zone_requests_rate_srv
+  - id: addr
+    rate_signal: nginx_plus_resolver_zone_requests_rate_addr
+- id: nginxplus.resolver_zone_responses_rate
+  title: Resolver responses rate
+  units: responses/s
+  family: resolver
+  chart_type: stacked
+  priority: 60047
+  shape: counters
+  labels:
+    resolver_zone: sim-resolver_zone-1
+  dimensions:
+  - id: noerror
+    rate_signal: nginx_plus_resolver_zone_responses_rate_noerror
+  - id: formerr
+    rate_signal: nginx_plus_resolver_zone_responses_rate_formerr
+  - id: servfail
+    rate_signal: nginx_plus_resolver_zone_responses_rate_servfail
+  - id: nxdomain
+    rate_signal: nginx_plus_resolver_zone_responses_rate_nxdomain
+  - id: notimp
+    rate_signal: nginx_plus_resolver_zone_responses_rate_notimp
+  - id: refused
+    rate_signal: nginx_plus_resolver_zone_responses_rate_refused
+  - id: timedout
+    rate_signal: nginx_plus_resolver_zone_responses_rate_timedout
+  - id: unknown
+    rate_signal: nginx_plus_resolver_zone_responses_rate_unknown

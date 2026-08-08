@@ -1,0 +1,266 @@
+version: 1
+name: azure-expressroute-circuit
+description: Azure ExpressRoute Circuit metrics, generated from Netdata's own collector metadata so the
+  contexts, units and dimension names match what a real Azure ExpressRoute Circuit node reports. Signals
+  are independent and plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  azure_expressroute_circuit_express_route_circuit_arp_availability_average:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_expressroute_circuit_express_route_circuit_bgp_availability_average:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_expressroute_circuit_express_route_circuit_throughput_in:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_expressroute_circuit_express_route_circuit_throughput_out:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_expressroute_circuit_express_route_circuit_bandwidth_utilization_ingress:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_expressroute_circuit_express_route_circuit_bandwidth_utilization_egress:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_expressroute_circuit_express_route_circuit_qos_dropped_bits_in:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_expressroute_circuit_express_route_circuit_qos_dropped_bits_out:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_expressroute_circuit_express_route_circuit_fastpath_routes_maximum:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_expressroute_circuit_express_route_circuit_global_reach_throughput_in:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_expressroute_circuit_express_route_circuit_global_reach_throughput_out:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: azure_monitor.express_route_circuit.arp_availability
+  title: Azure ExpressRoute Circuit ARP Availability
+  units: percentage
+  family: express
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_expressroute_circuit_express_route_circuit_arp_availability_average
+- id: azure_monitor.express_route_circuit.bgp_availability
+  title: Azure ExpressRoute Circuit BGP Availability
+  units: percentage
+  family: express
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: average
+    signal: azure_expressroute_circuit_express_route_circuit_bgp_availability_average
+- id: azure_monitor.express_route_circuit.throughput
+  title: Azure ExpressRoute Circuit Throughput
+  units: bits/s
+  family: express
+  chart_type: line
+  priority: 60003
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: in
+    rate_signal: azure_expressroute_circuit_express_route_circuit_throughput_in
+  - id: out
+    rate_signal: azure_expressroute_circuit_express_route_circuit_throughput_out
+- id: azure_monitor.express_route_circuit.bandwidth_utilization
+  title: Azure ExpressRoute Circuit Bandwidth Utilization
+  units: percentage
+  family: express
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: ingress
+    signal: azure_expressroute_circuit_express_route_circuit_bandwidth_utilization_ingress
+  - id: egress
+    signal: azure_expressroute_circuit_express_route_circuit_bandwidth_utilization_egress
+- id: azure_monitor.express_route_circuit.qos_dropped_bits
+  title: Azure ExpressRoute Circuit QoS Dropped Bits
+  units: bits/s
+  family: express
+  chart_type: line
+  priority: 60005
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: in
+    rate_signal: azure_expressroute_circuit_express_route_circuit_qos_dropped_bits_in
+  - id: out
+    rate_signal: azure_expressroute_circuit_express_route_circuit_qos_dropped_bits_out
+- id: azure_monitor.express_route_circuit.fastpath_routes
+  title: Azure ExpressRoute Circuit FastPath Routes
+  units: routes
+  family: express
+  chart_type: line
+  priority: 60006
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: maximum
+    signal: azure_expressroute_circuit_express_route_circuit_fastpath_routes_maximum
+- id: azure_monitor.express_route_circuit.global_reach_throughput
+  title: Azure ExpressRoute Circuit GlobalReach Throughput
+  units: bits/s
+  family: express
+  chart_type: line
+  priority: 60007
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: in
+    rate_signal: azure_expressroute_circuit_express_route_circuit_global_reach_throughput_in
+  - id: out
+    rate_signal: azure_expressroute_circuit_express_route_circuit_global_reach_throughput_out

@@ -308,6 +308,17 @@ const NUMBERS: &[(&str, usize)] = &[
 
 /// Parse a description into node groups.
 pub fn parse(text: &str) -> Reading {
+    parse_with_services(text, &[])
+}
+
+/// Read a description, resolving named integrations against `available`.
+///
+/// Without a catalogue the reader can only assign each role its default
+/// collectors, so "two haproxy load balancers" becomes two `lb` nodes running
+/// nginx - the right shape and the wrong software, which is exactly the kind of
+/// detail a prospect notices. Given the catalogue, an integration named in the
+/// text wins over the role's default.
+pub fn parse_with_services(text: &str, available: &[String]) -> Reading {
     let mut reading = Reading::default();
     let lower = text.to_lowercase();
 
@@ -325,7 +336,7 @@ pub fn parse(text: &str) -> Reading {
         .collect();
 
     for clause in clauses {
-        match match_clause(clause) {
+        match match_clause(clause, available) {
             Some(g) => merge(&mut reading.groups, g),
             None => {
                 // Only report clauses that look like they meant something; a
@@ -340,8 +351,17 @@ pub fn parse(text: &str) -> Reading {
     reading
 }
 
+/// Fold a clause's group into the reading.
+///
+/// Two clauses merge only when they describe the same role running the same
+/// software. Merging on role alone silently discarded the second clause's
+/// collectors: "6 nginx web servers ... and an elasticsearch cluster of 3"
+/// became nine nginx nodes and no Elasticsearch anywhere.
 fn merge(groups: &mut Vec<Group>, incoming: Group) {
-    if let Some(existing) = groups.iter_mut().find(|g| g.role == incoming.role) {
+    if let Some(existing) = groups
+        .iter_mut()
+        .find(|g| g.role == incoming.role && g.services == incoming.services)
+    {
         existing.count += incoming.count;
         existing.source = format!("{}; {}", existing.source, incoming.source);
     } else {
@@ -349,7 +369,34 @@ fn merge(groups: &mut Vec<Group>, incoming: Group) {
     }
 }
 
-fn match_clause(clause: &str) -> Option<Group> {
+/// Integrations named outright in a clause.
+///
+/// Word-boundary matching with a minimum length, because short ids like `ping`
+/// and `dns` appear inside ordinary English and would attach collectors nobody
+/// asked for.
+fn named_services(clause: &str, available: &[String]) -> Vec<String> {
+    const MIN_LEN: usize = 4;
+    let words: Vec<&str> = clause
+        .split(|c: char| !c.is_ascii_alphanumeric() && c != '-' && c != '_')
+        .filter(|w| !w.is_empty())
+        .collect();
+    let mut hits: Vec<String> = available
+        .iter()
+        .filter(|id| id.len() >= MIN_LEN)
+        .filter(|id| {
+            // Either the whole id appears as a word, or a hyphenated id appears
+            // as a run of words ("otel collector" for `otel-collector`).
+            words.contains(&id.as_str())
+                || (id.contains('-') && clause.contains(&id.replace('-', " ")))
+        })
+        .cloned()
+        .collect();
+    hits.sort();
+    hits.dedup();
+    hits
+}
+
+fn match_clause(clause: &str, available: &[String]) -> Option<Group> {
     // Longest keyword first, so "web server" is not shadowed by "web" and
     // "control plane" is not swallowed by a later "worker" match.
     let mut best: Option<(&RoleDef, usize)> = None;
@@ -363,12 +410,25 @@ fn match_clause(clause: &str) -> Option<Group> {
             }
         }
     }
-    let (def, _) = best?;
+    let named = named_services(clause, available);
+    let (def, _) = match best {
+        Some(b) => b,
+        // "3 kafka brokers" names software but no role word. Software still
+        // implies nodes, so fall back to the generic application role rather
+        // than discarding the clause - `web` is this catalogue's general-purpose
+        // node, not specifically an HTTP server.
+        None if !named.is_empty() => (ROLES.iter().find(|d| d.role == "web")?, 0),
+        None => return None,
+    };
 
     Some(Group {
         count: extract_count(clause),
         role: def.role.to_string(),
-        services: def.services.iter().map(|s| s.to_string()).collect(),
+        services: if named.is_empty() {
+            def.services.iter().map(|s| s.to_string()).collect()
+        } else {
+            named
+        },
         // Keyword matching has no evidence for a better name than the role's.
         slug: None,
         source: clause.to_string(),

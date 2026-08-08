@@ -1,0 +1,122 @@
+version: 1
+name: smb-server-shares
+description: SMB Server Shares metrics, generated from Netdata's own collector metadata so the contexts,
+  units and dimension names match what a real SMB Server Shares node reports. Signals are independent
+  and plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  smb_server_shares_server_shares_current_open_file_count_open:
+    base: 1200.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  smb_server_shares_server_shares_write_requests_writes:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  smb_server_shares_server_shares_read_requests_reads:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  smb_server_shares_server_shares_metadata_requests_metadata:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  smb_server_shares_server_shares_files_opened_opened:
+    base: 22.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: smb.server_shares_current_open_file_count
+  title: Current total count of open files on the SMB share.
+  units: files
+  family: server
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels:
+    share: sim-share-1
+  dimensions:
+  - id: open
+    signal: smb_server_shares_server_shares_current_open_file_count_open
+- id: smb.server_shares_write_requests
+  title: Write requests on the SMB share.
+  units: requests/s
+  family: server
+  chart_type: line
+  priority: 60002
+  shape: counters
+  labels:
+    share: sim-share-1
+  dimensions:
+  - id: writes
+    rate_signal: smb_server_shares_server_shares_write_requests_writes
+- id: smb.server_shares_read_requests
+  title: Read requests on the SMB share.
+  units: requests/s
+  family: server
+  chart_type: line
+  priority: 60003
+  shape: counters
+  labels:
+    share: sim-share-1
+  dimensions:
+  - id: reads
+    rate_signal: smb_server_shares_server_shares_read_requests_reads
+- id: smb.server_shares_metadata_requests
+  title: Metadata requests on the SMB share.
+  units: requests/s
+  family: server
+  chart_type: line
+  priority: 60004
+  shape: counters
+  labels:
+    share: sim-share-1
+  dimensions:
+  - id: metadata
+    rate_signal: smb_server_shares_server_shares_metadata_requests_metadata
+- id: smb.server_shares_files_opened
+  title: Files opened on the SMB share.
+  units: files/s
+  family: server
+  chart_type: line
+  priority: 60005
+  shape: counters
+  labels:
+    share: sim-share-1
+  dimensions:
+  - id: opened
+    rate_signal: smb_server_shares_server_shares_files_opened_opened

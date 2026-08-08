@@ -1,0 +1,74 @@
+version: 1
+name: softnet-statistics
+description: Softnet Statistics metrics, generated from Netdata's own collector metadata so the contexts,
+  units and dimension names match what a real Softnet Statistics node reports. Signals are independent
+  and plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  softnet_statistics_softnet_stat_processed:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  softnet_statistics_softnet_stat_dropped:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  softnet_statistics_softnet_stat_squeezed:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  softnet_statistics_softnet_stat_received_rps:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  softnet_statistics_softnet_stat_flow_limit_count:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: cpu.softnet_stat
+  title: CPU softnet_stat
+  units: events/s
+  family: softnet
+  chart_type: line
+  priority: 60001
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: processed
+    rate_signal: softnet_statistics_softnet_stat_processed
+  - id: dropped
+    rate_signal: softnet_statistics_softnet_stat_dropped
+  - id: squeezed
+    rate_signal: softnet_statistics_softnet_stat_squeezed
+  - id: received_rps
+    rate_signal: softnet_statistics_softnet_stat_received_rps
+  - id: flow_limit_count
+    rate_signal: softnet_statistics_softnet_stat_flow_limit_count

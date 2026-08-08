@@ -1,0 +1,884 @@
+version: 1
+name: cassandra
+description: Cassandra metrics, generated from Netdata's own collector metadata so the contexts, units
+  and dimension names match what a real Cassandra node reports. Signals are independent and plausible
+  rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  cassandra_client_requests_rate_read:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cassandra_client_requests_rate_write:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cassandra_client_request_read_latency_histogram_p50:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cassandra_client_request_read_latency_histogram_p75:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cassandra_client_request_read_latency_histogram_p95:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cassandra_client_request_read_latency_histogram_p98:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cassandra_client_request_read_latency_histogram_p99:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cassandra_client_request_read_latency_histogram_p999:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cassandra_client_request_write_latency_histogram_p50:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cassandra_client_request_write_latency_histogram_p75:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cassandra_client_request_write_latency_histogram_p95:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cassandra_client_request_write_latency_histogram_p98:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cassandra_client_request_write_latency_histogram_p99:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cassandra_client_request_write_latency_histogram_p999:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cassandra_client_requests_latency_read:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cassandra_client_requests_latency_write:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cassandra_row_cache_hit_ratio_hit_ratio:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cassandra_row_cache_hit_rate_hits:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cassandra_row_cache_hit_rate_misses:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cassandra_row_cache_utilization_used:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cassandra_row_cache_size_size:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cassandra_key_cache_hit_ratio_hit_ratio:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cassandra_key_cache_hit_rate_hits:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cassandra_key_cache_hit_rate_misses:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cassandra_key_cache_utilization_used:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cassandra_key_cache_size_size:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cassandra_storage_live_disk_space_used_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cassandra_compaction_completed_tasks_rate_completed:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cassandra_compaction_pending_tasks_count_pending:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cassandra_compaction_compacted_rate_compacted:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cassandra_jvm_memory_used_heap:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cassandra_jvm_memory_used_nonheap:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cassandra_jvm_gc_rate_parnew:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cassandra_jvm_gc_rate_cms:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cassandra_jvm_gc_time_parnew:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cassandra_jvm_gc_time_cms:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cassandra_dropped_messages_rate_dropped:
+    base: 0.0
+    min: 0.0
+    max: 2000000.0
+  cassandra_client_requests_timeouts_rate_read:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cassandra_client_requests_timeouts_rate_write:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cassandra_client_requests_unavailables_rate_read:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cassandra_client_requests_unavailables_rate_write:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cassandra_client_requests_failures_rate_read:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cassandra_client_requests_failures_rate_write:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cassandra_storage_exceptions_rate_storage:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cassandra_thread_pool_active_tasks_count_active:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cassandra_thread_pool_pending_tasks_count_pending:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cassandra_thread_pool_blocked_tasks_count_blocked:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cassandra_thread_pool_blocked_tasks_rate_blocked:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: cassandra.client_requests_rate
+  title: Client requests rate
+  units: requests/s
+  family: client
+  chart_type: line
+  priority: 60001
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: read
+    rate_signal: cassandra_client_requests_rate_read
+  - id: write
+    rate_signal: cassandra_client_requests_rate_write
+- id: cassandra.client_request_read_latency_histogram
+  title: Client request read latency histogram
+  units: seconds
+  family: client
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: p50
+    signal: cassandra_client_request_read_latency_histogram_p50
+  - id: p75
+    signal: cassandra_client_request_read_latency_histogram_p75
+  - id: p95
+    signal: cassandra_client_request_read_latency_histogram_p95
+  - id: p98
+    signal: cassandra_client_request_read_latency_histogram_p98
+  - id: p99
+    signal: cassandra_client_request_read_latency_histogram_p99
+  - id: p999
+    signal: cassandra_client_request_read_latency_histogram_p999
+- id: cassandra.client_request_write_latency_histogram
+  title: Client request write latency histogram
+  units: seconds
+  family: client
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: p50
+    signal: cassandra_client_request_write_latency_histogram_p50
+  - id: p75
+    signal: cassandra_client_request_write_latency_histogram_p75
+  - id: p95
+    signal: cassandra_client_request_write_latency_histogram_p95
+  - id: p98
+    signal: cassandra_client_request_write_latency_histogram_p98
+  - id: p99
+    signal: cassandra_client_request_write_latency_histogram_p99
+  - id: p999
+    signal: cassandra_client_request_write_latency_histogram_p999
+- id: cassandra.client_requests_latency
+  title: Client requests total latency
+  units: seconds
+  family: client
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: read
+    signal: cassandra_client_requests_latency_read
+  - id: write
+    signal: cassandra_client_requests_latency_write
+- id: cassandra.row_cache_hit_ratio
+  title: Key cache hit ratio
+  units: percentage
+  family: row
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: hit_ratio
+    signal: cassandra_row_cache_hit_ratio_hit_ratio
+- id: cassandra.row_cache_hit_rate
+  title: Key cache hit rate
+  units: events/s
+  family: row
+  chart_type: stacked
+  priority: 60006
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: hits
+    rate_signal: cassandra_row_cache_hit_rate_hits
+  - id: misses
+    rate_signal: cassandra_row_cache_hit_rate_misses
+- id: cassandra.row_cache_utilization
+  title: Key cache utilization
+  units: percentage
+  family: row
+  chart_type: line
+  priority: 60007
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: used
+    signal: cassandra_row_cache_utilization_used
+- id: cassandra.row_cache_size
+  title: Key cache size
+  units: bytes
+  family: row
+  chart_type: line
+  priority: 60008
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: size
+    signal: cassandra_row_cache_size_size
+- id: cassandra.key_cache_hit_ratio
+  title: Row cache hit ratio
+  units: percentage
+  family: key
+  chart_type: line
+  priority: 60009
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: hit_ratio
+    signal: cassandra_key_cache_hit_ratio_hit_ratio
+- id: cassandra.key_cache_hit_rate
+  title: Row cache hit rate
+  units: events/s
+  family: key
+  chart_type: stacked
+  priority: 60010
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: hits
+    rate_signal: cassandra_key_cache_hit_rate_hits
+  - id: misses
+    rate_signal: cassandra_key_cache_hit_rate_misses
+- id: cassandra.key_cache_utilization
+  title: Row cache utilization
+  units: percentage
+  family: key
+  chart_type: line
+  priority: 60011
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: used
+    signal: cassandra_key_cache_utilization_used
+- id: cassandra.key_cache_size
+  title: Row cache size
+  units: bytes
+  family: key
+  chart_type: line
+  priority: 60012
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: size
+    signal: cassandra_key_cache_size_size
+- id: cassandra.storage_live_disk_space_used
+  title: Disk space used by live data
+  units: bytes
+  family: storage
+  chart_type: line
+  priority: 60013
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: used
+    signal: cassandra_storage_live_disk_space_used_used
+- id: cassandra.compaction_completed_tasks_rate
+  title: Completed compactions rate
+  units: tasks/s
+  family: compaction
+  chart_type: line
+  priority: 60014
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: completed
+    rate_signal: cassandra_compaction_completed_tasks_rate_completed
+- id: cassandra.compaction_pending_tasks_count
+  title: Pending compactions
+  units: tasks
+  family: compaction
+  chart_type: line
+  priority: 60015
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: pending
+    signal: cassandra_compaction_pending_tasks_count_pending
+- id: cassandra.compaction_compacted_rate
+  title: Compaction data rate
+  units: bytes/s
+  family: compaction
+  chart_type: line
+  priority: 60016
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: compacted
+    rate_signal: cassandra_compaction_compacted_rate_compacted
+- id: cassandra.jvm_memory_used
+  title: Memory used
+  units: bytes
+  family: jvm
+  chart_type: stacked
+  priority: 60017
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: heap
+    signal: cassandra_jvm_memory_used_heap
+  - id: nonheap
+    signal: cassandra_jvm_memory_used_nonheap
+- id: cassandra.jvm_gc_rate
+  title: Garbage collections rate
+  units: gc/s
+  family: jvm
+  chart_type: line
+  priority: 60018
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: parnew
+    rate_signal: cassandra_jvm_gc_rate_parnew
+  - id: cms
+    rate_signal: cassandra_jvm_gc_rate_cms
+- id: cassandra.jvm_gc_time
+  title: Garbage collection time
+  units: seconds
+  family: jvm
+  chart_type: line
+  priority: 60019
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: parnew
+    signal: cassandra_jvm_gc_time_parnew
+  - id: cms
+    signal: cassandra_jvm_gc_time_cms
+- id: cassandra.dropped_messages_rate
+  title: Dropped messages rate
+  units: messages/s
+  family: dropped
+  chart_type: line
+  priority: 60020
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: dropped
+    rate_signal: cassandra_dropped_messages_rate_dropped
+- id: cassandra.client_requests_timeouts_rate
+  title: Client requests timeouts rate
+  units: timeout/s
+  family: client
+  chart_type: line
+  priority: 60021
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: read
+    rate_signal: cassandra_client_requests_timeouts_rate_read
+  - id: write
+    rate_signal: cassandra_client_requests_timeouts_rate_write
+- id: cassandra.client_requests_unavailables_rate
+  title: Client requests unavailable exceptions rate
+  units: exceptions/s
+  family: client
+  chart_type: line
+  priority: 60022
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: read
+    rate_signal: cassandra_client_requests_unavailables_rate_read
+  - id: write
+    rate_signal: cassandra_client_requests_unavailables_rate_write
+- id: cassandra.client_requests_failures_rate
+  title: Client requests failures rate
+  units: failures/s
+  family: client
+  chart_type: line
+  priority: 60023
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: read
+    rate_signal: cassandra_client_requests_failures_rate_read
+  - id: write
+    rate_signal: cassandra_client_requests_failures_rate_write
+- id: cassandra.storage_exceptions_rate
+  title: Storage exceptions rate
+  units: exceptions/s
+  family: storage
+  chart_type: line
+  priority: 60024
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: storage
+    rate_signal: cassandra_storage_exceptions_rate_storage
+- id: cassandra.thread_pool_active_tasks_count
+  title: Active tasks
+  units: tasks
+  family: thread
+  chart_type: line
+  priority: 60025
+  shape: independent
+  labels:
+    thread_pool: sim-thread_pool-1
+  dimensions:
+  - id: active
+    signal: cassandra_thread_pool_active_tasks_count_active
+- id: cassandra.thread_pool_pending_tasks_count
+  title: Pending tasks
+  units: tasks
+  family: thread
+  chart_type: line
+  priority: 60026
+  shape: independent
+  labels:
+    thread_pool: sim-thread_pool-1
+  dimensions:
+  - id: pending
+    signal: cassandra_thread_pool_pending_tasks_count_pending
+- id: cassandra.thread_pool_blocked_tasks_count
+  title: Blocked tasks
+  units: tasks
+  family: thread
+  chart_type: line
+  priority: 60027
+  shape: independent
+  labels:
+    thread_pool: sim-thread_pool-1
+  dimensions:
+  - id: blocked
+    signal: cassandra_thread_pool_blocked_tasks_count_blocked
+- id: cassandra.thread_pool_blocked_tasks_rate
+  title: Blocked tasks rate
+  units: tasks/s
+  family: thread
+  chart_type: line
+  priority: 60028
+  shape: counters
+  labels:
+    thread_pool: sim-thread_pool-1
+  dimensions:
+  - id: blocked
+    rate_signal: cassandra_thread_pool_blocked_tasks_rate_blocked

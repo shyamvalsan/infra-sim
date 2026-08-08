@@ -1,0 +1,1308 @@
+version: 1
+name: riak-kv
+description: Riak KV metrics, generated from Netdata's own collector metadata so the contexts, units and
+  dimension names match what a real Riak KV node reports. Signals are independent and plausible rather
+  than causally coupled - see scripts/sync-integrations.py.
+signals:
+  riak_kv_kv_throughput_gets:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_kv_throughput_puts:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_dt_vnode_updates_counters:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_dt_vnode_updates_sets:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_dt_vnode_updates_maps:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_search_queries:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_search_documents_indexed:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_consistent_operations_gets:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_consistent_operations_puts:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_kv_latency_get_mean:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_kv_latency_get_median:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_kv_latency_get_95:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_kv_latency_get_99:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_kv_latency_get_100:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_kv_latency_put_mean:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_kv_latency_put_median:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_kv_latency_put_95:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_kv_latency_put_99:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_kv_latency_put_100:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_dt_latency_counter_merge_mean:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_dt_latency_counter_merge_median:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_dt_latency_counter_merge_95:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_dt_latency_counter_merge_99:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_dt_latency_counter_merge_100:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_dt_latency_set_merge_mean:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_dt_latency_set_merge_median:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_dt_latency_set_merge_95:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_dt_latency_set_merge_99:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_dt_latency_set_merge_100:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_dt_latency_map_merge_mean:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_dt_latency_map_merge_median:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_dt_latency_map_merge_95:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_dt_latency_map_merge_99:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_dt_latency_map_merge_100:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_search_latency_query_median:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_search_latency_query_min:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_search_latency_query_95:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_search_latency_query_99:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_search_latency_query_999:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_search_latency_query_max:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_search_latency_index_median:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_search_latency_index_min:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_search_latency_index_95:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_search_latency_index_99:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_search_latency_index_999:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_search_latency_index_max:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_consistent_latency_get_mean:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_consistent_latency_get_median:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_consistent_latency_get_95:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_consistent_latency_get_99:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_consistent_latency_get_100:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_consistent_latency_put_mean:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_consistent_latency_put_median:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_consistent_latency_put_95:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_consistent_latency_put_99:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_consistent_latency_put_100:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_vm_processes:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_vm_memory_processes_allocated:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_vm_memory_processes_used:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_kv_siblings_encountered_get_mean:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_kv_siblings_encountered_get_median:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_kv_siblings_encountered_get_95:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_kv_siblings_encountered_get_99:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_kv_siblings_encountered_get_100:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_kv_objsize_get_mean:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_kv_objsize_get_median:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_kv_objsize_get_95:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_kv_objsize_get_99:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_kv_objsize_get_100:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_search_vnodeq_size_mean:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_search_vnodeq_size_median:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_search_vnodeq_size_95:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_search_vnodeq_size_99:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_search_vnodeq_size_100:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_search_index_index_fail:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  riak_kv_search_index_bad_entry:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  riak_kv_search_index_extract_fail:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  riak_kv_core_protobuf_connections_active:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_core_repairs_read:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_core_fsm_active_get:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_core_fsm_active_put:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_core_fsm_active_secondary_index:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_core_fsm_active_list_keys:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_core_fsm_rejected_get:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  riak_kv_core_fsm_rejected_put:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: riak.kv.throughput
+  title: Reads & writes coordinated by this node
+  units: operations/s
+  family: kv.throughput
+  chart_type: line
+  priority: 60001
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: gets
+    rate_signal: riak_kv_kv_throughput_gets
+  - id: puts
+    rate_signal: riak_kv_kv_throughput_puts
+- id: riak.dt.vnode_updates
+  title: Update operations coordinated by local vnodes by data type
+  units: operations/s
+  family: dt.vnode
+  chart_type: line
+  priority: 60002
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: counters
+    rate_signal: riak_kv_dt_vnode_updates_counters
+  - id: sets
+    rate_signal: riak_kv_dt_vnode_updates_sets
+  - id: maps
+    rate_signal: riak_kv_dt_vnode_updates_maps
+- id: riak.search
+  title: Search queries on the node
+  units: queries/s
+  family: search
+  chart_type: line
+  priority: 60003
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: queries
+    rate_signal: riak_kv_search_queries
+- id: riak.search.documents
+  title: Documents indexed by search
+  units: documents/s
+  family: search.documents
+  chart_type: line
+  priority: 60004
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: indexed
+    rate_signal: riak_kv_search_documents_indexed
+- id: riak.consistent.operations
+  title: Consistent node operations
+  units: operations/s
+  family: consistent.operations
+  chart_type: line
+  priority: 60005
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: gets
+    rate_signal: riak_kv_consistent_operations_gets
+  - id: puts
+    rate_signal: riak_kv_consistent_operations_puts
+- id: riak.kv.latency.get
+  title: Time between reception of a client GET request and subsequent response to client
+  units: ms
+  family: kv.latency.get
+  chart_type: line
+  priority: 60006
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: mean
+    signal: riak_kv_kv_latency_get_mean
+  - id: median
+    signal: riak_kv_kv_latency_get_median
+  - id: '95'
+    signal: riak_kv_kv_latency_get_95
+  - id: '99'
+    signal: riak_kv_kv_latency_get_99
+  - id: '100'
+    signal: riak_kv_kv_latency_get_100
+- id: riak.kv.latency.put
+  title: Time between reception of a client PUT request and subsequent response to client
+  units: ms
+  family: kv.latency.put
+  chart_type: line
+  priority: 60007
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: mean
+    signal: riak_kv_kv_latency_put_mean
+  - id: median
+    signal: riak_kv_kv_latency_put_median
+  - id: '95'
+    signal: riak_kv_kv_latency_put_95
+  - id: '99'
+    signal: riak_kv_kv_latency_put_99
+  - id: '100'
+    signal: riak_kv_kv_latency_put_100
+- id: riak.dt.latency.counter_merge
+  title: Time it takes to perform an Update Counter operation
+  units: ms
+  family: dt.latency.counter
+  chart_type: line
+  priority: 60008
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: mean
+    signal: riak_kv_dt_latency_counter_merge_mean
+  - id: median
+    signal: riak_kv_dt_latency_counter_merge_median
+  - id: '95'
+    signal: riak_kv_dt_latency_counter_merge_95
+  - id: '99'
+    signal: riak_kv_dt_latency_counter_merge_99
+  - id: '100'
+    signal: riak_kv_dt_latency_counter_merge_100
+- id: riak.dt.latency.set_merge
+  title: Time it takes to perform an Update Set operation
+  units: ms
+  family: dt.latency.set
+  chart_type: line
+  priority: 60009
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: mean
+    signal: riak_kv_dt_latency_set_merge_mean
+  - id: median
+    signal: riak_kv_dt_latency_set_merge_median
+  - id: '95'
+    signal: riak_kv_dt_latency_set_merge_95
+  - id: '99'
+    signal: riak_kv_dt_latency_set_merge_99
+  - id: '100'
+    signal: riak_kv_dt_latency_set_merge_100
+- id: riak.dt.latency.map_merge
+  title: Time it takes to perform an Update Map operation
+  units: ms
+  family: dt.latency.map
+  chart_type: line
+  priority: 60010
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: mean
+    signal: riak_kv_dt_latency_map_merge_mean
+  - id: median
+    signal: riak_kv_dt_latency_map_merge_median
+  - id: '95'
+    signal: riak_kv_dt_latency_map_merge_95
+  - id: '99'
+    signal: riak_kv_dt_latency_map_merge_99
+  - id: '100'
+    signal: riak_kv_dt_latency_map_merge_100
+- id: riak.search.latency.query
+  title: Search query latency
+  units: ms
+  family: search.latency.query
+  chart_type: line
+  priority: 60011
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: median
+    signal: riak_kv_search_latency_query_median
+  - id: min
+    signal: riak_kv_search_latency_query_min
+  - id: '95'
+    signal: riak_kv_search_latency_query_95
+  - id: '99'
+    signal: riak_kv_search_latency_query_99
+  - id: '999'
+    signal: riak_kv_search_latency_query_999
+  - id: max
+    signal: riak_kv_search_latency_query_max
+- id: riak.search.latency.index
+  title: Time it takes Search to index a new document
+  units: ms
+  family: search.latency.index
+  chart_type: line
+  priority: 60012
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: median
+    signal: riak_kv_search_latency_index_median
+  - id: min
+    signal: riak_kv_search_latency_index_min
+  - id: '95'
+    signal: riak_kv_search_latency_index_95
+  - id: '99'
+    signal: riak_kv_search_latency_index_99
+  - id: '999'
+    signal: riak_kv_search_latency_index_999
+  - id: max
+    signal: riak_kv_search_latency_index_max
+- id: riak.consistent.latency.get
+  title: Strongly consistent read latency
+  units: ms
+  family: consistent.latency.get
+  chart_type: line
+  priority: 60013
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: mean
+    signal: riak_kv_consistent_latency_get_mean
+  - id: median
+    signal: riak_kv_consistent_latency_get_median
+  - id: '95'
+    signal: riak_kv_consistent_latency_get_95
+  - id: '99'
+    signal: riak_kv_consistent_latency_get_99
+  - id: '100'
+    signal: riak_kv_consistent_latency_get_100
+- id: riak.consistent.latency.put
+  title: Strongly consistent write latency
+  units: ms
+  family: consistent.latency.put
+  chart_type: line
+  priority: 60014
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: mean
+    signal: riak_kv_consistent_latency_put_mean
+  - id: median
+    signal: riak_kv_consistent_latency_put_median
+  - id: '95'
+    signal: riak_kv_consistent_latency_put_95
+  - id: '99'
+    signal: riak_kv_consistent_latency_put_99
+  - id: '100'
+    signal: riak_kv_consistent_latency_put_100
+- id: riak.vm
+  title: Total processes running in the Erlang VM
+  units: total
+  family: vm
+  chart_type: line
+  priority: 60015
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: processes
+    signal: riak_kv_vm_processes
+- id: riak.vm.memory.processes
+  title: Memory allocated & used by Erlang processes
+  units: MB
+  family: vm.memory.processes
+  chart_type: line
+  priority: 60016
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: allocated
+    signal: riak_kv_vm_memory_processes_allocated
+  - id: used
+    signal: riak_kv_vm_memory_processes_used
+- id: riak.kv.siblings_encountered.get
+  title: Number of siblings encountered during GET operations by this node during the past minute
+  units: siblings
+  family: kv.siblings
+  chart_type: line
+  priority: 60017
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: mean
+    signal: riak_kv_kv_siblings_encountered_get_mean
+  - id: median
+    signal: riak_kv_kv_siblings_encountered_get_median
+  - id: '95'
+    signal: riak_kv_kv_siblings_encountered_get_95
+  - id: '99'
+    signal: riak_kv_kv_siblings_encountered_get_99
+  - id: '100'
+    signal: riak_kv_kv_siblings_encountered_get_100
+- id: riak.kv.objsize.get
+  title: Object size encountered by this node during the past minute
+  units: KB
+  family: kv.objsize.get
+  chart_type: line
+  priority: 60018
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: mean
+    signal: riak_kv_kv_objsize_get_mean
+  - id: median
+    signal: riak_kv_kv_objsize_get_median
+  - id: '95'
+    signal: riak_kv_kv_objsize_get_95
+  - id: '99'
+    signal: riak_kv_kv_objsize_get_99
+  - id: '100'
+    signal: riak_kv_kv_objsize_get_100
+- id: riak.search.vnodeq_size
+  title: Number of unprocessed messages in the vnode message queues of Search on this node in the past
+    minute
+  units: messages
+  family: search.vnodeq
+  chart_type: line
+  priority: 60019
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: mean
+    signal: riak_kv_search_vnodeq_size_mean
+  - id: median
+    signal: riak_kv_search_vnodeq_size_median
+  - id: '95'
+    signal: riak_kv_search_vnodeq_size_95
+  - id: '99'
+    signal: riak_kv_search_vnodeq_size_99
+  - id: '100'
+    signal: riak_kv_search_vnodeq_size_100
+- id: riak.search.index
+  title: Errors encountered by Search
+  units: errors
+  family: search.index
+  chart_type: line
+  priority: 60020
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: index_fail
+    signal: riak_kv_search_index_index_fail
+  - id: bad_entry
+    signal: riak_kv_search_index_bad_entry
+  - id: extract_fail
+    signal: riak_kv_search_index_extract_fail
+- id: riak.core.protobuf_connections
+  title: Protocol buffer connections by status
+  units: connections
+  family: core.protobuf
+  chart_type: line
+  priority: 60021
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: active
+    signal: riak_kv_core_protobuf_connections_active
+- id: riak.core.repairs
+  title: Number of repair operations this node has coordinated
+  units: repairs
+  family: core.repairs
+  chart_type: line
+  priority: 60022
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: read
+    signal: riak_kv_core_repairs_read
+- id: riak.core.fsm_active
+  title: Active finite state machines by kind
+  units: fsms
+  family: core.fsm
+  chart_type: line
+  priority: 60023
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: get
+    signal: riak_kv_core_fsm_active_get
+  - id: put
+    signal: riak_kv_core_fsm_active_put
+  - id: secondary index
+    signal: riak_kv_core_fsm_active_secondary_index
+  - id: list keys
+    signal: riak_kv_core_fsm_active_list_keys
+- id: riak.core.fsm_rejected
+  title: Finite state machines being rejected by Sidejobs overload protection
+  units: fsms
+  family: core.fsm
+  chart_type: line
+  priority: 60024
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: get
+    signal: riak_kv_core_fsm_rejected_get
+  - id: put
+    signal: riak_kv_core_fsm_rejected_put

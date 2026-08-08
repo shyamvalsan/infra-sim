@@ -1,0 +1,159 @@
+version: 1
+name: squid
+description: Squid metrics, generated from Netdata's own collector metadata so the contexts, units and
+  dimension names match what a real Squid node reports. Signals are independent and plausible rather than
+  causally coupled - see scripts/sync-integrations.py.
+signals:
+  squid_clients_net_in:
+    base: 18000.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  squid_clients_net_out:
+    base: 18000.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  squid_clients_net_hits:
+    base: 18000.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  squid_clients_requests_requests:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  squid_clients_requests_hits:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  squid_clients_requests_errors:
+    base: 0.0
+    min: 0.0
+    max: 5000000.0
+  squid_servers_net_in:
+    base: 18000.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  squid_servers_net_out:
+    base: 18000.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  squid_servers_requests_requests:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  squid_servers_requests_errors:
+    base: 0.0
+    min: 0.0
+    max: 5000000.0
+contexts:
+- id: squid.clients_net
+  title: Squid Client Bandwidth
+  units: kilobits/s
+  family: clients
+  chart_type: area
+  priority: 60001
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: in
+    rate_signal: squid_clients_net_in
+  - id: out
+    rate_signal: squid_clients_net_out
+  - id: hits
+    rate_signal: squid_clients_net_hits
+- id: squid.clients_requests
+  title: Squid Client Requests
+  units: requests/s
+  family: clients
+  chart_type: line
+  priority: 60002
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: requests
+    rate_signal: squid_clients_requests_requests
+  - id: hits
+    rate_signal: squid_clients_requests_hits
+  - id: errors
+    rate_signal: squid_clients_requests_errors
+- id: squid.servers_net
+  title: Squid Server Bandwidth
+  units: kilobits/s
+  family: servers
+  chart_type: area
+  priority: 60003
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: in
+    rate_signal: squid_servers_net_in
+  - id: out
+    rate_signal: squid_servers_net_out
+- id: squid.servers_requests
+  title: Squid Server Requests
+  units: requests/s
+  family: servers
+  chart_type: line
+  priority: 60004
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: requests
+    rate_signal: squid_servers_requests_requests
+  - id: errors
+    rate_signal: squid_servers_requests_errors

@@ -1,0 +1,738 @@
+version: 1
+name: cato-networks
+description: Cato Networks metrics, generated from Netdata's own collector metadata so the contexts, units
+  and dimension names match what a real Cato Networks node reports. Signals are independent and plausible
+  rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  cato_networks_site_connectivity_status_connected:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  cato_networks_site_connectivity_status_disconnected:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  cato_networks_site_connectivity_status_degraded:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  cato_networks_site_connectivity_status_unknown:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  cato_networks_site_operational_status_active:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  cato_networks_site_operational_status_disabled:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  cato_networks_site_operational_status_locked:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  cato_networks_site_operational_status_unknown:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  cato_networks_site_hosts_hosts:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cato_networks_site_traffic_upstream:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cato_networks_site_traffic_downstream:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cato_networks_site_packet_loss_upstream:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cato_networks_site_packet_loss_downstream:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cato_networks_site_discarded_packets_upstream:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cato_networks_site_discarded_packets_downstream:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cato_networks_site_jitter_upstream:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cato_networks_site_jitter_downstream:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cato_networks_site_latency_rtt:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cato_networks_site_latency_last_mile:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cato_networks_site_last_mile_packet_loss_loss:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cato_networks_device_connection_status_connected:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  cato_networks_device_connection_status_disconnected:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  cato_networks_interface_connection_status_connected:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  cato_networks_interface_connection_status_disconnected:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  cato_networks_interface_tunnel_uptime_uptime:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cato_networks_interface_traffic_upstream:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cato_networks_interface_traffic_downstream:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cato_networks_interface_packet_loss_upstream:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cato_networks_interface_packet_loss_downstream:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cato_networks_interface_discarded_packets_upstream:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cato_networks_interface_discarded_packets_downstream:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cato_networks_interface_jitter_upstream:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cato_networks_interface_jitter_downstream:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cato_networks_interface_latency_rtt:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cato_networks_bgp_session_status_up:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  cato_networks_bgp_session_status_down:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  cato_networks_bgp_session_status_unknown:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  cato_networks_bgp_routes_accepted:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cato_networks_bgp_routes_limit:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cato_networks_bgp_routes_rib_out:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cato_networks_bgp_routes_limit_status_ok:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  cato_networks_bgp_routes_limit_status_exceeded:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+contexts:
+- id: cato_networks.site_connectivity_status
+  title: Site connectivity status.
+  units: status
+  family: site
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels:
+    site_id: sim-site_id-1
+    site_name: sim-site_name-1
+    pop_name: sim-pop_name-1
+  dimensions:
+  - id: connected
+    signal: cato_networks_site_connectivity_status_connected
+  - id: disconnected
+    signal: cato_networks_site_connectivity_status_disconnected
+  - id: degraded
+    signal: cato_networks_site_connectivity_status_degraded
+  - id: unknown
+    signal: cato_networks_site_connectivity_status_unknown
+- id: cato_networks.site_operational_status
+  title: Site operational status.
+  units: status
+  family: site
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels:
+    site_id: sim-site_id-1
+    site_name: sim-site_name-1
+    pop_name: sim-pop_name-1
+  dimensions:
+  - id: active
+    signal: cato_networks_site_operational_status_active
+  - id: disabled
+    signal: cato_networks_site_operational_status_disabled
+  - id: locked
+    signal: cato_networks_site_operational_status_locked
+  - id: unknown
+    signal: cato_networks_site_operational_status_unknown
+- id: cato_networks.site_hosts
+  title: Site hosts.
+  units: hosts
+  family: site
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels:
+    site_id: sim-site_id-1
+    site_name: sim-site_name-1
+    pop_name: sim-pop_name-1
+  dimensions:
+  - id: hosts
+    signal: cato_networks_site_hosts_hosts
+- id: cato_networks.site_traffic
+  title: Site traffic.
+  units: bytes
+  family: site
+  chart_type: area
+  priority: 60004
+  shape: independent
+  labels:
+    site_id: sim-site_id-1
+    site_name: sim-site_name-1
+    pop_name: sim-pop_name-1
+  dimensions:
+  - id: upstream
+    signal: cato_networks_site_traffic_upstream
+  - id: downstream
+    signal: cato_networks_site_traffic_downstream
+- id: cato_networks.site_packet_loss
+  title: Site packet loss.
+  units: percentage
+  family: site
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels:
+    site_id: sim-site_id-1
+    site_name: sim-site_name-1
+    pop_name: sim-pop_name-1
+  dimensions:
+  - id: upstream
+    signal: cato_networks_site_packet_loss_upstream
+  - id: downstream
+    signal: cato_networks_site_packet_loss_downstream
+- id: cato_networks.site_discarded_packets
+  title: Site discarded packets.
+  units: packets
+  family: site
+  chart_type: line
+  priority: 60006
+  shape: independent
+  labels:
+    site_id: sim-site_id-1
+    site_name: sim-site_name-1
+    pop_name: sim-pop_name-1
+  dimensions:
+  - id: upstream
+    signal: cato_networks_site_discarded_packets_upstream
+  - id: downstream
+    signal: cato_networks_site_discarded_packets_downstream
+- id: cato_networks.site_jitter
+  title: Site jitter.
+  units: milliseconds
+  family: site
+  chart_type: line
+  priority: 60007
+  shape: independent
+  labels:
+    site_id: sim-site_id-1
+    site_name: sim-site_name-1
+    pop_name: sim-pop_name-1
+  dimensions:
+  - id: upstream
+    signal: cato_networks_site_jitter_upstream
+  - id: downstream
+    signal: cato_networks_site_jitter_downstream
+- id: cato_networks.site_latency
+  title: Site latency.
+  units: milliseconds
+  family: site
+  chart_type: line
+  priority: 60008
+  shape: independent
+  labels:
+    site_id: sim-site_id-1
+    site_name: sim-site_name-1
+    pop_name: sim-pop_name-1
+  dimensions:
+  - id: rtt
+    signal: cato_networks_site_latency_rtt
+  - id: last_mile
+    signal: cato_networks_site_latency_last_mile
+- id: cato_networks.site_last_mile_packet_loss
+  title: Site last mile packet loss.
+  units: percentage
+  family: site
+  chart_type: line
+  priority: 60009
+  shape: independent
+  labels:
+    site_id: sim-site_id-1
+    site_name: sim-site_name-1
+    pop_name: sim-pop_name-1
+  dimensions:
+  - id: loss
+    signal: cato_networks_site_last_mile_packet_loss_loss
+- id: cato_networks.device_connection_status
+  title: Device connection status.
+  units: status
+  family: device
+  chart_type: line
+  priority: 60010
+  shape: independent
+  labels:
+    site_id: sim-site_id-1
+    site_name: sim-site_name-1
+    device_id: sim-device_id-1
+    device_name: sim-device_name-1
+  dimensions:
+  - id: connected
+    signal: cato_networks_device_connection_status_connected
+  - id: disconnected
+    signal: cato_networks_device_connection_status_disconnected
+- id: cato_networks.interface_connection_status
+  title: Interface connection status.
+  units: status
+  family: interface
+  chart_type: line
+  priority: 60011
+  shape: independent
+  labels:
+    site_id: sim-site_id-1
+    site_name: sim-site_name-1
+    device_id: sim-device_id-1
+    device_name: sim-device_name-1
+    interface_id: sim-interface_id-1
+    interface_name: sim-interface_name-1
+  dimensions:
+  - id: connected
+    signal: cato_networks_interface_connection_status_connected
+  - id: disconnected
+    signal: cato_networks_interface_connection_status_disconnected
+- id: cato_networks.interface_tunnel_uptime
+  title: Interface tunnel uptime.
+  units: seconds
+  family: interface
+  chart_type: line
+  priority: 60012
+  shape: independent
+  labels:
+    site_id: sim-site_id-1
+    site_name: sim-site_name-1
+    device_id: sim-device_id-1
+    device_name: sim-device_name-1
+    interface_id: sim-interface_id-1
+    interface_name: sim-interface_name-1
+  dimensions:
+  - id: uptime
+    signal: cato_networks_interface_tunnel_uptime_uptime
+- id: cato_networks.interface_traffic
+  title: Interface traffic.
+  units: bytes
+  family: interface
+  chart_type: area
+  priority: 60013
+  shape: independent
+  labels:
+    site_id: sim-site_id-1
+    site_name: sim-site_name-1
+    device_id: sim-device_id-1
+    device_name: sim-device_name-1
+    interface_id: sim-interface_id-1
+    interface_name: sim-interface_name-1
+  dimensions:
+  - id: upstream
+    signal: cato_networks_interface_traffic_upstream
+  - id: downstream
+    signal: cato_networks_interface_traffic_downstream
+- id: cato_networks.interface_packet_loss
+  title: Interface packet loss.
+  units: percentage
+  family: interface
+  chart_type: line
+  priority: 60014
+  shape: independent
+  labels:
+    site_id: sim-site_id-1
+    site_name: sim-site_name-1
+    device_id: sim-device_id-1
+    device_name: sim-device_name-1
+    interface_id: sim-interface_id-1
+    interface_name: sim-interface_name-1
+  dimensions:
+  - id: upstream
+    signal: cato_networks_interface_packet_loss_upstream
+  - id: downstream
+    signal: cato_networks_interface_packet_loss_downstream
+- id: cato_networks.interface_discarded_packets
+  title: Interface discarded packets.
+  units: packets
+  family: interface
+  chart_type: line
+  priority: 60015
+  shape: independent
+  labels:
+    site_id: sim-site_id-1
+    site_name: sim-site_name-1
+    device_id: sim-device_id-1
+    device_name: sim-device_name-1
+    interface_id: sim-interface_id-1
+    interface_name: sim-interface_name-1
+  dimensions:
+  - id: upstream
+    signal: cato_networks_interface_discarded_packets_upstream
+  - id: downstream
+    signal: cato_networks_interface_discarded_packets_downstream
+- id: cato_networks.interface_jitter
+  title: Interface jitter.
+  units: milliseconds
+  family: interface
+  chart_type: line
+  priority: 60016
+  shape: independent
+  labels:
+    site_id: sim-site_id-1
+    site_name: sim-site_name-1
+    device_id: sim-device_id-1
+    device_name: sim-device_name-1
+    interface_id: sim-interface_id-1
+    interface_name: sim-interface_name-1
+  dimensions:
+  - id: upstream
+    signal: cato_networks_interface_jitter_upstream
+  - id: downstream
+    signal: cato_networks_interface_jitter_downstream
+- id: cato_networks.interface_latency
+  title: Interface latency.
+  units: milliseconds
+  family: interface
+  chart_type: line
+  priority: 60017
+  shape: independent
+  labels:
+    site_id: sim-site_id-1
+    site_name: sim-site_name-1
+    device_id: sim-device_id-1
+    device_name: sim-device_name-1
+    interface_id: sim-interface_id-1
+    interface_name: sim-interface_name-1
+  dimensions:
+  - id: rtt
+    signal: cato_networks_interface_latency_rtt
+- id: cato_networks.bgp_session_status
+  title: BGP session status.
+  units: status
+  family: bgp
+  chart_type: line
+  priority: 60018
+  shape: independent
+  labels:
+    site_id: sim-site_id-1
+    site_name: sim-site_name-1
+    peer_ip: sim-peer_ip-1
+    peer_asn: sim-peer_asn-1
+  dimensions:
+  - id: up
+    signal: cato_networks_bgp_session_status_up
+  - id: down
+    signal: cato_networks_bgp_session_status_down
+  - id: unknown
+    signal: cato_networks_bgp_session_status_unknown
+- id: cato_networks.bgp_routes
+  title: BGP route counts.
+  units: routes
+  family: bgp
+  chart_type: line
+  priority: 60019
+  shape: independent
+  labels:
+    site_id: sim-site_id-1
+    site_name: sim-site_name-1
+    peer_ip: sim-peer_ip-1
+    peer_asn: sim-peer_asn-1
+  dimensions:
+  - id: accepted
+    signal: cato_networks_bgp_routes_accepted
+  - id: limit
+    signal: cato_networks_bgp_routes_limit
+  - id: rib_out
+    signal: cato_networks_bgp_routes_rib_out
+- id: cato_networks.bgp_routes_limit_status
+  title: BGP route limit exceeded status.
+  units: status
+  family: bgp
+  chart_type: line
+  priority: 60020
+  shape: independent
+  labels:
+    site_id: sim-site_id-1
+    site_name: sim-site_name-1
+    peer_ip: sim-peer_ip-1
+    peer_asn: sim-peer_asn-1
+  dimensions:
+  - id: ok
+    signal: cato_networks_bgp_routes_limit_status_ok
+  - id: exceeded
+    signal: cato_networks_bgp_routes_limit_status_exceeded

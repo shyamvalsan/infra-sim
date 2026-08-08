@@ -1,0 +1,2107 @@
+version: 1
+name: network-statistics
+description: Network statistics metrics, generated from Netdata's own collector metadata so the contexts,
+  units and dimension names match what a real Network statistics node reports. Signals are independent
+  and plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  network_statistics_tcpmemorypressures_pressures:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_tcpconnaborts_baddata:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_tcpconnaborts_userclosed:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_tcpconnaborts_nomemory:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_tcpconnaborts_timeout:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  network_statistics_tcpconnaborts_linger:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_tcpconnaborts_failed:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  network_statistics_tcpreorders_timestamp:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_tcpreorders_sack:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_tcpreorders_fack:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_tcpreorders_reno:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_tcpofo_inqueue:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_tcpofo_dropped:
+    base: 0.0
+    min: 0.0
+    max: 20000000.0
+  network_statistics_tcpofo_merged:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_tcpofo_pruned:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_tcpsyncookies_received:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_tcpsyncookies_sent:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_tcpsyncookies_failed:
+    base: 0.0
+    min: 0.0
+    max: 20000000.0
+  network_statistics_tcp_syn_queue_drops:
+    base: 0.0
+    min: 0.0
+    max: 20000000.0
+  network_statistics_tcp_syn_queue_cookies:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_tcp_accept_queue_overflows:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_tcp_accept_queue_drops:
+    base: 0.0
+    min: 0.0
+    max: 20000000.0
+  network_statistics_packets_received:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_packets_sent:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_packets_forwarded:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_packets_delivered:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_errors_indiscards:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_errors_outdiscards:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_errors_innoroutes:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_errors_outnoroutes:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_errors_inhdrerrors:
+    base: 0.0
+    min: 0.0
+    max: 20000000.0
+  network_statistics_errors_inaddrerrors:
+    base: 0.0
+    min: 0.0
+    max: 20000000.0
+  network_statistics_errors_intruncatedpkts:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_errors_incsumerrors:
+    base: 0.0
+    min: 0.0
+    max: 20000000.0
+  network_statistics_bcast_received:
+    base: 18000.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_bcast_sent:
+    base: 18000.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_bcastpkts_received:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_bcastpkts_sent:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_mcast_received:
+    base: 18000.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_mcast_sent:
+    base: 18000.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_mcastpkts_received:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_mcastpkts_sent:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_icmpmsg_inechoreps:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_icmpmsg_outechoreps:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_icmpmsg_indestunreachs:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_icmpmsg_outdestunreachs:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_icmpmsg_inredirects:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_icmpmsg_outredirects:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_icmpmsg_inechos:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_icmpmsg_outechos:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_icmpmsg_inrouteradvert:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_icmpmsg_outrouteradvert:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_icmpmsg_inrouterselect:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_icmpmsg_outrouterselect:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_icmpmsg_intimeexcds:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_icmpmsg_outtimeexcds:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_icmpmsg_inparmprobs:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_icmpmsg_outparmprobs:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_icmpmsg_intimestamps:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_icmpmsg_outtimestamps:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_icmpmsg_intimestampreps:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_icmpmsg_outtimestampreps:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_icmp_errors_inerrors:
+    base: 0.0
+    min: 0.0
+    max: 20000000.0
+  network_statistics_icmp_errors_outerrors:
+    base: 0.0
+    min: 0.0
+    max: 20000000.0
+  network_statistics_icmp_errors_incsumerrors:
+    base: 0.0
+    min: 0.0
+    max: 20000000.0
+  network_statistics_udplite_received:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_udplite_sent:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_udplite_errors_rcvbuferrors:
+    base: 0.0
+    min: 0.0
+    max: 20000000.0
+  network_statistics_udplite_errors_sndbuferrors:
+    base: 0.0
+    min: 0.0
+    max: 20000000.0
+  network_statistics_udplite_errors_inerrors:
+    base: 0.0
+    min: 0.0
+    max: 20000000.0
+  network_statistics_udplite_errors_noports:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_udplite_errors_incsumerrors:
+    base: 0.0
+    min: 0.0
+    max: 20000000.0
+  network_statistics_udplite_errors_ignoredmulti:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_ecnpkts_cep:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_ecnpkts_noectp:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_ecnpkts_ectp0:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_ecnpkts_ectp1:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_fragsin_ok:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_fragsin_failed:
+    base: 0.0
+    min: 0.0
+    max: 20000000.0
+  network_statistics_fragsin_all:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_fragsout_ok:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_fragsout_failed:
+    base: 0.0
+    min: 0.0
+    max: 20000000.0
+  network_statistics_fragsout_created:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_udppackets_received:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_udppackets_sent:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_udperrors_rcvbuferrors:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  network_statistics_udperrors_sndbuferrors:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  network_statistics_udperrors_inerrors:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  network_statistics_udperrors_noports:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_udperrors_incsumerrors:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  network_statistics_udperrors_ignoredmulti:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_udplitepackets_received:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_udplitepackets_sent:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_udpliteerrors_rcvbuferrors:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  network_statistics_udpliteerrors_sndbuferrors:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  network_statistics_udpliteerrors_inerrors:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  network_statistics_udpliteerrors_noports:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_udpliteerrors_incsumerrors:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  network_statistics_icmp_received:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_icmp_sent:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_icmpredir_received:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_icmpredir_sent:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_icmperrors_inerrors:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+  network_statistics_icmperrors_outerrors:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+  network_statistics_icmperrors_incsumerrors:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+  network_statistics_icmperrors_indestunreachs:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_icmperrors_inpkttoobigs:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_icmperrors_intimeexcds:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_icmperrors_inparmproblems:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_icmperrors_outdestunreachs:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_icmperrors_outpkttoobigs:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_icmperrors_outtimeexcds:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_icmperrors_outparmproblems:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_icmpechos_inechos:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_icmpechos_outechos:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_icmpechos_inechoreplies:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_icmpechos_outechoreplies:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_groupmemb_inqueries:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_groupmemb_outqueries:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_groupmemb_inresponses:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_groupmemb_outresponses:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_groupmemb_inreductions:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_groupmemb_outreductions:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_icmprouter_insolicits:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_icmprouter_outsolicits:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_icmprouter_inadvertisements:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_icmprouter_outadvertisements:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_icmpneighbor_insolicits:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_icmpneighbor_outsolicits:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_icmpneighbor_inadvertisements:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_icmpneighbor_outadvertisements:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_icmpmldv2_received:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_icmpmldv2_sent:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_icmptypes_intype1:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_icmptypes_intype128:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_icmptypes_intype129:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_icmptypes_intype136:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_icmptypes_outtype1:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_icmptypes_outtype128:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_icmptypes_outtype129:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_icmptypes_outtype133:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_icmptypes_outtype135:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_icmptypes_outtype143:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_ect_innoectpkts:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_ect_inect1pkts:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_ect_inect0pkts:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_ect_incepkts:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  network_statistics_fragsin_timeout:
+    base: 0.0
+    min: 0.0
+    max: 20000000.0
+  network_statistics_fragsout_all:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: ip.tcpmemorypressures
+  title: TCP Memory Pressures
+  units: events/s
+  family: tcpmemorypressures
+  chart_type: line
+  priority: 60001
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: pressures
+    rate_signal: network_statistics_tcpmemorypressures_pressures
+- id: ip.tcpconnaborts
+  title: TCP Connection Aborts
+  units: connections/s
+  family: tcpconnaborts
+  chart_type: line
+  priority: 60002
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: baddata
+    rate_signal: network_statistics_tcpconnaborts_baddata
+  - id: userclosed
+    rate_signal: network_statistics_tcpconnaborts_userclosed
+  - id: nomemory
+    rate_signal: network_statistics_tcpconnaborts_nomemory
+  - id: timeout
+    rate_signal: network_statistics_tcpconnaborts_timeout
+  - id: linger
+    rate_signal: network_statistics_tcpconnaborts_linger
+  - id: failed
+    rate_signal: network_statistics_tcpconnaborts_failed
+- id: ip.tcpreorders
+  title: TCP Reordered Packets by Detection Method
+  units: packets/s
+  family: tcpreorders
+  chart_type: line
+  priority: 60003
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: timestamp
+    rate_signal: network_statistics_tcpreorders_timestamp
+  - id: sack
+    rate_signal: network_statistics_tcpreorders_sack
+  - id: fack
+    rate_signal: network_statistics_tcpreorders_fack
+  - id: reno
+    rate_signal: network_statistics_tcpreorders_reno
+- id: ip.tcpofo
+  title: TCP Out-Of-Order Queue
+  units: packets/s
+  family: tcpofo
+  chart_type: line
+  priority: 60004
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: inqueue
+    rate_signal: network_statistics_tcpofo_inqueue
+  - id: dropped
+    rate_signal: network_statistics_tcpofo_dropped
+  - id: merged
+    rate_signal: network_statistics_tcpofo_merged
+  - id: pruned
+    rate_signal: network_statistics_tcpofo_pruned
+- id: ip.tcpsyncookies
+  title: TCP SYN Cookies
+  units: packets/s
+  family: tcpsyncookies
+  chart_type: line
+  priority: 60005
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: received
+    rate_signal: network_statistics_tcpsyncookies_received
+  - id: sent
+    rate_signal: network_statistics_tcpsyncookies_sent
+  - id: failed
+    rate_signal: network_statistics_tcpsyncookies_failed
+- id: ip.tcp_syn_queue
+  title: TCP SYN Queue Issues
+  units: packets/s
+  family: tcp
+  chart_type: line
+  priority: 60006
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: drops
+    rate_signal: network_statistics_tcp_syn_queue_drops
+  - id: cookies
+    rate_signal: network_statistics_tcp_syn_queue_cookies
+- id: ip.tcp_accept_queue
+  title: TCP Accept Queue Issues
+  units: packets/s
+  family: tcp
+  chart_type: line
+  priority: 60007
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: overflows
+    rate_signal: network_statistics_tcp_accept_queue_overflows
+  - id: drops
+    rate_signal: network_statistics_tcp_accept_queue_drops
+- id: ipv4.packets
+  title: IPv4 Packets
+  units: packets/s
+  family: packets
+  chart_type: line
+  priority: 60008
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: received
+    rate_signal: network_statistics_packets_received
+  - id: sent
+    rate_signal: network_statistics_packets_sent
+  - id: forwarded
+    rate_signal: network_statistics_packets_forwarded
+  - id: delivered
+    rate_signal: network_statistics_packets_delivered
+- id: ipv4.errors
+  title: IPv4 Errors
+  units: packets/s
+  family: errors
+  chart_type: line
+  priority: 60009
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: InDiscards
+    rate_signal: network_statistics_errors_indiscards
+  - id: OutDiscards
+    rate_signal: network_statistics_errors_outdiscards
+  - id: InNoRoutes
+    rate_signal: network_statistics_errors_innoroutes
+  - id: OutNoRoutes
+    rate_signal: network_statistics_errors_outnoroutes
+  - id: InHdrErrors
+    rate_signal: network_statistics_errors_inhdrerrors
+  - id: InAddrErrors
+    rate_signal: network_statistics_errors_inaddrerrors
+  - id: InTruncatedPkts
+    rate_signal: network_statistics_errors_intruncatedpkts
+  - id: InCsumErrors
+    rate_signal: network_statistics_errors_incsumerrors
+- id: ipv4.bcast
+  title: IP Broadcast Bandwidth
+  units: kilobits/s
+  family: bcast
+  chart_type: area
+  priority: 60010
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: received
+    rate_signal: network_statistics_bcast_received
+  - id: sent
+    rate_signal: network_statistics_bcast_sent
+- id: ipv4.bcastpkts
+  title: IP Broadcast Packets
+  units: packets/s
+  family: bcastpkts
+  chart_type: line
+  priority: 60011
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: received
+    rate_signal: network_statistics_bcastpkts_received
+  - id: sent
+    rate_signal: network_statistics_bcastpkts_sent
+- id: ipv4.mcast
+  title: IPv4 Multicast Bandwidth
+  units: kilobits/s
+  family: mcast
+  chart_type: area
+  priority: 60012
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: received
+    rate_signal: network_statistics_mcast_received
+  - id: sent
+    rate_signal: network_statistics_mcast_sent
+- id: ipv4.mcastpkts
+  title: IP Multicast Packets
+  units: packets/s
+  family: mcastpkts
+  chart_type: line
+  priority: 60013
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: received
+    rate_signal: network_statistics_mcastpkts_received
+  - id: sent
+    rate_signal: network_statistics_mcastpkts_sent
+- id: ipv4.icmpmsg
+  title: IPv4 ICMP Messages
+  units: packets/s
+  family: icmpmsg
+  chart_type: line
+  priority: 60014
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: InEchoReps
+    rate_signal: network_statistics_icmpmsg_inechoreps
+  - id: OutEchoReps
+    rate_signal: network_statistics_icmpmsg_outechoreps
+  - id: InDestUnreachs
+    rate_signal: network_statistics_icmpmsg_indestunreachs
+  - id: OutDestUnreachs
+    rate_signal: network_statistics_icmpmsg_outdestunreachs
+  - id: InRedirects
+    rate_signal: network_statistics_icmpmsg_inredirects
+  - id: OutRedirects
+    rate_signal: network_statistics_icmpmsg_outredirects
+  - id: InEchos
+    rate_signal: network_statistics_icmpmsg_inechos
+  - id: OutEchos
+    rate_signal: network_statistics_icmpmsg_outechos
+  - id: InRouterAdvert
+    rate_signal: network_statistics_icmpmsg_inrouteradvert
+  - id: OutRouterAdvert
+    rate_signal: network_statistics_icmpmsg_outrouteradvert
+  - id: InRouterSelect
+    rate_signal: network_statistics_icmpmsg_inrouterselect
+  - id: OutRouterSelect
+    rate_signal: network_statistics_icmpmsg_outrouterselect
+  - id: InTimeExcds
+    rate_signal: network_statistics_icmpmsg_intimeexcds
+  - id: OutTimeExcds
+    rate_signal: network_statistics_icmpmsg_outtimeexcds
+  - id: InParmProbs
+    rate_signal: network_statistics_icmpmsg_inparmprobs
+  - id: OutParmProbs
+    rate_signal: network_statistics_icmpmsg_outparmprobs
+  - id: InTimestamps
+    rate_signal: network_statistics_icmpmsg_intimestamps
+  - id: OutTimestamps
+    rate_signal: network_statistics_icmpmsg_outtimestamps
+  - id: InTimestampReps
+    rate_signal: network_statistics_icmpmsg_intimestampreps
+  - id: OutTimestampReps
+    rate_signal: network_statistics_icmpmsg_outtimestampreps
+- id: ipv4.icmp_errors
+  title: IPv4 ICMP Errors
+  units: packets/s
+  family: icmp
+  chart_type: line
+  priority: 60015
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: InErrors
+    rate_signal: network_statistics_icmp_errors_inerrors
+  - id: OutErrors
+    rate_signal: network_statistics_icmp_errors_outerrors
+  - id: InCsumErrors
+    rate_signal: network_statistics_icmp_errors_incsumerrors
+- id: ipv4.udplite
+  title: IPv4 UDPLite Packets
+  units: packets/s
+  family: udplite
+  chart_type: line
+  priority: 60016
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: received
+    rate_signal: network_statistics_udplite_received
+  - id: sent
+    rate_signal: network_statistics_udplite_sent
+- id: ipv4.udplite_errors
+  title: IPv4 UDPLite Errors
+  units: packets/s
+  family: udplite
+  chart_type: line
+  priority: 60017
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: RcvbufErrors
+    rate_signal: network_statistics_udplite_errors_rcvbuferrors
+  - id: SndbufErrors
+    rate_signal: network_statistics_udplite_errors_sndbuferrors
+  - id: InErrors
+    rate_signal: network_statistics_udplite_errors_inerrors
+  - id: NoPorts
+    rate_signal: network_statistics_udplite_errors_noports
+  - id: InCsumErrors
+    rate_signal: network_statistics_udplite_errors_incsumerrors
+  - id: IgnoredMulti
+    rate_signal: network_statistics_udplite_errors_ignoredmulti
+- id: ipv4.ecnpkts
+  title: IP ECN Statistics
+  units: packets/s
+  family: ecnpkts
+  chart_type: line
+  priority: 60018
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: CEP
+    rate_signal: network_statistics_ecnpkts_cep
+  - id: NoECTP
+    rate_signal: network_statistics_ecnpkts_noectp
+  - id: ECTP0
+    rate_signal: network_statistics_ecnpkts_ectp0
+  - id: ECTP1
+    rate_signal: network_statistics_ecnpkts_ectp1
+- id: ipv4.fragsin
+  title: IPv4 Fragments Reassembly
+  units: packets/s
+  family: fragsin
+  chart_type: line
+  priority: 60019
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: ok
+    rate_signal: network_statistics_fragsin_ok
+  - id: failed
+    rate_signal: network_statistics_fragsin_failed
+  - id: all
+    rate_signal: network_statistics_fragsin_all
+- id: ipv4.fragsout
+  title: IPv4 Fragments Sent
+  units: packets/s
+  family: fragsout
+  chart_type: line
+  priority: 60020
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: ok
+    rate_signal: network_statistics_fragsout_ok
+  - id: failed
+    rate_signal: network_statistics_fragsout_failed
+  - id: created
+    rate_signal: network_statistics_fragsout_created
+- id: ipv6.bcast
+  title: IPv6 Broadcast Bandwidth
+  units: kilobits/s
+  family: bcast
+  chart_type: area
+  priority: 60021
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: received
+    rate_signal: network_statistics_bcast_received
+  - id: sent
+    rate_signal: network_statistics_bcast_sent
+- id: ipv6.mcast
+  title: IPv6 Multicast Bandwidth
+  units: kilobits/s
+  family: mcast
+  chart_type: area
+  priority: 60022
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: received
+    rate_signal: network_statistics_mcast_received
+  - id: sent
+    rate_signal: network_statistics_mcast_sent
+- id: ipv6.mcastpkts
+  title: IPv6 Multicast Packets
+  units: packets/s
+  family: mcastpkts
+  chart_type: line
+  priority: 60023
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: received
+    rate_signal: network_statistics_mcastpkts_received
+  - id: sent
+    rate_signal: network_statistics_mcastpkts_sent
+- id: ipv6.udppackets
+  title: IPv6 UDP Packets
+  units: packets/s
+  family: udppackets
+  chart_type: line
+  priority: 60024
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: received
+    rate_signal: network_statistics_udppackets_received
+  - id: sent
+    rate_signal: network_statistics_udppackets_sent
+- id: ipv6.udperrors
+  title: IPv6 UDP Errors
+  units: events/s
+  family: udperrors
+  chart_type: line
+  priority: 60025
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: RcvbufErrors
+    rate_signal: network_statistics_udperrors_rcvbuferrors
+  - id: SndbufErrors
+    rate_signal: network_statistics_udperrors_sndbuferrors
+  - id: InErrors
+    rate_signal: network_statistics_udperrors_inerrors
+  - id: NoPorts
+    rate_signal: network_statistics_udperrors_noports
+  - id: InCsumErrors
+    rate_signal: network_statistics_udperrors_incsumerrors
+  - id: IgnoredMulti
+    rate_signal: network_statistics_udperrors_ignoredmulti
+- id: ipv6.udplitepackets
+  title: IPv6 UDPlite Packets
+  units: packets/s
+  family: udplitepackets
+  chart_type: line
+  priority: 60026
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: received
+    rate_signal: network_statistics_udplitepackets_received
+  - id: sent
+    rate_signal: network_statistics_udplitepackets_sent
+- id: ipv6.udpliteerrors
+  title: IPv6 UDP Lite Errors
+  units: events/s
+  family: udpliteerrors
+  chart_type: line
+  priority: 60027
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: RcvbufErrors
+    rate_signal: network_statistics_udpliteerrors_rcvbuferrors
+  - id: SndbufErrors
+    rate_signal: network_statistics_udpliteerrors_sndbuferrors
+  - id: InErrors
+    rate_signal: network_statistics_udpliteerrors_inerrors
+  - id: NoPorts
+    rate_signal: network_statistics_udpliteerrors_noports
+  - id: InCsumErrors
+    rate_signal: network_statistics_udpliteerrors_incsumerrors
+- id: ipv6.icmp
+  title: IPv6 ICMP Messages
+  units: messages/s
+  family: icmp
+  chart_type: line
+  priority: 60028
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: received
+    rate_signal: network_statistics_icmp_received
+  - id: sent
+    rate_signal: network_statistics_icmp_sent
+- id: ipv6.icmpredir
+  title: IPv6 ICMP Redirects
+  units: redirects/s
+  family: icmpredir
+  chart_type: line
+  priority: 60029
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: received
+    rate_signal: network_statistics_icmpredir_received
+  - id: sent
+    rate_signal: network_statistics_icmpredir_sent
+- id: ipv6.icmperrors
+  title: IPv6 ICMP Errors
+  units: errors/s
+  family: icmperrors
+  chart_type: line
+  priority: 60030
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: InErrors
+    rate_signal: network_statistics_icmperrors_inerrors
+  - id: OutErrors
+    rate_signal: network_statistics_icmperrors_outerrors
+  - id: InCsumErrors
+    rate_signal: network_statistics_icmperrors_incsumerrors
+  - id: InDestUnreachs
+    rate_signal: network_statistics_icmperrors_indestunreachs
+  - id: InPktTooBigs
+    rate_signal: network_statistics_icmperrors_inpkttoobigs
+  - id: InTimeExcds
+    rate_signal: network_statistics_icmperrors_intimeexcds
+  - id: InParmProblems
+    rate_signal: network_statistics_icmperrors_inparmproblems
+  - id: OutDestUnreachs
+    rate_signal: network_statistics_icmperrors_outdestunreachs
+  - id: OutPktTooBigs
+    rate_signal: network_statistics_icmperrors_outpkttoobigs
+  - id: OutTimeExcds
+    rate_signal: network_statistics_icmperrors_outtimeexcds
+  - id: OutParmProblems
+    rate_signal: network_statistics_icmperrors_outparmproblems
+- id: ipv6.icmpechos
+  title: IPv6 ICMP Echo
+  units: messages/s
+  family: icmpechos
+  chart_type: line
+  priority: 60031
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: InEchos
+    rate_signal: network_statistics_icmpechos_inechos
+  - id: OutEchos
+    rate_signal: network_statistics_icmpechos_outechos
+  - id: InEchoReplies
+    rate_signal: network_statistics_icmpechos_inechoreplies
+  - id: OutEchoReplies
+    rate_signal: network_statistics_icmpechos_outechoreplies
+- id: ipv6.groupmemb
+  title: IPv6 ICMP Group Membership
+  units: messages/s
+  family: groupmemb
+  chart_type: line
+  priority: 60032
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: InQueries
+    rate_signal: network_statistics_groupmemb_inqueries
+  - id: OutQueries
+    rate_signal: network_statistics_groupmemb_outqueries
+  - id: InResponses
+    rate_signal: network_statistics_groupmemb_inresponses
+  - id: OutResponses
+    rate_signal: network_statistics_groupmemb_outresponses
+  - id: InReductions
+    rate_signal: network_statistics_groupmemb_inreductions
+  - id: OutReductions
+    rate_signal: network_statistics_groupmemb_outreductions
+- id: ipv6.icmprouter
+  title: IPv6 Router Messages
+  units: messages/s
+  family: icmprouter
+  chart_type: line
+  priority: 60033
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: InSolicits
+    rate_signal: network_statistics_icmprouter_insolicits
+  - id: OutSolicits
+    rate_signal: network_statistics_icmprouter_outsolicits
+  - id: InAdvertisements
+    rate_signal: network_statistics_icmprouter_inadvertisements
+  - id: OutAdvertisements
+    rate_signal: network_statistics_icmprouter_outadvertisements
+- id: ipv6.icmpneighbor
+  title: IPv6 Neighbor Messages
+  units: messages/s
+  family: icmpneighbor
+  chart_type: line
+  priority: 60034
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: InSolicits
+    rate_signal: network_statistics_icmpneighbor_insolicits
+  - id: OutSolicits
+    rate_signal: network_statistics_icmpneighbor_outsolicits
+  - id: InAdvertisements
+    rate_signal: network_statistics_icmpneighbor_inadvertisements
+  - id: OutAdvertisements
+    rate_signal: network_statistics_icmpneighbor_outadvertisements
+- id: ipv6.icmpmldv2
+  title: IPv6 ICMP MLDv2 Reports
+  units: reports/s
+  family: icmpmldv2
+  chart_type: line
+  priority: 60035
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: received
+    rate_signal: network_statistics_icmpmldv2_received
+  - id: sent
+    rate_signal: network_statistics_icmpmldv2_sent
+- id: ipv6.icmptypes
+  title: IPv6 ICMP Types
+  units: messages/s
+  family: icmptypes
+  chart_type: line
+  priority: 60036
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: InType1
+    rate_signal: network_statistics_icmptypes_intype1
+  - id: InType128
+    rate_signal: network_statistics_icmptypes_intype128
+  - id: InType129
+    rate_signal: network_statistics_icmptypes_intype129
+  - id: InType136
+    rate_signal: network_statistics_icmptypes_intype136
+  - id: OutType1
+    rate_signal: network_statistics_icmptypes_outtype1
+  - id: OutType128
+    rate_signal: network_statistics_icmptypes_outtype128
+  - id: OutType129
+    rate_signal: network_statistics_icmptypes_outtype129
+  - id: OutType133
+    rate_signal: network_statistics_icmptypes_outtype133
+  - id: OutType135
+    rate_signal: network_statistics_icmptypes_outtype135
+  - id: OutType143
+    rate_signal: network_statistics_icmptypes_outtype143
+- id: ipv6.ect
+  title: IPv6 ECT Packets
+  units: packets/s
+  family: ect
+  chart_type: line
+  priority: 60037
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: InNoECTPkts
+    rate_signal: network_statistics_ect_innoectpkts
+  - id: InECT1Pkts
+    rate_signal: network_statistics_ect_inect1pkts
+  - id: InECT0Pkts
+    rate_signal: network_statistics_ect_inect0pkts
+  - id: InCEPkts
+    rate_signal: network_statistics_ect_incepkts
+- id: ipv6.fragsin
+  title: IPv6 Fragments Reassembly
+  units: packets/s
+  family: fragsin
+  chart_type: line
+  priority: 60038
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: ok
+    rate_signal: network_statistics_fragsin_ok
+  - id: failed
+    rate_signal: network_statistics_fragsin_failed
+  - id: timeout
+    rate_signal: network_statistics_fragsin_timeout
+  - id: all
+    rate_signal: network_statistics_fragsin_all
+- id: ipv6.fragsout
+  title: IPv6 Fragments Sent
+  units: packets/s
+  family: fragsout
+  chart_type: line
+  priority: 60039
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: ok
+    rate_signal: network_statistics_fragsout_ok
+  - id: failed
+    rate_signal: network_statistics_fragsout_failed
+  - id: all
+    rate_signal: network_statistics_fragsout_all

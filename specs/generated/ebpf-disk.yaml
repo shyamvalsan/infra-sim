@@ -1,0 +1,29 @@
+version: 1
+name: ebpf-disk
+description: eBPF Disk metrics, generated from Netdata's own collector metadata so the contexts, units
+  and dimension names match what a real eBPF Disk node reports. Signals are independent and plausible
+  rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  ebpf_disk_latency_io_latency:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: disk.latency_io
+  title: Disk latency
+  units: calls/s
+  family: latency
+  chart_type: stacked
+  priority: 60001
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: latency
+    rate_signal: ebpf_disk_latency_io_latency

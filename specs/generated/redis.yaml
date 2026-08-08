@@ -1,0 +1,725 @@
+version: 1
+name: redis
+description: Redis metrics, generated from Netdata's own collector metadata so the contexts, units and
+  dimension names match what a real Redis node reports. Signals are independent and plausible rather than
+  causally coupled - see scripts/sync-integrations.py.
+signals:
+  redis_connections_accepted:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  redis_connections_rejected:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  redis_clients_connected:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  redis_clients_blocked:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  redis_clients_tracking:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  redis_clients_in_timeout_table:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  redis_ping_latency_min:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  redis_ping_latency_max:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  redis_ping_latency_avg:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  redis_commands_processes:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  redis_keyspace_lookup_hit_rate_lookup_hit_rate:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  redis_memory_max:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  redis_memory_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  redis_memory_rss:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  redis_memory_peak:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  redis_memory_dataset:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  redis_memory_lua:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  redis_memory_scripts:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  redis_mem_fragmentation_ratio_mem_fragmentation:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  redis_key_eviction_events_evicted:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  redis_net_received:
+    base: 18000.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  redis_net_sent:
+    base: 18000.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  redis_rdb_changes_changes:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  redis_bgsave_now_current_bgsave_time:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  redis_bgsave_health_last_bgsave:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  redis_bgsave_last_rdb_save_since_time_last_bgsave_time:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  redis_aof_file_size_current:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  redis_aof_file_size_base:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  redis_commands_calls_a_dimension_per_command:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  redis_commands_usec_a_dimension_per_command:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  redis_commands_usec_per_sec_a_dimension_per_command:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  redis_key_expiration_events_expired:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  redis_database_keys_a_dimension_per_database:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  redis_database_expires_keys_a_dimension_per_database:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  redis_connected_replicas_connected:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  redis_master_link_status_up:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  redis_master_link_status_down:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  redis_master_last_io_since_time_time:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  redis_master_link_down_since_time_time:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  redis_uptime_uptime:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: redis.connections
+  title: Accepted and rejected (maxclients limit) connections
+  units: connections/s
+  family: connections
+  chart_type: line
+  priority: 60001
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: accepted
+    rate_signal: redis_connections_accepted
+  - id: rejected
+    rate_signal: redis_connections_rejected
+- id: redis.clients
+  title: Clients
+  units: clients
+  family: clients
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: connected
+    signal: redis_clients_connected
+  - id: blocked
+    signal: redis_clients_blocked
+  - id: tracking
+    signal: redis_clients_tracking
+  - id: in_timeout_table
+    signal: redis_clients_in_timeout_table
+- id: redis.ping_latency
+  title: Ping latency
+  units: seconds
+  family: ping
+  chart_type: area
+  priority: 60003
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: min
+    signal: redis_ping_latency_min
+  - id: max
+    signal: redis_ping_latency_max
+  - id: avg
+    signal: redis_ping_latency_avg
+- id: redis.commands
+  title: Processed commands
+  units: commands/s
+  family: commands
+  chart_type: line
+  priority: 60004
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: processes
+    rate_signal: redis_commands_processes
+- id: redis.keyspace_lookup_hit_rate
+  title: Keys lookup hit rate
+  units: percentage
+  family: keyspace
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: lookup_hit_rate
+    signal: redis_keyspace_lookup_hit_rate_lookup_hit_rate
+- id: redis.memory
+  title: Memory usage
+  units: bytes
+  family: memory
+  chart_type: area
+  priority: 60006
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: max
+    signal: redis_memory_max
+  - id: used
+    signal: redis_memory_used
+  - id: rss
+    signal: redis_memory_rss
+  - id: peak
+    signal: redis_memory_peak
+  - id: dataset
+    signal: redis_memory_dataset
+  - id: lua
+    signal: redis_memory_lua
+  - id: scripts
+    signal: redis_memory_scripts
+- id: redis.mem_fragmentation_ratio
+  title: Ratio between used_memory_rss and used_memory
+  units: ratio
+  family: mem
+  chart_type: line
+  priority: 60007
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: mem_fragmentation
+    signal: redis_mem_fragmentation_ratio_mem_fragmentation
+- id: redis.key_eviction_events
+  title: Evicted keys due to maxmemory limit
+  units: keys/s
+  family: key
+  chart_type: line
+  priority: 60008
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: evicted
+    rate_signal: redis_key_eviction_events_evicted
+- id: redis.net
+  title: Bandwidth
+  units: kilobits/s
+  family: net
+  chart_type: area
+  priority: 60009
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: received
+    rate_signal: redis_net_received
+  - id: sent
+    rate_signal: redis_net_sent
+- id: redis.rdb_changes
+  title: Operations that produced changes since the last SAVE or BGSAVE
+  units: operations
+  family: rdb
+  chart_type: line
+  priority: 60010
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: changes
+    signal: redis_rdb_changes_changes
+- id: redis.bgsave_now
+  title: Duration of the on-going RDB save operation if any
+  units: seconds
+  family: bgsave
+  chart_type: line
+  priority: 60011
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: current_bgsave_time
+    signal: redis_bgsave_now_current_bgsave_time
+- id: redis.bgsave_health
+  title: 'Status of the last RDB save operation (0: ok, 1: err)'
+  units: status
+  family: bgsave
+  chart_type: line
+  priority: 60012
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: last_bgsave
+    signal: redis_bgsave_health_last_bgsave
+- id: redis.bgsave_last_rdb_save_since_time
+  title: Time elapsed since the last successful RDB save
+  units: seconds
+  family: bgsave
+  chart_type: line
+  priority: 60013
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: last_bgsave_time
+    signal: redis_bgsave_last_rdb_save_since_time_last_bgsave_time
+- id: redis.aof_file_size
+  title: AOF file size
+  units: bytes
+  family: aof
+  chart_type: line
+  priority: 60014
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: current
+    signal: redis_aof_file_size_current
+  - id: base
+    signal: redis_aof_file_size_base
+- id: redis.commands_calls
+  title: Calls per command
+  units: calls
+  family: commands
+  chart_type: stacked
+  priority: 60015
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: a dimension per command
+    signal: redis_commands_calls_a_dimension_per_command
+- id: redis.commands_usec
+  title: Total CPU time consumed by the commands
+  units: microseconds
+  family: commands
+  chart_type: stacked
+  priority: 60016
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: a dimension per command
+    signal: redis_commands_usec_a_dimension_per_command
+- id: redis.commands_usec_per_sec
+  title: Average CPU consumed per command execution
+  units: microseconds/s
+  family: commands
+  chart_type: stacked
+  priority: 60017
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: a dimension per command
+    signal: redis_commands_usec_per_sec_a_dimension_per_command
+- id: redis.key_expiration_events
+  title: Expired keys
+  units: keys/s
+  family: key
+  chart_type: line
+  priority: 60018
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: expired
+    rate_signal: redis_key_expiration_events_expired
+- id: redis.database_keys
+  title: Keys per database
+  units: keys
+  family: database
+  chart_type: line
+  priority: 60019
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: a dimension per database
+    signal: redis_database_keys_a_dimension_per_database
+- id: redis.database_expires_keys
+  title: Keys with an expiration per database
+  units: keys
+  family: database
+  chart_type: line
+  priority: 60020
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: a dimension per database
+    signal: redis_database_expires_keys_a_dimension_per_database
+- id: redis.connected_replicas
+  title: Connected replicas
+  units: replicas
+  family: connected
+  chart_type: line
+  priority: 60021
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: connected
+    signal: redis_connected_replicas_connected
+- id: redis.master_link_status
+  title: Master link status
+  units: status
+  family: master
+  chart_type: line
+  priority: 60022
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: up
+    signal: redis_master_link_status_up
+  - id: down
+    signal: redis_master_link_status_down
+- id: redis.master_last_io_since_time
+  title: Time elapsed since the last interaction with master
+  units: seconds
+  family: master
+  chart_type: line
+  priority: 60023
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: time
+    signal: redis_master_last_io_since_time_time
+- id: redis.master_link_down_since_time
+  title: Time elapsed since the link between master and slave is down
+  units: seconds
+  family: master
+  chart_type: line
+  priority: 60024
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: time
+    signal: redis_master_link_down_since_time_time
+- id: redis.uptime
+  title: Uptime
+  units: seconds
+  family: uptime
+  chart_type: line
+  priority: 60025
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: uptime
+    signal: redis_uptime_uptime

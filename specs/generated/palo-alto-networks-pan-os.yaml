@@ -1,0 +1,1065 @@
+version: 1
+name: palo-alto-networks-pan-os
+description: Palo Alto Networks PAN-OS metrics, generated from Netdata's own collector metadata so the
+  contexts, units and dimension names match what a real Palo Alto Networks PAN-OS node reports. Signals
+  are independent and plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  palo_alto_networks_pan_os_system_uptime_uptime:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  palo_alto_networks_pan_os_system_device_certificate_status_valid:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  palo_alto_networks_pan_os_system_device_certificate_status_invalid:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  palo_alto_networks_pan_os_system_operational_mode_normal:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  palo_alto_networks_pan_os_system_operational_mode_other:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  palo_alto_networks_pan_os_ha_status_enabled:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  palo_alto_networks_pan_os_ha_status_disabled:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  palo_alto_networks_pan_os_ha_local_state_active:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  palo_alto_networks_pan_os_ha_local_state_passive:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  palo_alto_networks_pan_os_ha_local_state_non_functional:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  palo_alto_networks_pan_os_ha_local_state_suspended:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  palo_alto_networks_pan_os_ha_local_state_unknown:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  palo_alto_networks_pan_os_ha_peer_state_active:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  palo_alto_networks_pan_os_ha_peer_state_passive:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  palo_alto_networks_pan_os_ha_peer_state_non_functional:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  palo_alto_networks_pan_os_ha_peer_state_suspended:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  palo_alto_networks_pan_os_ha_peer_state_unknown:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  palo_alto_networks_pan_os_ha_peer_connection_status_up:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  palo_alto_networks_pan_os_ha_peer_connection_status_down:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  palo_alto_networks_pan_os_ha_peer_connection_status_unknown:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  palo_alto_networks_pan_os_ha_state_sync_status_synchronized:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  palo_alto_networks_pan_os_ha_state_sync_status_not_synchronized:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  palo_alto_networks_pan_os_ha_state_sync_status_unknown:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  palo_alto_networks_pan_os_ha_link_status_up:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  palo_alto_networks_pan_os_ha_link_status_down:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  palo_alto_networks_pan_os_ha_link_status_unknown:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  palo_alto_networks_pan_os_environment_temperature_temperature:
+    base: 41.0
+    min: 0.0
+    max: 120.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  palo_alto_networks_pan_os_environment_fan_speed_speed:
+    base: 2400.0
+    min: 0.0
+    max: 30000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  palo_alto_networks_pan_os_environment_voltage_voltage:
+    base: 12.0
+    min: 0.0
+    max: 480.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  palo_alto_networks_pan_os_environment_sensor_alarm_status_clear:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  palo_alto_networks_pan_os_environment_sensor_alarm_status_alarm:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  palo_alto_networks_pan_os_environment_power_supply_presence_status_present:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  palo_alto_networks_pan_os_environment_power_supply_presence_status_absent:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  palo_alto_networks_pan_os_environment_power_supply_alarm_status_clear:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  palo_alto_networks_pan_os_environment_power_supply_alarm_status_alarm:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  palo_alto_networks_pan_os_license_count_total:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  palo_alto_networks_pan_os_license_count_expired:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  palo_alto_networks_pan_os_license_status_valid:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  palo_alto_networks_pan_os_license_status_expired:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  palo_alto_networks_pan_os_license_time_until_expiration_time_until_expiration:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  palo_alto_networks_pan_os_ipsec_tunnels_active:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  palo_alto_networks_pan_os_ipsec_tunnel_sa_lifetime_remaining_lifetime:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  palo_alto_networks_pan_os_bgp_peer_state_idle:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  palo_alto_networks_pan_os_bgp_peer_state_connect:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  palo_alto_networks_pan_os_bgp_peer_state_active:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  palo_alto_networks_pan_os_bgp_peer_state_opensent:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  palo_alto_networks_pan_os_bgp_peer_state_openconfirm:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  palo_alto_networks_pan_os_bgp_peer_state_established:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  palo_alto_networks_pan_os_bgp_peer_state_unknown:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  palo_alto_networks_pan_os_bgp_peer_uptime_uptime:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  palo_alto_networks_pan_os_bgp_peer_messages_in:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  palo_alto_networks_pan_os_bgp_peer_messages_out:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  palo_alto_networks_pan_os_bgp_peer_updates_in:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  palo_alto_networks_pan_os_bgp_peer_updates_out:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  palo_alto_networks_pan_os_bgp_peer_flaps_flaps:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  palo_alto_networks_pan_os_bgp_peer_established_transitions_established:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  palo_alto_networks_pan_os_bgp_peer_prefixes_received_total:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  palo_alto_networks_pan_os_bgp_peer_prefixes_received_accepted:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  palo_alto_networks_pan_os_bgp_peer_prefixes_received_rejected:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  palo_alto_networks_pan_os_bgp_peer_prefixes_advertised_advertised:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  palo_alto_networks_pan_os_bgp_vr_peers_by_state_idle:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  palo_alto_networks_pan_os_bgp_vr_peers_by_state_connect:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  palo_alto_networks_pan_os_bgp_vr_peers_by_state_active:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  palo_alto_networks_pan_os_bgp_vr_peers_by_state_opensent:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  palo_alto_networks_pan_os_bgp_vr_peers_by_state_openconfirm:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  palo_alto_networks_pan_os_bgp_vr_peers_by_state_established:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  palo_alto_networks_pan_os_bgp_vr_peers_by_state_unknown:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  palo_alto_networks_pan_os_bgp_vr_peers_total_configured:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  palo_alto_networks_pan_os_bgp_vr_peers_total_established:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: panos.system.uptime
+  title: System Uptime
+  units: seconds
+  family: system.uptime
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels:
+    hostname: sim-hostname-1
+    model: sim-model-1
+    serial: sim-serial-1
+    sw_version: sim-sw_version-1
+  dimensions:
+  - id: uptime
+    signal: palo_alto_networks_pan_os_system_uptime_uptime
+- id: panos.system.device_certificate_status
+  title: Device Certificate Status
+  units: status
+  family: system.device
+  chart_type: stacked
+  priority: 60002
+  shape: independent
+  labels:
+    hostname: sim-hostname-1
+    model: sim-model-1
+    serial: sim-serial-1
+    sw_version: sim-sw_version-1
+  dimensions:
+  - id: valid
+    signal: palo_alto_networks_pan_os_system_device_certificate_status_valid
+  - id: invalid
+    signal: palo_alto_networks_pan_os_system_device_certificate_status_invalid
+- id: panos.system.operational_mode
+  title: Operational Mode
+  units: mode
+  family: system.operational
+  chart_type: stacked
+  priority: 60003
+  shape: independent
+  labels:
+    hostname: sim-hostname-1
+    model: sim-model-1
+    serial: sim-serial-1
+    sw_version: sim-sw_version-1
+  dimensions:
+  - id: normal
+    signal: palo_alto_networks_pan_os_system_operational_mode_normal
+  - id: other
+    signal: palo_alto_networks_pan_os_system_operational_mode_other
+- id: panos.ha.status
+  title: HA Status
+  units: status
+  family: ha.status
+  chart_type: stacked
+  priority: 60004
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: enabled
+    signal: palo_alto_networks_pan_os_ha_status_enabled
+  - id: disabled
+    signal: palo_alto_networks_pan_os_ha_status_disabled
+- id: panos.ha.local.state
+  title: Local HA State
+  units: state
+  family: ha.local.state
+  chart_type: stacked
+  priority: 60005
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: active
+    signal: palo_alto_networks_pan_os_ha_local_state_active
+  - id: passive
+    signal: palo_alto_networks_pan_os_ha_local_state_passive
+  - id: non_functional
+    signal: palo_alto_networks_pan_os_ha_local_state_non_functional
+  - id: suspended
+    signal: palo_alto_networks_pan_os_ha_local_state_suspended
+  - id: unknown
+    signal: palo_alto_networks_pan_os_ha_local_state_unknown
+- id: panos.ha.peer.state
+  title: Peer HA State
+  units: state
+  family: ha.peer.state
+  chart_type: stacked
+  priority: 60006
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: active
+    signal: palo_alto_networks_pan_os_ha_peer_state_active
+  - id: passive
+    signal: palo_alto_networks_pan_os_ha_peer_state_passive
+  - id: non_functional
+    signal: palo_alto_networks_pan_os_ha_peer_state_non_functional
+  - id: suspended
+    signal: palo_alto_networks_pan_os_ha_peer_state_suspended
+  - id: unknown
+    signal: palo_alto_networks_pan_os_ha_peer_state_unknown
+- id: panos.ha.peer.connection_status
+  title: HA Peer Connection Status
+  units: status
+  family: ha.peer.connection
+  chart_type: stacked
+  priority: 60007
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: up
+    signal: palo_alto_networks_pan_os_ha_peer_connection_status_up
+  - id: down
+    signal: palo_alto_networks_pan_os_ha_peer_connection_status_down
+  - id: unknown
+    signal: palo_alto_networks_pan_os_ha_peer_connection_status_unknown
+- id: panos.ha.state_sync_status
+  title: HA State Synchronization
+  units: status
+  family: ha.state
+  chart_type: stacked
+  priority: 60008
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: synchronized
+    signal: palo_alto_networks_pan_os_ha_state_sync_status_synchronized
+  - id: not_synchronized
+    signal: palo_alto_networks_pan_os_ha_state_sync_status_not_synchronized
+  - id: unknown
+    signal: palo_alto_networks_pan_os_ha_state_sync_status_unknown
+- id: panos.ha.link_status
+  title: HA Link Status
+  units: status
+  family: ha.link
+  chart_type: stacked
+  priority: 60009
+  shape: independent
+  labels:
+    link: sim-link-1
+  dimensions:
+  - id: up
+    signal: palo_alto_networks_pan_os_ha_link_status_up
+  - id: down
+    signal: palo_alto_networks_pan_os_ha_link_status_down
+  - id: unknown
+    signal: palo_alto_networks_pan_os_ha_link_status_unknown
+- id: panos.environment.temperature
+  title: Environment Temperature
+  units: Celsius
+  family: environment.temperature
+  chart_type: line
+  priority: 60010
+  shape: independent
+  labels:
+    slot: sim-slot-1
+    sensor: sim-sensor-1
+    sensor_type: sim-sensor_type-1
+  dimensions:
+  - id: temperature
+    signal: palo_alto_networks_pan_os_environment_temperature_temperature
+- id: panos.environment.fan_speed
+  title: Environment Fan Speed
+  units: RPM
+  family: environment.fan
+  chart_type: line
+  priority: 60011
+  shape: independent
+  labels:
+    slot: sim-slot-1
+    sensor: sim-sensor-1
+    sensor_type: sim-sensor_type-1
+  dimensions:
+  - id: speed
+    signal: palo_alto_networks_pan_os_environment_fan_speed_speed
+- id: panos.environment.voltage
+  title: Environment Voltage
+  units: Volts
+  family: environment.voltage
+  chart_type: line
+  priority: 60012
+  shape: independent
+  labels:
+    slot: sim-slot-1
+    sensor: sim-sensor-1
+    sensor_type: sim-sensor_type-1
+  dimensions:
+  - id: voltage
+    signal: palo_alto_networks_pan_os_environment_voltage_voltage
+- id: panos.environment.sensor_alarm_status
+  title: Environment Sensor Alarm
+  units: status
+  family: environment.sensor
+  chart_type: stacked
+  priority: 60013
+  shape: independent
+  labels:
+    slot: sim-slot-1
+    sensor: sim-sensor-1
+    sensor_type: sim-sensor_type-1
+  dimensions:
+  - id: clear
+    signal: palo_alto_networks_pan_os_environment_sensor_alarm_status_clear
+  - id: alarm
+    signal: palo_alto_networks_pan_os_environment_sensor_alarm_status_alarm
+- id: panos.environment.power_supply_presence_status
+  title: Power Supply Presence
+  units: status
+  family: environment.power
+  chart_type: stacked
+  priority: 60014
+  shape: independent
+  labels:
+    slot: sim-slot-1
+    sensor: sim-sensor-1
+    sensor_type: sim-sensor_type-1
+  dimensions:
+  - id: present
+    signal: palo_alto_networks_pan_os_environment_power_supply_presence_status_present
+  - id: absent
+    signal: palo_alto_networks_pan_os_environment_power_supply_presence_status_absent
+- id: panos.environment.power_supply_alarm_status
+  title: Power Supply Alarm
+  units: status
+  family: environment.power
+  chart_type: stacked
+  priority: 60015
+  shape: independent
+  labels:
+    slot: sim-slot-1
+    sensor: sim-sensor-1
+    sensor_type: sim-sensor_type-1
+  dimensions:
+  - id: clear
+    signal: palo_alto_networks_pan_os_environment_power_supply_alarm_status_clear
+  - id: alarm
+    signal: palo_alto_networks_pan_os_environment_power_supply_alarm_status_alarm
+- id: panos.license.count
+  title: Licenses
+  units: licenses
+  family: license.count
+  chart_type: line
+  priority: 60016
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: total
+    signal: palo_alto_networks_pan_os_license_count_total
+  - id: expired
+    signal: palo_alto_networks_pan_os_license_count_expired
+- id: panos.license.status
+  title: License Status
+  units: status
+  family: license.status
+  chart_type: stacked
+  priority: 60017
+  shape: independent
+  labels:
+    feature: sim-feature-1
+    description: sim-description-1
+  dimensions:
+  - id: valid
+    signal: palo_alto_networks_pan_os_license_status_valid
+  - id: expired
+    signal: palo_alto_networks_pan_os_license_status_expired
+- id: panos.license.time_until_expiration
+  title: Time until expiration for non-expired licenses. A value of -1 means PAN-OS reports that the license
+    never expi
+  units: days
+  family: license.time
+  chart_type: line
+  priority: 60018
+  shape: independent
+  labels:
+    feature: sim-feature-1
+    description: sim-description-1
+  dimensions:
+  - id: time_until_expiration
+    signal: palo_alto_networks_pan_os_license_time_until_expiration_time_until_expiration
+- id: panos.ipsec.tunnels
+  title: IPsec Tunnels
+  units: tunnels
+  family: ipsec.tunnels
+  chart_type: line
+  priority: 60019
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: active
+    signal: palo_alto_networks_pan_os_ipsec_tunnels_active
+- id: panos.ipsec.tunnel.sa_lifetime
+  title: IPsec Tunnel SA Remaining Lifetime
+  units: seconds
+  family: ipsec.tunnel.sa
+  chart_type: line
+  priority: 60020
+  shape: independent
+  labels:
+    tunnel: sim-tunnel-1
+    gateway: sim-gateway-1
+    remote: sim-remote-1
+    tunnel_id: sim-tunnel_id-1
+    protocol: sim-protocol-1
+    encryption: sim-encryption-1
+  dimensions:
+  - id: remaining_lifetime
+    signal: palo_alto_networks_pan_os_ipsec_tunnel_sa_lifetime_remaining_lifetime
+- id: panos.bgp.peer.state
+  title: BGP Peer State
+  units: state
+  family: bgp.peer.state
+  chart_type: stacked
+  priority: 60021
+  shape: independent
+  labels:
+    vr: sim-vr-1
+    peer_address: sim-peer_address-1
+    local_address: sim-local_address-1
+    remote_as: sim-remote_as-1
+    peer_group: sim-peer_group-1
+  dimensions:
+  - id: idle
+    signal: palo_alto_networks_pan_os_bgp_peer_state_idle
+  - id: connect
+    signal: palo_alto_networks_pan_os_bgp_peer_state_connect
+  - id: active
+    signal: palo_alto_networks_pan_os_bgp_peer_state_active
+  - id: opensent
+    signal: palo_alto_networks_pan_os_bgp_peer_state_opensent
+  - id: openconfirm
+    signal: palo_alto_networks_pan_os_bgp_peer_state_openconfirm
+  - id: established
+    signal: palo_alto_networks_pan_os_bgp_peer_state_established
+  - id: unknown
+    signal: palo_alto_networks_pan_os_bgp_peer_state_unknown
+- id: panos.bgp.peer.uptime
+  title: BGP Peer Uptime
+  units: seconds
+  family: bgp.peer.uptime
+  chart_type: line
+  priority: 60022
+  shape: independent
+  labels:
+    vr: sim-vr-1
+    peer_address: sim-peer_address-1
+    local_address: sim-local_address-1
+    remote_as: sim-remote_as-1
+    peer_group: sim-peer_group-1
+  dimensions:
+  - id: uptime
+    signal: palo_alto_networks_pan_os_bgp_peer_uptime_uptime
+- id: panos.bgp.peer.messages
+  title: BGP Peer Messages
+  units: messages/s
+  family: bgp.peer.messages
+  chart_type: line
+  priority: 60023
+  shape: counters
+  labels:
+    vr: sim-vr-1
+    peer_address: sim-peer_address-1
+    local_address: sim-local_address-1
+    remote_as: sim-remote_as-1
+    peer_group: sim-peer_group-1
+  dimensions:
+  - id: in
+    rate_signal: palo_alto_networks_pan_os_bgp_peer_messages_in
+  - id: out
+    rate_signal: palo_alto_networks_pan_os_bgp_peer_messages_out
+- id: panos.bgp.peer.updates
+  title: BGP Peer Updates
+  units: messages/s
+  family: bgp.peer.updates
+  chart_type: line
+  priority: 60024
+  shape: counters
+  labels:
+    vr: sim-vr-1
+    peer_address: sim-peer_address-1
+    local_address: sim-local_address-1
+    remote_as: sim-remote_as-1
+    peer_group: sim-peer_group-1
+  dimensions:
+  - id: in
+    rate_signal: palo_alto_networks_pan_os_bgp_peer_updates_in
+  - id: out
+    rate_signal: palo_alto_networks_pan_os_bgp_peer_updates_out
+- id: panos.bgp.peer.flaps
+  title: BGP Peer Flaps
+  units: flaps/s
+  family: bgp.peer.flaps
+  chart_type: line
+  priority: 60025
+  shape: counters
+  labels:
+    vr: sim-vr-1
+    peer_address: sim-peer_address-1
+    local_address: sim-local_address-1
+    remote_as: sim-remote_as-1
+    peer_group: sim-peer_group-1
+  dimensions:
+  - id: flaps
+    rate_signal: palo_alto_networks_pan_os_bgp_peer_flaps_flaps
+- id: panos.bgp.peer.established_transitions
+  title: BGP Peer Established Transitions
+  units: transitions/s
+  family: bgp.peer.established
+  chart_type: line
+  priority: 60026
+  shape: counters
+  labels:
+    vr: sim-vr-1
+    peer_address: sim-peer_address-1
+    local_address: sim-local_address-1
+    remote_as: sim-remote_as-1
+    peer_group: sim-peer_group-1
+  dimensions:
+  - id: established
+    rate_signal: palo_alto_networks_pan_os_bgp_peer_established_transitions_established
+- id: panos.bgp.peer.prefixes_received
+  title: BGP Peer Received Prefixes
+  units: prefixes
+  family: bgp.peer.prefixes
+  chart_type: line
+  priority: 60027
+  shape: independent
+  labels:
+    vr: sim-vr-1
+    peer_address: sim-peer_address-1
+    local_address: sim-local_address-1
+    remote_as: sim-remote_as-1
+    peer_group: sim-peer_group-1
+    afi: sim-afi-1
+    safi: sim-safi-1
+  dimensions:
+  - id: total
+    signal: palo_alto_networks_pan_os_bgp_peer_prefixes_received_total
+  - id: accepted
+    signal: palo_alto_networks_pan_os_bgp_peer_prefixes_received_accepted
+  - id: rejected
+    signal: palo_alto_networks_pan_os_bgp_peer_prefixes_received_rejected
+- id: panos.bgp.peer.prefixes_advertised
+  title: BGP Peer Advertised Prefixes
+  units: prefixes
+  family: bgp.peer.prefixes
+  chart_type: line
+  priority: 60028
+  shape: independent
+  labels:
+    vr: sim-vr-1
+    peer_address: sim-peer_address-1
+    local_address: sim-local_address-1
+    remote_as: sim-remote_as-1
+    peer_group: sim-peer_group-1
+    afi: sim-afi-1
+    safi: sim-safi-1
+  dimensions:
+  - id: advertised
+    signal: palo_alto_networks_pan_os_bgp_peer_prefixes_advertised_advertised
+- id: panos.bgp.vr.peers_by_state
+  title: BGP Peers by State
+  units: peers
+  family: bgp.vr.peers
+  chart_type: stacked
+  priority: 60029
+  shape: independent
+  labels:
+    vr: sim-vr-1
+  dimensions:
+  - id: idle
+    signal: palo_alto_networks_pan_os_bgp_vr_peers_by_state_idle
+  - id: connect
+    signal: palo_alto_networks_pan_os_bgp_vr_peers_by_state_connect
+  - id: active
+    signal: palo_alto_networks_pan_os_bgp_vr_peers_by_state_active
+  - id: opensent
+    signal: palo_alto_networks_pan_os_bgp_vr_peers_by_state_opensent
+  - id: openconfirm
+    signal: palo_alto_networks_pan_os_bgp_vr_peers_by_state_openconfirm
+  - id: established
+    signal: palo_alto_networks_pan_os_bgp_vr_peers_by_state_established
+  - id: unknown
+    signal: palo_alto_networks_pan_os_bgp_vr_peers_by_state_unknown
+- id: panos.bgp.vr.peers_total
+  title: BGP Peers Total
+  units: peers
+  family: bgp.vr.peers
+  chart_type: line
+  priority: 60030
+  shape: independent
+  labels:
+    vr: sim-vr-1
+  dimensions:
+  - id: configured
+    signal: palo_alto_networks_pan_os_bgp_vr_peers_total_configured
+  - id: established
+    signal: palo_alto_networks_pan_os_bgp_vr_peers_total_established

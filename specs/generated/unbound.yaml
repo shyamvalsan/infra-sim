@@ -1,0 +1,1314 @@
+version: 1
+name: unbound
+description: Unbound metrics, generated from Netdata's own collector metadata so the contexts, units and
+  dimension names match what a real Unbound node reports. Signals are independent and plausible rather
+  than causally coupled - see scripts/sync-integrations.py.
+signals:
+  unbound_queries_queries:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_queries_ip_ratelimited_ratelimited:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_dnscrypt_queries_crypted:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_dnscrypt_queries_cert:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_dnscrypt_queries_cleartext:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_dnscrypt_queries_malformed:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_cache_hits:
+    base: 90.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_cache_miss:
+    base: 90.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_cache_percentage_hits:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_cache_percentage_miss:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_prefetch_prefetches:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_expired_expired:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_zero_ttl_replies_zero_ttl:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_recursive_replies_recursive:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_recursion_time_avg:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_recursion_time_median:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_request_list_usage_avg:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_request_list_usage_max:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_current_request_list_usage_all:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_current_request_list_usage_users:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_request_list_jostle_list_overwritten:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_request_list_jostle_list_dropped:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  unbound_tcpusage_usage:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_uptime_time:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_cache_memory_message:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_cache_memory_rrset:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_cache_memory_dnscrypt_nonce:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_cache_memory_dnscrypt_shared_secret:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_mod_memory_iterator:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_mod_memory_respip:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_mod_memory_validator:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_mod_memory_subnet:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_mod_memory_ipsec:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_mem_streamwait_streamwait:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_cache_count_infra:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_cache_count_key:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_cache_count_msg:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_cache_count_rrset:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_cache_count_dnscrypt_nonce:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_cache_count_shared_secret:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_type_queries_a_dimension_per_query_type:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_class_queries_a_dimension_per_query_class:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_opcode_queries_a_dimension_per_query_opcode:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_flag_queries_qr:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_flag_queries_aa:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_flag_queries_tc:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_flag_queries_rd:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_flag_queries_ra:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_flag_queries_z:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_flag_queries_ad:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_flag_queries_cd:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_rcode_answers_a_dimension_per_reply_rcode:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_thread_queries_queries:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_thread_queries_ip_ratelimited_ratelimited:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_thread_dnscrypt_queries_crypted:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_thread_dnscrypt_queries_cert:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_thread_dnscrypt_queries_cleartext:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_thread_dnscrypt_queries_malformed:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_thread_cache_hits:
+    base: 90.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_thread_cache_miss:
+    base: 90.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_thread_cache_percentage_hits:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_thread_cache_percentage_miss:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_thread_prefetch_prefetches:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_thread_expired_expired:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_thread_zero_ttl_replies_zero_ttl:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_thread_recursive_replies_recursive:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_thread_recursion_time_avg:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_thread_recursion_time_median:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_thread_request_list_usage_avg:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_thread_request_list_usage_max:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_thread_current_request_list_usage_all:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_thread_current_request_list_usage_users:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_thread_request_list_jostle_list_overwritten:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  unbound_thread_request_list_jostle_list_dropped:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  unbound_thread_tcpusage_usage:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: unbound.queries
+  title: Received Queries
+  units: queries
+  family: queries
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: queries
+    signal: unbound_queries_queries
+- id: unbound.queries_ip_ratelimited
+  title: Rate Limited Queries
+  units: queries
+  family: queries
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: ratelimited
+    signal: unbound_queries_ip_ratelimited_ratelimited
+- id: unbound.dnscrypt_queries
+  title: DNSCrypt Queries
+  units: queries
+  family: dnscrypt
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: crypted
+    signal: unbound_dnscrypt_queries_crypted
+  - id: cert
+    signal: unbound_dnscrypt_queries_cert
+  - id: cleartext
+    signal: unbound_dnscrypt_queries_cleartext
+  - id: malformed
+    signal: unbound_dnscrypt_queries_malformed
+- id: unbound.cache
+  title: Cache Statistics
+  units: events
+  family: cache
+  chart_type: stacked
+  priority: 60004
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: hits
+    signal: unbound_cache_hits
+  - id: miss
+    signal: unbound_cache_miss
+- id: unbound.cache_percentage
+  title: Cache Statistics Percentage
+  units: percentage
+  family: cache
+  chart_type: stacked
+  priority: 60005
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: hits
+    signal: unbound_cache_percentage_hits
+  - id: miss
+    signal: unbound_cache_percentage_miss
+- id: unbound.prefetch
+  title: Cache Prefetches
+  units: prefetches
+  family: prefetch
+  chart_type: line
+  priority: 60006
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: prefetches
+    signal: unbound_prefetch_prefetches
+- id: unbound.expired
+  title: Replies Served From Expired Cache
+  units: replies
+  family: expired
+  chart_type: line
+  priority: 60007
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: expired
+    signal: unbound_expired_expired
+- id: unbound.zero_ttl_replies
+  title: Replies Served From Expired Cache
+  units: replies
+  family: zero
+  chart_type: line
+  priority: 60008
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: zero_ttl
+    signal: unbound_zero_ttl_replies_zero_ttl
+- id: unbound.recursive_replies
+  title: Replies That Needed Recursive Processing
+  units: replies
+  family: recursive
+  chart_type: line
+  priority: 60009
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: recursive
+    signal: unbound_recursive_replies_recursive
+- id: unbound.recursion_time
+  title: Time Spent On Recursive Processing
+  units: milliseconds
+  family: recursion
+  chart_type: line
+  priority: 60010
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: avg
+    signal: unbound_recursion_time_avg
+  - id: median
+    signal: unbound_recursion_time_median
+- id: unbound.request_list_usage
+  title: Request List Usage
+  units: queries
+  family: request
+  chart_type: line
+  priority: 60011
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: avg
+    signal: unbound_request_list_usage_avg
+  - id: max
+    signal: unbound_request_list_usage_max
+- id: unbound.current_request_list_usage
+  title: Current Request List Usage
+  units: queries
+  family: current
+  chart_type: area
+  priority: 60012
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: all
+    signal: unbound_current_request_list_usage_all
+  - id: users
+    signal: unbound_current_request_list_usage_users
+- id: unbound.request_list_jostle_list
+  title: Request List Jostle List Events
+  units: queries
+  family: request
+  chart_type: line
+  priority: 60013
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: overwritten
+    signal: unbound_request_list_jostle_list_overwritten
+  - id: dropped
+    signal: unbound_request_list_jostle_list_dropped
+- id: unbound.tcpusage
+  title: TCP Handler Buffers
+  units: buffers
+  family: tcpusage
+  chart_type: line
+  priority: 60014
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: usage
+    signal: unbound_tcpusage_usage
+- id: unbound.uptime
+  title: Uptime
+  units: seconds
+  family: uptime
+  chart_type: line
+  priority: 60015
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: time
+    signal: unbound_uptime_time
+- id: unbound.cache_memory
+  title: Cache Memory
+  units: KB
+  family: cache
+  chart_type: stacked
+  priority: 60016
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: message
+    signal: unbound_cache_memory_message
+  - id: rrset
+    signal: unbound_cache_memory_rrset
+  - id: dnscrypt_nonce
+    signal: unbound_cache_memory_dnscrypt_nonce
+  - id: dnscrypt_shared_secret
+    signal: unbound_cache_memory_dnscrypt_shared_secret
+- id: unbound.mod_memory
+  title: Module Memory
+  units: KB
+  family: mod
+  chart_type: stacked
+  priority: 60017
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: iterator
+    signal: unbound_mod_memory_iterator
+  - id: respip
+    signal: unbound_mod_memory_respip
+  - id: validator
+    signal: unbound_mod_memory_validator
+  - id: subnet
+    signal: unbound_mod_memory_subnet
+  - id: ipsec
+    signal: unbound_mod_memory_ipsec
+- id: unbound.mem_streamwait
+  title: TCP and TLS Stream Waif Buffer Memory
+  units: KB
+  family: mem
+  chart_type: line
+  priority: 60018
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: streamwait
+    signal: unbound_mem_streamwait_streamwait
+- id: unbound.cache_count
+  title: Cache Items Count
+  units: items
+  family: cache
+  chart_type: stacked
+  priority: 60019
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: infra
+    signal: unbound_cache_count_infra
+  - id: key
+    signal: unbound_cache_count_key
+  - id: msg
+    signal: unbound_cache_count_msg
+  - id: rrset
+    signal: unbound_cache_count_rrset
+  - id: dnscrypt_nonce
+    signal: unbound_cache_count_dnscrypt_nonce
+  - id: shared_secret
+    signal: unbound_cache_count_shared_secret
+- id: unbound.type_queries
+  title: Queries By Type
+  units: queries
+  family: type
+  chart_type: stacked
+  priority: 60020
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: a dimension per query type
+    signal: unbound_type_queries_a_dimension_per_query_type
+- id: unbound.class_queries
+  title: Queries By Class
+  units: queries
+  family: class
+  chart_type: stacked
+  priority: 60021
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: a dimension per query class
+    signal: unbound_class_queries_a_dimension_per_query_class
+- id: unbound.opcode_queries
+  title: Queries By OpCode
+  units: queries
+  family: opcode
+  chart_type: stacked
+  priority: 60022
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: a dimension per query opcode
+    signal: unbound_opcode_queries_a_dimension_per_query_opcode
+- id: unbound.flag_queries
+  title: Queries By Flag
+  units: queries
+  family: flag
+  chart_type: stacked
+  priority: 60023
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: qr
+    signal: unbound_flag_queries_qr
+  - id: aa
+    signal: unbound_flag_queries_aa
+  - id: tc
+    signal: unbound_flag_queries_tc
+  - id: rd
+    signal: unbound_flag_queries_rd
+  - id: ra
+    signal: unbound_flag_queries_ra
+  - id: z
+    signal: unbound_flag_queries_z
+  - id: ad
+    signal: unbound_flag_queries_ad
+  - id: cd
+    signal: unbound_flag_queries_cd
+- id: unbound.rcode_answers
+  title: Replies By RCode
+  units: replies
+  family: rcode
+  chart_type: stacked
+  priority: 60024
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: a dimension per reply rcode
+    signal: unbound_rcode_answers_a_dimension_per_reply_rcode
+- id: unbound.thread_queries
+  title: Thread Received Queries
+  units: queries
+  family: thread
+  chart_type: line
+  priority: 60025
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: queries
+    signal: unbound_thread_queries_queries
+- id: unbound.thread_queries_ip_ratelimited
+  title: Thread Rate Limited Queries
+  units: queries
+  family: thread
+  chart_type: line
+  priority: 60026
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: ratelimited
+    signal: unbound_thread_queries_ip_ratelimited_ratelimited
+- id: unbound.thread_dnscrypt_queries
+  title: Thread DNSCrypt Queries
+  units: queries
+  family: thread
+  chart_type: line
+  priority: 60027
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: crypted
+    signal: unbound_thread_dnscrypt_queries_crypted
+  - id: cert
+    signal: unbound_thread_dnscrypt_queries_cert
+  - id: cleartext
+    signal: unbound_thread_dnscrypt_queries_cleartext
+  - id: malformed
+    signal: unbound_thread_dnscrypt_queries_malformed
+- id: unbound.thread_cache
+  title: Cache Statistics
+  units: events
+  family: thread
+  chart_type: line
+  priority: 60028
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: hits
+    signal: unbound_thread_cache_hits
+  - id: miss
+    signal: unbound_thread_cache_miss
+- id: unbound.thread_cache_percentage
+  title: Cache Statistics Percentage
+  units: percentage
+  family: thread
+  chart_type: line
+  priority: 60029
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: hits
+    signal: unbound_thread_cache_percentage_hits
+  - id: miss
+    signal: unbound_thread_cache_percentage_miss
+- id: unbound.thread_prefetch
+  title: Cache Prefetches
+  units: prefetches
+  family: thread
+  chart_type: line
+  priority: 60030
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: prefetches
+    signal: unbound_thread_prefetch_prefetches
+- id: unbound.thread_expired
+  title: Replies Served From Expired Cache
+  units: replies
+  family: thread
+  chart_type: line
+  priority: 60031
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: expired
+    signal: unbound_thread_expired_expired
+- id: unbound.thread_zero_ttl_replies
+  title: Replies Served From Expired Cache
+  units: replies
+  family: thread
+  chart_type: line
+  priority: 60032
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: zero_ttl
+    signal: unbound_thread_zero_ttl_replies_zero_ttl
+- id: unbound.thread_recursive_replies
+  title: Replies That Needed Recursive Processing
+  units: replies
+  family: thread
+  chart_type: line
+  priority: 60033
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: recursive
+    signal: unbound_thread_recursive_replies_recursive
+- id: unbound.thread_recursion_time
+  title: Time Spent On Recursive Processing
+  units: milliseconds
+  family: thread
+  chart_type: line
+  priority: 60034
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: avg
+    signal: unbound_thread_recursion_time_avg
+  - id: median
+    signal: unbound_thread_recursion_time_median
+- id: unbound.thread_request_list_usage
+  title: Time Spent On Recursive Processing
+  units: queries
+  family: thread
+  chart_type: line
+  priority: 60035
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: avg
+    signal: unbound_thread_request_list_usage_avg
+  - id: max
+    signal: unbound_thread_request_list_usage_max
+- id: unbound.thread_current_request_list_usage
+  title: Current Request List Usage
+  units: queries
+  family: thread
+  chart_type: line
+  priority: 60036
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: all
+    signal: unbound_thread_current_request_list_usage_all
+  - id: users
+    signal: unbound_thread_current_request_list_usage_users
+- id: unbound.thread_request_list_jostle_list
+  title: Request List Jostle List Events
+  units: queries
+  family: thread
+  chart_type: line
+  priority: 60037
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: overwritten
+    signal: unbound_thread_request_list_jostle_list_overwritten
+  - id: dropped
+    signal: unbound_thread_request_list_jostle_list_dropped
+- id: unbound.thread_tcpusage
+  title: TCP Handler Buffers
+  units: buffers
+  family: thread
+  chart_type: line
+  priority: 60038
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: usage
+    signal: unbound_thread_tcpusage_usage

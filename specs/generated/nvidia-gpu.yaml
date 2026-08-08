@@ -1,0 +1,605 @@
+version: 1
+name: nvidia-gpu
+description: Nvidia GPU metrics, generated from Netdata's own collector metadata so the contexts, units
+  and dimension names match what a real Nvidia GPU node reports. Signals are independent and plausible
+  rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  nvidia_gpu_gpu_pcie_bandwidth_usage_rx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nvidia_gpu_gpu_pcie_bandwidth_usage_tx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nvidia_gpu_gpu_pcie_bandwidth_utilization_rx:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nvidia_gpu_gpu_pcie_bandwidth_utilization_tx:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nvidia_gpu_gpu_fan_speed_perc_fan_speed:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nvidia_gpu_gpu_utilization_gpu:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nvidia_gpu_gpu_memory_utilization_memory:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nvidia_gpu_gpu_decoder_utilization_decoder:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nvidia_gpu_gpu_encoder_utilization_encoder:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nvidia_gpu_gpu_frame_buffer_memory_usage_free:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nvidia_gpu_gpu_frame_buffer_memory_usage_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nvidia_gpu_gpu_frame_buffer_memory_usage_reserved:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nvidia_gpu_gpu_bar1_memory_usage_free:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nvidia_gpu_gpu_bar1_memory_usage_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nvidia_gpu_gpu_temperature_temperature:
+    base: 41.0
+    min: 0.0
+    max: 120.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nvidia_gpu_gpu_voltage_voltage:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nvidia_gpu_gpu_clock_freq_graphics:
+    base: 2400.0
+    min: 0.0
+    max: 6000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nvidia_gpu_gpu_clock_freq_video:
+    base: 2400.0
+    min: 0.0
+    max: 6000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nvidia_gpu_gpu_clock_freq_sm:
+    base: 2400.0
+    min: 0.0
+    max: 6000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nvidia_gpu_gpu_clock_freq_mem:
+    base: 2400.0
+    min: 0.0
+    max: 6000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nvidia_gpu_gpu_power_draw_power_draw:
+    base: 145.0
+    min: 0.0
+    max: 2000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nvidia_gpu_gpu_performance_state_p0_p15:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  nvidia_gpu_gpu_mig_mode_current_status_enabled:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  nvidia_gpu_gpu_mig_mode_current_status_disabled:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  nvidia_gpu_gpu_mig_devices_count_mig:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nvidia_gpu_gpu_mig_frame_buffer_memory_usage_free:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nvidia_gpu_gpu_mig_frame_buffer_memory_usage_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nvidia_gpu_gpu_mig_frame_buffer_memory_usage_reserved:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nvidia_gpu_gpu_mig_bar1_memory_usage_free:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nvidia_gpu_gpu_mig_bar1_memory_usage_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: nvidia_smi.gpu_pcie_bandwidth_usage
+  title: PCI Express Bandwidth Usage
+  units: B/s
+  family: gpu
+  chart_type: line
+  priority: 60001
+  shape: counters
+  labels:
+    uuid: sim-uuid-1
+    index: sim-index-1
+    product_name: sim-product_name-1
+  dimensions:
+  - id: rx
+    rate_signal: nvidia_gpu_gpu_pcie_bandwidth_usage_rx
+  - id: tx
+    rate_signal: nvidia_gpu_gpu_pcie_bandwidth_usage_tx
+- id: nvidia_smi.gpu_pcie_bandwidth_utilization
+  title: PCI Express Bandwidth Utilization
+  units: '%'
+  family: gpu
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels:
+    uuid: sim-uuid-1
+    index: sim-index-1
+    product_name: sim-product_name-1
+  dimensions:
+  - id: rx
+    signal: nvidia_gpu_gpu_pcie_bandwidth_utilization_rx
+  - id: tx
+    signal: nvidia_gpu_gpu_pcie_bandwidth_utilization_tx
+- id: nvidia_smi.gpu_fan_speed_perc
+  title: Fan speed
+  units: '%'
+  family: gpu
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels:
+    uuid: sim-uuid-1
+    index: sim-index-1
+    product_name: sim-product_name-1
+  dimensions:
+  - id: fan_speed
+    signal: nvidia_gpu_gpu_fan_speed_perc_fan_speed
+- id: nvidia_smi.gpu_utilization
+  title: GPU utilization
+  units: '%'
+  family: gpu
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels:
+    uuid: sim-uuid-1
+    index: sim-index-1
+    product_name: sim-product_name-1
+  dimensions:
+  - id: gpu
+    signal: nvidia_gpu_gpu_utilization_gpu
+- id: nvidia_smi.gpu_memory_utilization
+  title: Memory utilization
+  units: '%'
+  family: gpu
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels:
+    uuid: sim-uuid-1
+    index: sim-index-1
+    product_name: sim-product_name-1
+  dimensions:
+  - id: memory
+    signal: nvidia_gpu_gpu_memory_utilization_memory
+- id: nvidia_smi.gpu_decoder_utilization
+  title: Decoder utilization
+  units: '%'
+  family: gpu
+  chart_type: line
+  priority: 60006
+  shape: independent
+  labels:
+    uuid: sim-uuid-1
+    index: sim-index-1
+    product_name: sim-product_name-1
+  dimensions:
+  - id: decoder
+    signal: nvidia_gpu_gpu_decoder_utilization_decoder
+- id: nvidia_smi.gpu_encoder_utilization
+  title: Encoder utilization
+  units: '%'
+  family: gpu
+  chart_type: line
+  priority: 60007
+  shape: independent
+  labels:
+    uuid: sim-uuid-1
+    index: sim-index-1
+    product_name: sim-product_name-1
+  dimensions:
+  - id: encoder
+    signal: nvidia_gpu_gpu_encoder_utilization_encoder
+- id: nvidia_smi.gpu_frame_buffer_memory_usage
+  title: Frame buffer memory usage
+  units: B
+  family: gpu
+  chart_type: stacked
+  priority: 60008
+  shape: independent
+  labels:
+    uuid: sim-uuid-1
+    index: sim-index-1
+    product_name: sim-product_name-1
+  dimensions:
+  - id: free
+    signal: nvidia_gpu_gpu_frame_buffer_memory_usage_free
+  - id: used
+    signal: nvidia_gpu_gpu_frame_buffer_memory_usage_used
+  - id: reserved
+    signal: nvidia_gpu_gpu_frame_buffer_memory_usage_reserved
+- id: nvidia_smi.gpu_bar1_memory_usage
+  title: BAR1 memory usage
+  units: B
+  family: gpu
+  chart_type: stacked
+  priority: 60009
+  shape: independent
+  labels:
+    uuid: sim-uuid-1
+    index: sim-index-1
+    product_name: sim-product_name-1
+  dimensions:
+  - id: free
+    signal: nvidia_gpu_gpu_bar1_memory_usage_free
+  - id: used
+    signal: nvidia_gpu_gpu_bar1_memory_usage_used
+- id: nvidia_smi.gpu_temperature
+  title: Temperature
+  units: Celsius
+  family: gpu
+  chart_type: line
+  priority: 60010
+  shape: independent
+  labels:
+    uuid: sim-uuid-1
+    index: sim-index-1
+    product_name: sim-product_name-1
+  dimensions:
+  - id: temperature
+    signal: nvidia_gpu_gpu_temperature_temperature
+- id: nvidia_smi.gpu_voltage
+  title: Voltage
+  units: V
+  family: gpu
+  chart_type: line
+  priority: 60011
+  shape: independent
+  labels:
+    uuid: sim-uuid-1
+    index: sim-index-1
+    product_name: sim-product_name-1
+  dimensions:
+  - id: voltage
+    signal: nvidia_gpu_gpu_voltage_voltage
+- id: nvidia_smi.gpu_clock_freq
+  title: Clock current frequency
+  units: MHz
+  family: gpu
+  chart_type: line
+  priority: 60012
+  shape: independent
+  labels:
+    uuid: sim-uuid-1
+    index: sim-index-1
+    product_name: sim-product_name-1
+  dimensions:
+  - id: graphics
+    signal: nvidia_gpu_gpu_clock_freq_graphics
+  - id: video
+    signal: nvidia_gpu_gpu_clock_freq_video
+  - id: sm
+    signal: nvidia_gpu_gpu_clock_freq_sm
+  - id: mem
+    signal: nvidia_gpu_gpu_clock_freq_mem
+- id: nvidia_smi.gpu_power_draw
+  title: Power draw
+  units: Watts
+  family: gpu
+  chart_type: line
+  priority: 60013
+  shape: independent
+  labels:
+    uuid: sim-uuid-1
+    index: sim-index-1
+    product_name: sim-product_name-1
+  dimensions:
+  - id: power_draw
+    signal: nvidia_gpu_gpu_power_draw_power_draw
+- id: nvidia_smi.gpu_performance_state
+  title: Performance state
+  units: state
+  family: gpu
+  chart_type: line
+  priority: 60014
+  shape: independent
+  labels:
+    uuid: sim-uuid-1
+    index: sim-index-1
+    product_name: sim-product_name-1
+  dimensions:
+  - id: P0-P15
+    signal: nvidia_gpu_gpu_performance_state_p0_p15
+- id: nvidia_smi.gpu_mig_mode_current_status
+  title: MIG current mode
+  units: status
+  family: gpu
+  chart_type: line
+  priority: 60015
+  shape: independent
+  labels:
+    uuid: sim-uuid-1
+    index: sim-index-1
+    product_name: sim-product_name-1
+  dimensions:
+  - id: enabled
+    signal: nvidia_gpu_gpu_mig_mode_current_status_enabled
+  - id: disabled
+    signal: nvidia_gpu_gpu_mig_mode_current_status_disabled
+- id: nvidia_smi.gpu_mig_devices_count
+  title: MIG devices
+  units: devices
+  family: gpu
+  chart_type: line
+  priority: 60016
+  shape: independent
+  labels:
+    uuid: sim-uuid-1
+    index: sim-index-1
+    product_name: sim-product_name-1
+  dimensions:
+  - id: mig
+    signal: nvidia_gpu_gpu_mig_devices_count_mig
+- id: nvidia_smi.gpu_mig_frame_buffer_memory_usage
+  title: Frame buffer memory usage
+  units: B
+  family: gpu
+  chart_type: stacked
+  priority: 60017
+  shape: independent
+  labels:
+    uuid: sim-uuid-1
+    product_name: sim-product_name-1
+    gpu_instance_id: sim-gpu_instance_id-1
+  dimensions:
+  - id: free
+    signal: nvidia_gpu_gpu_mig_frame_buffer_memory_usage_free
+  - id: used
+    signal: nvidia_gpu_gpu_mig_frame_buffer_memory_usage_used
+  - id: reserved
+    signal: nvidia_gpu_gpu_mig_frame_buffer_memory_usage_reserved
+- id: nvidia_smi.gpu_mig_bar1_memory_usage
+  title: BAR1 memory usage
+  units: B
+  family: gpu
+  chart_type: stacked
+  priority: 60018
+  shape: independent
+  labels:
+    uuid: sim-uuid-1
+    product_name: sim-product_name-1
+    gpu_instance_id: sim-gpu_instance_id-1
+  dimensions:
+  - id: free
+    signal: nvidia_gpu_gpu_mig_bar1_memory_usage_free
+  - id: used
+    signal: nvidia_gpu_gpu_mig_bar1_memory_usage_used

@@ -1,0 +1,960 @@
+version: 1
+name: ibm-websphere-jmx
+description: IBM WebSphere JMX metrics, generated from Netdata's own collector metadata so the contexts,
+  units and dimension names match what a real IBM WebSphere JMX node reports. Signals are independent
+  and plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  ibm_websphere_jmx_app_requests_requests:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_jmx_app_response_time_response_time:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_jmx_app_sessions_active_active:
+    base: 64.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_jmx_app_sessions_live_live:
+    base: 64.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_jmx_app_session_events_creates:
+    base: 64.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_jmx_app_session_events_invalidates:
+    base: 64.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_jmx_app_transactions_committed:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_jmx_app_transactions_rolledback:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_jmx_jca_pool_size_size:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_jmx_jca_pool_usage_active:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_jmx_jca_pool_usage_free:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_jmx_jca_pool_wait_time_wait:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_jmx_jca_pool_use_time_use:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_jmx_jca_pool_connections_created:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_jmx_jca_pool_connections_destroyed:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_jmx_jca_pool_waiting_threads_waiting:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_jmx_jdbc_pool_size_size:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_jmx_jdbc_pool_usage_active:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_jmx_jdbc_pool_usage_free:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_jmx_jdbc_pool_wait_time_wait:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_jmx_jdbc_pool_use_time_use:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_jmx_jdbc_pool_connections_created:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_jmx_jdbc_pool_connections_destroyed:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_jmx_jdbc_pool_waiting_threads_waiting:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_jmx_jms_messages_current_current:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_jmx_jms_messages_pending_pending:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_jmx_jms_messages_total_total:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_jmx_jms_consumers_consumers:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_jmx_jvm_heap_memory_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_jmx_jvm_heap_memory_committed:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_jmx_jvm_heap_memory_max:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_jmx_jvm_heap_usage_usage:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_jmx_jvm_nonheap_memory_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_jmx_jvm_nonheap_memory_committed:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_jmx_jvm_gc_count_collections:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_jmx_jvm_gc_time_time:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_jmx_jvm_threads_total:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_jmx_jvm_threads_daemon:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_jmx_jvm_thread_states_peak:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_jmx_jvm_thread_states_started:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_jmx_jvm_classes_loaded:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_jmx_jvm_classes_unloaded:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_jmx_jvm_process_cpu_usage_cpu:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_jmx_jvm_uptime_uptime:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_jmx_threadpool_size_size:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_jmx_threadpool_size_max:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_websphere_jmx_threadpool_active_active:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: websphere_jmx.app_requests
+  title: Application Requests
+  units: requests
+  family: app
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels:
+    application: sim-application-1
+    module: sim-module-1
+  dimensions:
+  - id: requests
+    signal: ibm_websphere_jmx_app_requests_requests
+- id: websphere_jmx.app_response_time
+  title: Application Response Time
+  units: milliseconds
+  family: app
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels:
+    application: sim-application-1
+    module: sim-module-1
+  dimensions:
+  - id: response_time
+    signal: ibm_websphere_jmx_app_response_time_response_time
+- id: websphere_jmx.app_sessions_active
+  title: Active Sessions
+  units: sessions
+  family: app
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels:
+    application: sim-application-1
+    module: sim-module-1
+  dimensions:
+  - id: active
+    signal: ibm_websphere_jmx_app_sessions_active_active
+- id: websphere_jmx.app_sessions_live
+  title: Live Sessions
+  units: sessions
+  family: app
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels:
+    application: sim-application-1
+    module: sim-module-1
+  dimensions:
+  - id: live
+    signal: ibm_websphere_jmx_app_sessions_live_live
+- id: websphere_jmx.app_session_events
+  title: Session Events
+  units: sessions
+  family: app
+  chart_type: stacked
+  priority: 60005
+  shape: independent
+  labels:
+    application: sim-application-1
+    module: sim-module-1
+  dimensions:
+  - id: creates
+    signal: ibm_websphere_jmx_app_session_events_creates
+  - id: invalidates
+    signal: ibm_websphere_jmx_app_session_events_invalidates
+- id: websphere_jmx.app_transactions
+  title: Application Transactions
+  units: transactions
+  family: app
+  chart_type: line
+  priority: 60006
+  shape: independent
+  labels:
+    application: sim-application-1
+    module: sim-module-1
+  dimensions:
+  - id: committed
+    signal: ibm_websphere_jmx_app_transactions_committed
+  - id: rolledback
+    signal: ibm_websphere_jmx_app_transactions_rolledback
+- id: websphere_jmx.jca_pool_size
+  title: JCA Pool Size
+  units: connections
+  family: jca
+  chart_type: line
+  priority: 60007
+  shape: independent
+  labels:
+    pool: sim-pool-1
+  dimensions:
+  - id: size
+    signal: ibm_websphere_jmx_jca_pool_size_size
+- id: websphere_jmx.jca_pool_usage
+  title: JCA Pool Usage
+  units: connections
+  family: jca
+  chart_type: stacked
+  priority: 60008
+  shape: independent
+  labels:
+    pool: sim-pool-1
+  dimensions:
+  - id: active
+    signal: ibm_websphere_jmx_jca_pool_usage_active
+  - id: free
+    signal: ibm_websphere_jmx_jca_pool_usage_free
+- id: websphere_jmx.jca_pool_wait_time
+  title: JCA Average Wait Time
+  units: milliseconds
+  family: jca
+  chart_type: line
+  priority: 60009
+  shape: independent
+  labels:
+    pool: sim-pool-1
+  dimensions:
+  - id: wait
+    signal: ibm_websphere_jmx_jca_pool_wait_time_wait
+- id: websphere_jmx.jca_pool_use_time
+  title: JCA Average Use Time
+  units: milliseconds
+  family: jca
+  chart_type: line
+  priority: 60010
+  shape: independent
+  labels:
+    pool: sim-pool-1
+  dimensions:
+  - id: use
+    signal: ibm_websphere_jmx_jca_pool_use_time_use
+- id: websphere_jmx.jca_pool_connections
+  title: JCA Connections Totals
+  units: connections
+  family: jca
+  chart_type: line
+  priority: 60011
+  shape: independent
+  labels:
+    pool: sim-pool-1
+  dimensions:
+  - id: created
+    signal: ibm_websphere_jmx_jca_pool_connections_created
+  - id: destroyed
+    signal: ibm_websphere_jmx_jca_pool_connections_destroyed
+- id: websphere_jmx.jca_pool_waiting_threads
+  title: JCA Waiting Threads
+  units: threads
+  family: jca
+  chart_type: line
+  priority: 60012
+  shape: independent
+  labels:
+    pool: sim-pool-1
+  dimensions:
+  - id: waiting
+    signal: ibm_websphere_jmx_jca_pool_waiting_threads_waiting
+- id: websphere_jmx.jdbc_pool_size
+  title: JDBC Pool Size
+  units: connections
+  family: jdbc
+  chart_type: line
+  priority: 60013
+  shape: independent
+  labels:
+    pool: sim-pool-1
+  dimensions:
+  - id: size
+    signal: ibm_websphere_jmx_jdbc_pool_size_size
+- id: websphere_jmx.jdbc_pool_usage
+  title: JDBC Pool Usage
+  units: connections
+  family: jdbc
+  chart_type: stacked
+  priority: 60014
+  shape: independent
+  labels:
+    pool: sim-pool-1
+  dimensions:
+  - id: active
+    signal: ibm_websphere_jmx_jdbc_pool_usage_active
+  - id: free
+    signal: ibm_websphere_jmx_jdbc_pool_usage_free
+- id: websphere_jmx.jdbc_pool_wait_time
+  title: JDBC Average Wait Time
+  units: milliseconds
+  family: jdbc
+  chart_type: line
+  priority: 60015
+  shape: independent
+  labels:
+    pool: sim-pool-1
+  dimensions:
+  - id: wait
+    signal: ibm_websphere_jmx_jdbc_pool_wait_time_wait
+- id: websphere_jmx.jdbc_pool_use_time
+  title: JDBC Average Use Time
+  units: milliseconds
+  family: jdbc
+  chart_type: line
+  priority: 60016
+  shape: independent
+  labels:
+    pool: sim-pool-1
+  dimensions:
+  - id: use
+    signal: ibm_websphere_jmx_jdbc_pool_use_time_use
+- id: websphere_jmx.jdbc_pool_connections
+  title: JDBC Connections Totals
+  units: connections
+  family: jdbc
+  chart_type: line
+  priority: 60017
+  shape: independent
+  labels:
+    pool: sim-pool-1
+  dimensions:
+  - id: created
+    signal: ibm_websphere_jmx_jdbc_pool_connections_created
+  - id: destroyed
+    signal: ibm_websphere_jmx_jdbc_pool_connections_destroyed
+- id: websphere_jmx.jdbc_pool_waiting_threads
+  title: JDBC Waiting Threads
+  units: threads
+  family: jdbc
+  chart_type: line
+  priority: 60018
+  shape: independent
+  labels:
+    pool: sim-pool-1
+  dimensions:
+  - id: waiting
+    signal: ibm_websphere_jmx_jdbc_pool_waiting_threads_waiting
+- id: websphere_jmx.jms_messages_current
+  title: JMS Messages Current Depth
+  units: messages
+  family: jms
+  chart_type: line
+  priority: 60019
+  shape: independent
+  labels:
+    destination: sim-destination-1
+    destination_type: sim-destination_type-1
+  dimensions:
+  - id: current
+    signal: ibm_websphere_jmx_jms_messages_current_current
+- id: websphere_jmx.jms_messages_pending
+  title: JMS Messages Pending
+  units: messages
+  family: jms
+  chart_type: line
+  priority: 60020
+  shape: independent
+  labels:
+    destination: sim-destination-1
+    destination_type: sim-destination_type-1
+  dimensions:
+  - id: pending
+    signal: ibm_websphere_jmx_jms_messages_pending_pending
+- id: websphere_jmx.jms_messages_total
+  title: JMS Messages Added Total
+  units: messages
+  family: jms
+  chart_type: line
+  priority: 60021
+  shape: independent
+  labels:
+    destination: sim-destination-1
+    destination_type: sim-destination_type-1
+  dimensions:
+  - id: total
+    signal: ibm_websphere_jmx_jms_messages_total_total
+- id: websphere_jmx.jms_consumers
+  title: JMS Consumers
+  units: consumers
+  family: jms
+  chart_type: line
+  priority: 60022
+  shape: independent
+  labels:
+    destination: sim-destination-1
+    destination_type: sim-destination_type-1
+  dimensions:
+  - id: consumers
+    signal: ibm_websphere_jmx_jms_consumers_consumers
+- id: websphere_jmx.jvm_heap_memory
+  title: JVM Heap Memory
+  units: bytes
+  family: jvm
+  chart_type: stacked
+  priority: 60023
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: used
+    signal: ibm_websphere_jmx_jvm_heap_memory_used
+  - id: committed
+    signal: ibm_websphere_jmx_jvm_heap_memory_committed
+  - id: max
+    signal: ibm_websphere_jmx_jvm_heap_memory_max
+- id: websphere_jmx.jvm_heap_usage
+  title: JVM Heap Usage
+  units: percentage
+  family: jvm
+  chart_type: line
+  priority: 60024
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: usage
+    signal: ibm_websphere_jmx_jvm_heap_usage_usage
+- id: websphere_jmx.jvm_nonheap_memory
+  title: JVM Non-Heap Memory
+  units: bytes
+  family: jvm
+  chart_type: stacked
+  priority: 60025
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: used
+    signal: ibm_websphere_jmx_jvm_nonheap_memory_used
+  - id: committed
+    signal: ibm_websphere_jmx_jvm_nonheap_memory_committed
+- id: websphere_jmx.jvm_gc_count
+  title: JVM Garbage Collection Count
+  units: collections
+  family: jvm
+  chart_type: line
+  priority: 60026
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: collections
+    signal: ibm_websphere_jmx_jvm_gc_count_collections
+- id: websphere_jmx.jvm_gc_time
+  title: JVM Garbage Collection Time
+  units: milliseconds
+  family: jvm
+  chart_type: line
+  priority: 60027
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: time
+    signal: ibm_websphere_jmx_jvm_gc_time_time
+- id: websphere_jmx.jvm_threads
+  title: JVM Threads
+  units: threads
+  family: jvm
+  chart_type: stacked
+  priority: 60028
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: total
+    signal: ibm_websphere_jmx_jvm_threads_total
+  - id: daemon
+    signal: ibm_websphere_jmx_jvm_threads_daemon
+- id: websphere_jmx.jvm_thread_states
+  title: JVM Thread States
+  units: threads
+  family: jvm
+  chart_type: line
+  priority: 60029
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: peak
+    signal: ibm_websphere_jmx_jvm_thread_states_peak
+  - id: started
+    signal: ibm_websphere_jmx_jvm_thread_states_started
+- id: websphere_jmx.jvm_classes
+  title: JVM Classes
+  units: classes
+  family: jvm
+  chart_type: line
+  priority: 60030
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: loaded
+    signal: ibm_websphere_jmx_jvm_classes_loaded
+  - id: unloaded
+    signal: ibm_websphere_jmx_jvm_classes_unloaded
+- id: websphere_jmx.jvm_process_cpu_usage
+  title: JVM Process CPU Usage
+  units: percentage
+  family: jvm
+  chart_type: line
+  priority: 60031
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: cpu
+    signal: ibm_websphere_jmx_jvm_process_cpu_usage_cpu
+- id: websphere_jmx.jvm_uptime
+  title: JVM Uptime
+  units: seconds
+  family: jvm
+  chart_type: line
+  priority: 60032
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: uptime
+    signal: ibm_websphere_jmx_jvm_uptime_uptime
+- id: websphere_jmx.threadpool_size
+  title: Thread Pool Size
+  units: threads
+  family: threadpool
+  chart_type: line
+  priority: 60033
+  shape: independent
+  labels:
+    pool: sim-pool-1
+  dimensions:
+  - id: size
+    signal: ibm_websphere_jmx_threadpool_size_size
+  - id: max
+    signal: ibm_websphere_jmx_threadpool_size_max
+- id: websphere_jmx.threadpool_active
+  title: Thread Pool Active Threads
+  units: threads
+  family: threadpool
+  chart_type: line
+  priority: 60034
+  shape: independent
+  labels:
+    pool: sim-pool-1
+  dimensions:
+  - id: active
+    signal: ibm_websphere_jmx_threadpool_active_active

@@ -1,0 +1,944 @@
+version: 1
+name: couchdb
+description: CouchDB metrics, generated from Netdata's own collector metadata so the contexts, units and
+  dimension names match what a real CouchDB node reports. Signals are independent and plausible rather
+  than causally coupled - see scripts/sync-integrations.py.
+signals:
+  couchdb_activity_db_reads:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchdb_activity_db_writes:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchdb_activity_view_reads:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchdb_request_methods_copy:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchdb_request_methods_delete:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchdb_request_methods_get:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchdb_request_methods_head:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchdb_request_methods_options:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchdb_request_methods_post:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchdb_request_methods_put:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchdb_response_codes_200:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchdb_response_codes_201:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchdb_response_codes_202:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchdb_response_codes_204:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchdb_response_codes_206:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchdb_response_codes_301:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchdb_response_codes_302:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchdb_response_codes_304:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchdb_response_codes_400:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchdb_response_codes_401:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchdb_response_codes_403:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchdb_response_codes_404:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchdb_response_codes_406:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchdb_response_codes_409:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchdb_response_codes_412:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchdb_response_codes_413:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchdb_response_codes_414:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchdb_response_codes_415:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchdb_response_codes_416:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchdb_response_codes_417:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchdb_response_codes_500:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchdb_response_codes_501:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchdb_response_codes_503:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchdb_response_code_classes_2xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchdb_response_code_classes_3xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchdb_response_code_classes_4xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchdb_response_code_classes_5xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchdb_active_tasks_indexer:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchdb_active_tasks_db_compaction:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchdb_active_tasks_replication:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchdb_active_tasks_view_compaction:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchdb_replicator_jobs_running:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchdb_replicator_jobs_pending:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchdb_replicator_jobs_crashed:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchdb_replicator_jobs_internal_replication_jobs:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchdb_open_files_files:
+    base: 1200.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchdb_erlang_vm_memory_atom:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchdb_erlang_vm_memory_binaries:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchdb_erlang_vm_memory_code:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchdb_erlang_vm_memory_ets:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchdb_erlang_vm_memory_procs:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchdb_erlang_vm_memory_other:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchdb_proccounts_os_procs:
+    base: 210.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchdb_proccounts_erl_procs:
+    base: 210.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchdb_peakmsgqueue_peak_size:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchdb_reductions_reductions:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchdb_db_sizes_file_a_dimension_per_database:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchdb_db_sizes_external_a_dimension_per_database:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchdb_db_sizes_active_a_dimension_per_database:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchdb_db_doc_count_a_dimension_per_database:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchdb_db_doc_del_count_a_dimension_per_database:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: couchdb.activity
+  title: Overall Activity
+  units: requests/s
+  family: activity
+  chart_type: stacked
+  priority: 60001
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: db_reads
+    rate_signal: couchdb_activity_db_reads
+  - id: db_writes
+    rate_signal: couchdb_activity_db_writes
+  - id: view_reads
+    rate_signal: couchdb_activity_view_reads
+- id: couchdb.request_methods
+  title: HTTP request methods
+  units: requests/s
+  family: request
+  chart_type: stacked
+  priority: 60002
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: copy
+    rate_signal: couchdb_request_methods_copy
+  - id: delete
+    rate_signal: couchdb_request_methods_delete
+  - id: get
+    rate_signal: couchdb_request_methods_get
+  - id: head
+    rate_signal: couchdb_request_methods_head
+  - id: options
+    rate_signal: couchdb_request_methods_options
+  - id: post
+    rate_signal: couchdb_request_methods_post
+  - id: put
+    rate_signal: couchdb_request_methods_put
+- id: couchdb.response_codes
+  title: HTTP response status codes
+  units: responses/s
+  family: response
+  chart_type: stacked
+  priority: 60003
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: '200'
+    rate_signal: couchdb_response_codes_200
+  - id: '201'
+    rate_signal: couchdb_response_codes_201
+  - id: '202'
+    rate_signal: couchdb_response_codes_202
+  - id: '204'
+    rate_signal: couchdb_response_codes_204
+  - id: '206'
+    rate_signal: couchdb_response_codes_206
+  - id: '301'
+    rate_signal: couchdb_response_codes_301
+  - id: '302'
+    rate_signal: couchdb_response_codes_302
+  - id: '304'
+    rate_signal: couchdb_response_codes_304
+  - id: '400'
+    rate_signal: couchdb_response_codes_400
+  - id: '401'
+    rate_signal: couchdb_response_codes_401
+  - id: '403'
+    rate_signal: couchdb_response_codes_403
+  - id: '404'
+    rate_signal: couchdb_response_codes_404
+  - id: '406'
+    rate_signal: couchdb_response_codes_406
+  - id: '409'
+    rate_signal: couchdb_response_codes_409
+  - id: '412'
+    rate_signal: couchdb_response_codes_412
+  - id: '413'
+    rate_signal: couchdb_response_codes_413
+  - id: '414'
+    rate_signal: couchdb_response_codes_414
+  - id: '415'
+    rate_signal: couchdb_response_codes_415
+  - id: '416'
+    rate_signal: couchdb_response_codes_416
+  - id: '417'
+    rate_signal: couchdb_response_codes_417
+  - id: '500'
+    rate_signal: couchdb_response_codes_500
+  - id: '501'
+    rate_signal: couchdb_response_codes_501
+  - id: '503'
+    rate_signal: couchdb_response_codes_503
+- id: couchdb.response_code_classes
+  title: HTTP response status code classes
+  units: responses/s
+  family: response
+  chart_type: stacked
+  priority: 60004
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: 2xx
+    rate_signal: couchdb_response_code_classes_2xx
+  - id: 3xx
+    rate_signal: couchdb_response_code_classes_3xx
+  - id: 4xx
+    rate_signal: couchdb_response_code_classes_4xx
+  - id: 5xx
+    rate_signal: couchdb_response_code_classes_5xx
+- id: couchdb.active_tasks
+  title: Active task breakdown
+  units: tasks
+  family: active
+  chart_type: stacked
+  priority: 60005
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: indexer
+    signal: couchdb_active_tasks_indexer
+  - id: db_compaction
+    signal: couchdb_active_tasks_db_compaction
+  - id: replication
+    signal: couchdb_active_tasks_replication
+  - id: view_compaction
+    signal: couchdb_active_tasks_view_compaction
+- id: couchdb.replicator_jobs
+  title: Replicator job breakdown
+  units: jobs
+  family: replicator
+  chart_type: stacked
+  priority: 60006
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: running
+    signal: couchdb_replicator_jobs_running
+  - id: pending
+    signal: couchdb_replicator_jobs_pending
+  - id: crashed
+    signal: couchdb_replicator_jobs_crashed
+  - id: internal_replication_jobs
+    signal: couchdb_replicator_jobs_internal_replication_jobs
+- id: couchdb.open_files
+  title: Open files
+  units: files
+  family: open
+  chart_type: line
+  priority: 60007
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: files
+    signal: couchdb_open_files_files
+- id: couchdb.erlang_vm_memory
+  title: Erlang VM memory usage
+  units: B
+  family: erlang
+  chart_type: stacked
+  priority: 60008
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: atom
+    signal: couchdb_erlang_vm_memory_atom
+  - id: binaries
+    signal: couchdb_erlang_vm_memory_binaries
+  - id: code
+    signal: couchdb_erlang_vm_memory_code
+  - id: ets
+    signal: couchdb_erlang_vm_memory_ets
+  - id: procs
+    signal: couchdb_erlang_vm_memory_procs
+  - id: other
+    signal: couchdb_erlang_vm_memory_other
+- id: couchdb.proccounts
+  title: Process counts
+  units: processes
+  family: proccounts
+  chart_type: line
+  priority: 60009
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: os_procs
+    signal: couchdb_proccounts_os_procs
+  - id: erl_procs
+    signal: couchdb_proccounts_erl_procs
+- id: couchdb.peakmsgqueue
+  title: Peak message queue size
+  units: messages
+  family: peakmsgqueue
+  chart_type: line
+  priority: 60010
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: peak_size
+    signal: couchdb_peakmsgqueue_peak_size
+- id: couchdb.reductions
+  title: Erlang reductions
+  units: reductions
+  family: reductions
+  chart_type: line
+  priority: 60011
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: reductions
+    signal: couchdb_reductions_reductions
+- id: couchdb.db_sizes_file
+  title: Database sizes (file)
+  units: KiB
+  family: db
+  chart_type: line
+  priority: 60012
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: a dimension per database
+    signal: couchdb_db_sizes_file_a_dimension_per_database
+- id: couchdb.db_sizes_external
+  title: Database sizes (external)
+  units: KiB
+  family: db
+  chart_type: line
+  priority: 60013
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: a dimension per database
+    signal: couchdb_db_sizes_external_a_dimension_per_database
+- id: couchdb.db_sizes_active
+  title: Database sizes (active)
+  units: KiB
+  family: db
+  chart_type: line
+  priority: 60014
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: a dimension per database
+    signal: couchdb_db_sizes_active_a_dimension_per_database
+- id: couchdb.db_doc_count
+  title: 'Database # of docs'
+  units: docs
+  family: db
+  chart_type: line
+  priority: 60015
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: a dimension per database
+    signal: couchdb_db_doc_count_a_dimension_per_database
+- id: couchdb.db_doc_del_count
+  title: 'Database # of deleted docs'
+  units: docs
+  family: db
+  chart_type: line
+  priority: 60016
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: a dimension per database
+    signal: couchdb_db_doc_del_count_a_dimension_per_database

@@ -1,0 +1,99 @@
+version: 1
+name: nginx-unit
+description: NGINX Unit metrics, generated from Netdata's own collector metadata so the contexts, units
+  and dimension names match what a real NGINX Unit node reports. Signals are independent and plausible
+  rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  nginx_unit_requests_rate_requests:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_unit_connections_rate_accepted:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_unit_connections_rate_closed:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_unit_connections_current_active:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_unit_connections_current_idle:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: nginxunit.requests_rate
+  title: Requests
+  units: requests/s
+  family: requests
+  chart_type: line
+  priority: 60001
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: requests
+    rate_signal: nginx_unit_requests_rate_requests
+- id: nginxunit.connections_rate
+  title: Connections
+  units: connections/s
+  family: connections
+  chart_type: stacked
+  priority: 60002
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: accepted
+    rate_signal: nginx_unit_connections_rate_accepted
+  - id: closed
+    rate_signal: nginx_unit_connections_rate_closed
+- id: nginxunit.connections_current
+  title: Current Connections
+  units: connections
+  family: connections
+  chart_type: stacked
+  priority: 60003
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: active
+    signal: nginx_unit_connections_current_active
+  - id: idle
+    signal: nginx_unit_connections_current_idle

@@ -1,0 +1,2728 @@
+version: 1
+name: ibm-mq
+description: IBM MQ metrics, generated from Netdata's own collector metadata so the contexts, units and
+  dimension names match what a real IBM MQ node reports. Signals are independent and plausible rather
+  than causally coupled - see scripts/sync-integrations.py.
+signals:
+  ibm_mq_channel_status_inactive:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ibm_mq_channel_status_binding:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ibm_mq_channel_status_starting:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ibm_mq_channel_status_running:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ibm_mq_channel_status_stopping:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ibm_mq_channel_status_retrying:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ibm_mq_channel_status_stopped:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ibm_mq_channel_status_requesting:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ibm_mq_channel_status_paused:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ibm_mq_channel_status_disconnected:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ibm_mq_channel_status_initializing:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ibm_mq_channel_status_switching:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ibm_mq_channel_messages_messages:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_channel_bytes_bytes:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_channel_batches_batches:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_channel_batch_size_batch_size:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_channel_batch_interval_batch_interval:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_channel_intervals_disc_interval:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_channel_intervals_hb_interval:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_channel_intervals_keep_alive_interval:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_channel_short_retry_count_short_retry:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_channel_long_retry_interval_long_retry:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_channel_max_msg_length_max_msg_length:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_channel_sharing_conversations_sharing_conversations:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_channel_network_priority_network_priority:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_channel_buffer_counts_sent:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_channel_buffer_counts_received:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_channel_current_messages_current:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_channel_xmitq_time_xmitq_time:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_channel_mca_status_mca_status:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ibm_mq_channel_indoubt_status_indoubt_status:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ibm_mq_channel_ssl_key_resets_ssl_key_resets:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_channel_npm_speed_npm_speed:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_channel_current_sharing_convs_current_sharing:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_channel_stats_messages_messages:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_channel_stats_bytes_bytes:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_channel_stats_batches_full_batches:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_channel_stats_batches_incomplete_batches:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_channel_stats_batch_size_avg_batch_size:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_channel_stats_put_retries_put_retries:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_listener_status_stopped:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ibm_mq_listener_status_starting:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ibm_mq_listener_status_running:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ibm_mq_listener_status_stopping:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ibm_mq_listener_status_retrying:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ibm_mq_listener_backlog_backlog:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_listener_uptime_uptime:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_mqi_stats_opens_opens_total:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_mqi_stats_opens_opens_failed:
+    base: 0.0
+    min: 0.0
+    max: 5000000.0
+  ibm_mq_mqi_stats_closes_closes_total:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_mqi_stats_closes_closes_failed:
+    base: 0.0
+    min: 0.0
+    max: 5000000.0
+  ibm_mq_mqi_stats_inqs_inqs_total:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_mqi_stats_inqs_inqs_failed:
+    base: 0.0
+    min: 0.0
+    max: 5000000.0
+  ibm_mq_mqi_stats_sets_sets_total:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_mqi_stats_sets_sets_failed:
+    base: 0.0
+    min: 0.0
+    max: 5000000.0
+  ibm_mq_queue_depth_current:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_queue_depth_max:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_queue_depth_percentage_percentage:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_queue_messages_enqueued:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_queue_messages_dequeued:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_queue_connections_input:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_queue_connections_output:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_queue_high_depth_high_depth:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_queue_uncommitted_msgs_uncommitted:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_queue_file_size_current:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_queue_file_size_max:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_queue_last_activity_since_last_get:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_queue_last_activity_since_last_put:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_queue_oldest_msg_age_oldest_msg_age:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_queue_time_indicators_short_period:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_queue_time_indicators_long_period:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_queue_service_interval_service_interval:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_queue_inhibit_status_inhibit_get:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ibm_mq_queue_inhibit_status_inhibit_put:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ibm_mq_queue_priority_def_priority:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_queue_message_persistence_persistent:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ibm_mq_queue_message_persistence_non_persistent:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ibm_mq_queue_retention_interval_retention_interval:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_queue_triggers_trigger_depth:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_queue_triggers_trigger_type:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_queue_backout_threshold_backout_threshold:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_queue_max_msg_length_max_msg_length:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_queue_scope_queue_manager:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ibm_mq_queue_scope_cell:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ibm_mq_queue_usage_normal:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ibm_mq_queue_usage_transmission:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ibm_mq_queue_msg_delivery_sequence_priority:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ibm_mq_queue_msg_delivery_sequence_fifo:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ibm_mq_queue_harden_get_backout_enabled:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ibm_mq_queue_harden_get_backout_disabled:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ibm_mq_queue_group_depth_current:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_queue_group_depth_max:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_queue_group_depth_percentage_percentage:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_queue_group_messages_enqueued:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_queue_group_messages_dequeued:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_queue_group_connections_input:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_queue_group_connections_output:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_queue_group_uncommitted_msgs_uncommitted:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_queue_group_file_size_current:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_queue_group_file_size_max:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_queue_group_oldest_msg_age_oldest_msg_age:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_qmgr_status_status:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  ibm_mq_qmgr_connection_count_connections:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_qmgr_uptime_uptime:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_queues_overview_monitored:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_queues_overview_excluded:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_queues_overview_invisible:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_queues_overview_failed:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  ibm_mq_channels_overview_monitored:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_channels_overview_excluded:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_channels_overview_invisible:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_channels_overview_failed:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  ibm_mq_topics_overview_monitored:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_topics_overview_excluded:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_topics_overview_invisible:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_topics_overview_failed:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  ibm_mq_listeners_overview_monitored:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_listeners_overview_excluded:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_listeners_overview_invisible:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_listeners_overview_failed:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  ibm_mq_qmgr_cpu_usage_user:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_qmgr_cpu_usage_system:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_qmgr_memory_usage_total:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_qmgr_ram_usage_total:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_qmgr_log_utilization_used:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_qmgr_log_file_size_size:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_qmgr_log_write_rate_rate:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_queue_stats_depth_min_max_min_depth:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_queue_stats_depth_min_max_max_depth:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_queue_stats_avg_queue_time_non_persistent:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_queue_stats_avg_queue_time_persistent:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_queue_stats_time_indicators_short_period:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_queue_stats_time_indicators_long_period:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_queue_stats_operations_puts_non_persistent:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_queue_stats_operations_puts_persistent:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_queue_stats_operations_gets_non_persistent:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_queue_stats_operations_gets_persistent:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_queue_stats_operations_put1s:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_queue_stats_operations_browses:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_queue_stats_bytes_put_bytes_non_persistent:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_queue_stats_bytes_put_bytes_persistent:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_queue_stats_bytes_get_bytes_non_persistent:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_queue_stats_bytes_get_bytes_persistent:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_queue_stats_bytes_browse_bytes:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_queue_stats_failures_puts_failed:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  ibm_mq_queue_stats_failures_put1s_failed:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  ibm_mq_queue_stats_failures_gets_failed:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  ibm_mq_queue_stats_failures_browses_failed:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  ibm_mq_queue_stats_message_lifecycle_expired:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_queue_stats_message_lifecycle_purged:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_queue_stats_message_lifecycle_not_queued:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_subscription_messages_pending:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_subscription_last_message_age_age:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_topic_publishers_publishers:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_topic_subscribers_subscribers:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_topic_messages_messages:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ibm_mq_topic_time_since_last_message_time_since_last_msg:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: mq.channel.status
+  title: Channel Status
+  units: status
+  family: channel.status
+  chart_type: stacked
+  priority: 60001
+  shape: independent
+  labels:
+    channel: sim-channel-1
+    type: sim-type-1
+  dimensions:
+  - id: inactive
+    signal: ibm_mq_channel_status_inactive
+  - id: binding
+    signal: ibm_mq_channel_status_binding
+  - id: starting
+    signal: ibm_mq_channel_status_starting
+  - id: running
+    signal: ibm_mq_channel_status_running
+  - id: stopping
+    signal: ibm_mq_channel_status_stopping
+  - id: retrying
+    signal: ibm_mq_channel_status_retrying
+  - id: stopped
+    signal: ibm_mq_channel_status_stopped
+  - id: requesting
+    signal: ibm_mq_channel_status_requesting
+  - id: paused
+    signal: ibm_mq_channel_status_paused
+  - id: disconnected
+    signal: ibm_mq_channel_status_disconnected
+  - id: initializing
+    signal: ibm_mq_channel_status_initializing
+  - id: switching
+    signal: ibm_mq_channel_status_switching
+- id: mq.channel.messages
+  title: Channel Message Rate
+  units: messages/s
+  family: channel.messages
+  chart_type: line
+  priority: 60002
+  shape: counters
+  labels:
+    channel: sim-channel-1
+    type: sim-type-1
+  dimensions:
+  - id: messages
+    rate_signal: ibm_mq_channel_messages_messages
+- id: mq.channel.bytes
+  title: Channel Data Transfer Rate
+  units: bytes/s
+  family: channel.bytes
+  chart_type: line
+  priority: 60003
+  shape: counters
+  labels:
+    channel: sim-channel-1
+    type: sim-type-1
+  dimensions:
+  - id: bytes
+    rate_signal: ibm_mq_channel_bytes_bytes
+- id: mq.channel.batches
+  title: Channel Batch Rate
+  units: batches/s
+  family: channel.batches
+  chart_type: line
+  priority: 60004
+  shape: counters
+  labels:
+    channel: sim-channel-1
+    type: sim-type-1
+  dimensions:
+  - id: batches
+    rate_signal: ibm_mq_channel_batches_batches
+- id: mq.channel.batch_size
+  title: Channel Batch Size
+  units: messages
+  family: channel.batch
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels:
+    channel: sim-channel-1
+    type: sim-type-1
+  dimensions:
+  - id: batch_size
+    signal: ibm_mq_channel_batch_size_batch_size
+- id: mq.channel.batch_interval
+  title: Channel Batch Interval
+  units: milliseconds
+  family: channel.batch
+  chart_type: line
+  priority: 60006
+  shape: independent
+  labels:
+    channel: sim-channel-1
+    type: sim-type-1
+  dimensions:
+  - id: batch_interval
+    signal: ibm_mq_channel_batch_interval_batch_interval
+- id: mq.channel.intervals
+  title: Channel Intervals
+  units: seconds
+  family: channel.intervals
+  chart_type: line
+  priority: 60007
+  shape: independent
+  labels:
+    channel: sim-channel-1
+    type: sim-type-1
+  dimensions:
+  - id: disc_interval
+    signal: ibm_mq_channel_intervals_disc_interval
+  - id: hb_interval
+    signal: ibm_mq_channel_intervals_hb_interval
+  - id: keep_alive_interval
+    signal: ibm_mq_channel_intervals_keep_alive_interval
+- id: mq.channel.short_retry_count
+  title: Channel Short Retry Count
+  units: retries
+  family: channel.short
+  chart_type: line
+  priority: 60008
+  shape: independent
+  labels:
+    channel: sim-channel-1
+    type: sim-type-1
+  dimensions:
+  - id: short_retry
+    signal: ibm_mq_channel_short_retry_count_short_retry
+- id: mq.channel.long_retry_interval
+  title: Channel Long Retry Interval
+  units: seconds
+  family: channel.long
+  chart_type: line
+  priority: 60009
+  shape: independent
+  labels:
+    channel: sim-channel-1
+    type: sim-type-1
+  dimensions:
+  - id: long_retry
+    signal: ibm_mq_channel_long_retry_interval_long_retry
+- id: mq.channel.max_msg_length
+  title: Channel Max Message Length
+  units: bytes
+  family: channel.max
+  chart_type: line
+  priority: 60010
+  shape: independent
+  labels:
+    channel: sim-channel-1
+    type: sim-type-1
+  dimensions:
+  - id: max_msg_length
+    signal: ibm_mq_channel_max_msg_length_max_msg_length
+- id: mq.channel.sharing_conversations
+  title: Channel Sharing Conversations
+  units: conversations
+  family: channel.sharing
+  chart_type: line
+  priority: 60011
+  shape: independent
+  labels:
+    channel: sim-channel-1
+    type: sim-type-1
+  dimensions:
+  - id: sharing_conversations
+    signal: ibm_mq_channel_sharing_conversations_sharing_conversations
+- id: mq.channel.network_priority
+  title: Channel Network Priority
+  units: priority
+  family: channel.network
+  chart_type: line
+  priority: 60012
+  shape: independent
+  labels:
+    channel: sim-channel-1
+    type: sim-type-1
+  dimensions:
+  - id: network_priority
+    signal: ibm_mq_channel_network_priority_network_priority
+- id: mq.channel.buffer_counts
+  title: Channel Buffer Counts
+  units: buffers
+  family: channel.buffer
+  chart_type: line
+  priority: 60013
+  shape: independent
+  labels:
+    channel: sim-channel-1
+    type: sim-type-1
+  dimensions:
+  - id: sent
+    signal: ibm_mq_channel_buffer_counts_sent
+  - id: received
+    signal: ibm_mq_channel_buffer_counts_received
+- id: mq.channel.current_messages
+  title: Channel Current Messages
+  units: messages
+  family: channel.current
+  chart_type: line
+  priority: 60014
+  shape: independent
+  labels:
+    channel: sim-channel-1
+    type: sim-type-1
+  dimensions:
+  - id: current
+    signal: ibm_mq_channel_current_messages_current
+- id: mq.channel.xmitq_time
+  title: Channel Transmission Queue Time
+  units: milliseconds
+  family: channel.xmitq
+  chart_type: line
+  priority: 60015
+  shape: independent
+  labels:
+    channel: sim-channel-1
+    type: sim-type-1
+  dimensions:
+  - id: xmitq_time
+    signal: ibm_mq_channel_xmitq_time_xmitq_time
+- id: mq.channel.mca_status
+  title: Channel MCA Status
+  units: status
+  family: channel.mca
+  chart_type: line
+  priority: 60016
+  shape: independent
+  labels:
+    channel: sim-channel-1
+    type: sim-type-1
+  dimensions:
+  - id: mca_status
+    signal: ibm_mq_channel_mca_status_mca_status
+- id: mq.channel.indoubt_status
+  title: Channel In-Doubt Status
+  units: status
+  family: channel.indoubt
+  chart_type: line
+  priority: 60017
+  shape: independent
+  labels:
+    channel: sim-channel-1
+    type: sim-type-1
+  dimensions:
+  - id: indoubt_status
+    signal: ibm_mq_channel_indoubt_status_indoubt_status
+- id: mq.channel.ssl_key_resets
+  title: Channel SSL Key Resets
+  units: resets
+  family: channel.ssl
+  chart_type: line
+  priority: 60018
+  shape: independent
+  labels:
+    channel: sim-channel-1
+    type: sim-type-1
+  dimensions:
+  - id: ssl_key_resets
+    signal: ibm_mq_channel_ssl_key_resets_ssl_key_resets
+- id: mq.channel.npm_speed
+  title: Channel Non-Persistent Message Speed
+  units: speed
+  family: channel.npm
+  chart_type: line
+  priority: 60019
+  shape: independent
+  labels:
+    channel: sim-channel-1
+    type: sim-type-1
+  dimensions:
+  - id: npm_speed
+    signal: ibm_mq_channel_npm_speed_npm_speed
+- id: mq.channel.current_sharing_convs
+  title: Channel Current Sharing Conversations
+  units: conversations
+  family: channel.current
+  chart_type: line
+  priority: 60020
+  shape: independent
+  labels:
+    channel: sim-channel-1
+    type: sim-type-1
+  dimensions:
+  - id: current_sharing
+    signal: ibm_mq_channel_current_sharing_convs_current_sharing
+- id: mq.channel_stats.messages
+  title: Channel Messages (Statistics)
+  units: messages/s
+  family: channel
+  chart_type: line
+  priority: 60021
+  shape: counters
+  labels:
+    channel: sim-channel-1
+    type: sim-type-1
+  dimensions:
+  - id: messages
+    rate_signal: ibm_mq_channel_stats_messages_messages
+- id: mq.channel_stats.bytes
+  title: Channel Bytes (Statistics)
+  units: bytes/s
+  family: channel
+  chart_type: line
+  priority: 60022
+  shape: counters
+  labels:
+    channel: sim-channel-1
+    type: sim-type-1
+  dimensions:
+  - id: bytes
+    rate_signal: ibm_mq_channel_stats_bytes_bytes
+- id: mq.channel_stats.batches
+  title: Channel Batches (Statistics)
+  units: batches/s
+  family: channel
+  chart_type: line
+  priority: 60023
+  shape: counters
+  labels:
+    channel: sim-channel-1
+    type: sim-type-1
+  dimensions:
+  - id: full_batches
+    rate_signal: ibm_mq_channel_stats_batches_full_batches
+  - id: incomplete_batches
+    rate_signal: ibm_mq_channel_stats_batches_incomplete_batches
+- id: mq.channel_stats.batch_size
+  title: Channel Average Batch Size (Statistics)
+  units: messages
+  family: channel
+  chart_type: line
+  priority: 60024
+  shape: independent
+  labels:
+    channel: sim-channel-1
+    type: sim-type-1
+  dimensions:
+  - id: avg_batch_size
+    signal: ibm_mq_channel_stats_batch_size_avg_batch_size
+- id: mq.channel_stats.put_retries
+  title: Channel Put Retries (Statistics)
+  units: retries/s
+  family: channel
+  chart_type: line
+  priority: 60025
+  shape: counters
+  labels:
+    channel: sim-channel-1
+    type: sim-type-1
+  dimensions:
+  - id: put_retries
+    rate_signal: ibm_mq_channel_stats_put_retries_put_retries
+- id: mq.listener.status
+  title: Listener Status
+  units: status
+  family: listener.status
+  chart_type: line
+  priority: 60026
+  shape: independent
+  labels:
+    listener: sim-listener-1
+    port: sim-port-1
+    ip_address: sim-ip_address-1
+  dimensions:
+  - id: stopped
+    signal: ibm_mq_listener_status_stopped
+  - id: starting
+    signal: ibm_mq_listener_status_starting
+  - id: running
+    signal: ibm_mq_listener_status_running
+  - id: stopping
+    signal: ibm_mq_listener_status_stopping
+  - id: retrying
+    signal: ibm_mq_listener_status_retrying
+- id: mq.listener.backlog
+  title: Listener Connection Backlog
+  units: connections
+  family: listener.backlog
+  chart_type: line
+  priority: 60027
+  shape: independent
+  labels:
+    listener: sim-listener-1
+    port: sim-port-1
+    ip_address: sim-ip_address-1
+  dimensions:
+  - id: backlog
+    signal: ibm_mq_listener_backlog_backlog
+- id: mq.listener.uptime
+  title: Listener Uptime
+  units: seconds
+  family: listener.uptime
+  chart_type: line
+  priority: 60028
+  shape: independent
+  labels:
+    listener: sim-listener-1
+    port: sim-port-1
+    ip_address: sim-ip_address-1
+  dimensions:
+  - id: uptime
+    signal: ibm_mq_listener_uptime_uptime
+- id: mq.mqi_stats.opens
+  title: MQOPEN Operations (Statistics)
+  units: operations/s
+  family: mqi
+  chart_type: line
+  priority: 60029
+  shape: counters
+  labels:
+    queue_manager: sim-queue_manager-1
+  dimensions:
+  - id: opens_total
+    rate_signal: ibm_mq_mqi_stats_opens_opens_total
+  - id: opens_failed
+    rate_signal: ibm_mq_mqi_stats_opens_opens_failed
+- id: mq.mqi_stats.closes
+  title: MQCLOSE Operations (Statistics)
+  units: operations/s
+  family: mqi
+  chart_type: line
+  priority: 60030
+  shape: counters
+  labels:
+    queue_manager: sim-queue_manager-1
+  dimensions:
+  - id: closes_total
+    rate_signal: ibm_mq_mqi_stats_closes_closes_total
+  - id: closes_failed
+    rate_signal: ibm_mq_mqi_stats_closes_closes_failed
+- id: mq.mqi_stats.inqs
+  title: MQINQ Operations (Statistics)
+  units: operations/s
+  family: mqi
+  chart_type: line
+  priority: 60031
+  shape: counters
+  labels:
+    queue_manager: sim-queue_manager-1
+  dimensions:
+  - id: inqs_total
+    rate_signal: ibm_mq_mqi_stats_inqs_inqs_total
+  - id: inqs_failed
+    rate_signal: ibm_mq_mqi_stats_inqs_inqs_failed
+- id: mq.mqi_stats.sets
+  title: MQSET Operations (Statistics)
+  units: operations/s
+  family: mqi
+  chart_type: line
+  priority: 60032
+  shape: counters
+  labels:
+    queue_manager: sim-queue_manager-1
+  dimensions:
+  - id: sets_total
+    rate_signal: ibm_mq_mqi_stats_sets_sets_total
+  - id: sets_failed
+    rate_signal: ibm_mq_mqi_stats_sets_sets_failed
+- id: mq.queue.depth
+  title: Queue Depth
+  units: messages
+  family: queue.depth
+  chart_type: line
+  priority: 60033
+  shape: independent
+  labels:
+    queue: sim-queue-1
+    type: sim-type-1
+  dimensions:
+  - id: current
+    signal: ibm_mq_queue_depth_current
+  - id: max
+    signal: ibm_mq_queue_depth_max
+- id: mq.queue.depth_percentage
+  title: Queue Depth Percentage
+  units: percentage
+  family: queue.depth
+  chart_type: line
+  priority: 60034
+  shape: independent
+  labels:
+    queue: sim-queue-1
+    type: sim-type-1
+  dimensions:
+  - id: percentage
+    signal: ibm_mq_queue_depth_percentage_percentage
+- id: mq.queue.messages
+  title: Queue Messages
+  units: messages/s
+  family: queue.messages
+  chart_type: line
+  priority: 60035
+  shape: counters
+  labels:
+    queue: sim-queue-1
+    type: sim-type-1
+  dimensions:
+  - id: enqueued
+    rate_signal: ibm_mq_queue_messages_enqueued
+  - id: dequeued
+    rate_signal: ibm_mq_queue_messages_dequeued
+- id: mq.queue.connections
+  title: Queue Connections
+  units: connections
+  family: queue.connections
+  chart_type: line
+  priority: 60036
+  shape: independent
+  labels:
+    queue: sim-queue-1
+    type: sim-type-1
+  dimensions:
+  - id: input
+    signal: ibm_mq_queue_connections_input
+  - id: output
+    signal: ibm_mq_queue_connections_output
+- id: mq.queue.high_depth
+  title: Queue Peak Depth
+  units: messages
+  family: queue.high
+  chart_type: line
+  priority: 60037
+  shape: independent
+  labels:
+    queue: sim-queue-1
+    type: sim-type-1
+  dimensions:
+  - id: high_depth
+    signal: ibm_mq_queue_high_depth_high_depth
+- id: mq.queue.uncommitted_msgs
+  title: Queue Uncommitted Messages
+  units: messages
+  family: queue.uncommitted
+  chart_type: line
+  priority: 60038
+  shape: independent
+  labels:
+    queue: sim-queue-1
+    type: sim-type-1
+  dimensions:
+  - id: uncommitted
+    signal: ibm_mq_queue_uncommitted_msgs_uncommitted
+- id: mq.queue.file_size
+  title: Queue File Size
+  units: bytes
+  family: queue.file
+  chart_type: line
+  priority: 60039
+  shape: independent
+  labels:
+    queue: sim-queue-1
+    type: sim-type-1
+  dimensions:
+  - id: current
+    signal: ibm_mq_queue_file_size_current
+  - id: max
+    signal: ibm_mq_queue_file_size_max
+- id: mq.queue.last_activity
+  title: Time Since Last Queue Activity
+  units: seconds
+  family: queue.last
+  chart_type: line
+  priority: 60040
+  shape: independent
+  labels:
+    queue: sim-queue-1
+    type: sim-type-1
+  dimensions:
+  - id: since_last_get
+    signal: ibm_mq_queue_last_activity_since_last_get
+  - id: since_last_put
+    signal: ibm_mq_queue_last_activity_since_last_put
+- id: mq.queue.oldest_msg_age
+  title: Queue Oldest Message Age
+  units: seconds
+  family: queue.oldest
+  chart_type: line
+  priority: 60041
+  shape: independent
+  labels:
+    queue: sim-queue-1
+    type: sim-type-1
+  dimensions:
+  - id: oldest_msg_age
+    signal: ibm_mq_queue_oldest_msg_age_oldest_msg_age
+- id: mq.queue.time_indicators
+  title: Queue Time Indicators
+  units: microseconds
+  family: queue.time
+  chart_type: line
+  priority: 60042
+  shape: independent
+  labels:
+    queue: sim-queue-1
+    type: sim-type-1
+  dimensions:
+  - id: short_period
+    signal: ibm_mq_queue_time_indicators_short_period
+  - id: long_period
+    signal: ibm_mq_queue_time_indicators_long_period
+- id: mq.queue.service_interval
+  title: Queue Service Interval
+  units: milliseconds
+  family: queue.service
+  chart_type: line
+  priority: 60043
+  shape: independent
+  labels:
+    queue: sim-queue-1
+    type: sim-type-1
+  dimensions:
+  - id: service_interval
+    signal: ibm_mq_queue_service_interval_service_interval
+- id: mq.queue.inhibit_status
+  title: Queue Inhibit Status
+  units: status
+  family: queue.inhibit
+  chart_type: line
+  priority: 60044
+  shape: independent
+  labels:
+    queue: sim-queue-1
+    type: sim-type-1
+  dimensions:
+  - id: inhibit_get
+    signal: ibm_mq_queue_inhibit_status_inhibit_get
+  - id: inhibit_put
+    signal: ibm_mq_queue_inhibit_status_inhibit_put
+- id: mq.queue.priority
+  title: Queue Priority Configuration
+  units: priority
+  family: queue.priority
+  chart_type: line
+  priority: 60045
+  shape: independent
+  labels:
+    queue: sim-queue-1
+    type: sim-type-1
+  dimensions:
+  - id: def_priority
+    signal: ibm_mq_queue_priority_def_priority
+- id: mq.queue.message_persistence
+  title: Queue Default Message Persistence
+  units: boolean
+  family: queue.message
+  chart_type: line
+  priority: 60046
+  shape: independent
+  labels:
+    queue: sim-queue-1
+    type: sim-type-1
+  dimensions:
+  - id: persistent
+    signal: ibm_mq_queue_message_persistence_persistent
+  - id: non_persistent
+    signal: ibm_mq_queue_message_persistence_non_persistent
+- id: mq.queue.retention_interval
+  title: Queue Retention Interval
+  units: hours
+  family: queue.retention
+  chart_type: line
+  priority: 60047
+  shape: independent
+  labels:
+    queue: sim-queue-1
+    type: sim-type-1
+  dimensions:
+  - id: retention_interval
+    signal: ibm_mq_queue_retention_interval_retention_interval
+- id: mq.queue.triggers
+  title: Queue Trigger Configuration
+  units: messages
+  family: queue.triggers
+  chart_type: line
+  priority: 60048
+  shape: independent
+  labels:
+    queue: sim-queue-1
+    type: sim-type-1
+  dimensions:
+  - id: trigger_depth
+    signal: ibm_mq_queue_triggers_trigger_depth
+  - id: trigger_type
+    signal: ibm_mq_queue_triggers_trigger_type
+- id: mq.queue.backout_threshold
+  title: Queue Error Handling
+  units: retries
+  family: queue.backout
+  chart_type: line
+  priority: 60049
+  shape: independent
+  labels:
+    queue: sim-queue-1
+    type: sim-type-1
+  dimensions:
+  - id: backout_threshold
+    signal: ibm_mq_queue_backout_threshold_backout_threshold
+- id: mq.queue.max_msg_length
+  title: Queue Max Message Length
+  units: bytes
+  family: queue.max
+  chart_type: line
+  priority: 60050
+  shape: independent
+  labels:
+    queue: sim-queue-1
+    type: sim-type-1
+  dimensions:
+  - id: max_msg_length
+    signal: ibm_mq_queue_max_msg_length_max_msg_length
+- id: mq.queue.scope
+  title: Queue Scope
+  units: boolean
+  family: queue.scope
+  chart_type: line
+  priority: 60051
+  shape: independent
+  labels:
+    queue: sim-queue-1
+    type: sim-type-1
+  dimensions:
+  - id: queue_manager
+    signal: ibm_mq_queue_scope_queue_manager
+  - id: cell
+    signal: ibm_mq_queue_scope_cell
+- id: mq.queue.usage
+  title: Queue Usage Type
+  units: boolean
+  family: queue.usage
+  chart_type: line
+  priority: 60052
+  shape: independent
+  labels:
+    queue: sim-queue-1
+    type: sim-type-1
+  dimensions:
+  - id: normal
+    signal: ibm_mq_queue_usage_normal
+  - id: transmission
+    signal: ibm_mq_queue_usage_transmission
+- id: mq.queue.msg_delivery_sequence
+  title: Message Delivery Sequence
+  units: boolean
+  family: queue.msg
+  chart_type: line
+  priority: 60053
+  shape: independent
+  labels:
+    queue: sim-queue-1
+    type: sim-type-1
+  dimensions:
+  - id: priority
+    signal: ibm_mq_queue_msg_delivery_sequence_priority
+  - id: fifo
+    signal: ibm_mq_queue_msg_delivery_sequence_fifo
+- id: mq.queue.harden_get_backout
+  title: Harden Get Backout
+  units: boolean
+  family: queue.harden
+  chart_type: line
+  priority: 60054
+  shape: independent
+  labels:
+    queue: sim-queue-1
+    type: sim-type-1
+  dimensions:
+  - id: enabled
+    signal: ibm_mq_queue_harden_get_backout_enabled
+  - id: disabled
+    signal: ibm_mq_queue_harden_get_backout_disabled
+- id: mq.queue_group.depth
+  title: Queue Group Depth
+  units: messages
+  family: queue
+  chart_type: line
+  priority: 60055
+  shape: independent
+  labels:
+    group: sim-group-1
+  dimensions:
+  - id: current
+    signal: ibm_mq_queue_group_depth_current
+  - id: max
+    signal: ibm_mq_queue_group_depth_max
+- id: mq.queue_group.depth_percentage
+  title: Queue Group Depth Percentage
+  units: percentage
+  family: queue
+  chart_type: line
+  priority: 60056
+  shape: independent
+  labels:
+    group: sim-group-1
+  dimensions:
+  - id: percentage
+    signal: ibm_mq_queue_group_depth_percentage_percentage
+- id: mq.queue_group.messages
+  title: Queue Group Messages
+  units: messages/s
+  family: queue
+  chart_type: line
+  priority: 60057
+  shape: counters
+  labels:
+    group: sim-group-1
+  dimensions:
+  - id: enqueued
+    rate_signal: ibm_mq_queue_group_messages_enqueued
+  - id: dequeued
+    rate_signal: ibm_mq_queue_group_messages_dequeued
+- id: mq.queue_group.connections
+  title: Queue Group Connections
+  units: connections
+  family: queue
+  chart_type: line
+  priority: 60058
+  shape: independent
+  labels:
+    group: sim-group-1
+  dimensions:
+  - id: input
+    signal: ibm_mq_queue_group_connections_input
+  - id: output
+    signal: ibm_mq_queue_group_connections_output
+- id: mq.queue_group.uncommitted_msgs
+  title: Queue Group Uncommitted Messages
+  units: messages
+  family: queue
+  chart_type: line
+  priority: 60059
+  shape: independent
+  labels:
+    group: sim-group-1
+  dimensions:
+  - id: uncommitted
+    signal: ibm_mq_queue_group_uncommitted_msgs_uncommitted
+- id: mq.queue_group.file_size
+  title: Queue Group File Size
+  units: bytes
+  family: queue
+  chart_type: line
+  priority: 60060
+  shape: independent
+  labels:
+    group: sim-group-1
+  dimensions:
+  - id: current
+    signal: ibm_mq_queue_group_file_size_current
+  - id: max
+    signal: ibm_mq_queue_group_file_size_max
+- id: mq.queue_group.oldest_msg_age
+  title: Queue Group Oldest Message Age
+  units: seconds
+  family: queue
+  chart_type: line
+  priority: 60061
+  shape: independent
+  labels:
+    group: sim-group-1
+  dimensions:
+  - id: oldest_msg_age
+    signal: ibm_mq_queue_group_oldest_msg_age_oldest_msg_age
+- id: mq.qmgr.status
+  title: Queue Manager Status
+  units: status
+  family: qmgr.status
+  chart_type: line
+  priority: 60062
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: status
+    signal: ibm_mq_qmgr_status_status
+- id: mq.qmgr.connection_count
+  title: Queue Manager Connections
+  units: connections
+  family: qmgr.connection
+  chart_type: line
+  priority: 60063
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: connections
+    signal: ibm_mq_qmgr_connection_count_connections
+- id: mq.qmgr.uptime
+  title: Queue Manager Uptime
+  units: seconds
+  family: qmgr.uptime
+  chart_type: line
+  priority: 60064
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: uptime
+    signal: ibm_mq_qmgr_uptime_uptime
+- id: mq.queues.overview
+  title: Queues Monitoring Status
+  units: queues
+  family: queues.overview
+  chart_type: stacked
+  priority: 60065
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: monitored
+    signal: ibm_mq_queues_overview_monitored
+  - id: excluded
+    signal: ibm_mq_queues_overview_excluded
+  - id: invisible
+    signal: ibm_mq_queues_overview_invisible
+  - id: failed
+    signal: ibm_mq_queues_overview_failed
+- id: mq.channels.overview
+  title: Channels Monitoring Status
+  units: channels
+  family: channels.overview
+  chart_type: stacked
+  priority: 60066
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: monitored
+    signal: ibm_mq_channels_overview_monitored
+  - id: excluded
+    signal: ibm_mq_channels_overview_excluded
+  - id: invisible
+    signal: ibm_mq_channels_overview_invisible
+  - id: failed
+    signal: ibm_mq_channels_overview_failed
+- id: mq.topics.overview
+  title: Topics Monitoring Status
+  units: topics
+  family: topics.overview
+  chart_type: stacked
+  priority: 60067
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: monitored
+    signal: ibm_mq_topics_overview_monitored
+  - id: excluded
+    signal: ibm_mq_topics_overview_excluded
+  - id: invisible
+    signal: ibm_mq_topics_overview_invisible
+  - id: failed
+    signal: ibm_mq_topics_overview_failed
+- id: mq.listeners.overview
+  title: Listeners Monitoring Status
+  units: listeners
+  family: listeners.overview
+  chart_type: stacked
+  priority: 60068
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: monitored
+    signal: ibm_mq_listeners_overview_monitored
+  - id: excluded
+    signal: ibm_mq_listeners_overview_excluded
+  - id: invisible
+    signal: ibm_mq_listeners_overview_invisible
+  - id: failed
+    signal: ibm_mq_listeners_overview_failed
+- id: mq.qmgr.cpu_usage
+  title: Queue Manager CPU Usage
+  units: percentage
+  family: qmgr.cpu
+  chart_type: stacked
+  priority: 60069
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: user
+    signal: ibm_mq_qmgr_cpu_usage_user
+  - id: system
+    signal: ibm_mq_qmgr_cpu_usage_system
+- id: mq.qmgr.memory_usage
+  title: Queue Manager Memory Usage
+  units: bytes
+  family: qmgr.memory
+  chart_type: line
+  priority: 60070
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: total
+    signal: ibm_mq_qmgr_memory_usage_total
+- id: mq.qmgr.ram_usage
+  title: Queue Manager RAM Usage
+  units: bytes
+  family: qmgr.ram
+  chart_type: line
+  priority: 60071
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: total
+    signal: ibm_mq_qmgr_ram_usage_total
+- id: mq.qmgr.log_utilization
+  title: Queue Manager Log Utilization
+  units: percentage
+  family: qmgr.log
+  chart_type: line
+  priority: 60072
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: used
+    signal: ibm_mq_qmgr_log_utilization_used
+- id: mq.qmgr.log_file_size
+  title: Queue Manager Log File Size
+  units: bytes
+  family: qmgr.log
+  chart_type: line
+  priority: 60073
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: size
+    signal: ibm_mq_qmgr_log_file_size_size
+- id: mq.qmgr.log_write_rate
+  title: Queue Manager Log Write Rate
+  units: bytes/s
+  family: qmgr.log
+  chart_type: line
+  priority: 60074
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: rate
+    rate_signal: ibm_mq_qmgr_log_write_rate_rate
+- id: mq.queue_stats.depth_min_max
+  title: Queue Depth Min/Max (Statistics)
+  units: messages
+  family: queue
+  chart_type: line
+  priority: 60075
+  shape: independent
+  labels:
+    queue: sim-queue-1
+    type: sim-type-1
+  dimensions:
+  - id: min_depth
+    signal: ibm_mq_queue_stats_depth_min_max_min_depth
+  - id: max_depth
+    signal: ibm_mq_queue_stats_depth_min_max_max_depth
+- id: mq.queue_stats.avg_queue_time
+  title: Queue Average Time (Statistics)
+  units: microseconds
+  family: queue
+  chart_type: line
+  priority: 60076
+  shape: independent
+  labels:
+    queue: sim-queue-1
+    type: sim-type-1
+  dimensions:
+  - id: non_persistent
+    signal: ibm_mq_queue_stats_avg_queue_time_non_persistent
+  - id: persistent
+    signal: ibm_mq_queue_stats_avg_queue_time_persistent
+- id: mq.queue_stats.time_indicators
+  title: Queue Time Indicators (Statistics)
+  units: microseconds
+  family: queue
+  chart_type: line
+  priority: 60077
+  shape: independent
+  labels:
+    queue: sim-queue-1
+    type: sim-type-1
+  dimensions:
+  - id: short_period
+    signal: ibm_mq_queue_stats_time_indicators_short_period
+  - id: long_period
+    signal: ibm_mq_queue_stats_time_indicators_long_period
+- id: mq.queue_stats.operations
+  title: Queue Operations (Statistics)
+  units: operations/s
+  family: queue
+  chart_type: line
+  priority: 60078
+  shape: counters
+  labels:
+    queue: sim-queue-1
+    type: sim-type-1
+  dimensions:
+  - id: puts_non_persistent
+    rate_signal: ibm_mq_queue_stats_operations_puts_non_persistent
+  - id: puts_persistent
+    rate_signal: ibm_mq_queue_stats_operations_puts_persistent
+  - id: gets_non_persistent
+    rate_signal: ibm_mq_queue_stats_operations_gets_non_persistent
+  - id: gets_persistent
+    rate_signal: ibm_mq_queue_stats_operations_gets_persistent
+  - id: put1s
+    rate_signal: ibm_mq_queue_stats_operations_put1s
+  - id: browses
+    rate_signal: ibm_mq_queue_stats_operations_browses
+- id: mq.queue_stats.bytes
+  title: Queue Bytes (Statistics)
+  units: bytes/s
+  family: queue
+  chart_type: line
+  priority: 60079
+  shape: counters
+  labels:
+    queue: sim-queue-1
+    type: sim-type-1
+  dimensions:
+  - id: put_bytes_non_persistent
+    rate_signal: ibm_mq_queue_stats_bytes_put_bytes_non_persistent
+  - id: put_bytes_persistent
+    rate_signal: ibm_mq_queue_stats_bytes_put_bytes_persistent
+  - id: get_bytes_non_persistent
+    rate_signal: ibm_mq_queue_stats_bytes_get_bytes_non_persistent
+  - id: get_bytes_persistent
+    rate_signal: ibm_mq_queue_stats_bytes_get_bytes_persistent
+  - id: browse_bytes
+    rate_signal: ibm_mq_queue_stats_bytes_browse_bytes
+- id: mq.queue_stats.failures
+  title: Queue Operation Failures (Statistics)
+  units: failures/s
+  family: queue
+  chart_type: line
+  priority: 60080
+  shape: counters
+  labels:
+    queue: sim-queue-1
+    type: sim-type-1
+  dimensions:
+  - id: puts_failed
+    rate_signal: ibm_mq_queue_stats_failures_puts_failed
+  - id: put1s_failed
+    rate_signal: ibm_mq_queue_stats_failures_put1s_failed
+  - id: gets_failed
+    rate_signal: ibm_mq_queue_stats_failures_gets_failed
+  - id: browses_failed
+    rate_signal: ibm_mq_queue_stats_failures_browses_failed
+- id: mq.queue_stats.message_lifecycle
+  title: Queue Message Lifecycle (Statistics)
+  units: messages/s
+  family: queue
+  chart_type: line
+  priority: 60081
+  shape: counters
+  labels:
+    queue: sim-queue-1
+    type: sim-type-1
+  dimensions:
+  - id: expired
+    rate_signal: ibm_mq_queue_stats_message_lifecycle_expired
+  - id: purged
+    rate_signal: ibm_mq_queue_stats_message_lifecycle_purged
+  - id: not_queued
+    rate_signal: ibm_mq_queue_stats_message_lifecycle_not_queued
+- id: mq.subscription.messages
+  title: IBM MQ Subscription Messages
+  units: messages
+  family: subscription.messages
+  chart_type: line
+  priority: 60082
+  shape: independent
+  labels:
+    subscription: sim-subscription-1
+    topic: sim-topic-1
+  dimensions:
+  - id: pending
+    signal: ibm_mq_subscription_messages_pending
+- id: mq.subscription.last_message_age
+  title: IBM MQ Subscription Last Message Age
+  units: seconds
+  family: subscription.last
+  chart_type: line
+  priority: 60083
+  shape: independent
+  labels:
+    subscription: sim-subscription-1
+    topic: sim-topic-1
+  dimensions:
+  - id: age
+    signal: ibm_mq_subscription_last_message_age_age
+- id: mq.topic.publishers
+  title: Topic Publishers
+  units: publishers
+  family: topic.publishers
+  chart_type: line
+  priority: 60084
+  shape: independent
+  labels:
+    topic: sim-topic-1
+  dimensions:
+  - id: publishers
+    signal: ibm_mq_topic_publishers_publishers
+- id: mq.topic.subscribers
+  title: Topic Subscribers
+  units: subscribers
+  family: topic.subscribers
+  chart_type: line
+  priority: 60085
+  shape: independent
+  labels:
+    topic: sim-topic-1
+  dimensions:
+  - id: subscribers
+    signal: ibm_mq_topic_subscribers_subscribers
+- id: mq.topic.messages
+  title: Topic Message Rate
+  units: messages/s
+  family: topic.messages
+  chart_type: line
+  priority: 60086
+  shape: counters
+  labels:
+    topic: sim-topic-1
+  dimensions:
+  - id: messages
+    rate_signal: ibm_mq_topic_messages_messages
+- id: mq.topic.time_since_last_message
+  title: Time Since Last Message
+  units: seconds
+  family: topic.time
+  chart_type: line
+  priority: 60087
+  shape: independent
+  labels:
+    topic: sim-topic-1
+  dimensions:
+  - id: time_since_last_msg
+    signal: ibm_mq_topic_time_since_last_message_time_since_last_msg

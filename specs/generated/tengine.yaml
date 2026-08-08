@@ -1,0 +1,430 @@
+version: 1
+name: tengine
+description: Tengine metrics, generated from Netdata's own collector metadata so the contexts, units and
+  dimension names match what a real Tengine node reports. Signals are independent and plausible rather
+  than causally coupled - see scripts/sync-integrations.py.
+signals:
+  tengine_bandwidth_total_in:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  tengine_bandwidth_total_out:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  tengine_connections_total_accepted:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  tengine_requests_total_processed:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  tengine_requests_per_response_code_family_total_2xx:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  tengine_requests_per_response_code_family_total_3xx:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  tengine_requests_per_response_code_family_total_4xx:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  tengine_requests_per_response_code_family_total_5xx:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  tengine_requests_per_response_code_family_total_other:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  tengine_requests_per_response_code_detailed_total_200:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  tengine_requests_per_response_code_detailed_total_206:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  tengine_requests_per_response_code_detailed_total_302:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  tengine_requests_per_response_code_detailed_total_304:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  tengine_requests_per_response_code_detailed_total_403:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  tengine_requests_per_response_code_detailed_total_404:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  tengine_requests_per_response_code_detailed_total_419:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  tengine_requests_per_response_code_detailed_total_499:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  tengine_requests_per_response_code_detailed_total_500:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  tengine_requests_per_response_code_detailed_total_502:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  tengine_requests_per_response_code_detailed_total_503:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  tengine_requests_per_response_code_detailed_total_504:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  tengine_requests_per_response_code_detailed_total_508:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  tengine_requests_per_response_code_detailed_total_other:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  tengine_requests_upstream_total_requests:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  tengine_tries_upstream_total_calls:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  tengine_requests_upstream_per_response_code_family_total_4xx:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  tengine_requests_upstream_per_response_code_family_total_5xx:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: tengine.bandwidth_total
+  title: Bandwidth
+  units: B/s
+  family: bandwidth
+  chart_type: area
+  priority: 60001
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: in
+    rate_signal: tengine_bandwidth_total_in
+  - id: out
+    rate_signal: tengine_bandwidth_total_out
+- id: tengine.connections_total
+  title: Connections
+  units: connections/s
+  family: connections
+  chart_type: line
+  priority: 60002
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: accepted
+    rate_signal: tengine_connections_total_accepted
+- id: tengine.requests_total
+  title: Requests
+  units: requests/s
+  family: requests
+  chart_type: line
+  priority: 60003
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: processed
+    rate_signal: tengine_requests_total_processed
+- id: tengine.requests_per_response_code_family_total
+  title: Requests Per Response Code Family
+  units: requests/s
+  family: requests
+  chart_type: stacked
+  priority: 60004
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: 2xx
+    rate_signal: tengine_requests_per_response_code_family_total_2xx
+  - id: 3xx
+    rate_signal: tengine_requests_per_response_code_family_total_3xx
+  - id: 4xx
+    rate_signal: tengine_requests_per_response_code_family_total_4xx
+  - id: 5xx
+    rate_signal: tengine_requests_per_response_code_family_total_5xx
+  - id: other
+    rate_signal: tengine_requests_per_response_code_family_total_other
+- id: tengine.requests_per_response_code_detailed_total
+  title: Requests Per Response Code Detailed
+  units: requests/s
+  family: requests
+  chart_type: stacked
+  priority: 60005
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: '200'
+    rate_signal: tengine_requests_per_response_code_detailed_total_200
+  - id: '206'
+    rate_signal: tengine_requests_per_response_code_detailed_total_206
+  - id: '302'
+    rate_signal: tengine_requests_per_response_code_detailed_total_302
+  - id: '304'
+    rate_signal: tengine_requests_per_response_code_detailed_total_304
+  - id: '403'
+    rate_signal: tengine_requests_per_response_code_detailed_total_403
+  - id: '404'
+    rate_signal: tengine_requests_per_response_code_detailed_total_404
+  - id: '419'
+    rate_signal: tengine_requests_per_response_code_detailed_total_419
+  - id: '499'
+    rate_signal: tengine_requests_per_response_code_detailed_total_499
+  - id: '500'
+    rate_signal: tengine_requests_per_response_code_detailed_total_500
+  - id: '502'
+    rate_signal: tengine_requests_per_response_code_detailed_total_502
+  - id: '503'
+    rate_signal: tengine_requests_per_response_code_detailed_total_503
+  - id: '504'
+    rate_signal: tengine_requests_per_response_code_detailed_total_504
+  - id: '508'
+    rate_signal: tengine_requests_per_response_code_detailed_total_508
+  - id: other
+    rate_signal: tengine_requests_per_response_code_detailed_total_other
+- id: tengine.requests_upstream_total
+  title: Number Of Requests Calling For Upstream
+  units: requests/s
+  family: requests
+  chart_type: line
+  priority: 60006
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: requests
+    rate_signal: tengine_requests_upstream_total_requests
+- id: tengine.tries_upstream_total
+  title: Number Of Times Calling For Upstream
+  units: calls/s
+  family: tries
+  chart_type: line
+  priority: 60007
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: calls
+    rate_signal: tengine_tries_upstream_total_calls
+- id: tengine.requests_upstream_per_response_code_family_total
+  title: Upstream Requests Per Response Code Family
+  units: requests/s
+  family: requests
+  chart_type: stacked
+  priority: 60008
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: 4xx
+    rate_signal: tengine_requests_upstream_per_response_code_family_total_4xx
+  - id: 5xx
+    rate_signal: tengine_requests_upstream_per_response_code_family_total_5xx

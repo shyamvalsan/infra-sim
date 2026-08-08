@@ -1,0 +1,441 @@
+version: 1
+name: nginx-vts
+description: NGINX VTS metrics, generated from Netdata's own collector metadata so the contexts, units
+  and dimension names match what a real NGINX VTS node reports. Signals are independent and plausible
+  rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  nginx_vts_requests_total_requests:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_vts_active_connections_active:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_vts_connections_total_reading:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_vts_connections_total_writing:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_vts_connections_total_waiting:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_vts_connections_total_accepted:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_vts_connections_total_handled:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_vts_uptime_uptime:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_vts_shm_usage_max:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_vts_shm_usage_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_vts_shm_used_node_used:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_vts_server_requests_total_requests:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_vts_server_responses_total_1xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_vts_server_responses_total_2xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_vts_server_responses_total_3xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_vts_server_responses_total_4xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_vts_server_responses_total_5xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_vts_server_traffic_total_in:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_vts_server_traffic_total_out:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_vts_server_cache_total_miss:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_vts_server_cache_total_bypass:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_vts_server_cache_total_expired:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_vts_server_cache_total_stale:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  nginx_vts_server_cache_total_updating:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_vts_server_cache_total_revalidated:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_vts_server_cache_total_hit:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nginx_vts_server_cache_total_scarce:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: nginxvts.requests_total
+  title: Total requests
+  units: requests/s
+  family: requests
+  chart_type: line
+  priority: 60001
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: requests
+    rate_signal: nginx_vts_requests_total_requests
+- id: nginxvts.active_connections
+  title: Active connections
+  units: connections
+  family: active
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: active
+    signal: nginx_vts_active_connections_active
+- id: nginxvts.connections_total
+  title: Total connections
+  units: connections/s
+  family: connections
+  chart_type: line
+  priority: 60003
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: reading
+    rate_signal: nginx_vts_connections_total_reading
+  - id: writing
+    rate_signal: nginx_vts_connections_total_writing
+  - id: waiting
+    rate_signal: nginx_vts_connections_total_waiting
+  - id: accepted
+    rate_signal: nginx_vts_connections_total_accepted
+  - id: handled
+    rate_signal: nginx_vts_connections_total_handled
+- id: nginxvts.uptime
+  title: Uptime
+  units: seconds
+  family: uptime
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: uptime
+    signal: nginx_vts_uptime_uptime
+- id: nginxvts.shm_usage
+  title: Shared memory size
+  units: bytes
+  family: shm
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: max
+    signal: nginx_vts_shm_usage_max
+  - id: used
+    signal: nginx_vts_shm_usage_used
+- id: nginxvts.shm_used_node
+  title: Number of node using shared memory
+  units: nodes
+  family: shm
+  chart_type: line
+  priority: 60006
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: used
+    signal: nginx_vts_shm_used_node_used
+- id: nginxvts.server_requests_total
+  title: Total number of client requests
+  units: requests/s
+  family: server
+  chart_type: line
+  priority: 60007
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: requests
+    rate_signal: nginx_vts_server_requests_total_requests
+- id: nginxvts.server_responses_total
+  title: Total number of responses by code class
+  units: responses/s
+  family: server
+  chart_type: line
+  priority: 60008
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: 1xx
+    rate_signal: nginx_vts_server_responses_total_1xx
+  - id: 2xx
+    rate_signal: nginx_vts_server_responses_total_2xx
+  - id: 3xx
+    rate_signal: nginx_vts_server_responses_total_3xx
+  - id: 4xx
+    rate_signal: nginx_vts_server_responses_total_4xx
+  - id: 5xx
+    rate_signal: nginx_vts_server_responses_total_5xx
+- id: nginxvts.server_traffic_total
+  title: Total amount of data transferred to and from the server
+  units: bytes/s
+  family: server
+  chart_type: line
+  priority: 60009
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: in
+    rate_signal: nginx_vts_server_traffic_total_in
+  - id: out
+    rate_signal: nginx_vts_server_traffic_total_out
+- id: nginxvts.server_cache_total
+  title: Total server cache
+  units: events/s
+  family: server
+  chart_type: line
+  priority: 60010
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: miss
+    rate_signal: nginx_vts_server_cache_total_miss
+  - id: bypass
+    rate_signal: nginx_vts_server_cache_total_bypass
+  - id: expired
+    rate_signal: nginx_vts_server_cache_total_expired
+  - id: stale
+    rate_signal: nginx_vts_server_cache_total_stale
+  - id: updating
+    rate_signal: nginx_vts_server_cache_total_updating
+  - id: revalidated
+    rate_signal: nginx_vts_server_cache_total_revalidated
+  - id: hit
+    rate_signal: nginx_vts_server_cache_total_hit
+  - id: scarce
+    rate_signal: nginx_vts_server_cache_total_scarce

@@ -1,0 +1,554 @@
+version: 1
+name: varnish
+description: Varnish metrics, generated from Netdata's own collector metadata so the contexts, units and
+  dimension names match what a real Varnish node reports. Signals are independent and plausible rather
+  than causally coupled - see scripts/sync-integrations.py.
+signals:
+  varnish_client_session_connections_accepted:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  varnish_client_session_connections_dropped:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  varnish_client_requests_received:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  varnish_cache_hit_ratio_total_hit:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  varnish_cache_hit_ratio_total_miss:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  varnish_cache_hit_ratio_total_hitpass:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  varnish_cache_hit_ratio_total_hitmiss:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  varnish_cache_hit_ratio_delta_hit:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  varnish_cache_hit_ratio_delta_miss:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  varnish_cache_hit_ratio_delta_hitpass:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  varnish_cache_hit_ratio_delta_hitmiss:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  varnish_cache_expired_objects_expired:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  varnish_cache_lru_activity_nuked:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  varnish_cache_lru_activity_moved:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  varnish_threads_threads:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  varnish_thread_management_activity_created:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  varnish_thread_management_activity_failed:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  varnish_thread_management_activity_destroyed:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  varnish_thread_management_activity_limited:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  varnish_thread_queue_len_queue_length:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  varnish_backends_requests_sent:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  varnish_esi_parsing_issues_errors:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  varnish_esi_parsing_issues_warnings:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  varnish_mgmt_process_uptime_uptime:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  varnish_child_process_uptime_uptime:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  varnish_backend_data_transfer_req_header:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  varnish_backend_data_transfer_req_body:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  varnish_backend_data_transfer_resp_header:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  varnish_backend_data_transfer_resp_body:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  varnish_storage_space_usage_free:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  varnish_storage_space_usage_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  varnish_storage_allocated_objects_allocated:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: varnish.client_session_connections
+  title: Connections Statistics
+  units: connections/s
+  family: client
+  chart_type: line
+  priority: 60001
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: accepted
+    rate_signal: varnish_client_session_connections_accepted
+  - id: dropped
+    rate_signal: varnish_client_session_connections_dropped
+- id: varnish.client_requests
+  title: Client Requests
+  units: requests/s
+  family: client
+  chart_type: line
+  priority: 60002
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: received
+    rate_signal: varnish_client_requests_received
+- id: varnish.cache_hit_ratio_total
+  title: Cache Hit Ratio Total
+  units: percent
+  family: cache
+  chart_type: stacked
+  priority: 60003
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: hit
+    signal: varnish_cache_hit_ratio_total_hit
+  - id: miss
+    signal: varnish_cache_hit_ratio_total_miss
+  - id: hitpass
+    signal: varnish_cache_hit_ratio_total_hitpass
+  - id: hitmiss
+    signal: varnish_cache_hit_ratio_total_hitmiss
+- id: varnish.cache_hit_ratio_delta
+  title: Cache Hit Ratio Current Poll
+  units: percent
+  family: cache
+  chart_type: stacked
+  priority: 60004
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: hit
+    signal: varnish_cache_hit_ratio_delta_hit
+  - id: miss
+    signal: varnish_cache_hit_ratio_delta_miss
+  - id: hitpass
+    signal: varnish_cache_hit_ratio_delta_hitpass
+  - id: hitmiss
+    signal: varnish_cache_hit_ratio_delta_hitmiss
+- id: varnish.cache_expired_objects
+  title: Cache Expired Objects
+  units: objects/s
+  family: cache
+  chart_type: line
+  priority: 60005
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: expired
+    rate_signal: varnish_cache_expired_objects_expired
+- id: varnish.cache_lru_activity
+  title: Cache LRU Activity
+  units: objects/s
+  family: cache
+  chart_type: line
+  priority: 60006
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: nuked
+    rate_signal: varnish_cache_lru_activity_nuked
+  - id: moved
+    rate_signal: varnish_cache_lru_activity_moved
+- id: varnish.threads
+  title: Threads In All Pools
+  units: threads
+  family: threads
+  chart_type: line
+  priority: 60007
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: threads
+    signal: varnish_threads_threads
+- id: varnish.thread_management_activity
+  title: Thread Management Activity
+  units: threads/s
+  family: thread
+  chart_type: line
+  priority: 60008
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: created
+    rate_signal: varnish_thread_management_activity_created
+  - id: failed
+    rate_signal: varnish_thread_management_activity_failed
+  - id: destroyed
+    rate_signal: varnish_thread_management_activity_destroyed
+  - id: limited
+    rate_signal: varnish_thread_management_activity_limited
+- id: varnish.thread_queue_len
+  title: Session Queue Length
+  units: threads
+  family: thread
+  chart_type: line
+  priority: 60009
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: queue_length
+    signal: varnish_thread_queue_len_queue_length
+- id: varnish.backends_requests
+  title: Backend Requests
+  units: requests/s
+  family: backends
+  chart_type: line
+  priority: 60010
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: sent
+    rate_signal: varnish_backends_requests_sent
+- id: varnish.esi_parsing_issues
+  title: ESI Parsing Issues
+  units: issues/s
+  family: esi
+  chart_type: line
+  priority: 60011
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: errors
+    rate_signal: varnish_esi_parsing_issues_errors
+  - id: warnings
+    rate_signal: varnish_esi_parsing_issues_warnings
+- id: varnish.mgmt_process_uptime
+  title: Management Process Uptime
+  units: seconds
+  family: mgmt
+  chart_type: line
+  priority: 60012
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: uptime
+    signal: varnish_mgmt_process_uptime_uptime
+- id: varnish.child_process_uptime
+  title: Child Process Uptime
+  units: seconds
+  family: child
+  chart_type: line
+  priority: 60013
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: uptime
+    signal: varnish_child_process_uptime_uptime
+- id: varnish.backend_data_transfer
+  title: Backend Data Transfer
+  units: bytes/s
+  family: backend
+  chart_type: area
+  priority: 60014
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: req_header
+    rate_signal: varnish_backend_data_transfer_req_header
+  - id: req_body
+    rate_signal: varnish_backend_data_transfer_req_body
+  - id: resp_header
+    rate_signal: varnish_backend_data_transfer_resp_header
+  - id: resp_body
+    rate_signal: varnish_backend_data_transfer_resp_body
+- id: varnish.storage_space_usage
+  title: Storage Space Usage
+  units: bytes
+  family: storage
+  chart_type: stacked
+  priority: 60015
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: free
+    signal: varnish_storage_space_usage_free
+  - id: used
+    signal: varnish_storage_space_usage_used
+- id: varnish.storage_allocated_objects
+  title: Storage Allocated Objects
+  units: objects
+  family: storage
+  chart_type: line
+  priority: 60016
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: allocated
+    signal: varnish_storage_allocated_objects_allocated

@@ -1,0 +1,424 @@
+version: 1
+name: zookeeper
+description: ZooKeeper metrics, generated from Netdata's own collector metadata so the contexts, units
+  and dimension names match what a real ZooKeeper node reports. Signals are independent and plausible
+  rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  zookeeper_requests_outstanding:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zookeeper_requests_latency_min:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zookeeper_requests_latency_avg:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zookeeper_requests_latency_max:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zookeeper_stale_requests_stale:
+    base: 0.0
+    min: 0.0
+    max: 5000000.0
+  zookeeper_stale_requests_dropped_dropped:
+    base: 0.0
+    min: 0.0
+    max: 5000000.0
+  zookeeper_connections_alive:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zookeeper_connections_dropped_dropped:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  zookeeper_connections_rejected_rejected:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  zookeeper_auth_fails_auth:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zookeeper_global_sessions_global:
+    base: 64.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zookeeper_server_state_leader:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  zookeeper_server_state_follower:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  zookeeper_server_state_observer:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  zookeeper_server_state_standalone:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  zookeeper_throttled_ops_throttled:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zookeeper_packets_received:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zookeeper_packets_sent:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zookeeper_file_descriptor_open:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zookeeper_nodes_znode:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zookeeper_nodes_ephemerals:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zookeeper_watches_watches:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zookeeper_approximate_data_size_size:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  zookeeper_uptime_uptime:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: zookeeper.requests
+  title: Outstanding Requests
+  units: requests
+  family: requests
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: outstanding
+    signal: zookeeper_requests_outstanding
+- id: zookeeper.requests_latency
+  title: Requests Latency
+  units: ms
+  family: requests
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: min
+    signal: zookeeper_requests_latency_min
+  - id: avg
+    signal: zookeeper_requests_latency_avg
+  - id: max
+    signal: zookeeper_requests_latency_max
+- id: zookeeper.stale_requests
+  title: Stale Requests
+  units: requests/s
+  family: stale
+  chart_type: line
+  priority: 60003
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: stale
+    rate_signal: zookeeper_stale_requests_stale
+- id: zookeeper.stale_requests_dropped
+  title: Stale Requests Dropped
+  units: requests/s
+  family: stale
+  chart_type: line
+  priority: 60004
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: dropped
+    rate_signal: zookeeper_stale_requests_dropped_dropped
+- id: zookeeper.connections
+  title: Alive Connections
+  units: connections
+  family: connections
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: alive
+    signal: zookeeper_connections_alive
+- id: zookeeper.connections_dropped
+  title: Dropped Connections
+  units: connections/s
+  family: connections
+  chart_type: line
+  priority: 60006
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: dropped
+    rate_signal: zookeeper_connections_dropped_dropped
+- id: zookeeper.connections_rejected
+  title: Rejected Connections
+  units: connections/s
+  family: connections
+  chart_type: line
+  priority: 60007
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: rejected
+    rate_signal: zookeeper_connections_rejected_rejected
+- id: zookeeper.auth_fails
+  title: Auth Fails
+  units: fails/s
+  family: auth
+  chart_type: line
+  priority: 60008
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: auth
+    rate_signal: zookeeper_auth_fails_auth
+- id: zookeeper.global_sessions
+  title: Global Sessions
+  units: sessions
+  family: global
+  chart_type: line
+  priority: 60009
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: global
+    signal: zookeeper_global_sessions_global
+- id: zookeeper.server_state
+  title: Server State
+  units: state
+  family: server
+  chart_type: line
+  priority: 60010
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: leader
+    signal: zookeeper_server_state_leader
+  - id: follower
+    signal: zookeeper_server_state_follower
+  - id: observer
+    signal: zookeeper_server_state_observer
+  - id: standalone
+    signal: zookeeper_server_state_standalone
+- id: zookeeper.throttled_ops
+  title: Throttled Operations
+  units: ops/s
+  family: throttled
+  chart_type: line
+  priority: 60011
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: throttled
+    rate_signal: zookeeper_throttled_ops_throttled
+- id: zookeeper.packets
+  title: Packets
+  units: pps
+  family: packets
+  chart_type: line
+  priority: 60012
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: received
+    rate_signal: zookeeper_packets_received
+  - id: sent
+    rate_signal: zookeeper_packets_sent
+- id: zookeeper.file_descriptor
+  title: Open File Descriptors
+  units: file descriptors
+  family: file
+  chart_type: line
+  priority: 60013
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: open
+    signal: zookeeper_file_descriptor_open
+- id: zookeeper.nodes
+  title: Number of Nodes
+  units: nodes
+  family: nodes
+  chart_type: line
+  priority: 60014
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: znode
+    signal: zookeeper_nodes_znode
+  - id: ephemerals
+    signal: zookeeper_nodes_ephemerals
+- id: zookeeper.watches
+  title: Number of Watches
+  units: watches
+  family: watches
+  chart_type: line
+  priority: 60015
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: watches
+    signal: zookeeper_watches_watches
+- id: zookeeper.approximate_data_size
+  title: Approximate Data Tree Size
+  units: KiB
+  family: approximate
+  chart_type: line
+  priority: 60016
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: size
+    signal: zookeeper_approximate_data_size_size
+- id: zookeeper.uptime
+  title: Uptime
+  units: seconds
+  family: uptime
+  chart_type: line
+  priority: 60017
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: uptime
+    signal: zookeeper_uptime_uptime

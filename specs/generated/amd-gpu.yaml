@@ -1,0 +1,281 @@
+version: 1
+name: amd-gpu
+description: AMD GPU metrics, generated from Netdata's own collector metadata so the contexts, units and
+  dimension names match what a real AMD GPU node reports. Signals are independent and plausible rather
+  than causally coupled - see scripts/sync-integrations.py.
+signals:
+  amd_gpu_gpu_utilization_utilization:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  amd_gpu_gpu_mem_utilization_utilization:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  amd_gpu_gpu_clk_frequency_frequency:
+    base: 2400.0
+    min: 0.0
+    max: 6000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  amd_gpu_gpu_mem_clk_frequency_frequency:
+    base: 2400.0
+    min: 0.0
+    max: 6000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  amd_gpu_gpu_mem_vram_usage_perc_usage:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  amd_gpu_gpu_mem_vram_usage_free:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  amd_gpu_gpu_mem_vram_usage_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  amd_gpu_gpu_mem_vis_vram_usage_perc_usage:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  amd_gpu_gpu_mem_vis_vram_usage_free:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  amd_gpu_gpu_mem_vis_vram_usage_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  amd_gpu_gpu_mem_gtt_usage_perc_usage:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  amd_gpu_gpu_mem_gtt_usage_free:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  amd_gpu_gpu_mem_gtt_usage_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: amdgpu.gpu_utilization
+  title: GPU utilization
+  units: percentage
+  family: gpu
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels:
+    product_name: sim-product_name-1
+  dimensions:
+  - id: utilization
+    signal: amd_gpu_gpu_utilization_utilization
+- id: amdgpu.gpu_mem_utilization
+  title: GPU memory utilization
+  units: percentage
+  family: gpu
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels:
+    product_name: sim-product_name-1
+  dimensions:
+  - id: utilization
+    signal: amd_gpu_gpu_mem_utilization_utilization
+- id: amdgpu.gpu_clk_frequency
+  title: GPU clock frequency
+  units: MHz
+  family: gpu
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels:
+    product_name: sim-product_name-1
+  dimensions:
+  - id: frequency
+    signal: amd_gpu_gpu_clk_frequency_frequency
+- id: amdgpu.gpu_mem_clk_frequency
+  title: GPU memory clock frequency
+  units: MHz
+  family: gpu
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels:
+    product_name: sim-product_name-1
+  dimensions:
+  - id: frequency
+    signal: amd_gpu_gpu_mem_clk_frequency_frequency
+- id: amdgpu.gpu_mem_vram_usage_perc
+  title: VRAM memory usage percentage
+  units: percentage
+  family: gpu
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels:
+    product_name: sim-product_name-1
+  dimensions:
+  - id: usage
+    signal: amd_gpu_gpu_mem_vram_usage_perc_usage
+- id: amdgpu.gpu_mem_vram_usage
+  title: VRAM memory usage
+  units: bytes
+  family: gpu
+  chart_type: area
+  priority: 60006
+  shape: independent
+  labels:
+    product_name: sim-product_name-1
+  dimensions:
+  - id: free
+    signal: amd_gpu_gpu_mem_vram_usage_free
+  - id: used
+    signal: amd_gpu_gpu_mem_vram_usage_used
+- id: amdgpu.gpu_mem_vis_vram_usage_perc
+  title: visible VRAM memory usage percentage
+  units: percentage
+  family: gpu
+  chart_type: line
+  priority: 60007
+  shape: independent
+  labels:
+    product_name: sim-product_name-1
+  dimensions:
+  - id: usage
+    signal: amd_gpu_gpu_mem_vis_vram_usage_perc_usage
+- id: amdgpu.gpu_mem_vis_vram_usage
+  title: visible VRAM memory usage
+  units: bytes
+  family: gpu
+  chart_type: area
+  priority: 60008
+  shape: independent
+  labels:
+    product_name: sim-product_name-1
+  dimensions:
+  - id: free
+    signal: amd_gpu_gpu_mem_vis_vram_usage_free
+  - id: used
+    signal: amd_gpu_gpu_mem_vis_vram_usage_used
+- id: amdgpu.gpu_mem_gtt_usage_perc
+  title: GTT memory usage percentage
+  units: percentage
+  family: gpu
+  chart_type: line
+  priority: 60009
+  shape: independent
+  labels:
+    product_name: sim-product_name-1
+  dimensions:
+  - id: usage
+    signal: amd_gpu_gpu_mem_gtt_usage_perc_usage
+- id: amdgpu.gpu_mem_gtt_usage
+  title: GTT memory usage
+  units: bytes
+  family: gpu
+  chart_type: area
+  priority: 60010
+  shape: independent
+  labels:
+    product_name: sim-product_name-1
+  dimensions:
+  - id: free
+    signal: amd_gpu_gpu_mem_gtt_usage_free
+  - id: used
+    signal: amd_gpu_gpu_mem_gtt_usage_used

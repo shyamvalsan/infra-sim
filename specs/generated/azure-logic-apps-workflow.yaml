@@ -1,0 +1,669 @@
+version: 1
+name: azure-logic-apps-workflow
+description: Azure Logic Apps Workflow metrics, generated from Netdata's own collector metadata so the
+  contexts, units and dimension names match what a real Azure Logic Apps Workflow node reports. Signals
+  are independent and plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  azure_logic_apps_workflow_logic_apps_run_lifecycle_started:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_logic_apps_workflow_logic_apps_run_lifecycle_completed:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_logic_apps_workflow_logic_apps_run_lifecycle_succeeded:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_logic_apps_workflow_logic_apps_run_lifecycle_failed:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  azure_logic_apps_workflow_logic_apps_run_lifecycle_cancelled:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_logic_apps_workflow_logic_apps_run_latency_all:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_logic_apps_workflow_logic_apps_run_latency_success:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_logic_apps_workflow_logic_apps_run_failure_rate_failure_rate:
+    base: 0.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+  azure_logic_apps_workflow_logic_apps_run_throttling_during_run:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_logic_apps_workflow_logic_apps_run_throttling_at_start:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_logic_apps_workflow_logic_apps_action_lifecycle_started:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_logic_apps_workflow_logic_apps_action_lifecycle_completed:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_logic_apps_workflow_logic_apps_action_lifecycle_succeeded:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_logic_apps_workflow_logic_apps_action_lifecycle_failed:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  azure_logic_apps_workflow_logic_apps_action_lifecycle_skipped:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_logic_apps_workflow_logic_apps_action_latency_all:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_logic_apps_workflow_logic_apps_action_latency_success:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_logic_apps_workflow_logic_apps_action_throttling_total:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_logic_apps_workflow_logic_apps_trigger_lifecycle_started:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_logic_apps_workflow_logic_apps_trigger_lifecycle_completed:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_logic_apps_workflow_logic_apps_trigger_lifecycle_succeeded:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_logic_apps_workflow_logic_apps_trigger_lifecycle_fired:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_logic_apps_workflow_logic_apps_trigger_lifecycle_failed:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  azure_logic_apps_workflow_logic_apps_trigger_lifecycle_skipped:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_logic_apps_workflow_logic_apps_trigger_latency_all:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_logic_apps_workflow_logic_apps_trigger_latency_fire:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_logic_apps_workflow_logic_apps_trigger_latency_success:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_logic_apps_workflow_logic_apps_trigger_throttling_total:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_logic_apps_workflow_logic_apps_billable_executions_total:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_logic_apps_workflow_logic_apps_billable_executions_actions:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_logic_apps_workflow_logic_apps_billable_executions_triggers:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_logic_apps_workflow_logic_apps_billing_by_type_native:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_logic_apps_workflow_logic_apps_billing_by_type_standard_connector:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_logic_apps_workflow_logic_apps_billing_by_type_storage:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_logic_apps_workflow_logic_apps_agent_loop_executions:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_logic_apps_workflow_logic_apps_agent_completion_overflow:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_logic_apps_workflow_logic_apps_agent_prompt_overflow:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: azure_monitor.logic_apps.run_lifecycle
+  title: Azure Logic Apps Run Lifecycle
+  units: runs/s
+  family: logic
+  chart_type: line
+  priority: 60001
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: started
+    rate_signal: azure_logic_apps_workflow_logic_apps_run_lifecycle_started
+  - id: completed
+    rate_signal: azure_logic_apps_workflow_logic_apps_run_lifecycle_completed
+  - id: succeeded
+    rate_signal: azure_logic_apps_workflow_logic_apps_run_lifecycle_succeeded
+  - id: failed
+    rate_signal: azure_logic_apps_workflow_logic_apps_run_lifecycle_failed
+  - id: cancelled
+    rate_signal: azure_logic_apps_workflow_logic_apps_run_lifecycle_cancelled
+- id: azure_monitor.logic_apps.run_latency
+  title: Azure Logic Apps Run Latency
+  units: seconds
+  family: logic
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: all
+    signal: azure_logic_apps_workflow_logic_apps_run_latency_all
+  - id: success
+    signal: azure_logic_apps_workflow_logic_apps_run_latency_success
+- id: azure_monitor.logic_apps.run_failure_rate
+  title: Azure Logic Apps Run Failure Rate
+  units: percentage
+  family: logic
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: failure_rate
+    signal: azure_logic_apps_workflow_logic_apps_run_failure_rate_failure_rate
+- id: azure_monitor.logic_apps.run_throttling
+  title: Azure Logic Apps Run Throttling
+  units: events/s
+  family: logic
+  chart_type: line
+  priority: 60004
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: during_run
+    rate_signal: azure_logic_apps_workflow_logic_apps_run_throttling_during_run
+  - id: at_start
+    rate_signal: azure_logic_apps_workflow_logic_apps_run_throttling_at_start
+- id: azure_monitor.logic_apps.action_lifecycle
+  title: Azure Logic Apps Action Lifecycle
+  units: actions/s
+  family: logic
+  chart_type: line
+  priority: 60005
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: started
+    rate_signal: azure_logic_apps_workflow_logic_apps_action_lifecycle_started
+  - id: completed
+    rate_signal: azure_logic_apps_workflow_logic_apps_action_lifecycle_completed
+  - id: succeeded
+    rate_signal: azure_logic_apps_workflow_logic_apps_action_lifecycle_succeeded
+  - id: failed
+    rate_signal: azure_logic_apps_workflow_logic_apps_action_lifecycle_failed
+  - id: skipped
+    rate_signal: azure_logic_apps_workflow_logic_apps_action_lifecycle_skipped
+- id: azure_monitor.logic_apps.action_latency
+  title: Azure Logic Apps Action Latency
+  units: seconds
+  family: logic
+  chart_type: line
+  priority: 60006
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: all
+    signal: azure_logic_apps_workflow_logic_apps_action_latency_all
+  - id: success
+    signal: azure_logic_apps_workflow_logic_apps_action_latency_success
+- id: azure_monitor.logic_apps.action_throttling
+  title: Azure Logic Apps Action Throttling
+  units: events/s
+  family: logic
+  chart_type: line
+  priority: 60007
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: total
+    rate_signal: azure_logic_apps_workflow_logic_apps_action_throttling_total
+- id: azure_monitor.logic_apps.trigger_lifecycle
+  title: Azure Logic Apps Trigger Lifecycle
+  units: triggers/s
+  family: logic
+  chart_type: line
+  priority: 60008
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: started
+    rate_signal: azure_logic_apps_workflow_logic_apps_trigger_lifecycle_started
+  - id: completed
+    rate_signal: azure_logic_apps_workflow_logic_apps_trigger_lifecycle_completed
+  - id: succeeded
+    rate_signal: azure_logic_apps_workflow_logic_apps_trigger_lifecycle_succeeded
+  - id: fired
+    rate_signal: azure_logic_apps_workflow_logic_apps_trigger_lifecycle_fired
+  - id: failed
+    rate_signal: azure_logic_apps_workflow_logic_apps_trigger_lifecycle_failed
+  - id: skipped
+    rate_signal: azure_logic_apps_workflow_logic_apps_trigger_lifecycle_skipped
+- id: azure_monitor.logic_apps.trigger_latency
+  title: Azure Logic Apps Trigger Latency
+  units: seconds
+  family: logic
+  chart_type: line
+  priority: 60009
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: all
+    signal: azure_logic_apps_workflow_logic_apps_trigger_latency_all
+  - id: fire
+    signal: azure_logic_apps_workflow_logic_apps_trigger_latency_fire
+  - id: success
+    signal: azure_logic_apps_workflow_logic_apps_trigger_latency_success
+- id: azure_monitor.logic_apps.trigger_throttling
+  title: Azure Logic Apps Trigger Throttling
+  units: events/s
+  family: logic
+  chart_type: line
+  priority: 60010
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: total
+    rate_signal: azure_logic_apps_workflow_logic_apps_trigger_throttling_total
+- id: azure_monitor.logic_apps.billable_executions
+  title: Azure Logic Apps Billable Executions
+  units: executions/s
+  family: logic
+  chart_type: line
+  priority: 60011
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: total
+    rate_signal: azure_logic_apps_workflow_logic_apps_billable_executions_total
+  - id: actions
+    rate_signal: azure_logic_apps_workflow_logic_apps_billable_executions_actions
+  - id: triggers
+    rate_signal: azure_logic_apps_workflow_logic_apps_billable_executions_triggers
+- id: azure_monitor.logic_apps.billing_by_type
+  title: Azure Logic Apps Billing by Type
+  units: operations/s
+  family: logic
+  chart_type: line
+  priority: 60012
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: native
+    rate_signal: azure_logic_apps_workflow_logic_apps_billing_by_type_native
+  - id: standard_connector
+    rate_signal: azure_logic_apps_workflow_logic_apps_billing_by_type_standard_connector
+  - id: storage
+    rate_signal: azure_logic_apps_workflow_logic_apps_billing_by_type_storage
+- id: azure_monitor.logic_apps.agent
+  title: Azure Logic Apps AI Agent Activity
+  units: events/s
+  family: logic
+  chart_type: line
+  priority: 60013
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: loop_executions
+    rate_signal: azure_logic_apps_workflow_logic_apps_agent_loop_executions
+  - id: completion_overflow
+    rate_signal: azure_logic_apps_workflow_logic_apps_agent_completion_overflow
+  - id: prompt_overflow
+    rate_signal: azure_logic_apps_workflow_logic_apps_agent_prompt_overflow

@@ -1,0 +1,95 @@
+version: 1
+name: net-inet6-ip6-stats
+description: net.inet6.ip6.stats metrics, generated from Netdata's own collector metadata so the contexts,
+  units and dimension names match what a real net.inet6.ip6.stats node reports. Signals are independent
+  and plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  net_inet6_ip6_stats_fragsout_ok:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet6_ip6_stats_fragsout_failed:
+    base: 0.0
+    min: 0.0
+    max: 20000000.0
+  net_inet6_ip6_stats_fragsout_all:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet6_ip6_stats_fragsin_ok:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  net_inet6_ip6_stats_fragsin_failed:
+    base: 0.0
+    min: 0.0
+    max: 20000000.0
+  net_inet6_ip6_stats_fragsin_timeout:
+    base: 0.0
+    min: 0.0
+    max: 20000000.0
+  net_inet6_ip6_stats_fragsin_all:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: ipv6.fragsout
+  title: IPv6 Fragments Sent
+  units: packets/s
+  family: fragsout
+  chart_type: line
+  priority: 60001
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: ok
+    rate_signal: net_inet6_ip6_stats_fragsout_ok
+  - id: failed
+    rate_signal: net_inet6_ip6_stats_fragsout_failed
+  - id: all
+    rate_signal: net_inet6_ip6_stats_fragsout_all
+- id: ipv6.fragsin
+  title: IPv6 Fragments Reassembly
+  units: packets/s
+  family: fragsin
+  chart_type: line
+  priority: 60002
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: ok
+    rate_signal: net_inet6_ip6_stats_fragsin_ok
+  - id: failed
+    rate_signal: net_inet6_ip6_stats_fragsin_failed
+  - id: timeout
+    rate_signal: net_inet6_ip6_stats_fragsin_timeout
+  - id: all
+    rate_signal: net_inet6_ip6_stats_fragsin_all

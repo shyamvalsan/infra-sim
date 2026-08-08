@@ -1,0 +1,184 @@
+version: 1
+name: couchbase
+description: Couchbase metrics, generated from Netdata's own collector metadata so the contexts, units
+  and dimension names match what a real Couchbase node reports. Signals are independent and plausible
+  rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  couchbase_bucket_quota_percent_used_a_dimension_per_bucket:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchbase_bucket_ops_per_sec_a_dimension_per_bucket:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchbase_bucket_disk_fetches_a_dimension_per_bucket:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchbase_bucket_item_count_a_dimension_per_bucket:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchbase_bucket_disk_used_stats_a_dimension_per_bucket:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchbase_bucket_data_used_a_dimension_per_bucket:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchbase_bucket_mem_used_a_dimension_per_bucket:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  couchbase_bucket_vb_active_num_non_resident_a_dimension_per_bucket:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: couchbase.bucket_quota_percent_used
+  title: Quota Percent Used Per Bucket
+  units: percentage
+  family: bucket
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: a dimension per bucket
+    signal: couchbase_bucket_quota_percent_used_a_dimension_per_bucket
+- id: couchbase.bucket_ops_per_sec
+  title: Operations Per Second Per Bucket
+  units: ops/s
+  family: bucket
+  chart_type: stacked
+  priority: 60002
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per bucket
+    rate_signal: couchbase_bucket_ops_per_sec_a_dimension_per_bucket
+- id: couchbase.bucket_disk_fetches
+  title: Disk Fetches Per Bucket
+  units: fetches
+  family: bucket
+  chart_type: stacked
+  priority: 60003
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: a dimension per bucket
+    signal: couchbase_bucket_disk_fetches_a_dimension_per_bucket
+- id: couchbase.bucket_item_count
+  title: Item Count Per Bucket
+  units: items
+  family: bucket
+  chart_type: stacked
+  priority: 60004
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: a dimension per bucket
+    signal: couchbase_bucket_item_count_a_dimension_per_bucket
+- id: couchbase.bucket_disk_used_stats
+  title: Disk Used Per Bucket
+  units: bytes
+  family: bucket
+  chart_type: stacked
+  priority: 60005
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: a dimension per bucket
+    signal: couchbase_bucket_disk_used_stats_a_dimension_per_bucket
+- id: couchbase.bucket_data_used
+  title: Data Used Per Bucket
+  units: bytes
+  family: bucket
+  chart_type: stacked
+  priority: 60006
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: a dimension per bucket
+    signal: couchbase_bucket_data_used_a_dimension_per_bucket
+- id: couchbase.bucket_mem_used
+  title: Memory Used Per Bucket
+  units: bytes
+  family: bucket
+  chart_type: stacked
+  priority: 60007
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: a dimension per bucket
+    signal: couchbase_bucket_mem_used_a_dimension_per_bucket
+- id: couchbase.bucket_vb_active_num_non_resident
+  title: Number Of Non-Resident Items Per Bucket
+  units: items
+  family: bucket
+  chart_type: stacked
+  priority: 60008
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: a dimension per bucket
+    signal: couchbase_bucket_vb_active_num_non_resident_a_dimension_per_bucket

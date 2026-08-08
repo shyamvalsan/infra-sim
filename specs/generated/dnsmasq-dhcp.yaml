@@ -1,0 +1,124 @@
+version: 1
+name: dnsmasq-dhcp
+description: Dnsmasq DHCP metrics, generated from Netdata's own collector metadata so the contexts, units
+  and dimension names match what a real Dnsmasq DHCP node reports. Signals are independent and plausible
+  rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  dnsmasq_dhcp_dhcp_ranges_ipv4:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dnsmasq_dhcp_dhcp_ranges_ipv6:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dnsmasq_dhcp_dhcp_hosts_ipv4:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dnsmasq_dhcp_dhcp_hosts_ipv6:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dnsmasq_dhcp_dhcp_range_utilization_used:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dnsmasq_dhcp_dhcp_range_allocated_leases_allocated:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: dnsmasq_dhcp.dhcp_ranges
+  title: Number of DHCP Ranges
+  units: ranges
+  family: dhcp
+  chart_type: stacked
+  priority: 60001
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: ipv4
+    signal: dnsmasq_dhcp_dhcp_ranges_ipv4
+  - id: ipv6
+    signal: dnsmasq_dhcp_dhcp_ranges_ipv6
+- id: dnsmasq_dhcp.dhcp_hosts
+  title: Number of DHCP Hosts
+  units: hosts
+  family: dhcp
+  chart_type: stacked
+  priority: 60002
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: ipv4
+    signal: dnsmasq_dhcp_dhcp_hosts_ipv4
+  - id: ipv6
+    signal: dnsmasq_dhcp_dhcp_hosts_ipv6
+- id: dnsmasq_dhcp.dhcp_range_utilization
+  title: DHCP Range utilization
+  units: percentage
+  family: dhcp
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels:
+    dhcp_range: sim-dhcp_range-1
+  dimensions:
+  - id: used
+    signal: dnsmasq_dhcp_dhcp_range_utilization_used
+- id: dnsmasq_dhcp.dhcp_range_allocated_leases
+  title: DHCP Range Allocated Leases
+  units: leases
+  family: dhcp
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels:
+    dhcp_range: sim-dhcp_range-1
+  dimensions:
+  - id: allocated
+    signal: dnsmasq_dhcp_dhcp_range_allocated_leases_allocated

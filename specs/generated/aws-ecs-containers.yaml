@@ -1,0 +1,1710 @@
+version: 1
+name: aws-ecs-containers
+description: AWS ECS Containers metrics, generated from Netdata's own collector metadata so the contexts,
+  units and dimension names match what a real AWS ECS Containers node reports. Signals are independent
+  and plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  aws_ecs_containers_cpu_limit_used:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_cpu_user:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_cpu_system:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_cpu_per_core_a_dimension_per_core:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_throttled_throttled:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_throttled_duration_duration:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_cpu_shares_shares:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_mem_cache:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_mem_rss:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_mem_swap:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_mem_rss_huge:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_mem_mapped_file:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_writeback_dirty:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_writeback_writeback:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_mem_activity_in:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_mem_activity_out:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_pgfaults_pgfault:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_pgfaults_swap:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_mem_usage_ram:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_mem_usage_swap:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_mem_usage_limit_available:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_mem_usage_limit_used:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_mem_utilization_utilization:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_mem_failcnt_failures:
+    base: 0.0
+    min: 0.0
+    max: 10000000.0
+  aws_ecs_containers_io_read:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_io_write:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_serviced_ops_read:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_serviced_ops_write:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_throttle_io_read:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_throttle_io_write:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_throttle_serviced_ops_read:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_throttle_serviced_ops_write:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_queued_ops_read:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_queued_ops_write:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_merged_ops_read:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_merged_ops_write:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_cpu_some_pressure_some10:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_cpu_some_pressure_some60:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_cpu_some_pressure_some300:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_cpu_some_pressure_stall_time_time:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_cpu_full_pressure_some10:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_cpu_full_pressure_some60:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_cpu_full_pressure_some300:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_cpu_full_pressure_stall_time_time:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_memory_some_pressure_some10:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_memory_some_pressure_some60:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_memory_some_pressure_some300:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_memory_some_pressure_stall_time_time:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_memory_full_pressure_some10:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_memory_full_pressure_some60:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_memory_full_pressure_some300:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_memory_full_pressure_stall_time_time:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_io_some_pressure_some10:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_io_some_pressure_some60:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_io_some_pressure_some300:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_io_some_pressure_stall_time_time:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_io_full_pressure_some10:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_io_full_pressure_some60:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_io_full_pressure_some300:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_io_full_pressure_stall_time_time:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_pids_current_pids:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_cachestat_ratio_ratio:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_cachestat_dirties_dirty:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_cachestat_hits_hit:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_cachestat_misses_miss:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_net_net_received:
+    base: 18000.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_net_net_sent:
+    base: 18000.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_net_packets_received:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_net_packets_sent:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_net_packets_multicast:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_net_errors_inbound:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_net_errors_outbound:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_net_drops_inbound:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_net_drops_outbound:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_net_fifo_receive:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_net_fifo_transmit:
+    base: 0.4
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_net_compressed_receive:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_net_compressed_sent:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_net_events_frames:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_net_events_collisions:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_net_events_carrier:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aws_ecs_containers_net_operstate_up:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  aws_ecs_containers_net_operstate_down:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  aws_ecs_containers_net_operstate_notpresent:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  aws_ecs_containers_net_operstate_lowerlayerdown:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  aws_ecs_containers_net_operstate_testing:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  aws_ecs_containers_net_operstate_dormant:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  aws_ecs_containers_net_operstate_unknown:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  aws_ecs_containers_net_carrier_up:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  aws_ecs_containers_net_carrier_down:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  aws_ecs_containers_net_mtu_mtu:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: cgroup.cpu_limit
+  title: CPU Usage within the limits
+  units: percentage
+  family: cpu
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels:
+    container_name: sim-container_name-1
+    image: sim-image-1
+  dimensions:
+  - id: used
+    signal: aws_ecs_containers_cpu_limit_used
+- id: cgroup.cpu
+  title: CPU Usage (100% = 1 core)
+  units: percentage
+  family: cpu
+  chart_type: stacked
+  priority: 60002
+  shape: independent
+  labels:
+    container_name: sim-container_name-1
+    image: sim-image-1
+  dimensions:
+  - id: user
+    signal: aws_ecs_containers_cpu_user
+  - id: system
+    signal: aws_ecs_containers_cpu_system
+- id: cgroup.cpu_per_core
+  title: CPU Usage (100% = 1 core) Per Core
+  units: percentage
+  family: cpu
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels:
+    container_name: sim-container_name-1
+    image: sim-image-1
+  dimensions:
+  - id: a dimension per core
+    signal: aws_ecs_containers_cpu_per_core_a_dimension_per_core
+- id: cgroup.throttled
+  title: CPU Throttled Runnable Periods
+  units: percentage
+  family: throttled
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels:
+    container_name: sim-container_name-1
+    image: sim-image-1
+  dimensions:
+  - id: throttled
+    signal: aws_ecs_containers_throttled_throttled
+- id: cgroup.throttled_duration
+  title: CPU Throttled Time Duration
+  units: ms
+  family: throttled
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels:
+    container_name: sim-container_name-1
+    image: sim-image-1
+  dimensions:
+  - id: duration
+    signal: aws_ecs_containers_throttled_duration_duration
+- id: cgroup.cpu_shares
+  title: CPU Time Relative Share
+  units: shares
+  family: cpu
+  chart_type: line
+  priority: 60006
+  shape: independent
+  labels:
+    container_name: sim-container_name-1
+    image: sim-image-1
+  dimensions:
+  - id: shares
+    signal: aws_ecs_containers_cpu_shares_shares
+- id: cgroup.mem
+  title: Memory Usage
+  units: MiB
+  family: mem
+  chart_type: stacked
+  priority: 60007
+  shape: independent
+  labels:
+    container_name: sim-container_name-1
+    image: sim-image-1
+  dimensions:
+  - id: cache
+    signal: aws_ecs_containers_mem_cache
+  - id: rss
+    signal: aws_ecs_containers_mem_rss
+  - id: swap
+    signal: aws_ecs_containers_mem_swap
+  - id: rss_huge
+    signal: aws_ecs_containers_mem_rss_huge
+  - id: mapped_file
+    signal: aws_ecs_containers_mem_mapped_file
+- id: cgroup.writeback
+  title: Writeback Memory
+  units: MiB
+  family: writeback
+  chart_type: area
+  priority: 60008
+  shape: independent
+  labels:
+    container_name: sim-container_name-1
+    image: sim-image-1
+  dimensions:
+  - id: dirty
+    signal: aws_ecs_containers_writeback_dirty
+  - id: writeback
+    signal: aws_ecs_containers_writeback_writeback
+- id: cgroup.mem_activity
+  title: Memory Activity
+  units: MiB/s
+  family: mem
+  chart_type: line
+  priority: 60009
+  shape: independent
+  labels:
+    container_name: sim-container_name-1
+    image: sim-image-1
+  dimensions:
+  - id: in
+    signal: aws_ecs_containers_mem_activity_in
+  - id: out
+    signal: aws_ecs_containers_mem_activity_out
+- id: cgroup.pgfaults
+  title: Memory Page Faults
+  units: MiB/s
+  family: pgfaults
+  chart_type: line
+  priority: 60010
+  shape: independent
+  labels:
+    container_name: sim-container_name-1
+    image: sim-image-1
+  dimensions:
+  - id: pgfault
+    signal: aws_ecs_containers_pgfaults_pgfault
+  - id: swap
+    signal: aws_ecs_containers_pgfaults_swap
+- id: cgroup.mem_usage
+  title: Used Memory
+  units: MiB
+  family: mem
+  chart_type: stacked
+  priority: 60011
+  shape: independent
+  labels:
+    container_name: sim-container_name-1
+    image: sim-image-1
+  dimensions:
+  - id: ram
+    signal: aws_ecs_containers_mem_usage_ram
+  - id: swap
+    signal: aws_ecs_containers_mem_usage_swap
+- id: cgroup.mem_usage_limit
+  title: Used RAM within the limits
+  units: MiB
+  family: mem
+  chart_type: stacked
+  priority: 60012
+  shape: independent
+  labels:
+    container_name: sim-container_name-1
+    image: sim-image-1
+  dimensions:
+  - id: available
+    signal: aws_ecs_containers_mem_usage_limit_available
+  - id: used
+    signal: aws_ecs_containers_mem_usage_limit_used
+- id: cgroup.mem_utilization
+  title: Memory Utilization
+  units: percentage
+  family: mem
+  chart_type: line
+  priority: 60013
+  shape: independent
+  labels:
+    container_name: sim-container_name-1
+    image: sim-image-1
+  dimensions:
+  - id: utilization
+    signal: aws_ecs_containers_mem_utilization_utilization
+- id: cgroup.mem_failcnt
+  title: Memory Limit Failures
+  units: count
+  family: mem
+  chart_type: line
+  priority: 60014
+  shape: independent
+  labels:
+    container_name: sim-container_name-1
+    image: sim-image-1
+  dimensions:
+  - id: failures
+    signal: aws_ecs_containers_mem_failcnt_failures
+- id: cgroup.io
+  title: I/O Bandwidth (all disks)
+  units: KiB/s
+  family: io
+  chart_type: area
+  priority: 60015
+  shape: independent
+  labels:
+    container_name: sim-container_name-1
+    image: sim-image-1
+  dimensions:
+  - id: read
+    signal: aws_ecs_containers_io_read
+  - id: write
+    signal: aws_ecs_containers_io_write
+- id: cgroup.serviced_ops
+  title: Serviced I/O Operations (all disks)
+  units: operations/s
+  family: serviced
+  chart_type: line
+  priority: 60016
+  shape: counters
+  labels:
+    container_name: sim-container_name-1
+    image: sim-image-1
+  dimensions:
+  - id: read
+    rate_signal: aws_ecs_containers_serviced_ops_read
+  - id: write
+    rate_signal: aws_ecs_containers_serviced_ops_write
+- id: cgroup.throttle_io
+  title: Throttle I/O Bandwidth (all disks)
+  units: KiB/s
+  family: throttle
+  chart_type: area
+  priority: 60017
+  shape: independent
+  labels:
+    container_name: sim-container_name-1
+    image: sim-image-1
+  dimensions:
+  - id: read
+    signal: aws_ecs_containers_throttle_io_read
+  - id: write
+    signal: aws_ecs_containers_throttle_io_write
+- id: cgroup.throttle_serviced_ops
+  title: Throttle Serviced I/O Operations (all disks)
+  units: operations/s
+  family: throttle
+  chart_type: line
+  priority: 60018
+  shape: counters
+  labels:
+    container_name: sim-container_name-1
+    image: sim-image-1
+  dimensions:
+  - id: read
+    rate_signal: aws_ecs_containers_throttle_serviced_ops_read
+  - id: write
+    rate_signal: aws_ecs_containers_throttle_serviced_ops_write
+- id: cgroup.queued_ops
+  title: Queued I/O Operations (all disks)
+  units: operations
+  family: queued
+  chart_type: line
+  priority: 60019
+  shape: independent
+  labels:
+    container_name: sim-container_name-1
+    image: sim-image-1
+  dimensions:
+  - id: read
+    signal: aws_ecs_containers_queued_ops_read
+  - id: write
+    signal: aws_ecs_containers_queued_ops_write
+- id: cgroup.merged_ops
+  title: Merged I/O Operations (all disks)
+  units: operations/s
+  family: merged
+  chart_type: line
+  priority: 60020
+  shape: counters
+  labels:
+    container_name: sim-container_name-1
+    image: sim-image-1
+  dimensions:
+  - id: read
+    rate_signal: aws_ecs_containers_merged_ops_read
+  - id: write
+    rate_signal: aws_ecs_containers_merged_ops_write
+- id: cgroup.cpu_some_pressure
+  title: CPU some pressure
+  units: percentage
+  family: cpu
+  chart_type: line
+  priority: 60021
+  shape: independent
+  labels:
+    container_name: sim-container_name-1
+    image: sim-image-1
+  dimensions:
+  - id: some10
+    signal: aws_ecs_containers_cpu_some_pressure_some10
+  - id: some60
+    signal: aws_ecs_containers_cpu_some_pressure_some60
+  - id: some300
+    signal: aws_ecs_containers_cpu_some_pressure_some300
+- id: cgroup.cpu_some_pressure_stall_time
+  title: CPU some pressure stall time
+  units: ms
+  family: cpu
+  chart_type: line
+  priority: 60022
+  shape: independent
+  labels:
+    container_name: sim-container_name-1
+    image: sim-image-1
+  dimensions:
+  - id: time
+    signal: aws_ecs_containers_cpu_some_pressure_stall_time_time
+- id: cgroup.cpu_full_pressure
+  title: CPU full pressure
+  units: percentage
+  family: cpu
+  chart_type: line
+  priority: 60023
+  shape: independent
+  labels:
+    container_name: sim-container_name-1
+    image: sim-image-1
+  dimensions:
+  - id: some10
+    signal: aws_ecs_containers_cpu_full_pressure_some10
+  - id: some60
+    signal: aws_ecs_containers_cpu_full_pressure_some60
+  - id: some300
+    signal: aws_ecs_containers_cpu_full_pressure_some300
+- id: cgroup.cpu_full_pressure_stall_time
+  title: CPU full pressure stall time
+  units: ms
+  family: cpu
+  chart_type: line
+  priority: 60024
+  shape: independent
+  labels:
+    container_name: sim-container_name-1
+    image: sim-image-1
+  dimensions:
+  - id: time
+    signal: aws_ecs_containers_cpu_full_pressure_stall_time_time
+- id: cgroup.memory_some_pressure
+  title: Memory some pressure
+  units: percentage
+  family: memory
+  chart_type: line
+  priority: 60025
+  shape: independent
+  labels:
+    container_name: sim-container_name-1
+    image: sim-image-1
+  dimensions:
+  - id: some10
+    signal: aws_ecs_containers_memory_some_pressure_some10
+  - id: some60
+    signal: aws_ecs_containers_memory_some_pressure_some60
+  - id: some300
+    signal: aws_ecs_containers_memory_some_pressure_some300
+- id: cgroup.memory_some_pressure_stall_time
+  title: Memory some pressure stall time
+  units: ms
+  family: memory
+  chart_type: line
+  priority: 60026
+  shape: independent
+  labels:
+    container_name: sim-container_name-1
+    image: sim-image-1
+  dimensions:
+  - id: time
+    signal: aws_ecs_containers_memory_some_pressure_stall_time_time
+- id: cgroup.memory_full_pressure
+  title: Memory full pressure
+  units: percentage
+  family: memory
+  chart_type: line
+  priority: 60027
+  shape: independent
+  labels:
+    container_name: sim-container_name-1
+    image: sim-image-1
+  dimensions:
+  - id: some10
+    signal: aws_ecs_containers_memory_full_pressure_some10
+  - id: some60
+    signal: aws_ecs_containers_memory_full_pressure_some60
+  - id: some300
+    signal: aws_ecs_containers_memory_full_pressure_some300
+- id: cgroup.memory_full_pressure_stall_time
+  title: Memory full pressure stall time
+  units: ms
+  family: memory
+  chart_type: line
+  priority: 60028
+  shape: independent
+  labels:
+    container_name: sim-container_name-1
+    image: sim-image-1
+  dimensions:
+  - id: time
+    signal: aws_ecs_containers_memory_full_pressure_stall_time_time
+- id: cgroup.io_some_pressure
+  title: I/O some pressure
+  units: percentage
+  family: io
+  chart_type: line
+  priority: 60029
+  shape: independent
+  labels:
+    container_name: sim-container_name-1
+    image: sim-image-1
+  dimensions:
+  - id: some10
+    signal: aws_ecs_containers_io_some_pressure_some10
+  - id: some60
+    signal: aws_ecs_containers_io_some_pressure_some60
+  - id: some300
+    signal: aws_ecs_containers_io_some_pressure_some300
+- id: cgroup.io_some_pressure_stall_time
+  title: I/O some pressure stall time
+  units: ms
+  family: io
+  chart_type: line
+  priority: 60030
+  shape: independent
+  labels:
+    container_name: sim-container_name-1
+    image: sim-image-1
+  dimensions:
+  - id: time
+    signal: aws_ecs_containers_io_some_pressure_stall_time_time
+- id: cgroup.io_full_pressure
+  title: I/O some pressure
+  units: percentage
+  family: io
+  chart_type: line
+  priority: 60031
+  shape: independent
+  labels:
+    container_name: sim-container_name-1
+    image: sim-image-1
+  dimensions:
+  - id: some10
+    signal: aws_ecs_containers_io_full_pressure_some10
+  - id: some60
+    signal: aws_ecs_containers_io_full_pressure_some60
+  - id: some300
+    signal: aws_ecs_containers_io_full_pressure_some300
+- id: cgroup.io_full_pressure_stall_time
+  title: I/O some pressure stall time
+  units: ms
+  family: io
+  chart_type: line
+  priority: 60032
+  shape: independent
+  labels:
+    container_name: sim-container_name-1
+    image: sim-image-1
+  dimensions:
+  - id: time
+    signal: aws_ecs_containers_io_full_pressure_stall_time_time
+- id: cgroup.pids_current
+  title: Number of processes
+  units: pids
+  family: pids
+  chart_type: line
+  priority: 60033
+  shape: independent
+  labels:
+    container_name: sim-container_name-1
+    image: sim-image-1
+  dimensions:
+  - id: pids
+    signal: aws_ecs_containers_pids_current_pids
+- id: cgroup.cachestat_ratio
+  title: Hit ratio
+  units: '%'
+  family: cachestat
+  chart_type: line
+  priority: 60034
+  shape: independent
+  labels:
+    container_name: sim-container_name-1
+    image: sim-image-1
+  dimensions:
+  - id: ratio
+    signal: aws_ecs_containers_cachestat_ratio_ratio
+- id: cgroup.cachestat_dirties
+  title: Number of dirty pages
+  units: page/s
+  family: cachestat
+  chart_type: line
+  priority: 60035
+  shape: counters
+  labels:
+    container_name: sim-container_name-1
+    image: sim-image-1
+  dimensions:
+  - id: dirty
+    rate_signal: aws_ecs_containers_cachestat_dirties_dirty
+- id: cgroup.cachestat_hits
+  title: Number of accessed files
+  units: hits/s
+  family: cachestat
+  chart_type: line
+  priority: 60036
+  shape: counters
+  labels:
+    container_name: sim-container_name-1
+    image: sim-image-1
+  dimensions:
+  - id: hit
+    rate_signal: aws_ecs_containers_cachestat_hits_hit
+- id: cgroup.cachestat_misses
+  title: Files out of page cache
+  units: misses/s
+  family: cachestat
+  chart_type: line
+  priority: 60037
+  shape: counters
+  labels:
+    container_name: sim-container_name-1
+    image: sim-image-1
+  dimensions:
+  - id: miss
+    rate_signal: aws_ecs_containers_cachestat_misses_miss
+- id: cgroup.net_net
+  title: Bandwidth
+  units: kilobits/s
+  family: net
+  chart_type: area
+  priority: 60038
+  shape: counters
+  labels:
+    container_name: sim-container_name-1
+    image: sim-image-1
+    device: sim-device-1
+    container_device: sim-container_device-1
+    interface_type: sim-interface_type-1
+  dimensions:
+  - id: received
+    rate_signal: aws_ecs_containers_net_net_received
+  - id: sent
+    rate_signal: aws_ecs_containers_net_net_sent
+- id: cgroup.net_packets
+  title: Packets
+  units: pps
+  family: net
+  chart_type: line
+  priority: 60039
+  shape: counters
+  labels:
+    container_name: sim-container_name-1
+    image: sim-image-1
+    device: sim-device-1
+    container_device: sim-container_device-1
+    interface_type: sim-interface_type-1
+  dimensions:
+  - id: received
+    rate_signal: aws_ecs_containers_net_packets_received
+  - id: sent
+    rate_signal: aws_ecs_containers_net_packets_sent
+  - id: multicast
+    rate_signal: aws_ecs_containers_net_packets_multicast
+- id: cgroup.net_errors
+  title: Interface Errors
+  units: errors/s
+  family: net
+  chart_type: line
+  priority: 60040
+  shape: counters
+  labels:
+    container_name: sim-container_name-1
+    image: sim-image-1
+    device: sim-device-1
+    container_device: sim-container_device-1
+    interface_type: sim-interface_type-1
+  dimensions:
+  - id: inbound
+    rate_signal: aws_ecs_containers_net_errors_inbound
+  - id: outbound
+    rate_signal: aws_ecs_containers_net_errors_outbound
+- id: cgroup.net_drops
+  title: Interface Drops
+  units: errors/s
+  family: net
+  chart_type: line
+  priority: 60041
+  shape: counters
+  labels:
+    container_name: sim-container_name-1
+    image: sim-image-1
+    device: sim-device-1
+    container_device: sim-container_device-1
+    interface_type: sim-interface_type-1
+  dimensions:
+  - id: inbound
+    rate_signal: aws_ecs_containers_net_drops_inbound
+  - id: outbound
+    rate_signal: aws_ecs_containers_net_drops_outbound
+- id: cgroup.net_fifo
+  title: Interface FIFO Buffer Errors
+  units: errors/s
+  family: net
+  chart_type: line
+  priority: 60042
+  shape: counters
+  labels:
+    container_name: sim-container_name-1
+    image: sim-image-1
+    device: sim-device-1
+    container_device: sim-container_device-1
+    interface_type: sim-interface_type-1
+  dimensions:
+  - id: receive
+    rate_signal: aws_ecs_containers_net_fifo_receive
+  - id: transmit
+    rate_signal: aws_ecs_containers_net_fifo_transmit
+- id: cgroup.net_compressed
+  title: Interface FIFO Buffer Errors
+  units: pps
+  family: net
+  chart_type: line
+  priority: 60043
+  shape: counters
+  labels:
+    container_name: sim-container_name-1
+    image: sim-image-1
+    device: sim-device-1
+    container_device: sim-container_device-1
+    interface_type: sim-interface_type-1
+  dimensions:
+  - id: receive
+    rate_signal: aws_ecs_containers_net_compressed_receive
+  - id: sent
+    rate_signal: aws_ecs_containers_net_compressed_sent
+- id: cgroup.net_events
+  title: Network Interface Events
+  units: events/s
+  family: net
+  chart_type: line
+  priority: 60044
+  shape: counters
+  labels:
+    container_name: sim-container_name-1
+    image: sim-image-1
+    device: sim-device-1
+    container_device: sim-container_device-1
+    interface_type: sim-interface_type-1
+  dimensions:
+  - id: frames
+    rate_signal: aws_ecs_containers_net_events_frames
+  - id: collisions
+    rate_signal: aws_ecs_containers_net_events_collisions
+  - id: carrier
+    rate_signal: aws_ecs_containers_net_events_carrier
+- id: cgroup.net_operstate
+  title: Interface Operational State
+  units: state
+  family: net
+  chart_type: line
+  priority: 60045
+  shape: independent
+  labels:
+    container_name: sim-container_name-1
+    image: sim-image-1
+    device: sim-device-1
+    container_device: sim-container_device-1
+    interface_type: sim-interface_type-1
+  dimensions:
+  - id: up
+    signal: aws_ecs_containers_net_operstate_up
+  - id: down
+    signal: aws_ecs_containers_net_operstate_down
+  - id: notpresent
+    signal: aws_ecs_containers_net_operstate_notpresent
+  - id: lowerlayerdown
+    signal: aws_ecs_containers_net_operstate_lowerlayerdown
+  - id: testing
+    signal: aws_ecs_containers_net_operstate_testing
+  - id: dormant
+    signal: aws_ecs_containers_net_operstate_dormant
+  - id: unknown
+    signal: aws_ecs_containers_net_operstate_unknown
+- id: cgroup.net_carrier
+  title: Interface Physical Link State
+  units: state
+  family: net
+  chart_type: line
+  priority: 60046
+  shape: independent
+  labels:
+    container_name: sim-container_name-1
+    image: sim-image-1
+    device: sim-device-1
+    container_device: sim-container_device-1
+    interface_type: sim-interface_type-1
+  dimensions:
+  - id: up
+    signal: aws_ecs_containers_net_carrier_up
+  - id: down
+    signal: aws_ecs_containers_net_carrier_down
+- id: cgroup.net_mtu
+  title: Interface MTU
+  units: octets
+  family: net
+  chart_type: line
+  priority: 60047
+  shape: independent
+  labels:
+    container_name: sim-container_name-1
+    image: sim-image-1
+    device: sim-device-1
+    container_device: sim-container_device-1
+    interface_type: sim-interface_type-1
+  dimensions:
+  - id: mtu
+    signal: aws_ecs_containers_net_mtu_mtu

@@ -1,0 +1,489 @@
+version: 1
+name: dnsdist
+description: DNSdist metrics, generated from Netdata's own collector metadata so the contexts, units and
+  dimension names match what a real DNSdist node reports. Signals are independent and plausible rather
+  than causally coupled - see scripts/sync-integrations.py.
+signals:
+  dnsdist_queries_all:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dnsdist_queries_recursive:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dnsdist_queries_empty:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dnsdist_queries_dropped_rule_drop:
+    base: 0.0
+    min: 0.0
+    max: 5000000.0
+  dnsdist_queries_dropped_dynamic_blocked:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dnsdist_queries_dropped_no_policy:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dnsdist_queries_dropped_non_queries:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dnsdist_packets_dropped_acl:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dnsdist_answers_self_answered:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dnsdist_answers_nxdomain:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dnsdist_answers_refused:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  dnsdist_answers_trunc_failures:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  dnsdist_backend_responses_responses:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dnsdist_backend_commerrors_send_errors:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+  dnsdist_backend_errors_timeouts:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  dnsdist_backend_errors_servfail:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  dnsdist_backend_errors_non_compliant:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dnsdist_cache_hits:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dnsdist_cache_misses:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dnsdist_servercpu_system_state:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dnsdist_servercpu_user_state:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dnsdist_servermem_memory_usage:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dnsdist_query_latency_1ms:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dnsdist_query_latency_10ms:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dnsdist_query_latency_50ms:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dnsdist_query_latency_100ms:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dnsdist_query_latency_1sec:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dnsdist_query_latency_slow:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dnsdist_query_latency_avg_100:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dnsdist_query_latency_avg_1k:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dnsdist_query_latency_avg_10k:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  dnsdist_query_latency_avg_1000k:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: dnsdist.queries
+  title: Client queries received
+  units: queries/s
+  family: queries
+  chart_type: line
+  priority: 60001
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: all
+    rate_signal: dnsdist_queries_all
+  - id: recursive
+    rate_signal: dnsdist_queries_recursive
+  - id: empty
+    rate_signal: dnsdist_queries_empty
+- id: dnsdist.queries_dropped
+  title: Client queries dropped
+  units: queries/s
+  family: queries
+  chart_type: line
+  priority: 60002
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: rule_drop
+    rate_signal: dnsdist_queries_dropped_rule_drop
+  - id: dynamic_blocked
+    rate_signal: dnsdist_queries_dropped_dynamic_blocked
+  - id: no_policy
+    rate_signal: dnsdist_queries_dropped_no_policy
+  - id: non_queries
+    rate_signal: dnsdist_queries_dropped_non_queries
+- id: dnsdist.packets_dropped
+  title: Packets dropped
+  units: packets/s
+  family: packets
+  chart_type: line
+  priority: 60003
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: acl
+    rate_signal: dnsdist_packets_dropped_acl
+- id: dnsdist.answers
+  title: Answers statistics
+  units: answers/s
+  family: answers
+  chart_type: line
+  priority: 60004
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: self_answered
+    rate_signal: dnsdist_answers_self_answered
+  - id: nxdomain
+    rate_signal: dnsdist_answers_nxdomain
+  - id: refused
+    rate_signal: dnsdist_answers_refused
+  - id: trunc_failures
+    rate_signal: dnsdist_answers_trunc_failures
+- id: dnsdist.backend_responses
+  title: Backend responses
+  units: responses/s
+  family: backend
+  chart_type: line
+  priority: 60005
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: responses
+    rate_signal: dnsdist_backend_responses_responses
+- id: dnsdist.backend_commerrors
+  title: Backend communication errors
+  units: errors/s
+  family: backend
+  chart_type: line
+  priority: 60006
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: send_errors
+    rate_signal: dnsdist_backend_commerrors_send_errors
+- id: dnsdist.backend_errors
+  title: Backend error responses
+  units: responses/s
+  family: backend
+  chart_type: line
+  priority: 60007
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: timeouts
+    rate_signal: dnsdist_backend_errors_timeouts
+  - id: servfail
+    rate_signal: dnsdist_backend_errors_servfail
+  - id: non_compliant
+    rate_signal: dnsdist_backend_errors_non_compliant
+- id: dnsdist.cache
+  title: Cache performance
+  units: answers/s
+  family: cache
+  chart_type: line
+  priority: 60008
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: hits
+    rate_signal: dnsdist_cache_hits
+  - id: misses
+    rate_signal: dnsdist_cache_misses
+- id: dnsdist.servercpu
+  title: DNSdist server CPU utilization
+  units: ms/s
+  family: servercpu
+  chart_type: stacked
+  priority: 60009
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: system_state
+    rate_signal: dnsdist_servercpu_system_state
+  - id: user_state
+    rate_signal: dnsdist_servercpu_user_state
+- id: dnsdist.servermem
+  title: DNSdist server memory utilization
+  units: MiB
+  family: servermem
+  chart_type: area
+  priority: 60010
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: memory_usage
+    signal: dnsdist_servermem_memory_usage
+- id: dnsdist.query_latency
+  title: Query latency
+  units: queries/s
+  family: query
+  chart_type: stacked
+  priority: 60011
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: 1ms
+    rate_signal: dnsdist_query_latency_1ms
+  - id: 10ms
+    rate_signal: dnsdist_query_latency_10ms
+  - id: 50ms
+    rate_signal: dnsdist_query_latency_50ms
+  - id: 100ms
+    rate_signal: dnsdist_query_latency_100ms
+  - id: 1sec
+    rate_signal: dnsdist_query_latency_1sec
+  - id: slow
+    rate_signal: dnsdist_query_latency_slow
+- id: dnsdist.query_latency_avg
+  title: Average latency for the last N queries
+  units: microseconds
+  family: query
+  chart_type: line
+  priority: 60012
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: '100'
+    signal: dnsdist_query_latency_avg_100
+  - id: 1k
+    signal: dnsdist_query_latency_avg_1k
+  - id: 10k
+    signal: dnsdist_query_latency_avg_10k
+  - id: 1000k
+    signal: dnsdist_query_latency_avg_1000k

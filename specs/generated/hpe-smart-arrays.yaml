@@ -1,0 +1,278 @@
+version: 1
+name: hpe-smart-arrays
+description: HPE Smart Arrays metrics, generated from Netdata's own collector metadata so the contexts,
+  units and dimension names match what a real HPE Smart Arrays node reports. Signals are independent and
+  plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  hpe_smart_arrays_controller_status_ok:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  hpe_smart_arrays_controller_status_nok:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  hpe_smart_arrays_controller_temperature_temperature:
+    base: 41.0
+    min: 0.0
+    max: 120.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hpe_smart_arrays_controller_cache_module_presence_status_present:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  hpe_smart_arrays_controller_cache_module_presence_status_not_present:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  hpe_smart_arrays_controller_cache_module_status_ok:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  hpe_smart_arrays_controller_cache_module_status_nok:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  hpe_smart_arrays_controller_cache_module_temperature_temperature:
+    base: 41.0
+    min: 0.0
+    max: 120.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hpe_smart_arrays_controller_cache_module_battery_status_ok:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  hpe_smart_arrays_controller_cache_module_battery_status_nok:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  hpe_smart_arrays_array_status_ok:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  hpe_smart_arrays_array_status_nok:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  hpe_smart_arrays_logical_drive_status_ok:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  hpe_smart_arrays_logical_drive_status_nok:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  hpe_smart_arrays_physical_drive_status_ok:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  hpe_smart_arrays_physical_drive_status_nok:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  hpe_smart_arrays_physical_drive_temperature_temperature:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+contexts:
+- id: hpssa.controller_status
+  title: Controller status
+  units: status
+  family: controller
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels:
+    slot: sim-slot-1
+    model: sim-model-1
+  dimensions:
+  - id: ok
+    signal: hpe_smart_arrays_controller_status_ok
+  - id: nok
+    signal: hpe_smart_arrays_controller_status_nok
+- id: hpssa.controller_temperature
+  title: Controller temperature
+  units: Celsius
+  family: controller
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels:
+    slot: sim-slot-1
+    model: sim-model-1
+  dimensions:
+  - id: temperature
+    signal: hpe_smart_arrays_controller_temperature_temperature
+- id: hpssa.controller_cache_module_presence_status
+  title: Controller cache module presence
+  units: status
+  family: controller
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels:
+    slot: sim-slot-1
+    model: sim-model-1
+  dimensions:
+  - id: present
+    signal: hpe_smart_arrays_controller_cache_module_presence_status_present
+  - id: not_present
+    signal: hpe_smart_arrays_controller_cache_module_presence_status_not_present
+- id: hpssa.controller_cache_module_status
+  title: Controller cache module status
+  units: status
+  family: controller
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels:
+    slot: sim-slot-1
+    model: sim-model-1
+  dimensions:
+  - id: ok
+    signal: hpe_smart_arrays_controller_cache_module_status_ok
+  - id: nok
+    signal: hpe_smart_arrays_controller_cache_module_status_nok
+- id: hpssa.controller_cache_module_temperature
+  title: Controller cache module temperature
+  units: Celsius
+  family: controller
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels:
+    slot: sim-slot-1
+    model: sim-model-1
+  dimensions:
+  - id: temperature
+    signal: hpe_smart_arrays_controller_cache_module_temperature_temperature
+- id: hpssa.controller_cache_module_battery_status
+  title: Controller cache module battery status
+  units: status
+  family: controller
+  chart_type: line
+  priority: 60006
+  shape: independent
+  labels:
+    slot: sim-slot-1
+    model: sim-model-1
+  dimensions:
+  - id: ok
+    signal: hpe_smart_arrays_controller_cache_module_battery_status_ok
+  - id: nok
+    signal: hpe_smart_arrays_controller_cache_module_battery_status_nok
+- id: hpssa.array_status
+  title: Array status
+  units: status
+  family: array
+  chart_type: line
+  priority: 60007
+  shape: independent
+  labels:
+    slot: sim-slot-1
+    array_id: sim-array_id-1
+    interface_type: sim-interface_type-1
+    array_type: sim-array_type-1
+  dimensions:
+  - id: ok
+    signal: hpe_smart_arrays_array_status_ok
+  - id: nok
+    signal: hpe_smart_arrays_array_status_nok
+- id: hpssa.logical_drive_status
+  title: Logical Drive status
+  units: status
+  family: logical
+  chart_type: line
+  priority: 60008
+  shape: independent
+  labels:
+    slot: sim-slot-1
+    array_id: sim-array_id-1
+    logical_drive_id: sim-logical_drive_id-1
+    disk_name: sim-disk_name-1
+    drive_type: sim-drive_type-1
+  dimensions:
+  - id: ok
+    signal: hpe_smart_arrays_logical_drive_status_ok
+  - id: nok
+    signal: hpe_smart_arrays_logical_drive_status_nok
+- id: hpssa.physical_drive_status
+  title: Physical Drive status
+  units: status
+  family: physical
+  chart_type: line
+  priority: 60009
+  shape: independent
+  labels:
+    slot: sim-slot-1
+    array_id: sim-array_id-1
+    logical_drive_id: sim-logical_drive_id-1
+    location: sim-location-1
+    interface_type: sim-interface_type-1
+    drive_type: sim-drive_type-1
+    model: sim-model-1
+  dimensions:
+  - id: ok
+    signal: hpe_smart_arrays_physical_drive_status_ok
+  - id: nok
+    signal: hpe_smart_arrays_physical_drive_status_nok
+- id: hpssa.physical_drive_temperature
+  title: Physical Drive temperature
+  units: status
+  family: physical
+  chart_type: line
+  priority: 60010
+  shape: independent
+  labels:
+    slot: sim-slot-1
+    array_id: sim-array_id-1
+    logical_drive_id: sim-logical_drive_id-1
+    location: sim-location-1
+    interface_type: sim-interface_type-1
+    drive_type: sim-drive_type-1
+    model: sim-model-1
+  dimensions:
+  - id: temperature
+    signal: hpe_smart_arrays_physical_drive_temperature_temperature

@@ -1,0 +1,2116 @@
+version: 1
+name: opensearch
+description: OpenSearch metrics, generated from Netdata's own collector metadata so the contexts, units
+  and dimension names match what a real OpenSearch node reports. Signals are independent and plausible
+  rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  opensearch_node_indices_indexing_index:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_indices_indexing_current_index:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_indices_indexing_time_index:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_indices_search_queries:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_indices_search_fetches:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_indices_search_current_queries:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_indices_search_current_fetches:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_indices_search_time_queries:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_indices_search_time_fetches:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_indices_refresh_refresh:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_indices_refresh_time_refresh:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_indices_flush_flush:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_indices_flush_time_flush:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_indices_fielddata_memory_usage_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_indices_fielddata_evictions_evictions:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_indices_segments_count_segments:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_indices_segments_memory_usage_total_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_indices_segments_memory_usage_terms:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_indices_segments_memory_usage_stored_fields:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_indices_segments_memory_usage_term_vectors:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_indices_segments_memory_usage_norms:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_indices_segments_memory_usage_points:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_indices_segments_memory_usage_doc_values:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_indices_segments_memory_usage_index_writer:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_indices_segments_memory_usage_version_map:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_indices_segments_memory_usage_fixed_bit_set:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_indices_translog_operations_total:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_indices_translog_operations_uncommitted:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_indices_translog_size_total:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_indices_translog_size_uncommitted:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_file_descriptors_open:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_jvm_heap_inuse:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_jvm_heap_bytes_committed:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_jvm_heap_bytes_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_jvm_buffer_pools_count_direct:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_jvm_buffer_pools_count_mapped:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_jvm_buffer_pool_direct_memory_total:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_jvm_buffer_pool_direct_memory_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_jvm_buffer_pool_mapped_memory_total:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_jvm_buffer_pool_mapped_memory_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_jvm_gc_count_young:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_jvm_gc_count_old:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_jvm_gc_time_young:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_jvm_gc_time_old:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_thread_pool_queued_generic:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_thread_pool_queued_search:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_thread_pool_queued_search_throttled:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_thread_pool_queued_get:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_thread_pool_queued_analyze:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_thread_pool_queued_write:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_thread_pool_queued_snapshot:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_thread_pool_queued_warmer:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_thread_pool_queued_refresh:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_thread_pool_queued_listener:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_thread_pool_queued_fetch_shard_started:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_thread_pool_queued_fetch_shard_store:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_thread_pool_queued_flush:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_thread_pool_queued_force_merge:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_thread_pool_queued_management:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_thread_pool_rejected_generic:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_thread_pool_rejected_search:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_thread_pool_rejected_search_throttled:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_thread_pool_rejected_get:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_thread_pool_rejected_analyze:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_thread_pool_rejected_write:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_thread_pool_rejected_snapshot:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_thread_pool_rejected_warmer:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_thread_pool_rejected_refresh:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_thread_pool_rejected_listener:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_thread_pool_rejected_fetch_shard_started:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_thread_pool_rejected_fetch_shard_store:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_thread_pool_rejected_flush:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_thread_pool_rejected_force_merge:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_thread_pool_rejected_management:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_cluster_communication_packets_received:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_cluster_communication_packets_sent:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_cluster_communication_traffic_received:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_cluster_communication_traffic_sent:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_http_connections_open:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_breakers_trips_requests:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_breakers_trips_fielddata:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_breakers_trips_in_flight_requests:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_breakers_trips_model_inference:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_breakers_trips_accounting:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_breakers_trips_parent:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_cluster_health_status_green:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  opensearch_cluster_health_status_yellow:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  opensearch_cluster_health_status_red:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  opensearch_cluster_number_of_nodes_nodes:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_cluster_number_of_nodes_data_nodes:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_cluster_shards_count_active_primary:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_cluster_shards_count_active:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_cluster_shards_count_relocating:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_cluster_shards_count_initializing:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_cluster_shards_count_unassigned:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_cluster_shards_count_delayed_unaasigned:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_cluster_pending_tasks_pending:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_cluster_number_of_in_flight_fetch_in_flight_fetch:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_cluster_indices_count_indices:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_cluster_indices_shards_count_total:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_cluster_indices_shards_count_primaries:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_cluster_indices_shards_count_replication:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_cluster_indices_docs_count_docs:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_cluster_indices_store_size_size:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_cluster_indices_query_cache_hit:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_cluster_indices_query_cache_miss:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_cluster_nodes_by_role_count_coordinating_only:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_cluster_nodes_by_role_count_data:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_cluster_nodes_by_role_count_data_cold:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_cluster_nodes_by_role_count_data_content:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_cluster_nodes_by_role_count_data_frozen:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_cluster_nodes_by_role_count_data_hot:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_cluster_nodes_by_role_count_data_warm:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_cluster_nodes_by_role_count_ingest:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_cluster_nodes_by_role_count_master:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_cluster_nodes_by_role_count_ml:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_cluster_nodes_by_role_count_remote_cluster_client:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_cluster_nodes_by_role_count_voting_only:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_index_health_green:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  opensearch_node_index_health_yellow:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  opensearch_node_index_health_red:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  opensearch_node_index_shards_count_shards:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_index_docs_count_docs:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  opensearch_node_index_store_size_store_size:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: elasticsearch.node_indices_indexing
+  title: Indexing Operations
+  units: operations/s
+  family: node
+  chart_type: line
+  priority: 60001
+  shape: counters
+  labels:
+    cluster_name: sim-cluster_name-1
+    node_name: sim-node_name-1
+    host: sim-host-1
+  dimensions:
+  - id: index
+    rate_signal: opensearch_node_indices_indexing_index
+- id: elasticsearch.node_indices_indexing_current
+  title: Indexing Operations Current
+  units: operations
+  family: node
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels:
+    cluster_name: sim-cluster_name-1
+    node_name: sim-node_name-1
+    host: sim-host-1
+  dimensions:
+  - id: index
+    signal: opensearch_node_indices_indexing_current_index
+- id: elasticsearch.node_indices_indexing_time
+  title: Time Spent On Indexing Operations
+  units: milliseconds
+  family: node
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels:
+    cluster_name: sim-cluster_name-1
+    node_name: sim-node_name-1
+    host: sim-host-1
+  dimensions:
+  - id: index
+    signal: opensearch_node_indices_indexing_time_index
+- id: elasticsearch.node_indices_search
+  title: Search Operations
+  units: operations/s
+  family: node
+  chart_type: stacked
+  priority: 60004
+  shape: counters
+  labels:
+    cluster_name: sim-cluster_name-1
+    node_name: sim-node_name-1
+    host: sim-host-1
+  dimensions:
+  - id: queries
+    rate_signal: opensearch_node_indices_search_queries
+  - id: fetches
+    rate_signal: opensearch_node_indices_search_fetches
+- id: elasticsearch.node_indices_search_current
+  title: Search Operations Current
+  units: operations
+  family: node
+  chart_type: stacked
+  priority: 60005
+  shape: independent
+  labels:
+    cluster_name: sim-cluster_name-1
+    node_name: sim-node_name-1
+    host: sim-host-1
+  dimensions:
+  - id: queries
+    signal: opensearch_node_indices_search_current_queries
+  - id: fetches
+    signal: opensearch_node_indices_search_current_fetches
+- id: elasticsearch.node_indices_search_time
+  title: node_indices_search_time
+  units: milliseconds
+  family: node
+  chart_type: stacked
+  priority: 60006
+  shape: independent
+  labels:
+    cluster_name: sim-cluster_name-1
+    node_name: sim-node_name-1
+    host: sim-host-1
+  dimensions:
+  - id: queries
+    signal: opensearch_node_indices_search_time_queries
+  - id: fetches
+    signal: opensearch_node_indices_search_time_fetches
+- id: elasticsearch.node_indices_refresh
+  title: Refresh Operations
+  units: operations/s
+  family: node
+  chart_type: line
+  priority: 60007
+  shape: counters
+  labels:
+    cluster_name: sim-cluster_name-1
+    node_name: sim-node_name-1
+    host: sim-host-1
+  dimensions:
+  - id: refresh
+    rate_signal: opensearch_node_indices_refresh_refresh
+- id: elasticsearch.node_indices_refresh_time
+  title: Time Spent On Refresh Operations
+  units: milliseconds
+  family: node
+  chart_type: line
+  priority: 60008
+  shape: independent
+  labels:
+    cluster_name: sim-cluster_name-1
+    node_name: sim-node_name-1
+    host: sim-host-1
+  dimensions:
+  - id: refresh
+    signal: opensearch_node_indices_refresh_time_refresh
+- id: elasticsearch.node_indices_flush
+  title: Flush Operations
+  units: operations/s
+  family: node
+  chart_type: line
+  priority: 60009
+  shape: counters
+  labels:
+    cluster_name: sim-cluster_name-1
+    node_name: sim-node_name-1
+    host: sim-host-1
+  dimensions:
+  - id: flush
+    rate_signal: opensearch_node_indices_flush_flush
+- id: elasticsearch.node_indices_flush_time
+  title: Time Spent On Flush Operations
+  units: milliseconds
+  family: node
+  chart_type: line
+  priority: 60010
+  shape: independent
+  labels:
+    cluster_name: sim-cluster_name-1
+    node_name: sim-node_name-1
+    host: sim-host-1
+  dimensions:
+  - id: flush
+    signal: opensearch_node_indices_flush_time_flush
+- id: elasticsearch.node_indices_fielddata_memory_usage
+  title: Fielddata Cache Memory Usage
+  units: bytes
+  family: node
+  chart_type: area
+  priority: 60011
+  shape: independent
+  labels:
+    cluster_name: sim-cluster_name-1
+    node_name: sim-node_name-1
+    host: sim-host-1
+  dimensions:
+  - id: used
+    signal: opensearch_node_indices_fielddata_memory_usage_used
+- id: elasticsearch.node_indices_fielddata_evictions
+  title: Fielddata Evictions
+  units: operations/s
+  family: node
+  chart_type: line
+  priority: 60012
+  shape: counters
+  labels:
+    cluster_name: sim-cluster_name-1
+    node_name: sim-node_name-1
+    host: sim-host-1
+  dimensions:
+  - id: evictions
+    rate_signal: opensearch_node_indices_fielddata_evictions_evictions
+- id: elasticsearch.node_indices_segments_count
+  title: Segments Count
+  units: segments
+  family: node
+  chart_type: line
+  priority: 60013
+  shape: independent
+  labels:
+    cluster_name: sim-cluster_name-1
+    node_name: sim-node_name-1
+    host: sim-host-1
+  dimensions:
+  - id: segments
+    signal: opensearch_node_indices_segments_count_segments
+- id: elasticsearch.node_indices_segments_memory_usage_total
+  title: Segments Memory Usage Total
+  units: bytes
+  family: node
+  chart_type: line
+  priority: 60014
+  shape: independent
+  labels:
+    cluster_name: sim-cluster_name-1
+    node_name: sim-node_name-1
+    host: sim-host-1
+  dimensions:
+  - id: used
+    signal: opensearch_node_indices_segments_memory_usage_total_used
+- id: elasticsearch.node_indices_segments_memory_usage
+  title: Segments Memory Usage
+  units: bytes
+  family: node
+  chart_type: stacked
+  priority: 60015
+  shape: independent
+  labels:
+    cluster_name: sim-cluster_name-1
+    node_name: sim-node_name-1
+    host: sim-host-1
+  dimensions:
+  - id: terms
+    signal: opensearch_node_indices_segments_memory_usage_terms
+  - id: stored_fields
+    signal: opensearch_node_indices_segments_memory_usage_stored_fields
+  - id: term_vectors
+    signal: opensearch_node_indices_segments_memory_usage_term_vectors
+  - id: norms
+    signal: opensearch_node_indices_segments_memory_usage_norms
+  - id: points
+    signal: opensearch_node_indices_segments_memory_usage_points
+  - id: doc_values
+    signal: opensearch_node_indices_segments_memory_usage_doc_values
+  - id: index_writer
+    signal: opensearch_node_indices_segments_memory_usage_index_writer
+  - id: version_map
+    signal: opensearch_node_indices_segments_memory_usage_version_map
+  - id: fixed_bit_set
+    signal: opensearch_node_indices_segments_memory_usage_fixed_bit_set
+- id: elasticsearch.node_indices_translog_operations
+  title: Translog Operations
+  units: operations
+  family: node
+  chart_type: area
+  priority: 60016
+  shape: independent
+  labels:
+    cluster_name: sim-cluster_name-1
+    node_name: sim-node_name-1
+    host: sim-host-1
+  dimensions:
+  - id: total
+    signal: opensearch_node_indices_translog_operations_total
+  - id: uncommitted
+    signal: opensearch_node_indices_translog_operations_uncommitted
+- id: elasticsearch.node_indices_translog_size
+  title: Translog Size
+  units: bytes
+  family: node
+  chart_type: area
+  priority: 60017
+  shape: independent
+  labels:
+    cluster_name: sim-cluster_name-1
+    node_name: sim-node_name-1
+    host: sim-host-1
+  dimensions:
+  - id: total
+    signal: opensearch_node_indices_translog_size_total
+  - id: uncommitted
+    signal: opensearch_node_indices_translog_size_uncommitted
+- id: elasticsearch.node_file_descriptors
+  title: Process File Descriptors
+  units: fd
+  family: node
+  chart_type: line
+  priority: 60018
+  shape: independent
+  labels:
+    cluster_name: sim-cluster_name-1
+    node_name: sim-node_name-1
+    host: sim-host-1
+  dimensions:
+  - id: open
+    signal: opensearch_node_file_descriptors_open
+- id: elasticsearch.node_jvm_heap
+  title: JVM Heap Percentage Currently in Use
+  units: percentage
+  family: node
+  chart_type: area
+  priority: 60019
+  shape: independent
+  labels:
+    cluster_name: sim-cluster_name-1
+    node_name: sim-node_name-1
+    host: sim-host-1
+  dimensions:
+  - id: inuse
+    signal: opensearch_node_jvm_heap_inuse
+- id: elasticsearch.node_jvm_heap_bytes
+  title: JVM Heap Commit And Usage
+  units: bytes
+  family: node
+  chart_type: area
+  priority: 60020
+  shape: independent
+  labels:
+    cluster_name: sim-cluster_name-1
+    node_name: sim-node_name-1
+    host: sim-host-1
+  dimensions:
+  - id: committed
+    signal: opensearch_node_jvm_heap_bytes_committed
+  - id: used
+    signal: opensearch_node_jvm_heap_bytes_used
+- id: elasticsearch.node_jvm_buffer_pools_count
+  title: JVM Buffer Pools Count
+  units: pools
+  family: node
+  chart_type: line
+  priority: 60021
+  shape: independent
+  labels:
+    cluster_name: sim-cluster_name-1
+    node_name: sim-node_name-1
+    host: sim-host-1
+  dimensions:
+  - id: direct
+    signal: opensearch_node_jvm_buffer_pools_count_direct
+  - id: mapped
+    signal: opensearch_node_jvm_buffer_pools_count_mapped
+- id: elasticsearch.node_jvm_buffer_pool_direct_memory
+  title: JVM Buffer Pool Direct Memory
+  units: bytes
+  family: node
+  chart_type: area
+  priority: 60022
+  shape: independent
+  labels:
+    cluster_name: sim-cluster_name-1
+    node_name: sim-node_name-1
+    host: sim-host-1
+  dimensions:
+  - id: total
+    signal: opensearch_node_jvm_buffer_pool_direct_memory_total
+  - id: used
+    signal: opensearch_node_jvm_buffer_pool_direct_memory_used
+- id: elasticsearch.node_jvm_buffer_pool_mapped_memory
+  title: JVM Buffer Pool Mapped Memory
+  units: bytes
+  family: node
+  chart_type: area
+  priority: 60023
+  shape: independent
+  labels:
+    cluster_name: sim-cluster_name-1
+    node_name: sim-node_name-1
+    host: sim-host-1
+  dimensions:
+  - id: total
+    signal: opensearch_node_jvm_buffer_pool_mapped_memory_total
+  - id: used
+    signal: opensearch_node_jvm_buffer_pool_mapped_memory_used
+- id: elasticsearch.node_jvm_gc_count
+  title: JVM Garbage Collections
+  units: gc/s
+  family: node
+  chart_type: stacked
+  priority: 60024
+  shape: counters
+  labels:
+    cluster_name: sim-cluster_name-1
+    node_name: sim-node_name-1
+    host: sim-host-1
+  dimensions:
+  - id: young
+    rate_signal: opensearch_node_jvm_gc_count_young
+  - id: old
+    rate_signal: opensearch_node_jvm_gc_count_old
+- id: elasticsearch.node_jvm_gc_time
+  title: JVM Time Spent On Garbage Collections
+  units: milliseconds
+  family: node
+  chart_type: stacked
+  priority: 60025
+  shape: independent
+  labels:
+    cluster_name: sim-cluster_name-1
+    node_name: sim-node_name-1
+    host: sim-host-1
+  dimensions:
+  - id: young
+    signal: opensearch_node_jvm_gc_time_young
+  - id: old
+    signal: opensearch_node_jvm_gc_time_old
+- id: elasticsearch.node_thread_pool_queued
+  title: Thread Pool Queued Threads Count
+  units: threads
+  family: node
+  chart_type: stacked
+  priority: 60026
+  shape: independent
+  labels:
+    cluster_name: sim-cluster_name-1
+    node_name: sim-node_name-1
+    host: sim-host-1
+  dimensions:
+  - id: generic
+    signal: opensearch_node_thread_pool_queued_generic
+  - id: search
+    signal: opensearch_node_thread_pool_queued_search
+  - id: search_throttled
+    signal: opensearch_node_thread_pool_queued_search_throttled
+  - id: get
+    signal: opensearch_node_thread_pool_queued_get
+  - id: analyze
+    signal: opensearch_node_thread_pool_queued_analyze
+  - id: write
+    signal: opensearch_node_thread_pool_queued_write
+  - id: snapshot
+    signal: opensearch_node_thread_pool_queued_snapshot
+  - id: warmer
+    signal: opensearch_node_thread_pool_queued_warmer
+  - id: refresh
+    signal: opensearch_node_thread_pool_queued_refresh
+  - id: listener
+    signal: opensearch_node_thread_pool_queued_listener
+  - id: fetch_shard_started
+    signal: opensearch_node_thread_pool_queued_fetch_shard_started
+  - id: fetch_shard_store
+    signal: opensearch_node_thread_pool_queued_fetch_shard_store
+  - id: flush
+    signal: opensearch_node_thread_pool_queued_flush
+  - id: force_merge
+    signal: opensearch_node_thread_pool_queued_force_merge
+  - id: management
+    signal: opensearch_node_thread_pool_queued_management
+- id: elasticsearch.node_thread_pool_rejected
+  title: Thread Pool Rejected Threads Count
+  units: threads
+  family: node
+  chart_type: stacked
+  priority: 60027
+  shape: independent
+  labels:
+    cluster_name: sim-cluster_name-1
+    node_name: sim-node_name-1
+    host: sim-host-1
+  dimensions:
+  - id: generic
+    signal: opensearch_node_thread_pool_rejected_generic
+  - id: search
+    signal: opensearch_node_thread_pool_rejected_search
+  - id: search_throttled
+    signal: opensearch_node_thread_pool_rejected_search_throttled
+  - id: get
+    signal: opensearch_node_thread_pool_rejected_get
+  - id: analyze
+    signal: opensearch_node_thread_pool_rejected_analyze
+  - id: write
+    signal: opensearch_node_thread_pool_rejected_write
+  - id: snapshot
+    signal: opensearch_node_thread_pool_rejected_snapshot
+  - id: warmer
+    signal: opensearch_node_thread_pool_rejected_warmer
+  - id: refresh
+    signal: opensearch_node_thread_pool_rejected_refresh
+  - id: listener
+    signal: opensearch_node_thread_pool_rejected_listener
+  - id: fetch_shard_started
+    signal: opensearch_node_thread_pool_rejected_fetch_shard_started
+  - id: fetch_shard_store
+    signal: opensearch_node_thread_pool_rejected_fetch_shard_store
+  - id: flush
+    signal: opensearch_node_thread_pool_rejected_flush
+  - id: force_merge
+    signal: opensearch_node_thread_pool_rejected_force_merge
+  - id: management
+    signal: opensearch_node_thread_pool_rejected_management
+- id: elasticsearch.node_cluster_communication_packets
+  title: Cluster Communication
+  units: pps
+  family: node
+  chart_type: line
+  priority: 60028
+  shape: counters
+  labels:
+    cluster_name: sim-cluster_name-1
+    node_name: sim-node_name-1
+    host: sim-host-1
+  dimensions:
+  - id: received
+    rate_signal: opensearch_node_cluster_communication_packets_received
+  - id: sent
+    rate_signal: opensearch_node_cluster_communication_packets_sent
+- id: elasticsearch.node_cluster_communication_traffic
+  title: Cluster Communication Bandwidth
+  units: bytes/s
+  family: node
+  chart_type: line
+  priority: 60029
+  shape: counters
+  labels:
+    cluster_name: sim-cluster_name-1
+    node_name: sim-node_name-1
+    host: sim-host-1
+  dimensions:
+  - id: received
+    rate_signal: opensearch_node_cluster_communication_traffic_received
+  - id: sent
+    rate_signal: opensearch_node_cluster_communication_traffic_sent
+- id: elasticsearch.node_http_connections
+  title: HTTP Connections
+  units: connections
+  family: node
+  chart_type: line
+  priority: 60030
+  shape: independent
+  labels:
+    cluster_name: sim-cluster_name-1
+    node_name: sim-node_name-1
+    host: sim-host-1
+  dimensions:
+  - id: open
+    signal: opensearch_node_http_connections_open
+- id: elasticsearch.node_breakers_trips
+  title: Circuit Breaker Trips Count
+  units: trips/s
+  family: node
+  chart_type: stacked
+  priority: 60031
+  shape: counters
+  labels:
+    cluster_name: sim-cluster_name-1
+    node_name: sim-node_name-1
+    host: sim-host-1
+  dimensions:
+  - id: requests
+    rate_signal: opensearch_node_breakers_trips_requests
+  - id: fielddata
+    rate_signal: opensearch_node_breakers_trips_fielddata
+  - id: in_flight_requests
+    rate_signal: opensearch_node_breakers_trips_in_flight_requests
+  - id: model_inference
+    rate_signal: opensearch_node_breakers_trips_model_inference
+  - id: accounting
+    rate_signal: opensearch_node_breakers_trips_accounting
+  - id: parent
+    rate_signal: opensearch_node_breakers_trips_parent
+- id: elasticsearch.cluster_health_status
+  title: Cluster Status
+  units: status
+  family: cluster
+  chart_type: line
+  priority: 60032
+  shape: independent
+  labels:
+    cluster_name: sim-cluster_name-1
+  dimensions:
+  - id: green
+    signal: opensearch_cluster_health_status_green
+  - id: yellow
+    signal: opensearch_cluster_health_status_yellow
+  - id: red
+    signal: opensearch_cluster_health_status_red
+- id: elasticsearch.cluster_number_of_nodes
+  title: Cluster Nodes Count
+  units: nodes
+  family: cluster
+  chart_type: line
+  priority: 60033
+  shape: independent
+  labels:
+    cluster_name: sim-cluster_name-1
+  dimensions:
+  - id: nodes
+    signal: opensearch_cluster_number_of_nodes_nodes
+  - id: data_nodes
+    signal: opensearch_cluster_number_of_nodes_data_nodes
+- id: elasticsearch.cluster_shards_count
+  title: Cluster Shards Count
+  units: shards
+  family: cluster
+  chart_type: line
+  priority: 60034
+  shape: independent
+  labels:
+    cluster_name: sim-cluster_name-1
+  dimensions:
+  - id: active_primary
+    signal: opensearch_cluster_shards_count_active_primary
+  - id: active
+    signal: opensearch_cluster_shards_count_active
+  - id: relocating
+    signal: opensearch_cluster_shards_count_relocating
+  - id: initializing
+    signal: opensearch_cluster_shards_count_initializing
+  - id: unassigned
+    signal: opensearch_cluster_shards_count_unassigned
+  - id: delayed_unaasigned
+    signal: opensearch_cluster_shards_count_delayed_unaasigned
+- id: elasticsearch.cluster_pending_tasks
+  title: Cluster Pending Tasks
+  units: tasks
+  family: cluster
+  chart_type: line
+  priority: 60035
+  shape: independent
+  labels:
+    cluster_name: sim-cluster_name-1
+  dimensions:
+  - id: pending
+    signal: opensearch_cluster_pending_tasks_pending
+- id: elasticsearch.cluster_number_of_in_flight_fetch
+  title: Cluster Unfinished Fetches
+  units: fetches
+  family: cluster
+  chart_type: line
+  priority: 60036
+  shape: independent
+  labels:
+    cluster_name: sim-cluster_name-1
+  dimensions:
+  - id: in_flight_fetch
+    signal: opensearch_cluster_number_of_in_flight_fetch_in_flight_fetch
+- id: elasticsearch.cluster_indices_count
+  title: Cluster Indices Count
+  units: indices
+  family: cluster
+  chart_type: line
+  priority: 60037
+  shape: independent
+  labels:
+    cluster_name: sim-cluster_name-1
+  dimensions:
+  - id: indices
+    signal: opensearch_cluster_indices_count_indices
+- id: elasticsearch.cluster_indices_shards_count
+  title: Cluster Indices Shards Count
+  units: shards
+  family: cluster
+  chart_type: line
+  priority: 60038
+  shape: independent
+  labels:
+    cluster_name: sim-cluster_name-1
+  dimensions:
+  - id: total
+    signal: opensearch_cluster_indices_shards_count_total
+  - id: primaries
+    signal: opensearch_cluster_indices_shards_count_primaries
+  - id: replication
+    signal: opensearch_cluster_indices_shards_count_replication
+- id: elasticsearch.cluster_indices_docs_count
+  title: Cluster Indices Docs Count
+  units: docs
+  family: cluster
+  chart_type: line
+  priority: 60039
+  shape: independent
+  labels:
+    cluster_name: sim-cluster_name-1
+  dimensions:
+  - id: docs
+    signal: opensearch_cluster_indices_docs_count_docs
+- id: elasticsearch.cluster_indices_store_size
+  title: Cluster Indices Store Size
+  units: bytes
+  family: cluster
+  chart_type: line
+  priority: 60040
+  shape: independent
+  labels:
+    cluster_name: sim-cluster_name-1
+  dimensions:
+  - id: size
+    signal: opensearch_cluster_indices_store_size_size
+- id: elasticsearch.cluster_indices_query_cache
+  title: Cluster Indices Query Cache
+  units: events/s
+  family: cluster
+  chart_type: line
+  priority: 60041
+  shape: counters
+  labels:
+    cluster_name: sim-cluster_name-1
+  dimensions:
+  - id: hit
+    rate_signal: opensearch_cluster_indices_query_cache_hit
+  - id: miss
+    rate_signal: opensearch_cluster_indices_query_cache_miss
+- id: elasticsearch.cluster_nodes_by_role_count
+  title: Cluster Nodes By Role Count
+  units: nodes
+  family: cluster
+  chart_type: line
+  priority: 60042
+  shape: independent
+  labels:
+    cluster_name: sim-cluster_name-1
+  dimensions:
+  - id: coordinating_only
+    signal: opensearch_cluster_nodes_by_role_count_coordinating_only
+  - id: data
+    signal: opensearch_cluster_nodes_by_role_count_data
+  - id: data_cold
+    signal: opensearch_cluster_nodes_by_role_count_data_cold
+  - id: data_content
+    signal: opensearch_cluster_nodes_by_role_count_data_content
+  - id: data_frozen
+    signal: opensearch_cluster_nodes_by_role_count_data_frozen
+  - id: data_hot
+    signal: opensearch_cluster_nodes_by_role_count_data_hot
+  - id: data_warm
+    signal: opensearch_cluster_nodes_by_role_count_data_warm
+  - id: ingest
+    signal: opensearch_cluster_nodes_by_role_count_ingest
+  - id: master
+    signal: opensearch_cluster_nodes_by_role_count_master
+  - id: ml
+    signal: opensearch_cluster_nodes_by_role_count_ml
+  - id: remote_cluster_client
+    signal: opensearch_cluster_nodes_by_role_count_remote_cluster_client
+  - id: voting_only
+    signal: opensearch_cluster_nodes_by_role_count_voting_only
+- id: elasticsearch.node_index_health
+  title: Index Health
+  units: status
+  family: node
+  chart_type: line
+  priority: 60043
+  shape: independent
+  labels:
+    cluster_name: sim-cluster_name-1
+    index: sim-index-1
+  dimensions:
+  - id: green
+    signal: opensearch_node_index_health_green
+  - id: yellow
+    signal: opensearch_node_index_health_yellow
+  - id: red
+    signal: opensearch_node_index_health_red
+- id: elasticsearch.node_index_shards_count
+  title: Index Shards Count
+  units: shards
+  family: node
+  chart_type: line
+  priority: 60044
+  shape: independent
+  labels:
+    cluster_name: sim-cluster_name-1
+    index: sim-index-1
+  dimensions:
+  - id: shards
+    signal: opensearch_node_index_shards_count_shards
+- id: elasticsearch.node_index_docs_count
+  title: Index Docs Count
+  units: docs
+  family: node
+  chart_type: line
+  priority: 60045
+  shape: independent
+  labels:
+    cluster_name: sim-cluster_name-1
+    index: sim-index-1
+  dimensions:
+  - id: docs
+    signal: opensearch_node_index_docs_count_docs
+- id: elasticsearch.node_index_store_size
+  title: Index Store Size
+  units: bytes
+  family: node
+  chart_type: line
+  priority: 60046
+  shape: independent
+  labels:
+    cluster_name: sim-cluster_name-1
+    index: sim-index-1
+  dimensions:
+  - id: store_size
+    signal: opensearch_node_index_store_size_store_size

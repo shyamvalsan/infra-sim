@@ -1,0 +1,250 @@
+version: 1
+name: intelligent-platform-management-interface-ipmi
+description: Intelligent Platform Management Interface (IPMI) metrics, generated from Netdata's own collector
+  metadata so the contexts, units and dimension names match what a real Intelligent Platform Management
+  Interface (IPMI) node reports. Signals are independent and plausible rather than causally coupled -
+  see scripts/sync-integrations.py.
+signals:
+  intelligent_platform_management_interface_ipmi_sel_events:
+    base: 90.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  intelligent_platform_management_interface_ipmi_sensor_state_nominal:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  intelligent_platform_management_interface_ipmi_sensor_state_critical:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  intelligent_platform_management_interface_ipmi_sensor_state_warning:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  intelligent_platform_management_interface_ipmi_sensor_state_unknown:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  intelligent_platform_management_interface_ipmi_sensor_temperature_c_temperature:
+    base: 41.0
+    min: 0.0
+    max: 120.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  intelligent_platform_management_interface_ipmi_sensor_temperature_f_temperature:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  intelligent_platform_management_interface_ipmi_sensor_voltage_voltage:
+    base: 12.0
+    min: 0.0
+    max: 480.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  intelligent_platform_management_interface_ipmi_sensor_ampere_ampere:
+    base: 3.2
+    min: 0.0
+    max: 200.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  intelligent_platform_management_interface_ipmi_sensor_fan_speed_rotations:
+    base: 2400.0
+    min: 0.0
+    max: 30000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  intelligent_platform_management_interface_ipmi_sensor_power_power:
+    base: 145.0
+    min: 0.0
+    max: 2000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  intelligent_platform_management_interface_ipmi_sensor_reading_percent_percentage:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: ipmi.sel
+  title: IPMI Events
+  units: events
+  family: sel
+  chart_type: area
+  priority: 60001
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: events
+    signal: intelligent_platform_management_interface_ipmi_sel_events
+- id: ipmi.sensor_state
+  title: IPMI Sensors State
+  units: state
+  family: sensor
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels:
+    sensor: sim-sensor-1
+    type: sim-type-1
+    component: sim-component-1
+  dimensions:
+  - id: nominal
+    signal: intelligent_platform_management_interface_ipmi_sensor_state_nominal
+  - id: critical
+    signal: intelligent_platform_management_interface_ipmi_sensor_state_critical
+  - id: warning
+    signal: intelligent_platform_management_interface_ipmi_sensor_state_warning
+  - id: unknown
+    signal: intelligent_platform_management_interface_ipmi_sensor_state_unknown
+- id: ipmi.sensor_temperature_c
+  title: IPMI Sensor Temperature Celsius
+  units: Celsius
+  family: sensor
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels:
+    sensor: sim-sensor-1
+    type: sim-type-1
+    component: sim-component-1
+  dimensions:
+  - id: temperature
+    signal: intelligent_platform_management_interface_ipmi_sensor_temperature_c_temperature
+- id: ipmi.sensor_temperature_f
+  title: IPMI Sensor Temperature Fahrenheit
+  units: Fahrenheit
+  family: sensor
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels:
+    sensor: sim-sensor-1
+    type: sim-type-1
+    component: sim-component-1
+  dimensions:
+  - id: temperature
+    signal: intelligent_platform_management_interface_ipmi_sensor_temperature_f_temperature
+- id: ipmi.sensor_voltage
+  title: IPMI Sensor Voltage
+  units: Volts
+  family: sensor
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels:
+    sensor: sim-sensor-1
+    type: sim-type-1
+    component: sim-component-1
+  dimensions:
+  - id: voltage
+    signal: intelligent_platform_management_interface_ipmi_sensor_voltage_voltage
+- id: ipmi.sensor_ampere
+  title: IPMI Sensor Current
+  units: Amps
+  family: sensor
+  chart_type: line
+  priority: 60006
+  shape: independent
+  labels:
+    sensor: sim-sensor-1
+    type: sim-type-1
+    component: sim-component-1
+  dimensions:
+  - id: ampere
+    signal: intelligent_platform_management_interface_ipmi_sensor_ampere_ampere
+- id: ipmi.sensor_fan_speed
+  title: IPMI Sensor Fans Speed
+  units: RPM
+  family: sensor
+  chart_type: line
+  priority: 60007
+  shape: independent
+  labels:
+    sensor: sim-sensor-1
+    type: sim-type-1
+    component: sim-component-1
+  dimensions:
+  - id: rotations
+    signal: intelligent_platform_management_interface_ipmi_sensor_fan_speed_rotations
+- id: ipmi.sensor_power
+  title: IPMI Sensor Power
+  units: Watts
+  family: sensor
+  chart_type: line
+  priority: 60008
+  shape: independent
+  labels:
+    sensor: sim-sensor-1
+    type: sim-type-1
+    component: sim-component-1
+  dimensions:
+  - id: power
+    signal: intelligent_platform_management_interface_ipmi_sensor_power_power
+- id: ipmi.sensor_reading_percent
+  title: IPMI Sensor Reading Percentage
+  units: '%'
+  family: sensor
+  chart_type: line
+  priority: 60009
+  shape: independent
+  labels:
+    sensor: sim-sensor-1
+    type: sim-type-1
+    component: sim-component-1
+  dimensions:
+  - id: percentage
+    signal: intelligent_platform_management_interface_ipmi_sensor_reading_percent_percentage

@@ -1,0 +1,328 @@
+version: 1
+name: docker
+description: Docker metrics, generated from Netdata's own collector metadata so the contexts, units and
+  dimension names match what a real Docker node reports. Signals are independent and plausible rather
+  than causally coupled - see scripts/sync-integrations.py.
+signals:
+  docker_containers_state_running:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  docker_containers_state_paused:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  docker_containers_state_stopped:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  docker_containers_health_status_healthy:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  docker_containers_health_status_unhealthy:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  docker_containers_health_status_not_running_unhealthy:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  docker_containers_health_status_starting:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  docker_containers_health_status_no_healthcheck:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  docker_images_active:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  docker_images_dangling:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  docker_images_size_size:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  docker_container_state_running:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  docker_container_state_paused:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  docker_container_state_exited:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  docker_container_state_created:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  docker_container_state_restarting:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  docker_container_state_removing:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  docker_container_state_dead:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  docker_container_health_status_healthy:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  docker_container_health_status_unhealthy:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  docker_container_health_status_not_running_unhealthy:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  docker_container_health_status_starting:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  docker_container_health_status_no_healthcheck:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  docker_container_writeable_layer_size_writeable_layer:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: docker.containers_state
+  title: Total number of Docker containers in various states
+  units: containers
+  family: containers
+  chart_type: stacked
+  priority: 60001
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: running
+    signal: docker_containers_state_running
+  - id: paused
+    signal: docker_containers_state_paused
+  - id: stopped
+    signal: docker_containers_state_stopped
+- id: docker.containers_health_status
+  title: Total number of Docker containers in various health states
+  units: containers
+  family: containers
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: healthy
+    signal: docker_containers_health_status_healthy
+  - id: unhealthy
+    signal: docker_containers_health_status_unhealthy
+  - id: not_running_unhealthy
+    signal: docker_containers_health_status_not_running_unhealthy
+  - id: starting
+    signal: docker_containers_health_status_starting
+  - id: no_healthcheck
+    signal: docker_containers_health_status_no_healthcheck
+- id: docker.images
+  title: Total number of Docker images in various states
+  units: images
+  family: images
+  chart_type: stacked
+  priority: 60003
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: active
+    signal: docker_images_active
+  - id: dangling
+    signal: docker_images_dangling
+- id: docker.images_size
+  title: Total size of all Docker images
+  units: bytes
+  family: images
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: size
+    signal: docker_images_size_size
+- id: docker.container_state
+  title: Docker container state
+  units: state
+  family: container
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels:
+    container_name: sim-container_name-1
+    image: sim-image-1
+  dimensions:
+  - id: running
+    signal: docker_container_state_running
+  - id: paused
+    signal: docker_container_state_paused
+  - id: exited
+    signal: docker_container_state_exited
+  - id: created
+    signal: docker_container_state_created
+  - id: restarting
+    signal: docker_container_state_restarting
+  - id: removing
+    signal: docker_container_state_removing
+  - id: dead
+    signal: docker_container_state_dead
+- id: docker.container_health_status
+  title: Docker container health status
+  units: status
+  family: container
+  chart_type: line
+  priority: 60006
+  shape: independent
+  labels:
+    container_name: sim-container_name-1
+    image: sim-image-1
+  dimensions:
+  - id: healthy
+    signal: docker_container_health_status_healthy
+  - id: unhealthy
+    signal: docker_container_health_status_unhealthy
+  - id: not_running_unhealthy
+    signal: docker_container_health_status_not_running_unhealthy
+  - id: starting
+    signal: docker_container_health_status_starting
+  - id: no_healthcheck
+    signal: docker_container_health_status_no_healthcheck
+- id: docker.container_writeable_layer_size
+  title: Docker container writable layer size
+  units: size
+  family: container
+  chart_type: line
+  priority: 60007
+  shape: independent
+  labels:
+    container_name: sim-container_name-1
+    image: sim-image-1
+  dimensions:
+  - id: writeable_layer
+    signal: docker_container_writeable_layer_size_writeable_layer

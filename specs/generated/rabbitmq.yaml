@@ -1,0 +1,1298 @@
+version: 1
+name: rabbitmq
+description: RabbitMQ metrics, generated from Netdata's own collector metadata so the contexts, units
+  and dimension names match what a real RabbitMQ node reports. Signals are independent and plausible rather
+  than causally coupled - see scripts/sync-integrations.py.
+signals:
+  rabbitmq_messages_count_ready:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rabbitmq_messages_count_unacknowledged:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rabbitmq_messages_rate_ack:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rabbitmq_messages_rate_publish:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rabbitmq_messages_rate_publish_in:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rabbitmq_messages_rate_publish_out:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rabbitmq_messages_rate_confirm:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rabbitmq_messages_rate_deliver:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rabbitmq_messages_rate_deliver_no_ack:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rabbitmq_messages_rate_get:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rabbitmq_messages_rate_get_empty:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rabbitmq_messages_rate_get_no_ack:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rabbitmq_messages_rate_deliver_get:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rabbitmq_messages_rate_redeliver:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rabbitmq_messages_rate_return_unroutable:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rabbitmq_objects_count_channels:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rabbitmq_objects_count_consumers:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rabbitmq_objects_count_connections:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rabbitmq_objects_count_queues:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rabbitmq_objects_count_exchanges:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rabbitmq_connection_churn_rate_created:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rabbitmq_connection_churn_rate_closed:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rabbitmq_channel_churn_rate_created:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rabbitmq_channel_churn_rate_closed:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rabbitmq_queue_churn_rate_created:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rabbitmq_queue_churn_rate_deleted:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rabbitmq_queue_churn_rate_declared:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rabbitmq_node_avail_status_running:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  rabbitmq_node_avail_status_down:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  rabbitmq_node_network_partition_status_clear:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  rabbitmq_node_network_partition_status_detected:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  rabbitmq_node_mem_alarm_status_clear:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  rabbitmq_node_mem_alarm_status_triggered:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  rabbitmq_node_disk_free_alarm_status_clear:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  rabbitmq_node_disk_free_alarm_status_triggered:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  rabbitmq_node_file_descriptors_usage_used:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rabbitmq_node_sockets_usage_used:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rabbitmq_node_erlang_processes_usage_used:
+    base: 210.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rabbitmq_node_erlang_run_queue_processes_count_length:
+    base: 210.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rabbitmq_node_memory_usage_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rabbitmq_node_disk_space_free_size_free:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rabbitmq_node_uptime_uptime:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rabbitmq_node_peer_cluster_link_traffic_received:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rabbitmq_node_peer_cluster_link_traffic_sent:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rabbitmq_vhost_status_running:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  rabbitmq_vhost_status_stopped:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  rabbitmq_vhost_status_partial:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  rabbitmq_vhost_messages_count_ready:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rabbitmq_vhost_messages_count_unacknowledged:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rabbitmq_vhost_messages_rate_ack:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rabbitmq_vhost_messages_rate_publish:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rabbitmq_vhost_messages_rate_publish_in:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rabbitmq_vhost_messages_rate_publish_out:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rabbitmq_vhost_messages_rate_confirm:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rabbitmq_vhost_messages_rate_deliver:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rabbitmq_vhost_messages_rate_deliver_no_ack:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rabbitmq_vhost_messages_rate_get:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rabbitmq_vhost_messages_rate_get_no_ack:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rabbitmq_vhost_messages_rate_deliver_get:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rabbitmq_vhost_messages_rate_redeliver:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rabbitmq_vhost_messages_rate_return_unroutable:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rabbitmq_queue_status_running:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  rabbitmq_queue_status_down:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  rabbitmq_queue_status_idle:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  rabbitmq_queue_status_crashed:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  rabbitmq_queue_status_stopped:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  rabbitmq_queue_status_minority:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  rabbitmq_queue_status_terminated:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  rabbitmq_queue_messages_count_ready:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rabbitmq_queue_messages_count_unacknowledged:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rabbitmq_queue_messages_count_paged_out:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rabbitmq_queue_messages_count_persistent:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rabbitmq_queue_messages_rate_ack:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rabbitmq_queue_messages_rate_publish:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rabbitmq_queue_messages_rate_publish_in:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rabbitmq_queue_messages_rate_publish_out:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rabbitmq_queue_messages_rate_confirm:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rabbitmq_queue_messages_rate_deliver:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rabbitmq_queue_messages_rate_deliver_no_ack:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rabbitmq_queue_messages_rate_get:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rabbitmq_queue_messages_rate_get_no_ack:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rabbitmq_queue_messages_rate_deliver_get:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rabbitmq_queue_messages_rate_redeliver:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  rabbitmq_queue_messages_rate_return_unroutable:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: rabbitmq.messages_count
+  title: Messages
+  units: messages
+  family: messages
+  chart_type: stacked
+  priority: 60001
+  shape: independent
+  labels:
+    cluster_id: sim-cluster_id-1
+    cluster_name: sim-cluster_name-1
+  dimensions:
+  - id: ready
+    signal: rabbitmq_messages_count_ready
+  - id: unacknowledged
+    signal: rabbitmq_messages_count_unacknowledged
+- id: rabbitmq.messages_rate
+  title: Messages
+  units: messages/s
+  family: messages
+  chart_type: line
+  priority: 60002
+  shape: counters
+  labels:
+    cluster_id: sim-cluster_id-1
+    cluster_name: sim-cluster_name-1
+  dimensions:
+  - id: ack
+    rate_signal: rabbitmq_messages_rate_ack
+  - id: publish
+    rate_signal: rabbitmq_messages_rate_publish
+  - id: publish_in
+    rate_signal: rabbitmq_messages_rate_publish_in
+  - id: publish_out
+    rate_signal: rabbitmq_messages_rate_publish_out
+  - id: confirm
+    rate_signal: rabbitmq_messages_rate_confirm
+  - id: deliver
+    rate_signal: rabbitmq_messages_rate_deliver
+  - id: deliver_no_ack
+    rate_signal: rabbitmq_messages_rate_deliver_no_ack
+  - id: get
+    rate_signal: rabbitmq_messages_rate_get
+  - id: get_empty
+    rate_signal: rabbitmq_messages_rate_get_empty
+  - id: get_no_ack
+    rate_signal: rabbitmq_messages_rate_get_no_ack
+  - id: deliver_get
+    rate_signal: rabbitmq_messages_rate_deliver_get
+  - id: redeliver
+    rate_signal: rabbitmq_messages_rate_redeliver
+  - id: return_unroutable
+    rate_signal: rabbitmq_messages_rate_return_unroutable
+- id: rabbitmq.objects_count
+  title: Objects
+  units: messages
+  family: objects
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels:
+    cluster_id: sim-cluster_id-1
+    cluster_name: sim-cluster_name-1
+  dimensions:
+  - id: channels
+    signal: rabbitmq_objects_count_channels
+  - id: consumers
+    signal: rabbitmq_objects_count_consumers
+  - id: connections
+    signal: rabbitmq_objects_count_connections
+  - id: queues
+    signal: rabbitmq_objects_count_queues
+  - id: exchanges
+    signal: rabbitmq_objects_count_exchanges
+- id: rabbitmq.connection_churn_rate
+  title: Connection churn
+  units: operations/s
+  family: connection
+  chart_type: line
+  priority: 60004
+  shape: counters
+  labels:
+    cluster_id: sim-cluster_id-1
+    cluster_name: sim-cluster_name-1
+  dimensions:
+  - id: created
+    rate_signal: rabbitmq_connection_churn_rate_created
+  - id: closed
+    rate_signal: rabbitmq_connection_churn_rate_closed
+- id: rabbitmq.channel_churn_rate
+  title: Channel churn
+  units: operations/s
+  family: channel
+  chart_type: line
+  priority: 60005
+  shape: counters
+  labels:
+    cluster_id: sim-cluster_id-1
+    cluster_name: sim-cluster_name-1
+  dimensions:
+  - id: created
+    rate_signal: rabbitmq_channel_churn_rate_created
+  - id: closed
+    rate_signal: rabbitmq_channel_churn_rate_closed
+- id: rabbitmq.queue_churn_rate
+  title: Queue churn
+  units: operations/s
+  family: queue
+  chart_type: line
+  priority: 60006
+  shape: counters
+  labels:
+    cluster_id: sim-cluster_id-1
+    cluster_name: sim-cluster_name-1
+  dimensions:
+  - id: created
+    rate_signal: rabbitmq_queue_churn_rate_created
+  - id: deleted
+    rate_signal: rabbitmq_queue_churn_rate_deleted
+  - id: declared
+    rate_signal: rabbitmq_queue_churn_rate_declared
+- id: rabbitmq.node_avail_status
+  title: Node Availability Status
+  units: status
+  family: node
+  chart_type: line
+  priority: 60007
+  shape: independent
+  labels:
+    cluster_id: sim-cluster_id-1
+    cluster_name: sim-cluster_name-1
+    node: sim-node-1
+  dimensions:
+  - id: running
+    signal: rabbitmq_node_avail_status_running
+  - id: down
+    signal: rabbitmq_node_avail_status_down
+- id: rabbitmq.node_network_partition_status
+  title: Node Network Partitioning Status
+  units: status
+  family: node
+  chart_type: line
+  priority: 60008
+  shape: independent
+  labels:
+    cluster_id: sim-cluster_id-1
+    cluster_name: sim-cluster_name-1
+    node: sim-node-1
+  dimensions:
+  - id: clear
+    signal: rabbitmq_node_network_partition_status_clear
+  - id: detected
+    signal: rabbitmq_node_network_partition_status_detected
+- id: rabbitmq.node_mem_alarm_status
+  title: Node Memory Alarm Status
+  units: status
+  family: node
+  chart_type: line
+  priority: 60009
+  shape: independent
+  labels:
+    cluster_id: sim-cluster_id-1
+    cluster_name: sim-cluster_name-1
+    node: sim-node-1
+  dimensions:
+  - id: clear
+    signal: rabbitmq_node_mem_alarm_status_clear
+  - id: triggered
+    signal: rabbitmq_node_mem_alarm_status_triggered
+- id: rabbitmq.node_disk_free_alarm_status
+  title: Node Disk Free Alarm Status
+  units: status
+  family: node
+  chart_type: line
+  priority: 60010
+  shape: independent
+  labels:
+    cluster_id: sim-cluster_id-1
+    cluster_name: sim-cluster_name-1
+    node: sim-node-1
+  dimensions:
+  - id: clear
+    signal: rabbitmq_node_disk_free_alarm_status_clear
+  - id: triggered
+    signal: rabbitmq_node_disk_free_alarm_status_triggered
+- id: rabbitmq.node_file_descriptors_usage
+  title: Node File Descriptors Usage
+  units: fd
+  family: node
+  chart_type: line
+  priority: 60011
+  shape: independent
+  labels:
+    cluster_id: sim-cluster_id-1
+    cluster_name: sim-cluster_name-1
+    node: sim-node-1
+  dimensions:
+  - id: used
+    signal: rabbitmq_node_file_descriptors_usage_used
+- id: rabbitmq.node_sockets_usage
+  title: Node Sockets Usage
+  units: sockets
+  family: node
+  chart_type: line
+  priority: 60012
+  shape: independent
+  labels:
+    cluster_id: sim-cluster_id-1
+    cluster_name: sim-cluster_name-1
+    node: sim-node-1
+  dimensions:
+  - id: used
+    signal: rabbitmq_node_sockets_usage_used
+- id: rabbitmq.node_erlang_processes_usage
+  title: Node Erlang Processes Usage
+  units: processes
+  family: node
+  chart_type: line
+  priority: 60013
+  shape: independent
+  labels:
+    cluster_id: sim-cluster_id-1
+    cluster_name: sim-cluster_name-1
+    node: sim-node-1
+  dimensions:
+  - id: used
+    signal: rabbitmq_node_erlang_processes_usage_used
+- id: rabbitmq.node_erlang_run_queue_processes_count
+  title: Node Erlang Run Queue
+  units: processes
+  family: node
+  chart_type: line
+  priority: 60014
+  shape: independent
+  labels:
+    cluster_id: sim-cluster_id-1
+    cluster_name: sim-cluster_name-1
+    node: sim-node-1
+  dimensions:
+  - id: length
+    signal: rabbitmq_node_erlang_run_queue_processes_count_length
+- id: rabbitmq.node_memory_usage
+  title: Node Memory Usage
+  units: bytes
+  family: node
+  chart_type: area
+  priority: 60015
+  shape: independent
+  labels:
+    cluster_id: sim-cluster_id-1
+    cluster_name: sim-cluster_name-1
+    node: sim-node-1
+  dimensions:
+  - id: used
+    signal: rabbitmq_node_memory_usage_used
+- id: rabbitmq.node_disk_space_free_size
+  title: Node Disk Free Space
+  units: bytes
+  family: node
+  chart_type: area
+  priority: 60016
+  shape: independent
+  labels:
+    cluster_id: sim-cluster_id-1
+    cluster_name: sim-cluster_name-1
+    node: sim-node-1
+  dimensions:
+  - id: free
+    signal: rabbitmq_node_disk_space_free_size_free
+- id: rabbitmq.node_uptime
+  title: Node Uptime
+  units: seconds
+  family: node
+  chart_type: line
+  priority: 60017
+  shape: independent
+  labels:
+    cluster_id: sim-cluster_id-1
+    cluster_name: sim-cluster_name-1
+    node: sim-node-1
+  dimensions:
+  - id: uptime
+    signal: rabbitmq_node_uptime_uptime
+- id: rabbitmq.node_peer_cluster_link_traffic
+  title: Node Cluster Link Peer Traffic
+  units: bytes/s
+  family: node
+  chart_type: area
+  priority: 60018
+  shape: counters
+  labels:
+    cluster_id: sim-cluster_id-1
+    cluster_name: sim-cluster_name-1
+    node: sim-node-1
+    peer: sim-peer-1
+  dimensions:
+  - id: received
+    rate_signal: rabbitmq_node_peer_cluster_link_traffic_received
+  - id: sent
+    rate_signal: rabbitmq_node_peer_cluster_link_traffic_sent
+- id: rabbitmq.vhost_status
+  title: Vhost Status
+  units: status
+  family: vhost
+  chart_type: line
+  priority: 60019
+  shape: independent
+  labels:
+    cluster_id: sim-cluster_id-1
+    cluster_name: sim-cluster_name-1
+    vhost: sim-vhost-1
+  dimensions:
+  - id: running
+    signal: rabbitmq_vhost_status_running
+  - id: stopped
+    signal: rabbitmq_vhost_status_stopped
+  - id: partial
+    signal: rabbitmq_vhost_status_partial
+- id: rabbitmq.vhost_messages_count
+  title: Vhost messages
+  units: messages
+  family: vhost
+  chart_type: stacked
+  priority: 60020
+  shape: independent
+  labels:
+    cluster_id: sim-cluster_id-1
+    cluster_name: sim-cluster_name-1
+    vhost: sim-vhost-1
+  dimensions:
+  - id: ready
+    signal: rabbitmq_vhost_messages_count_ready
+  - id: unacknowledged
+    signal: rabbitmq_vhost_messages_count_unacknowledged
+- id: rabbitmq.vhost_messages_rate
+  title: Vhost messages rate
+  units: messages/s
+  family: vhost
+  chart_type: line
+  priority: 60021
+  shape: counters
+  labels:
+    cluster_id: sim-cluster_id-1
+    cluster_name: sim-cluster_name-1
+    vhost: sim-vhost-1
+  dimensions:
+  - id: ack
+    rate_signal: rabbitmq_vhost_messages_rate_ack
+  - id: publish
+    rate_signal: rabbitmq_vhost_messages_rate_publish
+  - id: publish_in
+    rate_signal: rabbitmq_vhost_messages_rate_publish_in
+  - id: publish_out
+    rate_signal: rabbitmq_vhost_messages_rate_publish_out
+  - id: confirm
+    rate_signal: rabbitmq_vhost_messages_rate_confirm
+  - id: deliver
+    rate_signal: rabbitmq_vhost_messages_rate_deliver
+  - id: deliver_no_ack
+    rate_signal: rabbitmq_vhost_messages_rate_deliver_no_ack
+  - id: get
+    rate_signal: rabbitmq_vhost_messages_rate_get
+  - id: get_no_ack
+    rate_signal: rabbitmq_vhost_messages_rate_get_no_ack
+  - id: deliver_get
+    rate_signal: rabbitmq_vhost_messages_rate_deliver_get
+  - id: redeliver
+    rate_signal: rabbitmq_vhost_messages_rate_redeliver
+  - id: return_unroutable
+    rate_signal: rabbitmq_vhost_messages_rate_return_unroutable
+- id: rabbitmq.queue_status
+  title: Queue status
+  units: status
+  family: queue
+  chart_type: line
+  priority: 60022
+  shape: independent
+  labels:
+    cluster_id: sim-cluster_id-1
+    cluster_name: sim-cluster_name-1
+    node: sim-node-1
+    vhost: sim-vhost-1
+    queue: sim-queue-1
+  dimensions:
+  - id: running
+    signal: rabbitmq_queue_status_running
+  - id: down
+    signal: rabbitmq_queue_status_down
+  - id: idle
+    signal: rabbitmq_queue_status_idle
+  - id: crashed
+    signal: rabbitmq_queue_status_crashed
+  - id: stopped
+    signal: rabbitmq_queue_status_stopped
+  - id: minority
+    signal: rabbitmq_queue_status_minority
+  - id: terminated
+    signal: rabbitmq_queue_status_terminated
+- id: rabbitmq.queue_messages_count
+  title: Queue messages
+  units: messages
+  family: queue
+  chart_type: stacked
+  priority: 60023
+  shape: independent
+  labels:
+    cluster_id: sim-cluster_id-1
+    cluster_name: sim-cluster_name-1
+    node: sim-node-1
+    vhost: sim-vhost-1
+    queue: sim-queue-1
+  dimensions:
+  - id: ready
+    signal: rabbitmq_queue_messages_count_ready
+  - id: unacknowledged
+    signal: rabbitmq_queue_messages_count_unacknowledged
+  - id: paged_out
+    signal: rabbitmq_queue_messages_count_paged_out
+  - id: persistent
+    signal: rabbitmq_queue_messages_count_persistent
+- id: rabbitmq.queue_messages_rate
+  title: Queue messages rate
+  units: messages/s
+  family: queue
+  chart_type: line
+  priority: 60024
+  shape: counters
+  labels:
+    cluster_id: sim-cluster_id-1
+    cluster_name: sim-cluster_name-1
+    node: sim-node-1
+    vhost: sim-vhost-1
+    queue: sim-queue-1
+  dimensions:
+  - id: ack
+    rate_signal: rabbitmq_queue_messages_rate_ack
+  - id: publish
+    rate_signal: rabbitmq_queue_messages_rate_publish
+  - id: publish_in
+    rate_signal: rabbitmq_queue_messages_rate_publish_in
+  - id: publish_out
+    rate_signal: rabbitmq_queue_messages_rate_publish_out
+  - id: confirm
+    rate_signal: rabbitmq_queue_messages_rate_confirm
+  - id: deliver
+    rate_signal: rabbitmq_queue_messages_rate_deliver
+  - id: deliver_no_ack
+    rate_signal: rabbitmq_queue_messages_rate_deliver_no_ack
+  - id: get
+    rate_signal: rabbitmq_queue_messages_rate_get
+  - id: get_no_ack
+    rate_signal: rabbitmq_queue_messages_rate_get_no_ack
+  - id: deliver_get
+    rate_signal: rabbitmq_queue_messages_rate_deliver_get
+  - id: redeliver
+    rate_signal: rabbitmq_queue_messages_rate_redeliver
+  - id: return_unroutable
+    rate_signal: rabbitmq_queue_messages_rate_return_unroutable

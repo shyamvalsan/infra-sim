@@ -1,0 +1,224 @@
+version: 1
+name: md-raid
+description: MD RAID metrics, generated from Netdata's own collector metadata so the contexts, units and
+  dimension names match what a real MD RAID node reports. Signals are independent and plausible rather
+  than causally coupled - see scripts/sync-integrations.py.
+signals:
+  md_raid_health_a_dimension_per_md_array:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  md_raid_disks_inuse:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  md_raid_disks_down:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  md_raid_mismatch_cnt_count:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  md_raid_status_check:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  md_raid_status_resync:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  md_raid_status_recovery:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  md_raid_status_reshape:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  md_raid_expected_time_until_operation_finish_finish_in:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  md_raid_operation_speed_speed:
+    base: 480000.0
+    min: 0.0
+    max: 900000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  md_raid_nonredundant_available:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+contexts:
+- id: md.health
+  title: Faulty Devices In MD
+  units: failed disks
+  family: health
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: a dimension per md array
+    signal: md_raid_health_a_dimension_per_md_array
+- id: md.disks
+  title: Disks Stats
+  units: disks
+  family: disks
+  chart_type: stacked
+  priority: 60002
+  shape: independent
+  labels:
+    device: sim-device-1
+    raid_level: sim-raid_level-1
+  dimensions:
+  - id: inuse
+    signal: md_raid_disks_inuse
+  - id: down
+    signal: md_raid_disks_down
+- id: md.mismatch_cnt
+  title: Mismatch Count
+  units: unsynchronized blocks
+  family: mismatch
+  chart_type: line
+  priority: 60003
+  shape: independent
+  labels:
+    device: sim-device-1
+    raid_level: sim-raid_level-1
+  dimensions:
+  - id: count
+    signal: md_raid_mismatch_cnt_count
+- id: md.status
+  title: Current Status
+  units: percent
+  family: status
+  chart_type: line
+  priority: 60004
+  shape: independent
+  labels:
+    device: sim-device-1
+    raid_level: sim-raid_level-1
+  dimensions:
+  - id: check
+    signal: md_raid_status_check
+  - id: resync
+    signal: md_raid_status_resync
+  - id: recovery
+    signal: md_raid_status_recovery
+  - id: reshape
+    signal: md_raid_status_reshape
+- id: md.expected_time_until_operation_finish
+  title: Approximate Time Until Finish
+  units: seconds
+  family: expected
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels:
+    device: sim-device-1
+    raid_level: sim-raid_level-1
+  dimensions:
+  - id: finish_in
+    signal: md_raid_expected_time_until_operation_finish_finish_in
+- id: md.operation_speed
+  title: Operation Speed
+  units: KiB/s
+  family: operation
+  chart_type: line
+  priority: 60006
+  shape: independent
+  labels:
+    device: sim-device-1
+    raid_level: sim-raid_level-1
+  dimensions:
+  - id: speed
+    signal: md_raid_operation_speed_speed
+- id: md.nonredundant
+  title: Nonredundant Array Availability
+  units: boolean
+  family: nonredundant
+  chart_type: line
+  priority: 60007
+  shape: independent
+  labels:
+    device: sim-device-1
+    raid_level: sim-raid_level-1
+  dimensions:
+  - id: available
+    signal: md_raid_nonredundant_available

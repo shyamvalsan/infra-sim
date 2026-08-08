@@ -1,0 +1,530 @@
+version: 1
+name: ntpd
+description: NTPd metrics, generated from Netdata's own collector metadata so the contexts, units and
+  dimension names match what a real NTPd node reports. Signals are independent and plausible rather than
+  causally coupled - see scripts/sync-integrations.py.
+signals:
+  ntpd_sys_offset_offset:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ntpd_sys_jitter_system:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ntpd_sys_jitter_clock:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ntpd_sys_frequency_frequency:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ntpd_sys_wander_clock:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ntpd_sys_rootdelay_delay:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ntpd_sys_rootdisp_dispersion:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ntpd_sys_stratum_stratum:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ntpd_sys_tc_current:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ntpd_sys_tc_minimum:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ntpd_sys_precision_precision:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ntpd_peer_offset_offset:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ntpd_peer_delay_delay:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ntpd_peer_dispersion_dispersion:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ntpd_peer_jitter_jitter:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ntpd_peer_xleave_xleave:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ntpd_peer_rootdelay_rootdelay:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ntpd_peer_rootdisp_dispersion:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ntpd_peer_stratum_stratum:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ntpd_peer_hmode_hmode:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ntpd_peer_pmode_pmode:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ntpd_peer_hpoll_hpoll:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ntpd_peer_ppoll_ppoll:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ntpd_peer_precision_precision:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: ntpd.sys_offset
+  title: Combined offset of server relative to this host
+  units: milliseconds
+  family: sys
+  chart_type: area
+  priority: 60001
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: offset
+    signal: ntpd_sys_offset_offset
+- id: ntpd.sys_jitter
+  title: Combined system jitter and clock jitter
+  units: milliseconds
+  family: sys
+  chart_type: line
+  priority: 60002
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: system
+    signal: ntpd_sys_jitter_system
+  - id: clock
+    signal: ntpd_sys_jitter_clock
+- id: ntpd.sys_frequency
+  title: Frequency offset relative to hardware clock
+  units: ppm
+  family: sys
+  chart_type: area
+  priority: 60003
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: frequency
+    signal: ntpd_sys_frequency_frequency
+- id: ntpd.sys_wander
+  title: Clock frequency wander
+  units: ppm
+  family: sys
+  chart_type: area
+  priority: 60004
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: clock
+    signal: ntpd_sys_wander_clock
+- id: ntpd.sys_rootdelay
+  title: Total roundtrip delay to the primary reference clock
+  units: milliseconds
+  family: sys
+  chart_type: area
+  priority: 60005
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: delay
+    signal: ntpd_sys_rootdelay_delay
+- id: ntpd.sys_rootdisp
+  title: Total root dispersion to the primary reference clock
+  units: milliseconds
+  family: sys
+  chart_type: area
+  priority: 60006
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: dispersion
+    signal: ntpd_sys_rootdisp_dispersion
+- id: ntpd.sys_stratum
+  title: Stratum
+  units: stratum
+  family: sys
+  chart_type: line
+  priority: 60007
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: stratum
+    signal: ntpd_sys_stratum_stratum
+- id: ntpd.sys_tc
+  title: Time constant and poll exponent
+  units: log2
+  family: sys
+  chart_type: line
+  priority: 60008
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: current
+    signal: ntpd_sys_tc_current
+  - id: minimum
+    signal: ntpd_sys_tc_minimum
+- id: ntpd.sys_precision
+  title: Precision
+  units: log2
+  family: sys
+  chart_type: line
+  priority: 60009
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: precision
+    signal: ntpd_sys_precision_precision
+- id: ntpd.peer_offset
+  title: Peer offset
+  units: milliseconds
+  family: peer
+  chart_type: line
+  priority: 60010
+  shape: independent
+  labels:
+    peer_address: sim-peer_address-1
+  dimensions:
+  - id: offset
+    signal: ntpd_peer_offset_offset
+- id: ntpd.peer_delay
+  title: Peer delay
+  units: milliseconds
+  family: peer
+  chart_type: line
+  priority: 60011
+  shape: independent
+  labels:
+    peer_address: sim-peer_address-1
+  dimensions:
+  - id: delay
+    signal: ntpd_peer_delay_delay
+- id: ntpd.peer_dispersion
+  title: Peer dispersion
+  units: milliseconds
+  family: peer
+  chart_type: line
+  priority: 60012
+  shape: independent
+  labels:
+    peer_address: sim-peer_address-1
+  dimensions:
+  - id: dispersion
+    signal: ntpd_peer_dispersion_dispersion
+- id: ntpd.peer_jitter
+  title: Peer jitter
+  units: milliseconds
+  family: peer
+  chart_type: line
+  priority: 60013
+  shape: independent
+  labels:
+    peer_address: sim-peer_address-1
+  dimensions:
+  - id: jitter
+    signal: ntpd_peer_jitter_jitter
+- id: ntpd.peer_xleave
+  title: Peer interleave delay
+  units: milliseconds
+  family: peer
+  chart_type: line
+  priority: 60014
+  shape: independent
+  labels:
+    peer_address: sim-peer_address-1
+  dimensions:
+  - id: xleave
+    signal: ntpd_peer_xleave_xleave
+- id: ntpd.peer_rootdelay
+  title: Peer roundtrip delay to the primary reference clock
+  units: milliseconds
+  family: peer
+  chart_type: line
+  priority: 60015
+  shape: independent
+  labels:
+    peer_address: sim-peer_address-1
+  dimensions:
+  - id: rootdelay
+    signal: ntpd_peer_rootdelay_rootdelay
+- id: ntpd.peer_rootdisp
+  title: Peer root dispersion to the primary reference clock
+  units: milliseconds
+  family: peer
+  chart_type: line
+  priority: 60016
+  shape: independent
+  labels:
+    peer_address: sim-peer_address-1
+  dimensions:
+  - id: dispersion
+    signal: ntpd_peer_rootdisp_dispersion
+- id: ntpd.peer_stratum
+  title: Peer stratum
+  units: stratum
+  family: peer
+  chart_type: line
+  priority: 60017
+  shape: independent
+  labels:
+    peer_address: sim-peer_address-1
+  dimensions:
+  - id: stratum
+    signal: ntpd_peer_stratum_stratum
+- id: ntpd.peer_hmode
+  title: Peer host mode
+  units: hmode
+  family: peer
+  chart_type: line
+  priority: 60018
+  shape: independent
+  labels:
+    peer_address: sim-peer_address-1
+  dimensions:
+  - id: hmode
+    signal: ntpd_peer_hmode_hmode
+- id: ntpd.peer_pmode
+  title: Peer mode
+  units: pmode
+  family: peer
+  chart_type: line
+  priority: 60019
+  shape: independent
+  labels:
+    peer_address: sim-peer_address-1
+  dimensions:
+  - id: pmode
+    signal: ntpd_peer_pmode_pmode
+- id: ntpd.peer_hpoll
+  title: Peer host poll exponent
+  units: log2
+  family: peer
+  chart_type: line
+  priority: 60020
+  shape: independent
+  labels:
+    peer_address: sim-peer_address-1
+  dimensions:
+  - id: hpoll
+    signal: ntpd_peer_hpoll_hpoll
+- id: ntpd.peer_ppoll
+  title: Peer poll exponent
+  units: log2
+  family: peer
+  chart_type: line
+  priority: 60021
+  shape: independent
+  labels:
+    peer_address: sim-peer_address-1
+  dimensions:
+  - id: ppoll
+    signal: ntpd_peer_ppoll_ppoll
+- id: ntpd.peer_precision
+  title: Peer precision
+  units: log2
+  family: peer
+  chart_type: line
+  priority: 60022
+  shape: independent
+  labels:
+    peer_address: sim-peer_address-1
+  dimensions:
+  - id: precision
+    signal: ntpd_peer_precision_precision

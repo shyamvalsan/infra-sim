@@ -1,0 +1,1305 @@
+version: 1
+name: azure-machine-learning-workspace
+description: Azure Machine Learning Workspace metrics, generated from Netdata's own collector metadata
+  so the contexts, units and dimension names match what a real Azure Machine Learning Workspace node reports.
+  Signals are independent and plausible rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  azure_machine_learning_workspace_machine_learning_agent_events_agent_events:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_machine_learning_workspace_machine_learning_agent_events_thread_events:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_machine_learning_workspace_machine_learning_agent_messages_messages:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_machine_learning_workspace_machine_learning_agent_runs_runs:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_machine_learning_workspace_machine_learning_agent_tokens_tokens:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_machine_learning_workspace_machine_learning_agent_tool_calls_tool_calls:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_machine_learning_workspace_machine_learning_agent_indexed_files_indexed_files:
+    base: 22.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_machine_learning_workspace_machine_learning_model_deployments_started:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_machine_learning_workspace_machine_learning_model_deployments_succeeded:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_machine_learning_workspace_machine_learning_model_deployments_failed:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  azure_machine_learning_workspace_machine_learning_model_registrations_succeeded:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_machine_learning_workspace_machine_learning_model_registrations_failed:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  azure_machine_learning_workspace_machine_learning_cluster_cores_active:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_machine_learning_workspace_machine_learning_cluster_cores_idle:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_machine_learning_workspace_machine_learning_cluster_cores_leaving:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_machine_learning_workspace_machine_learning_cluster_cores_preempted:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_machine_learning_workspace_machine_learning_cluster_cores_unusable:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_machine_learning_workspace_machine_learning_total_cores_total:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_machine_learning_workspace_machine_learning_cluster_nodes_active:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_machine_learning_workspace_machine_learning_cluster_nodes_idle:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_machine_learning_workspace_machine_learning_cluster_nodes_leaving:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_machine_learning_workspace_machine_learning_cluster_nodes_preempted:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_machine_learning_workspace_machine_learning_cluster_nodes_unusable:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_machine_learning_workspace_machine_learning_total_nodes_total:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_machine_learning_workspace_machine_learning_quota_utilization_utilization:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_machine_learning_workspace_machine_learning_cpu_utilization_cluster_cpu:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_machine_learning_workspace_machine_learning_cpu_utilization_node_cpu:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_machine_learning_workspace_machine_learning_cpu_millicores_used:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_machine_learning_workspace_machine_learning_cpu_millicores_capacity:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_machine_learning_workspace_machine_learning_cpu_memory_utilization_utilization:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_machine_learning_workspace_machine_learning_cpu_memory_megabytes_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_machine_learning_workspace_machine_learning_cpu_memory_megabytes_capacity:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_machine_learning_workspace_machine_learning_gpu_utilization_cluster_gpu:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_machine_learning_workspace_machine_learning_gpu_utilization_node_gpu:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_machine_learning_workspace_machine_learning_gpu_milligpus_used:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_machine_learning_workspace_machine_learning_gpu_milligpus_capacity:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_machine_learning_workspace_machine_learning_gpu_memory_utilization_cluster_gpu_memory:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_machine_learning_workspace_machine_learning_gpu_memory_utilization_node_gpu_memory:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_machine_learning_workspace_machine_learning_gpu_memory_megabytes_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_machine_learning_workspace_machine_learning_gpu_memory_megabytes_capacity:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_machine_learning_workspace_machine_learning_gpu_energy_energy:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_machine_learning_workspace_machine_learning_disk_usage_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_machine_learning_workspace_machine_learning_disk_usage_available:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_machine_learning_workspace_machine_learning_disk_io_read:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_machine_learning_workspace_machine_learning_disk_io_write:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_machine_learning_workspace_machine_learning_network_traffic_in:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_machine_learning_workspace_machine_learning_network_traffic_out:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_machine_learning_workspace_machine_learning_infiniband_traffic_receive:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_machine_learning_workspace_machine_learning_infiniband_traffic_transmit:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_machine_learning_workspace_machine_learning_storage_api_calls_success:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_machine_learning_workspace_machine_learning_storage_api_calls_failure:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  azure_machine_learning_workspace_machine_learning_run_lifecycle_not_started:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_machine_learning_workspace_machine_learning_run_lifecycle_starting:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_machine_learning_workspace_machine_learning_run_lifecycle_preparing:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_machine_learning_workspace_machine_learning_run_lifecycle_provisioning:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_machine_learning_workspace_machine_learning_run_lifecycle_queued:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_machine_learning_workspace_machine_learning_run_lifecycle_started:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_machine_learning_workspace_machine_learning_run_completion_completed:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_machine_learning_workspace_machine_learning_run_completion_failed:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  azure_machine_learning_workspace_machine_learning_run_completion_finalizing:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_machine_learning_workspace_machine_learning_run_completion_cancelled:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_machine_learning_workspace_machine_learning_run_completion_cancel_requested:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_machine_learning_workspace_machine_learning_run_completion_not_responding:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  azure_machine_learning_workspace_machine_learning_run_issues_errors:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  azure_machine_learning_workspace_machine_learning_run_issues_warnings:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: azure_monitor.machine_learning.agent_events
+  title: Azure Machine Learning Agent Events
+  units: events/s
+  family: machine
+  chart_type: line
+  priority: 60001
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: agent_events
+    rate_signal: azure_machine_learning_workspace_machine_learning_agent_events_agent_events
+  - id: thread_events
+    rate_signal: azure_machine_learning_workspace_machine_learning_agent_events_thread_events
+- id: azure_monitor.machine_learning.agent_messages
+  title: Azure Machine Learning Agent Messages
+  units: messages/s
+  family: machine
+  chart_type: line
+  priority: 60002
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: messages
+    rate_signal: azure_machine_learning_workspace_machine_learning_agent_messages_messages
+- id: azure_monitor.machine_learning.agent_runs
+  title: Azure Machine Learning Agent Runs
+  units: runs/s
+  family: machine
+  chart_type: line
+  priority: 60003
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: runs
+    rate_signal: azure_machine_learning_workspace_machine_learning_agent_runs_runs
+- id: azure_monitor.machine_learning.agent_tokens
+  title: Azure Machine Learning Agent Tokens
+  units: tokens/s
+  family: machine
+  chart_type: line
+  priority: 60004
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: tokens
+    rate_signal: azure_machine_learning_workspace_machine_learning_agent_tokens_tokens
+- id: azure_monitor.machine_learning.agent_tool_calls
+  title: Azure Machine Learning Agent Tool Calls
+  units: calls/s
+  family: machine
+  chart_type: line
+  priority: 60005
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: tool_calls
+    rate_signal: azure_machine_learning_workspace_machine_learning_agent_tool_calls_tool_calls
+- id: azure_monitor.machine_learning.agent_indexed_files
+  title: Azure Machine Learning Agent Indexed Files
+  units: files/s
+  family: machine
+  chart_type: line
+  priority: 60006
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: indexed_files
+    rate_signal: azure_machine_learning_workspace_machine_learning_agent_indexed_files_indexed_files
+- id: azure_monitor.machine_learning.model_deployments
+  title: Azure Machine Learning Model Deployments
+  units: deployments/s
+  family: machine
+  chart_type: line
+  priority: 60007
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: started
+    rate_signal: azure_machine_learning_workspace_machine_learning_model_deployments_started
+  - id: succeeded
+    rate_signal: azure_machine_learning_workspace_machine_learning_model_deployments_succeeded
+  - id: failed
+    rate_signal: azure_machine_learning_workspace_machine_learning_model_deployments_failed
+- id: azure_monitor.machine_learning.model_registrations
+  title: Azure Machine Learning Model Registrations
+  units: registrations/s
+  family: machine
+  chart_type: line
+  priority: 60008
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: succeeded
+    rate_signal: azure_machine_learning_workspace_machine_learning_model_registrations_succeeded
+  - id: failed
+    rate_signal: azure_machine_learning_workspace_machine_learning_model_registrations_failed
+- id: azure_monitor.machine_learning.cluster_cores
+  title: Azure Machine Learning Cluster Cores
+  units: cores
+  family: machine
+  chart_type: stacked
+  priority: 60009
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: active
+    signal: azure_machine_learning_workspace_machine_learning_cluster_cores_active
+  - id: idle
+    signal: azure_machine_learning_workspace_machine_learning_cluster_cores_idle
+  - id: leaving
+    signal: azure_machine_learning_workspace_machine_learning_cluster_cores_leaving
+  - id: preempted
+    signal: azure_machine_learning_workspace_machine_learning_cluster_cores_preempted
+  - id: unusable
+    signal: azure_machine_learning_workspace_machine_learning_cluster_cores_unusable
+- id: azure_monitor.machine_learning.total_cores
+  title: Azure Machine Learning Total Cores
+  units: cores
+  family: machine
+  chart_type: line
+  priority: 60010
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: total
+    signal: azure_machine_learning_workspace_machine_learning_total_cores_total
+- id: azure_monitor.machine_learning.cluster_nodes
+  title: Azure Machine Learning Cluster Nodes
+  units: nodes
+  family: machine
+  chart_type: stacked
+  priority: 60011
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: active
+    signal: azure_machine_learning_workspace_machine_learning_cluster_nodes_active
+  - id: idle
+    signal: azure_machine_learning_workspace_machine_learning_cluster_nodes_idle
+  - id: leaving
+    signal: azure_machine_learning_workspace_machine_learning_cluster_nodes_leaving
+  - id: preempted
+    signal: azure_machine_learning_workspace_machine_learning_cluster_nodes_preempted
+  - id: unusable
+    signal: azure_machine_learning_workspace_machine_learning_cluster_nodes_unusable
+- id: azure_monitor.machine_learning.total_nodes
+  title: Azure Machine Learning Total Nodes
+  units: nodes
+  family: machine
+  chart_type: line
+  priority: 60012
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: total
+    signal: azure_machine_learning_workspace_machine_learning_total_nodes_total
+- id: azure_monitor.machine_learning.quota_utilization
+  title: Azure Machine Learning Quota Utilization
+  units: percentage
+  family: machine
+  chart_type: line
+  priority: 60013
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: utilization
+    signal: azure_machine_learning_workspace_machine_learning_quota_utilization_utilization
+- id: azure_monitor.machine_learning.cpu_utilization
+  title: Azure Machine Learning CPU Utilization
+  units: percentage
+  family: machine
+  chart_type: line
+  priority: 60014
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: cluster_cpu
+    signal: azure_machine_learning_workspace_machine_learning_cpu_utilization_cluster_cpu
+  - id: node_cpu
+    signal: azure_machine_learning_workspace_machine_learning_cpu_utilization_node_cpu
+- id: azure_monitor.machine_learning.cpu_millicores
+  title: Azure Machine Learning CPU Millicores
+  units: millicores
+  family: machine
+  chart_type: line
+  priority: 60015
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: used
+    signal: azure_machine_learning_workspace_machine_learning_cpu_millicores_used
+  - id: capacity
+    signal: azure_machine_learning_workspace_machine_learning_cpu_millicores_capacity
+- id: azure_monitor.machine_learning.cpu_memory_utilization
+  title: Azure Machine Learning CPU Memory Utilization
+  units: percentage
+  family: machine
+  chart_type: line
+  priority: 60016
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: utilization
+    signal: azure_machine_learning_workspace_machine_learning_cpu_memory_utilization_utilization
+- id: azure_monitor.machine_learning.cpu_memory_megabytes
+  title: Azure Machine Learning CPU Memory
+  units: megabytes
+  family: machine
+  chart_type: line
+  priority: 60017
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: used
+    signal: azure_machine_learning_workspace_machine_learning_cpu_memory_megabytes_used
+  - id: capacity
+    signal: azure_machine_learning_workspace_machine_learning_cpu_memory_megabytes_capacity
+- id: azure_monitor.machine_learning.gpu_utilization
+  title: Azure Machine Learning GPU Utilization
+  units: percentage
+  family: machine
+  chart_type: line
+  priority: 60018
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: cluster_gpu
+    signal: azure_machine_learning_workspace_machine_learning_gpu_utilization_cluster_gpu
+  - id: node_gpu
+    signal: azure_machine_learning_workspace_machine_learning_gpu_utilization_node_gpu
+- id: azure_monitor.machine_learning.gpu_milligpus
+  title: Azure Machine Learning GPU MilliGPUs
+  units: milliGPUs
+  family: machine
+  chart_type: line
+  priority: 60019
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: used
+    signal: azure_machine_learning_workspace_machine_learning_gpu_milligpus_used
+  - id: capacity
+    signal: azure_machine_learning_workspace_machine_learning_gpu_milligpus_capacity
+- id: azure_monitor.machine_learning.gpu_memory_utilization
+  title: Azure Machine Learning GPU Memory Utilization
+  units: percentage
+  family: machine
+  chart_type: line
+  priority: 60020
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: cluster_gpu_memory
+    signal: azure_machine_learning_workspace_machine_learning_gpu_memory_utilization_cluster_gpu_memory
+  - id: node_gpu_memory
+    signal: azure_machine_learning_workspace_machine_learning_gpu_memory_utilization_node_gpu_memory
+- id: azure_monitor.machine_learning.gpu_memory_megabytes
+  title: Azure Machine Learning GPU Memory
+  units: megabytes
+  family: machine
+  chart_type: line
+  priority: 60021
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: used
+    signal: azure_machine_learning_workspace_machine_learning_gpu_memory_megabytes_used
+  - id: capacity
+    signal: azure_machine_learning_workspace_machine_learning_gpu_memory_megabytes_capacity
+- id: azure_monitor.machine_learning.gpu_energy
+  title: Azure Machine Learning GPU Energy
+  units: joules/s
+  family: machine
+  chart_type: line
+  priority: 60022
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: energy
+    rate_signal: azure_machine_learning_workspace_machine_learning_gpu_energy_energy
+- id: azure_monitor.machine_learning.disk_usage
+  title: Azure Machine Learning Disk Usage
+  units: megabytes
+  family: machine
+  chart_type: line
+  priority: 60023
+  shape: independent
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: used
+    signal: azure_machine_learning_workspace_machine_learning_disk_usage_used
+  - id: available
+    signal: azure_machine_learning_workspace_machine_learning_disk_usage_available
+- id: azure_monitor.machine_learning.disk_io
+  title: Azure Machine Learning Disk I/O
+  units: megabytes/s
+  family: machine
+  chart_type: line
+  priority: 60024
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: read
+    rate_signal: azure_machine_learning_workspace_machine_learning_disk_io_read
+  - id: write
+    rate_signal: azure_machine_learning_workspace_machine_learning_disk_io_write
+- id: azure_monitor.machine_learning.network_traffic
+  title: Azure Machine Learning Network Traffic
+  units: megabytes/s
+  family: machine
+  chart_type: line
+  priority: 60025
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: in
+    rate_signal: azure_machine_learning_workspace_machine_learning_network_traffic_in
+  - id: out
+    rate_signal: azure_machine_learning_workspace_machine_learning_network_traffic_out
+- id: azure_monitor.machine_learning.infiniband_traffic
+  title: Azure Machine Learning InfiniBand Traffic
+  units: megabytes/s
+  family: machine
+  chart_type: line
+  priority: 60026
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: receive
+    rate_signal: azure_machine_learning_workspace_machine_learning_infiniband_traffic_receive
+  - id: transmit
+    rate_signal: azure_machine_learning_workspace_machine_learning_infiniband_traffic_transmit
+- id: azure_monitor.machine_learning.storage_api_calls
+  title: Azure Machine Learning Storage API Calls
+  units: calls/s
+  family: machine
+  chart_type: line
+  priority: 60027
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: success
+    rate_signal: azure_machine_learning_workspace_machine_learning_storage_api_calls_success
+  - id: failure
+    rate_signal: azure_machine_learning_workspace_machine_learning_storage_api_calls_failure
+- id: azure_monitor.machine_learning.run_lifecycle
+  title: Azure Machine Learning Run Lifecycle
+  units: runs/s
+  family: machine
+  chart_type: line
+  priority: 60028
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: not_started
+    rate_signal: azure_machine_learning_workspace_machine_learning_run_lifecycle_not_started
+  - id: starting
+    rate_signal: azure_machine_learning_workspace_machine_learning_run_lifecycle_starting
+  - id: preparing
+    rate_signal: azure_machine_learning_workspace_machine_learning_run_lifecycle_preparing
+  - id: provisioning
+    rate_signal: azure_machine_learning_workspace_machine_learning_run_lifecycle_provisioning
+  - id: queued
+    rate_signal: azure_machine_learning_workspace_machine_learning_run_lifecycle_queued
+  - id: started
+    rate_signal: azure_machine_learning_workspace_machine_learning_run_lifecycle_started
+- id: azure_monitor.machine_learning.run_completion
+  title: Azure Machine Learning Run Completion
+  units: runs/s
+  family: machine
+  chart_type: line
+  priority: 60029
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: completed
+    rate_signal: azure_machine_learning_workspace_machine_learning_run_completion_completed
+  - id: failed
+    rate_signal: azure_machine_learning_workspace_machine_learning_run_completion_failed
+  - id: finalizing
+    rate_signal: azure_machine_learning_workspace_machine_learning_run_completion_finalizing
+  - id: cancelled
+    rate_signal: azure_machine_learning_workspace_machine_learning_run_completion_cancelled
+  - id: cancel_requested
+    rate_signal: azure_machine_learning_workspace_machine_learning_run_completion_cancel_requested
+  - id: not_responding
+    rate_signal: azure_machine_learning_workspace_machine_learning_run_completion_not_responding
+- id: azure_monitor.machine_learning.run_issues
+  title: Azure Machine Learning Run Issues
+  units: events/s
+  family: machine
+  chart_type: line
+  priority: 60030
+  shape: counters
+  labels:
+    resource_name: sim-resource_name-1
+    resource_group: sim-resource_group-1
+    region: sim-region-1
+    resource_type: sim-resource_type-1
+    profile: sim-profile-1
+    subscription_id: sim-subscription_id-1
+    resource_uid: sim-resource_uid-1
+  dimensions:
+  - id: errors
+    rate_signal: azure_machine_learning_workspace_machine_learning_run_issues_errors
+  - id: warnings
+    rate_signal: azure_machine_learning_workspace_machine_learning_run_issues_warnings

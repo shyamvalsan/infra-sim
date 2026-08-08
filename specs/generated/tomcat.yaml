@@ -1,0 +1,226 @@
+version: 1
+name: tomcat
+description: Tomcat metrics, generated from Netdata's own collector metadata so the contexts, units and
+  dimension names match what a real Tomcat node reports. Signals are independent and plausible rather
+  than causally coupled - see scripts/sync-integrations.py.
+signals:
+  tomcat_jvm_memory_usage_free:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  tomcat_jvm_memory_usage_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  tomcat_jvm_mem_pool_memory_usage_commited:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  tomcat_jvm_mem_pool_memory_usage_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  tomcat_jvm_mem_pool_memory_usage_max:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  tomcat_connector_requests_requests:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  tomcat_connector_bandwidth_received:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  tomcat_connector_bandwidth_sent:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  tomcat_connector_requests_processing_time_processing_time:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  tomcat_connector_errors_errors:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+  tomcat_connector_request_threads_idle:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  tomcat_connector_request_threads_busy:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: tomcat.jvm_memory_usage
+  title: Requests
+  units: bytes
+  family: jvm
+  chart_type: stacked
+  priority: 60001
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: free
+    signal: tomcat_jvm_memory_usage_free
+  - id: used
+    signal: tomcat_jvm_memory_usage_used
+- id: tomcat.jvm_mem_pool_memory_usage
+  title: JVM Mem Pool Memory Usage
+  units: bytes
+  family: jvm
+  chart_type: area
+  priority: 60002
+  shape: independent
+  labels:
+    mempool_name: sim-mempool_name-1
+    mempool_type: sim-mempool_type-1
+  dimensions:
+  - id: commited
+    signal: tomcat_jvm_mem_pool_memory_usage_commited
+  - id: used
+    signal: tomcat_jvm_mem_pool_memory_usage_used
+  - id: max
+    signal: tomcat_jvm_mem_pool_memory_usage_max
+- id: tomcat.connector_requests
+  title: Connector Requests
+  units: requests/s
+  family: connector
+  chart_type: line
+  priority: 60003
+  shape: counters
+  labels:
+    connector_name: sim-connector_name-1
+  dimensions:
+  - id: requests
+    rate_signal: tomcat_connector_requests_requests
+- id: tomcat.connector_bandwidth
+  title: Connector Bandwidth
+  units: bytes/s
+  family: connector
+  chart_type: area
+  priority: 60004
+  shape: counters
+  labels:
+    connector_name: sim-connector_name-1
+  dimensions:
+  - id: received
+    rate_signal: tomcat_connector_bandwidth_received
+  - id: sent
+    rate_signal: tomcat_connector_bandwidth_sent
+- id: tomcat.connector_requests_processing_time
+  title: Connector Requests Processing Time
+  units: milliseconds
+  family: connector
+  chart_type: line
+  priority: 60005
+  shape: independent
+  labels:
+    connector_name: sim-connector_name-1
+  dimensions:
+  - id: processing_time
+    signal: tomcat_connector_requests_processing_time_processing_time
+- id: tomcat.connector_errors
+  title: Connector Errors
+  units: errors/s
+  family: connector
+  chart_type: line
+  priority: 60006
+  shape: counters
+  labels:
+    connector_name: sim-connector_name-1
+  dimensions:
+  - id: errors
+    rate_signal: tomcat_connector_errors_errors
+- id: tomcat.connector_request_threads
+  title: Connector Request Threads
+  units: threads
+  family: connector
+  chart_type: stacked
+  priority: 60007
+  shape: independent
+  labels:
+    connector_name: sim-connector_name-1
+  dimensions:
+  - id: idle
+    signal: tomcat_connector_request_threads_idle
+  - id: busy
+    signal: tomcat_connector_request_threads_busy
