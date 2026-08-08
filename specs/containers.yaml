@@ -7,6 +7,13 @@ description: >-
   Per-container charts use the `container` instance group, so each node declares
   which containers it runs.
 
+# Netdata's own collector for this software reports far more than the
+# contexts modelled below. Take that breadth from the generated spec(s) and
+# override the contexts modelled here, which are causally coupled and are what
+# the hero scenarios target by name.
+extends:
+  - generated/docker-containers
+
 signals:
   cg_cpu_rate:
     base: 14.0

@@ -416,14 +416,7 @@ fn run() -> Result<(), String> {
             } else {
                 specs_dir.join("generated").join(format!("{service}.yaml"))
             };
-            let raw = std::fs::read_to_string(&path).map_err(|e| {
-                format!(
-                    "node '{}' needs service spec '{}': {e}",
-                    node.hostname,
-                    path.display()
-                )
-            })?;
-            let svc = GeneratorSpec::from_yaml(&raw).map_err(|e| e.to_string())?;
+            let svc = load_service_spec(&specs_dir, &path, &node.hostname)?;
             merged.merge(&svc).map_err(|e| e.to_string())?;
         }
         composed.insert(key, Arc::new(merged));
@@ -516,12 +509,13 @@ fn run() -> Result<(), String> {
     }
     let mut replay_clock = args.replay_from;
 
-    // The path netdata launched us from. Teardown removes this file, and seeing
-    // it go is our cue to exit *cleanly* - see `own_path_removed` below.
+    // Two things we exit cleanly for: our own plugin file being removed
+    // (teardown) and the environment being rewritten under us (re-skin).
     let own_path = std::env::args()
         .next()
         .map(PathBuf::from)
         .filter(|p| p.exists());
+    let env_stamp = file_stamp(&args.environment);
 
     loop {
         sleep_until(next);
@@ -540,6 +534,17 @@ fn run() -> Result<(), String> {
         if own_path.as_deref().is_some_and(|p| !p.exists()) {
             eprintln!(
                 "infra-sim: plugin file removed - exiting cleanly so the agent keeps it enabled"
+            );
+            out.flush().map_err(write_err)?;
+            return Ok(());
+        }
+
+        // A re-skin rewrites the environment in place. Restarting is how the
+        // renamed fleet reaches the agent, and exiting cleanly is how the agent
+        // stays willing to restart us.
+        if env_stamp.is_some() && file_stamp(&args.environment) != env_stamp {
+            eprintln!(
+                "infra-sim: environment changed - exiting cleanly so the agent restarts us with it"
             );
             out.flush().map_err(write_err)?;
             return Ok(());
@@ -655,6 +660,67 @@ fn do_logs(env: &Environment, args: &Args) -> Result<(), String> {
             reported = tick_at;
         }
     }
+}
+
+/// Modification time and length of a file, for detecting a rewrite.
+///
+/// Both, because a re-skin can produce a file of the same length within the
+/// same second, and mtime alone has one-second resolution on some filesystems.
+fn file_stamp(path: &Path) -> Option<(std::time::SystemTime, u64)> {
+    let m = std::fs::metadata(path).ok()?;
+    Some((m.modified().ok()?, m.len()))
+}
+
+/// Load a service spec, resolving `extends:` first.
+///
+/// A hand-authored spec may build on a generated one: the generated spec brings
+/// the breadth Netdata's own collector reports, the hand-authored one overrides
+/// the contexts it models more carefully and contributes the signals scenarios
+/// target by name.
+fn load_service_spec(
+    specs_dir: &Path,
+    path: &Path,
+    hostname: &str,
+) -> Result<GeneratorSpec, String> {
+    let raw = std::fs::read_to_string(path).map_err(|e| {
+        format!(
+            "node '{hostname}' needs service spec '{}': {e}",
+            path.display()
+        )
+    })?;
+    let spec = GeneratorSpec::from_yaml(&raw).map_err(|e| e.to_string())?;
+
+    if spec.extends.is_empty() {
+        return Ok(spec);
+    }
+
+    let mut composed: Option<GeneratorSpec> = None;
+    for base_id in &spec.extends {
+        let base_path = specs_dir.join(format!("{base_id}.yaml"));
+        let base_raw = std::fs::read_to_string(&base_path).map_err(|e| {
+            format!(
+                "spec '{}' extends '{base_id}', which is missing at '{}': {e}",
+                spec.name,
+                base_path.display()
+            )
+        })?;
+        let base = GeneratorSpec::from_yaml(&base_raw).map_err(|e| e.to_string())?;
+        // One level only. A chain would be a spec hierarchy, which is more
+        // machinery than "take the generated breadth" needs.
+        if !base.extends.is_empty() {
+            return Err(format!(
+                "spec '{base_id}' itself uses extends:; only one level is supported"
+            ));
+        }
+        match composed.as_mut() {
+            Some(c) => c.overlay(&base),
+            None => composed = Some(base),
+        }
+    }
+
+    let mut out = composed.expect("extends is non-empty");
+    out.overlay(&spec);
+    Ok(out)
 }
 
 /// Serve one simulated Prometheus exporter per node until killed.

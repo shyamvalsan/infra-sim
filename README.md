@@ -131,6 +131,10 @@ Six are hand-authored (`nginx`, `postgres`, `redis`, `containers`, `kubernetes`,
 `otel-collector`), badged DEEP in the picker. Their signals are causally coupled
 and hero scenarios target them by name.
 
+Five of them `extends:` the generated spec for the same software, so they emit
+its full context set with their own carefully modelled contexts layered on top.
+A simulated Postgres reports 71 contexts, of which 15 are causally coupled.
+
 The rest are generated: correct contexts, units, chart types and dimension names,
 with a value profile derived from the unit. Signals move independently and no
 scenario targets them. All 258 pass the 6-hour fidelity lint.
@@ -269,10 +273,4 @@ integrations/        the picker's catalogue
 .agents/sow/specs/   what the project currently does, and why
 ```
 
-## Known issues
-
-`SOW-0008`: hand-authored specs are narrower than the generated equivalents for
-the same software (Postgres emits 15 contexts where Netdata's collector emits
-70). Composing them collides on context ids. Options are recorded in the SOW and
-need a decision.
 

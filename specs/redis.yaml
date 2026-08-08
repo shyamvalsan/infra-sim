@@ -4,6 +4,14 @@ description: >-
   Redis in-memory cache metrics, mirroring the go.d redis collector. Composed
   onto the Linux baseline for cache nodes.
 
+
+# Netdata's own collector for this software reports far more than the
+# contexts modelled below. Take that breadth from the generated spec(s) and
+# override the contexts modelled here, which are causally coupled and are what
+# the hero scenarios target by name.
+extends:
+  - generated/redis
+
 signals:
   redis_commands_rate:
     base: 9400.0

@@ -1,0 +1,2600 @@
+version: 1
+name: postgresql
+description: PostgreSQL metrics, generated from Netdata's own collector metadata so the contexts, units
+  and dimension names match what a real PostgreSQL node reports. Signals are independent and plausible
+  rather than causally coupled - see scripts/sync-integrations.py.
+signals:
+  postgresql_connections_utilization_used:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_connections_usage_available:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_connections_usage_used:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_connections_state_count_active:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_connections_state_count_idle:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_connections_state_count_idle_in_transaction:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_connections_state_count_idle_in_transaction_aborted:
+    base: 0.0
+    min: 0.0
+    max: 200000.0
+  postgresql_connections_state_count_disabled:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_transactions_duration_a_dimension_per_bucket:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_queries_duration_a_dimension_per_bucket:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_locks_utilization_used:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_checkpoints_rate_scheduled:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_checkpoints_rate_requested:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_checkpoints_time_write:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_checkpoints_time_sync:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_bgwriter_halts_rate_maxwritten:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_buffers_io_rate_checkpoint:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_buffers_io_rate_backend:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_buffers_io_rate_bgwriter:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_buffers_backend_fsync_rate_fsync:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_buffers_allocated_rate_allocated:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_wal_io_rate_write:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_wal_files_count_written:
+    base: 1200.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_wal_files_count_recycled:
+    base: 1200.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_wal_archiving_files_count_ready:
+    base: 22.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_wal_archiving_files_count_done:
+    base: 22.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_autovacuum_workers_count_analyze:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_autovacuum_workers_count_vacuum_analyze:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_autovacuum_workers_count_vacuum:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_autovacuum_workers_count_vacuum_freeze:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_autovacuum_workers_count_brin_summarize:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_txid_exhaustion_towards_autovacuum_perc_emergency_autovacuum:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_txid_exhaustion_perc_txid_exhaustion:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_txid_exhaustion_oldest_txid_num_xid:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_catalog_relations_count_ordinary_table:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_catalog_relations_count_index:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_catalog_relations_count_sequence:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_catalog_relations_count_toast_table:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_catalog_relations_count_view:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_catalog_relations_count_materialized_view:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_catalog_relations_count_composite_type:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_catalog_relations_count_foreign_table:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_catalog_relations_count_partitioned_table:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_catalog_relations_count_partitioned_index:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_catalog_relations_size_ordinary_table:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_catalog_relations_size_index:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_catalog_relations_size_sequence:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_catalog_relations_size_toast_table:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_catalog_relations_size_view:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_catalog_relations_size_materialized_view:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_catalog_relations_size_composite_type:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_catalog_relations_size_foreign_table:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_catalog_relations_size_partitioned_table:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_catalog_relations_size_partitioned_index:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_uptime_uptime:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_databases_count_databases:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_replication_app_wal_lag_size_sent_lag:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_replication_app_wal_lag_size_write_lag:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_replication_app_wal_lag_size_flush_lag:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_replication_app_wal_lag_size_replay_lag:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_replication_app_wal_lag_time_write_lag:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_replication_app_wal_lag_time_flush_lag:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_replication_app_wal_lag_time_replay_lag:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_replication_slot_files_count_wal_keep:
+    base: 1200.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_replication_slot_files_count_pg_replslot_files:
+    base: 1200.0
+    min: 0.0
+    max: 10000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_db_transactions_ratio_committed:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_db_transactions_ratio_rollback:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_db_transactions_rate_committed:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_db_transactions_rate_rollback:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_db_connections_utilization_used:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_db_connections_count_connections:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_db_cache_io_ratio_miss:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_db_io_rate_memory:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_db_io_rate_disk:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_db_ops_fetched_rows_ratio_fetched:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_db_ops_read_rows_rate_returned:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_db_ops_read_rows_rate_fetched:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_db_ops_write_rows_rate_inserted:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_db_ops_write_rows_rate_deleted:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_db_ops_write_rows_rate_updated:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_db_conflicts_rate_conflicts:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_db_conflicts_reason_rate_tablespace:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_db_conflicts_reason_rate_lock:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_db_conflicts_reason_rate_snapshot:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_db_conflicts_reason_rate_bufferpin:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_db_conflicts_reason_rate_deadlock:
+    base: 0.0
+    min: 0.0
+    max: 5000000.0
+  postgresql_db_deadlocks_rate_deadlocks:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  postgresql_db_locks_held_count_access_share:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_db_locks_held_count_row_share:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_db_locks_held_count_row_exclusive:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_db_locks_held_count_share_update:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_db_locks_held_count_share:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_db_locks_held_count_share_row_exclusive:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_db_locks_held_count_exclusive:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_db_locks_held_count_access_exclusive:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_db_locks_awaited_count_access_share:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_db_locks_awaited_count_row_share:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_db_locks_awaited_count_row_exclusive:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_db_locks_awaited_count_share_update:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_db_locks_awaited_count_share:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_db_locks_awaited_count_share_row_exclusive:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_db_locks_awaited_count_exclusive:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_db_locks_awaited_count_access_exclusive:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_db_temp_files_created_rate_created:
+    base: 22.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_db_temp_files_io_rate_written:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_db_size_size:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_table_rows_dead_ratio_dead:
+    base: 0.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+  postgresql_table_rows_count_live:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_table_rows_count_dead:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  postgresql_table_ops_rows_rate_inserted:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_table_ops_rows_rate_deleted:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_table_ops_rows_rate_updated:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_table_ops_rows_hot_ratio_hot:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_table_ops_rows_hot_rate_hot:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_table_cache_io_ratio_miss:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_table_io_rate_memory:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_table_io_rate_disk:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_table_index_cache_io_ratio_miss:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_table_index_io_rate_memory:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_table_index_io_rate_disk:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_table_toast_cache_io_ratio_miss:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_table_toast_io_rate_memory:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_table_toast_io_rate_disk:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_table_toast_index_cache_io_ratio_miss:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_table_toast_index_io_rate_memory:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_table_toast_index_io_rate_disk:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_table_scans_rate_index:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_table_scans_rate_sequential:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_table_scans_rows_rate_index:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_table_scans_rows_rate_sequential:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_table_autovacuum_since_time_time:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_table_vacuum_since_time_time:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_table_autoanalyze_since_time_time:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_table_analyze_since_time_time:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_table_null_columns_null:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_table_size_size:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_table_bloat_size_perc_bloat:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_table_bloat_size_bloat:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_index_size_size:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_index_bloat_size_perc_bloat:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_index_bloat_size_bloat:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  postgresql_index_usage_status_used:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+  postgresql_index_usage_status_unused:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+contexts:
+- id: postgres.connections_utilization
+  title: Connections utilization
+  units: percentage
+  family: connections
+  chart_type: line
+  priority: 60001
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: used
+    signal: postgresql_connections_utilization_used
+- id: postgres.connections_usage
+  title: Connections usage
+  units: connections
+  family: connections
+  chart_type: stacked
+  priority: 60002
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: available
+    signal: postgresql_connections_usage_available
+  - id: used
+    signal: postgresql_connections_usage_used
+- id: postgres.connections_state_count
+  title: Connections in each state
+  units: connections
+  family: connections
+  chart_type: stacked
+  priority: 60003
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: active
+    signal: postgresql_connections_state_count_active
+  - id: idle
+    signal: postgresql_connections_state_count_idle
+  - id: idle_in_transaction
+    signal: postgresql_connections_state_count_idle_in_transaction
+  - id: idle_in_transaction_aborted
+    signal: postgresql_connections_state_count_idle_in_transaction_aborted
+  - id: disabled
+    signal: postgresql_connections_state_count_disabled
+- id: postgres.transactions_duration
+  title: Observed transactions time
+  units: transactions/s
+  family: transactions
+  chart_type: stacked
+  priority: 60004
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per bucket
+    rate_signal: postgresql_transactions_duration_a_dimension_per_bucket
+- id: postgres.queries_duration
+  title: Observed active queries time
+  units: queries/s
+  family: queries
+  chart_type: stacked
+  priority: 60005
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: a dimension per bucket
+    rate_signal: postgresql_queries_duration_a_dimension_per_bucket
+- id: postgres.locks_utilization
+  title: Acquired locks utilization
+  units: percentage
+  family: locks
+  chart_type: line
+  priority: 60006
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: used
+    signal: postgresql_locks_utilization_used
+- id: postgres.checkpoints_rate
+  title: Checkpoints
+  units: checkpoints/s
+  family: checkpoints
+  chart_type: stacked
+  priority: 60007
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: scheduled
+    rate_signal: postgresql_checkpoints_rate_scheduled
+  - id: requested
+    rate_signal: postgresql_checkpoints_rate_requested
+- id: postgres.checkpoints_time
+  title: Checkpoint time
+  units: milliseconds
+  family: checkpoints
+  chart_type: stacked
+  priority: 60008
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: write
+    signal: postgresql_checkpoints_time_write
+  - id: sync
+    signal: postgresql_checkpoints_time_sync
+- id: postgres.bgwriter_halts_rate
+  title: Background writer scan halts
+  units: events/s
+  family: bgwriter
+  chart_type: line
+  priority: 60009
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: maxwritten
+    rate_signal: postgresql_bgwriter_halts_rate_maxwritten
+- id: postgres.buffers_io_rate
+  title: Buffers written rate
+  units: B/s
+  family: buffers
+  chart_type: area
+  priority: 60010
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: checkpoint
+    rate_signal: postgresql_buffers_io_rate_checkpoint
+  - id: backend
+    rate_signal: postgresql_buffers_io_rate_backend
+  - id: bgwriter
+    rate_signal: postgresql_buffers_io_rate_bgwriter
+- id: postgres.buffers_backend_fsync_rate
+  title: Backend fsync calls
+  units: calls/s
+  family: buffers
+  chart_type: line
+  priority: 60011
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: fsync
+    rate_signal: postgresql_buffers_backend_fsync_rate_fsync
+- id: postgres.buffers_allocated_rate
+  title: Buffers allocated
+  units: B/s
+  family: buffers
+  chart_type: line
+  priority: 60012
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: allocated
+    rate_signal: postgresql_buffers_allocated_rate_allocated
+- id: postgres.wal_io_rate
+  title: Write-Ahead Log writes
+  units: B/s
+  family: wal
+  chart_type: line
+  priority: 60013
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: write
+    rate_signal: postgresql_wal_io_rate_write
+- id: postgres.wal_files_count
+  title: Write-Ahead Log files
+  units: files
+  family: wal
+  chart_type: stacked
+  priority: 60014
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: written
+    signal: postgresql_wal_files_count_written
+  - id: recycled
+    signal: postgresql_wal_files_count_recycled
+- id: postgres.wal_archiving_files_count
+  title: Write-Ahead Log archived files
+  units: files/s
+  family: wal
+  chart_type: stacked
+  priority: 60015
+  shape: counters
+  labels: {}
+  dimensions:
+  - id: ready
+    rate_signal: postgresql_wal_archiving_files_count_ready
+  - id: done
+    rate_signal: postgresql_wal_archiving_files_count_done
+- id: postgres.autovacuum_workers_count
+  title: Autovacuum workers
+  units: workers
+  family: autovacuum
+  chart_type: line
+  priority: 60016
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: analyze
+    signal: postgresql_autovacuum_workers_count_analyze
+  - id: vacuum_analyze
+    signal: postgresql_autovacuum_workers_count_vacuum_analyze
+  - id: vacuum
+    signal: postgresql_autovacuum_workers_count_vacuum
+  - id: vacuum_freeze
+    signal: postgresql_autovacuum_workers_count_vacuum_freeze
+  - id: brin_summarize
+    signal: postgresql_autovacuum_workers_count_brin_summarize
+- id: postgres.txid_exhaustion_towards_autovacuum_perc
+  title: Percent towards emergency autovacuum
+  units: percentage
+  family: txid
+  chart_type: line
+  priority: 60017
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: emergency_autovacuum
+    signal: postgresql_txid_exhaustion_towards_autovacuum_perc_emergency_autovacuum
+- id: postgres.txid_exhaustion_perc
+  title: Percent towards transaction ID wraparound
+  units: percentage
+  family: txid
+  chart_type: line
+  priority: 60018
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: txid_exhaustion
+    signal: postgresql_txid_exhaustion_perc_txid_exhaustion
+- id: postgres.txid_exhaustion_oldest_txid_num
+  title: Oldest transaction XID
+  units: xid
+  family: txid
+  chart_type: line
+  priority: 60019
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: xid
+    signal: postgresql_txid_exhaustion_oldest_txid_num_xid
+- id: postgres.catalog_relations_count
+  title: Relation count
+  units: relations
+  family: catalog
+  chart_type: stacked
+  priority: 60020
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: ordinary_table
+    signal: postgresql_catalog_relations_count_ordinary_table
+  - id: index
+    signal: postgresql_catalog_relations_count_index
+  - id: sequence
+    signal: postgresql_catalog_relations_count_sequence
+  - id: toast_table
+    signal: postgresql_catalog_relations_count_toast_table
+  - id: view
+    signal: postgresql_catalog_relations_count_view
+  - id: materialized_view
+    signal: postgresql_catalog_relations_count_materialized_view
+  - id: composite_type
+    signal: postgresql_catalog_relations_count_composite_type
+  - id: foreign_table
+    signal: postgresql_catalog_relations_count_foreign_table
+  - id: partitioned_table
+    signal: postgresql_catalog_relations_count_partitioned_table
+  - id: partitioned_index
+    signal: postgresql_catalog_relations_count_partitioned_index
+- id: postgres.catalog_relations_size
+  title: Relation size
+  units: B
+  family: catalog
+  chart_type: stacked
+  priority: 60021
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: ordinary_table
+    signal: postgresql_catalog_relations_size_ordinary_table
+  - id: index
+    signal: postgresql_catalog_relations_size_index
+  - id: sequence
+    signal: postgresql_catalog_relations_size_sequence
+  - id: toast_table
+    signal: postgresql_catalog_relations_size_toast_table
+  - id: view
+    signal: postgresql_catalog_relations_size_view
+  - id: materialized_view
+    signal: postgresql_catalog_relations_size_materialized_view
+  - id: composite_type
+    signal: postgresql_catalog_relations_size_composite_type
+  - id: foreign_table
+    signal: postgresql_catalog_relations_size_foreign_table
+  - id: partitioned_table
+    signal: postgresql_catalog_relations_size_partitioned_table
+  - id: partitioned_index
+    signal: postgresql_catalog_relations_size_partitioned_index
+- id: postgres.uptime
+  title: Uptime
+  units: seconds
+  family: uptime
+  chart_type: line
+  priority: 60022
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: uptime
+    signal: postgresql_uptime_uptime
+- id: postgres.databases_count
+  title: Number of databases
+  units: databases
+  family: databases
+  chart_type: line
+  priority: 60023
+  shape: independent
+  labels: {}
+  dimensions:
+  - id: databases
+    signal: postgresql_databases_count_databases
+- id: postgres.replication_app_wal_lag_size
+  title: Standby application WAL lag size
+  units: B
+  family: replication
+  chart_type: line
+  priority: 60024
+  shape: independent
+  labels:
+    application: sim-application-1
+  dimensions:
+  - id: sent_lag
+    signal: postgresql_replication_app_wal_lag_size_sent_lag
+  - id: write_lag
+    signal: postgresql_replication_app_wal_lag_size_write_lag
+  - id: flush_lag
+    signal: postgresql_replication_app_wal_lag_size_flush_lag
+  - id: replay_lag
+    signal: postgresql_replication_app_wal_lag_size_replay_lag
+- id: postgres.replication_app_wal_lag_time
+  title: Standby application WAL lag time
+  units: seconds
+  family: replication
+  chart_type: line
+  priority: 60025
+  shape: independent
+  labels:
+    application: sim-application-1
+  dimensions:
+  - id: write_lag
+    signal: postgresql_replication_app_wal_lag_time_write_lag
+  - id: flush_lag
+    signal: postgresql_replication_app_wal_lag_time_flush_lag
+  - id: replay_lag
+    signal: postgresql_replication_app_wal_lag_time_replay_lag
+- id: postgres.replication_slot_files_count
+  title: Replication slot files
+  units: files
+  family: replication
+  chart_type: line
+  priority: 60026
+  shape: independent
+  labels:
+    slot: sim-slot-1
+  dimensions:
+  - id: wal_keep
+    signal: postgresql_replication_slot_files_count_wal_keep
+  - id: pg_replslot_files
+    signal: postgresql_replication_slot_files_count_pg_replslot_files
+- id: postgres.db_transactions_ratio
+  title: Database transactions ratio
+  units: percentage
+  family: db
+  chart_type: line
+  priority: 60027
+  shape: independent
+  labels:
+    database: sim-database-1
+  dimensions:
+  - id: committed
+    signal: postgresql_db_transactions_ratio_committed
+  - id: rollback
+    signal: postgresql_db_transactions_ratio_rollback
+- id: postgres.db_transactions_rate
+  title: Database transactions
+  units: transactions/s
+  family: db
+  chart_type: line
+  priority: 60028
+  shape: counters
+  labels:
+    database: sim-database-1
+  dimensions:
+  - id: committed
+    rate_signal: postgresql_db_transactions_rate_committed
+  - id: rollback
+    rate_signal: postgresql_db_transactions_rate_rollback
+- id: postgres.db_connections_utilization
+  title: Database connections utilization
+  units: percentage
+  family: db
+  chart_type: line
+  priority: 60029
+  shape: independent
+  labels:
+    database: sim-database-1
+  dimensions:
+  - id: used
+    signal: postgresql_db_connections_utilization_used
+- id: postgres.db_connections_count
+  title: Database connections
+  units: connections
+  family: db
+  chart_type: line
+  priority: 60030
+  shape: independent
+  labels:
+    database: sim-database-1
+  dimensions:
+  - id: connections
+    signal: postgresql_db_connections_count_connections
+- id: postgres.db_cache_io_ratio
+  title: Database buffer cache miss ratio
+  units: percentage
+  family: db
+  chart_type: line
+  priority: 60031
+  shape: independent
+  labels:
+    database: sim-database-1
+  dimensions:
+  - id: miss
+    signal: postgresql_db_cache_io_ratio_miss
+- id: postgres.db_io_rate
+  title: Database reads
+  units: B/s
+  family: db
+  chart_type: line
+  priority: 60032
+  shape: counters
+  labels:
+    database: sim-database-1
+  dimensions:
+  - id: memory
+    rate_signal: postgresql_db_io_rate_memory
+  - id: disk
+    rate_signal: postgresql_db_io_rate_disk
+- id: postgres.db_ops_fetched_rows_ratio
+  title: Database rows fetched ratio
+  units: percentage
+  family: db
+  chart_type: line
+  priority: 60033
+  shape: independent
+  labels:
+    database: sim-database-1
+  dimensions:
+  - id: fetched
+    signal: postgresql_db_ops_fetched_rows_ratio_fetched
+- id: postgres.db_ops_read_rows_rate
+  title: Database rows read
+  units: rows/s
+  family: db
+  chart_type: line
+  priority: 60034
+  shape: counters
+  labels:
+    database: sim-database-1
+  dimensions:
+  - id: returned
+    rate_signal: postgresql_db_ops_read_rows_rate_returned
+  - id: fetched
+    rate_signal: postgresql_db_ops_read_rows_rate_fetched
+- id: postgres.db_ops_write_rows_rate
+  title: Database rows written
+  units: rows/s
+  family: db
+  chart_type: line
+  priority: 60035
+  shape: counters
+  labels:
+    database: sim-database-1
+  dimensions:
+  - id: inserted
+    rate_signal: postgresql_db_ops_write_rows_rate_inserted
+  - id: deleted
+    rate_signal: postgresql_db_ops_write_rows_rate_deleted
+  - id: updated
+    rate_signal: postgresql_db_ops_write_rows_rate_updated
+- id: postgres.db_conflicts_rate
+  title: Database canceled queries
+  units: queries/s
+  family: db
+  chart_type: line
+  priority: 60036
+  shape: counters
+  labels:
+    database: sim-database-1
+  dimensions:
+  - id: conflicts
+    rate_signal: postgresql_db_conflicts_rate_conflicts
+- id: postgres.db_conflicts_reason_rate
+  title: Database canceled queries by reason
+  units: queries/s
+  family: db
+  chart_type: line
+  priority: 60037
+  shape: counters
+  labels:
+    database: sim-database-1
+  dimensions:
+  - id: tablespace
+    rate_signal: postgresql_db_conflicts_reason_rate_tablespace
+  - id: lock
+    rate_signal: postgresql_db_conflicts_reason_rate_lock
+  - id: snapshot
+    rate_signal: postgresql_db_conflicts_reason_rate_snapshot
+  - id: bufferpin
+    rate_signal: postgresql_db_conflicts_reason_rate_bufferpin
+  - id: deadlock
+    rate_signal: postgresql_db_conflicts_reason_rate_deadlock
+- id: postgres.db_deadlocks_rate
+  title: Database deadlocks
+  units: deadlocks/s
+  family: db
+  chart_type: line
+  priority: 60038
+  shape: counters
+  labels:
+    database: sim-database-1
+  dimensions:
+  - id: deadlocks
+    rate_signal: postgresql_db_deadlocks_rate_deadlocks
+- id: postgres.db_locks_held_count
+  title: Database locks held
+  units: locks
+  family: db
+  chart_type: stacked
+  priority: 60039
+  shape: independent
+  labels:
+    database: sim-database-1
+  dimensions:
+  - id: access_share
+    signal: postgresql_db_locks_held_count_access_share
+  - id: row_share
+    signal: postgresql_db_locks_held_count_row_share
+  - id: row_exclusive
+    signal: postgresql_db_locks_held_count_row_exclusive
+  - id: share_update
+    signal: postgresql_db_locks_held_count_share_update
+  - id: share
+    signal: postgresql_db_locks_held_count_share
+  - id: share_row_exclusive
+    signal: postgresql_db_locks_held_count_share_row_exclusive
+  - id: exclusive
+    signal: postgresql_db_locks_held_count_exclusive
+  - id: access_exclusive
+    signal: postgresql_db_locks_held_count_access_exclusive
+- id: postgres.db_locks_awaited_count
+  title: Database locks awaited
+  units: locks
+  family: db
+  chart_type: stacked
+  priority: 60040
+  shape: independent
+  labels:
+    database: sim-database-1
+  dimensions:
+  - id: access_share
+    signal: postgresql_db_locks_awaited_count_access_share
+  - id: row_share
+    signal: postgresql_db_locks_awaited_count_row_share
+  - id: row_exclusive
+    signal: postgresql_db_locks_awaited_count_row_exclusive
+  - id: share_update
+    signal: postgresql_db_locks_awaited_count_share_update
+  - id: share
+    signal: postgresql_db_locks_awaited_count_share
+  - id: share_row_exclusive
+    signal: postgresql_db_locks_awaited_count_share_row_exclusive
+  - id: exclusive
+    signal: postgresql_db_locks_awaited_count_exclusive
+  - id: access_exclusive
+    signal: postgresql_db_locks_awaited_count_access_exclusive
+- id: postgres.db_temp_files_created_rate
+  title: Database created temporary files
+  units: files/s
+  family: db
+  chart_type: line
+  priority: 60041
+  shape: counters
+  labels:
+    database: sim-database-1
+  dimensions:
+  - id: created
+    rate_signal: postgresql_db_temp_files_created_rate_created
+- id: postgres.db_temp_files_io_rate
+  title: Database temporary files data written to disk
+  units: B/s
+  family: db
+  chart_type: line
+  priority: 60042
+  shape: counters
+  labels:
+    database: sim-database-1
+  dimensions:
+  - id: written
+    rate_signal: postgresql_db_temp_files_io_rate_written
+- id: postgres.db_size
+  title: Database size
+  units: B
+  family: db
+  chart_type: line
+  priority: 60043
+  shape: independent
+  labels:
+    database: sim-database-1
+  dimensions:
+  - id: size
+    signal: postgresql_db_size_size
+- id: postgres.table_rows_dead_ratio
+  title: Table dead rows
+  units: percentage
+  family: table
+  chart_type: line
+  priority: 60044
+  shape: independent
+  labels:
+    database: sim-database-1
+    schema: sim-schema-1
+    table: sim-table-1
+    parent_table: sim-parent_table-1
+  dimensions:
+  - id: dead
+    signal: postgresql_table_rows_dead_ratio_dead
+- id: postgres.table_rows_count
+  title: Table total rows
+  units: rows
+  family: table
+  chart_type: line
+  priority: 60045
+  shape: independent
+  labels:
+    database: sim-database-1
+    schema: sim-schema-1
+    table: sim-table-1
+    parent_table: sim-parent_table-1
+  dimensions:
+  - id: live
+    signal: postgresql_table_rows_count_live
+  - id: dead
+    signal: postgresql_table_rows_count_dead
+- id: postgres.table_ops_rows_rate
+  title: Table throughput
+  units: rows/s
+  family: table
+  chart_type: line
+  priority: 60046
+  shape: counters
+  labels:
+    database: sim-database-1
+    schema: sim-schema-1
+    table: sim-table-1
+    parent_table: sim-parent_table-1
+  dimensions:
+  - id: inserted
+    rate_signal: postgresql_table_ops_rows_rate_inserted
+  - id: deleted
+    rate_signal: postgresql_table_ops_rows_rate_deleted
+  - id: updated
+    rate_signal: postgresql_table_ops_rows_rate_updated
+- id: postgres.table_ops_rows_hot_ratio
+  title: Table HOT updates ratio
+  units: percentage
+  family: table
+  chart_type: line
+  priority: 60047
+  shape: independent
+  labels:
+    database: sim-database-1
+    schema: sim-schema-1
+    table: sim-table-1
+    parent_table: sim-parent_table-1
+  dimensions:
+  - id: hot
+    signal: postgresql_table_ops_rows_hot_ratio_hot
+- id: postgres.table_ops_rows_hot_rate
+  title: Table HOT updates
+  units: rows/s
+  family: table
+  chart_type: line
+  priority: 60048
+  shape: counters
+  labels:
+    database: sim-database-1
+    schema: sim-schema-1
+    table: sim-table-1
+    parent_table: sim-parent_table-1
+  dimensions:
+  - id: hot
+    rate_signal: postgresql_table_ops_rows_hot_rate_hot
+- id: postgres.table_cache_io_ratio
+  title: Table I/O cache miss ratio
+  units: percentage
+  family: table
+  chart_type: line
+  priority: 60049
+  shape: independent
+  labels:
+    database: sim-database-1
+    schema: sim-schema-1
+    table: sim-table-1
+    parent_table: sim-parent_table-1
+  dimensions:
+  - id: miss
+    signal: postgresql_table_cache_io_ratio_miss
+- id: postgres.table_io_rate
+  title: Table I/O
+  units: B/s
+  family: table
+  chart_type: line
+  priority: 60050
+  shape: counters
+  labels:
+    database: sim-database-1
+    schema: sim-schema-1
+    table: sim-table-1
+    parent_table: sim-parent_table-1
+  dimensions:
+  - id: memory
+    rate_signal: postgresql_table_io_rate_memory
+  - id: disk
+    rate_signal: postgresql_table_io_rate_disk
+- id: postgres.table_index_cache_io_ratio
+  title: Table index I/O cache miss ratio
+  units: percentage
+  family: table
+  chart_type: line
+  priority: 60051
+  shape: independent
+  labels:
+    database: sim-database-1
+    schema: sim-schema-1
+    table: sim-table-1
+    parent_table: sim-parent_table-1
+  dimensions:
+  - id: miss
+    signal: postgresql_table_index_cache_io_ratio_miss
+- id: postgres.table_index_io_rate
+  title: Table index I/O
+  units: B/s
+  family: table
+  chart_type: line
+  priority: 60052
+  shape: counters
+  labels:
+    database: sim-database-1
+    schema: sim-schema-1
+    table: sim-table-1
+    parent_table: sim-parent_table-1
+  dimensions:
+  - id: memory
+    rate_signal: postgresql_table_index_io_rate_memory
+  - id: disk
+    rate_signal: postgresql_table_index_io_rate_disk
+- id: postgres.table_toast_cache_io_ratio
+  title: Table TOAST I/O cache miss ratio
+  units: percentage
+  family: table
+  chart_type: line
+  priority: 60053
+  shape: independent
+  labels:
+    database: sim-database-1
+    schema: sim-schema-1
+    table: sim-table-1
+    parent_table: sim-parent_table-1
+  dimensions:
+  - id: miss
+    signal: postgresql_table_toast_cache_io_ratio_miss
+- id: postgres.table_toast_io_rate
+  title: Table TOAST I/O
+  units: B/s
+  family: table
+  chart_type: line
+  priority: 60054
+  shape: counters
+  labels:
+    database: sim-database-1
+    schema: sim-schema-1
+    table: sim-table-1
+    parent_table: sim-parent_table-1
+  dimensions:
+  - id: memory
+    rate_signal: postgresql_table_toast_io_rate_memory
+  - id: disk
+    rate_signal: postgresql_table_toast_io_rate_disk
+- id: postgres.table_toast_index_cache_io_ratio
+  title: Table TOAST index I/O cache miss ratio
+  units: percentage
+  family: table
+  chart_type: line
+  priority: 60055
+  shape: independent
+  labels:
+    database: sim-database-1
+    schema: sim-schema-1
+    table: sim-table-1
+    parent_table: sim-parent_table-1
+  dimensions:
+  - id: miss
+    signal: postgresql_table_toast_index_cache_io_ratio_miss
+- id: postgres.table_toast_index_io_rate
+  title: Table TOAST index I/O
+  units: B/s
+  family: table
+  chart_type: line
+  priority: 60056
+  shape: counters
+  labels:
+    database: sim-database-1
+    schema: sim-schema-1
+    table: sim-table-1
+    parent_table: sim-parent_table-1
+  dimensions:
+  - id: memory
+    rate_signal: postgresql_table_toast_index_io_rate_memory
+  - id: disk
+    rate_signal: postgresql_table_toast_index_io_rate_disk
+- id: postgres.table_scans_rate
+  title: Table scans
+  units: scans/s
+  family: table
+  chart_type: line
+  priority: 60057
+  shape: counters
+  labels:
+    database: sim-database-1
+    schema: sim-schema-1
+    table: sim-table-1
+    parent_table: sim-parent_table-1
+  dimensions:
+  - id: index
+    rate_signal: postgresql_table_scans_rate_index
+  - id: sequential
+    rate_signal: postgresql_table_scans_rate_sequential
+- id: postgres.table_scans_rows_rate
+  title: Table live rows fetched by scans
+  units: rows/s
+  family: table
+  chart_type: line
+  priority: 60058
+  shape: counters
+  labels:
+    database: sim-database-1
+    schema: sim-schema-1
+    table: sim-table-1
+    parent_table: sim-parent_table-1
+  dimensions:
+  - id: index
+    rate_signal: postgresql_table_scans_rows_rate_index
+  - id: sequential
+    rate_signal: postgresql_table_scans_rows_rate_sequential
+- id: postgres.table_autovacuum_since_time
+  title: Table time since last auto VACUUM
+  units: seconds
+  family: table
+  chart_type: line
+  priority: 60059
+  shape: independent
+  labels:
+    database: sim-database-1
+    schema: sim-schema-1
+    table: sim-table-1
+    parent_table: sim-parent_table-1
+  dimensions:
+  - id: time
+    signal: postgresql_table_autovacuum_since_time_time
+- id: postgres.table_vacuum_since_time
+  title: Table time since last manual VACUUM
+  units: seconds
+  family: table
+  chart_type: line
+  priority: 60060
+  shape: independent
+  labels:
+    database: sim-database-1
+    schema: sim-schema-1
+    table: sim-table-1
+    parent_table: sim-parent_table-1
+  dimensions:
+  - id: time
+    signal: postgresql_table_vacuum_since_time_time
+- id: postgres.table_autoanalyze_since_time
+  title: Table time since last auto ANALYZE
+  units: seconds
+  family: table
+  chart_type: line
+  priority: 60061
+  shape: independent
+  labels:
+    database: sim-database-1
+    schema: sim-schema-1
+    table: sim-table-1
+    parent_table: sim-parent_table-1
+  dimensions:
+  - id: time
+    signal: postgresql_table_autoanalyze_since_time_time
+- id: postgres.table_analyze_since_time
+  title: Table time since last manual ANALYZE
+  units: seconds
+  family: table
+  chart_type: line
+  priority: 60062
+  shape: independent
+  labels:
+    database: sim-database-1
+    schema: sim-schema-1
+    table: sim-table-1
+    parent_table: sim-parent_table-1
+  dimensions:
+  - id: time
+    signal: postgresql_table_analyze_since_time_time
+- id: postgres.table_null_columns
+  title: Table null columns
+  units: columns
+  family: table
+  chart_type: line
+  priority: 60063
+  shape: independent
+  labels:
+    database: sim-database-1
+    schema: sim-schema-1
+    table: sim-table-1
+    parent_table: sim-parent_table-1
+  dimensions:
+  - id: 'null'
+    signal: postgresql_table_null_columns_null
+- id: postgres.table_size
+  title: Table total size
+  units: B
+  family: table
+  chart_type: line
+  priority: 60064
+  shape: independent
+  labels:
+    database: sim-database-1
+    schema: sim-schema-1
+    table: sim-table-1
+    parent_table: sim-parent_table-1
+  dimensions:
+  - id: size
+    signal: postgresql_table_size_size
+- id: postgres.table_bloat_size_perc
+  title: Table bloat size percentage
+  units: percentage
+  family: table
+  chart_type: line
+  priority: 60065
+  shape: independent
+  labels:
+    database: sim-database-1
+    schema: sim-schema-1
+    table: sim-table-1
+    parent_table: sim-parent_table-1
+  dimensions:
+  - id: bloat
+    signal: postgresql_table_bloat_size_perc_bloat
+- id: postgres.table_bloat_size
+  title: Table bloat size
+  units: B
+  family: table
+  chart_type: line
+  priority: 60066
+  shape: independent
+  labels:
+    database: sim-database-1
+    schema: sim-schema-1
+    table: sim-table-1
+    parent_table: sim-parent_table-1
+  dimensions:
+  - id: bloat
+    signal: postgresql_table_bloat_size_bloat
+- id: postgres.index_size
+  title: Index size
+  units: B
+  family: index
+  chart_type: line
+  priority: 60067
+  shape: independent
+  labels:
+    database: sim-database-1
+    schema: sim-schema-1
+    table: sim-table-1
+    parent_table: sim-parent_table-1
+    index: sim-index-1
+  dimensions:
+  - id: size
+    signal: postgresql_index_size_size
+- id: postgres.index_bloat_size_perc
+  title: Index bloat size percentage
+  units: percentage
+  family: index
+  chart_type: line
+  priority: 60068
+  shape: independent
+  labels:
+    database: sim-database-1
+    schema: sim-schema-1
+    table: sim-table-1
+    parent_table: sim-parent_table-1
+    index: sim-index-1
+  dimensions:
+  - id: bloat
+    signal: postgresql_index_bloat_size_perc_bloat
+- id: postgres.index_bloat_size
+  title: Index bloat size
+  units: B
+  family: index
+  chart_type: line
+  priority: 60069
+  shape: independent
+  labels:
+    database: sim-database-1
+    schema: sim-schema-1
+    table: sim-table-1
+    parent_table: sim-parent_table-1
+    index: sim-index-1
+  dimensions:
+  - id: bloat
+    signal: postgresql_index_bloat_size_bloat
+- id: postgres.index_usage_status
+  title: Index usage status
+  units: status
+  family: index
+  chart_type: line
+  priority: 60070
+  shape: independent
+  labels:
+    database: sim-database-1
+    schema: sim-schema-1
+    table: sim-table-1
+    parent_table: sim-parent_table-1
+    index: sim-index-1
+  dimensions:
+  - id: used
+    signal: postgresql_index_usage_status_used
+  - id: unused
+    signal: postgresql_index_usage_status_unused

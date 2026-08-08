@@ -419,17 +419,15 @@ def main() -> None:
         if os.path.exists(path):
             os.remove(path)
 
+    # A generated spec under a different id for the same software is hidden from
+    # the picker, so an SE never chooses between two differently-sized
+    # "PostgreSQL" entries. The file stays on disk: the hand-authored spec
+    # `extends:` it, taking its breadth and overriding the contexts it models
+    # more carefully.
     aliases = {"postgres": ["postgresql"]}
     for sid, label in hand.items():
         drop = {sid, *aliases.get(sid, [])}
         catalogue = [c for c in catalogue if c["id"] not in drop]
-        # Remove the generated spec as well. Leaving it on disk would let
-        # `--describe` resolve "postgresql" to the shallow copy and quietly lose
-        # every scenario that targets Postgres.
-        for gone in drop - {sid}:
-            path = os.path.join(spec_dir, f"{gone}.yaml")
-            if os.path.exists(path):
-                os.remove(path)
         # Count what the hand-authored spec actually emits rather than
         # publishing 0 charts for the six best-modelled integrations.
         spec_path = os.path.join(args.out, "specs", f"{sid}.yaml")

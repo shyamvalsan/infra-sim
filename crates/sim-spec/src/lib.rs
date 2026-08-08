@@ -34,6 +34,21 @@ pub const SPEC_VERSION: u32 = 1;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct GeneratorSpec {
+    /// Specs this one builds on, as paths relative to the specs directory and
+    /// without the extension (e.g. `generated/postgresql`).
+    ///
+    /// They are loaded in order and this spec is layered over the result, so a
+    /// hand-authored spec gets the breadth of the generated ones while keeping
+    /// its own carefully modelled contexts wherever the two collide. Without
+    /// this a simulated Postgres emitted 15 contexts where Netdata's own
+    /// collector emits 70.
+    ///
+    /// A list because one collector's worth of metrics does not always map to
+    /// one spec: Kubernetes reports through both a kubelet and a cluster-state
+    /// collector.
+    #[serde(default)]
+    pub extends: Vec<String>,
+
     pub version: u32,
     pub name: String,
     #[serde(default)]
@@ -73,6 +88,30 @@ impl GeneratorSpec {
     /// a collision is reported rather than silently resolved, because the two
     /// definitions would otherwise fight over one shared signal and produce
     /// correlations nobody authored.
+    /// Layer `other` over this spec, replacing anything that collides.
+    ///
+    /// The inverse of `merge`, which treats a collision as a bug. Here a
+    /// collision is the intent: `other` is the hand-authored spec and it wins,
+    /// because its contexts are causally coupled and its signals are what the
+    /// scenarios target by name.
+    pub fn overlay(&mut self, other: &GeneratorSpec) {
+        for (name, signal) in &other.signals {
+            self.signals.insert(name.clone(), signal.clone());
+        }
+        for ctx in &other.contexts {
+            match self.contexts.iter().position(|c| c.id == ctx.id) {
+                // Replaced in place so the generated spec's ordering, and the
+                // priorities that follow from it, are left alone.
+                Some(at) => self.contexts[at] = ctx.clone(),
+                None => self.contexts.push(ctx.clone()),
+            }
+        }
+        for (name, role) in &other.roles {
+            self.roles.insert(name.clone(), role.clone());
+        }
+        self.name = other.name.clone();
+    }
+
     pub fn merge(&mut self, other: &GeneratorSpec) -> Result<(), SpecError> {
         for (name, signal) in &other.signals {
             if let Some(existing) = self.signals.get(name) {

@@ -5,6 +5,14 @@ description: >-
   kubelet pod lifecycle, and kube-state cluster object counts. Composed onto the
   Linux baseline for cluster nodes.
 
+# Netdata's own collector for this software reports far more than the
+# contexts modelled below. Take that breadth from the generated spec(s) and
+# override the contexts modelled here, which are causally coupled and are what
+# the hero scenarios target by name.
+extends:
+  - generated/kubelet
+  - generated/kubernetes-cluster-state
+
 signals:
   k8s_apiserver_req_rate:
     base: 240.0

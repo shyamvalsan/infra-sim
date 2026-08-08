@@ -199,3 +199,39 @@ was designed; no engine change was needed for it.
   specification, not a modelled quantity, and one context has to serve a 1G
   access port and a 10G uplink. The fidelity lint treats an attribute-sourced
   signal as a declared constant, or all 24 ports report a stuck signal.
+
+
+## Composing depth with breadth
+
+A hand-authored spec may declare `extends:`, listing generated specs by path
+relative to the specs directory:
+
+```yaml
+name: postgres
+extends:
+  - generated/postgresql
+```
+
+The named specs load first, in order, and the hand-authored one is layered over
+the result with `GeneratorSpec::overlay`. Colliding contexts and signals are
+replaced by the hand-authored definitions, in place, so the generated ordering
+and priorities survive.
+
+The point is that breadth and depth stopped competing. A simulated Postgres
+emitted 15 contexts where Netdata's own collector emits 70; it now emits 71, of
+which the 15 are causally coupled and are what the hero scenarios target.
+
+One level only. A chain would be a spec hierarchy, which is more machinery than
+this needs, and the loader rejects it rather than recursing.
+
+`otel-collector` has no generated equivalent and extends nothing.
+
+### Dependencies travel with the install
+
+`install()` copies every spec named by an `extends:` in the specs it installed,
+and the console then lints the **installed** copy. The repo lint cannot catch an
+install-layout fault, because paths resolve differently there - and a fleet that
+installs cleanly then dies on its first tick does not merely fail. netdata
+disables a plugin that exits with an error before collecting anything
+(`netdata/netdata @ c23face0bd94` `src/plugins.d/plugins_d.c:94-98`) until the
+agent restarts, so one broken install silently breaks the next one too.

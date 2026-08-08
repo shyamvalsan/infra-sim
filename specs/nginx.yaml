@@ -5,6 +5,14 @@ description: >-
   request and response-code contexts. Composed onto the Linux baseline for
   nodes serving HTTP.
 
+
+# Netdata's own collector for this software reports far more than the
+# contexts modelled below. Take that breadth from the generated spec(s) and
+# override the contexts modelled here, which are causally coupled and are what
+# the hero scenarios target by name.
+extends:
+  - generated/nginx
+
 signals:
   nginx_requests_rate:
     base: 340.0

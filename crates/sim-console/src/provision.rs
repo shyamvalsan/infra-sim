@@ -268,6 +268,23 @@ pub fn create(repo: &Path, req: &CreateRequest) -> Result<CreateResponse, String
         v
     };
     install(repo, &binary, &env_path, &used)?;
+
+    // Lint the *installed* copy, not just the repo one.
+    //
+    // The repo lint proves the fleet is sound; it cannot prove the install
+    // directory has everything the fleet needs, because paths resolve
+    // differently there. A spec dependency that failed to travel produced a
+    // fleet that installed cleanly and then died on its first tick - and
+    // netdata disables a plugin that exits with an error before collecting
+    // anything, until the agent restarts
+    // (netdata/netdata @ c23face0bd94 src/plugins.d/plugins_d.c:94-98). So a
+    // broken install does not merely fail, it poisons the next one.
+    let installed = Path::new(INSTALL_DIR).join("environment.yaml");
+    if let Err(e) = lint(&binary, &installed, 1) {
+        return Err(format!(
+            "the installed copy does not load, so it was not left runnable: {e}"
+        ));
+    }
     notes.push(format!("installed to {INSTALL_DIR}"));
     notes.push("the agent rescans for plugins every 60s".into());
 
@@ -536,6 +553,23 @@ pub mod exporters {
         use super::*;
 
         #[test]
+        fn extends_is_read_in_both_yaml_forms() {
+            assert_eq!(
+                super::super::extends_ids("name: a\nextends: generated/postgresql\nsignals:\n"),
+                vec!["generated/postgresql"]
+            );
+            assert_eq!(
+                super::super::extends_ids(
+                    "name: a\nextends:\n  - generated/kubelet\n  - generated/k8s-state\nsignals:\n  x:\n"
+                ),
+                vec!["generated/kubelet", "generated/k8s-state"]
+            );
+            assert!(super::super::extends_ids("name: a\nsignals:\n").is_empty());
+            // A `- ` at column zero is a node list, not a continuation.
+            assert!(super::super::extends_ids("extends:\n- top-level\n").is_empty());
+        }
+
+        #[test]
         fn nodes_are_read_in_pairs() {
             let env = "nodes:\n  - hostname: sim-web-01\n    guid: aaaa\n    role: web\n                       \x20 - hostname: sim-db-01\n    guid: bbbb\n";
             assert_eq!(
@@ -657,6 +691,13 @@ pub fn llm_providers(repo: &Path) -> Vec<String> {
         .into_iter()
         .map(|p| p.label().to_string())
         .collect()
+}
+
+/// Turn install-directory paths back into repo-relative ones.
+fn repo_relative_paths(yaml: &str) -> String {
+    yaml.replace("generator: specs/", "generator: ../specs/")
+        .replace("specs: specs", "specs: ../specs")
+        .replace("scenarios: scenarios", "scenarios: ../scenarios")
 }
 
 /// Wait for the running plugin to notice its file is gone and exit.
@@ -857,18 +898,24 @@ fn install(repo: &Path, binary: &Path, env_path: &Path, services: &[String]) -> 
     // 150-odd generated specs is 2.4MB of YAML the fleet mostly does not use.
     // Copy the ones it names, into the same `generated` subdirectory the plugin
     // falls back to.
-    if !services.is_empty() {
-        let gen_src = repo.join("specs").join("generated");
-        let gen_dst = install_dir.join("specs").join("generated");
-        std::fs::create_dir_all(&gen_dst).map_err(|e| format!("cannot create {gen_dst:?}: {e}"))?;
-        for svc in services {
-            let from = gen_src.join(format!("{svc}.yaml"));
-            if from.exists() {
-                std::fs::copy(&from, gen_dst.join(format!("{svc}.yaml")))
-                    .map_err(|e| format!("cannot copy '{}': {e}", from.display()))?;
-            }
+    let gen_dst = install_dir.join("specs").join("generated");
+    std::fs::create_dir_all(&gen_dst).map_err(|e| format!("cannot create {gen_dst:?}: {e}"))?;
+    for svc in services {
+        let from = repo
+            .join("specs")
+            .join("generated")
+            .join(format!("{svc}.yaml"));
+        if from.exists() {
+            std::fs::copy(&from, gen_dst.join(format!("{svc}.yaml")))
+                .map_err(|e| format!("cannot copy '{}': {e}", from.display()))?;
         }
     }
+
+    // A hand-authored spec may `extends:` a generated one for its breadth. That
+    // dependency has to travel with it: without this the fleet installed
+    // cleanly and then the plugin died on the first tick, because the lint had
+    // run against the repo where the path resolves.
+    copy_extends(repo, install_dir)?;
     copy_dir(&repo.join("scenarios"), &install_dir.join("scenarios"))?;
 
     std::fs::copy(env_path, install_dir.join("environment.yaml"))
@@ -916,6 +963,71 @@ fn stop_plugin(plugin: &Path) {
     for pid in plugin_pids(plugin) {
         let _ = Command::new("kill").arg(pid.to_string()).status();
     }
+}
+
+/// Copy every spec named by an `extends:` in an already-installed spec.
+///
+/// Reads the installed files rather than the repo's, so only what this fleet
+/// actually composes is copied.
+fn copy_extends(repo: &Path, install_dir: &Path) -> Result<(), String> {
+    let installed_specs = install_dir.join("specs");
+    let mut wanted: Vec<String> = Vec::new();
+    let Ok(entries) = std::fs::read_dir(&installed_specs) else {
+        return Ok(());
+    };
+    for entry in entries.flatten() {
+        let path = entry.path();
+        if path.extension().and_then(|e| e.to_str()) != Some("yaml") {
+            continue;
+        }
+        let Ok(text) = std::fs::read_to_string(&path) else {
+            continue;
+        };
+        wanted.extend(extends_ids(&text));
+    }
+    wanted.sort();
+    wanted.dedup();
+
+    for id in wanted {
+        let from = repo.join("specs").join(format!("{id}.yaml"));
+        let to = installed_specs.join(format!("{id}.yaml"));
+        if let Some(dir) = to.parent() {
+            std::fs::create_dir_all(dir).map_err(|e| format!("cannot create {dir:?}: {e}"))?;
+        }
+        std::fs::copy(&from, &to).map_err(|e| {
+            format!(
+                "spec dependency '{id}' is missing at '{}': {e}",
+                from.display()
+            )
+        })?;
+    }
+    Ok(())
+}
+
+/// The `extends:` list of a spec, read without a full YAML parse.
+fn extends_ids(text: &str) -> Vec<String> {
+    let mut out = Vec::new();
+    let mut in_block = false;
+    for line in text.lines() {
+        if let Some(rest) = line.strip_prefix("extends:") {
+            let rest = rest.trim();
+            if rest.is_empty() {
+                in_block = true;
+            } else {
+                out.push(rest.trim_matches(['"', '\'']).to_string());
+            }
+            continue;
+        }
+        if in_block {
+            match line.trim_start().strip_prefix("- ") {
+                Some(id) if line.starts_with(char::is_whitespace) => {
+                    out.push(id.trim().trim_matches(['"', '\'']).to_string());
+                }
+                _ => in_block = false,
+            }
+        }
+    }
+    out
 }
 
 fn copy_dir(from: &Path, to: &Path) -> Result<(), String> {
@@ -1475,13 +1587,19 @@ pub fn reskin(
         .map_err(|e| format!("cannot write '{}': {e}", installed_env.display()))?;
 
     // Keep the repo copy in step so the archive and any later re-skin start
-    // from the same place.
+    // from the same place - with the paths a repo copy needs. The installed
+    // file points at its own siblings; writing that verbatim into
+    // `environments/` produced a committed template that could not be linted
+    // or used from the checkout.
     let repo_copy = repo.join("environments").join(format!("{name}.yaml"));
-    let _ = std::fs::write(&repo_copy, &outcome.yaml);
+    let _ = std::fs::write(&repo_copy, repo_relative_paths(&outcome.yaml));
     inherit_owner(&repo.join("environments"), &repo_copy);
 
-    // The renamed fleet only reaches the agent when the plugin restarts.
-    stop_plugin(&Path::new(PLUGIN_DIR).join("infra-sim.plugin"));
+    // The renamed fleet reaches the agent when the plugin restarts, and the
+    // plugin restarts itself: it notices the environment changed under it and
+    // exits 0. Killing it here would have netdata mark it as having failed and
+    // refuse to start it again until the agent restarts
+    // (netdata/netdata @ c23face0bd94 src/plugins.d/plugins_d.c:86-91).
 
     Ok(ReskinResponse {
         renamed: outcome.renamed,
