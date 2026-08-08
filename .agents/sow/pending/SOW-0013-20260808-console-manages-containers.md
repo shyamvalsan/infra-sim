@@ -4,8 +4,8 @@
 
 Status: open
 
-Sub-state: Not started. Raised as a follow-up by `SOW-0012`, which delivered the
-container path as an operator script.
+Sub-state: Not started. **Option A chosen by the user** (2026-08-08): the console
+should create containers, not install into the operator's agent.
 
 ## Requirements
 
@@ -17,7 +17,11 @@ good path is the command line and the convenient path is the wrong one.
 
 ### User Request
 
-Raised by the assistant in `SOW-0012`'s follow-up list; not yet put to the user.
+"when i do this again i don't want to get already claimed errors.. remember this
+should be a new agent in a new docker, so it should NOT Be pre-claimed"
+(2026-08-08), and, on being shown that torn-down nodes were left stale rather
+than removed: "stale issue is because its using my netdata agent as parent and
+not a temporary one in a container i guess" - which is correct.
 
 ### Assistant Understanding
 
@@ -25,19 +29,30 @@ The console would create, claim, drive and tear down containers instead of (or
 as well as) the host agent. `scripts/sim-docker.sh` already defines the
 lifecycle; the question is what the console becomes.
 
-Decisions to put to the user:
+**Option A, chosen.** The console creates and manages containers. The host path
+remains available on the command line for local iteration, but is no longer what
+the console does.
 
-- **A.** Console manages containers only. Simplest model, one way to do things;
-  loses the host path's fast iteration.
-- **B.** Console gains a target selector: host or container. Keeps both, doubles
-  the surface it has to be correct about.
-- **C.** Console per simulation, running inside the container. Self-contained
-  and matches the isolation story, but needs a port each and gives no
-  cross-simulation view.
+Two symptoms made the case, both of them consequences of the agent outliving the
+simulation:
 
-Also unresolved: whether the console talks to Docker through the socket or by
-shelling out to the CLI, and how it reaches a scenario trigger inside a running
-container.
+- **Claiming cannot work.** The operator's agent is already claimed, so the
+  console's Connect button can only refuse. A container gets a fresh, unclaimed
+  agent and claims into whatever Space and room the operator names.
+- **Teardown leaves corpses.** Stopping the collector leaves every vnode *stale*
+  - retention but no collection - so it stays in the agent's database and in the
+  prospect's Space. A 50-node demo leaves 50. `SOW-0012`'s teardown is
+  `docker rm -f`, which takes the agent, its database and every vnode together.
+
+A `remove-stale-node` step was added to the host teardown as a stopgap. It is a
+band-aid on an architecture this SOW replaces, and should be judged as such
+rather than kept as the answer.
+
+Still to decide during implementation: whether the console talks to Docker
+through the socket or shells out to `scripts/sim-docker.sh` (one implementation
+of the lifecycle, and the script stays usable alone), and how the console's
+status, preflight and scenario controls reach an agent that now lives on a
+per-simulation port rather than a fixed one.
 
 ### Acceptance Criteria
 

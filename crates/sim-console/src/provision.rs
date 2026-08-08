@@ -1378,7 +1378,42 @@ pub fn teardown(repo: &Path, control_path: &Path, env_path: &Path) -> Vec<Teardo
         manual: false,
     });
 
-    // 5. Archive what replays the world.
+    // 5. Take the fleet's nodes out of the agent.
+    //
+    // Stopping the collector leaves every vnode *stale*: retention but no
+    // collection, so it stays in the agent's database and in the Cloud Space
+    // as a dead node. After a demo that is 50 corpses in the prospect's Space.
+    // Removed by hostname, one at a time - never ALL_NODES, which would take
+    // the operator's own node with it.
+    let removed_nodes = hosts
+        .iter()
+        .filter(|h| {
+            Command::new("netdatacli")
+                .arg("remove-stale-node")
+                .arg(h)
+                .output()
+                .map(|o| o.status.success())
+                .unwrap_or(false)
+        })
+        .count();
+    steps.push(TeardownStep {
+        name: "Remove the fleet's nodes from the agent".into(),
+        done: removed_nodes == hosts.len(),
+        detail: if hosts.is_empty() {
+            "no nodes to remove".into()
+        } else if removed_nodes == hosts.len() {
+            format!("{removed_nodes} node(s) unregistered, so none are left stale")
+        } else {
+            format!(
+                "{removed_nodes} of {} unregistered; the rest stay stale until the agent is \
+                 restarted or `netdatacli remove-stale-node <host>` is run",
+                hosts.len()
+            )
+        },
+        manual: false,
+    });
+
+    // 6. Archive what replays the world.
     let archive = repo.join("archive");
     let stamp = std::time::SystemTime::now()
         .duration_since(std::time::UNIX_EPOCH)
@@ -1416,7 +1451,7 @@ pub fn teardown(repo: &Path, control_path: &Path, env_path: &Path) -> Vec<Teardo
         manual: false,
     });
 
-    // 6. Only once the archive exists, because this is the copy being removed.
+    // 7. Only once the archive exists, because this is the copy being removed.
     let install = Path::new(INSTALL_DIR);
     let removed_install = if !archived {
         false
