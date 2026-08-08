@@ -132,19 +132,44 @@ Root is required: create writes under `/etc/netdata`, manages the plugin
 process, and claim reads the agent's local-proof file. Shelling out to `sudo`
 per action would put a password prompt in the middle of a demo instead.
 
-- **New simulation** — node count per role, and a checkbox per collector
-  (`nginx`, `postgres`, `redis`, `containers`, `kubernetes`, `otel-collector`),
-  each role's defaults pre-ticked. Builds `environment.yaml`, runs the fidelity
-  lint, and **refuses to install a fleet that fails it**.
+- **New simulation** — start from a committed template or blank, then set node
+  count per role and tick a checkbox per collector (`nginx`, `postgres`,
+  `redis`, `containers`, `kubernetes`, `otel-collector`), each role's defaults
+  pre-ticked. Builds `environment.yaml`, runs the fidelity lint, and **refuses
+  to install a fleet that fails it**. A template fills the form rather than
+  being installed directly, so one code path builds every environment.
 - **Preflight** — a green board it verifies against the live agent, not a
   checklist it trusts you to have done.
-- **Scenarios** — trigger and resolve, with ground truth per scenario.
+- **Scenarios** — trigger, resolve, and move the demo clock. **Escalate** pushes
+  a running scenario forward through its own authored timeline rather than
+  applying a separate intensity knob, so severity and the ground-truth manifest
+  can never disagree. The same control rewinds.
+- **Re-skin** — rename the running fleet for a new prospect. GUIDs are never
+  touched, so it keeps its history, trained ML and alert log.
 - **Claim** — one claim covers the whole fleet. The token goes straight to the
   agent and is never stored, logged, or written to any file. The Space name
   must end `(Simulated Demo)`; that is enforced, not suggested.
 - **Teardown** — disarms scenarios, removes the plugin *and* stops its process
   (either alone is not enough), and archives the environment, seed and scenario
   manifests. Cloud-side steps stay manual and say so.
+
+### Warm-up incidents
+
+`warmup_incidents: true` (on by default in generated environments and the
+committed templates) runs minor, auto-resolving faults on a deterministic
+schedule — roughly one every six hours, twenty minutes long, drawn from the
+scenarios the fleet can host.
+
+A fleet whose alert log is empty reads as a fleet nothing has ever happened to,
+which is the opposite of a real estate. These give the alert log and anomaly
+history texture before a live session.
+
+Nothing is stored and no timer runs: which incident is active at time *t* is a
+pure function of `(seed, t)`. That keeps the replay promise, means the plugin
+never writes `control.yaml` (the console owns it), and lets a restart resume
+mid-incident with no state to lose. Each one runs only the opening stretch of a
+scenario's timeline, so it never looks like the hero demo an SE will trigger
+deliberately. A deliberately triggered scenario always suppresses them.
 
 ## Building an environment from a description
 

@@ -91,6 +91,12 @@ pub struct Environment {
     #[serde(default = "default_specs_dir")]
     pub specs: PathBuf,
 
+    /// Run scheduled warm-up incidents so the alert log has texture before a
+    /// demo. `spec.md` section 3 asks for these; they are deterministic from the
+    /// seed, so an archived environment replays the same history.
+    #[serde(default)]
+    pub warmup_incidents: bool,
+
     pub nodes: Vec<NodeDef>,
 }
 

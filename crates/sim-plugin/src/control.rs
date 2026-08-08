@@ -46,6 +46,11 @@ impl ControlChannel {
         }
     }
 
+    /// Every scenario this environment knows about, running or not.
+    pub fn library(&self) -> &BTreeMap<String, Scenario> {
+        &self.library
+    }
+
     pub fn scenarios(&self) -> &ScenarioSet {
         &self.current
     }

@@ -20,7 +20,7 @@ mod emitter;
 mod environment;
 mod llm;
 mod logs_runtime;
-mod reskin;
+mod warmup;
 
 use environment::Environment;
 use sim_engine::{NodeEngine, ScenarioSet};
@@ -426,6 +426,15 @@ fn run() -> Result<(), String> {
     }
     out.flush().map_err(write_err)?;
 
+    let role_list: Vec<&str> = env.nodes.iter().filter_map(|n| n.role.as_deref()).collect();
+    if env.warmup_incidents {
+        eprintln!(
+            "infra-sim: warm-up incidents enabled - minor, auto-resolving faults on a \
+             deterministic schedule so the alert log has texture before a demo"
+        );
+    }
+    let mut warm_reported = String::new();
+
     let interval = update_every as f64;
     let mut next = align_to_interval(now_secs(), update_every);
 
@@ -457,7 +466,22 @@ fn run() -> Result<(), String> {
         if let Some(change) = control.poll(tick_at) {
             eprintln!("infra-sim: {change}");
         }
-        let scenarios = control.scenarios();
+        // A deliberately triggered scenario always wins: if an SE is running a
+        // demo, warm-up noise must not be layered on top of it.
+        let live = control.scenarios();
+        let warm;
+        let scenarios = if live.is_empty() && env.warmup_incidents {
+            warm = warmup::active(control.library(), &role_list, env.seed, tick_at);
+            if let Some(msg) = warmup::describe_active(&warm, tick_at) {
+                if warm_reported != msg {
+                    eprintln!("infra-sim: {msg}");
+                    warm_reported = msg;
+                }
+            }
+            &warm
+        } else {
+            live
+        };
 
         for engine in engines.iter_mut() {
             let samples = engine.tick(scenarios, tick_at, interval);
@@ -613,7 +637,7 @@ fn do_describe(
     let yaml = sim_engine::describe::render(&reading, &name, seed, &prefix);
 
     if let Some(dir) = output.parent() {
-        reskin::check_guid_uniqueness(dir, &yaml, output)?;
+        sim_engine::reskin::check_guid_uniqueness(dir, &yaml, output)?;
     }
     std::fs::write(output, &yaml)
         .map_err(|e| format!("cannot write '{}': {e}", output.display()))?;
@@ -655,13 +679,13 @@ fn do_reskin(env_path: &Path, r: &ReskinArgs) -> Result<(), String> {
     let source = std::fs::read_to_string(env_path)
         .map_err(|e| format!("cannot read '{}': {e}", env_path.display()))?;
 
-    let plan = reskin::Plan {
+    let plan = sim_engine::reskin::Plan {
         from_prefix: r.from_prefix.clone(),
         to_prefix: r.to_prefix.clone(),
         name: r.name.clone(),
         labels: r.labels.clone(),
     };
-    let outcome = reskin::reskin(&source, &plan)?;
+    let outcome = sim_engine::reskin::reskin(&source, &plan)?;
 
     let output = r.output.clone().unwrap_or_else(|| env_path.to_path_buf());
 
@@ -669,7 +693,7 @@ fn do_reskin(env_path: &Path, r: &ReskinArgs) -> Result<(), String> {
     // carrying the same GUIDs, which cannot both be claimed.
     if output != env_path {
         let dir = output.parent().unwrap_or(Path::new("."));
-        reskin::check_guid_uniqueness(dir, &outcome.yaml, &output)?;
+        sim_engine::reskin::check_guid_uniqueness(dir, &outcome.yaml, &output)?;
     }
 
     std::fs::write(&output, &outcome.yaml)

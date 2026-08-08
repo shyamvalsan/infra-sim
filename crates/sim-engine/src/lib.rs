@@ -20,6 +20,7 @@ pub mod control_file;
 pub mod describe;
 pub mod fidelity;
 pub mod logs;
+pub mod reskin;
 pub mod rng;
 pub mod scenario_runtime;
 

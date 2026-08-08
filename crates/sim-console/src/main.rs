@@ -313,7 +313,8 @@ fn mutate<F: FnOnce(&mut ControlFile)>(app: &AppState, f: F) -> impl IntoRespons
 /// Roles and collectors the create form can offer, read from disk.
 async fn catalogue(State(app): State<Arc<AppState>>) -> impl IntoResponse {
     Json(serde_json::json!(provision::catalogue(
-        &app.repo.join("specs")
+        &app.repo.join("specs"),
+        &app.repo.join("environments"),
     )))
 }
 
@@ -339,6 +340,31 @@ async fn claim(
         Ok(r) => Json(serde_json::json!(r)),
         // The error must not echo the request: it carries a credential.
         Err(e) => Json(json_err(e)),
+    }
+}
+
+/// Escalate a running scenario, or move the demo clock - the same operation.
+async fn advance(
+    State(app): State<Arc<AppState>>,
+    AxumPath(name): AxumPath<String>,
+    Json(req): Json<provision::AdvanceRequest>,
+) -> impl IntoResponse {
+    let seconds = req.seconds;
+    mutate(&app, move |c| {
+        let _ = provision::advance(c, &name, seconds);
+    })
+}
+
+async fn reskin(
+    State(app): State<Arc<AppState>>,
+    Json(req): Json<provision::ReskinRequest>,
+) -> impl IntoResponse {
+    let repo = app.repo.clone();
+    let env = app.env_path.clone();
+    match tokio::task::spawn_blocking(move || provision::reskin(&repo, &env, &req)).await {
+        Ok(Ok(r)) => Json(serde_json::json!(r)),
+        Ok(Err(e)) => Json(json_err(e)),
+        Err(e) => Json(json_err(format!("re-skin task failed: {e}"))),
     }
 }
 
@@ -480,6 +506,8 @@ async fn main() -> std::process::ExitCode {
         .route("/api/create", post(create))
         .route("/api/claim", post(claim))
         .route("/api/teardown", post(teardown))
+        .route("/api/scenario/{name}/advance", post(advance))
+        .route("/api/reskin", post(reskin))
         .with_state(state);
 
     let addr: SocketAddr = match args.bind.parse() {

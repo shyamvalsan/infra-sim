@@ -69,6 +69,7 @@ pub struct CreateResponse {
 pub struct Catalogue {
     pub roles: Vec<RoleOption>,
     pub services: Vec<String>,
+    pub templates: Vec<TemplateOption>,
 }
 
 #[derive(Debug, Serialize)]
@@ -81,9 +82,10 @@ pub struct RoleOption {
     pub default_services: Vec<String>,
 }
 
-pub fn catalogue(specs_dir: &Path) -> Catalogue {
+pub fn catalogue(specs_dir: &Path, env_dir: &Path) -> Catalogue {
     let services = available_services(specs_dir);
     Catalogue {
+        templates: templates(env_dir),
         roles: roles()
             .into_iter()
             .map(|r| RoleOption {
@@ -190,6 +192,10 @@ pub fn create(repo: &Path, req: &CreateRequest) -> Result<CreateResponse, String
 
     std::fs::write(&env_path, &yaml)
         .map_err(|e| format!("cannot write '{}': {e}", env_path.display()))?;
+    // The console runs as root, so anything it creates in the checkout would be
+    // root-owned and the SE could no longer edit their own environment file.
+    // Hand it back to whoever owns the directory it lives in.
+    inherit_owner(&env_dir, &env_path);
 
     let binary = binary_path(repo)?;
     let lint_summary = if req.lint_hours > 0 {
@@ -243,6 +249,22 @@ fn guid_uniqueness(dir: &Path, new_yaml: &str, self_path: &Path) -> Result<(), S
         }
     }
     Ok(())
+}
+
+/// Give `path` the same owner as `reference`.
+///
+/// Best effort: failing to chown is not a reason to fail a create, and on a
+/// non-Unix target there is nothing to do.
+fn inherit_owner(reference: &Path, path: &Path) {
+    #[cfg(unix)]
+    {
+        use std::os::unix::fs::MetadataExt;
+        if let Ok(md) = std::fs::metadata(reference) {
+            let _ = std::os::unix::fs::chown(path, Some(md.uid()), Some(md.gid()));
+        }
+    }
+    #[cfg(not(unix))]
+    let _ = (reference, path);
 }
 
 fn binary_path(repo: &Path) -> Result<PathBuf, String> {
@@ -596,6 +618,11 @@ pub fn teardown(repo: &Path, control_path: &Path, env_path: &Path) -> Vec<Teardo
         .and_then(|_| std::fs::copy(env_path, dest.join("environment.yaml")).map(|_| ()))
         .is_ok()
         && copy_dir(&repo.join("scenarios"), &dest.join("scenarios")).is_ok();
+    if archived {
+        inherit_owner(repo, &archive);
+        inherit_owner(repo, &dest);
+        inherit_owner(repo, &dest.join("environment.yaml"));
+    }
     steps.push(TeardownStep {
         name: "Archive environment, seed and scenario manifests".into(),
         done: archived,
@@ -682,7 +709,7 @@ mod tests {
         let _ = std::fs::create_dir_all(&dir);
         std::fs::write(dir.join("redis.yaml"), "name: redis\n").unwrap();
         std::fs::write(dir.join("linux-system.yaml"), "name: base\n").unwrap();
-        let c = catalogue(&dir);
+        let c = catalogue(&dir, &dir);
         assert_eq!(c.services, vec!["redis"]);
         // The base spec is composed onto every node already; offering it as a
         // service would merge it into itself.
@@ -694,4 +721,195 @@ mod tests {
         assert_eq!(cache.default_services, vec!["redis"]);
         let _ = std::fs::remove_dir_all(&dir);
     }
+}
+
+// --------------------------------------------------------------------------
+// Templates, escalation and re-skin
+// --------------------------------------------------------------------------
+
+/// One committed environment, offered as a starting point for a new fleet.
+#[derive(Debug, Serialize)]
+pub struct TemplateOption {
+    pub name: String,
+    pub description: String,
+    pub nodes: usize,
+    /// Role composition, so picking a template fills the create form rather
+    /// than becoming a second, parallel way to build an environment.
+    pub groups: Vec<TemplateGroup>,
+}
+
+#[derive(Debug, Serialize)]
+pub struct TemplateGroup {
+    pub role: String,
+    pub count: usize,
+    pub services: Vec<String>,
+}
+
+/// Read the committed environments as create-form presets.
+///
+/// A template fills the picker; it is never installed directly. One code path
+/// builds every environment, so a template cannot drift into producing
+/// something the picker could not.
+pub fn templates(env_dir: &Path) -> Vec<TemplateOption> {
+    #[derive(serde::Deserialize)]
+    struct Node {
+        role: Option<String>,
+        #[serde(default)]
+        services: Vec<String>,
+    }
+    #[derive(serde::Deserialize)]
+    struct Env {
+        name: String,
+        #[serde(default)]
+        description: String,
+        #[serde(default)]
+        nodes: Vec<Node>,
+    }
+
+    let Ok(entries) = std::fs::read_dir(env_dir) else {
+        return Vec::new();
+    };
+    let mut out = Vec::new();
+    for entry in entries.flatten() {
+        let path = entry.path();
+        if path.extension().and_then(|e| e.to_str()) != Some("yaml") {
+            continue;
+        }
+        let Ok(text) = std::fs::read_to_string(&path) else {
+            continue;
+        };
+        let Ok(env) = serde_yaml::from_str::<Env>(&text) else {
+            continue;
+        };
+
+        // Collapse nodes into (role, services) groups, which is exactly the
+        // shape the create form works in.
+        let mut groups: Vec<TemplateGroup> = Vec::new();
+        for n in &env.nodes {
+            let Some(role) = n.role.clone() else { continue };
+            match groups
+                .iter_mut()
+                .find(|g| g.role == role && g.services == n.services)
+            {
+                Some(g) => g.count += 1,
+                None => groups.push(TemplateGroup {
+                    role,
+                    count: 1,
+                    services: n.services.clone(),
+                }),
+            }
+        }
+        if groups.is_empty() {
+            continue;
+        }
+        out.push(TemplateOption {
+            name: env.name,
+            description: env
+                .description
+                .lines()
+                .next()
+                .unwrap_or("")
+                .trim()
+                .to_string(),
+            nodes: env.nodes.len(),
+            groups,
+        });
+    }
+    out.sort_by(|a, b| a.name.cmp(&b.name));
+    out
+}
+
+#[derive(Debug, Deserialize)]
+pub struct AdvanceRequest {
+    /// Seconds to push the scenario clock forward. Negative rewinds.
+    pub seconds: i64,
+}
+
+/// Move a running scenario's clock.
+///
+/// This is both "escalate" and the demo clock from `spec.md` section 6. A
+/// scenario's severity is a function of elapsed time, so moving `started_at`
+/// earlier advances it through its own timeline — the fault deepens exactly as
+/// authored rather than by some separate intensity knob that could disagree
+/// with the manifest.
+pub fn advance(
+    control: &mut sim_engine::ControlFile,
+    name: &str,
+    seconds: i64,
+) -> Result<(), String> {
+    let entry = control
+        .active
+        .iter_mut()
+        .find(|e| e.scenario == name)
+        .ok_or_else(|| format!("'{name}' is not running"))?;
+    // started_at moves back to advance the scenario forward.
+    entry.started_at = entry.started_at.map(|t| t - seconds);
+    Ok(())
+}
+
+#[derive(Debug, Deserialize)]
+pub struct ReskinRequest {
+    /// New prospect name. Becomes the environment name and hostname prefix.
+    pub name: String,
+}
+
+#[derive(Debug, Serialize)]
+pub struct ReskinResponse {
+    pub renamed: Vec<(String, String)>,
+    pub environment: String,
+}
+
+/// Re-skin the installed environment for a new prospect, preserving GUIDs.
+///
+/// This is the move-don't-clone path `spec.md` says the console must enforce:
+/// the fleet keeps its history, trained ML models and alert log, turning a cold
+/// 72-hour start into a change measured in minutes. The result replaces the
+/// installed environment rather than sitting beside it, because two files
+/// carrying the same GUIDs cannot both be claimed.
+pub fn reskin(
+    repo: &Path,
+    installed_env: &Path,
+    req: &ReskinRequest,
+) -> Result<ReskinResponse, String> {
+    let name = sanitise(&req.name);
+    if name.is_empty() {
+        return Err("a name is required".into());
+    }
+
+    let source = std::fs::read_to_string(installed_env)
+        .map_err(|e| format!("cannot read '{}': {e}", installed_env.display()))?;
+
+    let current = source
+        .lines()
+        .find_map(|l| l.strip_prefix("name:").map(|v| v.trim().to_string()))
+        .ok_or_else(|| "the installed environment has no name".to_string())?;
+    if current == name {
+        return Err(format!("already skinned as '{name}'"));
+    }
+
+    let plan = sim_engine::reskin::Plan {
+        from_prefix: format!("{current}-"),
+        to_prefix: format!("{name}-"),
+        name: Some(name.clone()),
+        labels: Default::default(),
+    };
+    // Refuses if any GUID changed - that would orphan every node's history.
+    let outcome = sim_engine::reskin::reskin(&source, &plan)?;
+
+    std::fs::write(installed_env, &outcome.yaml)
+        .map_err(|e| format!("cannot write '{}': {e}", installed_env.display()))?;
+
+    // Keep the repo copy in step so the archive and any later re-skin start
+    // from the same place.
+    let repo_copy = repo.join("environments").join(format!("{name}.yaml"));
+    let _ = std::fs::write(&repo_copy, &outcome.yaml);
+    inherit_owner(&repo.join("environments"), &repo_copy);
+
+    // The renamed fleet only reaches the agent when the plugin restarts.
+    stop_plugin(&Path::new(PLUGIN_DIR).join("infra-sim.plugin"));
+
+    Ok(ReskinResponse {
+        renamed: outcome.renamed,
+        environment: installed_env.display().to_string(),
+    })
 }

@@ -78,6 +78,21 @@ instance resolve against the environment. A step naming something absent
 produces no effect at all: the trigger appears to work and nothing happens,
 in front of a prospect, with nothing in any log.
 
+### Warm-up incidents
+
+`warmup_incidents: true` in an environment runs minor, auto-resolving faults on
+a deterministic schedule (one per 6h slot, 20 minutes, jittered within the
+slot), so the alert log has texture before a demo — `spec.md` §3.
+
+- Which incident is active at `t` is a pure function of `(seed, t)`. No state,
+  no timer, no writes to `control.yaml` (the console owns that file), and a
+  restart resumes mid-incident.
+- Each incident keeps only the scenario steps beginning in the first half of the
+  window, so it reaches a first-order symptom and stops short of the crisis the
+  same scenario produces when triggered deliberately.
+- A deliberately triggered scenario suppresses warm-up entirely: an SE mid-demo
+  must not have warm-up noise layered on top.
+
 ## Correlated logs
 
 A **separate process** (`infra-sim --logs`), not part of the metrics plugin.

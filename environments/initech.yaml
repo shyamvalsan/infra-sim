@@ -1,20 +1,20 @@
 version: 1
-name: globex-retail
+name: initech
 description: >-
   Generated from a text description.
 
 seed: 16261534951428775630
 update_every: 1
-generator: ../specs/linux-system.yaml
-specs: ../specs
-scenarios: ../scenarios
+generator: specs/linux-system.yaml
+specs: specs
+scenarios: scenarios
 
 # GUIDs are derived from the environment name and hostname, so
 # regenerating this file reproduces the same node identities rather
 # than orphaning the history of a fleet that is already running.
 nodes:
 
-  - hostname: globex-retail-lb-01
+  - hostname: initech-lb-01
     guid: 1bf5813f-da72-4d43-9452-8f7ae1f3242d
     role: lb
     services: [nginx]
@@ -49,7 +49,7 @@ nodes:
       infra_sim_role: lb
       infra_sim_env: production
 
-  - hostname: globex-retail-web-01
+  - hostname: initech-web-01
     guid: 9e573be7-50bd-492e-bfce-bd894f3c1339
     role: web
     services: [nginx, otel-collector]
@@ -84,7 +84,7 @@ nodes:
       infra_sim_role: web
       infra_sim_env: production
 
-  - hostname: globex-retail-web-02
+  - hostname: initech-web-02
     guid: 3e573be7-bd9d-492f-bfce-b8894f3c29c0
     role: web
     services: [nginx, otel-collector]
@@ -119,7 +119,7 @@ nodes:
       infra_sim_role: web
       infra_sim_env: production
 
-  - hostname: globex-retail-db-01
+  - hostname: initech-db-01
     guid: ce411c26-816e-46cc-8a58-158e453d2115
     role: db
     services: [postgres]
@@ -157,7 +157,7 @@ nodes:
       infra_sim_role: db
       infra_sim_env: production
 
-  - hostname: globex-retail-cache-01
+  - hostname: initech-cache-01
     guid: 46b2844a-822f-4625-96a2-cc827a1a0b85
     role: cache
     services: [redis, otel-collector]

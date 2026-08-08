@@ -127,6 +127,11 @@ button.danger:hover { border-color: #f85149; }
         orphaning the fleet's history.
       </p>
       <div class="form">
+        <label>Start from
+          <select id="template" onchange="applyTemplate()">
+            <option value="">blank - pick roles below</option>
+          </select>
+        </label>
         <label>Prospect / project name
           <input id="newName" placeholder="acme">
         </label>
@@ -184,6 +189,25 @@ button.danger:hover { border-color: #f85149; }
         <button id="claimBtn" onclick="doClaim()">Claim this fleet</button>
       </div>
       <div id="claimOut" class="out"></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Re-skin for a new prospect</h2>
+    <div class="body">
+      <p class="note">
+        Renames the running fleet in place. GUIDs are never touched, so it keeps
+        its history, trained ML models and alert log — a cold 72-hour start
+        becomes a change measured in minutes. Move, do not clone: only one
+        environment carrying these GUIDs may be claimed at a time.
+      </p>
+      <div class="form">
+        <label>New prospect name
+          <input id="reskinName" placeholder="globex">
+        </label>
+        <button onclick="doReskin()">Re-skin</button>
+      </div>
+      <div id="reskinOut" class="out"></div>
     </div>
   </section>
 
@@ -287,6 +311,9 @@ function renderScenarios(scenarios) {
         <span class="scenario-name">${esc(s.name)}</span>
         ${s.active
           ? `<button class="danger" onclick="post('/api/scenario/${encodeURIComponent(s.name)}/resolve')">Resolve</button>
+             <button onclick="doAdvance('${encodeURIComponent(s.name)}', 300)" title="Advance this scenario 5 minutes through its own timeline">Escalate +5m</button>
+             <button onclick="doAdvance('${encodeURIComponent(s.name)}', 900)" title="Skip 15 minutes ahead">+15m</button>
+             <button onclick="doAdvance('${encodeURIComponent(s.name)}', -300)" title="Rewind 5 minutes">-5m</button>
              <span class="running">running — ${Math.round(s.progress * 100)}% of ${fmtDur(s.duration_secs)}</span>`
           : `<button onclick="post('/api/scenario/${encodeURIComponent(s.name)}/trigger')">Trigger</button>
              <span class="meta">${fmtDur(s.duration_secs)} timeline</span>`}
@@ -310,8 +337,63 @@ function renderScenarios(scenarios) {
 
 let CATALOGUE = null;
 
+function applyTemplate() {
+  const pick = document.getElementById("template").value;
+  if (!pick || !CATALOGUE) return;
+  const t = CATALOGUE.templates.find(x => x.name === pick);
+  if (!t) return;
+  // A template fills the form; it is never installed directly, so there is one
+  // code path building every environment.
+  for (const input of document.querySelectorAll(".roleCount")) input.value = "0";
+  for (const cb of document.querySelectorAll("#rolesTable input[type=checkbox]")) cb.checked = false;
+  for (const g of t.groups) {
+    const input = document.querySelector(`.roleCount[data-role="${g.role}"]`);
+    if (!input) continue;
+    input.value = String((parseInt(input.value, 10) || 0) + g.count);
+    for (const s of g.services) {
+      const cb = document.querySelector(
+        `#rolesTable input[type=checkbox][data-role="${g.role}"][value="${s}"]`);
+      if (cb) cb.checked = true;
+    }
+  }
+}
+
+async function doAdvance(name, seconds) {
+  await fetch(`/api/scenario/${encodeURIComponent(name)}/advance`, {
+    method: "POST", headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ seconds }),
+  });
+  refresh();
+}
+
+async function doReskin() {
+  const out = document.getElementById("reskinOut");
+  const name = document.getElementById("reskinName").value.trim();
+  if (!name) { out.className = "out bad"; out.textContent = "a name is required"; return; }
+  out.className = "out"; out.textContent = "re-skinning...";
+  try {
+    const r = await (await fetch("/api/reskin", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name }),
+    })).json();
+    if (r.error) { out.className = "out bad"; out.textContent = r.error; return; }
+    out.className = "out ok";
+    out.textContent = `renamed ${r.renamed.length} node(s), GUIDs unchanged:\n` +
+      r.renamed.map(([a, b]) => `  ${a} -> ${b}`).join("\n");
+    refresh();
+  } catch (e) { out.className = "out bad"; out.textContent = String(e); }
+}
+
+
 async function loadCatalogue() {
   CATALOGUE = await (await fetch("/api/catalogue")).json();
+  const tsel = document.getElementById("template");
+  for (const t of CATALOGUE.templates || []) {
+    const o = document.createElement("option");
+    o.value = t.name;
+    o.textContent = `${t.name} (${t.nodes} nodes)`;
+    tsel.appendChild(o);
+  }
   const tb = document.querySelector("#rolesTable tbody");
   tb.innerHTML = "";
   for (const r of CATALOGUE.roles) {
