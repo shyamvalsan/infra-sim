@@ -414,14 +414,47 @@ fn hardware(role: &str) -> (u32, u64, &'static str, &'static str) {
     }
 }
 
-/// Mounts beyond `/` that a role should have, sized so each conserves its own
-/// total rather than clamping.
-fn extra_mounts(role: &str) -> &'static [(&'static str, u64)] {
+/// Base value of the shared disk-usage driver, in KB.
+///
+/// A mount's weight scales this into that mount, so weight and target
+/// utilisation are two views of the same number.
+const DISK_DRIVER_BASE_KB: f64 = 180_000_000.0;
+
+/// Steady-state utilisation for a mount nothing is expected to fill.
+const DEFAULT_MOUNT_TARGET: f64 = 0.38;
+
+/// Steady-state utilisation for a mount a hero scenario fills.
+///
+/// `disk-fill` ramps `disk_space_used_kb` by 8.2x. Starting at the default 38%
+/// that reaches 311%, which the engine clamps to the mount's total — so the
+/// chart pins at 100% full, the ramp flattens, and `out_of_disk_space_time` has
+/// no trend left to project from. The whole scenario degrades into a flat line.
+/// Starting at 11% lands near 93%, which is what the hand-authored templates
+/// use and what the live validation observed.
+const FILLABLE_MOUNT_TARGET: f64 = 0.11;
+
+/// Weight that scales the shared driver to `target` utilisation of `total_kb`.
+fn mount_weight(total_kb: u64, target: f64) -> f64 {
+    (total_kb as f64 * target / DISK_DRIVER_BASE_KB * 10_000.0).round() / 10_000.0
+}
+
+/// Mounts beyond `/` that a role should have: path, total KB, and the
+/// utilisation it should sit at when nothing is wrong.
+///
+/// Sized so each conserves its own total rather than clamping, and so the
+/// mounts the hero scenarios target keep enough headroom to actually fill.
+fn extra_mounts(role: &str) -> &'static [(&'static str, u64, f64)] {
     match role {
-        "db" => &[("/var/lib/pgsql", 1_572_864_000), ("/var/log", 52_428_800)],
-        "k8s-control-plane" | "k8s-worker" => &[("/var/lib/containerd", 209_715_200)],
-        "edge-gateway" => &[("/var/log", 4_194_304)],
-        _ => &[("/boot", 1_048_576)],
+        // disk-fill targets /var/lib/pgsql by name, so it starts low.
+        "db" => &[
+            ("/var/lib/pgsql", 1_572_864_000, FILLABLE_MOUNT_TARGET),
+            ("/var/log", 52_428_800, DEFAULT_MOUNT_TARGET),
+        ],
+        "k8s-control-plane" | "k8s-worker" => {
+            &[("/var/lib/containerd", 209_715_200, FILLABLE_MOUNT_TARGET)]
+        }
+        "edge-gateway" => &[("/var/log", 4_194_304, DEFAULT_MOUNT_TARGET)],
+        _ => &[("/boot", 1_048_576, DEFAULT_MOUNT_TARGET)],
     }
 }
 
@@ -469,9 +502,7 @@ pub fn render(reading: &Reading, name: &str, seed: u64, prefix: &str) -> String 
             let hostname = format!("{prefix}{slug}-{i:02}");
             let guid = derive_guid(name, &hostname);
             let root_kb: u64 = 104_857_600;
-            // Weight scales the shared disk-usage driver into this mount so it
-            // lands near 38% rather than clamping at 100% full.
-            let root_weight = (root_kb as f64 * 0.38 / 180_000_000.0 * 10_000.0).round() / 10_000.0;
+            let root_weight = mount_weight(root_kb, DEFAULT_MOUNT_TARGET);
             let services = if group.services.is_empty() {
                 "[]".to_string()
             } else {
@@ -500,8 +531,8 @@ pub fn render(reading: &Reading, name: &str, seed: u64, prefix: &str) -> String 
             lines.push(format!(
                 "        - {{ name: \"/\", weight: {root_weight}, attrs: {{ disk_total_kb: {root_kb}, inodes_total: 6553600 }} }}"
             ));
-            for &(path, total) in extra_mounts(&group.role) {
-                let w = (total as f64 * 0.38 / 180_000_000.0 * 10_000.0).round() / 10_000.0;
+            for &(path, total, target) in extra_mounts(&group.role) {
+                let w = mount_weight(total, target);
                 lines.push(format!(
                     "        - {{ name: \"{path}\", weight: {w}, attrs: {{ disk_total_kb: {total}, inodes_total: 6553600 }} }}"
                 ));
@@ -696,6 +727,38 @@ mod tests {
         assert!(
             yaml.contains("name: eth1"),
             "db needs a replication link:\n{yaml}"
+        );
+    }
+
+    #[test]
+    fn a_fillable_mount_leaves_headroom_for_the_scenario_that_fills_it() {
+        // disk-fill ramps disk_space_used_kb by 8.2x. A generated environment
+        // whose data volume starts at the default 38% saturates at 100%, the
+        // ramp flattens, and the scenario degrades into a flat line that still
+        // passes the lint - because the lint does not run scenarios.
+        let target = extra_mounts("db")
+            .iter()
+            .find(|(path, _, _)| *path == "/var/lib/pgsql")
+            .map(|(_, _, t)| *t)
+            .expect("the db role has a data volume");
+        assert!(
+            target * 8.2 < 1.0,
+            "a {:.0}% baseline reaches {:.0}% under disk-fill and clamps",
+            target * 100.0,
+            target * 8.2 * 100.0
+        );
+    }
+
+    #[test]
+    fn mount_weights_hit_their_target_utilisation() {
+        // Weight and target utilisation are two views of one number; if they
+        // drift apart a mount silently reports the wrong fullness.
+        let total = 1_572_864_000u64;
+        let w = mount_weight(total, FILLABLE_MOUNT_TARGET);
+        let implied = w * DISK_DRIVER_BASE_KB / total as f64;
+        assert!(
+            (implied - FILLABLE_MOUNT_TARGET).abs() < 0.001,
+            "weight {w} implies {implied:.4}, wanted {FILLABLE_MOUNT_TARGET}"
         );
     }
 

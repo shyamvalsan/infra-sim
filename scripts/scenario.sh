@@ -74,6 +74,9 @@ write_active() {
   else
     printf 'active:\n' > "${tmp}"
     for n in "${names[@]}"; do
+      # A nameless entry has no start time to look up and would abort the whole
+      # rewrite, so the fault would stay active instead of being resolved.
+      [ -n "${n}" ] || continue
       # started_at is written explicitly and preserved across edits. Without it
       # the plugin assigns "now" on first read, so a plugin restart mid-demo
       # silently rewinds the scenario to its opening state - which looks exactly
@@ -146,10 +149,14 @@ case "${1:-}" in
     target="$2"
     mapfile -t active < <(current_active)
     remaining=()
-    for n in "${active[@]:-}"; do
+    for n in ${active[@]+"${active[@]}"}; do
       [ -n "$n" ] && [ "$n" != "${target}" ] && remaining+=("$n")
     done
-    write_active "${remaining[@]:-}"
+    # "${remaining[@]:-}" would expand an *empty* array to one empty string,
+    # so resolving the last active scenario passed a nameless entry through and
+    # aborted on a bad array subscript - leaving the fault running. This form
+    # expands to nothing when the array is empty and is still safe under set -u.
+    write_active ${remaining[@]+"${remaining[@]}"}
     echo -e >&2 "${GREEN}resolved:${NC} ${target}"
     ;;
 

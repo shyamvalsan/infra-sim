@@ -153,6 +153,72 @@ This is authoring-time only. `spec.md`'s non-goal is per-datapoint LLM
 generation; the runtime is deterministic code with no inference in the data
 path.
 
+## Correlated logs
+
+Each simulated node gets its own log source in Netdata, and the log lines
+follow whatever scenario is running.
+
+```bash
+sudo apt-get install systemd-journal-remote   # one-time
+
+./scripts/logs.sh start
+./scripts/logs.sh status
+./scripts/logs.sh stop
+```
+
+The pipeline:
+
+```text
+infra-sim --logs
+  -> Journal Export Format
+  -> systemd-journal-remote --output=/var/log/journal/remote/remote-<host>.journal
+  -> Netdata's systemd-journal.plugin
+  -> logs UI, one source per node
+```
+
+The journal-remote hop is not optional. journald refuses to let a local client
+set `_HOSTNAME` — it is a *trusted* field — so anything written to the local
+journal is attributed to the machine running the demo. `systemd-journal-remote`
+accepts trusted fields because its whole purpose is ingesting entries formed on
+another host, and that is what gives each simulated node its own identity.
+Netdata reads the files with `cap_dac_read_search`, so they stay root-owned.
+
+### Faults are matched on signals, not scenario names
+
+A log rule fires when a *signal* is perturbed past a threshold — the same
+question the metrics engine asks. Nothing in the log generator knows that
+`disk-fill` exists. Any scenario that drives `disk_space_used_kb` up produces
+disk-full logs, including one written next year, and a scenario that gets
+renamed or retuned cannot drift away from its own logs.
+
+So triggering `disk-fill` makes the database node log this, naming the same
+mount the alert fired on:
+
+```text
+postgres  ERROR:  could not extend file "base/16384/400000": No space left on device
+          HINT:  Check free disk space; relation "orders" on /var/lib/pgsql
+kernel    EXT4-fs warning (device var-lib-pgsql): ext4_has_free_clusters:379: ...
+```
+
+### Two deliberate choices
+
+**No access logs.** A web node reporting 1,200 req/s on its chart while its
+logs show three lines a second is exactly the contradiction an SRE notices, and
+emitting the real volume would be absurd for a demo. Real deployments split it
+the same way — nginx access logs go to a file, only errors reach journald — so
+this emits what journald would actually hold. A healthy node logs nothing above
+`notice`.
+
+**A separate process.** The logs writer shares nothing with the metrics plugin
+but the environment file, the seed and `control.yaml`. Because the engine is a
+pure function of those, both compute the same values for the same tick, so logs
+and metrics correlate by construction rather than by coordination — and the
+writer can be stopped without touching the plugin.
+
+At fleet sizes in the hundreds this should share one journal file and filter on
+the `_HOSTNAME` facet instead; `--split-mode=host` is rejected for stdin
+sources, so per-node files mean one `systemd-journal-remote` per node.
+
 ## Writing generator specs
 
 A spec describes contexts and the signals behind them. The format exists to

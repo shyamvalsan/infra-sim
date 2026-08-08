@@ -20,6 +20,7 @@ mod describe;
 mod emitter;
 mod environment;
 mod llm;
+mod logs_runtime;
 mod reskin;
 
 use environment::Environment;
@@ -32,6 +33,8 @@ const DEFAULT_ENVIRONMENT: &str = "/etc/netdata/infra-sim/environment.yaml";
 const CONTROL_FILE: &str = "control.yaml";
 /// Environment variable override, used by the console and by manual runs.
 const ENV_VAR: &str = "INFRA_SIM_ENVIRONMENT";
+/// Default journal output directory, named in the help text.
+const DEFAULT_JOURNAL_DIR: &str = logs_runtime::DEFAULT_JOURNAL_DIR;
 
 fn main() -> ExitCode {
     match run() {
@@ -57,6 +60,12 @@ struct Args {
     describe_name: Option<String>,
     /// Read the description with a real model instead of the keyword parser.
     llm: Option<llm::Config>,
+    /// Emit correlated logs into the journal instead of metrics.
+    logs: bool,
+    /// Where journal files are written; Netdata scans this path.
+    journal_dir: PathBuf,
+    /// Override the `systemd-journal-remote` binary location.
+    journal_remote: Option<PathBuf>,
     /// Re-skin instead of running: rewrite hostnames and labels for a new
     /// prospect while preserving every GUID.
     reskin: Option<ReskinArgs>,
@@ -102,6 +111,9 @@ fn parse_args() -> Result<Args, String> {
     let mut llm_cfg: Option<llm::Config> = None;
     let mut llm_model: Option<String> = None;
     let mut llm_key_env: Option<String> = None;
+    let mut logs = false;
+    let mut journal_dir: Option<PathBuf> = None;
+    let mut journal_remote: Option<PathBuf> = None;
 
     let mut args = std::env::args().skip(1);
     while let Some(arg) = args.next() {
@@ -140,6 +152,19 @@ fn parse_args() -> Result<Args, String> {
                 llm_key_env = Some(args.next().ok_or_else(|| {
                     "--llm-key-env requires an environment variable name".to_string()
                 })?);
+            }
+            "--logs" => logs = true,
+            "--journal-dir" => {
+                journal_dir =
+                    Some(PathBuf::from(args.next().ok_or_else(|| {
+                        "--journal-dir requires a path".to_string()
+                    })?));
+            }
+            "--journal-remote" => {
+                journal_remote =
+                    Some(PathBuf::from(args.next().ok_or_else(|| {
+                        "--journal-remote requires a path".to_string()
+                    })?));
             }
             "--reskin" => {
                 reskin_args.get_or_insert_with(ReskinArgs::default);
@@ -191,6 +216,17 @@ fn parse_args() -> Result<Args, String> {
                      violations, and exit non-zero if any are found\n\
                      --replay-from TS  pin the simulated clock to unix timestamp TS \
                      for bit-exact replay of an archived environment\n\
+                     \n\
+                     correlated logs (a separate process from the metrics plugin):\n\
+                     sudo infra-sim --logs --environment PATH\n\
+                     --journal-dir DIR     where journal files are written \
+                     (default: {DEFAULT_JOURNAL_DIR})\n\
+                     --journal-remote PATH override the systemd-journal-remote \
+                     binary\n\
+                     Needs systemd-journal-remote installed and root to write \
+                     the journal.\n\
+                     Each node becomes its own log source in Netdata; fault \
+                     lines follow whatever scenario is running.\n\
                      \n\
                      build an environment from a description:\n\
                      --describe \"3 web servers behind an nginx load balancer, a \\\n\
@@ -261,6 +297,10 @@ fn parse_args() -> Result<Args, String> {
         describe,
         describe_name,
         llm: llm_cfg,
+        logs,
+        journal_dir: journal_dir
+            .unwrap_or_else(|| PathBuf::from(logs_runtime::DEFAULT_JOURNAL_DIR)),
+        journal_remote,
     })
 }
 
@@ -281,6 +321,13 @@ fn run() -> Result<(), String> {
     }
 
     let env = Environment::load(&args.environment).map_err(|e| e.to_string())?;
+
+    // Logs need the fleet's identities and services, not its generator specs,
+    // so this branches before the (much heavier) spec composition.
+    if args.logs {
+        return do_logs(&env, &args);
+    }
+
     let spec_path = env.generator_path(&args.environment);
     let spec_raw = std::fs::read_to_string(&spec_path).map_err(|e| {
         format!(
@@ -422,6 +469,75 @@ fn run() -> Result<(), String> {
         // Netdata reads us over a pipe, so an unflushed buffer looks exactly
         // like a stalled collector.
         out.flush().map_err(write_err)?;
+    }
+}
+
+/// Run the correlated-logs writer.
+///
+/// Deliberately shares nothing with the metrics process but the environment
+/// file, the seed and `control.yaml`. Determinism does the rest: both compute
+/// the same values for the same tick, so the logs line up with the charts
+/// without either side coordinating.
+fn do_logs(env: &Environment, args: &Args) -> Result<(), String> {
+    let remote_bin = logs_runtime::find_journal_remote(args.journal_remote.as_deref())?;
+    let update_every = args.update_every.max(env.update_every);
+
+    let generators: Vec<sim_engine::logs::LogGenerator> = env
+        .profiles()
+        .iter()
+        .zip(&env.nodes)
+        .map(|(profile, node)| {
+            sim_engine::logs::LogGenerator::new(profile, &node.services, env.seed)
+        })
+        .collect();
+
+    let base_dir = args
+        .environment
+        .parent()
+        .map(Path::to_path_buf)
+        .unwrap_or_else(|| PathBuf::from("."));
+    let library = control::load_library(&env.scenario_path(&args.environment))?;
+    let mut control = control::ControlChannel::new(base_dir.join(CONTROL_FILE), library);
+
+    let mut runtime = logs_runtime::LogsRuntime::start(generators, &args.journal_dir, &remote_bin)?;
+
+    eprintln!(
+        "infra-sim logs: {} node(s) -> {} (via {})",
+        env.nodes.len(),
+        args.journal_dir.display(),
+        remote_bin.display()
+    );
+    for file in runtime.files() {
+        eprintln!("  {}", file.display());
+    }
+    eprintln!(
+        "infra-sim logs: Netdata reads these as separate log sources named after each node. \
+         Faults are matched on signals, so any scenario that moves a modelled signal \
+         produces matching log lines."
+    );
+
+    let interval = update_every as f64;
+    let mut next = align_to_interval(now_secs(), update_every);
+    let mut total = 0usize;
+    let mut reported = now_secs();
+
+    loop {
+        sleep_until(next);
+        let tick_at = next;
+        next += update_every;
+
+        if let Some(change) = control.poll(tick_at) {
+            eprintln!("infra-sim logs: {change}");
+        }
+
+        total += runtime.tick(control.scenarios(), tick_at, interval)?;
+
+        // Periodic, not per-tick: an operator wants to know it is alive without
+        // the output becoming its own log flood.
+        if tick_at - reported >= 300 {
+            eprintln!("infra-sim logs: {total} entries written so far");
+            reported = tick_at;
+        }
     }
 }
 

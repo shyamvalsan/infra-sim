@@ -199,6 +199,19 @@ Unresolved, not blocking this slice:
 
 Also unresolved by the instruction and decided here: `--name` stays authoritative over the model's suggested environment name, because the name fixes the seed, the hostname prefix and therefore every GUID — letting a model move it would orphan a running fleet on a re-run.
 
+**Correlated logs — user decisions 1A / 2C / 3B (2026-08-07).** Decision 4A had already settled the mechanism (per-host journal files under `/var/log/journal/remote/`); what was new was the dependency it implies. Presented with evidence and decided:
+
+1. **1A — `systemd-journal-remote`, one journal file per node.** Accepted the host dependency (`sudo apt-get install systemd-journal-remote`) and the root requirement. Rejected 1B (local journald via `systemd-cat-native` with a custom field), because journald refuses trusted fields from a local client — `systemd-cat-native --help` states *"Keys starting with underscore are not accepted (by journald)"* — so every simulated line would attribute to the demo machine and the per-node story collapses.
+2. **2C — scenario-aware log content**, not just baseline chatter or per-service noise. The demo is an alert leading to logs that name the actual root cause.
+3. **3B — a separate `--logs` process**, not inside the metrics plugin.
+
+Two implementation decisions taken inside those, recorded rather than left in comments:
+
+- **Fault rules match on signals, not scenario names.** A rule fires when `ScenarioSet::perturbation` reports a signal driven past a threshold — the same question the metrics engine asks. Nothing in the log generator knows `disk-fill` exists, so any future scenario moving `disk_space_used_kb` gets disk-full logs for free, and a renamed or retuned scenario cannot drift away from its own logs.
+- **No access logs.** A web node reporting 1,200 req/s on its chart while its logs show three lines a second is the contradiction an SRE notices; emitting the real volume is absurd for a demo. Real deployments split it the same way (nginx access logs to a file, errors to journald), so only what journald would actually hold is emitted. A healthy node logs nothing above `notice`.
+
+Recorded as a known limit, not a gap to close later: `spec.md` P0's *"attributed to correct vnodes in logs UI"* remains not literally achievable — Netdata's logs UI filters by source facet and `_HOSTNAME`, not by node view. 1A delivers the closest achievable thing (each node is its own selectable log source). This restates the finding already in this SOW's `spec.md` corrections.
+
 ## Plan
 
 See `## Pre-Implementation Gate` → Implementation plan, items 1–9.
@@ -262,6 +275,22 @@ LLM backend for `--describe` — validated against a local mock speaking each pr
 - OpenAI path end-to-end: `POST /v1/chat/completions`, `authorization: Bearer`, `response_format.json_schema.strict = true`, system+user message pair; plan parsed and rendered.
 - Error paths all fail closed with an actionable message and exit 1: key unset, unknown provider, `--llm-model` without `--llm`, HTTP 401 (provider's own message surfaced), unreachable endpoint. The request-body temp file is removed on every path, including the failures.
 - Not covered: no call was made to a real provider. Model-quality behaviour — how well `claude-opus-5` actually maps an unfamiliar description onto the catalogue — is unverified and needs a run with a live key.
+
+Correlated logs (decisions 1A / 2C / 3B) — validated end to end on the live agent, 10-node `acme` fleet:
+
+- Chain proven before any generator code was written, the same way the vnode probe de-risked the last unknown: a hand-written Journal Export Format entry through `systemd-journal-remote` produced `_HOSTNAME: sim-web-01` in `journalctl`, and Netdata listed `remote-sim-web-01` as its own logs source.
+- Netdata reads root-owned journals because `systemd-journal.plugin` carries `cap_dac_read_search=eip`, which bypasses file-permission checks — the plugin runs as user `netdata` and cannot read them otherwise. This was checked, not assumed: `sudo -u netdata test -r` on both our file and the host's own `system.journal` fails.
+- **The demo works.** With `disk-fill` running, `acme-db-01` logged `ERROR: could not extend file ...: No space left on device / HINT: ... relation "checkout_events" on /var/lib/pgsql` — the same mount the manifest names as root cause — at 330s elapsed, against a predicted threshold crossing of 312s. Netdata's own `systemd-journal` function returns it with `_HOSTNAME=acme-db-01`, priority `error`, multiline message intact.
+- Scoping holds, which is what keeps a log pane from muddying the root cause: fault lines appeared on **the db node only** (9 other nodes: zero), named **`/var/lib/pgsql` only** (the untargeted `/` and `/var/log` stayed silent), and **no web or cache node emitted a single postgres line**.
+- A healthy fleet logs nothing alarming: across ~9 minutes and 10 nodes, every steady-state entry was `info` or `notice`, service-appropriate (redis only on caches, nginx on web).
+- Teardown holds. Killing the writer — including an orphan killed outside the script — made all 10 `systemd-journal-remote` children exit, because closing the pipes gives each an EOF. No signal handling needed, and nothing outlived its parent. This is the failure this SOW already recorded once, checked rather than assumed.
+- `cargo test`: 157 passed, 0 failed. Clippy and fmt clean.
+
+Three defects found by this work and fixed here:
+
+1. **`--describe` sized fillable mounts so hero scenarios saturate them.** The renderer targeted 38% utilisation for every mount, so a generated `/var/lib/pgsql` starting at 38% reaches 311% under `disk-fill`'s 8.2x, clamps at 100%, and the ramp flattens — `out_of_disk_space_time` then has no trend to project from. Hand-authored templates use ~11%. Fixed with an explicit per-mount target and a regression test asserting `target * 8.2 < 1.0`. Note the lint could not have caught this: **the lint does not run scenarios.**
+2. **`scenario.sh resolve` could not resolve the last active scenario.** `"${remaining[@]:-}"` expands an *empty* array to one empty string, so the rewrite aborted on a bad array subscript and left the fault running — a presenter could trigger a fault mid-demo and not clear it. Fixed and verified for both the last-scenario and one-of-many cases, with `started_at` preserved for the survivor.
+3. **`logs.sh` had two privilege/pipe defects**, both found by running it rather than reading it: the log redirect ran in the calling (unprivileged) shell and could not write to `/var/log`; and `kill -0` against a root-owned writer fails with EPERM for an unprivileged caller, so `status` reported a healthy writer as stopped — which would have invited a second writer alongside the first. Now redirects inside the privileged shell and checks `/proc`.
 
 Real-use evidence (live agent `v2.10.0-1022-nightly`):
 

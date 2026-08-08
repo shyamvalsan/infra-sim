@@ -304,6 +304,24 @@ curl -s "localhost:19999/host/<hostname>/api/v1/charts"
 curl -s "localhost:19999/host/<hostname>/api/v1/data?chart=system.cpu&after=-60"
 ```
 
+Correlated logs run as a **separate process** from the metrics plugin and need
+`systemd-journal-remote` plus root. Never fold them into the plugin: Netdata owns
+the plugin's lifecycle, and a collector that outlives its own removal has already
+cost this project real debugging time.
+
+```bash
+sudo apt-get install systemd-journal-remote   # one-time
+
+./scripts/logs.sh start|status|stop           # tracks a specific PID, never a pattern
+
+# verify a node became its own log source, and read its lines
+sudo journalctl --file=/var/log/journal/remote/remote-<hostname>.journal -o short-iso
+```
+
+Verify logs through the agent, not only the file: the `systemd-journal` function
+requires a `__logs_sources` selection, and `all-remote-systems` is the simulated
+fleet.
+
 ### Project-specific overrides
 
 **Verify against the agent before designing around an assumption.** This project sits on undocumented-by-default agent behavior. Two of `spec.md`'s load-bearing assumptions were only resolvable by running code against a live agent, and one of them (vnode dashboard completeness) changed the P0 estimate by roughly an order of magnitude. Source-reading is necessary but not sufficient; run the probe.
