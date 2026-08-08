@@ -171,11 +171,8 @@ fn sanitise(name: &str) -> String {
 /// Build an `environment.yaml`, lint it, and install it.
 ///
 /// `repo` is the checkout holding `specs/`, `scenarios/` and a built binary.
-pub fn create(repo: &Path, req: &CreateRequest) -> Result<CreateResponse, String> {
-    create_with_progress(repo, req, &Default::default())
-}
-
-pub fn create_with_progress(
+/// Build, check and install a fleet, reporting each stage as it goes.
+pub fn create(
     repo: &Path,
     req: &CreateRequest,
     progress: &ProgressHandle,

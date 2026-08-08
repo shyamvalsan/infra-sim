@@ -351,7 +351,11 @@ async fn describe(
     let handle = app.progress.clone();
     if let Ok(mut g) = handle.lock() {
         *g = Some(provision::Progress::new(
-            if req.provider.is_empty() { "reading the description" } else { "asking the model to read the description" },
+            if req.provider.is_empty() {
+                "reading the description"
+            } else {
+                "asking the model to read the description"
+            },
             1,
         ));
     }
@@ -389,9 +393,7 @@ async fn create(
     }
     let worker = app.progress.clone();
     let finish = app.progress.clone();
-    let out =
-        tokio::task::spawn_blocking(move || provision::create_with_progress(&repo, &req, &worker))
-            .await;
+    let out = tokio::task::spawn_blocking(move || provision::create(&repo, &req, &worker)).await;
     if let Ok(mut g) = finish.lock() {
         if let Some(p) = g.as_mut() {
             p.done = true;
