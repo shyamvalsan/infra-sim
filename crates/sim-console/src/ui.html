@@ -281,7 +281,7 @@ Every GUID is preserved, so the nodes keep their history, trained ML models and 
       <div class="row">
         <label class="field grow" style="max-width:280px"><span>New name</span>
           <input id="reskinName" placeholder="customer-b"></label>
-        <button onclick="doReskin()">Re-skin</button>
+        <button id="reskinBtn" onclick="doReskin()" disabled>Re-skin</button>
       </div>
       <div class="out" id="reskinOut"></div>
     </div>
@@ -299,7 +299,7 @@ Removing the nodes and the Space from Netdata Cloud stays manual — you will be
     <div class="body">
       <div class="row">
         <span class="note">The fleet stops for good. Everything is archived first, so it can be replayed.</span>
-        <button class="danger" onclick="confirmTeardown()" style="margin-left:auto">Tear down</button>
+        <button id="teardownBtn" class="danger" onclick="confirmTeardown()" style="margin-left:auto" disabled>Tear down</button>
       </div>
       <div class="out" id="teardownOut"></div>
     </div>
@@ -381,6 +381,7 @@ let CAT = null;                 // /api/catalogue
 let ROWS = [];
 let pickerRow = -1;
 let PROVIDER = "";
+let INSTALLED = null;   // the environment the agent is currently running, if any
 
 function showTab(which) {
   for (const t of ["build", "run"]) {
@@ -634,9 +635,10 @@ async function doReskin() {
 }
 
 function confirmTeardown() {
-  const name = CAT && $("envline").textContent.split(" ·")[0];
-  if (confirm(`Tear down "${name}"?\n\nThe fleet stops for good and everything it installed is removed. `
-            + `The environment, seed and scenario manifests are archived first, so it can be replayed.`)) {
+  if (!INSTALLED) { alert("Nothing is installed."); return; }
+  if (confirm(`Tear down "${INSTALLED.name}" (${INSTALLED.node_count} nodes)?\n\n`
+            + `The fleet stops for good and everything it installed is removed. The environment, `
+            + `seed and scenario manifests are archived first, so it can be replayed.`)) {
     doTeardown();
   }
 }
@@ -732,9 +734,20 @@ async function refresh() {
   let d;
   try { d = await (await fetch("/api/status")).json(); }
   catch (e) { $("errors").textContent = "console cannot reach itself: " + e; return; }
-  $("envline").textContent = d.environment
-    ? `${d.environment.name} · ${d.environment.node_count} nodes · ${d.environment.context_count} contexts · seed ${d.environment.seed}`
-    : "nothing installed yet";
+  INSTALLED = d.environment || null;
+  $("envline").textContent = INSTALLED
+    ? `${INSTALLED.name} · ${INSTALLED.node_count} nodes · ${INSTALLED.context_count} contexts · seed ${INSTALLED.seed}`
+    : "no simulation installed";
+  // Nothing to re-skin or tear down until something is running. Leaving these
+  // live produced a confirm dialog offering to tear down "nothing installed
+  // yet", which is the header text, not a fleet.
+  for (const id of ["teardownBtn", "reskinBtn"]) {
+    const b = $(id);
+    if (b) {
+      b.disabled = !INSTALLED;
+      b.title = INSTALLED ? "" : "nothing is installed";
+    }
+  }
   renderBoard(d.board);
   renderNodes(d.nodes, d.agent_url);
   renderScenarios(d.scenarios);
