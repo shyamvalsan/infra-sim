@@ -28,21 +28,37 @@ sim-db-01   netdata.training_status      = untrained 12.6, trained 10.4
 
 ## Status
 
-Early. The first vertical slice is working end to end; most of the product in
-`spec.md` is not built yet.
+The first vertical slice is complete and validated end to end on a live agent.
 
-**Working:** generator spec format, deterministic seeded engine with invariants
-enforced by construction, plugins.d emitter with virtual-node support,
-per-instance cardinality (one chart per disk / interface / mount), a
-70-context Linux baseline, a 5-node web-stack environment, and a fidelity lint.
+**Working:**
 
-Also working: a scenario engine with live trigger, ground-truth manifests, and
-one hero scenario.
+- Declarative generator spec format; deterministic seeded engine (same
+  environment + seed replays identically, bit-exact with `--replay-from`).
+- plugins.d emitter with virtual nodes, per-instance cardinality (one chart per
+  disk / interface / mount) and chart labels so stock health templates attach.
+- A 70-context Linux baseline plus five service specs (nginx, postgres, redis,
+  containers, kubernetes) composed per node.
+- Four environment templates; five hero scenarios with ground-truth manifests,
+  triggerable live.
+- Two-layer fidelity harness (pinned-signal + semantic checks). It has found
+  seven real bugs that were live.
+- Control console; environment authoring by hand, from a text description
+  (offline or LLM-backed), or by re-skinning a warm fleet without touching
+  GUIDs.
+- Correlated logs — one journal source per node, fault lines matched on signals.
+- OpenTelemetry: an OTLP emitter showcase, and a collector-fleet generator spec.
 
-**Not built:** correlated logs, control console, the remaining four hero
-scenarios, additional verticals, OTEL simulation, the eval gym. See
-`.agents/sow/` for what is tracked and `spec.md` for the full product
-definition.
+**Not built:** the eval gym, additional verticals beyond the five service specs,
+and packaging for someone who did not build it. See `.agents/sow/` for what is
+tracked and `spec.md` for the full product definition.
+
+**Proven, not claimed.** With `disk-fill` running, Netdata's own ML raised
+`ml_1min_node_ar` about 18 minutes before any threshold alert and ranked the
+fleet in the manifest's blast-radius order; the health engine then raised
+`disk_space_usage` WARNING on exactly the mount the manifest names as root
+cause; and that node's logs showed Postgres reporting no space left on that
+same mount, while the other nodes stayed quiet. Nothing in that chain is
+scripted.
 
 ## How it works
 
@@ -71,6 +87,10 @@ This is the single biggest driver of effort in this project. Details and
 measurements: `prototypes/vnode-probe/FINDINGS.md`.
 
 ## Quick start
+
+**New here? Read [docs/QUICKSTART.md](docs/QUICKSTART.md)** — zero to a running
+fleet with a live incident, including the warm-up timing that decides whether a
+demo lands.
 
 Requires a running Netdata agent and a Rust toolchain.
 
@@ -155,9 +175,53 @@ path.
 
 ## OpenTelemetry
 
-`specs/otel-collector.yaml` models an OTel Collector's **own** internal
-telemetry — receiver accepted/refused, batch behaviour, dropped points, exporter
-queue against capacity, enqueue failures, send retries, process RSS/CPU.
+Two separate things, for two separate conversations.
+
+### 1. Send OTLP into Netdata
+
+A made-up application emitting **metrics, logs and traces** over OTLP/gRPC
+straight into Netdata's receiver — no collector in between. For the prospect
+who says "we already run OpenTelemetry".
+
+```bash
+./scripts/otlp.sh                      # builds a venv on first run
+./scripts/otlp.sh --service checkout-api --rps 20
+```
+
+It emits a storefront service: request counters, a latency histogram, in-flight
+gauge, cart value, plus parent/child spans and correlated INFO/WARN/ERROR logs.
+
+What Netdata does with each signal — **probed against agent v2.10.0, not
+assumed**:
+
+| Signal | Ingested | Where it shows up |
+|---|---|---|
+| Metrics | yes | Charts, as `otel.*` contexts. Histograms arrive fully decomposed (`.bucket`, `.count`, `.sum`, `.minmax`) |
+| Logs | yes | The `otel-logs` function, with `service.name`, severity and resource attributes as columns |
+| Traces | yes | Persisted to `/var/log/netdata/otel/v2/traces/` — **but there is no trace viewer on the agent yet**, so spans are stored rather than rendered |
+
+Two limitations worth knowing before you demo it:
+
+- **OTLP does not create Netdata nodes.** Verified by probe: two resources with
+  distinct `host.name` produced no new nodes — both landed on the ingesting
+  host, attributes flattened into `resource.attributes.*` labels, one chart
+  instance per attribute set. Distinct series, one node. So there is no node
+  list, no per-node ML ranking, no node-scoped alerts and no re-skin story on
+  this path. For a fleet, use the plugins.d path (the rest of this README).
+- `trace_id` / `span_id` are not exposed as columns by `otel-logs`, so
+  trace↔log correlation is sent but not currently surfaced.
+
+Observed and not diagnosed: OTLP log timestamps render as year 9999 in the
+agent's function API — the stored value is nanoseconds while the column
+declares a microsecond transform. `systemd-journal` renders correctly, so it is
+specific to this path. Check how it looks in your Cloud dashboard before
+demoing the logs pane.
+
+### 2. Monitor an OTel Collector fleet
+
+`specs/otel-collector.yaml` models a collector's **own** internal telemetry —
+receiver accepted/refused, batch behaviour, dropped points, exporter queue
+against capacity, enqueue failures, send retries, process RSS/CPU.
 `environments/otel-fleet.yaml` places it in the topology people actually run:
 agent collectors beside the application, forwarding to a gateway pair.
 
@@ -165,21 +229,10 @@ agent collectors beside the application, forwarding to a gateway pair.
 ./target/release/infra-sim --environment environments/otel-fleet.yaml --lint 72
 ```
 
-The demo story is "Netdata monitoring your collector fleet", which is a real
-pain point: a collector that silently drops telemetry is the worst failure in
-an observability pipeline, because the thing that would have told you is the
-thing that broke.
-
-**Why the collector is a monitored service and not a transport.** Netdata
-ingests OTLP over gRPC, but that path **cannot create virtual nodes** — verified
-by probe, not inferred. Metrics sent from two resources with distinct
-`host.name` attributes produced no new nodes; both landed on the ingesting host,
-with the attributes flattened into `resource.attributes.*` chart labels and one
-chart instance per attribute set. Distinct series, one node.
-
-So an OTLP-based simulation has no node list, no per-node dashboards, no
-node-level ML anomaly ranking, no node-scoped alerts and no re-skin story.
-Modelling the collector on the plugins.d path keeps all of it.
+This runs on the plugins.d path, so it is a real multi-node fleet with per-node
+dashboards and ML. The story is a genuine pain point: a collector that silently
+drops telemetry is the worst failure in an observability pipeline, because the
+thing that would have told you is the thing that broke.
 
 ## Correlated logs
 
