@@ -33,6 +33,55 @@ Product definition is `spec.md`. What is actually built is described in
 - Root, for anything that writes under `/etc/netdata`
 - `systemd-journal-remote`, only for correlated logs
 
+## Two ways to run a simulation
+
+**In a container, with its own agent** (`scripts/sim-docker.sh`). Use this for
+prospect demos and scale tests. Each simulation is isolated: its own agent, its
+own Cloud claim, its own history, and `docker rm` removes all of it. Your own
+agent is never touched.
+
+**On the host agent** (the console). Use this for local iteration, where a build
+step per change is not worth it.
+
+Both run the same binary against the same environment file.
+
+### Containerised
+
+```bash
+cargo build --release
+./scripts/sim-docker.sh build                                  # once, and after changing the plugin
+
+./target/release/infra-sim --llm netdata \
+  --describe "6 web servers behind two haproxy load balancers, a 3-node postgres cluster, 4 access switches" \
+  --name customer-a --environment environments/customer-a.yaml
+
+./scripts/sim-docker.sh create customer-a environments/customer-a.yaml
+./scripts/sim-docker.sh status customer-a
+```
+
+Claim it into its own Space:
+
+```bash
+./scripts/sim-docker.sh create customer-a environments/customer-a.yaml --claim --rooms <room-id>
+```
+
+The token is read from `$NETDATA_CLAIM_TOKEN` or prompted for. It reaches the
+container as an environment variable, which is visible in `docker inspect` for
+the life of the container. That is the mechanism Netdata documents for
+containers; baking it into an image or a mounted file is worse.
+
+Scenarios, logs and teardown:
+
+```bash
+./scripts/sim-docker.sh scenario customer-a trigger disk-fill
+./scripts/sim-docker.sh scenario customer-a resolve disk-fill
+./scripts/sim-docker.sh logs customer-a start
+./scripts/sim-docker.sh teardown customer-a
+```
+
+The container's own node is named `<name>-parent` and runs no host collectors,
+so it does not appear in the Space as a stray machine reporting container CPU.
+
 ## Console
 
 ```bash

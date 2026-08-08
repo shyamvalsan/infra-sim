@@ -209,6 +209,37 @@ on the same machine.
 Processes are matched on executable path plus argument from `/proc`, never on a
 process name. Cloud-side removal stays manual and says so.
 
+## One container per simulation
+
+The container path (`scripts/sim-docker.sh`, `docker/`) gives a simulation its
+own identity. The host path installs into the operator's agent, which means the
+agent's identity *is* the simulation's: it can be in one Cloud Space, teardown
+leaves stale vnodes in its database, and a plugin that exits badly disables
+itself for the next fleet.
+
+- **Image**: `netdata/netdata:<tag>` plus `systemd-journal-remote` (absent from
+  the stock image, and correlated logs need it) and the plugin binary. The
+  binary is baked in rather than mounted so an image tag identifies what a demo
+  ran.
+- **The container's own node** is named `<sim>-parent` with its internal
+  collectors off. Left alone it appears as a machine named after the container
+  id reporting 527 charts of container metrics, 136 of them host-style.
+- **Claiming** is `NETDATA_CLAIM_TOKEN` / `NETDATA_CLAIM_ROOMS` on `docker run`
+  (`netdata/netdata @ c23face0bd94` `src/claim/claim-with-api.c:603` calls this
+  the choice for container users). Per simulation, so a prospect gets their own
+  Space.
+- **The payload directory is mounted whole**, not file by file. A bind-mounted
+  *file* is bound to one inode, so anything writing by replace-and-rename leaves
+  the container reading the old inode: a triggered scenario was visible on the
+  host and invisible inside the container. `scripts/control_file.py` also writes
+  in place for the same reason.
+- **Teardown is `docker rm -f`**, which takes the agent, its database and every
+  vnode's history with it. Nothing to disarm, no stale nodes, no config left
+  behind.
+
+No engine or plugin change was needed: a probe confirmed vnodes work in a
+container with no host mounts before any of this was designed.
+
 ## Proven end to end
 
 With `disk-fill` running on a live agent:

@@ -1,0 +1,30 @@
+# Agent configuration for a simulation container.
+#
+# The container's own node would otherwise appear in the prospect's Space as a
+# machine named after the container id, reporting the container's CPU, memory
+# and filesystem: 527 charts, 136 of them host-style. That is the artifact this
+# project exists to avoid, so it is named for the simulation and its internal
+# collectors are off.
+#
+# __SIM_NAME__ is substituted by scripts/sim-docker.sh.
+[global]
+    hostname = __SIM_NAME__-parent
+
+[plugins]
+    # Nothing that measures the container itself.
+    proc = no
+    diskspace = no
+    cgroups = no
+    tc = no
+    idlejitter = no
+    timex = no
+    slabinfo = no
+    debugfs = no
+    network-viewer = no
+    systemd-units = no
+    charts.d = no
+    python.d = no
+    statsd = no
+    # go.d stays on: the Prometheus exporter path is scraped by its prometheus
+    # collector, and it costs nothing when no jobs are configured.
+    go.d = yes
