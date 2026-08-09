@@ -24,6 +24,17 @@ pub const ENVIRONMENT_VERSION: u32 = 1;
 /// unconditionally so a hand-edited environment cannot ship unlabelled.
 pub const SIMULATED_LABEL: (&str, &str) = ("simulated", "true");
 
+/// Host label carrying the simulation's own name.
+///
+/// Netdata Cloud will not put a virtual node in a specific room from the agent
+/// side: `NETDATA_CLAIM_ROOMS` applies only to the claiming node, and the
+/// `CreateNodeInstance` message that registers a vnode has no rooms field
+/// (netdata/netdata @ c23face0bd94 src/aclk/schema-wrappers/node_creation.h:10).
+/// Room membership for vnodes is done with **room membership rules matching
+/// host labels**, so every node carries the name of the simulation it belongs
+/// to and one rule can capture a whole fleet.
+pub const SIMULATION_LABEL: &str = "infra_sim_name";
+
 #[derive(Debug, Error)]
 pub enum EnvError {
     #[error("failed to read environment '{path}': {source}")]
@@ -303,6 +314,9 @@ impl Environment {
             .map(|n| {
                 let mut labels = n.labels.clone();
                 labels.insert(SIMULATED_LABEL.0.to_string(), SIMULATED_LABEL.1.to_string());
+                // Applied here rather than in the renderer so every fleet
+                // carries it, including environments authored by hand.
+                labels.insert(SIMULATION_LABEL.to_string(), self.name.clone());
                 let instances = n
                     .instances
                     .iter()
@@ -385,6 +399,22 @@ nodes:
         let env = parse(ENV).expect("should parse");
         assert_eq!(env.nodes.len(), 1);
         assert_eq!(env.seed, 12345);
+    }
+
+    #[test]
+    fn every_node_carries_the_simulation_name() {
+        // One Cloud room rule (infra_sim_name = <name>) has to be able to
+        // capture a whole fleet, because vnodes cannot be placed in a room from
+        // the agent side at all.
+        let env = parse(ENV).unwrap();
+        for p in env.profiles() {
+            assert_eq!(
+                p.labels.get(super::SIMULATION_LABEL).map(String::as_str),
+                Some(env.name.as_str()),
+                "node {} is missing the simulation label",
+                p.hostname
+            );
+        }
     }
 
     #[test]

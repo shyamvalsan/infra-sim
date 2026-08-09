@@ -158,6 +158,28 @@ The agent picks up a new plugin within 60s.
 Without `--llm` the description is read by an offline keyword parser. It resolves
 any integration named in the text but understands less phrasing.
 
+### Putting a simulation in its own Cloud room
+
+`NETDATA_CLAIM_ROOMS` applies only to the claiming agent. The message that
+registers a virtual node with Cloud has no rooms field at all
+(`netdata/netdata @ c23face0bd94`
+`src/aclk/schema-wrappers/node_creation.h:10-16`), so a simulation's nodes
+always land in the Space's "All nodes" room and no agent-side setting changes
+that.
+
+Use a **room membership rule** instead. Every simulated node carries:
+
+| Label | Value |
+|---|---|
+| `infra_sim_name` | the simulation's name |
+| `infra_sim_role` | `web`, `db`, `network-device`, … |
+| `infra_sim_env` | `production` |
+| `simulated` | `true` |
+
+Create the room with a rule matching `infra_sim_name = <your simulation>` and
+the whole fleet joins it, including nodes added later. `infra_sim_role` gives a
+room per tier if you want one.
+
 ## Node classes
 
 Most nodes are Linux servers: the fleet's `generator:` is the Linux baseline and

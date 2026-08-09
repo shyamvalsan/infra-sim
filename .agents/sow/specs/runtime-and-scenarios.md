@@ -186,6 +186,23 @@ The console writes `/etc/netdata/go.d/prometheus.conf` and
 `/etc/netdata/vnodes/infra-sim.conf`. Both carry a marker line and are never
 overwritten without it; teardown removes only files carrying that marker.
 
+## Cloud rooms
+
+A virtual node cannot be placed in a Cloud room from the agent side.
+`NETDATA_CLAIM_ROOMS` becomes a `rooms` array in the one-off claim POST
+(`netdata/netdata @ c23face0bd94` `src/claim/claim-with-api.c:259`) and applies
+to the claiming node only; the `CreateNodeInstance` message that registers a
+vnode carries `{claim_id, machine_guid, hostname, hops}` and nothing else
+(`src/aclk/schema-wrappers/node_creation.h:10-16`).
+
+Netdata engineering confirmed the intended mechanism is **room membership rules
+matching host labels** - Cloud used to inherit the parent's rooms and stopped,
+because it was confusing and uncontrollable.
+
+So every node carries `infra_sim_name` (the simulation's name), applied in
+`Environment::profiles()` rather than by the renderer so hand-authored
+environments get it too. One rule captures a fleet.
+
 ## Teardown
 
 One button, and it has to leave nothing behind - the next prospect's demo runs
