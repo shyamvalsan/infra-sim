@@ -87,6 +87,13 @@ mid-sentence.
 
 ### Scenario targets are checked, not trusted
 
+A signal absent from *this fleet* is not the same as a signal that does not
+exist. A blast-radius step reaching into a tier the fleet does not run - nginx
+latency on a fleet with no nginx - is reported as a step that will not fire, the
+same as a missing role. Only a signal no spec on disk defines fails the lint,
+because that is a typo, and a typo is how a scenario step comes to do nothing in
+front of a prospect with nothing in any log.
+
 `check_scenarios()` verifies every scenario's signal, hostname, role and
 instance resolve against the environment. A step naming something absent
 produces no effect at all: the trigger appears to work and nothing happens,

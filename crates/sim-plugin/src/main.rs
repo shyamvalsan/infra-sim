@@ -469,7 +469,7 @@ fn run() -> Result<(), String> {
 
     if let Some(hours) = args.lint_hours {
         let library = control::load_library(&env.scenario_path(&args.environment))?;
-        check_scenarios(&composed, &env, &library)?;
+        check_scenarios(&composed, &env, &library, &specs_dir)?;
         return lint(&mut engines, hours, update_every);
     }
 
@@ -974,10 +974,38 @@ fn do_reskin(env_path: &Path, r: &ReskinArgs) -> Result<(), String> {
 /// appears to work and nothing happens. That is the worst failure mode this
 /// project has: it surfaces in front of a prospect, mid-sentence, with no error
 /// anywhere to explain it.
+/// Whether any spec on disk defines this signal.
+///
+/// Distinguishes "this fleet does not run that software" from "this signal name
+/// is a typo". The first is normal and the second is a bug that would otherwise
+/// surface as a scenario step doing nothing, mid-demo, with nothing logged.
+fn signal_exists_somewhere(specs_dir: &Path, signal: &str) -> bool {
+    let needle = format!("\n  {signal}:");
+    for dir in [specs_dir.to_path_buf(), specs_dir.join("generated")] {
+        let Ok(entries) = std::fs::read_dir(&dir) else {
+            continue;
+        };
+        for entry in entries.flatten() {
+            let path = entry.path();
+            if path.extension().and_then(|e| e.to_str()) != Some("yaml") {
+                continue;
+            }
+            if std::fs::read_to_string(&path)
+                .map(|t| t.contains(&needle))
+                .unwrap_or(false)
+            {
+                return true;
+            }
+        }
+    }
+    false
+}
+
 fn check_scenarios(
     composed: &std::collections::BTreeMap<String, Arc<GeneratorSpec>>,
     env: &Environment,
     library: &std::collections::BTreeMap<String, sim_spec::Scenario>,
+    specs_dir: &Path,
 ) -> Result<(), String> {
     let hosts: Vec<&str> = env.nodes.iter().map(|n| n.hostname.as_str()).collect();
     let roles: Vec<&str> = env.nodes.iter().filter_map(|n| n.role.as_deref()).collect();
@@ -1030,6 +1058,20 @@ fn check_scenarios(
             // legitimately names signals no web node defines.
             let known = composed.values().any(|s| s.signals.contains_key(&t.signal));
             if !known {
+                // Absent from this fleet is not the same as absent everywhere.
+                // A blast-radius step reaching into a tier this fleet does not
+                // run - nginx latency on a fleet with no nginx - is the same
+                // class as a missing role, which is reported and not fatal.
+                // Only a signal no spec on disk defines is an authoring error,
+                // and that is the case worth failing on: it is how a typo comes
+                // to silently do nothing in front of a prospect.
+                if signal_exists_somewhere(specs_dir, &t.signal) {
+                    inapplicable.push(format!(
+                        "  {name} step {i}: nothing here defines '{}', step is skipped",
+                        t.signal
+                    ));
+                    continue;
+                }
                 problems.push(format!(
                     "  {name} step {i}: unknown signal '{}' - the step would do nothing",
                     t.signal
