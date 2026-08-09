@@ -260,17 +260,6 @@ A role is a node shape — cores, RAM, disks, and which scenarios can target it 
 
 The GUID is the node's identity in Netdata. Changing this later orphans the fleet's history, trained ML models and alert log — re-skin instead.">i</i></span>
           <input id="newName" placeholder="customer-a"></label>
-        <label class="field"><span>History <i class="tip" tabindex="0" data-tip="How many simulated hours to generate and check before installing.
-
-This does NOT give the nodes history. Netdata's plugin protocol cannot backfill the past, so every fleet starts at zero whatever you pick here - the value only controls how thoroughly the data is checked.
-
-More hours catches more: signals pinned to a bound, impossible units, conservation errors, scenario targets that do not resolve. A fleet that fails is never installed. 6 hours is a good default; 72 is thorough and takes noticeably longer at fleet scale.">i</i></span>
-          <select id="lintHours">
-            <option value="2">2h  (quick)</option>
-            <option value="6" selected>6h  (default)</option>
-            <option value="24">24h</option>
-            <option value="72">72h  (thorough, slow)</option>
-          </select></label>
         <label class="check"><input type="checkbox" id="exporters"> Prometheus exporters</label><i class="tip" tabindex="0" data-tip="Each node publishes a real /metrics endpoint that Netdata's own prometheus collector scrapes and charts onto that virtual node.
 
 Application-level metrics only — orders, carts, queues, worker pools — so nothing duplicates a chart the agent already collects.">i</i>
@@ -669,7 +658,6 @@ async function doCreate() {
       method: "POST", headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         name, groups,
-        lint_hours: parseInt($("lintHours").value, 10),
         exporters: $("exporters").checked,
         claim_token: $("token").value,
         claim_rooms: $("rooms").value.trim(),

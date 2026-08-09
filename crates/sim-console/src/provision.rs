@@ -50,8 +50,13 @@ pub struct CreateRequest {
     /// without orphaning the fleet's history.
     pub name: String,
     pub groups: Vec<GroupRequest>,
-    /// Simulated hours to lint before installing. Zero skips the lint, which
-    /// the UI does not offer — an unlinted fleet is how a bad demo happens.
+    /// Simulated hours to check before installing.
+    ///
+    /// Not an operator choice any more. It was presented as "history", which it
+    /// never was: netdata's plugin protocol cannot backfill, so a fleet always
+    /// starts at zero and this only ever controlled how thoroughly the data was
+    /// checked. Offering it invited a decision that could not do what its name
+    /// implied.
     #[serde(default = "default_lint_hours")]
     pub lint_hours: u32,
     /// Also publish a simulated Prometheus exporter per node and point
@@ -75,8 +80,14 @@ pub struct CreateRequest {
     pub claim_rooms: String,
 }
 
+/// Simulated hours the fidelity check runs before a fleet is installed.
+///
+/// Two hours catches the defects that matter - clamped signals, impossible
+/// units, broken conservation, unresolvable scenario targets - without making
+/// an operator wait minutes at fleet scale. Longer runs are still available
+/// from the command line for a spec under development.
 fn default_lint_hours() -> u32 {
-    24
+    2
 }
 
 #[derive(Debug, Serialize)]
