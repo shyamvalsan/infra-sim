@@ -1,0 +1,439 @@
+version: 1
+name: processes
+description: >-
+  What `apps.plugin` reports: per-application-group, per-user and per-group
+  resource usage.
+
+  This exists because a node whose Processes tab shows `root` and `netdata` and
+  nothing else is obviously synthetic to anyone who opens it. A real database
+  server runs postgres under a postgres user, a backup agent, a monitoring
+  agent, sshd and a shipper - and an SRE reads that list before they read a
+  chart.
+
+  Composed onto the Linux baseline for every node. The application groups,
+  users and groups themselves come from the environment's `app`, `user` and
+  `usergroup` instance lists, so one spec serves a database node and a web
+  server; the environment decides who lives on each.
+
+  Metric names, units and dimensions follow
+  netdata/netdata @ c23face0bd94
+  src/collectors/apps.plugin/metadata.yaml.
+
+signals:
+
+  # --- CPU -------------------------------------------------------------------
+  # Weighted per instance by the environment, so a database's postgres group
+  # dominates its node while its backup agent barely registers.
+  proc_cpu_user:
+    base: 3.1
+    min: 0.0
+    max: 100.0
+    seasonality: { daily_amplitude: 0.6, peak_hour: 14.0, weekend_factor: 0.45 }
+    noise: { kind: gauss, sigma: 0.3 }
+  proc_cpu_system:
+    base: 1.2
+    min: 0.0
+    max: 100.0
+    seasonality: { daily_amplitude: 0.55, peak_hour: 14.0, weekend_factor: 0.45 }
+    noise: { kind: gauss, sigma: 0.35 }
+  proc_cpu_guest:
+    base: 0.0
+    min: 0.0
+    max: 100.0
+  proc_ctx_voluntary:
+    base: 420.0
+    min: 0.0
+    max: 5000000.0
+    seasonality: { daily_amplitude: 0.6, peak_hour: 14.0 }
+    noise: { kind: gauss, sigma: 0.25 }
+  proc_ctx_involuntary:
+    base: 38.0
+    min: 0.0
+    max: 5000000.0
+    noise: { kind: gauss, sigma: 0.4 }
+
+  # --- memory ----------------------------------------------------------------
+  proc_mem_rss_mib:
+    base: 210.0
+    min: 0.0
+    max: 4000000.0
+    noise: { kind: walk, sigma: 0.02, reversion: 0.04 }
+  proc_mem_private_mib:
+    base: 168.0
+    min: 0.0
+    max: 4000000.0
+    noise: { kind: walk, sigma: 0.02, reversion: 0.04 }
+  proc_mem_estimated_mib:
+    base: 195.0
+    min: 0.0
+    max: 4000000.0
+    noise: { kind: walk, sigma: 0.02, reversion: 0.04 }
+  proc_vmem_mib:
+    base: 980.0
+    min: 0.0
+    max: 16000000.0
+    noise: { kind: walk, sigma: 0.015, reversion: 0.03 }
+  proc_swap_mib:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  proc_pgfault_minor:
+    base: 240.0
+    min: 0.0
+    max: 5000000.0
+    seasonality: { daily_amplitude: 0.5, peak_hour: 14.0 }
+    noise: { kind: gauss, sigma: 0.35 }
+  proc_pgfault_major:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+
+  # --- disk ------------------------------------------------------------------
+  proc_disk_phys_read_kb:
+    base: 90.0
+    min: 0.0
+    max: 20000000.0
+    seasonality: { daily_amplitude: 0.6, peak_hour: 14.0 }
+    noise: { kind: gauss, sigma: 0.45 }
+  proc_disk_phys_write_kb:
+    base: 140.0
+    min: 0.0
+    max: 20000000.0
+    seasonality: { daily_amplitude: 0.6, peak_hour: 14.0 }
+    noise: { kind: gauss, sigma: 0.45 }
+  proc_disk_log_read_kb:
+    base: 320.0
+    min: 0.0
+    max: 20000000.0
+    seasonality: { daily_amplitude: 0.6, peak_hour: 14.0 }
+    noise: { kind: gauss, sigma: 0.4 }
+  proc_disk_log_write_kb:
+    base: 260.0
+    min: 0.0
+    max: 20000000.0
+    seasonality: { daily_amplitude: 0.6, peak_hour: 14.0 }
+    noise: { kind: gauss, sigma: 0.4 }
+
+  # --- counts ----------------------------------------------------------------
+  proc_processes:
+    base: 48.0
+    min: 0.0
+    max: 100000.0
+    noise: { kind: walk, sigma: 0.12, reversion: 0.2 }
+  proc_threads:
+    base: 260.0
+    min: 0.0
+    max: 500000.0
+    noise: { kind: walk, sigma: 0.12, reversion: 0.15 }
+  proc_fds_files:
+    base: 380.0
+    min: 0.0
+    max: 1000000.0
+    noise: { kind: walk, sigma: 0.05, reversion: 0.15 }
+  proc_fds_sockets:
+    base: 240.0
+    min: 0.0
+    max: 1000000.0
+    seasonality: { daily_amplitude: 0.5, peak_hour: 14.0 }
+    noise: { kind: walk, sigma: 0.07, reversion: 0.15 }
+  # These are small counts, and a small count on a low-weight instance rounds to
+  # a constant integer - which the fidelity lint correctly calls a stuck signal.
+  # Bases are high enough that even a 0.02-weight agent lands on a number that
+  # moves.
+  proc_fds_pipes:
+    base: 140.0
+    min: 0.0
+    max: 100000.0
+    noise: { kind: walk, sigma: 0.12, reversion: 0.2 }
+  proc_fds_inotify:
+    base: 90.0
+    min: 0.0
+    max: 100000.0
+    noise: { kind: walk, sigma: 0.14, reversion: 0.22 }
+  proc_fds_limit_pct:
+    base: 3.4
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise: { kind: walk, sigma: 0.05, reversion: 0.15 }
+
+  # Accumulated at one per second by the counters shape, so uptime advances
+  # rather than sitting at a suspiciously round number.
+  proc_uptime_tick:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+
+contexts:
+
+  # --- per application group -------------------------------------------------
+  - id: app.cpu_utilization
+    title: Apps CPU utilization
+    units: percentage
+    family: "{instance}"
+    chart_type: stacked
+    priority: 20000
+    instances: { group: app, chart_prefix: app_cpu, family: "{instance}", labels: { app_group: "{instance}" } }
+    shape: independent
+    dimensions:
+      - { id: user,   signal: proc_cpu_user }
+      - { id: system, signal: proc_cpu_system }
+
+  - id: app.cpu_context_switches
+    title: Apps CPU context switches
+    units: switches/s
+    family: "{instance}"
+    chart_type: stacked
+    priority: 20002
+    instances: { group: app, chart_prefix: app_ctx, family: "{instance}", labels: { app_group: "{instance}" } }
+    shape: counters
+    dimensions:
+      - { id: voluntary,   rate_signal: proc_ctx_voluntary }
+      - { id: involuntary, rate_signal: proc_ctx_involuntary }
+
+  - id: app.mem_usage
+    title: Apps memory RSS
+    units: MiB
+    family: "{instance}"
+    chart_type: area
+    priority: 20010
+    instances: { group: app, chart_prefix: app_mem, family: "{instance}", labels: { app_group: "{instance}" } }
+    shape: independent
+    dimensions:
+      - { id: rss, signal: proc_mem_rss_mib }
+
+  - id: app.mem_private_usage
+    title: Apps private memory
+    units: MiB
+    family: "{instance}"
+    chart_type: area
+    priority: 20011
+    instances: { group: app, chart_prefix: app_mem_private, family: "{instance}", labels: { app_group: "{instance}" } }
+    shape: independent
+    dimensions:
+      - { id: mem, signal: proc_mem_private_mib }
+
+  - id: app.vmem_usage
+    title: Apps virtual memory
+    units: MiB
+    family: "{instance}"
+    chart_type: area
+    priority: 20012
+    instances: { group: app, chart_prefix: app_vmem, family: "{instance}", labels: { app_group: "{instance}" } }
+    shape: independent
+    dimensions:
+      - { id: vmem, signal: proc_vmem_mib }
+
+  - id: app.mem_page_faults
+    title: Apps page faults
+    units: pgfaults/s
+    family: "{instance}"
+    chart_type: stacked
+    priority: 20013
+    instances: { group: app, chart_prefix: app_pgfaults, family: "{instance}", labels: { app_group: "{instance}" } }
+    shape: counters
+    dimensions:
+      - { id: minor, rate_signal: proc_pgfault_minor }
+      - { id: major, rate_signal: proc_pgfault_major }
+
+  - id: app.disk_physical_io
+    title: Apps physical disk I/O
+    units: KiB/s
+    family: "{instance}"
+    chart_type: area
+    priority: 20020
+    instances: { group: app, chart_prefix: app_disk_phys, family: "{instance}", labels: { app_group: "{instance}" } }
+    shape: counters
+    dimensions:
+      - { id: reads,  rate_signal: proc_disk_phys_read_kb }
+      - { id: writes, rate_signal: proc_disk_phys_write_kb, multiplier: -1 }
+
+  - id: app.disk_logical_io
+    title: Apps logical disk I/O
+    units: KiB/s
+    family: "{instance}"
+    chart_type: area
+    priority: 20021
+    instances: { group: app, chart_prefix: app_disk_log, family: "{instance}", labels: { app_group: "{instance}" } }
+    shape: counters
+    dimensions:
+      - { id: reads,  rate_signal: proc_disk_log_read_kb }
+      - { id: writes, rate_signal: proc_disk_log_write_kb, multiplier: -1 }
+
+  - id: app.processes
+    title: Apps processes
+    units: processes
+    family: "{instance}"
+    chart_type: line
+    priority: 20030
+    instances: { group: app, chart_prefix: app_processes, family: "{instance}", labels: { app_group: "{instance}" } }
+    shape: independent
+    dimensions:
+      - { id: processes, signal: proc_processes }
+
+  - id: app.threads
+    title: Apps threads
+    units: threads
+    family: "{instance}"
+    chart_type: line
+    priority: 20031
+    instances: { group: app, chart_prefix: app_threads, family: "{instance}", labels: { app_group: "{instance}" } }
+    shape: independent
+    dimensions:
+      - { id: threads, signal: proc_threads }
+
+  - id: app.fds_open
+    title: Apps open file descriptors
+    units: fds
+    family: "{instance}"
+    chart_type: stacked
+    priority: 20040
+    instances: { group: app, chart_prefix: app_fds, family: "{instance}", labels: { app_group: "{instance}" } }
+    shape: independent
+    dimensions:
+      - { id: files,     signal: proc_fds_files }
+      - { id: sockets,   signal: proc_fds_sockets }
+      - { id: pipes,     signal: proc_fds_pipes }
+      - { id: inotifies, signal: proc_fds_inotify }
+
+  - id: app.fds_open_limit
+    title: Apps file descriptor limit used
+    units: percentage
+    family: "{instance}"
+    chart_type: line
+    priority: 20041
+    instances: { group: app, chart_prefix: app_fds_limit, family: "{instance}", labels: { app_group: "{instance}" } }
+    shape: independent
+    dimensions:
+      - { id: limit, signal: proc_fds_limit_pct }
+
+  - id: app.uptime
+    title: Apps uptime
+    units: seconds
+    family: "{instance}"
+    chart_type: line
+    priority: 20050
+    instances: { group: app, chart_prefix: app_uptime, family: "{instance}", labels: { app_group: "{instance}" } }
+    shape: counters
+    dimensions:
+      - { id: uptime, rate_signal: proc_uptime_tick }
+
+  # --- per user --------------------------------------------------------------
+  - id: user.cpu_utilization
+    title: Users CPU utilization
+    units: percentage
+    family: "{instance}"
+    chart_type: stacked
+    priority: 20100
+    instances: { group: user, chart_prefix: user_cpu, family: "{instance}", labels: { user: "{instance}" } }
+    shape: independent
+    dimensions:
+      - { id: user,   signal: proc_cpu_user }
+      - { id: system, signal: proc_cpu_system }
+
+  - id: user.mem_usage
+    title: Users memory RSS
+    units: MiB
+    family: "{instance}"
+    chart_type: area
+    priority: 20110
+    instances: { group: user, chart_prefix: user_mem, family: "{instance}", labels: { user: "{instance}" } }
+    shape: independent
+    dimensions:
+      - { id: rss, signal: proc_mem_rss_mib }
+
+  - id: user.disk_logical_io
+    title: Users logical disk I/O
+    units: KiB/s
+    family: "{instance}"
+    chart_type: area
+    priority: 20120
+    instances: { group: user, chart_prefix: user_disk_log, family: "{instance}", labels: { user: "{instance}" } }
+    shape: counters
+    dimensions:
+      - { id: reads,  rate_signal: proc_disk_log_read_kb }
+      - { id: writes, rate_signal: proc_disk_log_write_kb, multiplier: -1 }
+
+  - id: user.processes
+    title: Users processes
+    units: processes
+    family: "{instance}"
+    chart_type: line
+    priority: 20130
+    instances: { group: user, chart_prefix: user_processes, family: "{instance}", labels: { user: "{instance}" } }
+    shape: independent
+    dimensions:
+      - { id: processes, signal: proc_processes }
+
+  - id: user.threads
+    title: Users threads
+    units: threads
+    family: "{instance}"
+    chart_type: line
+    priority: 20131
+    instances: { group: user, chart_prefix: user_threads, family: "{instance}", labels: { user: "{instance}" } }
+    shape: independent
+    dimensions:
+      - { id: threads, signal: proc_threads }
+
+  - id: user.fds_open
+    title: Users open file descriptors
+    units: fds
+    family: "{instance}"
+    chart_type: stacked
+    priority: 20140
+    instances: { group: user, chart_prefix: user_fds, family: "{instance}", labels: { user: "{instance}" } }
+    shape: independent
+    dimensions:
+      - { id: files,     signal: proc_fds_files }
+      - { id: sockets,   signal: proc_fds_sockets }
+      - { id: pipes,     signal: proc_fds_pipes }
+      - { id: inotifies, signal: proc_fds_inotify }
+
+  # --- per group -------------------------------------------------------------
+  - id: usergroup.cpu_utilization
+    title: User groups CPU utilization
+    units: percentage
+    family: "{instance}"
+    chart_type: stacked
+    priority: 20200
+    instances: { group: usergroup, chart_prefix: usergroup_cpu, family: "{instance}", labels: { user_group: "{instance}" } }
+    shape: independent
+    dimensions:
+      - { id: user,   signal: proc_cpu_user }
+      - { id: system, signal: proc_cpu_system }
+
+  - id: usergroup.mem_usage
+    title: User groups memory RSS
+    units: MiB
+    family: "{instance}"
+    chart_type: area
+    priority: 20210
+    instances: { group: usergroup, chart_prefix: usergroup_mem, family: "{instance}", labels: { user_group: "{instance}" } }
+    shape: independent
+    dimensions:
+      - { id: rss, signal: proc_mem_rss_mib }
+
+  - id: usergroup.processes
+    title: User groups processes
+    units: processes
+    family: "{instance}"
+    chart_type: line
+    priority: 20220
+    instances: { group: usergroup, chart_prefix: usergroup_processes, family: "{instance}", labels: { user_group: "{instance}" } }
+    shape: independent
+    dimensions:
+      - { id: processes, signal: proc_processes }
+
+  - id: usergroup.threads
+    title: User groups threads
+    units: threads
+    family: "{instance}"
+    chart_type: line
+    priority: 20221
+    instances: { group: usergroup, chart_prefix: usergroup_threads, family: "{instance}", labels: { user_group: "{instance}" } }
+    shape: independent
+    dimensions:
+      - { id: threads, signal: proc_threads }

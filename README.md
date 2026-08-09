@@ -220,6 +220,20 @@ To resync after a Netdata update:
 python3 scripts/sync-integrations.py --netdata /path/to/netdata
 ```
 
+## Processes, users and groups
+
+Every Linux node composes `specs/processes.yaml`, so the Processes tab shows
+what a real host of that kind runs rather than `root` and `netdata`. A database
+node reports postgres, pgbouncer, barman, systemd, sshd and the agent, under a
+postgres user and group; a web node reports nginx, php-fpm, node and filebeat
+under `www-data`.
+
+Per-role rosters live in `persona()` in `crates/sim-engine/src/describe.rs`, and
+the weights are relative load, so the workload dominates its own node while the
+agents beside it barely register. Metric names, units and dimensions follow
+`apps.plugin`'s own metadata: `app.*` by `app_group`, `user.*` by `user`,
+`usergroup.*` by `user_group`.
+
 ## Scenarios
 
 A scenario is a timeline of effects over generator signals plus a ground-truth

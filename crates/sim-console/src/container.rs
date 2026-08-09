@@ -183,14 +183,17 @@ pub fn logs(repo: &Path, name: &str, action: &str) -> Result<String, String> {
 /// Where `sim-docker.sh` keeps a simulation's payload. Kept in step with the
 /// script's own default.
 fn payload_dir(_repo: &Path, name: &str) -> String {
-    let base = std::env::var("INFRA_SIM_STATE_DIR").unwrap_or_else(|_| {
-        // The console runs as root, so $HOME is root's. The script uses the
-        // invoking user's HOME, and under sudo that is root's too.
-        let home = std::env::var("HOME").unwrap_or_else(|_| "/root".into());
-        format!("{home}/.local/share/infra-sim")
-    });
+    // A fixed location, not $HOME. The console runs under sudo and the script
+    // may not, so keying off HOME meant the two disagreed about where a
+    // simulation lived: the console could not find one created from the command
+    // line, and vice versa.
+    let base =
+        std::env::var("INFRA_SIM_STATE_DIR").unwrap_or_else(|_| DEFAULT_STATE_DIR.to_string());
     format!("{base}/{name}")
 }
+
+/// Where simulation payloads live, shared by the console and the script.
+pub const DEFAULT_STATE_DIR: &str = "/var/lib/infra-sim";
 
 /// Last `n` non-empty lines, for reporting a script failure without dumping a
 /// whole build log into the UI.

@@ -46,7 +46,11 @@ REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 IMAGE="infra-sim:latest"
 # Where each simulation's payload lives on the host. Not in the repo: these are
 # per-demo instances and may carry a prospect's name.
-STATE_DIR="${INFRA_SIM_STATE_DIR:-$HOME/.local/share/infra-sim}"
+#
+# A fixed path rather than $HOME, because the console runs under sudo and this
+# script may not - keying off HOME had the two disagreeing about where a
+# simulation lived.
+STATE_DIR="${INFRA_SIM_STATE_DIR:-/var/lib/infra-sim}"
 LABEL="infra-sim.simulation"
 
 container_of() { echo "infra-sim-$1"; }

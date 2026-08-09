@@ -312,6 +312,133 @@ const ROLES: &[RoleDef] = &[
     },
 ];
 
+/// Who lives on a node of this role: application groups, users and groups.
+///
+/// A node whose Processes tab shows `root` and `netdata` and nothing else is
+/// obviously synthetic to anyone who opens it, and that tab is one of the first
+/// an SRE looks at. Weights are relative load, so the workload dominates its own
+/// node while the agents beside it barely register.
+///
+/// Returns `(apps, users, groups)`.
+type Persona = (
+    &'static [(&'static str, f64)],
+    &'static [(&'static str, f64)],
+    &'static [(&'static str, f64)],
+);
+
+fn persona(role: &str) -> Persona {
+    // Everything an ordinary Linux host runs regardless of its job.
+    const BASE_APPS: &[(&str, f64)] = &[
+        ("systemd", 0.06),
+        ("sshd", 0.03),
+        ("netdata", 0.09),
+        ("cron", 0.01),
+        ("rsyslog", 0.02),
+    ];
+    match role {
+        "db" => (
+            &[
+                ("postgres", 1.0),
+                ("pgbouncer", 0.12),
+                ("barman", 0.05),
+                ("systemd", 0.06),
+                ("sshd", 0.03),
+                ("netdata", 0.09),
+                ("cron", 0.01),
+            ],
+            &[
+                ("postgres", 1.0),
+                ("root", 0.12),
+                ("netdata", 0.09),
+                ("sshd", 0.02),
+            ],
+            &[("postgres", 1.0), ("root", 0.12), ("netdata", 0.09)],
+        ),
+        "web" => (
+            &[
+                ("nginx", 0.55),
+                ("php-fpm", 0.8),
+                ("node", 0.35),
+                ("systemd", 0.06),
+                ("sshd", 0.03),
+                ("netdata", 0.09),
+                ("filebeat", 0.07),
+            ],
+            &[
+                ("www-data", 1.0),
+                ("root", 0.14),
+                ("netdata", 0.09),
+                ("deploy", 0.04),
+            ],
+            &[("www-data", 1.0), ("root", 0.14), ("netdata", 0.09)],
+        ),
+        "lb" => (
+            &[
+                ("haproxy", 0.7),
+                ("keepalived", 0.05),
+                ("systemd", 0.06),
+                ("sshd", 0.03),
+                ("netdata", 0.09),
+            ],
+            &[("haproxy", 0.7), ("root", 0.16), ("netdata", 0.09)],
+            &[("haproxy", 0.7), ("root", 0.16), ("netdata", 0.09)],
+        ),
+        "cache" => (
+            &[
+                ("redis", 0.8),
+                ("systemd", 0.06),
+                ("sshd", 0.03),
+                ("netdata", 0.09),
+            ],
+            &[("redis", 0.8), ("root", 0.14), ("netdata", 0.09)],
+            &[("redis", 0.8), ("root", 0.14), ("netdata", 0.09)],
+        ),
+        "k8s-control-plane" => (
+            &[
+                ("kube-apiserver", 1.0),
+                ("etcd", 0.6),
+                ("kube-scheduler", 0.2),
+                ("kube-controller-manager", 0.3),
+                ("containerd", 0.25),
+                ("kubelet", 0.2),
+                ("systemd", 0.06),
+                ("netdata", 0.09),
+            ],
+            &[("root", 1.0), ("etcd", 0.6), ("netdata", 0.09)],
+            &[("root", 1.0), ("etcd", 0.6), ("netdata", 0.09)],
+        ),
+        "k8s-worker" => (
+            &[
+                ("kubelet", 0.4),
+                ("containerd", 0.6),
+                ("kube-proxy", 0.1),
+                ("app-api", 0.9),
+                ("sidecar-proxy", 0.3),
+                ("systemd", 0.06),
+                ("netdata", 0.09),
+            ],
+            &[("root", 1.0), ("app", 0.9), ("netdata", 0.09)],
+            &[("root", 1.0), ("app", 0.9), ("netdata", 0.09)],
+        ),
+        "edge-gateway" => (
+            &[
+                ("containerd", 0.35),
+                ("app-agent", 0.45),
+                ("systemd", 0.06),
+                ("sshd", 0.02),
+                ("netdata", 0.09),
+            ],
+            &[("root", 1.0), ("app", 0.45), ("netdata", 0.09)],
+            &[("root", 1.0), ("app", 0.45), ("netdata", 0.09)],
+        ),
+        _ => (
+            BASE_APPS,
+            &[("root", 1.0), ("netdata", 0.09)],
+            &[("root", 1.0), ("netdata", 0.09)],
+        ),
+    }
+}
+
 /// Base spec for a role, when it is not the fleet's Linux baseline.
 ///
 /// Only network devices differ today. Returning a path here is what makes a
@@ -673,6 +800,16 @@ pub fn render(reading: &Reading, name: &str, seed: u64, prefix: &str) -> String 
             let guid = derive_guid(name, &hostname);
             let root_kb: u64 = 104_857_600;
             let root_weight = mount_weight(root_kb, DEFAULT_MOUNT_TARGET);
+            // Every Linux node reports its applications, users and groups. It
+            // is a property of being a host, not a service someone chose.
+            let mut svc = group.services.clone();
+            if !svc.iter().any(|s| s == "processes") {
+                svc.push("processes".into());
+            }
+            let group = &Group {
+                services: svc,
+                ..group.clone()
+            };
             let services = if group.services.is_empty() {
                 "[]".to_string()
             } else {
@@ -734,6 +871,13 @@ pub fn render(reading: &Reading, name: &str, seed: u64, prefix: &str) -> String 
                 lines.push(format!(
                     "        - {{ name: \"{path}\", weight: {w}, attrs: {{ disk_total_kb: {total}, inodes_total: 6553600 }} }}"
                 ));
+            }
+            let (apps, users, groups) = persona(&group.role);
+            for (label, entries) in [("app", apps), ("user", users), ("usergroup", groups)] {
+                lines.push(format!("      {label}:"));
+                for (name, weight) in entries {
+                    lines.push(format!("        - {{ name: {name}, weight: {weight} }}"));
+                }
             }
             lines.push("      net:".into());
             lines.push("        - { name: eth0, weight: 1.0 }".into());
@@ -974,7 +1118,9 @@ mod tests {
         assert!(yaml.contains("hostname: acme-web-01"));
         assert!(yaml.contains("hostname: acme-web-02"));
         assert!(yaml.contains("hostname: acme-db-01"));
-        assert!(yaml.contains("services: [postgres]"));
+        // `processes` is composed onto every Linux node, so a db node lists it
+        // alongside its own service rather than postgres alone.
+        assert!(yaml.contains("services: [postgres, processes]"), "{yaml}");
     }
 
     #[test]
