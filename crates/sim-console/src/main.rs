@@ -160,8 +160,16 @@ async fn status(State(app): State<Arc<AppState>>) -> impl IntoResponse {
     let mut errors = Vec::new();
     let now = now_secs();
 
-    // Whichever simulation this console is driving: a container's agent if one
-    // is running, otherwise the host's.
+    // Discover a simulation on every poll, not only at start-up. One created
+    // from the command line, or left over from a previous console, is still a
+    // simulation this console should be able to show and tear down.
+    if app.active.lock().ok().is_some_and(|g| g.is_none()) {
+        if let Some(found) = container::list(&app.repo).into_iter().next() {
+            if let Ok(mut g) = app.active.lock() {
+                *g = Some(found);
+            }
+        }
+    }
     let (agent, env_path, control_path) = target(&app);
     let env = match load_env(&env_path) {
         Ok(e) => Some(e),

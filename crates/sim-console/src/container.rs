@@ -105,23 +105,39 @@ pub fn create(
     active(repo, name).ok_or_else(|| "the container started but reported no port".to_string())
 }
 
-/// Look up a running simulation's port and payload directory.
+/// Look up a simulation's port and payload directory.
+///
+/// Falls back to `docker inspect` because `docker port` reports nothing for a
+/// stopped container, and a stopped simulation still has to be tearable down.
 pub fn active(repo: &Path, name: &str) -> Option<Active> {
-    let out = Command::new("docker")
-        .args(["port", &format!("infra-sim-{name}"), "19999/tcp"])
+    let container = format!("infra-sim-{name}");
+    let port = Command::new("docker")
+        .args(["port", &container, "19999/tcp"])
         .output()
-        .ok()?;
-    if !out.status.success() {
-        return None;
-    }
-    let port = String::from_utf8_lossy(&out.stdout)
-        .lines()
-        .next()?
-        .rsplit(':')
-        .next()?
-        .trim()
-        .parse()
-        .ok()?;
+        .ok()
+        .filter(|o| o.status.success())
+        .and_then(|o| {
+            String::from_utf8_lossy(&o.stdout)
+                .lines()
+                .next()?
+                .rsplit(':')
+                .next()?
+                .trim()
+                .parse::<u16>()
+                .ok()
+        })
+        .or_else(|| {
+            let out = Command::new("docker")
+                .args([
+                    "inspect",
+                    "-f",
+                    "{{range $p, $c := .HostConfig.PortBindings}}{{range $c}}{{.HostPort}}{{end}}{{end}}",
+                    &container,
+                ])
+                .output()
+                .ok()?;
+            String::from_utf8_lossy(&out.stdout).trim().parse().ok()
+        })?;
     Some(Active {
         name: name.to_string(),
         port,
@@ -129,11 +145,17 @@ pub fn active(repo: &Path, name: &str) -> Option<Active> {
     })
 }
 
-/// Every simulation this console can see, running or not.
+/// Every simulation this console can see, **including stopped ones**.
+///
+/// `create` refuses when a container of that name exists at all, so a stopped
+/// simulation blocks the next one. Listing only running containers left the
+/// console showing no Tear down button for a simulation it was refusing to
+/// replace.
 pub fn list(repo: &Path) -> Vec<Active> {
     let Ok(out) = Command::new("docker")
         .args([
             "ps",
+            "-a",
             "--filter",
             "label=infra-sim.simulation",
             "--format",
