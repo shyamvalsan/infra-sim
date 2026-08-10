@@ -9,6 +9,9 @@ you get that fleet: nodes with hostnames, hardware, processes, users, disks,
 interfaces, logs and metrics, streaming into a real Netdata agent. Then you break
 it on cue, and watch the real product find the problem.
 
+<img width="469" height="426" alt="image" src="https://github.com/user-attachments/assets/dbeeec54-2b9a-4238-81fb-36f708180533" />
+
+
 ## Why simulate infrastructure
 
 Monitoring is unusual among software: you cannot exercise it on its own. A
@@ -210,7 +213,7 @@ Faults escalate and resolve on demand, and they unwind gradually rather than
 snapping back between two samples. Minor, self-resolving incidents can run on a
 schedule, so an alert log has history before anyone looks at it.
 
-## What is honest about this, and what is not
+## So how good is the simulation? 
 
 **Structurally faithful, and only sometimes causally faithful.** A generated
 integration emits the right charts with the right units and the right dimension
