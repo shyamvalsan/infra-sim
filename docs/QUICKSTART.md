@@ -1,8 +1,8 @@
 # Quickstart
 
-Zero to a running simulated fleet with a live incident, the way you would do it
-for a prospect. `README.md` is what Infra-Sim is; `docs/operating.md` is the full
-reference; this is the demo-day path.
+Zero to a running simulated fleet with a live incident. `README.md` is what
+Infra-Sim is and why; `docs/operating.md` is the full reference; this is the
+shortest path that works.
 
 Needs Rust (stable) and Docker. A Netdata agent on this machine is optional —
 each simulation runs its own.
@@ -31,7 +31,7 @@ picker instead.
 
 On the **Build** tab:
 
-1. Type what the prospect runs — "6 nginx web servers behind two haproxy load
+1. Type what the fleet runs — "6 nginx web servers behind two haproxy load
    balancers, a 3-node postgres cluster, 4 Cisco Catalyst access switches" — and
    press **Build the fleet**. It fills the table below.
 2. Adjust. Change counts, swap roles, search 260 integrations and tick what they
@@ -41,8 +41,8 @@ On the **Build** tab:
    from Netdata's own SNMP device profiles, so a Catalyst reports what a Catalyst
    reports.
 4. Optionally set a **fleet latitude and longitude**, and override it per group
-   for a multi-site estate.
-5. Name the prospect and press **Create simulation**.
+   for a fleet spanning sites.
+5. Name it and press **Create simulation**.
 
 The name fixes the seed and every node identity, so it cannot change later
 without orphaning the fleet's history. A fidelity check runs first and refuses to
@@ -73,8 +73,9 @@ Paste a token from *Cloud → Connect Nodes* into the create form, with a room i
 if you want one. The token is never written to disk, logged, or passed on a
 command line, and it is cleared from the page once used.
 
-The agent is fresh and unclaimed, so it joins whatever Space you name. One Space
-per prospect; never reuse one.
+The agent is fresh and unclaimed, so it joins whatever Space you name. Use a
+Space per simulation and delete it afterwards; a reused Space accumulates dead
+nodes from fleets that no longer exist.
 
 Cloud will not put virtual nodes in a specific room from the agent side, so use a
 **room membership rule** on `infra_sim_name = <your simulation>` — the whole
@@ -124,8 +125,9 @@ pretending it did it.
 
 ## Retargeting a warm fleet
 
-Do **not** regenerate an environment for a new prospect — that orphans days of ML
-training. Re-skin it instead, from the Build tab or:
+Reshaping a fleet for a different audience? Do **not** regenerate the
+environment — that orphans days of ML training. Re-skin it instead, from the Build
+tab or:
 
 ```bash
 ./target/release/infra-sim --reskin --from-prefix sim- --to-prefix acme- \

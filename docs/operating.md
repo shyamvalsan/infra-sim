@@ -7,7 +7,7 @@ reference. Design rationale lives in `.agents/sow/specs/`.
 ## Two ways to run a simulation
 
 **In a container, with its own agent** (`scripts/sim-docker.sh`). Use this for
-prospect demos and scale tests. Each simulation is isolated: its own agent, its
+anything you show someone, and for scale tests. Each simulation is isolated: its own agent, its
 own Cloud claim, its own history, and `docker rm` removes all of it. Your own
 agent is never touched.
 
@@ -63,10 +63,10 @@ sudo ./target/release/infra-sim-console --repo "$PWD"
 
 Two tabs.
 
-**Build** describes an estate in plain English, turns it into an editable fleet,
+**Build** describes a fleet in plain English, turns it into an editable table,
 and installs it:
 
-1. Type what the prospect runs. "20 Java app servers behind a pair of HAProxy
+1. Type what the fleet runs. "20 Java app servers behind a pair of HAProxy
    boxes, a 3-node Postgres cluster, Redis for sessions, Elasticsearch for logs."
 2. Press *Build the fleet*. Optionally set a fleet size and the groups scale to
    it, keeping the ratio between tiers.
@@ -163,7 +163,7 @@ node gets `latitude` and `longitude` host labels, which is what Cloud reads to
 place it.
 
 Leave both blank and no coordinates are written at all. There is no default,
-because a default would put the prospect's estate in the Gulf of Guinea and look
+because a default would put the whole fleet in the Gulf of Guinea and look
 deliberate.
 
 Nodes at one site are scattered by up to roughly 500m, derived from the hostname
@@ -319,7 +319,7 @@ agent's own receiver on `127.0.0.1:4317` inside the container.
 
 Everything is derived from `specs/prometheus-app.yaml` through the same
 `signal_values()` call the Prometheus exporters use, so a scenario that triples
-request latency triples span durations. The metrics a prospect scrapes and the
+request latency triples span durations. The metrics you scrape and the
 telemetry they trace are one description of one service.
 
 What lands where, and why it is not per node:

@@ -3,28 +3,56 @@
 Infra-Sim builds infrastructure that does not exist, in enough detail that
 Netdata cannot tell the difference.
 
-You describe an estate — "twelve web servers behind two HAProxy boxes, a 3-node
+You describe a fleet — "twelve web servers behind two HAProxy boxes, a 3-node
 Postgres cluster, Redis for sessions, four Cisco Catalyst access switches" — and
-you get that estate: nodes with hostnames, hardware, processes, users, disks,
+you get that fleet: nodes with hostnames, hardware, processes, users, disks,
 interfaces, logs and metrics, streaming into a real Netdata agent. Then you break
 it on cue, and watch the real product find the problem.
 
-## Why this exists
+## Why simulate infrastructure
 
-**Generic demos do not sell.** A prospect watching charts from a fleet that looks
-nothing like theirs is doing translation work instead of evaluating a product.
-The demo that lands is the one where they recognise their own stack.
+Monitoring is unusual among software: you cannot exercise it on its own. A
+database can be tested with a test database. An observability platform needs
+infrastructure — a lot of it, behaving badly, when you want it to.
 
-**Running the real thing does not scale.** Netdata integrates with hundreds of
-technologies. Standing up a real instance of each — in every combination a
-prospect might run, at the size they run it — is not work anyone can do before a
-call.
+**Healthy infrastructure proves nothing.** What matters about a monitoring system
+is how it behaves when something is wrong, and your production is, hopefully, not
+wrong. Pointed at a healthy fleet, any tool can draw a chart.
 
-**Interesting failures do not happen on schedule.** A monitoring product is
-judged on how it behaves when something is wrong. Waiting for something to go
-wrong is not a demo strategy, and neither is a screenshot.
+**Failures do not arrive on schedule.** If you want to watch what happens during a
+slow memory leak, or a dirty fibre optic that never quite drops the link, you can
+wait for one — or you can make one, now, and again after lunch.
 
-So: simulate the infrastructure, keep everything else real.
+**Real incidents have no answer key.** You learn what happened eventually and
+imperfectly. An authored incident knows its own root cause, which is the only way
+to grade an answer: did the alert fire for the right reason, did the runbook lead
+anywhere, did the investigation find the cause or a coincidence?
+
+**Breadth is otherwise unobtainable.** Nobody stands up real instances of hundreds
+of technologies, in every combination, at the size others run them. Not to test an
+integration, not to show someone, not to practise on.
+
+**Repeatable and safe.** Break a simulation as hard as you like, as often as you
+like, identically every time — same seed, same world. You cannot break production
+to find out what the dashboard does.
+
+## What it is used for
+
+- **Showing what monitoring looks like** on infrastructure that resembles what the
+  people watching actually run, instead of charts they have to mentally translate.
+- **Evaluating** alerts, dashboards and integrations against a fleet the size of
+  yours, before committing to anything.
+- **Practising incident response** against faults you can trigger on demand, with
+  a known cause to check your conclusion against.
+- **Testing your own** alert rules, notification paths and runbooks — the parts
+  that are only ever exercised at the worst possible moment.
+- **Measuring detection.** Anomaly detection and automated investigation can only
+  be scored against incidents whose cause is known in advance. This is a supply of
+  them, on demand.
+
+None of that works if the fleet is unconvincing, so the bar is set there: an
+experienced SRE zooming into individual charts should find nothing that gives the
+game away.
 
 ## The one hard rule
 
@@ -36,24 +64,13 @@ engine really evaluates its alarms and raises alerts, Netdata AI really
 investigates and reaches its own conclusions.
 
 Nothing downstream of data injection is ever scripted, canned or mocked. No
-prepared AI answers, no fake alert states, no dashboards drawn to look busy. If a
-demo shows Netdata finding a root cause, Netdata found it.
+prepared AI answers, no fake alert states, no dashboards drawn to look busy. When
+you see Netdata find a root cause here, Netdata found it — which is the only reason
+watching it is worth anything.
 
 The corollary matters as much: **every simulated environment says so.** Nodes
 carry a `simulated=true` host label, hostnames are prefixed, and the console shows
 a SIMULATED badge. Nobody should ever have to wonder whether a node is real.
-
-## Who it is for
-
-1. **Sales engineers** — a demo environment shaped like the prospect's own
-   infrastructure, built in an afternoon rather than a quarter.
-2. **Public demo spaces** — always-on, clearly-labelled environments anyone can
-   click into.
-3. **The Netdata AI team** — a supply of incidents whose true cause is known in
-   advance, which is what makes it possible to grade an answer.
-
-The bar it is built to: an experienced SRE zooming into individual charts finds
-nothing that gives the game away.
 
 ## How it works
 
@@ -91,8 +108,8 @@ sudo ./target/release/infra-sim-console --repo "$PWD"
 
 Open <http://127.0.0.1:8080>. Then:
 
-1. **Describe the estate** in plain English, or skip it and build the fleet from
-   the picker — counts, roles, and which software runs on each tier.
+1. **Describe the fleet** in plain English, or skip it and build it from the
+   picker — counts, roles, and which software runs on each tier.
 2. **Name it and create it.** The name fixes the seed and every node identity, so
    it cannot change later without orphaning the fleet's history. The first create
    builds the container image, which takes a minute or two; after that it is
@@ -104,11 +121,14 @@ Open <http://127.0.0.1:8080>. Then:
    *Cloud → Connect Nodes*, and a room id if you want one. The agent is fresh and
    unclaimed, so it joins whatever Space you point it at; your own agent is never
    touched.
-5. **Run the demo** on the Run tab: trigger a scenario, escalate it, resolve it.
-6. **Tear it down** when you are finished. One button removes the container and
+5. **Watch the product work on it.** ML trains on it, the health engine alerts on
+   it, Netdata AI investigates it — see the rule above.
+6. **Trigger an incident** on the Run tab: start a scenario, escalate it, resolve
+   it.
+7. **Tear it down** when you are finished. One button removes the container and
    everything inside it — agent, database, every simulated node.
 
-### Describing an estate in plain English
+### Describing a fleet in plain English
 
 That step reads your description with a model, which needs a key in a gitignored
 `.env` beside the repo:
@@ -124,9 +144,10 @@ one place a key reliably survives.
 Without a key nothing breaks — the description box says so, and you build the
 fleet from the picker instead.
 
-Running this for a prospect? **[docs/QUICKSTART.md](docs/QUICKSTART.md)** is the
-demo-day path, including the one thing that costs demos most often: a fleet needs
-about 72 hours of running before its ML has anything to say.
+Showing this to someone on a particular day?
+**[docs/QUICKSTART.md](docs/QUICKSTART.md)** walks the whole path, including the
+thing most easily got wrong: a fleet needs about 72 hours of running before its ML
+has anything to say.
 
 Every step also has a command-line path — see
 **[docs/operating.md](docs/operating.md)**.
@@ -160,11 +181,11 @@ with the simulation; neither is a second command to remember.
 **Traces.** The application tier emits OpenTelemetry spans — a request, the
 queries it made, how long each took — with durations taken from the same latency
 the charts draw. Simulations run Netdata's nightly image, which accepts and stores
-them. Worth knowing before you plan a demo around them: no Netdata build can
-*display* traces yet. They are sent so the pipeline is right the day that changes.
+them. Worth knowing before you rely on them: no Netdata build can *display* traces yet.
+They are sent so the pipeline is right the day that changes.
 
-**Location.** Fleets can be placed on the map, per site, so a multi-region estate
-looks like one.
+**Location.** Fleets can be placed on the map, per site, so a fleet spanning
+regions looks like one.
 
 **Other paths in.** Prometheus endpoints that Netdata's own collector scrapes,
 and OpenTelemetry.
@@ -176,7 +197,7 @@ the blast radius, and the finding a competent investigator should reach. It is
 written *with* the scenario, never reconstructed afterwards from what the product
 happened to say — otherwise it grades nothing.
 
-| Scenario | What it demonstrates |
+| Scenario | What it shows |
 |---|---|
 | `disk-fill` | A database volume filling, and time-to-exhaustion |
 | `db-replication-lag` | A replica falling behind until the application sees stale data |
@@ -204,8 +225,8 @@ to be believable for it.
 **A fleet starts at zero.** There is no history to backfill — Netdata's plugin
 protocol has no mechanism for it — so a new simulation begins now and accumulates
 from there. A fleet that has been running a while has genuinely been running a
-while, with real trained models and a real alert log, and it can be renamed for
-the next prospect without losing any of that.
+while, with real trained models and a real alert log, and it can be renamed and
+reshaped for a different audience without losing any of that.
 
 **Every fleet is checked before it ships.** A fidelity pass simulates hours of
 data and refuses anything that gives itself away: a signal pinned to a bound, an
@@ -215,8 +236,9 @@ compiles" has never been evidence here.
 
 ## Documentation
 
-- **[docs/QUICKSTART.md](docs/QUICKSTART.md)** — the demo-day path, start to
-  teardown, and the mistakes that cost demos.
+- **[docs/QUICKSTART.md](docs/QUICKSTART.md)** — the shortest path from nothing to
+  a running fleet with a live incident, and the mistakes that spoil a first
+  attempt.
 - **[docs/operating.md](docs/operating.md)** — the reference: containers, the
   console, the command line, scenarios, logs, exporters, and how to check a fleet
   before it ships.
