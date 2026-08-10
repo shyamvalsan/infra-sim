@@ -111,9 +111,18 @@ cores, RAM, disks, interfaces — not a category of software.
 a host of that kind actually runs. Mounts that fill at plausible rates. Ports with
 the right rated speeds. Cloud provider and instance-type labels.
 
-**Logs.** Each node becomes its own log source, with lines that follow whatever
-fault is running. Healthy nodes stay quiet, because a node logging steadily while
-nothing is wrong is its own tell.
+**Logs, two ways.** Each node becomes its own log source in Netdata, with lines
+that follow whatever fault is running — healthy nodes stay quiet, because a node
+logging steadily while nothing is wrong is its own tell. On top of that, the
+application tier ships OpenTelemetry logs: request failures, orders, declined
+payments, saturated pools, carrying the simulated host as an attribute. Both start
+with the simulation; neither is a second command to remember.
+
+**Traces.** The application tier emits OpenTelemetry spans — a request, the
+queries it made, how long each took — with durations taken from the same latency
+the charts draw. Worth knowing before you plan a demo around them: no Netdata
+build can *display* traces yet, and only newer builds store them at all. They are
+sent so the pipeline is right the day that changes.
 
 **Location.** Fleets can be placed on the map, per site, so a multi-region estate
 looks like one.

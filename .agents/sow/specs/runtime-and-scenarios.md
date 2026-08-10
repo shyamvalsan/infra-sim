@@ -150,6 +150,61 @@ healthy node logs nothing above `notice`.
 
 Requires `systemd-journal-remote` installed and root.
 
+**Started with the simulation, not by hand.** `sim-docker.sh create` starts the
+logs writer and the OTLP emitter as one unit (`cmd_telemetry`), and the console's
+create path goes through the same script. Before this, `logs start` was an opt-in
+second command, and so every simulation ever built shipped with empty logs. A
+telemetry process that fails to start warns; it never fails the create.
+
+## OpenTelemetry logs and traces
+
+A **separate process** (`infra-sim --otlp`), the third of the side processes, and
+the only one that speaks gRPC.
+
+```text
+infra-sim --otlp
+  -> specs/prometheus-app.yaml through NodeEngine::signal_values()
+  -> sim_engine::otel  (application log records and spans, transport-free)
+  -> OTLP/gRPC 127.0.0.1:4317  (the agent's own receiver, inside the container)
+  -> logs: the otel-logs function      traces: stored, or refused
+```
+
+**Everything is derived from signals.** Span durations are `app_latency_p50/p95/p99`,
+error status is `app_requests_error_rate`, order volume is `app_orders_rate` - the
+same values `--exporters` publishes, read through the same call. A scenario that
+triples latency triples span durations, and `sim_engine::otel` does not know that
+scenario exists. Trace volume is a *ratio* of request rate rather than a fixed
+rate, so it moves with the traffic chart instead of sitting still while it climbs.
+
+**Only the application tier.** `web`, `lb` and `k8s-worker`. A switch does not
+emit storefront spans, and a database is the thing called by one.
+
+**OTLP logs are not per node, and cannot be.** A stream's identity is
+`(service.namespace, service.name)` (netdata/netdata @ c23face0bd94
+src/crates/otel-logs-identity/src/lib.rs:1-20), so records land on the agent's own
+node as one stream per service. `host.name` survives as a resource attribute and
+is queryable - a filter, not a log source. That is why journald still runs: the two
+transports answer different questions.
+
+**Traces depend on the agent build**, verified against both:
+
+| build | traces |
+|---|---|
+| `netdata/netdata:stable` (v2.10.4) | no `traces:` section in `otel.yaml`; refused |
+| v2.10.0-nightly and later | accepted, stored under `otel/v2/traces` |
+
+No build can *display* them: trace ingestion is a proof scaffold
+(src/crates/otel-ingestor/src/trace_service.rs) and no traces function is
+registered anywhere. Spans are sent so the path is already right when a viewer
+ships. The emitter tracks each signal's health separately and abandons one after
+30 consecutive failures with an explanation - one shared flag reported "export
+failed" forever on stable and hid the fact that logs were landing perfectly.
+
+**gRPC lives in the plugin** because Netdata's receiver is gRPC-only. The
+alternative was the Python SDK inside the container, which would mean `apt` and
+`pip` layers on the stock netdata image; this repository already mounts a binary
+into that image, so Rust changes nothing outside this repository.
+
 ## Simulated Prometheus exporters
 
 Optional, and a **separate process** (`infra-sim --exporters`).

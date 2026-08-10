@@ -470,6 +470,16 @@ async fn create(
                         .to_string()
                 },
                 "nodes appear within about a minute".to_string(),
+                // Both start with the container. Saying so is the point: every
+                // simulation before this shipped with empty logs because
+                // starting them was a step someone had to remember.
+                "correlated logs and OpenTelemetry started with it - each node is \
+                 its own log source, and the application tier ships OTLP logs and \
+                 traces"
+                    .to_string(),
+                "traces are ingested and stored; the agent has no trace viewer \
+                 yet, so do not plan a demo beat on them"
+                    .to_string(),
             ],
         }))
     })

@@ -284,22 +284,73 @@ between two samples.
 `warmup_incidents: true` runs minor auto-resolving faults on a deterministic
 schedule so the alert log has texture before a session.
 
-## Correlated logs
+## Logs and OpenTelemetry
 
-A separate process, not part of the metrics plugin.
+Both start with the simulation. Nothing to run by hand — that was the bug: every
+simulation built before this shipped with empty logs because `logs start` was a
+step someone had to remember.
 
 ```bash
-sudo apt-get install systemd-journal-remote
-./scripts/logs.sh start|status|stop
+./scripts/sim-docker.sh telemetry <name> status     # what both are doing
+./scripts/sim-docker.sh telemetry <name> stop|start # if you need to
 ```
 
-Each node becomes its own log source in Netdata. Fault lines are matched on
-signals rather than scenario names, so any scenario moving a modelled signal
-produces matching logs.
+Two separate processes, neither of them the metrics plugin: Netdata owns the
+plugin's lifecycle, and a collector that outlives its own removal has already cost
+this project real debugging time.
+
+### Correlated logs (journald)
+
+Each node becomes its own log source in Netdata's `systemd-journal` function.
+Fault lines are matched on signals rather than scenario names, so any scenario
+moving a modelled signal produces matching logs.
 
 Healthy nodes log nothing above `notice`. There are no access logs: a node
 reporting 1,200 req/s while its logs show three lines a second is a contradiction
 an SRE notices, and journald would not hold them anyway.
+
+Needs `systemd-journal-remote`, which the container image installs. On a host,
+`sudo apt-get install systemd-journal-remote` and `./scripts/logs.sh start`.
+
+### OpenTelemetry logs and traces
+
+The application tier — `web`, `lb` and `k8s-worker` nodes — ships OTLP to the
+agent's own receiver on `127.0.0.1:4317` inside the container.
+
+Everything is derived from `specs/prometheus-app.yaml` through the same
+`signal_values()` call the Prometheus exporters use, so a scenario that triples
+request latency triples span durations. The metrics a prospect scrapes and the
+telemetry they trace are one description of one service.
+
+What lands where, and why it is not per node:
+
+- An OTel log stream is identified by `(service.namespace, service.name)` and
+  never by host, so OTLP records arrive on the **agent's own node** as one stream
+  per service. The simulated host survives as the `host.name` resource attribute,
+  which is queryable in the `otel-logs` function — a filter, not a log source.
+  Per-node log sources are what journald is for, which is why both run.
+- Traces depend on the agent build. Netdata's stable image has no `traces:`
+  section in its `otel.yaml` and rejects them; newer builds accept and store them.
+  **No build can display them yet.** The emitter reports which happened and stops
+  retrying a receiver that will never take them, rather than failing every second
+  for the life of the simulation.
+
+Reading OTLP logs without Cloud SSO, from inside a container:
+
+```bash
+docker exec infra-sim-<name> sh -c \
+  'journalctl --file=/var/log/netdata/otel/v1/*/*.journal -o json --no-pager -n 5'
+```
+
+On a newer agent the store is a WAL/SFST layout instead, read with the plugin's
+own offline inspector:
+
+```bash
+sudo /usr/libexec/netdata/plugins.d/otel-plugin logs \
+  --wal-dir /var/log/netdata/otel/v2/logs/wal \
+  --sfst-dir /var/log/netdata/otel/v2/logs/index \
+  --name <sim>-storefront --namespace <sim>
+```
 
 ## Prometheus exporters
 
@@ -320,15 +371,16 @@ vnode entries to `/etc/netdata/vnodes/infra-sim.conf`, with `vnode:` on each job
 so scraped charts land on the same virtual node as the plugins.d ones. Both files
 carry a marker line and are never overwritten without it.
 
-## OpenTelemetry
+## Two other OpenTelemetry paths
 
-Two separate things:
+Besides the fleet's own OTLP emitter above:
 
-- `otlp/emit.py` sends metrics, logs and traces for a made-up service over OTLP
-  to Netdata's ingestion endpoint (`./scripts/otlp.sh`). OTLP cannot create
-  virtual nodes, so this lands on the ingesting host.
-- The `otel-collector` integration models a collector fleet as monitored
-  services on the plugins.d path, which keeps per-node dashboards and ML.
+- `otlp/emit.py` sends metrics, logs and traces for a made-up service, using the
+  official Python SDK (`./scripts/otlp.sh`). It knows nothing about a fleet - it
+  exists to show Netdata ingesting OpenTelemetry from an ordinary instrumented
+  application, with no collector in between.
+- The `otel-collector` integration models a collector fleet as monitored services
+  on the plugins.d path, which keeps per-node dashboards and ML.
 
 ## Writing generator specs
 

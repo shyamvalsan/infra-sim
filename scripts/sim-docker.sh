@@ -41,6 +41,9 @@ run() {
 
 die() { echo -e >&2 "${RED}[ERROR]${NC} $*"; exit 1; }
 info() { echo -e >&2 "${GREEN}==>${NC} $*"; }
+# A degraded simulation is still a simulation: telemetry that fails to start must
+# warn, never abort a create that otherwise worked.
+warn() { echo -e >&2 "${YELLOW}[WARN]${NC} $*"; }
 
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 IMAGE="infra-sim:latest"
@@ -169,9 +172,82 @@ cmd_create() {
     "$IMAGE" >/dev/null
 
   info "simulation '$name' is starting"
+
+  # Telemetry is part of being a simulation, not a second command. Every
+  # simulation built before this shipped with empty logs, because `logs start`
+  # was a step an operator had to remember and nobody did.
+  #
+  # Both writers wait for the plugin file to exist inside the container - the
+  # agent copies nothing, we mount it, but the container needs a moment to come
+  # up before `docker exec` will work.
+  cmd_telemetry "$name" start || warn "telemetry did not start; $0 telemetry $name start to retry"
+
   echo "  dashboard : http://127.0.0.1:$port"
   echo "  payload   : $dir"
   echo "  nodes appear within about a minute (the agent scans for plugins every 60s)"
+}
+
+# Correlated logs and OpenTelemetry, as one unit: both are per-simulation side
+# processes that must die with it, and an operator has no reason to want one
+# without the other.
+cmd_telemetry() {
+  local name="${1:?usage: $0 telemetry <name> start|stop|status}"
+  local action="${2:-start}"
+  require_docker
+  local container; container="$(container_of "$name")"
+  local plugin=/etc/netdata/custom-plugins.d/infra-sim.plugin
+  local env=/etc/netdata/infra-sim/environment.yaml
+
+  case "$action" in
+    start)
+      # Wait for the container to accept exec at all.
+      local i
+      for i in $(seq 1 30); do
+        docker exec "$container" sh -c "test -f $plugin" 2>/dev/null && break
+        sleep 1
+      done
+      docker exec "$container" sh -c "test -f $plugin" 2>/dev/null \
+        || { warn "the plugin is not visible inside '$name' yet"; return 1; }
+
+      # Correlated logs: each node becomes its own log source. Needs
+      # systemd-journal-remote, which the image installs.
+      docker exec -d "$container" sh -c \
+        "$plugin --logs --environment $env >/tmp/infra-sim-logs.log 2>&1"
+
+      # OpenTelemetry: the application tier's logs and traces, to the agent's own
+      # OTLP receiver on loopback inside the container.
+      docker exec -d "$container" sh -c \
+        "$plugin --otlp --environment $env >/tmp/infra-sim-otlp.log 2>&1"
+
+      sleep 3
+      cmd_telemetry "$name" status
+      ;;
+    stop)
+      # Matched on the plugin path plus its mode, never on a bare name: this
+      # machine may be running other simulations.
+      docker exec "$container" sh -c "pkill -f '$plugin --logs' || true"
+      docker exec "$container" sh -c "pkill -f '$plugin --otlp' || true"
+      info "telemetry stopped in '$name'"
+      ;;
+    status)
+      local journals otlp
+      journals="$(docker exec "$container" sh -c 'ls /var/log/journal/remote/ 2>/dev/null | wc -l' 2>/dev/null | tr -d "[:space:]")"
+      echo "  logs      : ${journals:-0} journal file(s) in the container"
+      # The last line, not the first: the first is always the start-up race
+      # against an agent that is still opening its OTLP port.
+      otlp="$(docker exec "$container" sh -c 'tail -1 /tmp/infra-sim-otlp.log 2>/dev/null' 2>/dev/null)"
+      if [ -n "$otlp" ]; then
+        echo "  otel      : ${otlp#infra-sim otlp: }"
+      else
+        echo "  otel      : not started"
+      fi
+      # What happens to traces depends on the agent build, so this reports rather
+      # than promises. Netdata's stable image has no `traces:` section at all;
+      # newer builds store them, and no build can display them yet.
+      echo "              (no agent build can display traces yet, whatever it accepts)"
+      ;;
+    *) die "action must be start, stop or status" ;;
+  esac
 }
 
 free_port() {
@@ -235,25 +311,10 @@ cmd_scenario() {
   esac
 }
 
+# Kept as an alias: `logs` is what this was called before telemetry grew a
+# second signal, and it is in muscle memory and in the docs.
 cmd_logs() {
-  local name="${1:?usage: $0 logs <name> start|stop}"
-  local action="${2:-start}"
-  require_docker
-  local container; container="$(container_of "$name")"
-  case "$action" in
-    start)
-      docker exec -d "$container" sh -c \
-        '/etc/netdata/custom-plugins.d/infra-sim.plugin --logs --environment /etc/netdata/infra-sim/environment.yaml >/tmp/infra-sim-logs.log 2>&1'
-      sleep 2
-      info "correlated logs started inside '$name'"
-      docker exec "$container" sh -c 'ls /var/log/journal/remote/ 2>/dev/null | head -5' || true
-      ;;
-    stop)
-      docker exec "$container" sh -c 'pkill -f "infra-sim.plugin --logs" || true'
-      info "correlated logs stopped in '$name'"
-      ;;
-    *) die "action must be start or stop" ;;
-  esac
+  cmd_telemetry "$@"
 }
 
 cmd_shell() {
@@ -293,6 +354,7 @@ case "${1:-}" in
   status)   shift; cmd_status "$@" ;;
   scenario) shift; cmd_scenario "$@" ;;
   logs)     shift; cmd_logs "$@" ;;
+  telemetry) shift; cmd_telemetry "$@" ;;
   shell)    shift; cmd_shell "$@" ;;
   teardown) shift; cmd_teardown "$@" ;;
   *)

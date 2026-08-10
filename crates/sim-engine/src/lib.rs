@@ -27,6 +27,7 @@ pub mod describe;
 pub mod fidelity;
 pub mod llm;
 pub mod logs;
+pub mod otel;
 pub mod reskin;
 pub mod rng;
 pub mod scenario_runtime;

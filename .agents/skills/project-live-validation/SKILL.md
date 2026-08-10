@@ -76,6 +76,36 @@ Check the **negative** cases too — they are what makes a demo credible. When a
 fault fires, confirm untargeted nodes, mounts and interfaces stayed quiet, and
 that a node without a service never emitted that service's logs.
 
+### OpenTelemetry needs its own probe
+
+The `otel-logs` function requires Cloud SSO, so a plain `curl` against the agent
+returns 412 and tells you nothing. Read the store instead, and note that the
+layout differs by agent build:
+
+```bash
+# stable image: OTLP logs are journal files
+docker exec infra-sim-<sim> sh -c \
+  'journalctl --file=/var/log/netdata/otel/v1/*/*.journal -o json --no-pager -n 5'
+
+# newer builds: a WAL/SFST store, with an offline inspector
+sudo /usr/libexec/netdata/plugins.d/otel-plugin logs \
+  --wal-dir /var/log/netdata/otel/v2/logs/wal \
+  --sfst-dir /var/log/netdata/otel/v2/logs/index \
+  --name <sim>-storefront --namespace <sim>
+
+# what the emitter thinks is happening, per signal
+./scripts/sim-docker.sh telemetry <sim> status
+```
+
+Two traps found the hard way:
+
+- **Traces are build-dependent.** The stable image refuses them outright; newer
+  builds accept and store them; nothing can display them. Confirm which you have
+  before concluding a bug.
+- **A shared health flag lies.** Logs and traces fail independently. Reporting
+  them together showed "export failed" forever on stable while logs were landing
+  perfectly — check each signal separately.
+
 ## Teardown kills processes
 
 Removing a plugin file does **not** stop the running plugin. A deleted collector

@@ -20,6 +20,7 @@ mod emitter;
 mod environment;
 mod exporters;
 mod logs_runtime;
+mod otlp_runtime;
 mod warmup;
 
 use environment::Environment;
@@ -76,6 +77,11 @@ struct Args {
     /// Serve simulated Prometheus exporters instead of collecting.
     exporters: bool,
     exporter_port: u16,
+    /// Ship the application tier's logs and traces over OTLP instead of
+    /// collecting.
+    otlp: bool,
+    /// Netdata's OpenTelemetry receiver. gRPC, on loopback by default.
+    otlp_endpoint: String,
     /// Where journal files are written; Netdata scans this path.
     journal_dir: PathBuf,
     /// Override the `systemd-journal-remote` binary location.
@@ -129,6 +135,8 @@ fn parse_args() -> Result<Args, String> {
     let mut logs = false;
     let mut exporters = false;
     let mut exporter_port = DEFAULT_EXPORTER_PORT;
+    let mut otlp = false;
+    let mut otlp_endpoint = otlp_runtime::DEFAULT_ENDPOINT.to_string();
     let mut journal_dir: Option<PathBuf> = None;
     let mut journal_remote: Option<PathBuf> = None;
 
@@ -182,6 +190,12 @@ fn parse_args() -> Result<Args, String> {
             }
             "--logs" => logs = true,
             "--exporters" => exporters = true,
+            "--otlp" => otlp = true,
+            "--otlp-endpoint" => {
+                otlp_endpoint = args
+                    .next()
+                    .ok_or_else(|| "--otlp-endpoint requires HOST:PORT".to_string())?;
+            }
             "--exporter-port" => {
                 exporter_port = args
                     .next()
@@ -347,6 +361,8 @@ fn parse_args() -> Result<Args, String> {
         journal_remote,
         exporters,
         exporter_port,
+        otlp,
+        otlp_endpoint,
     })
 }
 
@@ -377,6 +393,10 @@ fn run() -> Result<(), String> {
 
     if args.exporters {
         return do_exporters(&env, &args);
+    }
+
+    if args.otlp {
+        return do_otlp(&env, &args);
     }
 
     let spec_path = env.generator_path(&args.environment);
@@ -738,6 +758,89 @@ fn load_service_spec(
 }
 
 /// Serve one simulated Prometheus exporter per node until killed.
+/// Ship the application tier's logs and traces over OTLP.
+///
+/// Mirrors `do_exporters`: the same application spec, sampled through the same
+/// engine, so the metrics a prospect scrapes and the telemetry they trace are
+/// one description of one service rather than two that can disagree.
+fn do_otlp(env: &Environment, args: &Args) -> Result<(), String> {
+    // Deliberately the exporter spec, not a node `service`: these signals must
+    // never also reach the plugins.d path, or the node would carry the same
+    // series twice.
+    let spec_path = env.specs_path(&args.environment).join(EXPORTER_SPEC);
+    let raw = std::fs::read_to_string(&spec_path).map_err(|e| {
+        format!(
+            "OTLP telemetry needs the application spec '{}': {e}",
+            spec_path.display()
+        )
+    })?;
+    let spec = Arc::new(GeneratorSpec::from_yaml(&raw).map_err(|e| e.to_string())?);
+
+    // One service name for the whole tier, because that is how a service is
+    // deployed: many hosts, one `service.name`. The host stays visible as a
+    // resource attribute.
+    let service = format!("{}-storefront", env.name);
+    let namespace = env.name.clone();
+
+    let built: Vec<otlp_runtime::Node> = env
+        .profiles()
+        .into_iter()
+        .filter(|p| is_app_tier(p.role.as_deref()))
+        .map(|profile| {
+            let hostname = profile.hostname.clone();
+            let role = profile.role.clone().unwrap_or_else(|| "node".into());
+            let engine = NodeEngine::new(Arc::clone(&spec), profile, env.seed);
+            let telemetry =
+                sim_engine::otel::AppTelemetry::new(&hostname, &role, &service, env.seed);
+            otlp_runtime::Node::new(engine, telemetry, &env.name, &namespace)
+        })
+        .collect();
+
+    let base_dir = args
+        .environment
+        .parent()
+        .map(Path::to_path_buf)
+        .unwrap_or_else(|| PathBuf::from("."));
+    let library = control::load_library(&env.scenario_path(&args.environment))?;
+    let shared = Arc::new(std::sync::Mutex::new(sim_engine::ScenarioSet::default()));
+    let poller = Arc::clone(&shared);
+    let control_path = base_dir.join(CONTROL_FILE);
+    std::thread::spawn(move || {
+        let mut control = control::ControlChannel::new(control_path, library);
+        loop {
+            let at = now_secs();
+            if let Some(change) = control.poll(at) {
+                eprintln!("infra-sim otlp: {change}");
+            }
+            if let Ok(mut guard) = poller.lock() {
+                *guard = control.scenarios().clone();
+            }
+            std::thread::sleep(std::time::Duration::from_secs(1));
+        }
+    });
+
+    let runtime = tokio::runtime::Builder::new_current_thread()
+        .enable_all()
+        .build()
+        .map_err(|e| format!("cannot start the OTLP runtime: {e}"))?;
+    runtime.block_on(otlp_runtime::run(
+        &args.otlp_endpoint,
+        built,
+        shared,
+        std::time::Duration::from_secs(1),
+    ))
+}
+
+/// Whether a role runs the instrumented application.
+///
+/// A switch does not emit storefront spans, and a database node is the thing
+/// *called* by one rather than the caller. Restricting this keeps a trace
+/// looking like a request instead of like every node pretending to be a web
+/// server.
+fn is_app_tier(role: Option<&str>) -> bool {
+    matches!(role, Some("web") | Some("lb") | Some("k8s-worker"))
+}
+
 fn do_exporters(env: &Environment, args: &Args) -> Result<(), String> {
     // The exporter spec is deliberately *not* one of the node's `services`: it
     // must not also be composed onto the plugins.d path, or every series would

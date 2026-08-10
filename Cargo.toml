@@ -24,6 +24,14 @@ serde_yaml = "0.9"
 thiserror = "2"
 axum = "0.8"
 tokio = { version = "1", features = ["rt-multi-thread", "macros", "signal", "net", "io-util", "time"] }
+
+# OTLP client, used only by the plugin's `--otlp` mode. Netdata's OpenTelemetry
+# receiver is gRPC-only, so a protobuf/HTTP2 stack is not optional; keeping it
+# out would mean shipping a Python SDK inside the container image instead, which
+# would modify the stock netdata image.
+tonic = { version = "0.14" }
+prost = { version = "0.14" }
+opentelemetry-proto = { version = "0.32", default-features = false, features = ["gen-tonic", "logs", "trace"] }
 serde_json = "1"
 
 [workspace.lints.rust]

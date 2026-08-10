@@ -322,6 +322,21 @@ Verify logs through the agent, not only the file: the `systemd-journal` function
 requires a `__logs_sources` selection, and `all-remote-systems` is the simulated
 fleet.
 
+A containerised simulation starts its logs writer and its OTLP emitter itself, as
+part of `create`. Do not reintroduce an opt-in step: logs were opt-in for the
+project's whole history and so every simulation ever built shipped with empty
+logs.
+
+```bash
+./scripts/sim-docker.sh telemetry <name> status   # both signals, honestly
+```
+
+OpenTelemetry support differs by agent build, so check rather than assume. The
+stable image refuses traces (no `traces:` section in its `otel.yaml`) while newer
+builds store them, and **no** build can display them. OTLP logs are keyed by
+`(service.namespace, service.name)` and never by host, so they can never be a
+per-node log source - that is what journald is for.
+
 ### Project-specific overrides
 
 **Verify against the agent before designing around an assumption.** This project sits on undocumented-by-default agent behavior. Two of `spec.md`'s load-bearing assumptions were only resolvable by running code against a live agent, and one of them (vnode dashboard completeness) changed the P0 estimate by roughly an order of magnitude. Source-reading is necessary but not sufficient; run the probe.

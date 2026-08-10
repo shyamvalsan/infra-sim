@@ -186,11 +186,15 @@ pub fn teardown(repo: &Path, name: &str) -> Result<String, String> {
     Ok(tail(&out.stderr, 4))
 }
 
-/// Start the correlated-logs writer inside a running simulation.
+/// Start, stop or report the telemetry side processes inside a running
+/// simulation: the correlated-logs writer and the OpenTelemetry emitter.
+///
+/// `create` starts both already. This exists to restart them if they were
+/// stopped, and to report what they are doing.
 pub fn logs(repo: &Path, name: &str, action: &str) -> Result<String, String> {
     let out = Command::new("bash")
         .arg(script(repo))
-        .arg("logs")
+        .arg("telemetry")
         .arg(name)
         .arg(action)
         .current_dir(repo)
