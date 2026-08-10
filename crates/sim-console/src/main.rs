@@ -593,8 +593,8 @@ async fn teardown(
 
     if !asked.is_empty() {
         if let Some(wanted) = running.iter().find(|a| a.name == asked).cloned() {
-            let out = tokio::task::spawn_blocking(move || container::teardown(&repo, &wanted.name))
-                .await;
+            let out =
+                tokio::task::spawn_blocking(move || container::teardown(&repo, &wanted.name)).await;
             if let Ok(mut g) = app.active.lock() {
                 if g.as_ref().is_some_and(|a| a.name == asked) {
                     *g = None;
