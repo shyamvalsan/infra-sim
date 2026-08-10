@@ -719,11 +719,15 @@ fn parse_args() -> Result<Args, String> {
             "--help" | "-h" => {
                 return Err(format!(
                     "usage: infra-sim-console [options]\n\n\
+                     --repo PATH         the checkout holding specs/, scenarios/ and a \
+                     built binary (default: the working directory)\n\
                      --environment PATH  environment.yaml (default {DEFAULT_ENVIRONMENT})\n\
                      --bind HOST:PORT    listen address (default {DEFAULT_BIND})\n\
                      --agent HOST:PORT   Netdata agent (default {DEFAULT_AGENT})\n\
                      --lint-clean        record that the fidelity lint passed\n\
-                     --lint-failed       record that the fidelity lint failed"
+                     --lint-failed       record that the fidelity lint failed\n\n\
+                     Creating a simulation needs root: it writes under /etc/netdata and \
+                     /var/lib/infra-sim, and drives docker."
                 ))
             }
             other => return Err(format!("unrecognised argument '{other}'")),

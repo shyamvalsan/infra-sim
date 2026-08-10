@@ -1,136 +1,131 @@
 # Quickstart
 
-Zero to a running simulated fleet with a live incident. Assumes a Netdata agent
-on the same machine and a Rust toolchain.
+Zero to a running simulated fleet with a live incident, the way you would do it
+for a prospect. `README.md` is what Infra-Sim is; `docs/operating.md` is the full
+reference; this is the demo-day path.
 
-## 1. Build and check
+Needs Rust (stable) and Docker. A Netdata agent on this machine is optional —
+each simulation runs its own.
+
+## 1. Build
 
 ```bash
 cargo build --release
-
-# Simulate 72 hours offline and fail on fidelity violations. No agent needed.
-./target/release/infra-sim --environment environments/web-stack.yaml --lint 72
+sudo ./target/release/infra-sim-console --repo "$PWD"
 ```
 
-If the lint fails, stop. It is catching something an SRE would notice on a
-chart.
+Open <http://127.0.0.1:8080>.
 
-## 2. Install into the local agent
-
-```bash
-./scripts/install-local.sh          # runs the lint first and refuses if it fails
-```
-
-The agent rescans for plugins every 60s — no restart needed.
-
-```bash
-curl -s localhost:19999/api/v3/nodes | grep sim-
-```
-
-You should see five simulated nodes.
-
-## 3. Start the demo warming up
-
-**Do this at least 72 hours before the demo**, and ideally the moment you know
-it is happening.
-
-Netdata's ML trains on what it sees: anomaly detection starts contributing
-after roughly 15 minutes, and is fully credible at about 72 hours. A fleet
-started an hour before a call has no anomaly history, no alert log and no
-texture — which is exactly the thing that makes a demo feel real.
-
-Nothing else is needed to warm up. Leave it running.
-
-## 4. Trigger an incident
-
-```bash
-./scripts/scenario.sh list
-./scripts/scenario.sh trigger disk-fill
-./scripts/scenario.sh status
-./scripts/scenario.sh resolve disk-fill
-```
-
-`disk-fill` is demo-paced at about 30 minutes. Netdata's own ML typically flags
-the affected node well before the threshold alert fires, which is the point
-worth showing.
-
-## 5. Correlated logs (optional)
-
-```bash
-sudo apt-get install systemd-journal-remote     # one-time
-./scripts/logs.sh start
-```
-
-Each node becomes its own log source, and fault lines follow whatever scenario
-is running. Stop with `./scripts/logs.sh stop`.
-
-## 6. Console — or do all of the above from one screen
-
-```bash
-sudo ./target/release/infra-sim-console
-```
-
-To have a real model read the free-form description, put the key in a
-gitignored `.env` beside the repo — `sudo` strips the environment, so this is
-the reliable place for it:
+To have a model read a free-form description, put a key in a gitignored `.env`
+beside the repo — `sudo` strips the environment, so this is the reliable place:
 
 ```bash
 echo 'LLM_API_KEY=...' >> .env      # Netdata's own gateway, llm.netdata.cloud
 ```
 
-`ANTHROPIC_API_KEY` and `OPENAI_API_KEY` work the same way. The console offers
-only the providers whose key it can actually find.
+`ANTHROPIC_API_KEY` and `OPENAI_API_KEY` work the same way; the console offers
+only providers whose key it can find. Without one, build the fleet from the
+picker instead.
 
-Then open <http://127.0.0.1:8080>.
+## 2. Build the fleet
 
-Steps 1-4 above are the command line. The **Build** tab does the same work in
-about a minute:
+On the **Build** tab:
 
 1. Type what the prospect runs — "6 nginx web servers behind two haproxy load
-   balancers, a 3-node postgres cluster and an elasticsearch cluster of 3" —
-   and press **Read this**. It fills the fleet below.
-2. Adjust: change counts, swap roles, search **261 integrations** by name and
-   tick what they actually run. The six with a `DEEP` badge are the ones hero
-   scenarios can target.
-3. Optionally tick **Simulate Prometheus exporters** — each node then publishes
-   a real `/metrics` endpoint that Netdata's own prometheus collector scrapes
-   and charts.
-4. Name the prospect and press **Create & install**. It builds the environment,
-   lints it, **refuses to install if the lint fails**, and swaps the running
-   fleet.
+   balancers, a 3-node postgres cluster, 4 Cisco Catalyst access switches" — and
+   press **Build the fleet**. It fills the table below.
+2. Adjust. Change counts, swap roles, search 260 integrations and tick what they
+   actually run. The six badged `DEEP` are the ones hero scenarios target by
+   name.
+3. A `network-device` row picks a **vendor and model** — 105 of them, generated
+   from Netdata's own SNMP device profiles, so a Catalyst reports what a Catalyst
+   reports.
+4. Optionally set a **fleet latitude and longitude**, and override it per group
+   for a multi-site estate.
+5. Name the prospect and press **Create simulation**.
 
-The same tab holds **Connect to Netdata Cloud** (claim token plus an optional
-room id — the token is never written anywhere and is cleared from the page once
-used), **Re-skin**, and **Tear down**.
+The name fixes the seed and every node identity, so it cannot change later
+without orphaning the fleet's history. A fidelity check runs first and refuses to
+install a fleet that would give itself away. The first create also builds the
+container image, which takes a minute or two.
+
+Each simulation runs in its own container with its own fresh, unclaimed agent —
+your own agent is never touched, and correlated logs and OpenTelemetry start with
+it.
+
+## 3. Start it warming up
+
+**Do this at least 72 hours before the demo**, and ideally the moment you know it
+is happening.
+
+Netdata's ML trains on what it sees: anomaly detection starts contributing after
+roughly 15 minutes and is fully credible at about 72 hours. A fleet started an
+hour before a call has no anomaly history, no alert log and no texture — which is
+exactly what makes a demo feel real. This is the single most common way a first
+demo disappoints.
+
+There is no way around it. The plugin protocol cannot backfill history, so a
+fleet always starts at zero and accumulates.
+
+## 4. Claim it into Netdata Cloud
+
+Paste a token from *Cloud → Connect Nodes* into the create form, with a room id
+if you want one. The token is never written to disk, logged, or passed on a
+command line, and it is cleared from the page once used.
+
+The agent is fresh and unclaimed, so it joins whatever Space you name. One Space
+per prospect; never reuse one.
+
+Cloud will not put virtual nodes in a specific room from the agent side, so use a
+**room membership rule** on `infra_sim_name = <your simulation>` — the whole
+fleet joins, including nodes added later.
+
+## 5. Run the demo
 
 The **Run** tab is the demo surface: preflight verdict, scenario triggers with
-escalate/rewind, and the live node table.
+escalate and rewind, and the live node table.
 
-Root is required for create, claim and teardown.
+Trigger a scenario and let it develop. Resolving one unwinds it over three
+minutes rather than snapping back, so the recovery looks like a recovery.
+
+Each scenario declares the roles it needs (`requires_roles` in
+`scenarios/*.yaml`), because a fault nobody can see is worse than no fault:
+
+| Scenario | Needs |
+|---|---|
+| `disk-fill` | `db` + `web` |
+| `db-replication-lag` | `db` + `web` |
+| `memory-leak-oom` | `web` |
+| `noisy-neighbour` | `cache` + `web` |
+| `flapping-edge-links` | `lb` |
+| `switch-uplink-degrading` | `network-device` |
+
+A fleet missing a required role does not offer that scenario at all. Individual
+steps that target a tier the fleet does not have are skipped, so the rest of the
+timeline still runs — `switch-uplink-degrading` degrades the uplink on a
+switch-only fleet and simply does not slow a web tier that is not there.
+
+## 6. Tear it down
+
+One button on the Build tab, or:
+
+```bash
+sudo ./scripts/sim-docker.sh teardown <name>
+```
+
+The container carries the agent, its database and every simulated node, so
+removing it removes all of them — nothing is left stale. The environment and
+scenario manifests are archived first, so the fleet can be replayed.
+
+The Cloud Space or room is yours to delete; the teardown says so rather than
+pretending it did it.
 
 ---
 
-## Building an environment for a specific prospect
-
-```bash
-./target/release/infra-sim \
-  --describe "3 web servers behind an nginx load balancer, a postgres primary and 2 redis caches" \
-  --name acme --environment environments/acme.yaml
-```
-
-Add `--llm netdata` (with `LLM_API_KEY` in `.env`) when the description is in
-the prospect's vocabulary rather than ours — it resolves software the keyword
-reader cannot, and says plainly what it could not model. `--llm anthropic` and
-`--llm openai` work the same way. Always lint the result before trusting it.
-
-Not every model can do this: the plan contract needs a strict `json_schema`
-response format. On `llm.netdata.cloud`, `k3` honours it (and is the default);
-`glm-5.2-max` and `deepseek-v4-flash` do not. Override with `--llm-model`.
-
 ## Retargeting a warm fleet
 
-Do **not** regenerate an environment for a new prospect — that orphans 72 hours
-of ML training. Re-skin it instead:
+Do **not** regenerate an environment for a new prospect — that orphans days of ML
+training. Re-skin it instead, from the Build tab or:
 
 ```bash
 ./target/release/infra-sim --reskin --from-prefix sim- --to-prefix acme- \
@@ -139,30 +134,36 @@ of ML training. Re-skin it instead:
 ```
 
 GUIDs are preserved, so the fleet keeps its history, trained models and alert
-log. Only one environment carrying a given set of GUIDs may be claimed at a
-time.
+log. Only one environment carrying a given set of GUIDs may be claimed at a time.
 
-## Teardown
+## Building an environment from the command line
 
 ```bash
-./scripts/logs.sh stop
-sudo rm -rf /etc/netdata/custom-plugins.d/infra-sim.plugin /etc/netdata/infra-sim
-sudo systemctl restart netdata
-sudo rm -f /var/log/journal/remote/remote-*.journal
+./target/release/infra-sim --llm netdata \
+  --describe "3 web servers behind an nginx load balancer, a postgres primary and 2 redis caches" \
+  --name acme --environment environments/acme.yaml
+
+./target/release/infra-sim --environment environments/acme.yaml --lint 72
+sudo ./scripts/sim-docker.sh create acme environments/acme.yaml
 ```
 
-Removing the plugin file does **not** stop a running plugin — the install
-script kills the previous process for you, but if you remove things by hand,
-kill the process too.
+Without `--llm` an offline keyword parser reads the description; it resolves any
+integration named in the text but understands less phrasing. Always lint the
+result before trusting it.
+
+Not every model can do this: the plan contract needs a strict `json_schema`
+response format. Override with `--llm-model`.
 
 ## Things that will bite you
 
-
-
-- **A green lint is not a working demo.** The lint does not run scenarios.
-  After changing anything that sizes a mount or bounds a signal, trigger the
-  scenario that targets it and watch the value.
+- **Warm up early.** Nothing else on this list costs a demo as often.
+- **A green lint is not a working demo.** The lint does not run scenarios. After
+  changing anything that sizes a mount or bounds a signal, trigger the scenario
+  that targets it and watch the value.
 - **The GUID is the identity.** Changing a node's `guid` orphans its history;
   changing its `hostname` renames it in place.
-- **Warm up early.** This is the single most common way a first demo
-  disappoints.
+- **Name it once.** The simulation's name fixes the seed and every GUID. Re-skin
+  to rename; regenerating starts the history over.
+- **Traces are write-only for now.** The application tier emits OpenTelemetry
+  spans and the nightly agent stores them, but no Netdata build can display them
+  yet. Do not plan a demo beat on traces.

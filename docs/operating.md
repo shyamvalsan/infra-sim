@@ -1,8 +1,8 @@
 # Operating Infra-Sim
 
-Reference for running simulations. `README.md` covers what Infra-Sim is and why
-it exists; this covers how to drive it. Design rationale lives in
-`.agents/sow/specs/`.
+Reference for running simulations. `README.md` covers what Infra-Sim is and why it
+exists, `docs/QUICKSTART.md` is the shortest path to a demo, and this is the full
+reference. Design rationale lives in `.agents/sow/specs/`.
 
 ## Two ways to run a simulation
 

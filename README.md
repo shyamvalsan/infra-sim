@@ -78,19 +78,58 @@ correlation genuinely discoverable rather than decorative.
 
 ## Getting started
 
+You need **Rust** (stable) and **Docker**. Root is needed for the console, which
+writes under `/etc/netdata`. A Netdata agent on this machine is optional — each
+simulation runs its own inside its container.
+
 ```bash
+git clone https://github.com/shyamvalsan/infra-sim
+cd infra-sim
 cargo build --release
 sudo ./target/release/infra-sim-console --repo "$PWD"
-# open http://127.0.0.1:8080
 ```
 
-Describe the estate, adjust the fleet, name it, create it. Each simulation runs
-in its own container with its own agent, so it claims into whatever Netdata Cloud
-Space you point it at and `docker rm` removes every trace of it. Your own agent is
-never touched.
+Open <http://127.0.0.1:8080>. Then:
 
-There is a command-line path for everything the console does; see
-`--help` on the two binaries.
+1. **Describe the estate** in plain English, or skip it and build the fleet from
+   the picker — counts, roles, and which software runs on each tier.
+2. **Name it and create it.** The name fixes the seed and every node identity, so
+   it cannot change later without orphaning the fleet's history. The first create
+   builds the container image, which takes a minute or two; after that it is
+   seconds. A fidelity check runs before anything is installed and refuses a fleet
+   that would give itself away.
+3. **Watch it come up.** The console prints the simulation's own dashboard URL, and
+   nodes appear there within about a minute.
+4. **Claim it into Netdata Cloud** (optional) with a token from
+   *Cloud → Connect Nodes*, and a room id if you want one. The agent is fresh and
+   unclaimed, so it joins whatever Space you point it at; your own agent is never
+   touched.
+5. **Run the demo** on the Run tab: trigger a scenario, escalate it, resolve it.
+6. **Tear it down** when you are finished. One button removes the container and
+   everything inside it — agent, database, every simulated node.
+
+### Describing an estate in plain English
+
+That step reads your description with a model, which needs a key in a gitignored
+`.env` beside the repo:
+
+```bash
+echo 'LLM_API_KEY=...' >> .env      # Netdata's own gateway
+```
+
+`ANTHROPIC_API_KEY` and `OPENAI_API_KEY` work too; the console offers only
+providers whose key it can find. `sudo` strips the environment, so `.env` is the
+one place a key reliably survives.
+
+Without a key nothing breaks — the description box says so, and you build the
+fleet from the picker instead.
+
+Running this for a prospect? **[docs/QUICKSTART.md](docs/QUICKSTART.md)** is the
+demo-day path, including the one thing that costs demos most often: a fleet needs
+about 72 hours of running before its ML has anything to say.
+
+Every step also has a command-line path — see
+**[docs/operating.md](docs/operating.md)**.
 
 ## What can be simulated
 
@@ -176,8 +215,11 @@ compiles" has never been evidence here.
 
 ## Documentation
 
-- `docs/operating.md` — how to drive it: containers, the console, the command
-  line, scenarios, logs, exporters, and how to check a fleet before it ships.
+- **[docs/QUICKSTART.md](docs/QUICKSTART.md)** — the demo-day path, start to
+  teardown, and the mistakes that cost demos.
+- **[docs/operating.md](docs/operating.md)** — the reference: containers, the
+  console, the command line, scenarios, logs, exporters, and how to check a fleet
+  before it ships.
 - `spec.md` — the product definition: what this is for and what counts as done.
 - `.agents/sow/specs/` — what is actually built, and why it works the way it does.
 
@@ -194,9 +236,3 @@ environments/        fleet templates
 integrations/        the catalogues the console offers
 scripts/             sync tooling and the container lifecycle
 ```
-
-## Requirements
-
-Rust (stable), Docker for containerised simulations, and a Netdata agent. Root is
-needed only for the paths that write under `/etc/netdata`, and
-`systemd-journal-remote` only for correlated logs.
