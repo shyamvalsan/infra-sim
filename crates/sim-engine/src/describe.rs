@@ -43,11 +43,43 @@ pub struct Group {
 
 impl Group {
     /// Hostname element actually used, after falling back to the role's slug.
+    /// The hostname element for this group's nodes.
+    ///
+    /// An explicit slug wins; the model sets it from the prospect's own word for
+    /// the tier. Otherwise the group's distinctive software names it, and only
+    /// then the role.
+    ///
+    /// Naming by role alone produced `ceph-web-01` for a Ceph storage node while
+    /// `ceph-db-01` was the one running Postgres. That cost two sessions of
+    /// looking in the wrong place, so a hostname now says what the node is.
     pub fn effective_slug(&self) -> &str {
-        match &self.slug {
-            Some(s) if !s.is_empty() => s.as_str(),
-            _ => slug_for(&self.role),
+        if let Some(s) = self.slug.as_deref().filter(|s| !s.is_empty()) {
+            return s;
         }
+        match self.distinctive_service() {
+            Some(svc) => svc,
+            None => slug_for(&self.role),
+        }
+    }
+
+    /// The one service that makes this group different from a bare node of its
+    /// role, if there is exactly one.
+    ///
+    /// A web server running nginx is just a web server - `web` is the better
+    /// name. A web-shaped node running Ceph is a Ceph node.
+    fn distinctive_service(&self) -> Option<&str> {
+        let defaults = default_services(&self.role);
+        let mut extra = self
+            .services
+            .iter()
+            .map(String::as_str)
+            // `processes` is composed onto every node, so it never distinguishes
+            // one group from another.
+            .filter(|s| *s != "processes")
+            .filter(|s| !defaults.contains(s));
+        let first = extra.next()?;
+        // Two or more and no single name is right; fall back to the role.
+        extra.next().is_none().then_some(first)
     }
 }
 
@@ -66,12 +98,21 @@ impl Reading {
     /// the GUID is derived from the hostname, so a collision is not a cosmetic
     /// duplicate — it is two nodes claiming one identity, interleaving their
     /// samples into a single corrupted series.
+    /// Make every group's hostname element unique.
+    ///
+    /// Two groups sharing an element emit the same hostnames, and since the GUID
+    /// derives from the hostname that is two nodes claiming one identity.
+    ///
+    /// Groups that are genuinely the same thing are merged. Groups that merely
+    /// collide - the same software on two different role shapes - are
+    /// disambiguated instead, because merging them would give one of them the
+    /// wrong hardware, mounts and scenario targets.
     pub fn dedupe_slugs(&mut self) {
         let mut folded: Vec<Group> = Vec::new();
         for group in std::mem::take(&mut self.groups) {
             match folded
                 .iter_mut()
-                .find(|g| g.effective_slug() == group.effective_slug())
+                .find(|g| g.role == group.role && g.services == group.services)
             {
                 Some(existing) => {
                     existing.count += group.count;
@@ -79,6 +120,24 @@ impl Reading {
                 }
                 None => folded.push(group),
             }
+        }
+
+        // Now break any remaining ties on the hostname element.
+        let mut used: std::collections::BTreeSet<String> = std::collections::BTreeSet::new();
+        for group in folded.iter_mut() {
+            let base = group.effective_slug().to_string();
+            if used.insert(base.clone()) {
+                continue;
+            }
+            // The role is the most informative qualifier; an index only if even
+            // that is taken.
+            let mut candidate = format!("{base}-{}", slug_for(&group.role));
+            let mut n = 2;
+            while !used.insert(candidate.clone()) {
+                candidate = format!("{base}-{n}");
+                n += 1;
+            }
+            group.slug = Some(candidate);
         }
         self.groups = folded;
     }
@@ -460,6 +519,15 @@ fn ports() -> Vec<(String, f64, u32)> {
     out.push(("TenGigabitEthernet1/1/1".into(), 4.0, 10000));
     out.push(("TenGigabitEthernet1/1/2".into(), 3.2, 10000));
     out
+}
+
+/// A role's default services, for deciding what makes a group distinctive.
+fn default_services(role: &str) -> &'static [&'static str] {
+    ROLES
+        .iter()
+        .find(|d| d.role == role)
+        .map(|d| d.services)
+        .unwrap_or(&[])
 }
 
 /// Number words, so "three web servers" reads as naturally as "3 web servers".
@@ -1108,6 +1176,79 @@ mod tests {
             "{g}"
         );
         assert!(g.chars().all(|c| c.is_ascii_hexdigit() || c == '-'), "{g}");
+    }
+
+    #[test]
+    fn a_node_is_named_after_its_software_not_its_role_shape() {
+        // The failure this guards: a Ceph cluster whose nodes were called
+        // `<name>-web-01` while `<name>-db-01` was the one running Postgres.
+        let g = |role: &str, services: &[&str]| super::Group {
+            count: 1,
+            role: role.into(),
+            services: services.iter().map(|s| s.to_string()).collect(),
+            slug: None,
+            source: String::new(),
+        };
+        // Distinctive software names the node.
+        assert_eq!(g("web", &["ceph"]).effective_slug(), "ceph");
+        assert_eq!(g("web", &["ceph", "processes"]).effective_slug(), "ceph");
+        // A web server running nginx is just a web server.
+        assert_eq!(g("web", &["nginx"]).effective_slug(), "web");
+        assert_eq!(g("db", &["postgres"]).effective_slug(), "db");
+        // Two extras and no single name is right.
+        assert_eq!(g("web", &["ceph", "redis"]).effective_slug(), "web");
+        // An explicit slug always wins - the model sets it from the prospect's
+        // own word for the tier.
+        let mut explicit = g("web", &["ceph"]);
+        explicit.slug = Some("storage".into());
+        assert_eq!(explicit.effective_slug(), "storage");
+    }
+
+    #[test]
+    fn colliding_hostname_elements_are_disambiguated_not_merged() {
+        // Merging them would give one group the other's hardware, mounts and
+        // scenario targets. Two nodes sharing a hostname share a GUID, which is
+        // two nodes claiming one identity - so they cannot simply collide either.
+        let mut r = super::Reading {
+            groups: vec![
+                super::Group {
+                    count: 6,
+                    role: "web".into(),
+                    services: vec!["nginx".into()],
+                    slug: None,
+                    source: String::new(),
+                },
+                super::Group {
+                    count: 2,
+                    role: "lb".into(),
+                    services: vec!["nginx".into()],
+                    slug: None,
+                    source: String::new(),
+                },
+                super::Group {
+                    count: 3,
+                    role: "web".into(),
+                    services: vec!["nginx".into()],
+                    slug: None,
+                    source: String::new(),
+                },
+            ],
+            unrecognised: vec![],
+        };
+        r.dedupe_slugs();
+        // The two identical web groups merged; the lb group did not.
+        assert_eq!(r.groups.len(), 2, "{:?}", r.groups);
+        assert_eq!(r.groups[0].count, 9);
+        assert_eq!(r.groups[1].count, 2);
+        let slugs: Vec<&str> = r.groups.iter().map(|g| g.effective_slug()).collect();
+        assert_eq!(
+            slugs.len(),
+            slugs
+                .iter()
+                .collect::<std::collections::BTreeSet<_>>()
+                .len(),
+            "hostname elements must be unique: {slugs:?}"
+        );
     }
 
     #[test]

@@ -87,9 +87,20 @@ inference in the data path.
   between tiers and never scaling a tier below one node. An SE asking for "this
   prospect's shape at 50 nodes" wants the ratio, not the description's
   arithmetic.
-- **Groups sharing a hostname element are merged** — two groups with one slug
-  would emit the same hostname twice, and since the GUID derives from the
-  hostname, that is two nodes claiming one identity.
+- **A hostname says what the node is.** The element comes from an explicit slug
+  if the model set one, otherwise from the group's *distinctive* software - the
+  one service that is not already a default of its role - and only then from the
+  role. Naming by role alone produced `ceph-web-01` for a Ceph storage node
+  while `ceph-db-01` was the one running Postgres, which cost two sessions of
+  looking in the wrong place. A web server running nginx is still `web`; a
+  web-shaped node running Ceph is `ceph`.
+- **Groups sharing a hostname element are reconciled** — two groups with one
+  element would emit the same hostname twice, and since the GUID derives from the
+  hostname, that is two nodes claiming one identity. Groups that are genuinely
+  the same thing (same role, same services) merge. Groups that merely collide -
+  the same software on two different role shapes - are disambiguated by
+  qualifying the element with the role, because merging them would give one of
+  them the other's hardware, mounts and scenario targets.
 - **Fillable mounts keep headroom.** A mount a hero scenario fills starts at
   ~11% utilisation, not the default 38%: `disk-fill`'s 8.2x from 38% reaches
   311%, clamps at 100%, and the ramp flattens. The lint cannot catch this —
