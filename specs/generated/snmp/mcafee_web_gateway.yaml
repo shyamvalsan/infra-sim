@@ -1,0 +1,1252 @@
+version: 1
+name: mcafee_web_gateway
+description: McAfee Network device, as Netdata's SNMP collector reports it. Generated from go.d/snmp.profiles/default/mcafee-web-gateway.yaml
+  with its `extends` chain resolved. Contexts, units, families and metric names are the device's own; values are a plausible
+  fiction.
+signals:
+  device_cpu_usage:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  device_memory_usage:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mcafee_web_gateway_mcafee_mwg_stmalwaredetected:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mcafee_web_gateway_mcafee_mwg_stconnectionslegitimate:
+    base: 46.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mcafee_web_gateway_mcafee_mwg_stblockedbyantimalware:
+    base: 46.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mcafee_web_gateway_mcafee_mwg_stconnectionsblocked:
+    base: 46.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mcafee_web_gateway_mcafee_mwg_stblockedbymediafilter:
+    base: 46.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mcafee_web_gateway_mcafee_mwg_stblockedbyurlfilter:
+    base: 46.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mcafee_web_gateway_mcafee_mwg_stmimetype:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mcafee_web_gateway_mcafee_mwg_stcategories:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mcafee_web_gateway_mcafee_mwg_sthttprequests:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mcafee_web_gateway_mcafee_mwg_sthttptraffic:
+    base: 3100000.0
+    min: 0.0
+    max: 1250000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mcafee_web_gateway_mcafee_mwg_sthttpbytesfromclient:
+    base: 3100000.0
+    min: 0.0
+    max: 1250000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mcafee_web_gateway_mcafee_mwg_sthttpbytesfromserver:
+    base: 3100000.0
+    min: 0.0
+    max: 1250000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mcafee_web_gateway_mcafee_mwg_sthttpbytestoclient:
+    base: 3100000.0
+    min: 0.0
+    max: 1250000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mcafee_web_gateway_mcafee_mwg_sthttpbytestoserver:
+    base: 3100000.0
+    min: 0.0
+    max: 1250000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mcafee_web_gateway_mcafee_mwg_sthttpsrequests:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mcafee_web_gateway_mcafee_mwg_sthttpstraffic:
+    base: 3100000.0
+    min: 0.0
+    max: 1250000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mcafee_web_gateway_mcafee_mwg_sthttpsbytesfromclient:
+    base: 3100000.0
+    min: 0.0
+    max: 1250000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mcafee_web_gateway_mcafee_mwg_sthttpsbytesfromserver:
+    base: 3100000.0
+    min: 0.0
+    max: 1250000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mcafee_web_gateway_mcafee_mwg_sthttpsbytestoclient:
+    base: 3100000.0
+    min: 0.0
+    max: 1250000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mcafee_web_gateway_mcafee_mwg_sthttpsbytestoserver:
+    base: 3100000.0
+    min: 0.0
+    max: 1250000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mcafee_web_gateway_mcafee_mwg_stftptraffic:
+    base: 3100000.0
+    min: 0.0
+    max: 1250000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mcafee_web_gateway_mcafee_mwg_stftpbytesfromclient:
+    base: 3100000.0
+    min: 0.0
+    max: 1250000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mcafee_web_gateway_mcafee_mwg_stftpbytesfromserver:
+    base: 3100000.0
+    min: 0.0
+    max: 1250000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mcafee_web_gateway_mcafee_mwg_stftpbytestoclient:
+    base: 3100000.0
+    min: 0.0
+    max: 1250000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mcafee_web_gateway_mcafee_mwg_stftpbytestoserver:
+    base: 3100000.0
+    min: 0.0
+    max: 1250000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mcafee_web_gateway_mcafee_mwg_stclientcount:
+    base: 52.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mcafee_web_gateway_mcafee_mwg_stconnectedsockets:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mcafee_web_gateway_mcafee_mwg_stresolvehostviadns:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mcafee_web_gateway_mcafee_mwg_sttimeconsumedbyruleengine:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mcafee_web_gateway_mcafee_mwg_sttimefortransaction:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mcafee_web_gateway_mcafee_mwg_stcategorycount:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mcafee_web_gateway_systemuptime:
+    base: 86400.0
+    min: 0.0
+    max: 315360000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mcafee_web_gateway_ifnumber:
+    base: 26.0
+    min: 26.0
+    max: 26.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_admin_status:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_admin_status_down:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_admin_status_testing:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_down:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_testing:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_dormant:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_notpresent:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_lowerlayerdown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_speed:
+    from_attr: if_speed_mbps
+    base: 1000.0
+    min: 0.0
+    max: 400000.0
+  if_in_octets_rate:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_out_octets_rate:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_ucast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_out_ucast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_mcast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mcafee_web_gateway_ifhcoutmulticastpkts:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_bcast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mcafee_web_gateway_ifhcoutbroadcastpkts:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_errors_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  if_out_errors_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  if_in_discards_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  if_out_discards_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  mcafee_web_gateway_iftotaloperstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  mcafee_web_gateway_iftotaloperstatus_down:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  mcafee_web_gateway_iftotaloperstatus_testing:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  mcafee_web_gateway_iftotaloperstatus_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  mcafee_web_gateway_iftotaloperstatus_dormant:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  mcafee_web_gateway_iftotaloperstatus_notpresent:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  mcafee_web_gateway_iftotaloperstatus_lowerlayerdown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+contexts:
+- id: snmp.device_prof_cpu_usage
+  title: The current CPU utilization
+  units: '%'
+  family: System/CPU/Usage
+  chart_type: line
+  priority: 60000
+  shape: independent
+  dimensions:
+  - id: cpu_usage
+    signal: device_cpu_usage
+- id: snmp.device_prof_memory_usage
+  title: Virtual memory consumption of the main processes divided by RAM + half of SWAP space. Projected to 0-100.
+  units: '%'
+  family: System/Memory/Usage
+  chart_type: line
+  priority: 60001
+  shape: independent
+  dimensions:
+  - id: memory_usage
+    signal: device_memory_usage
+- id: snmp.device_prof_mcafee_mwg_stMalwareDetected
+  title: Number of infections detected by the McAfee Gateway Antimalware Engine
+  units: '{infection}/s'
+  family: Security/Malware/Detected
+  chart_type: line
+  priority: 60002
+  shape: counters
+  dimensions:
+  - id: mcafee_mwg_stmalwaredetected
+    rate_signal: mcafee_web_gateway_mcafee_mwg_stmalwaredetected
+- id: snmp.device_prof_mcafee_mwg_stConnectionsLegitimate
+  title: Number of connections that not have been blocked
+  units: '{connection}/s'
+  family: Security/Connection/Legitimate
+  chart_type: line
+  priority: 60003
+  shape: counters
+  dimensions:
+  - id: mcafee_mwg_stconnectionslegi
+    rate_signal: mcafee_web_gateway_mcafee_mwg_stconnectionslegitimate
+- id: snmp.device_prof_mcafee_mwg_stBlockedByAntiMalware
+  title: Number of connections blocked by Anti-Malware
+  units: '{connection}/s'
+  family: Security/Connection/Blocked/AntiMalware
+  chart_type: line
+  priority: 60004
+  shape: counters
+  dimensions:
+  - id: mcafee_mwg_stblockedbyantima
+    rate_signal: mcafee_web_gateway_mcafee_mwg_stblockedbyantimalware
+- id: snmp.device_prof_mcafee_mwg_stConnectionsBlocked
+  title: Number of blocked connections
+  units: '{connection}/s'
+  family: Security/Connection/Blocked/Total
+  chart_type: line
+  priority: 60005
+  shape: counters
+  dimensions:
+  - id: mcafee_mwg_stconnectionsbloc
+    rate_signal: mcafee_web_gateway_mcafee_mwg_stconnectionsblocked
+- id: snmp.device_prof_mcafee_mwg_stBlockedByMediaFilter
+  title: Number of connections that have been blocked by the Media-Type filter
+  units: '{connection}/s'
+  family: Security/Connection/Blocked/MediaFilter
+  chart_type: line
+  priority: 60006
+  shape: counters
+  dimensions:
+  - id: mcafee_mwg_stblockedbymediaf
+    rate_signal: mcafee_web_gateway_mcafee_mwg_stblockedbymediafilter
+- id: snmp.device_prof_mcafee_mwg_stBlockedByURLFilter
+  title: Number of connection that have been blocked by the URL filter
+  units: '{connection}/s'
+  family: Security/Connection/Blocked/URLFilter
+  chart_type: line
+  priority: 60007
+  shape: counters
+  dimensions:
+  - id: mcafee_mwg_stblockedbyurlfil
+    rate_signal: mcafee_web_gateway_mcafee_mwg_stblockedbyurlfilter
+- id: snmp.device_prof_mcafee_mwg_stMimeType
+  title: Number of media types detected by the Media Type filter
+  units: '{media_type}/s'
+  family: Security/Filter/MediaType/Detected
+  chart_type: line
+  priority: 60008
+  shape: counters
+  dimensions:
+  - id: mcafee_mwg_stmimetype
+    rate_signal: mcafee_web_gateway_mcafee_mwg_stmimetype
+- id: snmp.device_prof_mcafee_mwg_stCategories
+  title: Number of categories detected by the URL filter
+  units: '{category}/s'
+  family: Security/Filter/URLCategory/Detected
+  chart_type: line
+  priority: 60009
+  shape: counters
+  dimensions:
+  - id: mcafee_mwg_stcategories
+    rate_signal: mcafee_web_gateway_mcafee_mwg_stcategories
+- id: snmp.device_prof_mcafee_mwg_stHttpRequests
+  title: Number of HTTP requests
+  units: '{request}/s'
+  family: Network/HTTP/Request
+  chart_type: line
+  priority: 60010
+  shape: counters
+  dimensions:
+  - id: mcafee_mwg_sthttprequests
+    rate_signal: mcafee_web_gateway_mcafee_mwg_sthttprequests
+- id: snmp.device_prof_mcafee_mwg_stHttpTraffic
+  title: Number of bytes tranferred between proxy and server(s) using the HTTP protocol
+  units: By/s
+  family: Network/HTTP/Throughput/Total
+  chart_type: line
+  priority: 60011
+  shape: counters
+  dimensions:
+  - id: mcafee_mwg_sthttptraffic
+    rate_signal: mcafee_web_gateway_mcafee_mwg_sthttptraffic
+- id: snmp.device_prof_mcafee_mwg_stHttpBytesFromClient
+  title: Number of bytes transferred from client to proxy using the HTTP protocol
+  units: By/s
+  family: Network/HTTP/Throughput/FromClient
+  chart_type: line
+  priority: 60012
+  shape: counters
+  dimensions:
+  - id: mcafee_mwg_sthttpbytesfromcl
+    rate_signal: mcafee_web_gateway_mcafee_mwg_sthttpbytesfromclient
+- id: snmp.device_prof_mcafee_mwg_stHttpBytesFromServer
+  title: Number of bytes transferred from server to proxy using the HTTP protocol
+  units: By/s
+  family: Network/HTTP/Throughput/FromServer
+  chart_type: line
+  priority: 60013
+  shape: counters
+  dimensions:
+  - id: mcafee_mwg_sthttpbytesfromse
+    rate_signal: mcafee_web_gateway_mcafee_mwg_sthttpbytesfromserver
+- id: snmp.device_prof_mcafee_mwg_stHttpBytesToClient
+  title: Number of bytes transferred from proxy to client(s) using the HTTP protocol
+  units: By/s
+  family: Network/HTTP/Throughput/ToClient
+  chart_type: line
+  priority: 60014
+  shape: counters
+  dimensions:
+  - id: mcafee_mwg_sthttpbytestoclie
+    rate_signal: mcafee_web_gateway_mcafee_mwg_sthttpbytestoclient
+- id: snmp.device_prof_mcafee_mwg_stHttpBytesToServer
+  title: Number of bytes transferred from proxy to server(s) using the HTTP protocol
+  units: By/s
+  family: Network/HTTP/Throughput/ToServer
+  chart_type: line
+  priority: 60015
+  shape: counters
+  dimensions:
+  - id: mcafee_mwg_sthttpbytestoserv
+    rate_signal: mcafee_web_gateway_mcafee_mwg_sthttpbytestoserver
+- id: snmp.device_prof_mcafee_mwg_stHttpsRequests
+  title: Number of HTTPS requests
+  units: '{request}/s'
+  family: Network/HTTPS/Request
+  chart_type: line
+  priority: 60016
+  shape: counters
+  dimensions:
+  - id: mcafee_mwg_sthttpsrequests
+    rate_signal: mcafee_web_gateway_mcafee_mwg_sthttpsrequests
+- id: snmp.device_prof_mcafee_mwg_stHttpsTraffic
+  title: Number of bytes tranferred between proxy and server(s) using the HTTPS protocol
+  units: By/s
+  family: Network/HTTPS/Throughput/Total
+  chart_type: line
+  priority: 60017
+  shape: counters
+  dimensions:
+  - id: mcafee_mwg_sthttpstraffic
+    rate_signal: mcafee_web_gateway_mcafee_mwg_sthttpstraffic
+- id: snmp.device_prof_mcafee_mwg_stHttpsBytesFromClient
+  title: Number of bytes tranferred from client(s) to proxy using the HTTPS protocol
+  units: By/s
+  family: Network/HTTPS/Throughput/FromClient
+  chart_type: line
+  priority: 60018
+  shape: counters
+  dimensions:
+  - id: mcafee_mwg_sthttpsbytesfromc
+    rate_signal: mcafee_web_gateway_mcafee_mwg_sthttpsbytesfromclient
+- id: snmp.device_prof_mcafee_mwg_stHttpsBytesFromServer
+  title: Number of bytes tranferred from server(s) to proxy using the HTTPS protocol
+  units: By/s
+  family: Network/HTTPS/Throughput/FromServer
+  chart_type: line
+  priority: 60019
+  shape: counters
+  dimensions:
+  - id: mcafee_mwg_sthttpsbytesfroms
+    rate_signal: mcafee_web_gateway_mcafee_mwg_sthttpsbytesfromserver
+- id: snmp.device_prof_mcafee_mwg_stHttpsBytesToClient
+  title: Number of bytes tranferred from proxy to client(s) and proxy using the HTTPS protocol
+  units: By/s
+  family: Network/HTTPS/Throughput/ToClient
+  chart_type: line
+  priority: 60020
+  shape: counters
+  dimensions:
+  - id: mcafee_mwg_sthttpsbytestocli
+    rate_signal: mcafee_web_gateway_mcafee_mwg_sthttpsbytestoclient
+- id: snmp.device_prof_mcafee_mwg_stHttpsBytesToServer
+  title: Number of bytes tranferred from proxy to server(s) and proxy using the HTTPS protocol
+  units: By/s
+  family: Network/HTTPS/Throughput/ToServer
+  chart_type: line
+  priority: 60021
+  shape: counters
+  dimensions:
+  - id: mcafee_mwg_sthttpsbytestoser
+    rate_signal: mcafee_web_gateway_mcafee_mwg_sthttpsbytestoserver
+- id: snmp.device_prof_mcafee_mwg_stFtpTraffic
+  title: Number of bytes transmitted between proxy and server(s) using the FTP protocol
+  units: By/s
+  family: Network/FTP/Throughput/Total
+  chart_type: line
+  priority: 60022
+  shape: counters
+  dimensions:
+  - id: mcafee_mwg_stftptraffic
+    rate_signal: mcafee_web_gateway_mcafee_mwg_stftptraffic
+- id: snmp.device_prof_mcafee_mwg_stFtpBytesFromClient
+  title: Number of bytes tranferred from proxy to client(s) using the FTP protocol
+  units: By/s
+  family: Network/FTP/Throughput/FromClient
+  chart_type: line
+  priority: 60023
+  shape: counters
+  dimensions:
+  - id: mcafee_mwg_stftpbytesfromcli
+    rate_signal: mcafee_web_gateway_mcafee_mwg_stftpbytesfromclient
+- id: snmp.device_prof_mcafee_mwg_stFtpBytesFromServer
+  title: Number of bytes tranferred from server(s) to proxy using the FTP protocol
+  units: By/s
+  family: Network/FTP/Throughput/FromServer
+  chart_type: line
+  priority: 60024
+  shape: counters
+  dimensions:
+  - id: mcafee_mwg_stftpbytesfromser
+    rate_signal: mcafee_web_gateway_mcafee_mwg_stftpbytesfromserver
+- id: snmp.device_prof_mcafee_mwg_stFtpBytesToClient
+  title: Number of bytes tranferred from proxy to client(s) using the FTP protocol
+  units: By/s
+  family: Network/FTP/Throughput/ToClient
+  chart_type: line
+  priority: 60025
+  shape: counters
+  dimensions:
+  - id: mcafee_mwg_stftpbytestoclien
+    rate_signal: mcafee_web_gateway_mcafee_mwg_stftpbytestoclient
+- id: snmp.device_prof_mcafee_mwg_stFtpBytesToServer
+  title: Number of bytes tranferred from proxy to server(s) using the FTP protocol
+  units: By/s
+  family: Network/FTP/Throughput/ToServer
+  chart_type: line
+  priority: 60026
+  shape: counters
+  dimensions:
+  - id: mcafee_mwg_stftpbytestoserve
+    rate_signal: mcafee_web_gateway_mcafee_mwg_stftpbytestoserver
+- id: snmp.device_prof_mcafee_mwg_stClientCount
+  title: Currently connected clients
+  units: '{client}'
+  family: Network/Connection/Client/Active
+  chart_type: line
+  priority: 60027
+  shape: independent
+  dimensions:
+  - id: mcafee_mwg_stclientcount
+    signal: mcafee_web_gateway_mcafee_mwg_stclientcount
+- id: snmp.device_prof_mcafee_mwg_stConnectedSockets
+  title: Number of open network sockets in use by the proxy
+  units: '{socket}'
+  family: Network/Socket/Active
+  chart_type: line
+  priority: 60028
+  shape: independent
+  dimensions:
+  - id: mcafee_mwg_stconnectedsocket
+    signal: mcafee_web_gateway_mcafee_mwg_stconnectedsockets
+- id: snmp.device_prof_mcafee_mwg_stResolveHostViaDNS
+  title: Time to resolve DNS in ms
+  units: ms
+  family: Network/DNS/Resolution/Time
+  chart_type: line
+  priority: 60029
+  shape: independent
+  dimensions:
+  - id: mcafee_mwg_stresolvehostviad
+    signal: mcafee_web_gateway_mcafee_mwg_stresolvehostviadns
+- id: snmp.device_prof_mcafee_mwg_stTimeConsumedByRuleEngine
+  title: Average time used by the rule engine in ms
+  units: ms
+  family: Security/RuleEngine/Processing/Time
+  chart_type: line
+  priority: 60030
+  shape: independent
+  dimensions:
+  - id: mcafee_mwg_sttimeconsumedbyr
+    signal: mcafee_web_gateway_mcafee_mwg_sttimeconsumedbyruleengine
+- id: snmp.device_prof_mcafee_mwg_stTimeForTransaction
+  title: Average time for transaction in ms
+  units: ms
+  family: System/Transaction/Time
+  chart_type: line
+  priority: 60031
+  shape: independent
+  dimensions:
+  - id: mcafee_mwg_sttimefortransact
+    signal: mcafee_web_gateway_mcafee_mwg_sttimefortransaction
+- id: snmp.device_prof_mcafee_mwg_stCategoryCount
+  title: Number of times the URL filter detected this category
+  units: '{occurrence}/s'
+  family: Security/Filter/URLCategory/Count
+  chart_type: line
+  priority: 60032
+  shape: counters
+  dimensions:
+  - id: mcafee_mwg_stcategorycount
+    rate_signal: mcafee_web_gateway_mcafee_mwg_stcategorycount
+  instances:
+    group: mcafee_mwg_st_category_name
+    chart_prefix: mcafee_mwg_stcategorycount
+    family: Security/Filter/URLCategory/Count
+    labels:
+      mcafee_mwg_st_category_name: '{instance}'
+- id: snmp.device_prof_systemUptime
+  title: Time since the system was last rebooted or powered on.
+  units: s
+  family: System/Uptime
+  chart_type: line
+  priority: 60033
+  shape: independent
+  dimensions:
+  - id: systemuptime
+    signal: mcafee_web_gateway_systemuptime
+- id: snmp.device_prof_ifNumber
+  title: Number of network interfaces regardless of their current state present on this system
+  units: '{interface}'
+  family: Network/Interface/Count
+  chart_type: line
+  priority: 60034
+  shape: independent
+  dimensions:
+  - id: ifnumber
+    signal: mcafee_web_gateway_ifnumber
+- id: snmp.device_prof_ifAdminStatus
+  title: Current administrative state of the interface
+  units: '{status}'
+  family: Network/Interface/Status/Admin
+  chart_type: line
+  priority: 60035
+  shape: independent
+  dimensions:
+  - id: up
+    signal: if_admin_status
+  - id: down
+    signal: if_admin_status_down
+  - id: testing
+    signal: if_admin_status_testing
+  instances:
+    group: interface
+    chart_prefix: ifadminstatus
+    family: Network/Interface/Status/Admin
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifOperStatus
+  title: Current operational state of the interface
+  units: '{status}'
+  family: Network/Interface/Status/Operational
+  chart_type: line
+  priority: 60036
+  shape: independent
+  dimensions:
+  - id: up
+    signal: if_oper_status
+  - id: down
+    signal: if_oper_status_down
+  - id: testing
+    signal: if_oper_status_testing
+  - id: unknown
+    signal: if_oper_status_unknown
+  - id: dormant
+    signal: if_oper_status_dormant
+  - id: notpresent
+    signal: if_oper_status_notpresent
+  - id: lowerlayerdown
+    signal: if_oper_status_lowerlayerdown
+  instances:
+    group: interface
+    chart_prefix: ifoperstatus
+    family: Network/Interface/Status/Operational
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifHighSpeed
+  title: Estimate of the interface's current bandwidth
+  units: bit/s
+  family: Network/Interface/Speed
+  chart_type: area
+  priority: 60037
+  shape: counters
+  dimensions:
+  - id: ifhighspeed
+    rate_signal: if_speed
+  instances:
+    group: interface
+    chart_prefix: ifhighspeed
+    family: Network/Interface/Speed
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifTotalTraffic
+  title: Total traffic across all interfaces
+  units: bit/s
+  family: Network/Total/Traffic
+  chart_type: area
+  priority: 60038
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_octets_rate
+  - id: out
+    rate_signal: if_out_octets_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalPacketsUcast
+  title: Total unicast packets across all interfaces
+  units: '{packet}/s'
+  family: Network/Total/Packet/Unicast
+  chart_type: line
+  priority: 60039
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_ucast_rate
+  - id: out
+    rate_signal: if_out_ucast_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalPacketsMulticast
+  title: Total multicast packets across all interfaces
+  units: '{packet}/s'
+  family: Network/Total/Packet/Multicast
+  chart_type: line
+  priority: 60040
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_mcast_rate
+  - id: out
+    rate_signal: mcafee_web_gateway_ifhcoutmulticastpkts
+    multiplier: -1
+- id: snmp.device_prof_ifTotalPacketsBroadcast
+  title: Total broadcast packets across all interfaces
+  units: '{packet}/s'
+  family: Network/Total/Packet/Broadcast
+  chart_type: line
+  priority: 60041
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_bcast_rate
+  - id: out
+    rate_signal: mcafee_web_gateway_ifhcoutbroadcastpkts
+    multiplier: -1
+- id: snmp.device_prof_ifTotalErrors
+  title: Total packets with errors across all interfaces
+  units: '{error}/s'
+  family: Network/Total/Error
+  chart_type: line
+  priority: 60042
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_errors_rate
+  - id: out
+    rate_signal: if_out_errors_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalDiscards
+  title: Total packets discarded across all interfaces
+  units: '{discard}/s'
+  family: Network/Total/Discard
+  chart_type: line
+  priority: 60043
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_discards_rate
+  - id: out
+    rate_signal: if_out_discards_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalOperStatus
+  title: Total count of interfaces by operational status
+  units: '{status}'
+  family: Network/Total/Interface/Status
+  chart_type: line
+  priority: 60044
+  shape: independent
+  dimensions:
+  - id: up
+    signal: mcafee_web_gateway_iftotaloperstatus
+  - id: down
+    signal: mcafee_web_gateway_iftotaloperstatus_down
+  - id: testing
+    signal: mcafee_web_gateway_iftotaloperstatus_testing
+  - id: unknown
+    signal: mcafee_web_gateway_iftotaloperstatus_unknown
+  - id: dormant
+    signal: mcafee_web_gateway_iftotaloperstatus_dormant
+  - id: notpresent
+    signal: mcafee_web_gateway_iftotaloperstatus_notpresent
+  - id: lowerlayerdown
+    signal: mcafee_web_gateway_iftotaloperstatus_lowerlayerdown
+- id: snmp.device_prof_ifTraffic
+  title: Traffic
+  units: bit/s
+  family: Network/Interface/Traffic/Total
+  chart_type: area
+  priority: 60045
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_octets_rate
+  - id: out
+    rate_signal: if_out_octets_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: iftraffic
+    family: Network/Interface/Traffic/Total
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifPacketsUcast
+  title: Unicast packets
+  units: '{packet}/s'
+  family: Network/Interface/Packet/Unicast
+  chart_type: line
+  priority: 60046
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_ucast_rate
+  - id: out
+    rate_signal: if_out_ucast_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifpacketsucast
+    family: Network/Interface/Packet/Unicast
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifPacketsMulticast
+  title: Multicast packets
+  units: '{packet}/s'
+  family: Network/Interface/Packet/Multicast
+  chart_type: line
+  priority: 60047
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_mcast_rate
+  - id: out
+    rate_signal: mcafee_web_gateway_ifhcoutmulticastpkts
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifpacketsmulticast
+    family: Network/Interface/Packet/Multicast
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifPacketsBroadcast
+  title: Broadcast packets
+  units: '{packet}/s'
+  family: Network/Interface/Packet/Broadcast
+  chart_type: line
+  priority: 60048
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_bcast_rate
+  - id: out
+    rate_signal: mcafee_web_gateway_ifhcoutbroadcastpkts
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifpacketsbroadcast
+    family: Network/Interface/Packet/Broadcast
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifErrors
+  title: Packets with errors
+  units: '{error}/s'
+  family: Network/Interface/Error/Total
+  chart_type: line
+  priority: 60049
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_errors_rate
+  - id: out
+    rate_signal: if_out_errors_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: iferrors
+    family: Network/Interface/Error/Total
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifDiscards
+  title: Packets discarded
+  units: '{discard}/s'
+  family: Network/Interface/Discard
+  chart_type: line
+  priority: 60050
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_discards_rate
+  - id: out
+    rate_signal: if_out_discards_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifdiscards
+    family: Network/Interface/Discard
+    labels:
+      interface: '{instance}'

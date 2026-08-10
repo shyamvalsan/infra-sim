@@ -1,0 +1,2129 @@
+version: 1
+name: hp_ilo4
+description: HP Network device, as Netdata's SNMP collector reports it. Generated from go.d/snmp.profiles/default/hp-ilo4.yaml
+  with its `extends` chain resolved. Contexts, units, families and metric names are the device's own; values are a plausible
+  fiction.
+signals:
+  hp_ilo4_cpqsm2cntlrserverpowerstate:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqsm2cntlrserverpowerstate_poweredoff:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqsm2cntlrserverpowerstate_poweredon:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqsm2cntlrserverpowerstate_insufficientpowerorpowerondenied:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqsm2cntlrbatterystatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqsm2cntlrbatterystatus_batteryok:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqsm2cntlrbatterystatus_batteryfailed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqsm2cntlrbatterystatus_batterydisconnected:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqsm2cntlrbatterypercentcharged:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hp_ilo4_cpqsm2cntlrremotesessionstatus_other:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqsm2cntlrremotesessionstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqsm2cntlrremotesessionstatus_inactive:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqsm2cntlrinterfacestatus_other:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqsm2cntlrinterfacestatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqsm2cntlrinterfacestatus_notresponding:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqsm2eventtotalentries:
+    base: 140.0
+    min: 140.0
+    max: 140.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqsm2nicxmitbytes:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hp_ilo4_cpqsm2nicxmittotalpackets:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hp_ilo4_cpqsm2nicxmitdiscardpackets:
+    base: 0.0
+    min: 0.0
+    max: 15000000.0
+  hp_ilo4_cpqsm2nicxmiterrorpackets:
+    base: 0.0
+    min: 0.0
+    max: 15000000.0
+  hp_ilo4_cpqsm2nicxmitqueuelength:
+    base: 0.0
+    min: 0.0
+    max: 1000000000.0
+  hp_ilo4_cpqsm2nicrecvbytes:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hp_ilo4_cpqsm2nicrecvtotalpackets:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hp_ilo4_cpqsm2nicrecvdiscardpackets:
+    base: 0.0
+    min: 0.0
+    max: 15000000.0
+  hp_ilo4_cpqsm2nicrecverrorpackets:
+    base: 0.0
+    min: 0.0
+    max: 15000000.0
+  hp_ilo4_cpqsm2nicrecvunknownpackets:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hp_ilo4_cpqnicifphysadaptergoodtransmits:
+    base: 2600.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hp_ilo4_cpqnicifphysadaptergoodreceives:
+    base: 2600.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hp_ilo4_cpqnicifphysadapterbadtransmits:
+    base: 2600.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hp_ilo4_cpqnicifphysadapterbadreceives:
+    base: 2600.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hp_ilo4_cpqnicifphysadapterinoctets:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hp_ilo4_cpqnicifphysadapteroutoctets:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hp_ilo4_cpqnicifphysadapterspeed:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hp_ilo4_cpqnicvtvirusactivity:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqnicvtvirusactivity_detected:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_systemuptime:
+    base: 86400.0
+    min: 0.0
+    max: 315360000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hp_ilo4_cpqhesysutillifetime:
+    base: 86400.0
+    min: 0.0
+    max: 315360000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hp_ilo4_cpqhesysutileisabusmin:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hp_ilo4_cpqhecritlogcondition_other:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqhecritlogcondition:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqhecritlogcondition_degraded:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqhecritlogcondition_failed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqhecorrmemlogstatus_other:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqhecorrmemlogstatus_not_supported:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqhecorrmemlogstatus_disabled:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqhecorrmemlogstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqhecorrmemlogcondition_other:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqhecorrmemlogcondition:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqhecorrmemlogcondition_degraded:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqhecorrmemlogcondition_failed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqhecorrmemtotalerrs:
+    base: 120.0
+    min: 120.0
+    max: 120.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqheasrstatus_other:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqheasrstatus_not_available:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqheasrstatus_disabled:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqheasrstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqheasrpost_other:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqheasrpost_failed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqheasrpost:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqheasrrebootcount:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hp_ilo4_cpqheasrcondition_other:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqheasrcondition_not_available:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqheasrcondition_disabled:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqheasrcondition:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqheasrnetworkaccessstatus_other:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqheasrnetworkaccessstatus_disabled:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqheasrnetworkaccessstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqhethermaltempstatus_other:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqhethermaltempstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqhethermaltempstatus_degraded:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqhethermaltempstatus_failed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqhethermalsystemfanstatus_other:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqhethermalsystemfanstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqhethermalsystemfanstatus_degraded:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqhethermalsystemfanstatus_failed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqhethermalcpufanstatus_other:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqhethermalcpufanstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqhethermalcpufanstatus_failed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqhetemperaturecelsius:
+    base: 41.0
+    min: 0.0
+    max: 120.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hp_ilo4_cpqhetemperaturecondition_other:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqhetemperaturecondition:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqhetemperaturecondition_degraded:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqhetemperaturecondition_failed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqhepowermetercurrreading:
+    base: 145.0
+    min: 0.0
+    max: 4000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hp_ilo4_cpqhesysbatterycondition_other:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqhesysbatterycondition:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqhesysbatterycondition_degraded:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqhesysbatterycondition_failed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqhesysbatterystatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqhethermalcondition_other:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqhethermalcondition:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqhethermalcondition_degraded:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqhethermalcondition_failed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqheflttolpwrsupplystatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqheflttolpwrsupplystatus_not_supported:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqheflttolpwrsupplystatus_not_installed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqheflttolpwrsupplystatus_installed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqheresmem2modulecondition:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqheflttolpowersupply:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hp_ilo4_cpqheflttolpowersupplycapacityused:
+    base: 145.0
+    min: 145.0
+    max: 145.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqheflttolpowersupplycapacitymaximum:
+    base: 145.0
+    min: 145.0
+    max: 145.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqheflttolpowersupplystatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqheflttolpowersupplystatus_ram_test_failed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqheflttolpowersupplystatus_voltage_channel_failed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqheflttolpowersupplystatus_orringdiode_failed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqheflttolpowersupplystatus_brown_out:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqheflttolpowersupplystatus_giveup_on_startup:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqheflttolpowersupplystatus_nvram_invalid:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqheflttolpowersupplystatus_calibration_table_invalid:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqheflttolpowersupplystatus_no_power_input:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqheflttolpowersupplystatus_general_failure:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqheflttolpowersupplystatus_bist_failure:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqheflttolpowersupplystatus_fan_failure:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqheflttolpowersupplystatus_temp_failure:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqheflttolpowersupplystatus_interlock_open:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqheflttolpowersupplystatus_eprom_failed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqheflttolpowersupplystatus_vref_failed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqheflttolpowersupplystatus_dac_failed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqdaphydrvstatus_other:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqdaphydrvstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqdaphydrvstatus_failed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqdaphydrvstatus_predictive_failure:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqdaphydrvstatus_erasing:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqdaphydrvstatus_erase_done:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqdaphydrvstatus_erase_queued:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqdaphydrvusedreallocs:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hp_ilo4_cpqdaphydrvrefhours:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hp_ilo4_cpqdaphydrvhardreaderrs:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hp_ilo4_cpqdaphydrvrecvreaderrs:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hp_ilo4_cpqdaphydrvhardwriteerrs:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hp_ilo4_cpqdaphydrvrecvwriteerrs:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hp_ilo4_cpqdaphydrvhseekerrs:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hp_ilo4_cpqdaphydrvseekerrs:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hp_ilo4_cpqdaphydrvfactreallocs:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hp_ilo4_cpqdaphydrvspinuptime:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  hp_ilo4_cpqdaphydrvsize:
+    base: 4294967296.0
+    min: 4294967296.0
+    max: 4294967296.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqdaphydrvsmartstatus_other:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqdaphydrvsmartstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqdaphydrvsmartstatus_replace_drive:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  hp_ilo4_cpqdaphydrvcurrenttemperature:
+    base: 41.0
+    min: 0.0
+    max: 120.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: snmp.device_prof_cpqSm2CntlrServerPowerState
+  title: Power state of the server
+  units: '{status}'
+  family: Hardware/Server/Power/Status
+  chart_type: line
+  priority: 60000
+  shape: independent
+  dimensions:
+  - id: unknown
+    signal: hp_ilo4_cpqsm2cntlrserverpowerstate
+  - id: poweredoff
+    signal: hp_ilo4_cpqsm2cntlrserverpowerstate_poweredoff
+  - id: poweredon
+    signal: hp_ilo4_cpqsm2cntlrserverpowerstate_poweredon
+  - id: insufficientpowerorpoweronde
+    signal: hp_ilo4_cpqsm2cntlrserverpowerstate_insufficientpowerorpowerondenied
+- id: snmp.device_prof_cpqSm2CntlrBatteryStatus
+  title: Status of the battery
+  units: '{status}'
+  family: Hardware/Battery/Status
+  chart_type: line
+  priority: 60001
+  shape: independent
+  dimensions:
+  - id: other
+    signal: hp_ilo4_cpqsm2cntlrbatterystatus
+  - id: batteryok
+    signal: hp_ilo4_cpqsm2cntlrbatterystatus_batteryok
+  - id: batteryfailed
+    signal: hp_ilo4_cpqsm2cntlrbatterystatus_batteryfailed
+  - id: batterydisconnected
+    signal: hp_ilo4_cpqsm2cntlrbatterystatus_batterydisconnected
+- id: snmp.device_prof_cpqSm2CntlrBatteryPercentCharged
+  title: Charge level of the battery
+  units: '%'
+  family: Hardware/Battery/Charge
+  chart_type: line
+  priority: 60002
+  shape: independent
+  dimensions:
+  - id: cpqsm2cntlrbatterypercentcha
+    signal: hp_ilo4_cpqsm2cntlrbatterypercentcharged
+- id: snmp.device_prof_cpqSm2CntlrRemoteSessionStatus
+  title: Status of remote session activity
+  units: '{status}'
+  family: System/RemoteSession/Status
+  chart_type: line
+  priority: 60003
+  shape: independent
+  dimensions:
+  - id: other
+    signal: hp_ilo4_cpqsm2cntlrremotesessionstatus_other
+  - id: active
+    signal: hp_ilo4_cpqsm2cntlrremotesessionstatus
+  - id: inactive
+    signal: hp_ilo4_cpqsm2cntlrremotesessionstatus_inactive
+- id: snmp.device_prof_cpqSm2CntlrInterfaceStatus
+  title: Status of the remote interface
+  units: '{status}'
+  family: System/RemoteInterface/Status
+  chart_type: line
+  priority: 60004
+  shape: independent
+  dimensions:
+  - id: other
+    signal: hp_ilo4_cpqsm2cntlrinterfacestatus_other
+  - id: ok
+    signal: hp_ilo4_cpqsm2cntlrinterfacestatus
+  - id: notresponding
+    signal: hp_ilo4_cpqsm2cntlrinterfacestatus_notresponding
+- id: snmp.device_prof_cpqSm2EventTotalEntries
+  title: Number of entries in the event log
+  units: '{entry}'
+  family: System/EventLog/Entry/Count
+  chart_type: line
+  priority: 60005
+  shape: independent
+  dimensions:
+  - id: cpqsm2eventtotalentries
+    signal: hp_ilo4_cpqsm2eventtotalentries
+- id: snmp.device_prof_cpqSm2NicXmitBytes
+  title: Number of bytes transmitted by the network interface controller
+  units: bit/s
+  family: Network/Interface/Traffic/Total/Out
+  chart_type: area
+  priority: 60006
+  shape: counters
+  dimensions:
+  - id: cpqsm2nicxmitbytes
+    rate_signal: hp_ilo4_cpqsm2nicxmitbytes
+  instances:
+    group: nic_index
+    chart_prefix: cpqsm2nicxmitbytes
+    family: Network/Interface/Traffic/Total/Out
+    labels:
+      nic_index: '{instance}'
+- id: snmp.device_prof_cpqSm2NicXmitTotalPackets
+  title: Total number of packets transmitted by the network interface controller
+  units: '{packet}/s'
+  family: Network/Interface/Packet/Total/Out
+  chart_type: line
+  priority: 60007
+  shape: counters
+  dimensions:
+  - id: cpqsm2nicxmittotalpackets
+    rate_signal: hp_ilo4_cpqsm2nicxmittotalpackets
+  instances:
+    group: nic_index
+    chart_prefix: cpqsm2nicxmittotalpackets
+    family: Network/Interface/Packet/Total/Out
+    labels:
+      nic_index: '{instance}'
+- id: snmp.device_prof_cpqSm2NicXmitDiscardPackets
+  title: Total number of discarded packets transmitted by the network interface controller
+  units: '{packet}/s'
+  family: Network/Interface/Discard/Out
+  chart_type: line
+  priority: 60008
+  shape: counters
+  dimensions:
+  - id: cpqsm2nicxmitdiscardpackets
+    rate_signal: hp_ilo4_cpqsm2nicxmitdiscardpackets
+  instances:
+    group: nic_index
+    chart_prefix: cpqsm2nicxmitdiscardpackets
+    family: Network/Interface/Discard/Out
+    labels:
+      nic_index: '{instance}'
+- id: snmp.device_prof_cpqSm2NicXmitErrorPackets
+  title: Total number of error packets transmitted by the network interface controller
+  units: '{packet}/s'
+  family: Network/Interface/Error/Total/Out
+  chart_type: line
+  priority: 60009
+  shape: counters
+  dimensions:
+  - id: cpqsm2nicxmiterrorpackets
+    rate_signal: hp_ilo4_cpqsm2nicxmiterrorpackets
+  instances:
+    group: nic_index
+    chart_prefix: cpqsm2nicxmiterrorpackets
+    family: Network/Interface/Error/Total/Out
+    labels:
+      nic_index: '{instance}'
+- id: snmp.device_prof_cpqSm2NicXmitQueueLength
+  title: Number of outstanding packets in the transmit queue
+  units: '{packet}'
+  family: Network/Interface/Queue/Transmit
+  chart_type: line
+  priority: 60010
+  shape: independent
+  dimensions:
+  - id: cpqsm2nicxmitqueuelength
+    signal: hp_ilo4_cpqsm2nicxmitqueuelength
+  instances:
+    group: nic_index
+    chart_prefix: cpqsm2nicxmitqueuelength
+    family: Network/Interface/Queue/Transmit
+    labels:
+      nic_index: '{instance}'
+- id: snmp.device_prof_cpqSm2NicRecvBytes
+  title: Number of bytes received by the network interface controller
+  units: bit/s
+  family: Network/Interface/Traffic/Total/In
+  chart_type: area
+  priority: 60011
+  shape: counters
+  dimensions:
+  - id: cpqsm2nicrecvbytes
+    rate_signal: hp_ilo4_cpqsm2nicrecvbytes
+  instances:
+    group: nic_index
+    chart_prefix: cpqsm2nicrecvbytes
+    family: Network/Interface/Traffic/Total/In
+    labels:
+      nic_index: '{instance}'
+- id: snmp.device_prof_cpqSm2NicRecvTotalPackets
+  title: Total number of packets received by the network interface controller
+  units: '{packet}/s'
+  family: Network/Interface/Packet/Total/In
+  chart_type: line
+  priority: 60012
+  shape: counters
+  dimensions:
+  - id: cpqsm2nicrecvtotalpackets
+    rate_signal: hp_ilo4_cpqsm2nicrecvtotalpackets
+  instances:
+    group: nic_index
+    chart_prefix: cpqsm2nicrecvtotalpackets
+    family: Network/Interface/Packet/Total/In
+    labels:
+      nic_index: '{instance}'
+- id: snmp.device_prof_cpqSm2NicRecvDiscardPackets
+  title: Total number of discarded packets received by the network interface controller
+  units: '{packet}/s'
+  family: Network/Interface/Discard/In
+  chart_type: line
+  priority: 60013
+  shape: counters
+  dimensions:
+  - id: cpqsm2nicrecvdiscardpackets
+    rate_signal: hp_ilo4_cpqsm2nicrecvdiscardpackets
+  instances:
+    group: nic_index
+    chart_prefix: cpqsm2nicrecvdiscardpackets
+    family: Network/Interface/Discard/In
+    labels:
+      nic_index: '{instance}'
+- id: snmp.device_prof_cpqSm2NicRecvErrorPackets
+  title: Total number of error packets received by the network interface controller
+  units: '{packet}/s'
+  family: Network/Interface/Error/Total/In
+  chart_type: line
+  priority: 60014
+  shape: counters
+  dimensions:
+  - id: cpqsm2nicrecverrorpackets
+    rate_signal: hp_ilo4_cpqsm2nicrecverrorpackets
+  instances:
+    group: nic_index
+    chart_prefix: cpqsm2nicrecverrorpackets
+    family: Network/Interface/Error/Total/In
+    labels:
+      nic_index: '{instance}'
+- id: snmp.device_prof_cpqSm2NicRecvUnknownPackets
+  title: Number of unknown protocol packets received by the network interface controller
+  units: '{packet}/s'
+  family: Network/Interface/Packet/Unknown/In
+  chart_type: line
+  priority: 60015
+  shape: counters
+  dimensions:
+  - id: cpqsm2nicrecvunknownpackets
+    rate_signal: hp_ilo4_cpqsm2nicrecvunknownpackets
+  instances:
+    group: nic_index
+    chart_prefix: cpqsm2nicrecvunknownpackets
+    family: Network/Interface/Packet/Unknown/In
+    labels:
+      nic_index: '{instance}'
+- id: snmp.device_prof_cpqNicIfPhysAdapterGoodTransmits
+  title: Count of frames successfully transmitted by the physical adapter
+  units: '{frame}/s'
+  family: Network/Adapter/Frame/Good/Out
+  chart_type: line
+  priority: 60016
+  shape: counters
+  dimensions:
+  - id: cpqnicifphysadaptergoodtrans
+    rate_signal: hp_ilo4_cpqnicifphysadaptergoodtransmits
+  instances:
+    group: adapter_index
+    chart_prefix: cpqnicifphysadaptergoodtransmits
+    family: Network/Adapter/Frame/Good/Out
+    labels:
+      adapter_index: '{instance}'
+- id: snmp.device_prof_cpqNicIfPhysAdapterGoodReceives
+  title: Count of frames successfully received by the physical adapter
+  units: '{frame}/s'
+  family: Network/Adapter/Frame/Good/In
+  chart_type: line
+  priority: 60017
+  shape: counters
+  dimensions:
+  - id: cpqnicifphysadaptergoodrecei
+    rate_signal: hp_ilo4_cpqnicifphysadaptergoodreceives
+  instances:
+    group: adapter_index
+    chart_prefix: cpqnicifphysadaptergoodreceives
+    family: Network/Adapter/Frame/Good/In
+    labels:
+      adapter_index: '{instance}'
+- id: snmp.device_prof_cpqNicIfPhysAdapterBadTransmits
+  title: Count of frames not transmitted due to errors by the physical adapter
+  units: '{frame}/s'
+  family: Network/Adapter/Frame/Error/Out
+  chart_type: line
+  priority: 60018
+  shape: counters
+  dimensions:
+  - id: cpqnicifphysadapterbadtransm
+    rate_signal: hp_ilo4_cpqnicifphysadapterbadtransmits
+  instances:
+    group: adapter_index
+    chart_prefix: cpqnicifphysadapterbadtransmits
+    family: Network/Adapter/Frame/Error/Out
+    labels:
+      adapter_index: '{instance}'
+- id: snmp.device_prof_cpqNicIfPhysAdapterBadReceives
+  title: Count of frames not received due to errors by the physical adapter
+  units: '{frame}/s'
+  family: Network/Adapter/Frame/Error/In
+  chart_type: line
+  priority: 60019
+  shape: counters
+  dimensions:
+  - id: cpqnicifphysadapterbadreceiv
+    rate_signal: hp_ilo4_cpqnicifphysadapterbadreceives
+  instances:
+    group: adapter_index
+    chart_prefix: cpqnicifphysadapterbadreceives
+    family: Network/Adapter/Frame/Error/In
+    labels:
+      adapter_index: '{instance}'
+- id: snmp.device_prof_cpqNicIfPhysAdapterInOctets
+  title: Count of octets received on the physical adapter
+  units: bit/s
+  family: Network/Adapter/Traffic/Total/In
+  chart_type: area
+  priority: 60020
+  shape: counters
+  dimensions:
+  - id: cpqnicifphysadapterinoctets
+    rate_signal: hp_ilo4_cpqnicifphysadapterinoctets
+  instances:
+    group: adapter_index
+    chart_prefix: cpqnicifphysadapterinoctets
+    family: Network/Adapter/Traffic/Total/In
+    labels:
+      adapter_index: '{instance}'
+- id: snmp.device_prof_cpqNicIfPhysAdapterOutOctets
+  title: Count of octets sent on the physical adapter
+  units: bit/s
+  family: Network/Adapter/Traffic/Total/Out
+  chart_type: area
+  priority: 60021
+  shape: counters
+  dimensions:
+  - id: cpqnicifphysadapteroutoctets
+    rate_signal: hp_ilo4_cpqnicifphysadapteroutoctets
+  instances:
+    group: adapter_index
+    chart_prefix: cpqnicifphysadapteroutoctets
+    family: Network/Adapter/Traffic/Total/Out
+    labels:
+      adapter_index: '{instance}'
+- id: snmp.device_prof_cpqNicIfPhysAdapterSpeed
+  title: Estimate of the interface's current bandwidth in bits per second
+  units: bit/s
+  family: Network/Adapter/Speed
+  chart_type: area
+  priority: 60022
+  shape: counters
+  dimensions:
+  - id: cpqnicifphysadapterspeed
+    rate_signal: hp_ilo4_cpqnicifphysadapterspeed
+  instances:
+    group: adapter_index
+    chart_prefix: cpqnicifphysadapterspeed
+    family: Network/Adapter/Speed
+    labels:
+      adapter_index: '{instance}'
+- id: snmp.device_prof_cpqNicVtVirusActivity
+  title: Virus activity detection status
+  units: '{status}'
+  family: System/Security/VirusDetection/Status
+  chart_type: line
+  priority: 60023
+  shape: independent
+  dimensions:
+  - id: notdetected
+    signal: hp_ilo4_cpqnicvtvirusactivity
+  - id: detected
+    signal: hp_ilo4_cpqnicvtvirusactivity_detected
+- id: snmp.device_prof_systemUptime
+  title: Time since the system was last rebooted or powered on.
+  units: s
+  family: System/Uptime
+  chart_type: line
+  priority: 60024
+  shape: independent
+  dimensions:
+  - id: systemuptime
+    signal: hp_ilo4_systemuptime
+- id: snmp.device_prof_cpqHeSysUtilLifeTime
+  title: Total time the system has been in full operation in minutes
+  units: s
+  family: System/Uptime
+  chart_type: line
+  priority: 60025
+  shape: independent
+  dimensions:
+  - id: cpqhesysutillifetime
+    signal: hp_ilo4_cpqhesysutillifetime
+- id: snmp.device_prof_cpqHeSysUtilEisaBusMin
+  title: EISA bus utilization as a percentage of the theoretical maximum during the last minute
+  units: '%'
+  family: Hardware/Bus/EISA/Usage
+  chart_type: line
+  priority: 60026
+  shape: independent
+  dimensions:
+  - id: cpqhesysutileisabusmin
+    signal: hp_ilo4_cpqhesysutileisabusmin
+- id: snmp.device_prof_cpqHeCritLogCondition
+  title: Overall condition of the critical error log feature
+  units: '{status}'
+  family: System/ErrorLog/Critical/Status
+  chart_type: line
+  priority: 60027
+  shape: independent
+  dimensions:
+  - id: other
+    signal: hp_ilo4_cpqhecritlogcondition_other
+  - id: ok
+    signal: hp_ilo4_cpqhecritlogcondition
+  - id: degraded
+    signal: hp_ilo4_cpqhecritlogcondition_degraded
+  - id: failed
+    signal: hp_ilo4_cpqhecritlogcondition_failed
+- id: snmp.device_prof_cpqHeCorrMemLogStatus
+  title: Overall status of the correctable memory error log feature
+  units: '{status}'
+  family: Hardware/Memory/ErrorLog/Status
+  chart_type: line
+  priority: 60028
+  shape: independent
+  dimensions:
+  - id: other
+    signal: hp_ilo4_cpqhecorrmemlogstatus_other
+  - id: not_supported
+    signal: hp_ilo4_cpqhecorrmemlogstatus_not_supported
+  - id: disabled
+    signal: hp_ilo4_cpqhecorrmemlogstatus_disabled
+  - id: enabled
+    signal: hp_ilo4_cpqhecorrmemlogstatus
+- id: snmp.device_prof_cpqHeCorrMemLogCondition
+  title: Overall condition of the correctable memory error log feature
+  units: '{status}'
+  family: Hardware/Memory/ErrorLog/Condition/Status
+  chart_type: line
+  priority: 60029
+  shape: independent
+  dimensions:
+  - id: other
+    signal: hp_ilo4_cpqhecorrmemlogcondition_other
+  - id: ok
+    signal: hp_ilo4_cpqhecorrmemlogcondition
+  - id: degraded
+    signal: hp_ilo4_cpqhecorrmemlogcondition_degraded
+  - id: failed
+    signal: hp_ilo4_cpqhecorrmemlogcondition_failed
+- id: snmp.device_prof_cpqHeCorrMemTotalErrs
+  title: Number of correctable memory errors that have occurred
+  units: '{error}'
+  family: Hardware/Memory/Error/Correctable/Count
+  chart_type: line
+  priority: 60030
+  shape: independent
+  dimensions:
+  - id: cpqhecorrmemtotalerrs
+    signal: hp_ilo4_cpqhecorrmemtotalerrs
+- id: snmp.device_prof_cpqHeAsrStatus
+  title: Overall status of the ASR feature
+  units: '{status}'
+  family: Hardware/ASR/Status
+  chart_type: line
+  priority: 60031
+  shape: independent
+  dimensions:
+  - id: other
+    signal: hp_ilo4_cpqheasrstatus_other
+  - id: not_available
+    signal: hp_ilo4_cpqheasrstatus_not_available
+  - id: disabled
+    signal: hp_ilo4_cpqheasrstatus_disabled
+  - id: enabled
+    signal: hp_ilo4_cpqheasrstatus
+- id: snmp.device_prof_cpqHeAsrPost
+  title: Whether the ASR timer passed the server Power-On Self-Test
+  units: '{status}'
+  family: Hardware/ASR/POST/Status
+  chart_type: line
+  priority: 60032
+  shape: independent
+  dimensions:
+  - id: other
+    signal: hp_ilo4_cpqheasrpost_other
+  - id: failed
+    signal: hp_ilo4_cpqheasrpost_failed
+  - id: ok
+    signal: hp_ilo4_cpqheasrpost
+- id: snmp.device_prof_cpqHeAsrRebootCount
+  title: Number of ASR reboots that have occurred on the server since last manual reboot
+  units: '{reboot}'
+  family: Hardware/ASR/Reboot/Count
+  chart_type: line
+  priority: 60033
+  shape: independent
+  dimensions:
+  - id: cpqheasrrebootcount
+    signal: hp_ilo4_cpqheasrrebootcount
+- id: snmp.device_prof_cpqHeAsrCondition
+  title: Overall condition of the ASR feature
+  units: '{status}'
+  family: Hardware/ASR/Condition/Status
+  chart_type: line
+  priority: 60034
+  shape: independent
+  dimensions:
+  - id: other
+    signal: hp_ilo4_cpqheasrcondition_other
+  - id: not_available
+    signal: hp_ilo4_cpqheasrcondition_not_available
+  - id: disabled
+    signal: hp_ilo4_cpqheasrcondition_disabled
+  - id: enabled
+    signal: hp_ilo4_cpqheasrcondition
+- id: snmp.device_prof_cpqHeAsrNetworkAccessStatus
+  title: Status of the ASR network access feature
+  units: '{status}'
+  family: Hardware/ASR/NetworkAccess/Status
+  chart_type: line
+  priority: 60035
+  shape: independent
+  dimensions:
+  - id: other
+    signal: hp_ilo4_cpqheasrnetworkaccessstatus_other
+  - id: disabled
+    signal: hp_ilo4_cpqheasrnetworkaccessstatus_disabled
+  - id: enabled
+    signal: hp_ilo4_cpqheasrnetworkaccessstatus
+- id: snmp.device_prof_cpqHeThermalTempStatus
+  title: Status of the system's temperature sensors
+  units: '{status}'
+  family: Hardware/Temperature/Status/Overall
+  chart_type: line
+  priority: 60036
+  shape: independent
+  dimensions:
+  - id: other
+    signal: hp_ilo4_cpqhethermaltempstatus_other
+  - id: ok
+    signal: hp_ilo4_cpqhethermaltempstatus
+  - id: degraded
+    signal: hp_ilo4_cpqhethermaltempstatus_degraded
+  - id: failed
+    signal: hp_ilo4_cpqhethermaltempstatus_failed
+- id: snmp.device_prof_cpqHeThermalSystemFanStatus
+  title: Status of the fan(s) in the system
+  units: '{status}'
+  family: Hardware/Fan/System/Status
+  chart_type: line
+  priority: 60037
+  shape: independent
+  dimensions:
+  - id: other
+    signal: hp_ilo4_cpqhethermalsystemfanstatus_other
+  - id: ok
+    signal: hp_ilo4_cpqhethermalsystemfanstatus
+  - id: degraded
+    signal: hp_ilo4_cpqhethermalsystemfanstatus_degraded
+  - id: failed
+    signal: hp_ilo4_cpqhethermalsystemfanstatus_failed
+- id: snmp.device_prof_cpqHeThermalCpuFanStatus
+  title: Status of the processor fan(s) in the system
+  units: '{status}'
+  family: Hardware/Fan/CPU/Status
+  chart_type: line
+  priority: 60038
+  shape: independent
+  dimensions:
+  - id: other
+    signal: hp_ilo4_cpqhethermalcpufanstatus_other
+  - id: ok
+    signal: hp_ilo4_cpqhethermalcpufanstatus
+  - id: failed
+    signal: hp_ilo4_cpqhethermalcpufanstatus_failed
+- id: snmp.device_prof_cpqHeTemperatureCelsius
+  title: Current temperature sensor reading in degrees celsius
+  units: Cel
+  family: Hardware/Sensor/Temperature/Value
+  chart_type: line
+  priority: 60039
+  shape: independent
+  dimensions:
+  - id: cpqhetemperaturecelsius
+    signal: hp_ilo4_cpqhetemperaturecelsius
+  instances:
+    group: temperature_index
+    chart_prefix: cpqhetemperaturecelsius
+    family: Hardware/Sensor/Temperature/Value
+    labels:
+      temperature_index: '{instance}'
+- id: snmp.device_prof_cpqHeTemperatureCondition
+  title: Temperature sensor condition
+  units: '{status}'
+  family: Hardware/Sensor/Temperature/Status
+  chart_type: line
+  priority: 60040
+  shape: independent
+  dimensions:
+  - id: other
+    signal: hp_ilo4_cpqhetemperaturecondition_other
+  - id: ok
+    signal: hp_ilo4_cpqhetemperaturecondition
+  - id: degraded
+    signal: hp_ilo4_cpqhetemperaturecondition_degraded
+  - id: failed
+    signal: hp_ilo4_cpqhetemperaturecondition_failed
+  instances:
+    group: temperature_index
+    chart_prefix: cpqhetemperaturecondition
+    family: Hardware/Sensor/Temperature/Status
+    labels:
+      temperature_index: '{instance}'
+- id: snmp.device_prof_cpqHePowerMeterCurrReading
+  title: Current power meter reading in watts
+  units: W
+  family: Hardware/Power/Usage
+  chart_type: line
+  priority: 60041
+  shape: independent
+  dimensions:
+  - id: cpqhepowermetercurrreading
+    signal: hp_ilo4_cpqhepowermetercurrreading
+- id: snmp.device_prof_cpqHeSysBatteryCondition
+  title: Overall condition of the battery
+  units: '{status}'
+  family: Hardware/Battery/Condition/Status
+  chart_type: line
+  priority: 60042
+  shape: independent
+  dimensions:
+  - id: other
+    signal: hp_ilo4_cpqhesysbatterycondition_other
+  - id: ok
+    signal: hp_ilo4_cpqhesysbatterycondition
+  - id: degraded
+    signal: hp_ilo4_cpqhesysbatterycondition_degraded
+  - id: failed
+    signal: hp_ilo4_cpqhesysbatterycondition_failed
+  instances:
+    group: battery_index
+    chart_prefix: cpqhesysbatterycondition
+    family: Hardware/Battery/Condition/Status
+    labels:
+      battery_index: '{instance}'
+- id: snmp.device_prof_cpqHeSysBatteryStatus
+  title: Status of the battery
+  units: '{status}'
+  family: Hardware/Battery/Status
+  chart_type: line
+  priority: 60043
+  shape: independent
+  dimensions:
+  - id: cpqhesysbatterystatus
+    signal: hp_ilo4_cpqhesysbatterystatus
+  instances:
+    group: battery_index
+    chart_prefix: cpqhesysbatterystatus
+    family: Hardware/Battery/Status
+    labels:
+      battery_index: '{instance}'
+- id: snmp.device_prof_cpqHeThermalCondition
+  title: Overall condition of the system's thermal environment
+  units: '{status}'
+  family: Hardware/Temperature/Environment/Status
+  chart_type: line
+  priority: 60044
+  shape: independent
+  dimensions:
+  - id: other
+    signal: hp_ilo4_cpqhethermalcondition_other
+  - id: ok
+    signal: hp_ilo4_cpqhethermalcondition
+  - id: degraded
+    signal: hp_ilo4_cpqhethermalcondition_degraded
+  - id: failed
+    signal: hp_ilo4_cpqhethermalcondition_failed
+- id: snmp.device_prof_cpqHeFltTolPwrSupplyStatus
+  title: Status of the fault tolerant power supply
+  units: '{status}'
+  family: Hardware/Power/FaultTolerant/Status
+  chart_type: line
+  priority: 60045
+  shape: independent
+  dimensions:
+  - id: other
+    signal: hp_ilo4_cpqheflttolpwrsupplystatus
+  - id: not_supported
+    signal: hp_ilo4_cpqheflttolpwrsupplystatus_not_supported
+  - id: not_installed
+    signal: hp_ilo4_cpqheflttolpwrsupplystatus_not_installed
+  - id: installed
+    signal: hp_ilo4_cpqheflttolpwrsupplystatus_installed
+- id: snmp.device_prof_cpqHeResMem2ModuleCondition
+  title: Current status of the correctable memory errors for this memory module
+  units: '{status}'
+  family: Hardware/Memory/Module/Status
+  chart_type: line
+  priority: 60046
+  shape: independent
+  dimensions:
+  - id: cpqheresmem2modulecondition
+    signal: hp_ilo4_cpqheresmem2modulecondition
+  instances:
+    group: mem_board_index
+    chart_prefix: cpqheresmem2modulecondition
+    family: Hardware/Memory/Module/Status
+    labels:
+      mem_board_index: '{instance}'
+- id: snmp.device_prof_cpqHeFltTolPowerSupply
+  title: Indicates the presence of a power supply
+  units: '{present}'
+  family: Hardware/PowerSupply/Present
+  chart_type: line
+  priority: 60047
+  shape: independent
+  dimensions:
+  - id: cpqheflttolpowersupply
+    signal: hp_ilo4_cpqheflttolpowersupply
+  instances:
+    group: power_supply_index
+    chart_prefix: cpqheflttolpowersupply
+    family: Hardware/PowerSupply/Present
+    labels:
+      power_supply_index: '{instance}'
+- id: snmp.device_prof_cpqHeFltTolPowerSupplyCapacityUsed
+  title: Currently used capacity of the power supply in watts
+  units: W
+  family: Hardware/PowerSupply/Used
+  chart_type: line
+  priority: 60048
+  shape: independent
+  dimensions:
+  - id: cpqheflttolpowersupplycapaci
+    signal: hp_ilo4_cpqheflttolpowersupplycapacityused
+  instances:
+    group: power_supply_index
+    chart_prefix: cpqheflttolpowersupplycapacityused
+    family: Hardware/PowerSupply/Used
+    labels:
+      power_supply_index: '{instance}'
+- id: snmp.device_prof_cpqHeFltTolPowerSupplyCapacityMaximum
+  title: Maximum capacity of the power supply in watts
+  units: W
+  family: Hardware/PowerSupply/Capacity
+  chart_type: line
+  priority: 60049
+  shape: independent
+  dimensions:
+  - id: cpqheflttolpowersupplycapaci
+    signal: hp_ilo4_cpqheflttolpowersupplycapacitymaximum
+  instances:
+    group: power_supply_index
+    chart_prefix: cpqheflttolpowersupplycapacitymaximum
+    family: Hardware/PowerSupply/Capacity
+    labels:
+      power_supply_index: '{instance}'
+- id: snmp.device_prof_cpqHeFltTolPowerSupplyStatus
+  title: Current status of the power supply
+  units: '{status}'
+  family: Hardware/PowerSupply/Status
+  chart_type: line
+  priority: 60050
+  shape: independent
+  dimensions:
+  - id: no_error
+    signal: hp_ilo4_cpqheflttolpowersupplystatus
+  - id: ram_test_failed
+    signal: hp_ilo4_cpqheflttolpowersupplystatus_ram_test_failed
+  - id: voltage_channel_failed
+    signal: hp_ilo4_cpqheflttolpowersupplystatus_voltage_channel_failed
+  - id: orringdiode_failed
+    signal: hp_ilo4_cpqheflttolpowersupplystatus_orringdiode_failed
+  - id: brown_out
+    signal: hp_ilo4_cpqheflttolpowersupplystatus_brown_out
+  - id: giveup_on_startup
+    signal: hp_ilo4_cpqheflttolpowersupplystatus_giveup_on_startup
+  - id: nvram_invalid
+    signal: hp_ilo4_cpqheflttolpowersupplystatus_nvram_invalid
+  - id: calibration_table_invalid
+    signal: hp_ilo4_cpqheflttolpowersupplystatus_calibration_table_invalid
+  - id: no_power_input
+    signal: hp_ilo4_cpqheflttolpowersupplystatus_no_power_input
+  - id: general_failure
+    signal: hp_ilo4_cpqheflttolpowersupplystatus_general_failure
+  - id: bist_failure
+    signal: hp_ilo4_cpqheflttolpowersupplystatus_bist_failure
+  - id: fan_failure
+    signal: hp_ilo4_cpqheflttolpowersupplystatus_fan_failure
+  - id: temp_failure
+    signal: hp_ilo4_cpqheflttolpowersupplystatus_temp_failure
+  - id: interlock_open
+    signal: hp_ilo4_cpqheflttolpowersupplystatus_interlock_open
+  - id: eprom_failed
+    signal: hp_ilo4_cpqheflttolpowersupplystatus_eprom_failed
+  - id: vref_failed
+    signal: hp_ilo4_cpqheflttolpowersupplystatus_vref_failed
+  - id: dac_failed
+    signal: hp_ilo4_cpqheflttolpowersupplystatus_dac_failed
+  instances:
+    group: power_supply_index
+    chart_prefix: cpqheflttolpowersupplystatus
+    family: Hardware/PowerSupply/Status
+    labels:
+      power_supply_index: '{instance}'
+- id: snmp.device_prof_cpqDaPhyDrvStatus
+  title: The status of the physical drive
+  units: '{status}'
+  family: System/Disk/Status
+  chart_type: line
+  priority: 60051
+  shape: independent
+  dimensions:
+  - id: other
+    signal: hp_ilo4_cpqdaphydrvstatus_other
+  - id: ok
+    signal: hp_ilo4_cpqdaphydrvstatus
+  - id: failed
+    signal: hp_ilo4_cpqdaphydrvstatus_failed
+  - id: predictive_failure
+    signal: hp_ilo4_cpqdaphydrvstatus_predictive_failure
+  - id: erasing
+    signal: hp_ilo4_cpqdaphydrvstatus_erasing
+  - id: erase_done
+    signal: hp_ilo4_cpqdaphydrvstatus_erase_done
+  - id: erase_queued
+    signal: hp_ilo4_cpqdaphydrvstatus_erase_queued
+  instances:
+    group: drive_cntrl_idx
+    chart_prefix: cpqdaphydrvstatus
+    family: System/Disk/Status
+    labels:
+      drive_cntrl_idx: '{instance}'
+- id: snmp.device_prof_cpqDaPhyDrvUsedReallocs
+  title: Number of sectors of the reallocation area that have been used by the physical drive
+  units: '{sector}'
+  family: System/Disk/Reallocation/Used
+  chart_type: line
+  priority: 60052
+  shape: independent
+  dimensions:
+  - id: cpqdaphydrvusedreallocs
+    signal: hp_ilo4_cpqdaphydrvusedreallocs
+  instances:
+    group: drive_cntrl_idx
+    chart_prefix: cpqdaphydrvusedreallocs
+    family: System/Disk/Reallocation/Used
+    labels:
+      drive_cntrl_idx: '{instance}'
+- id: snmp.device_prof_cpqDaPhyDrvRefHours
+  title: Total number of hours that a physical drive has been in operation since it was stamped
+  units: h
+  family: System/Disk/Runtime
+  chart_type: line
+  priority: 60053
+  shape: independent
+  dimensions:
+  - id: cpqdaphydrvrefhours
+    signal: hp_ilo4_cpqdaphydrvrefhours
+  instances:
+    group: drive_cntrl_idx
+    chart_prefix: cpqdaphydrvrefhours
+    family: System/Disk/Runtime
+    labels:
+      drive_cntrl_idx: '{instance}'
+- id: snmp.device_prof_cpqDaPhyDrvHardReadErrs
+  title: Number of read errors that could not be recovered by a physical drive's ECC algorithm or retries
+  units: '{error}'
+  family: System/Disk/Error/Read/Hard
+  chart_type: line
+  priority: 60054
+  shape: independent
+  dimensions:
+  - id: cpqdaphydrvhardreaderrs
+    signal: hp_ilo4_cpqdaphydrvhardreaderrs
+  instances:
+    group: drive_cntrl_idx
+    chart_prefix: cpqdaphydrvhardreaderrs
+    family: System/Disk/Error/Read/Hard
+    labels:
+      drive_cntrl_idx: '{instance}'
+- id: snmp.device_prof_cpqDaPhyDrvRecvReadErrs
+  title: Number of read errors corrected through physical drive retries
+  units: '{error}'
+  family: System/Disk/Error/Read/Recovered
+  chart_type: line
+  priority: 60055
+  shape: independent
+  dimensions:
+  - id: cpqdaphydrvrecvreaderrs
+    signal: hp_ilo4_cpqdaphydrvrecvreaderrs
+  instances:
+    group: drive_cntrl_idx
+    chart_prefix: cpqdaphydrvrecvreaderrs
+    family: System/Disk/Error/Read/Recovered
+    labels:
+      drive_cntrl_idx: '{instance}'
+- id: snmp.device_prof_cpqDaPhyDrvHardWriteErrs
+  title: Number of write errors that could not be recovered by a physical drive
+  units: '{error}'
+  family: System/Disk/Error/Write/Hard
+  chart_type: line
+  priority: 60056
+  shape: independent
+  dimensions:
+  - id: cpqdaphydrvhardwriteerrs
+    signal: hp_ilo4_cpqdaphydrvhardwriteerrs
+  instances:
+    group: drive_cntrl_idx
+    chart_prefix: cpqdaphydrvhardwriteerrs
+    family: System/Disk/Error/Write/Hard
+    labels:
+      drive_cntrl_idx: '{instance}'
+- id: snmp.device_prof_cpqDaPhyDrvRecvWriteErrs
+  title: Number of write errors corrected through physical drive retries or recovered by a physical drive
+  units: '{error}'
+  family: System/Disk/Error/Write/Recovered
+  chart_type: line
+  priority: 60057
+  shape: independent
+  dimensions:
+  - id: cpqdaphydrvrecvwriteerrs
+    signal: hp_ilo4_cpqdaphydrvrecvwriteerrs
+  instances:
+    group: drive_cntrl_idx
+    chart_prefix: cpqdaphydrvrecvwriteerrs
+    family: System/Disk/Error/Write/Recovered
+    labels:
+      drive_cntrl_idx: '{instance}'
+- id: snmp.device_prof_cpqDaPhyDrvHSeekErrs
+  title: Total number of times the physical disk drive detected a seek error (high)
+  units: '{error}'
+  family: System/Disk/Error/Seek/High
+  chart_type: line
+  priority: 60058
+  shape: independent
+  dimensions:
+  - id: cpqdaphydrvhseekerrs
+    signal: hp_ilo4_cpqdaphydrvhseekerrs
+  instances:
+    group: drive_cntrl_idx
+    chart_prefix: cpqdaphydrvhseekerrs
+    family: System/Disk/Error/Seek/High
+    labels:
+      drive_cntrl_idx: '{instance}'
+- id: snmp.device_prof_cpqDaPhyDrvSeekErrs
+  title: Total number of times the physical disk drive detected a seek error (low)
+  units: '{error}'
+  family: System/Disk/Error/Seek/Low
+  chart_type: line
+  priority: 60059
+  shape: independent
+  dimensions:
+  - id: cpqdaphydrvseekerrs
+    signal: hp_ilo4_cpqdaphydrvseekerrs
+  instances:
+    group: drive_cntrl_idx
+    chart_prefix: cpqdaphydrvseekerrs
+    family: System/Disk/Error/Seek/Low
+    labels:
+      drive_cntrl_idx: '{instance}'
+- id: snmp.device_prof_cpqDaPhyDrvFactReallocs
+  title: Number of spare sectors available for remapping at the time the physical drive was shipped
+  units: '{sector}'
+  family: System/Disk/Reallocation/Factory
+  chart_type: line
+  priority: 60060
+  shape: independent
+  dimensions:
+  - id: cpqdaphydrvfactreallocs
+    signal: hp_ilo4_cpqdaphydrvfactreallocs
+  instances:
+    group: drive_cntrl_idx
+    chart_prefix: cpqdaphydrvfactreallocs
+    family: System/Disk/Reallocation/Factory
+    labels:
+      drive_cntrl_idx: '{instance}'
+- id: snmp.device_prof_cpqDaPhyDrvSpinupTime
+  title: Time it takes for a physical drive to spin up to full speed in tenths of seconds
+  units: ds
+  family: System/Disk/Spinup/Time
+  chart_type: line
+  priority: 60061
+  shape: independent
+  dimensions:
+  - id: cpqdaphydrvspinuptime
+    signal: hp_ilo4_cpqdaphydrvspinuptime
+  instances:
+    group: drive_cntrl_idx
+    chart_prefix: cpqdaphydrvspinuptime
+    family: System/Disk/Spinup/Time
+    labels:
+      drive_cntrl_idx: '{instance}'
+- id: snmp.device_prof_cpqDaPhyDrvSize
+  title: Size of the physical drive in megabytes
+  units: By
+  family: System/Disk/Capacity
+  chart_type: line
+  priority: 60062
+  shape: independent
+  dimensions:
+  - id: cpqdaphydrvsize
+    signal: hp_ilo4_cpqdaphydrvsize
+  instances:
+    group: drive_cntrl_idx
+    chart_prefix: cpqdaphydrvsize
+    family: System/Disk/Capacity
+    labels:
+      drive_cntrl_idx: '{instance}'
+- id: snmp.device_prof_cpqDaPhyDrvSmartStatus
+  title: S.M.A.R.T status of the physical drive
+  units: '{status}'
+  family: System/Disk/SMART/Status
+  chart_type: line
+  priority: 60063
+  shape: independent
+  dimensions:
+  - id: other
+    signal: hp_ilo4_cpqdaphydrvsmartstatus_other
+  - id: ok
+    signal: hp_ilo4_cpqdaphydrvsmartstatus
+  - id: replace_drive
+    signal: hp_ilo4_cpqdaphydrvsmartstatus_replace_drive
+  instances:
+    group: drive_cntrl_idx
+    chart_prefix: cpqdaphydrvsmartstatus
+    family: System/Disk/SMART/Status
+    labels:
+      drive_cntrl_idx: '{instance}'
+- id: snmp.device_prof_cpqDaPhyDrvCurrentTemperature
+  title: Temperature of the physical drive in degrees Celsius
+  units: Cel
+  family: Hardware/Disk/Temperature/Value
+  chart_type: line
+  priority: 60064
+  shape: independent
+  dimensions:
+  - id: cpqdaphydrvcurrenttemperatur
+    signal: hp_ilo4_cpqdaphydrvcurrenttemperature
+  instances:
+    group: drive_cntrl_idx
+    chart_prefix: cpqdaphydrvcurrenttemperature
+    family: Hardware/Disk/Temperature/Value
+    labels:
+      drive_cntrl_idx: '{instance}'

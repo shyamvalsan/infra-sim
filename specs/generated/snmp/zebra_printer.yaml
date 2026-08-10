@@ -1,0 +1,254 @@
+version: 1
+name: zebra_printer
+description: Zebra Printer, as Netdata's SNMP collector reports it. Generated from go.d/snmp.profiles/default/zebra-printer.yaml
+  with its `extends` chain resolved. Contexts, units, families and metric names are the device's own; values are a plausible
+  fiction.
+signals:
+  zebra_printer_zbrtrackedalertsseverity:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  zebra_printer_zbrtrackedalertsseverity_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  zebra_printer_zbrtrackedalertsseverity_warning:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  zebra_printer_zbrtrackedalertscode:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  zebra_printer_zbrtrackedalertscode_cutter_jammed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  zebra_printer_zbrtrackedalertscode_printer_paused:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  zebra_printer_zbrtrackedalertscode_head_element_bad:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  zebra_printer_zbrtrackedalertscode_basic_runtime:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  zebra_printer_zbrtrackedalertscode_basic_forced:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  zebra_printer_zbrtrackedalertscode_power_on:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  zebra_printer_zbrtrackedalertscode_battery_low:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  zebra_printer_zbrtrackedalertscode_rfid_error:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  zebra_printer_zbrtrackedalertscode_cold_start:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  zebra_printer_zbrtrackedalertscode_ribbon_auth_error:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  zebra_printer_zbrtrackedalertscode_ribbon_out:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  zebra_printer_zbrtrackedalertscode_head_too_hot:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  zebra_printer_zbrtrackedalertscode_head_under_temp:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  zebra_printer_zbrtrackedalertscode_head_open:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  zebra_printer_zbrtrackedalertscode_power_supply_over_temp:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  zebra_printer_zbrtrackedalertscode_motor_over_temp:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  zebra_printer_zbrtrackedalertscode_ribbon_in:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  zebra_printer_zbrtrackedalertscode_rewind_fault:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  zebra_printer_systemuptime:
+    base: 86400.0
+    min: 0.0
+    max: 315360000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: snmp.device_prof_zbrTrackedAlertsSeverity
+  title: The severity level of tracked alerts
+  units: '{status}'
+  family: System/Alert/Severity
+  chart_type: line
+  priority: 60000
+  shape: independent
+  dimensions:
+  - id: other
+    signal: zebra_printer_zbrtrackedalertsseverity
+  - id: critical
+    signal: zebra_printer_zbrtrackedalertsseverity_critical
+  - id: warning
+    signal: zebra_printer_zbrtrackedalertsseverity_warning
+  instances:
+    group: zbr_alert_index
+    chart_prefix: zbrtrackedalertsseverity
+    family: System/Alert/Severity
+    labels:
+      zbr_alert_index: '{instance}'
+- id: snmp.device_prof_zbrTrackedAlertsCode
+  title: The code associated with tracked alerts
+  units: '{status}'
+  family: System/Alert/Code
+  chart_type: line
+  priority: 60001
+  shape: independent
+  dimensions:
+  - id: paper_out
+    signal: zebra_printer_zbrtrackedalertscode
+  - id: cutter_jammed
+    signal: zebra_printer_zbrtrackedalertscode_cutter_jammed
+  - id: printer_paused
+    signal: zebra_printer_zbrtrackedalertscode_printer_paused
+  - id: head_element_bad
+    signal: zebra_printer_zbrtrackedalertscode_head_element_bad
+  - id: basic_runtime
+    signal: zebra_printer_zbrtrackedalertscode_basic_runtime
+  - id: basic_forced
+    signal: zebra_printer_zbrtrackedalertscode_basic_forced
+  - id: power_on
+    signal: zebra_printer_zbrtrackedalertscode_power_on
+  - id: battery_low
+    signal: zebra_printer_zbrtrackedalertscode_battery_low
+  - id: rfid_error
+    signal: zebra_printer_zbrtrackedalertscode_rfid_error
+  - id: cold_start
+    signal: zebra_printer_zbrtrackedalertscode_cold_start
+  - id: ribbon_auth_error
+    signal: zebra_printer_zbrtrackedalertscode_ribbon_auth_error
+  - id: ribbon_out
+    signal: zebra_printer_zbrtrackedalertscode_ribbon_out
+  - id: head_too_hot
+    signal: zebra_printer_zbrtrackedalertscode_head_too_hot
+  - id: head_under_temp
+    signal: zebra_printer_zbrtrackedalertscode_head_under_temp
+  - id: head_open
+    signal: zebra_printer_zbrtrackedalertscode_head_open
+  - id: power_supply_over_temp
+    signal: zebra_printer_zbrtrackedalertscode_power_supply_over_temp
+  - id: motor_over_temp
+    signal: zebra_printer_zbrtrackedalertscode_motor_over_temp
+  - id: ribbon_in
+    signal: zebra_printer_zbrtrackedalertscode_ribbon_in
+  - id: rewind_fault
+    signal: zebra_printer_zbrtrackedalertscode_rewind_fault
+  instances:
+    group: zbr_alert_index
+    chart_prefix: zbrtrackedalertscode
+    family: System/Alert/Code
+    labels:
+      zbr_alert_index: '{instance}'
+- id: snmp.device_prof_systemUptime
+  title: Time since the system was last rebooted or powered on.
+  units: s
+  family: System/Uptime
+  chart_type: line
+  priority: 60002
+  shape: independent
+  dimensions:
+  - id: systemuptime
+    signal: zebra_printer_systemuptime

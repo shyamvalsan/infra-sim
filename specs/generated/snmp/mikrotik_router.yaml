@@ -1,0 +1,1473 @@
+version: 1
+name: mikrotik_router
+description: MikroTik Network device, as Netdata's SNMP collector reports it. Generated from go.d/snmp.profiles/default/mikrotik-router.yaml
+  with its `extends` chain resolved. Contexts, units, families and metric names are the device's own; values are a plausible
+  fiction.
+signals:
+  mikrotik_router_mtxrhlprocessortemperature:
+    base: 41.0
+    min: 0.0
+    max: 120.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mikrotik_router_mtxropticaltemperature:
+    base: 41.0
+    min: 0.0
+    max: 120.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mikrotik_router_mtxropticalrxpower:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mikrotik_router_mtxropticalsupplyvoltage:
+    base: 12.0
+    min: 0.0
+    max: 480.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mikrotik_router_mtxropticaltxbiascurrent:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mikrotik_router_mtxropticalwavelength:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mikrotik_router_mtxropticaltxpower:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mikrotik_router_mtxropticaltxfault:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  mikrotik_router_mtxropticaltxfault_fault:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  mikrotik_router_mtxropticalrxloss:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  mikrotik_router_mtxropticalrxloss_loss:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  mikrotik_router_mtxrpoepower:
+    base: 145.0
+    min: 0.0
+    max: 4000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mikrotik_router_mtxrpoevoltage:
+    base: 12.0
+    min: 0.0
+    max: 480.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mikrotik_router_mtxrpoecurrent:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mikrotik_router_mtxrpoestatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  mikrotik_router_mtxrpoestatus_waiting_for_load:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  mikrotik_router_mtxrpoestatus_powered_on:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  mikrotik_router_mtxrpoestatus_overload:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  device_cpu_usage:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mikrotik_router_mtxrhlsensorvalue:
+    base: 12.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mikrotik_router_systemuptime:
+    base: 86400.0
+    min: 0.0
+    max: 315360000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mikrotik_router_ifnumber:
+    base: 26.0
+    min: 26.0
+    max: 26.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_admin_status:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_admin_status_down:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_admin_status_testing:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_down:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_testing:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_dormant:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_notpresent:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_lowerlayerdown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_speed:
+    from_attr: if_speed_mbps
+    base: 1000.0
+    min: 0.0
+    max: 400000.0
+  mikrotik_router_lldpstatsremtableslastchangetime:
+    base: 12.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mikrotik_router_lldpstatsremtablesinserts:
+    base: 12.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mikrotik_router_lldpstatsremtablesdeletes:
+    base: 12.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mikrotik_router_lldpstatsremtablesdrops:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  mikrotik_router_lldpstatsremtablesageouts:
+    base: 12.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mikrotik_router_lldpstatstxportframestotal:
+    base: 12.0
+    min: 12.0
+    max: 12.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  mikrotik_router_lldpstatsrxportframesdiscardedtotal:
+    base: 12.0
+    min: 12.0
+    max: 12.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  mikrotik_router_lldpstatsrxportframeserrors:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  mikrotik_router_lldpstatsrxportframestotal:
+    base: 12.0
+    min: 12.0
+    max: 12.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  mikrotik_router_lldpstatsrxporttlvsdiscardedtotal:
+    base: 12.0
+    min: 12.0
+    max: 12.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  mikrotik_router_lldpstatsrxporttlvsunrecognizedtotal:
+    base: 12.0
+    min: 12.0
+    max: 12.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  mikrotik_router_lldpstatsrxportageoutstotal:
+    base: 12.0
+    min: 12.0
+    max: 12.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  mikrotik_router_mtxrikesacount:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mikrotik_router_mtxrikesastate_exchange:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  mikrotik_router_mtxrikesastate:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  mikrotik_router_mtxrikesastate_expired:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  mikrotik_router_mtxrikesastate_eap:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  mikrotik_router_mtxrikesauptime:
+    base: 86400.0
+    min: 0.0
+    max: 315360000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mikrotik_router_mtxrikesaph2count:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mikrotik_router_mtxrikesatxbytes:
+    base: 3100000.0
+    min: 0.0
+    max: 1250000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mikrotik_router_mtxrikesarxbytes:
+    base: 3100000.0
+    min: 0.0
+    max: 1250000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mikrotik_router_mtxrikesatxpackets:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mikrotik_router_mtxrikesarxpackets:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_octets_rate:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_out_octets_rate:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_ucast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_out_ucast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_mcast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mikrotik_router_ifhcoutmulticastpkts:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_bcast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  mikrotik_router_ifhcoutbroadcastpkts:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_errors_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  if_out_errors_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  if_in_discards_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  if_out_discards_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  mikrotik_router_iftotaloperstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  mikrotik_router_iftotaloperstatus_down:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  mikrotik_router_iftotaloperstatus_testing:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  mikrotik_router_iftotaloperstatus_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  mikrotik_router_iftotaloperstatus_dormant:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  mikrotik_router_iftotaloperstatus_notpresent:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  mikrotik_router_iftotaloperstatus_lowerlayerdown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+contexts:
+- id: snmp.device_prof_mtxrHlProcessorTemperature
+  title: The current CPU temperature
+  units: Cel
+  family: Hardware/CPU/Temperature
+  chart_type: line
+  priority: 60000
+  shape: independent
+  dimensions:
+  - id: mtxrhlprocessortemperature
+    signal: mikrotik_router_mtxrhlprocessortemperature
+- id: snmp.device_prof_mtxrOpticalTemperature
+  title: Temperature at sensor chip
+  units: Cel
+  family: Hardware/OpticalModule/Temperature/Value
+  chart_type: line
+  priority: 60001
+  shape: independent
+  dimensions:
+  - id: mtxropticaltemperature
+    signal: mikrotik_router_mtxropticaltemperature
+  instances:
+    group: optical_index
+    chart_prefix: mtxropticaltemperature
+    family: Hardware/OpticalModule/Temperature/Value
+    labels:
+      optical_index: '{instance}'
+- id: snmp.device_prof_mtxrOpticalRxPower
+  title: Received optical power
+  units: mW
+  family: Hardware/OpticalModule/Power/In
+  chart_type: line
+  priority: 60002
+  shape: independent
+  dimensions:
+  - id: mtxropticalrxpower
+    signal: mikrotik_router_mtxropticalrxpower
+  instances:
+    group: optical_index
+    chart_prefix: mtxropticalrxpower
+    family: Hardware/OpticalModule/Power/In
+    labels:
+      optical_index: '{instance}'
+- id: snmp.device_prof_mtxrOpticalSupplyVoltage
+  title: Supply voltage
+  units: V
+  family: Hardware/OpticalModule/Voltage/Supply
+  chart_type: line
+  priority: 60003
+  shape: independent
+  dimensions:
+  - id: mtxropticalsupplyvoltage
+    signal: mikrotik_router_mtxropticalsupplyvoltage
+  instances:
+    group: optical_index
+    chart_prefix: mtxropticalsupplyvoltage
+    family: Hardware/OpticalModule/Voltage/Supply
+    labels:
+      optical_index: '{instance}'
+- id: snmp.device_prof_mtxrOpticalTxBiasCurrent
+  title: Transmit bias current
+  units: mA
+  family: Hardware/OpticalModule/Current/TxBias
+  chart_type: line
+  priority: 60004
+  shape: independent
+  dimensions:
+  - id: mtxropticaltxbiascurrent
+    signal: mikrotik_router_mtxropticaltxbiascurrent
+  instances:
+    group: optical_index
+    chart_prefix: mtxropticaltxbiascurrent
+    family: Hardware/OpticalModule/Current/TxBias
+    labels:
+      optical_index: '{instance}'
+- id: snmp.device_prof_mtxrOpticalWavelength
+  title: Optical wavelength
+  units: nm
+  family: Hardware/OpticalModule/Wavelength
+  chart_type: line
+  priority: 60005
+  shape: independent
+  dimensions:
+  - id: mtxropticalwavelength
+    signal: mikrotik_router_mtxropticalwavelength
+  instances:
+    group: optical_index
+    chart_prefix: mtxropticalwavelength
+    family: Hardware/OpticalModule/Wavelength
+    labels:
+      optical_index: '{instance}'
+- id: snmp.device_prof_mtxrOpticalTxPower
+  title: Transmit optical power
+  units: mW
+  family: Hardware/OpticalModule/Power/Out
+  chart_type: line
+  priority: 60006
+  shape: independent
+  dimensions:
+  - id: mtxropticaltxpower
+    signal: mikrotik_router_mtxropticaltxpower
+  instances:
+    group: optical_index
+    chart_prefix: mtxropticaltxpower
+    family: Hardware/OpticalModule/Power/Out
+    labels:
+      optical_index: '{instance}'
+- id: snmp.device_prof_mtxrOpticalTxFault
+  title: Indicates whether the optical transceiver is experiencing a transmit fault
+  units: '{status}'
+  family: Hardware/OpticalModule/Status/Transmit
+  chart_type: line
+  priority: 60007
+  shape: independent
+  dimensions:
+  - id: ok
+    signal: mikrotik_router_mtxropticaltxfault
+  - id: fault
+    signal: mikrotik_router_mtxropticaltxfault_fault
+  instances:
+    group: optical_index
+    chart_prefix: mtxropticaltxfault
+    family: Hardware/OpticalModule/Status/Transmit
+    labels:
+      optical_index: '{instance}'
+- id: snmp.device_prof_mtxrOpticalRxLoss
+  title: Indicates whether there is a loss of received optical signal (Rx Loss)
+  units: '{status}'
+  family: Hardware/OpticalModule/Status/Receive
+  chart_type: line
+  priority: 60008
+  shape: independent
+  dimensions:
+  - id: ok
+    signal: mikrotik_router_mtxropticalrxloss
+  - id: loss
+    signal: mikrotik_router_mtxropticalrxloss_loss
+  instances:
+    group: optical_index
+    chart_prefix: mtxropticalrxloss
+    family: Hardware/OpticalModule/Status/Receive
+    labels:
+      optical_index: '{instance}'
+- id: snmp.device_prof_mtxrPOEPower
+  title: Power over ethernet
+  units: W
+  family: Network/Interface/PoE/Power
+  chart_type: line
+  priority: 60009
+  shape: independent
+  dimensions:
+  - id: mtxrpoepower
+    signal: mikrotik_router_mtxrpoepower
+  instances:
+    group: interface
+    chart_prefix: mtxrpoepower
+    family: Network/Interface/PoE/Power
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_mtxrPOEVoltage
+  title: Power over ethernet voltage
+  units: V
+  family: Network/Interface/PoE/Voltage
+  chart_type: line
+  priority: 60010
+  shape: independent
+  dimensions:
+  - id: mtxrpoevoltage
+    signal: mikrotik_router_mtxrpoevoltage
+  instances:
+    group: interface
+    chart_prefix: mtxrpoevoltage
+    family: Network/Interface/PoE/Voltage
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_mtxrPOECurrent
+  title: Power over ethernet current
+  units: mA
+  family: Network/Interface/PoE/Current
+  chart_type: line
+  priority: 60011
+  shape: independent
+  dimensions:
+  - id: mtxrpoecurrent
+    signal: mikrotik_router_mtxrpoecurrent
+  instances:
+    group: interface
+    chart_prefix: mtxrpoecurrent
+    family: Network/Interface/PoE/Current
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_mtxrPOEStatus
+  title: Power over ethernet status
+  units: '{status}'
+  family: Network/Interface/PoE/Status
+  chart_type: line
+  priority: 60012
+  shape: independent
+  dimensions:
+  - id: disabled
+    signal: mikrotik_router_mtxrpoestatus
+  - id: waiting_for_load
+    signal: mikrotik_router_mtxrpoestatus_waiting_for_load
+  - id: powered_on
+    signal: mikrotik_router_mtxrpoestatus_powered_on
+  - id: overload
+    signal: mikrotik_router_mtxrpoestatus_overload
+  instances:
+    group: interface
+    chart_prefix: mtxrpoestatus
+    family: Network/Interface/PoE/Status
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_cpu_usage
+  title: The current CPU utilization
+  units: '%'
+  family: System/CPU/Usage
+  chart_type: line
+  priority: 60013
+  shape: independent
+  dimensions:
+  - id: cpu_usage
+    signal: device_cpu_usage
+  instances:
+    group: cpu_index
+    chart_prefix: cpu_usage
+    family: System/CPU/Usage
+    labels:
+      cpu_index: '{instance}'
+- id: snmp.device_prof_mtxrHlSensorValue
+  title: Sensor value
+  units: '1'
+  family: Hardware/Sensor
+  chart_type: line
+  priority: 60014
+  shape: independent
+  dimensions:
+  - id: mtxrhlsensorvalue
+    signal: mikrotik_router_mtxrhlsensorvalue
+  instances:
+    group: sensor_name
+    chart_prefix: mtxrhlsensorvalue
+    family: Hardware/Sensor
+    labels:
+      sensor_name: '{instance}'
+- id: snmp.device_prof_systemUptime
+  title: Time since the system was last rebooted or powered on.
+  units: s
+  family: System/Uptime
+  chart_type: line
+  priority: 60015
+  shape: independent
+  dimensions:
+  - id: systemuptime
+    signal: mikrotik_router_systemuptime
+- id: snmp.device_prof_ifNumber
+  title: Number of network interfaces regardless of their current state present on this system
+  units: '{interface}'
+  family: Network/Interface/Count
+  chart_type: line
+  priority: 60016
+  shape: independent
+  dimensions:
+  - id: ifnumber
+    signal: mikrotik_router_ifnumber
+- id: snmp.device_prof_ifAdminStatus
+  title: Current administrative state of the interface
+  units: '{status}'
+  family: Network/Interface/Status/Admin
+  chart_type: line
+  priority: 60017
+  shape: independent
+  dimensions:
+  - id: up
+    signal: if_admin_status
+  - id: down
+    signal: if_admin_status_down
+  - id: testing
+    signal: if_admin_status_testing
+  instances:
+    group: interface
+    chart_prefix: ifadminstatus
+    family: Network/Interface/Status/Admin
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifOperStatus
+  title: Current operational state of the interface
+  units: '{status}'
+  family: Network/Interface/Status/Operational
+  chart_type: line
+  priority: 60018
+  shape: independent
+  dimensions:
+  - id: up
+    signal: if_oper_status
+  - id: down
+    signal: if_oper_status_down
+  - id: testing
+    signal: if_oper_status_testing
+  - id: unknown
+    signal: if_oper_status_unknown
+  - id: dormant
+    signal: if_oper_status_dormant
+  - id: notpresent
+    signal: if_oper_status_notpresent
+  - id: lowerlayerdown
+    signal: if_oper_status_lowerlayerdown
+  instances:
+    group: interface
+    chart_prefix: ifoperstatus
+    family: Network/Interface/Status/Operational
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifHighSpeed
+  title: Estimate of the interface's current bandwidth
+  units: bit/s
+  family: Network/Interface/Speed
+  chart_type: area
+  priority: 60019
+  shape: counters
+  dimensions:
+  - id: ifhighspeed
+    rate_signal: if_speed
+  instances:
+    group: interface
+    chart_prefix: ifhighspeed
+    family: Network/Interface/Speed
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_lldpStatsRemTablesLastChangeTime
+  title: SNMP metric lldpStatsRemTablesLastChangeTime
+  units: '1'
+  family: lldpstatsremtableslastchangetime
+  chart_type: line
+  priority: 60020
+  shape: independent
+  dimensions:
+  - id: lldpstatsremtableslastchange
+    signal: mikrotik_router_lldpstatsremtableslastchangetime
+- id: snmp.device_prof_lldpStatsRemTablesInserts
+  title: SNMP metric lldpStatsRemTablesInserts
+  units: '1'
+  family: lldpstatsremtablesinserts
+  chart_type: line
+  priority: 60021
+  shape: independent
+  dimensions:
+  - id: lldpstatsremtablesinserts
+    signal: mikrotik_router_lldpstatsremtablesinserts
+- id: snmp.device_prof_lldpStatsRemTablesDeletes
+  title: SNMP metric lldpStatsRemTablesDeletes
+  units: '1'
+  family: lldpstatsremtablesdeletes
+  chart_type: line
+  priority: 60022
+  shape: independent
+  dimensions:
+  - id: lldpstatsremtablesdeletes
+    signal: mikrotik_router_lldpstatsremtablesdeletes
+- id: snmp.device_prof_lldpStatsRemTablesDrops
+  title: SNMP metric lldpStatsRemTablesDrops
+  units: '1'
+  family: lldpstatsremtablesdrops
+  chart_type: line
+  priority: 60023
+  shape: independent
+  dimensions:
+  - id: lldpstatsremtablesdrops
+    signal: mikrotik_router_lldpstatsremtablesdrops
+- id: snmp.device_prof_lldpStatsRemTablesAgeouts
+  title: SNMP metric lldpStatsRemTablesAgeouts
+  units: '1'
+  family: lldpstatsremtablesageouts
+  chart_type: line
+  priority: 60024
+  shape: independent
+  dimensions:
+  - id: lldpstatsremtablesageouts
+    signal: mikrotik_router_lldpstatsremtablesageouts
+- id: snmp.device_prof_lldpStatsTxPortFramesTotal
+  title: SNMP metric lldpStatsTxPortFramesTotal
+  units: '1'
+  family: lldpstatstxporttable
+  chart_type: line
+  priority: 60025
+  shape: independent
+  dimensions:
+  - id: lldpstatstxportframestotal
+    signal: mikrotik_router_lldpstatstxportframestotal
+  instances:
+    group: lldp_loc_port_num
+    chart_prefix: lldpstatstxportframestotal
+    family: lldpstatstxporttable
+    labels:
+      lldp_loc_port_num: '{instance}'
+- id: snmp.device_prof_lldpStatsRxPortFramesDiscardedTotal
+  title: SNMP metric lldpStatsRxPortFramesDiscardedTotal
+  units: '1'
+  family: lldpstatsrxporttable
+  chart_type: line
+  priority: 60026
+  shape: independent
+  dimensions:
+  - id: lldpstatsrxportframesdiscard
+    signal: mikrotik_router_lldpstatsrxportframesdiscardedtotal
+  instances:
+    group: lldp_loc_port_num
+    chart_prefix: lldpstatsrxportframesdiscardedtotal
+    family: lldpstatsrxporttable
+    labels:
+      lldp_loc_port_num: '{instance}'
+- id: snmp.device_prof_lldpStatsRxPortFramesErrors
+  title: SNMP metric lldpStatsRxPortFramesErrors
+  units: '1'
+  family: lldpstatsrxporttable
+  chart_type: line
+  priority: 60027
+  shape: independent
+  dimensions:
+  - id: lldpstatsrxportframeserrors
+    signal: mikrotik_router_lldpstatsrxportframeserrors
+  instances:
+    group: lldp_loc_port_num
+    chart_prefix: lldpstatsrxportframeserrors
+    family: lldpstatsrxporttable
+    labels:
+      lldp_loc_port_num: '{instance}'
+- id: snmp.device_prof_lldpStatsRxPortFramesTotal
+  title: SNMP metric lldpStatsRxPortFramesTotal
+  units: '1'
+  family: lldpstatsrxporttable
+  chart_type: line
+  priority: 60028
+  shape: independent
+  dimensions:
+  - id: lldpstatsrxportframestotal
+    signal: mikrotik_router_lldpstatsrxportframestotal
+  instances:
+    group: lldp_loc_port_num
+    chart_prefix: lldpstatsrxportframestotal
+    family: lldpstatsrxporttable
+    labels:
+      lldp_loc_port_num: '{instance}'
+- id: snmp.device_prof_lldpStatsRxPortTLVsDiscardedTotal
+  title: SNMP metric lldpStatsRxPortTLVsDiscardedTotal
+  units: '1'
+  family: lldpstatsrxporttable
+  chart_type: line
+  priority: 60029
+  shape: independent
+  dimensions:
+  - id: lldpstatsrxporttlvsdiscarded
+    signal: mikrotik_router_lldpstatsrxporttlvsdiscardedtotal
+  instances:
+    group: lldp_loc_port_num
+    chart_prefix: lldpstatsrxporttlvsdiscardedtotal
+    family: lldpstatsrxporttable
+    labels:
+      lldp_loc_port_num: '{instance}'
+- id: snmp.device_prof_lldpStatsRxPortTLVsUnrecognizedTotal
+  title: SNMP metric lldpStatsRxPortTLVsUnrecognizedTotal
+  units: '1'
+  family: lldpstatsrxporttable
+  chart_type: line
+  priority: 60030
+  shape: independent
+  dimensions:
+  - id: lldpstatsrxporttlvsunrecogni
+    signal: mikrotik_router_lldpstatsrxporttlvsunrecognizedtotal
+  instances:
+    group: lldp_loc_port_num
+    chart_prefix: lldpstatsrxporttlvsunrecognizedtotal
+    family: lldpstatsrxporttable
+    labels:
+      lldp_loc_port_num: '{instance}'
+- id: snmp.device_prof_lldpStatsRxPortAgeoutsTotal
+  title: SNMP metric lldpStatsRxPortAgeoutsTotal
+  units: '1'
+  family: lldpstatsrxporttable
+  chart_type: line
+  priority: 60031
+  shape: independent
+  dimensions:
+  - id: lldpstatsrxportageoutstotal
+    signal: mikrotik_router_lldpstatsrxportageoutstotal
+  instances:
+    group: lldp_loc_port_num
+    chart_prefix: lldpstatsrxportageoutstotal
+    family: lldpstatsrxporttable
+    labels:
+      lldp_loc_port_num: '{instance}'
+- id: snmp.device_prof_mtxrIkeSACount
+  title: Number of active IKE Security Associations
+  units: '{sa}'
+  family: Network/VPN/IPSec/IKE/SA/Active
+  chart_type: line
+  priority: 60032
+  shape: independent
+  dimensions:
+  - id: mtxrikesacount
+    signal: mikrotik_router_mtxrikesacount
+- id: snmp.device_prof_mtxrIkeSAState
+  title: Current state of the IKE Security Association
+  units: '{status}'
+  family: Network/VPN/IPSec/IKE/SA/Status
+  chart_type: line
+  priority: 60033
+  shape: independent
+  dimensions:
+  - id: exchange
+    signal: mikrotik_router_mtxrikesastate_exchange
+  - id: established
+    signal: mikrotik_router_mtxrikesastate
+  - id: expired
+    signal: mikrotik_router_mtxrikesastate_expired
+  - id: eap
+    signal: mikrotik_router_mtxrikesastate_eap
+  instances:
+    group: ike_sa_index
+    chart_prefix: mtxrikesastate
+    family: Network/VPN/IPSec/IKE/SA/Status
+    labels:
+      ike_sa_index: '{instance}'
+- id: snmp.device_prof_mtxrIkeSAUptime
+  title: How long this IKE SA has been active
+  units: s
+  family: Network/VPN/IPSec/IKE/SA/Uptime
+  chart_type: line
+  priority: 60034
+  shape: independent
+  dimensions:
+  - id: mtxrikesauptime
+    signal: mikrotik_router_mtxrikesauptime
+  instances:
+    group: ike_sa_index
+    chart_prefix: mtxrikesauptime
+    family: Network/VPN/IPSec/IKE/SA/Uptime
+    labels:
+      ike_sa_index: '{instance}'
+- id: snmp.device_prof_mtxrIkeSAPh2Count
+  title: Number of Phase 2 child SAs for this IKE SA
+  units: '{sa}'
+  family: Network/VPN/IPSec/IKE/SA/Phase2Count
+  chart_type: line
+  priority: 60035
+  shape: independent
+  dimensions:
+  - id: mtxrikesaph2count
+    signal: mikrotik_router_mtxrikesaph2count
+  instances:
+    group: ike_sa_index
+    chart_prefix: mtxrikesaph2count
+    family: Network/VPN/IPSec/IKE/SA/Phase2Count
+    labels:
+      ike_sa_index: '{instance}'
+- id: snmp.device_prof_mtxrIkeSATxBytes
+  title: Number of bytes transmitted through this IKE SA
+  units: By/s
+  family: Network/VPN/IPSec/IKE/SA/Traffic/Out
+  chart_type: line
+  priority: 60036
+  shape: counters
+  dimensions:
+  - id: mtxrikesatxbytes
+    rate_signal: mikrotik_router_mtxrikesatxbytes
+  instances:
+    group: ike_sa_index
+    chart_prefix: mtxrikesatxbytes
+    family: Network/VPN/IPSec/IKE/SA/Traffic/Out
+    labels:
+      ike_sa_index: '{instance}'
+- id: snmp.device_prof_mtxrIkeSARxBytes
+  title: Number of bytes received through this IKE SA
+  units: By/s
+  family: Network/VPN/IPSec/IKE/SA/Traffic/In
+  chart_type: line
+  priority: 60037
+  shape: counters
+  dimensions:
+  - id: mtxrikesarxbytes
+    rate_signal: mikrotik_router_mtxrikesarxbytes
+  instances:
+    group: ike_sa_index
+    chart_prefix: mtxrikesarxbytes
+    family: Network/VPN/IPSec/IKE/SA/Traffic/In
+    labels:
+      ike_sa_index: '{instance}'
+- id: snmp.device_prof_mtxrIkeSATxPackets
+  title: Number of packets transmitted through this IKE SA
+  units: '{packet}/s'
+  family: Network/VPN/IPSec/IKE/SA/Packet/Out
+  chart_type: line
+  priority: 60038
+  shape: counters
+  dimensions:
+  - id: mtxrikesatxpackets
+    rate_signal: mikrotik_router_mtxrikesatxpackets
+  instances:
+    group: ike_sa_index
+    chart_prefix: mtxrikesatxpackets
+    family: Network/VPN/IPSec/IKE/SA/Packet/Out
+    labels:
+      ike_sa_index: '{instance}'
+- id: snmp.device_prof_mtxrIkeSARxPackets
+  title: Number of packets received through this IKE SA
+  units: '{packet}/s'
+  family: Network/VPN/IPSec/IKE/SA/Packet/In
+  chart_type: line
+  priority: 60039
+  shape: counters
+  dimensions:
+  - id: mtxrikesarxpackets
+    rate_signal: mikrotik_router_mtxrikesarxpackets
+  instances:
+    group: ike_sa_index
+    chart_prefix: mtxrikesarxpackets
+    family: Network/VPN/IPSec/IKE/SA/Packet/In
+    labels:
+      ike_sa_index: '{instance}'
+- id: snmp.device_prof_ifTotalTraffic
+  title: Total traffic across all interfaces
+  units: bit/s
+  family: Network/Total/Traffic
+  chart_type: area
+  priority: 60040
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_octets_rate
+  - id: out
+    rate_signal: if_out_octets_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalPacketsUcast
+  title: Total unicast packets across all interfaces
+  units: '{packet}/s'
+  family: Network/Total/Packet/Unicast
+  chart_type: line
+  priority: 60041
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_ucast_rate
+  - id: out
+    rate_signal: if_out_ucast_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalPacketsMulticast
+  title: Total multicast packets across all interfaces
+  units: '{packet}/s'
+  family: Network/Total/Packet/Multicast
+  chart_type: line
+  priority: 60042
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_mcast_rate
+  - id: out
+    rate_signal: mikrotik_router_ifhcoutmulticastpkts
+    multiplier: -1
+- id: snmp.device_prof_ifTotalPacketsBroadcast
+  title: Total broadcast packets across all interfaces
+  units: '{packet}/s'
+  family: Network/Total/Packet/Broadcast
+  chart_type: line
+  priority: 60043
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_bcast_rate
+  - id: out
+    rate_signal: mikrotik_router_ifhcoutbroadcastpkts
+    multiplier: -1
+- id: snmp.device_prof_ifTotalErrors
+  title: Total packets with errors across all interfaces
+  units: '{error}/s'
+  family: Network/Total/Error
+  chart_type: line
+  priority: 60044
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_errors_rate
+  - id: out
+    rate_signal: if_out_errors_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalDiscards
+  title: Total packets discarded across all interfaces
+  units: '{discard}/s'
+  family: Network/Total/Discard
+  chart_type: line
+  priority: 60045
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_discards_rate
+  - id: out
+    rate_signal: if_out_discards_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalOperStatus
+  title: Total count of interfaces by operational status
+  units: '{status}'
+  family: Network/Total/Interface/Status
+  chart_type: line
+  priority: 60046
+  shape: independent
+  dimensions:
+  - id: up
+    signal: mikrotik_router_iftotaloperstatus
+  - id: down
+    signal: mikrotik_router_iftotaloperstatus_down
+  - id: testing
+    signal: mikrotik_router_iftotaloperstatus_testing
+  - id: unknown
+    signal: mikrotik_router_iftotaloperstatus_unknown
+  - id: dormant
+    signal: mikrotik_router_iftotaloperstatus_dormant
+  - id: notpresent
+    signal: mikrotik_router_iftotaloperstatus_notpresent
+  - id: lowerlayerdown
+    signal: mikrotik_router_iftotaloperstatus_lowerlayerdown
+- id: snmp.device_prof_ifTraffic
+  title: Traffic
+  units: bit/s
+  family: Network/Interface/Traffic/Total
+  chart_type: area
+  priority: 60047
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_octets_rate
+  - id: out
+    rate_signal: if_out_octets_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: iftraffic
+    family: Network/Interface/Traffic/Total
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifPacketsUcast
+  title: Unicast packets
+  units: '{packet}/s'
+  family: Network/Interface/Packet/Unicast
+  chart_type: line
+  priority: 60048
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_ucast_rate
+  - id: out
+    rate_signal: if_out_ucast_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifpacketsucast
+    family: Network/Interface/Packet/Unicast
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifPacketsMulticast
+  title: Multicast packets
+  units: '{packet}/s'
+  family: Network/Interface/Packet/Multicast
+  chart_type: line
+  priority: 60049
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_mcast_rate
+  - id: out
+    rate_signal: mikrotik_router_ifhcoutmulticastpkts
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifpacketsmulticast
+    family: Network/Interface/Packet/Multicast
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifPacketsBroadcast
+  title: Broadcast packets
+  units: '{packet}/s'
+  family: Network/Interface/Packet/Broadcast
+  chart_type: line
+  priority: 60050
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_bcast_rate
+  - id: out
+    rate_signal: mikrotik_router_ifhcoutbroadcastpkts
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifpacketsbroadcast
+    family: Network/Interface/Packet/Broadcast
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifErrors
+  title: Packets with errors
+  units: '{error}/s'
+  family: Network/Interface/Error/Total
+  chart_type: line
+  priority: 60051
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_errors_rate
+  - id: out
+    rate_signal: if_out_errors_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: iferrors
+    family: Network/Interface/Error/Total
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifDiscards
+  title: Packets discarded
+  units: '{discard}/s'
+  family: Network/Interface/Discard
+  chart_type: line
+  priority: 60052
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_discards_rate
+  - id: out
+    rate_signal: if_out_discards_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifdiscards
+    family: Network/Interface/Discard
+    labels:
+      interface: '{instance}'

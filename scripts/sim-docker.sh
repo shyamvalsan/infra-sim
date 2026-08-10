@@ -126,7 +126,19 @@ cmd_create() {
   sed -i 's|generator: \.\./specs/|generator: specs/|; s|specs: \.\./specs|specs: specs|; s|scenarios: \.\./scenarios|scenarios: scenarios|' "$dir/environment.yaml"
   run cp -r "$REPO/specs/." "$dir/specs/"
   run cp -r "$REPO/scenarios/." "$dir/scenarios/"
+  # The container's own agent is labelled with the fleet's own coordinates, so
+  # the one node beside the simulated ones is not the only unplaced node in the
+  # Space. Read from the environment's `site:` block; absent, the two label lines
+  # are dropped rather than defaulting to 0,0 in the Gulf of Guinea.
+  local lat lon
+  lat="$(awk '/^site:/{f=1;next} f&&/^  latitude:/{print $2;exit} f&&/^[^ ]/{exit}' "$dir/environment.yaml")"
+  lon="$(awk '/^site:/{f=1;next} f&&/^  longitude:/{print $2;exit} f&&/^[^ ]/{exit}' "$dir/environment.yaml")"
   sed "s|__SIM_NAME__|$name|g" "$REPO/docker/netdata.conf.template" > "$dir/netdata.conf"
+  if [ -n "$lat" ] && [ -n "$lon" ]; then
+    sed -i "s|__SIM_LATITUDE__|$lat|; s|__SIM_LONGITUDE__|$lon|" "$dir/netdata.conf"
+  else
+    sed -i '/__SIM_LATITUDE__/d; /__SIM_LONGITUDE__/d' "$dir/netdata.conf"
+  fi
   # An empty control file so a scenario can be triggered without creating it.
   [ -f "$dir/control.yaml" ] || echo "active: []" > "$dir/control.yaml"
 

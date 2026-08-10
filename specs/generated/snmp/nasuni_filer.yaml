@@ -1,0 +1,2785 @@
+version: 1
+name: nasuni_filer
+description: Nasuni Storage, as Netdata's SNMP collector reports it. Generated from go.d/snmp.profiles/default/nasuni-filer.yaml
+  with its `extends` chain resolved. Contexts, units, families and metric names are the device's own; values are a plausible
+  fiction.
+signals:
+  nasuni_filer_nasuni_filertotalunprotecteddata:
+    base: 4294967296.0
+    min: 4294967296.0
+    max: 4294967296.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  nasuni_filer_nasuni_filerpushescompleted:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_nasuni_filertotalpushed:
+    base: 3100000.0
+    min: 0.0
+    max: 1250000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_nasuni_filertotalread:
+    base: 3100000.0
+    min: 0.0
+    max: 1250000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_nasuni_fileropensforread:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_nasuni_fileropensforwrite:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_nasuni_filermergeconflicts:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_nasuni_filerreadhits:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_nasuni_filerreadmisses:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_nasuni_filercachetotal:
+    base: 4294967296.0
+    min: 4294967296.0
+    max: 4294967296.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  nasuni_filer_nasuni_filercacheused:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_nasuni_filercachefree:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_nasuni_filertotalshares:
+    base: 120.0
+    min: 120.0
+    max: 120.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  nasuni_filer_nasuni_filertotalsharelocks:
+    base: 120.0
+    min: 120.0
+    max: 120.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  nasuni_filer_nasuni_filertotalshareclients:
+    base: 52.0
+    min: 52.0
+    max: 52.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  nasuni_filer_nasuni_filertotalexports:
+    base: 120.0
+    min: 120.0
+    max: 120.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  nasuni_filer_nasuni_filertotaliscsitargets:
+    base: 120.0
+    min: 120.0
+    max: 120.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  nasuni_filer_nasuni_filertotaliscsiclients:
+    base: 52.0
+    min: 52.0
+    max: 52.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  nasuni_filer_nasuni_filertotalftpdirs:
+    base: 120.0
+    min: 120.0
+    max: 120.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  nasuni_filer_nasuni_filertotalmobilelicenses:
+    base: 4.0
+    min: 4.0
+    max: 4.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  nasuni_filer_nasuni_filernumioslicenses:
+    base: 4.0
+    min: 4.0
+    max: 4.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  nasuni_filer_nasuni_filernumandroidlicenses:
+    base: 4.0
+    min: 4.0
+    max: 4.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  nasuni_filer_nasuni_filercloudout:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_nasuni_filercloudin:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_nasuni_filermobileout:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_nasuni_filermobilein:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_nasuni_fileruiout:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_nasuni_fileruiin:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_nasuni_filerclientsout:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_nasuni_filerclientsin:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_nasuni_filermigrationout:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_nasuni_filermigrationin:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_nasuni_accountlicensedcapacity:
+    base: 4294967296.0
+    min: 4294967296.0
+    max: 4294967296.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  nasuni_filer_nasuni_accountusedcapacity:
+    base: 4294967296.0
+    min: 4294967296.0
+    max: 4294967296.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  nasuni_filer_nasuni_accountpercentusedcapacity:
+    base: 35.0
+    min: 35.0
+    max: 35.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  nasuni_filer_nasuni_filerambienttemp:
+    base: 41.0
+    min: 0.0
+    max: 120.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_nasuni_filerinlettemp:
+    base: 41.0
+    min: 0.0
+    max: 120.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_nasuni_filerexhausttemp:
+    base: 41.0
+    min: 0.0
+    max: 120.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_nasuni_filernumpowersupplies:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_nasuni_filerpowersupplyerrors:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  nasuni_filer_nasuni_filernumraidarrays:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_nasuni_filerraidarrayerrors:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  nasuni_filer_nasuni_filernumraiddisks:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_nasuni_filerraiddiskerrors:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  nasuni_filer_nasuni_filerdiskcount:
+    base: 2.0
+    min: 2.0
+    max: 2.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  nasuni_filer_nasuni_filerphyscpucount:
+    base: 2.0
+    min: 2.0
+    max: 2.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  nasuni_filer_nasuni_filercorecount:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_nasuni_volumecount:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_nasuni_volumetableaccessibledata:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_nasuni_volumetableunprotecteddata:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_nasuni_volumetablelastsnapshotduration:
+    base: 86400.0
+    min: 0.0
+    max: 315360000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_nasuni_volumetablequota:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_nasuni_volumetablenumavviolations:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  nasuni_filer_nasuni_volumetablenumfilealerts:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_nasuni_volumetablenumexports:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_nasuni_volumetablenumshares:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_nasuni_volumetablenumftpdirs:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_volumetableisactive_false:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  nasuni_filer_volumetableisactive:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  nasuni_filer_volumetableisshared_false:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  nasuni_filer_volumetableisshared:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  nasuni_filer_volumetableisreadonly_false:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  nasuni_filer_volumetableisreadonly:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  nasuni_filer_volumetableispinned_false:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  nasuni_filer_volumetableispinned:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  nasuni_filer_volumetableisremote_false:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  nasuni_filer_volumetableisremote:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  nasuni_filer_volumetableavenabled_false:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  nasuni_filer_volumetableavenabled:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  nasuni_filer_volumetableremoteaccessenabled_false:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  nasuni_filer_volumetableremoteaccessenabled:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  nasuni_filer_systemuptime:
+    base: 86400.0
+    min: 0.0
+    max: 315360000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_ifnumber:
+    base: 26.0
+    min: 26.0
+    max: 26.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_admin_status:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_admin_status_down:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_admin_status_testing:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_down:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_testing:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_dormant:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_notpresent:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_lowerlayerdown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_speed:
+    from_attr: if_speed_mbps
+    base: 1000.0
+    min: 0.0
+    max: 400000.0
+  nasuni_filer_ucd_memorytotal:
+    base: 4294967296.0
+    min: 4294967296.0
+    max: 4294967296.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  nasuni_filer_memory_free:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_ucd_memtotalswap:
+    base: 4294967296.0
+    min: 4294967296.0
+    max: 4294967296.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  nasuni_filer_ucd_memavailswap:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_ucd_memtotalfree:
+    base: 4294967296.0
+    min: 4294967296.0
+    max: 4294967296.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  nasuni_filer_ucd_memminimumswap:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_ucd_memshared:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_ucd_membuffer:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_ucd_memcached:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_ucd_dsktotal:
+    base: 4294967296.0
+    min: 4294967296.0
+    max: 4294967296.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  nasuni_filer_ucd_dskavail:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_ucd_dskused:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_ucd_dskpercent:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_ucd_dskpercentnode:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_ucd_dskerrorflag:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  nasuni_filer_ucd_dskerrorflag_error:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  nasuni_filer_ucd_diskioreads:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_ucd_diskiowrites:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_ucd_diskiola1:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_ucd_diskiola5:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_ucd_diskiola15:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_ucd_diskionreadx:
+    base: 3100000.0
+    min: 0.0
+    max: 1250000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_ucd_diskionwrittenx:
+    base: 3100000.0
+    min: 0.0
+    max: 1250000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_ucd_ssiorawsent:
+    base: 3100000.0
+    min: 0.0
+    max: 1250000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_ucd_ssiorawreceived:
+    base: 3100000.0
+    min: 0.0
+    max: 1250000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_ucd_ssrawinterrupts:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_ucd_ssrawcontexts:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_ucd_ssrawswapin:
+    base: 3100000.0
+    min: 0.0
+    max: 1250000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_ucd_ssrawswapout:
+    base: 3100000.0
+    min: 0.0
+    max: 1250000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_octets_rate:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_out_octets_rate:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_ucast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_out_ucast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_mcast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_ifhcoutmulticastpkts:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_bcast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_ifhcoutbroadcastpkts:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_errors_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  if_out_errors_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  if_in_discards_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  if_out_discards_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  nasuni_filer_iftotaloperstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  nasuni_filer_iftotaloperstatus_down:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  nasuni_filer_iftotaloperstatus_testing:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  nasuni_filer_iftotaloperstatus_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  nasuni_filer_iftotaloperstatus_dormant:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  nasuni_filer_iftotaloperstatus_notpresent:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  nasuni_filer_iftotaloperstatus_lowerlayerdown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  nasuni_filer_ucd_sscpurawuser:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_ucd_sscpurawnice:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_ucd_sscpurawsystem:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_ucd_sscpurawkernel:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_ucd_sscpurawwait:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_ucd_sscpurawinterrupt:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_ucd_sscpurawsoftirq:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_ucd_sscpurawsteal:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_ucd_sscpurawguest:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_ucd_sscpurawguestnice:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_ucd_cpuload1m:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_ucd_cpuload5m:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nasuni_filer_ucd_cpuload15m:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: snmp.device_prof_nasuni_filerTotalUnprotectedData
+  title: Total amount of unprotected data on the filer
+  units: By
+  family: Storage/Data/Unprotected
+  chart_type: line
+  priority: 60000
+  shape: independent
+  dimensions:
+  - id: nasuni_filertotalunprotected
+    signal: nasuni_filer_nasuni_filertotalunprotecteddata
+- id: snmp.device_prof_nasuni_filerPushesCompleted
+  title: Number of completed pushes
+  units: '{push}/s'
+  family: Storage/Cloud/Push/Completed
+  chart_type: line
+  priority: 60001
+  shape: counters
+  dimensions:
+  - id: nasuni_filerpushescompleted
+    rate_signal: nasuni_filer_nasuni_filerpushescompleted
+- id: snmp.device_prof_nasuni_filerTotalPushed
+  title: Total amount of data pushed
+  units: By/s
+  family: Storage/Cloud/Push/Throughput
+  chart_type: line
+  priority: 60002
+  shape: counters
+  dimensions:
+  - id: nasuni_filertotalpushed
+    rate_signal: nasuni_filer_nasuni_filertotalpushed
+- id: snmp.device_prof_nasuni_filerTotalRead
+  title: Total amount of data read
+  units: By/s
+  family: Storage/IO/Throughput/Read
+  chart_type: line
+  priority: 60003
+  shape: counters
+  dimensions:
+  - id: nasuni_filertotalread
+    rate_signal: nasuni_filer_nasuni_filertotalread
+- id: snmp.device_prof_nasuni_filerOpensForRead
+  title: Number of opens for read
+  units: '{open}/s'
+  family: Storage/IO/Operations/Read
+  chart_type: line
+  priority: 60004
+  shape: counters
+  dimensions:
+  - id: nasuni_fileropensforread
+    rate_signal: nasuni_filer_nasuni_fileropensforread
+- id: snmp.device_prof_nasuni_filerOpensForWrite
+  title: Number of opens for write
+  units: '{open}/s'
+  family: Storage/IO/Operations/Write
+  chart_type: line
+  priority: 60005
+  shape: counters
+  dimensions:
+  - id: nasuni_fileropensforwrite
+    rate_signal: nasuni_filer_nasuni_fileropensforwrite
+- id: snmp.device_prof_nasuni_filerMergeConflicts
+  title: Number of merge conflicts
+  units: '{conflict}/s'
+  family: Storage/Sync/Conflict
+  chart_type: line
+  priority: 60006
+  shape: counters
+  dimensions:
+  - id: nasuni_filermergeconflicts
+    rate_signal: nasuni_filer_nasuni_filermergeconflicts
+- id: snmp.device_prof_nasuni_filerReadHits
+  title: Number of read hits
+  units: '{hit}/s'
+  family: Storage/Cache/Read/Hit
+  chart_type: line
+  priority: 60007
+  shape: counters
+  dimensions:
+  - id: nasuni_filerreadhits
+    rate_signal: nasuni_filer_nasuni_filerreadhits
+- id: snmp.device_prof_nasuni_filerReadMisses
+  title: Number of read misses
+  units: '{miss}/s'
+  family: Storage/Cache/Read/Miss
+  chart_type: line
+  priority: 60008
+  shape: counters
+  dimensions:
+  - id: nasuni_filerreadmisses
+    rate_signal: nasuni_filer_nasuni_filerreadmisses
+- id: snmp.device_prof_nasuni_filerCacheTotal
+  title: Total cache size
+  units: By
+  family: Storage/Cache/Space/Total
+  chart_type: line
+  priority: 60009
+  shape: independent
+  dimensions:
+  - id: nasuni_filercachetotal
+    signal: nasuni_filer_nasuni_filercachetotal
+- id: snmp.device_prof_nasuni_filerCacheUsed
+  title: Used cache size
+  units: By
+  family: Storage/Cache/Space/Used
+  chart_type: line
+  priority: 60010
+  shape: independent
+  dimensions:
+  - id: nasuni_filercacheused
+    signal: nasuni_filer_nasuni_filercacheused
+- id: snmp.device_prof_nasuni_filerCacheFree
+  title: Free cache size
+  units: By
+  family: Storage/Cache/Space/Free
+  chart_type: line
+  priority: 60011
+  shape: independent
+  dimensions:
+  - id: nasuni_filercachefree
+    signal: nasuni_filer_nasuni_filercachefree
+- id: snmp.device_prof_nasuni_filerTotalShares
+  title: Total number of shares
+  units: '{share}'
+  family: Storage/Share/Total
+  chart_type: line
+  priority: 60012
+  shape: independent
+  dimensions:
+  - id: nasuni_filertotalshares
+    signal: nasuni_filer_nasuni_filertotalshares
+- id: snmp.device_prof_nasuni_filerTotalShareLocks
+  title: Total number of share locks
+  units: '{lock}'
+  family: Storage/Share/Lock
+  chart_type: line
+  priority: 60013
+  shape: independent
+  dimensions:
+  - id: nasuni_filertotalsharelocks
+    signal: nasuni_filer_nasuni_filertotalsharelocks
+- id: snmp.device_prof_nasuni_filerTotalShareClients
+  title: Total number of share clients
+  units: '{client}'
+  family: Storage/Share/Client
+  chart_type: line
+  priority: 60014
+  shape: independent
+  dimensions:
+  - id: nasuni_filertotalshareclient
+    signal: nasuni_filer_nasuni_filertotalshareclients
+- id: snmp.device_prof_nasuni_filerTotalExports
+  title: Total number of exports
+  units: '{export}'
+  family: Storage/Export/Total
+  chart_type: line
+  priority: 60015
+  shape: independent
+  dimensions:
+  - id: nasuni_filertotalexports
+    signal: nasuni_filer_nasuni_filertotalexports
+- id: snmp.device_prof_nasuni_filerTotalIscsiTargets
+  title: Total number of iSCSI targets
+  units: '{target}'
+  family: Storage/iSCSI/Target
+  chart_type: line
+  priority: 60016
+  shape: independent
+  dimensions:
+  - id: nasuni_filertotaliscsitarget
+    signal: nasuni_filer_nasuni_filertotaliscsitargets
+- id: snmp.device_prof_nasuni_filerTotalIscsiClients
+  title: Total number of iSCSI clients
+  units: '{client}'
+  family: Storage/iSCSI/Client
+  chart_type: line
+  priority: 60017
+  shape: independent
+  dimensions:
+  - id: nasuni_filertotaliscsiclient
+    signal: nasuni_filer_nasuni_filertotaliscsiclients
+- id: snmp.device_prof_nasuni_filerTotalFtpdirs
+  title: Total number of FTP directories
+  units: '{directory}'
+  family: Storage/FTP/Directory
+  chart_type: line
+  priority: 60018
+  shape: independent
+  dimensions:
+  - id: nasuni_filertotalftpdirs
+    signal: nasuni_filer_nasuni_filertotalftpdirs
+- id: snmp.device_prof_nasuni_filerTotalMobileLicenses
+  title: Total number of mobile licenses
+  units: '{license}'
+  family: System/License/Mobile/Total
+  chart_type: line
+  priority: 60019
+  shape: independent
+  dimensions:
+  - id: nasuni_filertotalmobilelicen
+    signal: nasuni_filer_nasuni_filertotalmobilelicenses
+- id: snmp.device_prof_nasuni_filerNumIOSLicenses
+  title: Number of iOS licenses
+  units: '{license}'
+  family: System/License/Mobile/iOS
+  chart_type: line
+  priority: 60020
+  shape: independent
+  dimensions:
+  - id: nasuni_filernumioslicenses
+    signal: nasuni_filer_nasuni_filernumioslicenses
+- id: snmp.device_prof_nasuni_filerNumAndroidLicenses
+  title: Number of Android licenses
+  units: '{license}'
+  family: System/License/Mobile/Android
+  chart_type: line
+  priority: 60021
+  shape: independent
+  dimensions:
+  - id: nasuni_filernumandroidlicens
+    signal: nasuni_filer_nasuni_filernumandroidlicenses
+- id: snmp.device_prof_nasuni_filerCloudOut
+  title: Amount of data sent to cloud
+  units: bit/s
+  family: Network/Cloud/Traffic/Out
+  chart_type: area
+  priority: 60022
+  shape: counters
+  dimensions:
+  - id: nasuni_filercloudout
+    rate_signal: nasuni_filer_nasuni_filercloudout
+- id: snmp.device_prof_nasuni_filerCloudIn
+  title: Amount of data received from cloud
+  units: bit/s
+  family: Network/Cloud/Traffic/In
+  chart_type: area
+  priority: 60023
+  shape: counters
+  dimensions:
+  - id: nasuni_filercloudin
+    rate_signal: nasuni_filer_nasuni_filercloudin
+- id: snmp.device_prof_nasuni_filerMobileOut
+  title: Amount of data sent to mobile
+  units: bit/s
+  family: Network/Mobile/Traffic/Out
+  chart_type: area
+  priority: 60024
+  shape: counters
+  dimensions:
+  - id: nasuni_filermobileout
+    rate_signal: nasuni_filer_nasuni_filermobileout
+- id: snmp.device_prof_nasuni_filerMobileIn
+  title: Amount of data received from mobile
+  units: bit/s
+  family: Network/Mobile/Traffic/In
+  chart_type: area
+  priority: 60025
+  shape: counters
+  dimensions:
+  - id: nasuni_filermobilein
+    rate_signal: nasuni_filer_nasuni_filermobilein
+- id: snmp.device_prof_nasuni_filerUIOut
+  title: Amount of data sent to UI
+  units: bit/s
+  family: Network/UI/Traffic/Out
+  chart_type: area
+  priority: 60026
+  shape: counters
+  dimensions:
+  - id: nasuni_fileruiout
+    rate_signal: nasuni_filer_nasuni_fileruiout
+- id: snmp.device_prof_nasuni_filerUIIn
+  title: Amount of data received from UI
+  units: bit/s
+  family: Network/UI/Traffic/In
+  chart_type: area
+  priority: 60027
+  shape: counters
+  dimensions:
+  - id: nasuni_fileruiin
+    rate_signal: nasuni_filer_nasuni_fileruiin
+- id: snmp.device_prof_nasuni_filerClientsOut
+  title: Amount of data sent to clients
+  units: bit/s
+  family: Network/Client/Traffic/Out
+  chart_type: area
+  priority: 60028
+  shape: counters
+  dimensions:
+  - id: nasuni_filerclientsout
+    rate_signal: nasuni_filer_nasuni_filerclientsout
+- id: snmp.device_prof_nasuni_filerClientsIn
+  title: Amount of data received from clients
+  units: bit/s
+  family: Network/Client/Traffic/In
+  chart_type: area
+  priority: 60029
+  shape: counters
+  dimensions:
+  - id: nasuni_filerclientsin
+    rate_signal: nasuni_filer_nasuni_filerclientsin
+- id: snmp.device_prof_nasuni_filerMigrationOut
+  title: Amount of data sent during migration
+  units: By
+  family: Storage/Migration/Data/Out
+  chart_type: line
+  priority: 60030
+  shape: independent
+  dimensions:
+  - id: nasuni_filermigrationout
+    signal: nasuni_filer_nasuni_filermigrationout
+- id: snmp.device_prof_nasuni_filerMigrationIn
+  title: Amount of data received during migration
+  units: bit/s
+  family: Storage/Migration/Traffic/In
+  chart_type: area
+  priority: 60031
+  shape: counters
+  dimensions:
+  - id: nasuni_filermigrationin
+    rate_signal: nasuni_filer_nasuni_filermigrationin
+- id: snmp.device_prof_nasuni_accountLicensedCapacity
+  title: Licensed account capacity
+  units: By
+  family: System/Account/Capacity/Licensed
+  chart_type: line
+  priority: 60032
+  shape: independent
+  dimensions:
+  - id: nasuni_accountlicensedcapaci
+    signal: nasuni_filer_nasuni_accountlicensedcapacity
+- id: snmp.device_prof_nasuni_accountUsedCapacity
+  title: Used account capacity
+  units: By
+  family: System/Account/Capacity/Used
+  chart_type: line
+  priority: 60033
+  shape: independent
+  dimensions:
+  - id: nasuni_accountusedcapacity
+    signal: nasuni_filer_nasuni_accountusedcapacity
+- id: snmp.device_prof_nasuni_accountPercentUsedCapacity
+  title: Percent of used account capacity
+  units: '%'
+  family: System/Account/Capacity/Usage
+  chart_type: line
+  priority: 60034
+  shape: independent
+  dimensions:
+  - id: nasuni_accountpercentusedcap
+    signal: nasuni_filer_nasuni_accountpercentusedcapacity
+- id: snmp.device_prof_nasuni_filerAmbientTemp
+  title: Ambient temperature of the filer
+  units: Cel
+  family: Environment/Temperature/Ambient
+  chart_type: line
+  priority: 60035
+  shape: independent
+  dimensions:
+  - id: nasuni_filerambienttemp
+    signal: nasuni_filer_nasuni_filerambienttemp
+- id: snmp.device_prof_nasuni_filerInletTemp
+  title: Inlet temperature of the filer
+  units: Cel
+  family: Hardware/Temperature/Inlet
+  chart_type: line
+  priority: 60036
+  shape: independent
+  dimensions:
+  - id: nasuni_filerinlettemp
+    signal: nasuni_filer_nasuni_filerinlettemp
+- id: snmp.device_prof_nasuni_filerExhaustTemp
+  title: Exhaust temperature of the filer
+  units: Cel
+  family: Hardware/Temperature/Exhaust
+  chart_type: line
+  priority: 60037
+  shape: independent
+  dimensions:
+  - id: nasuni_filerexhausttemp
+    signal: nasuni_filer_nasuni_filerexhausttemp
+- id: snmp.device_prof_nasuni_filerNumPowerSupplies
+  title: Number of power supplies
+  units: '{power_supply}'
+  family: Hardware/Power/Count
+  chart_type: line
+  priority: 60038
+  shape: independent
+  dimensions:
+  - id: nasuni_filernumpowersupplies
+    signal: nasuni_filer_nasuni_filernumpowersupplies
+- id: snmp.device_prof_nasuni_filerPowerSupplyErrors
+  title: Number of power supply errors
+  units: '{error}'
+  family: Hardware/Power/Error
+  chart_type: line
+  priority: 60039
+  shape: independent
+  dimensions:
+  - id: nasuni_filerpowersupplyerror
+    signal: nasuni_filer_nasuni_filerpowersupplyerrors
+- id: snmp.device_prof_nasuni_filerNumRaidArrays
+  title: Number of RAID arrays
+  units: '{raid_array}'
+  family: Hardware/RAID/Array/Count
+  chart_type: line
+  priority: 60040
+  shape: independent
+  dimensions:
+  - id: nasuni_filernumraidarrays
+    signal: nasuni_filer_nasuni_filernumraidarrays
+- id: snmp.device_prof_nasuni_filerRaidArrayErrors
+  title: Number of RAID array errors
+  units: '{error}'
+  family: Hardware/RAID/Array/Error
+  chart_type: line
+  priority: 60041
+  shape: independent
+  dimensions:
+  - id: nasuni_filerraidarrayerrors
+    signal: nasuni_filer_nasuni_filerraidarrayerrors
+- id: snmp.device_prof_nasuni_filerNumRaidDisks
+  title: Number of RAID disks
+  units: '{raid_disk}'
+  family: Hardware/RAID/Disk/Count
+  chart_type: line
+  priority: 60042
+  shape: independent
+  dimensions:
+  - id: nasuni_filernumraiddisks
+    signal: nasuni_filer_nasuni_filernumraiddisks
+- id: snmp.device_prof_nasuni_filerRaidDiskErrors
+  title: Number of RAID disk errors
+  units: '{error}'
+  family: Hardware/RAID/Disk/Error
+  chart_type: line
+  priority: 60043
+  shape: independent
+  dimensions:
+  - id: nasuni_filerraiddiskerrors
+    signal: nasuni_filer_nasuni_filerraiddiskerrors
+- id: snmp.device_prof_nasuni_filerDiskCount
+  title: Number of disks
+  units: '{disk}'
+  family: Hardware/Disk/Count
+  chart_type: line
+  priority: 60044
+  shape: independent
+  dimensions:
+  - id: nasuni_filerdiskcount
+    signal: nasuni_filer_nasuni_filerdiskcount
+- id: snmp.device_prof_nasuni_filerPhysCpuCount
+  title: Number of physical CPUs
+  units: '{cpu}'
+  family: Hardware/CPU/Count
+  chart_type: line
+  priority: 60045
+  shape: independent
+  dimensions:
+  - id: nasuni_filerphyscpucount
+    signal: nasuni_filer_nasuni_filerphyscpucount
+- id: snmp.device_prof_nasuni_filerCoreCount
+  title: Number of CPU cores
+  units: '{core}'
+  family: Hardware/CPU/Core/Count
+  chart_type: line
+  priority: 60046
+  shape: independent
+  dimensions:
+  - id: nasuni_filercorecount
+    signal: nasuni_filer_nasuni_filercorecount
+- id: snmp.device_prof_nasuni_volumeCount
+  title: Number of volumes
+  units: '{volume}'
+  family: Storage/Volume/Count
+  chart_type: line
+  priority: 60047
+  shape: independent
+  dimensions:
+  - id: nasuni_volumecount
+    signal: nasuni_filer_nasuni_volumecount
+- id: snmp.device_prof_nasuni_volumeTableAccessibleData
+  title: Accessible data in volume table
+  units: By
+  family: Storage/Volume/Data/Accessible
+  chart_type: line
+  priority: 60048
+  shape: independent
+  dimensions:
+  - id: nasuni_volumetableaccessible
+    signal: nasuni_filer_nasuni_volumetableaccessibledata
+  instances:
+    group: volume_table_index
+    chart_prefix: nasuni_volumetableaccessibledata
+    family: Storage/Volume/Data/Accessible
+    labels:
+      volume_table_index: '{instance}'
+- id: snmp.device_prof_nasuni_volumeTableUnprotectedData
+  title: Unprotected data in volume table
+  units: By
+  family: Storage/Volume/Data/Unprotected
+  chart_type: line
+  priority: 60049
+  shape: independent
+  dimensions:
+  - id: nasuni_volumetableunprotecte
+    signal: nasuni_filer_nasuni_volumetableunprotecteddata
+  instances:
+    group: volume_table_index
+    chart_prefix: nasuni_volumetableunprotecteddata
+    family: Storage/Volume/Data/Unprotected
+    labels:
+      volume_table_index: '{instance}'
+- id: snmp.device_prof_nasuni_volumeTableLastSnapshotDuration
+  title: Duration of last snapshot in volume table
+  units: s
+  family: Storage/Volume/Snapshot/Duration
+  chart_type: line
+  priority: 60050
+  shape: independent
+  dimensions:
+  - id: nasuni_volumetablelastsnapsh
+    signal: nasuni_filer_nasuni_volumetablelastsnapshotduration
+  instances:
+    group: volume_table_index
+    chart_prefix: nasuni_volumetablelastsnapshotduration
+    family: Storage/Volume/Snapshot/Duration
+    labels:
+      volume_table_index: '{instance}'
+- id: snmp.device_prof_nasuni_volumeTableQuota
+  title: Quota of volume table
+  units: By
+  family: Storage/Volume/Quota
+  chart_type: line
+  priority: 60051
+  shape: independent
+  dimensions:
+  - id: nasuni_volumetablequota
+    signal: nasuni_filer_nasuni_volumetablequota
+  instances:
+    group: volume_table_index
+    chart_prefix: nasuni_volumetablequota
+    family: Storage/Volume/Quota
+    labels:
+      volume_table_index: '{instance}'
+- id: snmp.device_prof_nasuni_volumeTableNumAVViolations
+  title: Number of AV violations in volume table
+  units: '{violation}'
+  family: Security/AntiVirus/Violation
+  chart_type: line
+  priority: 60052
+  shape: independent
+  dimensions:
+  - id: nasuni_volumetablenumavviola
+    signal: nasuni_filer_nasuni_volumetablenumavviolations
+  instances:
+    group: volume_table_index
+    chart_prefix: nasuni_volumetablenumavviolations
+    family: Security/AntiVirus/Violation
+    labels:
+      volume_table_index: '{instance}'
+- id: snmp.device_prof_nasuni_volumeTableNumFileAlerts
+  title: Number of file alerts in volume table
+  units: '{alert}'
+  family: Storage/Volume/Alert
+  chart_type: line
+  priority: 60053
+  shape: independent
+  dimensions:
+  - id: nasuni_volumetablenumfileale
+    signal: nasuni_filer_nasuni_volumetablenumfilealerts
+  instances:
+    group: volume_table_index
+    chart_prefix: nasuni_volumetablenumfilealerts
+    family: Storage/Volume/Alert
+    labels:
+      volume_table_index: '{instance}'
+- id: snmp.device_prof_nasuni_volumeTableNumExports
+  title: Number of exports in volume table
+  units: '{export}'
+  family: Storage/Volume/Export
+  chart_type: line
+  priority: 60054
+  shape: independent
+  dimensions:
+  - id: nasuni_volumetablenumexports
+    signal: nasuni_filer_nasuni_volumetablenumexports
+  instances:
+    group: volume_table_index
+    chart_prefix: nasuni_volumetablenumexports
+    family: Storage/Volume/Export
+    labels:
+      volume_table_index: '{instance}'
+- id: snmp.device_prof_nasuni_volumeTableNumShares
+  title: Number of shares in volume table
+  units: '{share}'
+  family: Storage/Volume/Share
+  chart_type: line
+  priority: 60055
+  shape: independent
+  dimensions:
+  - id: nasuni_volumetablenumshares
+    signal: nasuni_filer_nasuni_volumetablenumshares
+  instances:
+    group: volume_table_index
+    chart_prefix: nasuni_volumetablenumshares
+    family: Storage/Volume/Share
+    labels:
+      volume_table_index: '{instance}'
+- id: snmp.device_prof_nasuni_volumeTableNumFtpdirs
+  title: Number of FTP directories in volume table
+  units: '{directory}'
+  family: Storage/Volume/FTP/Directory
+  chart_type: line
+  priority: 60056
+  shape: independent
+  dimensions:
+  - id: nasuni_volumetablenumftpdirs
+    signal: nasuni_filer_nasuni_volumetablenumftpdirs
+  instances:
+    group: volume_table_index
+    chart_prefix: nasuni_volumetablenumftpdirs
+    family: Storage/Volume/FTP/Directory
+    labels:
+      volume_table_index: '{instance}'
+- id: snmp.device_prof_volumeTableIsActive
+  title: indicates whether the volume is active
+  units: '{status}'
+  family: Storage/Volume/Status/Active
+  chart_type: line
+  priority: 60057
+  shape: independent
+  dimensions:
+  - id: 'false'
+    signal: nasuni_filer_volumetableisactive_false
+  - id: 'true'
+    signal: nasuni_filer_volumetableisactive
+  instances:
+    group: volume_table_index
+    chart_prefix: volumetableisactive
+    family: Storage/Volume/Status/Active
+    labels:
+      volume_table_index: '{instance}'
+- id: snmp.device_prof_volumeTableIsShared
+  title: indicates whether the volume is shared
+  units: '{status}'
+  family: Storage/Volume/Status/Shared
+  chart_type: line
+  priority: 60058
+  shape: independent
+  dimensions:
+  - id: 'false'
+    signal: nasuni_filer_volumetableisshared_false
+  - id: 'true'
+    signal: nasuni_filer_volumetableisshared
+  instances:
+    group: volume_table_index
+    chart_prefix: volumetableisshared
+    family: Storage/Volume/Status/Shared
+    labels:
+      volume_table_index: '{instance}'
+- id: snmp.device_prof_volumeTableIsReadOnly
+  title: indicates whether the volume is read only
+  units: '{status}'
+  family: Storage/Volume/Status/ReadOnly
+  chart_type: line
+  priority: 60059
+  shape: independent
+  dimensions:
+  - id: 'false'
+    signal: nasuni_filer_volumetableisreadonly_false
+  - id: 'true'
+    signal: nasuni_filer_volumetableisreadonly
+  instances:
+    group: volume_table_index
+    chart_prefix: volumetableisreadonly
+    family: Storage/Volume/Status/ReadOnly
+    labels:
+      volume_table_index: '{instance}'
+- id: snmp.device_prof_volumeTableIsPinned
+  title: indicates whether the volume is pinned
+  units: '{status}'
+  family: Storage/Volume/Status/Pinned
+  chart_type: line
+  priority: 60060
+  shape: independent
+  dimensions:
+  - id: 'false'
+    signal: nasuni_filer_volumetableispinned_false
+  - id: 'true'
+    signal: nasuni_filer_volumetableispinned
+  instances:
+    group: volume_table_index
+    chart_prefix: volumetableispinned
+    family: Storage/Volume/Status/Pinned
+    labels:
+      volume_table_index: '{instance}'
+- id: snmp.device_prof_volumeTableIsRemote
+  title: indicates whether the volume is remote
+  units: '{status}'
+  family: Storage/Volume/Status/Remote
+  chart_type: line
+  priority: 60061
+  shape: independent
+  dimensions:
+  - id: 'false'
+    signal: nasuni_filer_volumetableisremote_false
+  - id: 'true'
+    signal: nasuni_filer_volumetableisremote
+  instances:
+    group: volume_table_index
+    chart_prefix: volumetableisremote
+    family: Storage/Volume/Status/Remote
+    labels:
+      volume_table_index: '{instance}'
+- id: snmp.device_prof_volumeTableAvEnabled
+  title: indicates whether the antivirus enabled
+  units: '{status}'
+  family: Security/Status/AntiVirus
+  chart_type: line
+  priority: 60062
+  shape: independent
+  dimensions:
+  - id: 'false'
+    signal: nasuni_filer_volumetableavenabled_false
+  - id: 'true'
+    signal: nasuni_filer_volumetableavenabled
+  instances:
+    group: volume_table_index
+    chart_prefix: volumetableavenabled
+    family: Security/Status/AntiVirus
+    labels:
+      volume_table_index: '{instance}'
+- id: snmp.device_prof_volumeTableRemoteAccessEnabled
+  title: indicates whether the remote access enabled
+  units: '{status}'
+  family: Storage/Volume/Status/RemoteAccess
+  chart_type: line
+  priority: 60063
+  shape: independent
+  dimensions:
+  - id: 'false'
+    signal: nasuni_filer_volumetableremoteaccessenabled_false
+  - id: 'true'
+    signal: nasuni_filer_volumetableremoteaccessenabled
+  instances:
+    group: volume_table_index
+    chart_prefix: volumetableremoteaccessenabled
+    family: Storage/Volume/Status/RemoteAccess
+    labels:
+      volume_table_index: '{instance}'
+- id: snmp.device_prof_systemUptime
+  title: Time since the system was last rebooted or powered on.
+  units: s
+  family: System/Uptime
+  chart_type: line
+  priority: 60064
+  shape: independent
+  dimensions:
+  - id: systemuptime
+    signal: nasuni_filer_systemuptime
+- id: snmp.device_prof_ifNumber
+  title: Number of network interfaces regardless of their current state present on this system
+  units: '{interface}'
+  family: Network/Interface/Count
+  chart_type: line
+  priority: 60065
+  shape: independent
+  dimensions:
+  - id: ifnumber
+    signal: nasuni_filer_ifnumber
+- id: snmp.device_prof_ifAdminStatus
+  title: Current administrative state of the interface
+  units: '{status}'
+  family: Network/Interface/Status/Admin
+  chart_type: line
+  priority: 60066
+  shape: independent
+  dimensions:
+  - id: up
+    signal: if_admin_status
+  - id: down
+    signal: if_admin_status_down
+  - id: testing
+    signal: if_admin_status_testing
+  instances:
+    group: interface
+    chart_prefix: ifadminstatus
+    family: Network/Interface/Status/Admin
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifOperStatus
+  title: Current operational state of the interface
+  units: '{status}'
+  family: Network/Interface/Status/Operational
+  chart_type: line
+  priority: 60067
+  shape: independent
+  dimensions:
+  - id: up
+    signal: if_oper_status
+  - id: down
+    signal: if_oper_status_down
+  - id: testing
+    signal: if_oper_status_testing
+  - id: unknown
+    signal: if_oper_status_unknown
+  - id: dormant
+    signal: if_oper_status_dormant
+  - id: notpresent
+    signal: if_oper_status_notpresent
+  - id: lowerlayerdown
+    signal: if_oper_status_lowerlayerdown
+  instances:
+    group: interface
+    chart_prefix: ifoperstatus
+    family: Network/Interface/Status/Operational
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifHighSpeed
+  title: Estimate of the interface's current bandwidth
+  units: bit/s
+  family: Network/Interface/Speed
+  chart_type: area
+  priority: 60068
+  shape: counters
+  dimensions:
+  - id: ifhighspeed
+    rate_signal: if_speed
+  instances:
+    group: interface
+    chart_prefix: ifhighspeed
+    family: Network/Interface/Speed
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ucd_memoryTotal
+  title: The total amount of real/physical memory installed on this host
+  units: By
+  family: System/Memory/Physical/Total
+  chart_type: line
+  priority: 60069
+  shape: independent
+  dimensions:
+  - id: ucd_memorytotal
+    signal: nasuni_filer_ucd_memorytotal
+- id: snmp.device_prof_memory_free
+  title: The amount of real/physical memory currently unused or available
+  units: By
+  family: System/Memory/Physical/Free
+  chart_type: line
+  priority: 60070
+  shape: independent
+  dimensions:
+  - id: memory_free
+    signal: nasuni_filer_memory_free
+- id: snmp.device_prof_ucd_memTotalSwap
+  title: The total amount of swap space configured for this host
+  units: By
+  family: System/Memory/Swap/Total
+  chart_type: line
+  priority: 60071
+  shape: independent
+  dimensions:
+  - id: ucd_memtotalswap
+    signal: nasuni_filer_ucd_memtotalswap
+- id: snmp.device_prof_ucd_memAvailSwap
+  title: The amount of swap space currently unused or available
+  units: By
+  family: System/Memory/Swap/Available
+  chart_type: line
+  priority: 60072
+  shape: independent
+  dimensions:
+  - id: ucd_memavailswap
+    signal: nasuni_filer_ucd_memavailswap
+- id: snmp.device_prof_ucd_memTotalFree
+  title: The total amount of memory free or available for use on this host
+  units: By
+  family: System/Memory/Available/Total
+  chart_type: line
+  priority: 60073
+  shape: independent
+  dimensions:
+  - id: ucd_memtotalfree
+    signal: nasuni_filer_ucd_memtotalfree
+- id: snmp.device_prof_ucd_memMinimumSwap
+  title: The minimum amount of swap space expected to be kept free or available during normal operation of this host
+  units: By
+  family: System/Memory/Swap/Minimum
+  chart_type: line
+  priority: 60074
+  shape: independent
+  dimensions:
+  - id: ucd_memminimumswap
+    signal: nasuni_filer_ucd_memminimumswap
+- id: snmp.device_prof_ucd_memShared
+  title: The total amount of real or virtual memory currently allocated for use as shared memory
+  units: By
+  family: System/Memory/Physical/Shared
+  chart_type: line
+  priority: 60075
+  shape: independent
+  dimensions:
+  - id: ucd_memshared
+    signal: nasuni_filer_ucd_memshared
+- id: snmp.device_prof_ucd_memBuffer
+  title: The total amount of real or virtual memory currently allocated for use as memory buffers
+  units: By
+  family: System/Memory/Physical/Buffer
+  chart_type: line
+  priority: 60076
+  shape: independent
+  dimensions:
+  - id: ucd_membuffer
+    signal: nasuni_filer_ucd_membuffer
+- id: snmp.device_prof_ucd_memCached
+  title: The total amount of real or virtual memory currently allocated for use as cached memory
+  units: By
+  family: System/Memory/Physical/Cached
+  chart_type: line
+  priority: 60077
+  shape: independent
+  dimensions:
+  - id: ucd_memcached
+    signal: nasuni_filer_ucd_memcached
+- id: snmp.device_prof_ucd_dskTotal
+  title: Total size of the disk/partition
+  units: By
+  family: System/Disk/Space/Total
+  chart_type: line
+  priority: 60078
+  shape: independent
+  dimensions:
+  - id: ucd_dsktotal
+    signal: nasuni_filer_ucd_dsktotal
+  instances:
+    group: ucd_dsk_path
+    chart_prefix: ucd_dsktotal
+    family: System/Disk/Space/Total
+    labels:
+      ucd_dsk_path: '{instance}'
+- id: snmp.device_prof_ucd_dskAvail
+  title: Available space on the disk
+  units: By
+  family: System/Disk/Space/Available
+  chart_type: line
+  priority: 60079
+  shape: independent
+  dimensions:
+  - id: ucd_dskavail
+    signal: nasuni_filer_ucd_dskavail
+  instances:
+    group: ucd_dsk_path
+    chart_prefix: ucd_dskavail
+    family: System/Disk/Space/Available
+    labels:
+      ucd_dsk_path: '{instance}'
+- id: snmp.device_prof_ucd_dskUsed
+  title: Used space on the disk
+  units: By
+  family: System/Disk/Space/Used
+  chart_type: line
+  priority: 60080
+  shape: independent
+  dimensions:
+  - id: ucd_dskused
+    signal: nasuni_filer_ucd_dskused
+  instances:
+    group: ucd_dsk_path
+    chart_prefix: ucd_dskused
+    family: System/Disk/Space/Used
+    labels:
+      ucd_dsk_path: '{instance}'
+- id: snmp.device_prof_ucd_dskPercent
+  title: Percentage of space used on disk
+  units: '%'
+  family: System/Disk/Usage
+  chart_type: line
+  priority: 60081
+  shape: independent
+  dimensions:
+  - id: ucd_dskpercent
+    signal: nasuni_filer_ucd_dskpercent
+  instances:
+    group: ucd_dsk_path
+    chart_prefix: ucd_dskpercent
+    family: System/Disk/Usage
+    labels:
+      ucd_dsk_path: '{instance}'
+- id: snmp.device_prof_ucd_dskPercentNode
+  title: Percentage of inodes used on disk
+  units: '%'
+  family: System/Disk/Inode/Usage
+  chart_type: line
+  priority: 60082
+  shape: independent
+  dimensions:
+  - id: ucd_dskpercentnode
+    signal: nasuni_filer_ucd_dskpercentnode
+  instances:
+    group: ucd_dsk_path
+    chart_prefix: ucd_dskpercentnode
+    family: System/Disk/Inode/Usage
+    labels:
+      ucd_dsk_path: '{instance}'
+- id: snmp.device_prof_ucd_dskErrorFlag
+  title: Flag signaling that the disk or partition is under the minimum required space configured for it
+  units: '{status}'
+  family: System/Disk/Error/Status
+  chart_type: line
+  priority: 60083
+  shape: independent
+  dimensions:
+  - id: no_error
+    signal: nasuni_filer_ucd_dskerrorflag
+  - id: error
+    signal: nasuni_filer_ucd_dskerrorflag_error
+  instances:
+    group: ucd_dsk_path
+    chart_prefix: ucd_dskerrorflag
+    family: System/Disk/Error/Status
+    labels:
+      ucd_dsk_path: '{instance}'
+- id: snmp.device_prof_ucd_diskIOReads
+  title: The number of read accesses from this device since boot
+  units: '{read}/s'
+  family: System/Disk/IOPS/Read
+  chart_type: line
+  priority: 60084
+  shape: counters
+  dimensions:
+  - id: ucd_diskioreads
+    rate_signal: nasuni_filer_ucd_diskioreads
+  instances:
+    group: ucd_disk_io_device
+    chart_prefix: ucd_diskioreads
+    family: System/Disk/IOPS/Read
+    labels:
+      ucd_disk_io_device: '{instance}'
+- id: snmp.device_prof_ucd_diskIOWrites
+  title: The number of write accesses to this device since boot
+  units: '{write}/s'
+  family: System/Disk/IOPS/Write
+  chart_type: line
+  priority: 60085
+  shape: counters
+  dimensions:
+  - id: ucd_diskiowrites
+    rate_signal: nasuni_filer_ucd_diskiowrites
+  instances:
+    group: ucd_disk_io_device
+    chart_prefix: ucd_diskiowrites
+    family: System/Disk/IOPS/Write
+    labels:
+      ucd_disk_io_device: '{instance}'
+- id: snmp.device_prof_ucd_diskIOLA1
+  title: The 1 minute average load of disk (%)
+  units: '%'
+  family: System/Disk/LoadAverage/1Min
+  chart_type: line
+  priority: 60086
+  shape: independent
+  dimensions:
+  - id: ucd_diskiola1
+    signal: nasuni_filer_ucd_diskiola1
+  instances:
+    group: ucd_disk_io_device
+    chart_prefix: ucd_diskiola1
+    family: System/Disk/LoadAverage/1Min
+    labels:
+      ucd_disk_io_device: '{instance}'
+- id: snmp.device_prof_ucd_diskIOLA5
+  title: The 5 minute average load of disk (%)
+  units: '%'
+  family: System/Disk/LoadAverage/5Min
+  chart_type: line
+  priority: 60087
+  shape: independent
+  dimensions:
+  - id: ucd_diskiola5
+    signal: nasuni_filer_ucd_diskiola5
+  instances:
+    group: ucd_disk_io_device
+    chart_prefix: ucd_diskiola5
+    family: System/Disk/LoadAverage/5Min
+    labels:
+      ucd_disk_io_device: '{instance}'
+- id: snmp.device_prof_ucd_diskIOLA15
+  title: The 15 minute average load of disk (%)
+  units: '%'
+  family: System/Disk/LoadAverage/15Min
+  chart_type: line
+  priority: 60088
+  shape: independent
+  dimensions:
+  - id: ucd_diskiola15
+    signal: nasuni_filer_ucd_diskiola15
+  instances:
+    group: ucd_disk_io_device
+    chart_prefix: ucd_diskiola15
+    family: System/Disk/LoadAverage/15Min
+    labels:
+      ucd_disk_io_device: '{instance}'
+- id: snmp.device_prof_ucd_diskIONReadX
+  title: The number of bytes read from this device since boot
+  units: By/s
+  family: System/Disk/IO/Read
+  chart_type: line
+  priority: 60089
+  shape: counters
+  dimensions:
+  - id: ucd_diskionreadx
+    rate_signal: nasuni_filer_ucd_diskionreadx
+  instances:
+    group: ucd_disk_io_device
+    chart_prefix: ucd_diskionreadx
+    family: System/Disk/IO/Read
+    labels:
+      ucd_disk_io_device: '{instance}'
+- id: snmp.device_prof_ucd_diskIONWrittenX
+  title: The number of bytes written to this device since boot
+  units: By/s
+  family: System/Disk/IO/Write
+  chart_type: line
+  priority: 60090
+  shape: counters
+  dimensions:
+  - id: ucd_diskionwrittenx
+    rate_signal: nasuni_filer_ucd_diskionwrittenx
+  instances:
+    group: ucd_disk_io_device
+    chart_prefix: ucd_diskionwrittenx
+    family: System/Disk/IO/Write
+    labels:
+      ucd_disk_io_device: '{instance}'
+- id: snmp.device_prof_ucd_ssIORawSent
+  title: Amount of data written to disk or other block device
+  units: By/s
+  family: System/Disk/Total/IO/Write
+  chart_type: line
+  priority: 60091
+  shape: counters
+  dimensions:
+  - id: ucd_ssiorawsent
+    rate_signal: nasuni_filer_ucd_ssiorawsent
+- id: snmp.device_prof_ucd_ssIORawReceived
+  title: Amount of data read from disk or other block device
+  units: By/s
+  family: System/Disk/Total/IO/Read
+  chart_type: line
+  priority: 60092
+  shape: counters
+  dimensions:
+  - id: ucd_ssiorawreceived
+    rate_signal: nasuni_filer_ucd_ssiorawreceived
+- id: snmp.device_prof_ucd_ssRawInterrupts
+  title: Number of interrupts processed
+  units: '{interrupt}/s'
+  family: System/CPU/Interrupts
+  chart_type: line
+  priority: 60093
+  shape: counters
+  dimensions:
+  - id: ucd_ssrawinterrupts
+    rate_signal: nasuni_filer_ucd_ssrawinterrupts
+- id: snmp.device_prof_ucd_ssRawContexts
+  title: Number of context switches
+  units: '{switch}/s'
+  family: System/CPU/ContextSwitches
+  chart_type: line
+  priority: 60094
+  shape: counters
+  dimensions:
+  - id: ucd_ssrawcontexts
+    rate_signal: nasuni_filer_ucd_ssrawcontexts
+- id: snmp.device_prof_ucd_ssRawSwapIn
+  title: Amount of memory swapped in from disk
+  units: By/s
+  family: System/Memory/Swap/IO/In
+  chart_type: line
+  priority: 60095
+  shape: counters
+  dimensions:
+  - id: ucd_ssrawswapin
+    rate_signal: nasuni_filer_ucd_ssrawswapin
+- id: snmp.device_prof_ucd_ssRawSwapOut
+  title: Amount of memory swapped out to disk
+  units: By/s
+  family: System/Memory/Swap/IO/Out
+  chart_type: line
+  priority: 60096
+  shape: counters
+  dimensions:
+  - id: ucd_ssrawswapout
+    rate_signal: nasuni_filer_ucd_ssrawswapout
+- id: snmp.device_prof_ifTotalTraffic
+  title: Total traffic across all interfaces
+  units: bit/s
+  family: Network/Total/Traffic
+  chart_type: area
+  priority: 60097
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_octets_rate
+  - id: out
+    rate_signal: if_out_octets_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalPacketsUcast
+  title: Total unicast packets across all interfaces
+  units: '{packet}/s'
+  family: Network/Total/Packet/Unicast
+  chart_type: line
+  priority: 60098
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_ucast_rate
+  - id: out
+    rate_signal: if_out_ucast_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalPacketsMulticast
+  title: Total multicast packets across all interfaces
+  units: '{packet}/s'
+  family: Network/Total/Packet/Multicast
+  chart_type: line
+  priority: 60099
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_mcast_rate
+  - id: out
+    rate_signal: nasuni_filer_ifhcoutmulticastpkts
+    multiplier: -1
+- id: snmp.device_prof_ifTotalPacketsBroadcast
+  title: Total broadcast packets across all interfaces
+  units: '{packet}/s'
+  family: Network/Total/Packet/Broadcast
+  chart_type: line
+  priority: 60100
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_bcast_rate
+  - id: out
+    rate_signal: nasuni_filer_ifhcoutbroadcastpkts
+    multiplier: -1
+- id: snmp.device_prof_ifTotalErrors
+  title: Total packets with errors across all interfaces
+  units: '{error}/s'
+  family: Network/Total/Error
+  chart_type: line
+  priority: 60101
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_errors_rate
+  - id: out
+    rate_signal: if_out_errors_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalDiscards
+  title: Total packets discarded across all interfaces
+  units: '{discard}/s'
+  family: Network/Total/Discard
+  chart_type: line
+  priority: 60102
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_discards_rate
+  - id: out
+    rate_signal: if_out_discards_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalOperStatus
+  title: Total count of interfaces by operational status
+  units: '{status}'
+  family: Network/Total/Interface/Status
+  chart_type: line
+  priority: 60103
+  shape: independent
+  dimensions:
+  - id: up
+    signal: nasuni_filer_iftotaloperstatus
+  - id: down
+    signal: nasuni_filer_iftotaloperstatus_down
+  - id: testing
+    signal: nasuni_filer_iftotaloperstatus_testing
+  - id: unknown
+    signal: nasuni_filer_iftotaloperstatus_unknown
+  - id: dormant
+    signal: nasuni_filer_iftotaloperstatus_dormant
+  - id: notpresent
+    signal: nasuni_filer_iftotaloperstatus_notpresent
+  - id: lowerlayerdown
+    signal: nasuni_filer_iftotaloperstatus_lowerlayerdown
+- id: snmp.device_prof_ifTraffic
+  title: Traffic
+  units: bit/s
+  family: Network/Interface/Traffic/Total
+  chart_type: area
+  priority: 60104
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_octets_rate
+  - id: out
+    rate_signal: if_out_octets_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: iftraffic
+    family: Network/Interface/Traffic/Total
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifPacketsUcast
+  title: Unicast packets
+  units: '{packet}/s'
+  family: Network/Interface/Packet/Unicast
+  chart_type: line
+  priority: 60105
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_ucast_rate
+  - id: out
+    rate_signal: if_out_ucast_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifpacketsucast
+    family: Network/Interface/Packet/Unicast
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifPacketsMulticast
+  title: Multicast packets
+  units: '{packet}/s'
+  family: Network/Interface/Packet/Multicast
+  chart_type: line
+  priority: 60106
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_mcast_rate
+  - id: out
+    rate_signal: nasuni_filer_ifhcoutmulticastpkts
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifpacketsmulticast
+    family: Network/Interface/Packet/Multicast
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifPacketsBroadcast
+  title: Broadcast packets
+  units: '{packet}/s'
+  family: Network/Interface/Packet/Broadcast
+  chart_type: line
+  priority: 60107
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_bcast_rate
+  - id: out
+    rate_signal: nasuni_filer_ifhcoutbroadcastpkts
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifpacketsbroadcast
+    family: Network/Interface/Packet/Broadcast
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifErrors
+  title: Packets with errors
+  units: '{error}/s'
+  family: Network/Interface/Error/Total
+  chart_type: line
+  priority: 60108
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_errors_rate
+  - id: out
+    rate_signal: if_out_errors_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: iferrors
+    family: Network/Interface/Error/Total
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifDiscards
+  title: Packets discarded
+  units: '{discard}/s'
+  family: Network/Interface/Discard
+  chart_type: line
+  priority: 60109
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_discards_rate
+  - id: out
+    rate_signal: if_out_discards_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifdiscards
+    family: Network/Interface/Discard
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ucd_cpu_usage
+  title: CPU usage breakdown
+  units: '%'
+  family: System/CPU/Usage
+  chart_type: line
+  priority: 60110
+  shape: independent
+  dimensions:
+  - id: user
+    signal: nasuni_filer_ucd_sscpurawuser
+  - id: nice
+    signal: nasuni_filer_ucd_sscpurawnice
+  - id: system
+    signal: nasuni_filer_ucd_sscpurawsystem
+  - id: kernel
+    signal: nasuni_filer_ucd_sscpurawkernel
+  - id: iowait
+    signal: nasuni_filer_ucd_sscpurawwait
+  - id: irq
+    signal: nasuni_filer_ucd_sscpurawinterrupt
+  - id: softirq
+    signal: nasuni_filer_ucd_sscpurawsoftirq
+  - id: steal
+    signal: nasuni_filer_ucd_sscpurawsteal
+  - id: guest
+    signal: nasuni_filer_ucd_sscpurawguest
+  - id: guest_nice
+    signal: nasuni_filer_ucd_sscpurawguestnice
+- id: snmp.device_prof_ucd_cpuLoad
+  title: Load average
+  units: '{load_average}'
+  family: System/LoadAverage
+  chart_type: line
+  priority: 60111
+  shape: independent
+  dimensions:
+  - id: 1m
+    signal: nasuni_filer_ucd_cpuload1m
+  - id: 5m
+    signal: nasuni_filer_ucd_cpuload5m
+  - id: 15m
+    signal: nasuni_filer_ucd_cpuload15m

@@ -795,6 +795,11 @@ fn validate(plan: &Value, services: &[String]) -> Result<Proposal, String> {
                 .and_then(Value::as_str)
                 .unwrap_or("")
                 .to_string(),
+            // Location is an operator input, not something to infer from prose:
+            // a model guessing coordinates would place a prospect's estate
+            // confidently and wrongly.
+            site: None,
+            device: None,
         });
     }
 
@@ -813,6 +818,7 @@ fn validate(plan: &Value, services: &[String]) -> Result<Proposal, String> {
     let mut reading = Reading {
         groups,
         unrecognised: Vec::new(),
+        site: None,
     };
     reading.dedupe_slugs();
     if reading.groups.len() != before {

@@ -1,0 +1,1941 @@
+version: 1
+name: eaton_ups
+description: Eaton UPS, as Netdata's SNMP collector reports it. Generated from go.d/snmp.profiles/default/eaton-ups.yaml with
+  its `extends` chain resolved. Contexts, units, families and metric names are the device's own; values are a plausible fiction.
+signals:
+  eaton_ups_xupsbattimeremaining:
+    base: 86400.0
+    min: 0.0
+    max: 315360000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  eaton_ups_xupsbatvoltage:
+    base: 12.0
+    min: 0.0
+    max: 480.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  eaton_ups_xupsbatcurrent:
+    base: 3.2
+    min: 0.0
+    max: 200.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  eaton_ups_xupsbatcapacity:
+    base: 35.0
+    min: 35.0
+    max: 35.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsbatteryabmstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsbatteryabmstatus_discharging:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsbatteryabmstatus_floating:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsbatteryabmstatus_resting:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsbatteryabmstatus_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsbatteryabmstatus_disconnected:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsbatteryabmstatus_under_test:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsbatteryabmstatus_check_battery:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsbatteryfailure_failed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsbatteryfailure:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsbatterynotpresent_absent:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsbatterynotpresent:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsbatteryaged_aged:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsbatteryaged:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsbatterylowcapacity_low:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsbatterylowcapacity:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsinputfrequency:
+    base: 60.0
+    min: 0.0
+    max: 120.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  eaton_ups_xupsinputlinebads:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  eaton_ups_xupsinputsource:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsinputsource_none:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsinputsource_primary_utility:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsinputsource_bypass_feed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsinputsource_secondary_utility:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsinputsource_generator:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsinputsource_flywheel:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsinputsource_fuelcell:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsdualinputstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsdualinputstatus_primary_good:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsdualinputstatus_secondary_good:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsdualinputstatus_both_good:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsinputstatus_bad:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsinputstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsinputaveragevoltage:
+    base: 12.0
+    min: 0.0
+    max: 480.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  eaton_ups_xupsinputtotalcurrent:
+    base: 3.2
+    min: 3.2
+    max: 3.2
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsinputtotalwatts:
+    base: 145.0
+    min: 145.0
+    max: 145.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsinputtotalva:
+    base: 168.0
+    min: 168.0
+    max: 168.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsinputaveragepowerfactor:
+    base: 12.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  eaton_ups_xupsinputvoltage:
+    base: 12.0
+    min: 0.0
+    max: 480.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  eaton_ups_xupsinputcurrent:
+    base: 3.2
+    min: 0.0
+    max: 200.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  eaton_ups_xupsinputcurrenthighprecision:
+    base: 3.2
+    min: 0.0
+    max: 200.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  eaton_ups_xupsinputwatts:
+    base: 145.0
+    min: 0.0
+    max: 4000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  eaton_ups_xupsoutputload:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  eaton_ups_xupsoutputfrequency:
+    base: 60.0
+    min: 0.0
+    max: 120.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  eaton_ups_xupsoutputsource_other:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsoutputsource_high_efficiency:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsoutputsource_maintenance_bypass:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsoutputsource_ess_mode:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsoutputsource_none:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsoutputsource:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsoutputsource_bypass:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsoutputsource_battery:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsoutputsource_booster:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsoutputsource_reducer:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsoutputsource_parallel_capacity:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsoutputsource_parallel_redundant:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsoutputhourlypowerusage:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  eaton_ups_xupsoutputcumulativepowerusage:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  eaton_ups_xupsoutputstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsoutputstatus_not_protected:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsoutputstatus_protected:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsoutputaveragevoltage:
+    base: 12.0
+    min: 0.0
+    max: 480.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  eaton_ups_xupsoutputtotalcurrent:
+    base: 3.2
+    min: 3.2
+    max: 3.2
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsoutputtotalwatts:
+    base: 145.0
+    min: 145.0
+    max: 145.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsoutputtotalva:
+    base: 168.0
+    min: 168.0
+    max: 168.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsoutputaveragepowerfactor:
+    base: 12.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  eaton_ups_xupsoutputvoltage:
+    base: 12.0
+    min: 0.0
+    max: 480.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  eaton_ups_xupsoutputcurrent:
+    base: 3.2
+    min: 0.0
+    max: 200.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  eaton_ups_xupsoutputcurrenthighprecision:
+    base: 3.2
+    min: 0.0
+    max: 200.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  eaton_ups_xupsoutputwatts:
+    base: 145.0
+    min: 0.0
+    max: 4000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  eaton_ups_xupsoutputva:
+    base: 168.0
+    min: 0.0
+    max: 5000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  eaton_ups_xupsoutputpercentload:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  eaton_ups_xupsbypassfrequency:
+    base: 60.0
+    min: 0.0
+    max: 120.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  eaton_ups_xupsbypassaveragevoltage:
+    base: 12.0
+    min: 0.0
+    max: 480.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  eaton_ups_xupsbypasstotalcurrent:
+    base: 3.2
+    min: 3.2
+    max: 3.2
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsbypasstotalwatts:
+    base: 145.0
+    min: 145.0
+    max: 145.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsbypasstotalva:
+    base: 168.0
+    min: 168.0
+    max: 168.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsbypassaveragepowerfactor:
+    base: 12.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  eaton_ups_xupsbypassvoltage:
+    base: 12.0
+    min: 0.0
+    max: 480.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  eaton_ups_xupsbypasscurrenthighprecision:
+    base: 3.2
+    min: 0.0
+    max: 200.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  eaton_ups_xupsbypasswatts:
+    base: 145.0
+    min: 0.0
+    max: 4000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  eaton_ups_xupsenvambienttemp:
+    base: 41.0
+    min: 0.0
+    max: 120.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  eaton_ups_xupsenvambienthumidity:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  eaton_ups_xupsalarms:
+    base: 0.0
+    min: 0.0
+    max: 10000.0
+  eaton_ups_xupsalarmnumevents:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  eaton_ups_xupstestbatterystatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupstestbatterystatus_passed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupstestbatterystatus_failed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupstestbatterystatus_in_progress:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupstestbatterystatus_not_supported:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupstestbatterystatus_inhibited:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupstestbatterystatus_scheduled:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupslastgeneraltestresult:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupslastgeneraltestresult_passed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupslastgeneraltestresult_failed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupslastgeneraltestresult_in_progress:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupslastgeneraltestresult_not_supported:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupslastgeneraltestresult_inhibited:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupslastgeneraltestresult_scheduled:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsconfigoutputvoltage:
+    base: 12.0
+    min: 0.0
+    max: 480.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  eaton_ups_xupsconfiginputvoltage:
+    base: 12.0
+    min: 0.0
+    max: 480.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  eaton_ups_xupsconfigoutputwatts:
+    base: 145.0
+    min: 0.0
+    max: 4000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  eaton_ups_xupsconfigoutputfreq:
+    base: 60.0
+    min: 0.0
+    max: 120.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  eaton_ups_xupsnumreceptacles:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  eaton_ups_xupsrecepstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsrecepstatus_false:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsrecepstatus_pending_off:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsrecepstatus_pending_on:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsrecepstatus_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsrecepstatus_reserved:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsrecepstatus_failed_closed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsrecepstatus_failed_open:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsrecephourlypowerusage:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  eaton_ups_xupsrecepcumulativepowerusage:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  eaton_ups_xupstopologytype:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  eaton_ups_xupstopounitnumber:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  eaton_ups_xupstopopowerstrategy:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupstopopowerstrategy_standard:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupstopopowerstrategy_enable_high_efficiency:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupstopopowerstrategy_immediate_high_efficiency:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsswitchable:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_xupsswitchable_not_switchable:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_ups_systemuptime:
+    base: 86400.0
+    min: 0.0
+    max: 315360000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: snmp.device_prof_xupsBatTimeRemaining
+  title: Battery runtime remaining before UPS shutdown
+  units: s
+  family: System/Battery/Runtime
+  chart_type: line
+  priority: 60000
+  shape: independent
+  dimensions:
+  - id: xupsbattimeremaining
+    signal: eaton_ups_xupsbattimeremaining
+- id: snmp.device_prof_xupsBatVoltage
+  title: Battery voltage
+  units: V
+  family: Hardware/Battery/Voltage
+  chart_type: line
+  priority: 60001
+  shape: independent
+  dimensions:
+  - id: xupsbatvoltage
+    signal: eaton_ups_xupsbatvoltage
+- id: snmp.device_prof_xupsBatCurrent
+  title: Battery current (positive=discharging, negative=charging)
+  units: A
+  family: Hardware/Battery/Current
+  chart_type: line
+  priority: 60002
+  shape: independent
+  dimensions:
+  - id: xupsbatcurrent
+    signal: eaton_ups_xupsbatcurrent
+- id: snmp.device_prof_xupsBatCapacity
+  title: Battery charge level
+  units: '%'
+  family: System/Battery/Capacity
+  chart_type: line
+  priority: 60003
+  shape: independent
+  dimensions:
+  - id: xupsbatcapacity
+    signal: eaton_ups_xupsbatcapacity
+- id: snmp.device_prof_xupsBatteryAbmStatus
+  title: Advanced Battery Management status
+  units: '{status}'
+  family: Hardware/Battery/Status/ABM
+  chart_type: line
+  priority: 60004
+  shape: independent
+  dimensions:
+  - id: charging
+    signal: eaton_ups_xupsbatteryabmstatus
+  - id: discharging
+    signal: eaton_ups_xupsbatteryabmstatus_discharging
+  - id: floating
+    signal: eaton_ups_xupsbatteryabmstatus_floating
+  - id: resting
+    signal: eaton_ups_xupsbatteryabmstatus_resting
+  - id: unknown
+    signal: eaton_ups_xupsbatteryabmstatus_unknown
+  - id: disconnected
+    signal: eaton_ups_xupsbatteryabmstatus_disconnected
+  - id: under_test
+    signal: eaton_ups_xupsbatteryabmstatus_under_test
+  - id: check_battery
+    signal: eaton_ups_xupsbatteryabmstatus_check_battery
+- id: snmp.device_prof_xupsBatteryFailure
+  title: Battery fault or test failure indicator
+  units: '{status}'
+  family: Hardware/Battery/Status/Failure
+  chart_type: line
+  priority: 60005
+  shape: independent
+  dimensions:
+  - id: failed
+    signal: eaton_ups_xupsbatteryfailure_failed
+  - id: ok
+    signal: eaton_ups_xupsbatteryfailure
+- id: snmp.device_prof_xupsBatteryNotPresent
+  title: Battery presence indicator
+  units: '{status}'
+  family: Hardware/Battery/Status/Presence
+  chart_type: line
+  priority: 60006
+  shape: independent
+  dimensions:
+  - id: absent
+    signal: eaton_ups_xupsbatterynotpresent_absent
+  - id: present
+    signal: eaton_ups_xupsbatterynotpresent
+- id: snmp.device_prof_xupsBatteryAged
+  title: Battery age indicator
+  units: '{status}'
+  family: Hardware/Battery/Status/Age
+  chart_type: line
+  priority: 60007
+  shape: independent
+  dimensions:
+  - id: aged
+    signal: eaton_ups_xupsbatteryaged_aged
+  - id: ok
+    signal: eaton_ups_xupsbatteryaged
+- id: snmp.device_prof_xupsBatteryLowCapacity
+  title: Battery low capacity indicator
+  units: '{status}'
+  family: Hardware/Battery/Status/Capacity
+  chart_type: line
+  priority: 60008
+  shape: independent
+  dimensions:
+  - id: low
+    signal: eaton_ups_xupsbatterylowcapacity_low
+  - id: ok
+    signal: eaton_ups_xupsbatterylowcapacity
+- id: snmp.device_prof_xupsInputFrequency
+  title: Input line frequency
+  units: Hz
+  family: PowerFlow/Input/Frequency
+  chart_type: line
+  priority: 60009
+  shape: independent
+  dimensions:
+  - id: xupsinputfrequency
+    signal: eaton_ups_xupsinputfrequency
+- id: snmp.device_prof_xupsInputLineBads
+  title: Count of input out-of-tolerance events
+  units: '{event}'
+  family: PowerFlow/Input/Event/OutOfTolerance
+  chart_type: line
+  priority: 60010
+  shape: independent
+  dimensions:
+  - id: xupsinputlinebads
+    signal: eaton_ups_xupsinputlinebads
+- id: snmp.device_prof_xupsInputSource
+  title: Current input power source
+  units: '{source}'
+  family: PowerFlow/Input/Source
+  chart_type: line
+  priority: 60011
+  shape: independent
+  dimensions:
+  - id: other
+    signal: eaton_ups_xupsinputsource
+  - id: none
+    signal: eaton_ups_xupsinputsource_none
+  - id: primary_utility
+    signal: eaton_ups_xupsinputsource_primary_utility
+  - id: bypass_feed
+    signal: eaton_ups_xupsinputsource_bypass_feed
+  - id: secondary_utility
+    signal: eaton_ups_xupsinputsource_secondary_utility
+  - id: generator
+    signal: eaton_ups_xupsinputsource_generator
+  - id: flywheel
+    signal: eaton_ups_xupsinputsource_flywheel
+  - id: fuelcell
+    signal: eaton_ups_xupsinputsource_fuelcell
+- id: snmp.device_prof_xupsDualInputStatus
+  title: Dual input source status
+  units: '{status}'
+  family: PowerFlow/Input/Status/Dual
+  chart_type: line
+  priority: 60012
+  shape: independent
+  dimensions:
+  - id: both_bad
+    signal: eaton_ups_xupsdualinputstatus
+  - id: primary_good
+    signal: eaton_ups_xupsdualinputstatus_primary_good
+  - id: secondary_good
+    signal: eaton_ups_xupsdualinputstatus_secondary_good
+  - id: both_good
+    signal: eaton_ups_xupsdualinputstatus_both_good
+- id: snmp.device_prof_xupsInputStatus
+  title: Primary AC input status
+  units: '{status}'
+  family: PowerFlow/Input/Status/Primary
+  chart_type: line
+  priority: 60013
+  shape: independent
+  dimensions:
+  - id: bad
+    signal: eaton_ups_xupsinputstatus_bad
+  - id: good
+    signal: eaton_ups_xupsinputstatus
+- id: snmp.device_prof_xupsInputAverageVoltage
+  title: Average input voltage (single phase) or average across phases
+  units: V
+  family: PowerFlow/Input/Total/Voltage
+  chart_type: line
+  priority: 60014
+  shape: independent
+  dimensions:
+  - id: xupsinputaveragevoltage
+    signal: eaton_ups_xupsinputaveragevoltage
+- id: snmp.device_prof_xupsInputTotalCurrent
+  title: Total input current
+  units: A
+  family: PowerFlow/Input/Total/Current
+  chart_type: line
+  priority: 60015
+  shape: independent
+  dimensions:
+  - id: xupsinputtotalcurrent
+    signal: eaton_ups_xupsinputtotalcurrent
+- id: snmp.device_prof_xupsInputTotalWatts
+  title: Total input active power
+  units: W
+  family: PowerFlow/Input/Total/Power/Active
+  chart_type: line
+  priority: 60016
+  shape: independent
+  dimensions:
+  - id: xupsinputtotalwatts
+    signal: eaton_ups_xupsinputtotalwatts
+- id: snmp.device_prof_xupsInputTotalVA
+  title: Total input apparent power
+  units: VA
+  family: PowerFlow/Input/Total/Power/Apparent
+  chart_type: line
+  priority: 60017
+  shape: independent
+  dimensions:
+  - id: xupsinputtotalva
+    signal: eaton_ups_xupsinputtotalva
+- id: snmp.device_prof_xupsInputAveragePowerFactor
+  title: Average input power factor
+  units: '1'
+  family: PowerFlow/Input/Total/PowerFactor
+  chart_type: line
+  priority: 60018
+  shape: independent
+  dimensions:
+  - id: xupsinputaveragepowerfactor
+    signal: eaton_ups_xupsinputaveragepowerfactor
+- id: snmp.device_prof_xupsInputVoltage
+  title: Input voltage per phase
+  units: V
+  family: PowerFlow/Input/Phase/Voltage
+  chart_type: line
+  priority: 60019
+  shape: independent
+  dimensions:
+  - id: xupsinputvoltage
+    signal: eaton_ups_xupsinputvoltage
+  instances:
+    group: phase
+    chart_prefix: xupsinputvoltage
+    family: PowerFlow/Input/Phase/Voltage
+    labels:
+      phase: '{instance}'
+- id: snmp.device_prof_xupsInputCurrent
+  title: Input current per phase
+  units: A
+  family: PowerFlow/Input/Phase/Current
+  chart_type: line
+  priority: 60020
+  shape: independent
+  dimensions:
+  - id: xupsinputcurrent
+    signal: eaton_ups_xupsinputcurrent
+  instances:
+    group: phase
+    chart_prefix: xupsinputcurrent
+    family: PowerFlow/Input/Phase/Current
+    labels:
+      phase: '{instance}'
+- id: snmp.device_prof_xupsInputCurrentHighPrecision
+  title: Input current per phase (high precision)
+  units: A
+  family: PowerFlow/Input/Phase/CurrentHP
+  chart_type: line
+  priority: 60021
+  shape: independent
+  dimensions:
+  - id: xupsinputcurrenthighprecisio
+    signal: eaton_ups_xupsinputcurrenthighprecision
+  instances:
+    group: phase
+    chart_prefix: xupsinputcurrenthighprecision
+    family: PowerFlow/Input/Phase/CurrentHP
+    labels:
+      phase: '{instance}'
+- id: snmp.device_prof_xupsInputWatts
+  title: Input real power per phase
+  units: W
+  family: PowerFlow/Input/Phase/Power
+  chart_type: line
+  priority: 60022
+  shape: independent
+  dimensions:
+  - id: xupsinputwatts
+    signal: eaton_ups_xupsinputwatts
+  instances:
+    group: phase
+    chart_prefix: xupsinputwatts
+    family: PowerFlow/Input/Phase/Power
+    labels:
+      phase: '{instance}'
+- id: snmp.device_prof_xupsOutputLoad
+  title: UPS output load percentage
+  units: '%'
+  family: PowerFlow/Output/Load
+  chart_type: line
+  priority: 60023
+  shape: independent
+  dimensions:
+  - id: xupsoutputload
+    signal: eaton_ups_xupsoutputload
+- id: snmp.device_prof_xupsOutputFrequency
+  title: Output frequency
+  units: Hz
+  family: PowerFlow/Output/Frequency
+  chart_type: line
+  priority: 60024
+  shape: independent
+  dimensions:
+  - id: xupsoutputfrequency
+    signal: eaton_ups_xupsoutputfrequency
+- id: snmp.device_prof_xupsOutputSource
+  title: Current output power source
+  units: '{source}'
+  family: PowerFlow/Output/Source
+  chart_type: line
+  priority: 60025
+  shape: independent
+  dimensions:
+  - id: other
+    signal: eaton_ups_xupsoutputsource_other
+  - id: high_efficiency
+    signal: eaton_ups_xupsoutputsource_high_efficiency
+  - id: maintenance_bypass
+    signal: eaton_ups_xupsoutputsource_maintenance_bypass
+  - id: ess_mode
+    signal: eaton_ups_xupsoutputsource_ess_mode
+  - id: none
+    signal: eaton_ups_xupsoutputsource_none
+  - id: normal
+    signal: eaton_ups_xupsoutputsource
+  - id: bypass
+    signal: eaton_ups_xupsoutputsource_bypass
+  - id: battery
+    signal: eaton_ups_xupsoutputsource_battery
+  - id: booster
+    signal: eaton_ups_xupsoutputsource_booster
+  - id: reducer
+    signal: eaton_ups_xupsoutputsource_reducer
+  - id: parallel_capacity
+    signal: eaton_ups_xupsoutputsource_parallel_capacity
+  - id: parallel_redundant
+    signal: eaton_ups_xupsoutputsource_parallel_redundant
+- id: snmp.device_prof_xupsOutputHourlyPowerUsage
+  title: Energy consumed during the last hour
+  units: Wh
+  family: PowerFlow/Output/Energy/Hourly
+  chart_type: line
+  priority: 60026
+  shape: independent
+  dimensions:
+  - id: xupsoutputhourlypowerusage
+    signal: eaton_ups_xupsoutputhourlypowerusage
+- id: snmp.device_prof_xupsOutputCumulativePowerUsage
+  title: Cumulative energy consumed since last reset
+  units: Wh
+  family: PowerFlow/Output/Energy/Cumulative
+  chart_type: line
+  priority: 60027
+  shape: independent
+  dimensions:
+  - id: xupsoutputcumulativepowerusa
+    signal: eaton_ups_xupsoutputcumulativepowerusage
+- id: snmp.device_prof_xupsOutputStatus
+  title: AC output protection status
+  units: '{status}'
+  family: PowerFlow/Output/Status
+  chart_type: line
+  priority: 60028
+  shape: independent
+  dimensions:
+  - id: not_powered
+    signal: eaton_ups_xupsoutputstatus
+  - id: not_protected
+    signal: eaton_ups_xupsoutputstatus_not_protected
+  - id: protected
+    signal: eaton_ups_xupsoutputstatus_protected
+- id: snmp.device_prof_xupsOutputAverageVoltage
+  title: Average output voltage
+  units: V
+  family: PowerFlow/Output/Total/Voltage
+  chart_type: line
+  priority: 60029
+  shape: independent
+  dimensions:
+  - id: xupsoutputaveragevoltage
+    signal: eaton_ups_xupsoutputaveragevoltage
+- id: snmp.device_prof_xupsOutputTotalCurrent
+  title: Total output current
+  units: A
+  family: PowerFlow/Output/Total/Current
+  chart_type: line
+  priority: 60030
+  shape: independent
+  dimensions:
+  - id: xupsoutputtotalcurrent
+    signal: eaton_ups_xupsoutputtotalcurrent
+- id: snmp.device_prof_xupsOutputTotalWatts
+  title: Total output active power
+  units: W
+  family: PowerFlow/Output/Total/Power/Active
+  chart_type: line
+  priority: 60031
+  shape: independent
+  dimensions:
+  - id: xupsoutputtotalwatts
+    signal: eaton_ups_xupsoutputtotalwatts
+- id: snmp.device_prof_xupsOutputTotalVA
+  title: Total output apparent power
+  units: VA
+  family: PowerFlow/Output/Total/Power/Apparent
+  chart_type: line
+  priority: 60032
+  shape: independent
+  dimensions:
+  - id: xupsoutputtotalva
+    signal: eaton_ups_xupsoutputtotalva
+- id: snmp.device_prof_xupsOutputAveragePowerFactor
+  title: Average output power factor
+  units: '1'
+  family: PowerFlow/Output/Total/PowerFactor
+  chart_type: line
+  priority: 60033
+  shape: independent
+  dimensions:
+  - id: xupsoutputaveragepowerfactor
+    signal: eaton_ups_xupsoutputaveragepowerfactor
+- id: snmp.device_prof_xupsOutputVoltage
+  title: Output voltage per phase
+  units: V
+  family: PowerFlow/Output/Phase/Voltage
+  chart_type: line
+  priority: 60034
+  shape: independent
+  dimensions:
+  - id: xupsoutputvoltage
+    signal: eaton_ups_xupsoutputvoltage
+  instances:
+    group: phase
+    chart_prefix: xupsoutputvoltage
+    family: PowerFlow/Output/Phase/Voltage
+    labels:
+      phase: '{instance}'
+- id: snmp.device_prof_xupsOutputCurrent
+  title: Output current per phase
+  units: A
+  family: PowerFlow/Output/Phase/Current
+  chart_type: line
+  priority: 60035
+  shape: independent
+  dimensions:
+  - id: xupsoutputcurrent
+    signal: eaton_ups_xupsoutputcurrent
+  instances:
+    group: phase
+    chart_prefix: xupsoutputcurrent
+    family: PowerFlow/Output/Phase/Current
+    labels:
+      phase: '{instance}'
+- id: snmp.device_prof_xupsOutputCurrentHighPrecision
+  title: Output current per phase (high precision)
+  units: A
+  family: PowerFlow/Output/Phase/CurrentHP
+  chart_type: line
+  priority: 60036
+  shape: independent
+  dimensions:
+  - id: xupsoutputcurrenthighprecisi
+    signal: eaton_ups_xupsoutputcurrenthighprecision
+  instances:
+    group: phase
+    chart_prefix: xupsoutputcurrenthighprecision
+    family: PowerFlow/Output/Phase/CurrentHP
+    labels:
+      phase: '{instance}'
+- id: snmp.device_prof_xupsOutputWatts
+  title: Output real power per phase
+  units: W
+  family: PowerFlow/Output/Phase/Power/Active
+  chart_type: line
+  priority: 60037
+  shape: independent
+  dimensions:
+  - id: xupsoutputwatts
+    signal: eaton_ups_xupsoutputwatts
+  instances:
+    group: phase
+    chart_prefix: xupsoutputwatts
+    family: PowerFlow/Output/Phase/Power/Active
+    labels:
+      phase: '{instance}'
+- id: snmp.device_prof_xupsOutputVA
+  title: Output apparent power per phase
+  units: VA
+  family: PowerFlow/Output/Phase/Power/Apparent
+  chart_type: line
+  priority: 60038
+  shape: independent
+  dimensions:
+  - id: xupsoutputva
+    signal: eaton_ups_xupsoutputva
+  instances:
+    group: phase
+    chart_prefix: xupsoutputva
+    family: PowerFlow/Output/Phase/Power/Apparent
+    labels:
+      phase: '{instance}'
+- id: snmp.device_prof_xupsOutputPercentLoad
+  title: Output load percentage per phase
+  units: '%'
+  family: PowerFlow/Output/Phase/Load
+  chart_type: line
+  priority: 60039
+  shape: independent
+  dimensions:
+  - id: xupsoutputpercentload
+    signal: eaton_ups_xupsoutputpercentload
+  instances:
+    group: phase
+    chart_prefix: xupsoutputpercentload
+    family: PowerFlow/Output/Phase/Load
+    labels:
+      phase: '{instance}'
+- id: snmp.device_prof_xupsBypassFrequency
+  title: Bypass frequency
+  units: Hz
+  family: PowerFlow/Bypass/Frequency
+  chart_type: line
+  priority: 60040
+  shape: independent
+  dimensions:
+  - id: xupsbypassfrequency
+    signal: eaton_ups_xupsbypassfrequency
+- id: snmp.device_prof_xupsBypassAverageVoltage
+  title: Average bypass voltage
+  units: V
+  family: PowerFlow/Bypass/Total/Voltage
+  chart_type: line
+  priority: 60041
+  shape: independent
+  dimensions:
+  - id: xupsbypassaveragevoltage
+    signal: eaton_ups_xupsbypassaveragevoltage
+- id: snmp.device_prof_xupsBypassTotalCurrent
+  title: Total bypass current
+  units: A
+  family: PowerFlow/Bypass/Total/Current
+  chart_type: line
+  priority: 60042
+  shape: independent
+  dimensions:
+  - id: xupsbypasstotalcurrent
+    signal: eaton_ups_xupsbypasstotalcurrent
+- id: snmp.device_prof_xupsBypassTotalWatts
+  title: Total bypass active power
+  units: W
+  family: PowerFlow/Bypass/Total/Power/Active
+  chart_type: line
+  priority: 60043
+  shape: independent
+  dimensions:
+  - id: xupsbypasstotalwatts
+    signal: eaton_ups_xupsbypasstotalwatts
+- id: snmp.device_prof_xupsBypassTotalVA
+  title: Total bypass apparent power
+  units: VA
+  family: PowerFlow/Bypass/Total/Power/Apparent
+  chart_type: line
+  priority: 60044
+  shape: independent
+  dimensions:
+  - id: xupsbypasstotalva
+    signal: eaton_ups_xupsbypasstotalva
+- id: snmp.device_prof_xupsBypassAveragePowerFactor
+  title: Average bypass power factor
+  units: '1'
+  family: PowerFlow/Bypass/Total/PowerFactor
+  chart_type: line
+  priority: 60045
+  shape: independent
+  dimensions:
+  - id: xupsbypassaveragepowerfactor
+    signal: eaton_ups_xupsbypassaveragepowerfactor
+- id: snmp.device_prof_xupsBypassVoltage
+  title: Bypass voltage per phase
+  units: V
+  family: PowerFlow/Bypass/Phase/Voltage
+  chart_type: line
+  priority: 60046
+  shape: independent
+  dimensions:
+  - id: xupsbypassvoltage
+    signal: eaton_ups_xupsbypassvoltage
+  instances:
+    group: phase
+    chart_prefix: xupsbypassvoltage
+    family: PowerFlow/Bypass/Phase/Voltage
+    labels:
+      phase: '{instance}'
+- id: snmp.device_prof_xupsBypassCurrentHighPrecision
+  title: Bypass current per phase (high precision)
+  units: A
+  family: PowerFlow/Bypass/Phase/Current
+  chart_type: line
+  priority: 60047
+  shape: independent
+  dimensions:
+  - id: xupsbypasscurrenthighprecisi
+    signal: eaton_ups_xupsbypasscurrenthighprecision
+  instances:
+    group: phase
+    chart_prefix: xupsbypasscurrenthighprecision
+    family: PowerFlow/Bypass/Phase/Current
+    labels:
+      phase: '{instance}'
+- id: snmp.device_prof_xupsBypassWatts
+  title: Bypass real power per phase
+  units: W
+  family: PowerFlow/Bypass/Phase/Power
+  chart_type: line
+  priority: 60048
+  shape: independent
+  dimensions:
+  - id: xupsbypasswatts
+    signal: eaton_ups_xupsbypasswatts
+  instances:
+    group: phase
+    chart_prefix: xupsbypasswatts
+    family: PowerFlow/Bypass/Phase/Power
+    labels:
+      phase: '{instance}'
+- id: snmp.device_prof_xupsEnvAmbientTemp
+  title: Ambient temperature near UPS
+  units: Cel
+  family: Environment/Temperature
+  chart_type: line
+  priority: 60049
+  shape: independent
+  dimensions:
+  - id: xupsenvambienttemp
+    signal: eaton_ups_xupsenvambienttemp
+- id: snmp.device_prof_xupsEnvAmbientHumidity
+  title: Ambient humidity near UPS
+  units: '%'
+  family: Environment/Humidity
+  chart_type: line
+  priority: 60050
+  shape: independent
+  dimensions:
+  - id: xupsenvambienthumidity
+    signal: eaton_ups_xupsenvambienthumidity
+- id: snmp.device_prof_xupsAlarms
+  title: Current number of active alarm conditions
+  units: '{alarm}'
+  family: System/Alarm/Active
+  chart_type: line
+  priority: 60051
+  shape: independent
+  dimensions:
+  - id: xupsalarms
+    signal: eaton_ups_xupsalarms
+- id: snmp.device_prof_xupsAlarmNumEvents
+  title: Number of entries in UPS event history
+  units: '{event}'
+  family: System/Alarm/Event/History
+  chart_type: line
+  priority: 60052
+  shape: independent
+  dimensions:
+  - id: xupsalarmnumevents
+    signal: eaton_ups_xupsalarmnumevents
+- id: snmp.device_prof_xupsTestBatteryStatus
+  title: Last battery test status
+  units: '{status}'
+  family: System/Test/Status/Battery
+  chart_type: line
+  priority: 60053
+  shape: independent
+  dimensions:
+  - id: unknown
+    signal: eaton_ups_xupstestbatterystatus
+  - id: passed
+    signal: eaton_ups_xupstestbatterystatus_passed
+  - id: failed
+    signal: eaton_ups_xupstestbatterystatus_failed
+  - id: in_progress
+    signal: eaton_ups_xupstestbatterystatus_in_progress
+  - id: not_supported
+    signal: eaton_ups_xupstestbatterystatus_not_supported
+  - id: inhibited
+    signal: eaton_ups_xupstestbatterystatus_inhibited
+  - id: scheduled
+    signal: eaton_ups_xupstestbatterystatus_scheduled
+- id: snmp.device_prof_xupsLastGeneralTestResult
+  title: Last general test result
+  units: '{status}'
+  family: System/Test/Status/General
+  chart_type: line
+  priority: 60054
+  shape: independent
+  dimensions:
+  - id: unknown
+    signal: eaton_ups_xupslastgeneraltestresult
+  - id: passed
+    signal: eaton_ups_xupslastgeneraltestresult_passed
+  - id: failed
+    signal: eaton_ups_xupslastgeneraltestresult_failed
+  - id: in_progress
+    signal: eaton_ups_xupslastgeneraltestresult_in_progress
+  - id: not_supported
+    signal: eaton_ups_xupslastgeneraltestresult_not_supported
+  - id: inhibited
+    signal: eaton_ups_xupslastgeneraltestresult_inhibited
+  - id: scheduled
+    signal: eaton_ups_xupslastgeneraltestresult_scheduled
+- id: snmp.device_prof_xupsConfigOutputVoltage
+  title: Nominal output voltage
+  units: V
+  family: System/Config/Voltage/Output
+  chart_type: line
+  priority: 60055
+  shape: independent
+  dimensions:
+  - id: xupsconfigoutputvoltage
+    signal: eaton_ups_xupsconfigoutputvoltage
+- id: snmp.device_prof_xupsConfigInputVoltage
+  title: Nominal input voltage
+  units: V
+  family: System/Config/Voltage/Input
+  chart_type: line
+  priority: 60056
+  shape: independent
+  dimensions:
+  - id: xupsconfiginputvoltage
+    signal: eaton_ups_xupsconfiginputvoltage
+- id: snmp.device_prof_xupsConfigOutputWatts
+  title: Nominal output power capacity
+  units: W
+  family: System/Config/Power/Capacity
+  chart_type: line
+  priority: 60057
+  shape: independent
+  dimensions:
+  - id: xupsconfigoutputwatts
+    signal: eaton_ups_xupsconfigoutputwatts
+- id: snmp.device_prof_xupsConfigOutputFreq
+  title: Nominal output frequency
+  units: Hz
+  family: System/Config/Frequency
+  chart_type: line
+  priority: 60058
+  shape: independent
+  dimensions:
+  - id: xupsconfigoutputfreq
+    signal: eaton_ups_xupsconfigoutputfreq
+- id: snmp.device_prof_xupsNumReceptacles
+  title: Number of controllable receptacles
+  units: '{receptacle}'
+  family: PowerFlow/Receptacle/Total
+  chart_type: line
+  priority: 60059
+  shape: independent
+  dimensions:
+  - id: xupsnumreceptacles
+    signal: eaton_ups_xupsnumreceptacles
+- id: snmp.device_prof_xupsRecepStatus
+  title: Receptacle power status
+  units: '{status}'
+  family: PowerFlow/Receptacle/Status
+  chart_type: line
+  priority: 60060
+  shape: independent
+  dimensions:
+  - id: 'true'
+    signal: eaton_ups_xupsrecepstatus
+  - id: 'false'
+    signal: eaton_ups_xupsrecepstatus_false
+  - id: pending_off
+    signal: eaton_ups_xupsrecepstatus_pending_off
+  - id: pending_on
+    signal: eaton_ups_xupsrecepstatus_pending_on
+  - id: unknown
+    signal: eaton_ups_xupsrecepstatus_unknown
+  - id: reserved
+    signal: eaton_ups_xupsrecepstatus_reserved
+  - id: failed_closed
+    signal: eaton_ups_xupsrecepstatus_failed_closed
+  - id: failed_open
+    signal: eaton_ups_xupsrecepstatus_failed_open
+  instances:
+    group: receptacle
+    chart_prefix: xupsrecepstatus
+    family: PowerFlow/Receptacle/Status
+    labels:
+      receptacle: '{instance}'
+- id: snmp.device_prof_xupsRecepHourlyPowerUsage
+  title: Receptacle hourly energy consumption
+  units: Wh
+  family: PowerFlow/Receptacle/Energy/Hourly
+  chart_type: line
+  priority: 60061
+  shape: independent
+  dimensions:
+  - id: xupsrecephourlypowerusage
+    signal: eaton_ups_xupsrecephourlypowerusage
+  instances:
+    group: receptacle
+    chart_prefix: xupsrecephourlypowerusage
+    family: PowerFlow/Receptacle/Energy/Hourly
+    labels:
+      receptacle: '{instance}'
+- id: snmp.device_prof_xupsRecepCumulativePowerUsage
+  title: Receptacle cumulative energy consumption
+  units: Wh
+  family: PowerFlow/Receptacle/Energy/Cumulative
+  chart_type: line
+  priority: 60062
+  shape: independent
+  dimensions:
+  - id: xupsrecepcumulativepowerusag
+    signal: eaton_ups_xupsrecepcumulativepowerusage
+  instances:
+    group: receptacle
+    chart_prefix: xupsrecepcumulativepowerusage
+    family: PowerFlow/Receptacle/Energy/Cumulative
+    labels:
+      receptacle: '{instance}'
+- id: snmp.device_prof_xupsTopologyType
+  title: UPS power topology type
+  units: '{type}'
+  family: System/Topology/Type
+  chart_type: line
+  priority: 60063
+  shape: independent
+  dimensions:
+  - id: xupstopologytype
+    signal: eaton_ups_xupstopologytype
+- id: snmp.device_prof_xupsTopoUnitNumber
+  title: Unit number in parallel system (0=standalone or system view)
+  units: '{unit}'
+  family: System/Topology/Unit
+  chart_type: line
+  priority: 60064
+  shape: independent
+  dimensions:
+  - id: xupstopounitnumber
+    signal: eaton_ups_xupstopounitnumber
+- id: snmp.device_prof_xupsTopoPowerStrategy
+  title: Current power strategy setting
+  units: '{strategy}'
+  family: System/Topology/PowerStrategy
+  chart_type: line
+  priority: 60065
+  shape: independent
+  dimensions:
+  - id: high_alert
+    signal: eaton_ups_xupstopopowerstrategy
+  - id: standard
+    signal: eaton_ups_xupstopopowerstrategy_standard
+  - id: enable_high_efficiency
+    signal: eaton_ups_xupstopopowerstrategy_enable_high_efficiency
+  - id: immediate_high_efficiency
+    signal: eaton_ups_xupstopopowerstrategy_immediate_high_efficiency
+- id: snmp.device_prof_xupsSwitchable
+  title: Whether UPS accepts remote control commands
+  units: '{status}'
+  family: System/Control/Status
+  chart_type: line
+  priority: 60066
+  shape: independent
+  dimensions:
+  - id: switchable
+    signal: eaton_ups_xupsswitchable
+  - id: not_switchable
+    signal: eaton_ups_xupsswitchable_not_switchable
+- id: snmp.device_prof_systemUptime
+  title: Time since the system was last rebooted or powered on.
+  units: s
+  family: System/Uptime
+  chart_type: line
+  priority: 60067
+  shape: independent
+  dimensions:
+  - id: systemuptime
+    signal: eaton_ups_systemuptime

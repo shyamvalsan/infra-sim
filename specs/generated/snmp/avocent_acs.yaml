@@ -1,0 +1,1538 @@
+version: 1
+name: avocent_acs
+description: Avocent Console Server, as Netdata's SNMP collector reports it. Generated from go.d/snmp.profiles/default/avocent-acs.yaml
+  with its `extends` chain resolved. Contexts, units, families and metric names are the device's own; values are a plausible
+  fiction.
+signals:
+  avocent_acs_avocent_acspowersupplystatepw1:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  avocent_acs_avocent_acspowersupplystatepw1_2:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  avocent_acs_avocent_acspowersupplystatepw1_1:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  avocent_acs_avocent_acspowersupplystatepw2:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  avocent_acs_avocent_acspowersupplystatepw2_2:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  avocent_acs_avocent_acspowersupplystatepw2_1:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  avocent_acs_avocent_acsactivesessionsnumberofsession:
+    base: 180.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  avocent_acs_avocent_acsserialporttablestatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  avocent_acs_avocent_acsserialporttablestatus_idle:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  avocent_acs_avocent_acsserialporttablestatus_in_use:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  avocent_acs_systemuptime:
+    base: 86400.0
+    min: 0.0
+    max: 315360000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  avocent_acs_ifnumber:
+    base: 26.0
+    min: 26.0
+    max: 26.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_admin_status:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_admin_status_down:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_admin_status_testing:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_down:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_testing:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_dormant:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_notpresent:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_lowerlayerdown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_speed:
+    from_attr: if_speed_mbps
+    base: 1000.0
+    min: 0.0
+    max: 400000.0
+  avocent_acs_ucd_memorytotal:
+    base: 4294967296.0
+    min: 4294967296.0
+    max: 4294967296.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  avocent_acs_memory_free:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  avocent_acs_ucd_memtotalswap:
+    base: 4294967296.0
+    min: 4294967296.0
+    max: 4294967296.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  avocent_acs_ucd_memavailswap:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  avocent_acs_ucd_memtotalfree:
+    base: 4294967296.0
+    min: 4294967296.0
+    max: 4294967296.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  avocent_acs_ucd_memminimumswap:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  avocent_acs_ucd_memshared:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  avocent_acs_ucd_membuffer:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  avocent_acs_ucd_memcached:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  avocent_acs_ucd_dsktotal:
+    base: 4294967296.0
+    min: 4294967296.0
+    max: 4294967296.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  avocent_acs_ucd_dskavail:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  avocent_acs_ucd_dskused:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  avocent_acs_ucd_dskpercent:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  avocent_acs_ucd_dskpercentnode:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  avocent_acs_ucd_dskerrorflag:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  avocent_acs_ucd_dskerrorflag_error:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  avocent_acs_ucd_diskioreads:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  avocent_acs_ucd_diskiowrites:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  avocent_acs_ucd_diskiola1:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  avocent_acs_ucd_diskiola5:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  avocent_acs_ucd_diskiola15:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  avocent_acs_ucd_diskionreadx:
+    base: 3100000.0
+    min: 0.0
+    max: 1250000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  avocent_acs_ucd_diskionwrittenx:
+    base: 3100000.0
+    min: 0.0
+    max: 1250000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  avocent_acs_ucd_ssiorawsent:
+    base: 3100000.0
+    min: 0.0
+    max: 1250000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  avocent_acs_ucd_ssiorawreceived:
+    base: 3100000.0
+    min: 0.0
+    max: 1250000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  avocent_acs_ucd_ssrawinterrupts:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  avocent_acs_ucd_ssrawcontexts:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  avocent_acs_ucd_ssrawswapin:
+    base: 3100000.0
+    min: 0.0
+    max: 1250000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  avocent_acs_ucd_ssrawswapout:
+    base: 3100000.0
+    min: 0.0
+    max: 1250000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_octets_rate:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_out_octets_rate:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_ucast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_out_ucast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_mcast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  avocent_acs_ifhcoutmulticastpkts:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_bcast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  avocent_acs_ifhcoutbroadcastpkts:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_errors_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  if_out_errors_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  if_in_discards_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  if_out_discards_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  avocent_acs_iftotaloperstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  avocent_acs_iftotaloperstatus_down:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  avocent_acs_iftotaloperstatus_testing:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  avocent_acs_iftotaloperstatus_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  avocent_acs_iftotaloperstatus_dormant:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  avocent_acs_iftotaloperstatus_notpresent:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  avocent_acs_iftotaloperstatus_lowerlayerdown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  avocent_acs_ucd_sscpurawuser:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  avocent_acs_ucd_sscpurawnice:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  avocent_acs_ucd_sscpurawsystem:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  avocent_acs_ucd_sscpurawkernel:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  avocent_acs_ucd_sscpurawwait:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  avocent_acs_ucd_sscpurawinterrupt:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  avocent_acs_ucd_sscpurawsoftirq:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  avocent_acs_ucd_sscpurawsteal:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  avocent_acs_ucd_sscpurawguest:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  avocent_acs_ucd_sscpurawguestnice:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  avocent_acs_ucd_cpuload1m:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  avocent_acs_ucd_cpuload5m:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  avocent_acs_ucd_cpuload15m:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: snmp.device_prof_avocent_acsPowerSupplyStatePw1
+  title: State of the first power supply
+  units: '{status}'
+  family: Hardware/PowerSupply/1/Status
+  chart_type: line
+  priority: 60000
+  shape: independent
+  dimensions:
+  - id: '9999'
+    signal: avocent_acs_avocent_acspowersupplystatepw1
+  - id: '2'
+    signal: avocent_acs_avocent_acspowersupplystatepw1_2
+  - id: '1'
+    signal: avocent_acs_avocent_acspowersupplystatepw1_1
+- id: snmp.device_prof_avocent_acsPowerSupplyStatePw2
+  title: State of the second power supply
+  units: '{status}'
+  family: Hardware/PowerSupply/2/Status
+  chart_type: line
+  priority: 60001
+  shape: independent
+  dimensions:
+  - id: '9999'
+    signal: avocent_acs_avocent_acspowersupplystatepw2
+  - id: '2'
+    signal: avocent_acs_avocent_acspowersupplystatepw2_2
+  - id: '1'
+    signal: avocent_acs_avocent_acspowersupplystatepw2_1
+- id: snmp.device_prof_avocent_acsActiveSessionsNumberOfSession
+  title: Number of active sessions
+  units: '{session}'
+  family: System/Activity/Session/Active
+  chart_type: line
+  priority: 60002
+  shape: independent
+  dimensions:
+  - id: avocent_acsactivesessionsnum
+    signal: avocent_acs_avocent_acsactivesessionsnumberofsession
+- id: snmp.device_prof_avocent_acsSerialPortTableStatus
+  title: The status of the serial port
+  units: '{status}'
+  family: Hardware/SerialPort/Status
+  chart_type: line
+  priority: 60003
+  shape: independent
+  dimensions:
+  - id: disabled
+    signal: avocent_acs_avocent_acsserialporttablestatus
+  - id: idle
+    signal: avocent_acs_avocent_acsserialporttablestatus_idle
+  - id: in_use
+    signal: avocent_acs_avocent_acsserialporttablestatus_in_use
+  instances:
+    group: avocent_acs_serial_port_table_device_name
+    chart_prefix: avocent_acsserialporttablestatus
+    family: Hardware/SerialPort/Status
+    labels:
+      avocent_acs_serial_port_table_device_name: '{instance}'
+- id: snmp.device_prof_systemUptime
+  title: Time since the system was last rebooted or powered on.
+  units: s
+  family: System/Uptime
+  chart_type: line
+  priority: 60004
+  shape: independent
+  dimensions:
+  - id: systemuptime
+    signal: avocent_acs_systemuptime
+- id: snmp.device_prof_ifNumber
+  title: Number of network interfaces regardless of their current state present on this system
+  units: '{interface}'
+  family: Network/Interface/Count
+  chart_type: line
+  priority: 60005
+  shape: independent
+  dimensions:
+  - id: ifnumber
+    signal: avocent_acs_ifnumber
+- id: snmp.device_prof_ifAdminStatus
+  title: Current administrative state of the interface
+  units: '{status}'
+  family: Network/Interface/Status/Admin
+  chart_type: line
+  priority: 60006
+  shape: independent
+  dimensions:
+  - id: up
+    signal: if_admin_status
+  - id: down
+    signal: if_admin_status_down
+  - id: testing
+    signal: if_admin_status_testing
+  instances:
+    group: interface
+    chart_prefix: ifadminstatus
+    family: Network/Interface/Status/Admin
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifOperStatus
+  title: Current operational state of the interface
+  units: '{status}'
+  family: Network/Interface/Status/Operational
+  chart_type: line
+  priority: 60007
+  shape: independent
+  dimensions:
+  - id: up
+    signal: if_oper_status
+  - id: down
+    signal: if_oper_status_down
+  - id: testing
+    signal: if_oper_status_testing
+  - id: unknown
+    signal: if_oper_status_unknown
+  - id: dormant
+    signal: if_oper_status_dormant
+  - id: notpresent
+    signal: if_oper_status_notpresent
+  - id: lowerlayerdown
+    signal: if_oper_status_lowerlayerdown
+  instances:
+    group: interface
+    chart_prefix: ifoperstatus
+    family: Network/Interface/Status/Operational
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifHighSpeed
+  title: Estimate of the interface's current bandwidth
+  units: bit/s
+  family: Network/Interface/Speed
+  chart_type: area
+  priority: 60008
+  shape: counters
+  dimensions:
+  - id: ifhighspeed
+    rate_signal: if_speed
+  instances:
+    group: interface
+    chart_prefix: ifhighspeed
+    family: Network/Interface/Speed
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ucd_memoryTotal
+  title: The total amount of real/physical memory installed on this host
+  units: By
+  family: System/Memory/Physical/Total
+  chart_type: line
+  priority: 60009
+  shape: independent
+  dimensions:
+  - id: ucd_memorytotal
+    signal: avocent_acs_ucd_memorytotal
+- id: snmp.device_prof_memory_free
+  title: The amount of real/physical memory currently unused or available
+  units: By
+  family: System/Memory/Physical/Free
+  chart_type: line
+  priority: 60010
+  shape: independent
+  dimensions:
+  - id: memory_free
+    signal: avocent_acs_memory_free
+- id: snmp.device_prof_ucd_memTotalSwap
+  title: The total amount of swap space configured for this host
+  units: By
+  family: System/Memory/Swap/Total
+  chart_type: line
+  priority: 60011
+  shape: independent
+  dimensions:
+  - id: ucd_memtotalswap
+    signal: avocent_acs_ucd_memtotalswap
+- id: snmp.device_prof_ucd_memAvailSwap
+  title: The amount of swap space currently unused or available
+  units: By
+  family: System/Memory/Swap/Available
+  chart_type: line
+  priority: 60012
+  shape: independent
+  dimensions:
+  - id: ucd_memavailswap
+    signal: avocent_acs_ucd_memavailswap
+- id: snmp.device_prof_ucd_memTotalFree
+  title: The total amount of memory free or available for use on this host
+  units: By
+  family: System/Memory/Available/Total
+  chart_type: line
+  priority: 60013
+  shape: independent
+  dimensions:
+  - id: ucd_memtotalfree
+    signal: avocent_acs_ucd_memtotalfree
+- id: snmp.device_prof_ucd_memMinimumSwap
+  title: The minimum amount of swap space expected to be kept free or available during normal operation of this host
+  units: By
+  family: System/Memory/Swap/Minimum
+  chart_type: line
+  priority: 60014
+  shape: independent
+  dimensions:
+  - id: ucd_memminimumswap
+    signal: avocent_acs_ucd_memminimumswap
+- id: snmp.device_prof_ucd_memShared
+  title: The total amount of real or virtual memory currently allocated for use as shared memory
+  units: By
+  family: System/Memory/Physical/Shared
+  chart_type: line
+  priority: 60015
+  shape: independent
+  dimensions:
+  - id: ucd_memshared
+    signal: avocent_acs_ucd_memshared
+- id: snmp.device_prof_ucd_memBuffer
+  title: The total amount of real or virtual memory currently allocated for use as memory buffers
+  units: By
+  family: System/Memory/Physical/Buffer
+  chart_type: line
+  priority: 60016
+  shape: independent
+  dimensions:
+  - id: ucd_membuffer
+    signal: avocent_acs_ucd_membuffer
+- id: snmp.device_prof_ucd_memCached
+  title: The total amount of real or virtual memory currently allocated for use as cached memory
+  units: By
+  family: System/Memory/Physical/Cached
+  chart_type: line
+  priority: 60017
+  shape: independent
+  dimensions:
+  - id: ucd_memcached
+    signal: avocent_acs_ucd_memcached
+- id: snmp.device_prof_ucd_dskTotal
+  title: Total size of the disk/partition
+  units: By
+  family: System/Disk/Space/Total
+  chart_type: line
+  priority: 60018
+  shape: independent
+  dimensions:
+  - id: ucd_dsktotal
+    signal: avocent_acs_ucd_dsktotal
+  instances:
+    group: ucd_dsk_path
+    chart_prefix: ucd_dsktotal
+    family: System/Disk/Space/Total
+    labels:
+      ucd_dsk_path: '{instance}'
+- id: snmp.device_prof_ucd_dskAvail
+  title: Available space on the disk
+  units: By
+  family: System/Disk/Space/Available
+  chart_type: line
+  priority: 60019
+  shape: independent
+  dimensions:
+  - id: ucd_dskavail
+    signal: avocent_acs_ucd_dskavail
+  instances:
+    group: ucd_dsk_path
+    chart_prefix: ucd_dskavail
+    family: System/Disk/Space/Available
+    labels:
+      ucd_dsk_path: '{instance}'
+- id: snmp.device_prof_ucd_dskUsed
+  title: Used space on the disk
+  units: By
+  family: System/Disk/Space/Used
+  chart_type: line
+  priority: 60020
+  shape: independent
+  dimensions:
+  - id: ucd_dskused
+    signal: avocent_acs_ucd_dskused
+  instances:
+    group: ucd_dsk_path
+    chart_prefix: ucd_dskused
+    family: System/Disk/Space/Used
+    labels:
+      ucd_dsk_path: '{instance}'
+- id: snmp.device_prof_ucd_dskPercent
+  title: Percentage of space used on disk
+  units: '%'
+  family: System/Disk/Usage
+  chart_type: line
+  priority: 60021
+  shape: independent
+  dimensions:
+  - id: ucd_dskpercent
+    signal: avocent_acs_ucd_dskpercent
+  instances:
+    group: ucd_dsk_path
+    chart_prefix: ucd_dskpercent
+    family: System/Disk/Usage
+    labels:
+      ucd_dsk_path: '{instance}'
+- id: snmp.device_prof_ucd_dskPercentNode
+  title: Percentage of inodes used on disk
+  units: '%'
+  family: System/Disk/Inode/Usage
+  chart_type: line
+  priority: 60022
+  shape: independent
+  dimensions:
+  - id: ucd_dskpercentnode
+    signal: avocent_acs_ucd_dskpercentnode
+  instances:
+    group: ucd_dsk_path
+    chart_prefix: ucd_dskpercentnode
+    family: System/Disk/Inode/Usage
+    labels:
+      ucd_dsk_path: '{instance}'
+- id: snmp.device_prof_ucd_dskErrorFlag
+  title: Flag signaling that the disk or partition is under the minimum required space configured for it
+  units: '{status}'
+  family: System/Disk/Error/Status
+  chart_type: line
+  priority: 60023
+  shape: independent
+  dimensions:
+  - id: no_error
+    signal: avocent_acs_ucd_dskerrorflag
+  - id: error
+    signal: avocent_acs_ucd_dskerrorflag_error
+  instances:
+    group: ucd_dsk_path
+    chart_prefix: ucd_dskerrorflag
+    family: System/Disk/Error/Status
+    labels:
+      ucd_dsk_path: '{instance}'
+- id: snmp.device_prof_ucd_diskIOReads
+  title: The number of read accesses from this device since boot
+  units: '{read}/s'
+  family: System/Disk/IOPS/Read
+  chart_type: line
+  priority: 60024
+  shape: counters
+  dimensions:
+  - id: ucd_diskioreads
+    rate_signal: avocent_acs_ucd_diskioreads
+  instances:
+    group: ucd_disk_io_device
+    chart_prefix: ucd_diskioreads
+    family: System/Disk/IOPS/Read
+    labels:
+      ucd_disk_io_device: '{instance}'
+- id: snmp.device_prof_ucd_diskIOWrites
+  title: The number of write accesses to this device since boot
+  units: '{write}/s'
+  family: System/Disk/IOPS/Write
+  chart_type: line
+  priority: 60025
+  shape: counters
+  dimensions:
+  - id: ucd_diskiowrites
+    rate_signal: avocent_acs_ucd_diskiowrites
+  instances:
+    group: ucd_disk_io_device
+    chart_prefix: ucd_diskiowrites
+    family: System/Disk/IOPS/Write
+    labels:
+      ucd_disk_io_device: '{instance}'
+- id: snmp.device_prof_ucd_diskIOLA1
+  title: The 1 minute average load of disk (%)
+  units: '%'
+  family: System/Disk/LoadAverage/1Min
+  chart_type: line
+  priority: 60026
+  shape: independent
+  dimensions:
+  - id: ucd_diskiola1
+    signal: avocent_acs_ucd_diskiola1
+  instances:
+    group: ucd_disk_io_device
+    chart_prefix: ucd_diskiola1
+    family: System/Disk/LoadAverage/1Min
+    labels:
+      ucd_disk_io_device: '{instance}'
+- id: snmp.device_prof_ucd_diskIOLA5
+  title: The 5 minute average load of disk (%)
+  units: '%'
+  family: System/Disk/LoadAverage/5Min
+  chart_type: line
+  priority: 60027
+  shape: independent
+  dimensions:
+  - id: ucd_diskiola5
+    signal: avocent_acs_ucd_diskiola5
+  instances:
+    group: ucd_disk_io_device
+    chart_prefix: ucd_diskiola5
+    family: System/Disk/LoadAverage/5Min
+    labels:
+      ucd_disk_io_device: '{instance}'
+- id: snmp.device_prof_ucd_diskIOLA15
+  title: The 15 minute average load of disk (%)
+  units: '%'
+  family: System/Disk/LoadAverage/15Min
+  chart_type: line
+  priority: 60028
+  shape: independent
+  dimensions:
+  - id: ucd_diskiola15
+    signal: avocent_acs_ucd_diskiola15
+  instances:
+    group: ucd_disk_io_device
+    chart_prefix: ucd_diskiola15
+    family: System/Disk/LoadAverage/15Min
+    labels:
+      ucd_disk_io_device: '{instance}'
+- id: snmp.device_prof_ucd_diskIONReadX
+  title: The number of bytes read from this device since boot
+  units: By/s
+  family: System/Disk/IO/Read
+  chart_type: line
+  priority: 60029
+  shape: counters
+  dimensions:
+  - id: ucd_diskionreadx
+    rate_signal: avocent_acs_ucd_diskionreadx
+  instances:
+    group: ucd_disk_io_device
+    chart_prefix: ucd_diskionreadx
+    family: System/Disk/IO/Read
+    labels:
+      ucd_disk_io_device: '{instance}'
+- id: snmp.device_prof_ucd_diskIONWrittenX
+  title: The number of bytes written to this device since boot
+  units: By/s
+  family: System/Disk/IO/Write
+  chart_type: line
+  priority: 60030
+  shape: counters
+  dimensions:
+  - id: ucd_diskionwrittenx
+    rate_signal: avocent_acs_ucd_diskionwrittenx
+  instances:
+    group: ucd_disk_io_device
+    chart_prefix: ucd_diskionwrittenx
+    family: System/Disk/IO/Write
+    labels:
+      ucd_disk_io_device: '{instance}'
+- id: snmp.device_prof_ucd_ssIORawSent
+  title: Amount of data written to disk or other block device
+  units: By/s
+  family: System/Disk/Total/IO/Write
+  chart_type: line
+  priority: 60031
+  shape: counters
+  dimensions:
+  - id: ucd_ssiorawsent
+    rate_signal: avocent_acs_ucd_ssiorawsent
+- id: snmp.device_prof_ucd_ssIORawReceived
+  title: Amount of data read from disk or other block device
+  units: By/s
+  family: System/Disk/Total/IO/Read
+  chart_type: line
+  priority: 60032
+  shape: counters
+  dimensions:
+  - id: ucd_ssiorawreceived
+    rate_signal: avocent_acs_ucd_ssiorawreceived
+- id: snmp.device_prof_ucd_ssRawInterrupts
+  title: Number of interrupts processed
+  units: '{interrupt}/s'
+  family: System/CPU/Interrupts
+  chart_type: line
+  priority: 60033
+  shape: counters
+  dimensions:
+  - id: ucd_ssrawinterrupts
+    rate_signal: avocent_acs_ucd_ssrawinterrupts
+- id: snmp.device_prof_ucd_ssRawContexts
+  title: Number of context switches
+  units: '{switch}/s'
+  family: System/CPU/ContextSwitches
+  chart_type: line
+  priority: 60034
+  shape: counters
+  dimensions:
+  - id: ucd_ssrawcontexts
+    rate_signal: avocent_acs_ucd_ssrawcontexts
+- id: snmp.device_prof_ucd_ssRawSwapIn
+  title: Amount of memory swapped in from disk
+  units: By/s
+  family: System/Memory/Swap/IO/In
+  chart_type: line
+  priority: 60035
+  shape: counters
+  dimensions:
+  - id: ucd_ssrawswapin
+    rate_signal: avocent_acs_ucd_ssrawswapin
+- id: snmp.device_prof_ucd_ssRawSwapOut
+  title: Amount of memory swapped out to disk
+  units: By/s
+  family: System/Memory/Swap/IO/Out
+  chart_type: line
+  priority: 60036
+  shape: counters
+  dimensions:
+  - id: ucd_ssrawswapout
+    rate_signal: avocent_acs_ucd_ssrawswapout
+- id: snmp.device_prof_ifTotalTraffic
+  title: Total traffic across all interfaces
+  units: bit/s
+  family: Network/Total/Traffic
+  chart_type: area
+  priority: 60037
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_octets_rate
+  - id: out
+    rate_signal: if_out_octets_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalPacketsUcast
+  title: Total unicast packets across all interfaces
+  units: '{packet}/s'
+  family: Network/Total/Packet/Unicast
+  chart_type: line
+  priority: 60038
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_ucast_rate
+  - id: out
+    rate_signal: if_out_ucast_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalPacketsMulticast
+  title: Total multicast packets across all interfaces
+  units: '{packet}/s'
+  family: Network/Total/Packet/Multicast
+  chart_type: line
+  priority: 60039
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_mcast_rate
+  - id: out
+    rate_signal: avocent_acs_ifhcoutmulticastpkts
+    multiplier: -1
+- id: snmp.device_prof_ifTotalPacketsBroadcast
+  title: Total broadcast packets across all interfaces
+  units: '{packet}/s'
+  family: Network/Total/Packet/Broadcast
+  chart_type: line
+  priority: 60040
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_bcast_rate
+  - id: out
+    rate_signal: avocent_acs_ifhcoutbroadcastpkts
+    multiplier: -1
+- id: snmp.device_prof_ifTotalErrors
+  title: Total packets with errors across all interfaces
+  units: '{error}/s'
+  family: Network/Total/Error
+  chart_type: line
+  priority: 60041
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_errors_rate
+  - id: out
+    rate_signal: if_out_errors_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalDiscards
+  title: Total packets discarded across all interfaces
+  units: '{discard}/s'
+  family: Network/Total/Discard
+  chart_type: line
+  priority: 60042
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_discards_rate
+  - id: out
+    rate_signal: if_out_discards_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalOperStatus
+  title: Total count of interfaces by operational status
+  units: '{status}'
+  family: Network/Total/Interface/Status
+  chart_type: line
+  priority: 60043
+  shape: independent
+  dimensions:
+  - id: up
+    signal: avocent_acs_iftotaloperstatus
+  - id: down
+    signal: avocent_acs_iftotaloperstatus_down
+  - id: testing
+    signal: avocent_acs_iftotaloperstatus_testing
+  - id: unknown
+    signal: avocent_acs_iftotaloperstatus_unknown
+  - id: dormant
+    signal: avocent_acs_iftotaloperstatus_dormant
+  - id: notpresent
+    signal: avocent_acs_iftotaloperstatus_notpresent
+  - id: lowerlayerdown
+    signal: avocent_acs_iftotaloperstatus_lowerlayerdown
+- id: snmp.device_prof_ifTraffic
+  title: Traffic
+  units: bit/s
+  family: Network/Interface/Traffic/Total
+  chart_type: area
+  priority: 60044
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_octets_rate
+  - id: out
+    rate_signal: if_out_octets_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: iftraffic
+    family: Network/Interface/Traffic/Total
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifPacketsUcast
+  title: Unicast packets
+  units: '{packet}/s'
+  family: Network/Interface/Packet/Unicast
+  chart_type: line
+  priority: 60045
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_ucast_rate
+  - id: out
+    rate_signal: if_out_ucast_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifpacketsucast
+    family: Network/Interface/Packet/Unicast
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifPacketsMulticast
+  title: Multicast packets
+  units: '{packet}/s'
+  family: Network/Interface/Packet/Multicast
+  chart_type: line
+  priority: 60046
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_mcast_rate
+  - id: out
+    rate_signal: avocent_acs_ifhcoutmulticastpkts
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifpacketsmulticast
+    family: Network/Interface/Packet/Multicast
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifPacketsBroadcast
+  title: Broadcast packets
+  units: '{packet}/s'
+  family: Network/Interface/Packet/Broadcast
+  chart_type: line
+  priority: 60047
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_bcast_rate
+  - id: out
+    rate_signal: avocent_acs_ifhcoutbroadcastpkts
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifpacketsbroadcast
+    family: Network/Interface/Packet/Broadcast
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifErrors
+  title: Packets with errors
+  units: '{error}/s'
+  family: Network/Interface/Error/Total
+  chart_type: line
+  priority: 60048
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_errors_rate
+  - id: out
+    rate_signal: if_out_errors_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: iferrors
+    family: Network/Interface/Error/Total
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifDiscards
+  title: Packets discarded
+  units: '{discard}/s'
+  family: Network/Interface/Discard
+  chart_type: line
+  priority: 60049
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_discards_rate
+  - id: out
+    rate_signal: if_out_discards_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifdiscards
+    family: Network/Interface/Discard
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ucd_cpu_usage
+  title: CPU usage breakdown
+  units: '%'
+  family: System/CPU/Usage
+  chart_type: line
+  priority: 60050
+  shape: independent
+  dimensions:
+  - id: user
+    signal: avocent_acs_ucd_sscpurawuser
+  - id: nice
+    signal: avocent_acs_ucd_sscpurawnice
+  - id: system
+    signal: avocent_acs_ucd_sscpurawsystem
+  - id: kernel
+    signal: avocent_acs_ucd_sscpurawkernel
+  - id: iowait
+    signal: avocent_acs_ucd_sscpurawwait
+  - id: irq
+    signal: avocent_acs_ucd_sscpurawinterrupt
+  - id: softirq
+    signal: avocent_acs_ucd_sscpurawsoftirq
+  - id: steal
+    signal: avocent_acs_ucd_sscpurawsteal
+  - id: guest
+    signal: avocent_acs_ucd_sscpurawguest
+  - id: guest_nice
+    signal: avocent_acs_ucd_sscpurawguestnice
+- id: snmp.device_prof_ucd_cpuLoad
+  title: Load average
+  units: '{load_average}'
+  family: System/LoadAverage
+  chart_type: line
+  priority: 60051
+  shape: independent
+  dimensions:
+  - id: 1m
+    signal: avocent_acs_ucd_cpuload1m
+  - id: 5m
+    signal: avocent_acs_ucd_cpuload5m
+  - id: 15m
+    signal: avocent_acs_ucd_cpuload15m

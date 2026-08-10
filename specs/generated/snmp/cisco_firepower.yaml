@@ -1,0 +1,1116 @@
+version: 1
+name: cisco_firepower
+description: Cisco Firewall/Firepower, as Netdata's SNMP collector reports it. Generated from go.d/snmp.profiles/default/cisco-firepower.yaml
+  with its `extends` chain resolved. Contexts, units, families and metric names are the device's own; values are a plausible
+  fiction.
+signals:
+  device_cpu_usage:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_firepower_memory_free:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_firepower_memory_used:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_firepower_cfprsmmonitordatadiskavailable:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_firepower_cfprsmmonitordatadisktotal:
+    base: 4294967296.0
+    min: 4294967296.0
+    max: 4294967296.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_firepower_cfprequipmentfanoperstate:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_firepower_cfprequipmentfanoperstate_operable:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_firepower_cfprequipmentfanoperstate_accessibility_problem:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_firepower_cfprequipmentfanoperstate_not_supported:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_firepower_cfprequipmentfanoperstate_discovery:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_firepower_cfprequipmentfanoperstate_discovery_failed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_firepower_cfprequipmentfanoperstate_identify:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_firepower_cfprequipmentfanoperstate_post_failure:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_firepower_cfprequipmentfanoperstate_upgrade_problem:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_firepower_cfprequipmentfanoperstate_peer_comm_problem:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_firepower_cfprequipmentfanoperstate_auto_upgrade:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_firepower_cfprequipmentfanoperstate_link_activate_blocked:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_firepower_cfprequipmentfanoperstate_identity_unestablishable:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_firepower_cfprequipmentfanoperstate_bios_post_timeout:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_firepower_cfprequipmentfanoperstate_disabled:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_firepower_cfprequipmentfanoperstate_malformed_fru:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_firepower_cfprequipmentfanoperstate_inoperable:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_firepower_cfprequipmentfanoperstate_degraded:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_firepower_cfprequipmentfanoperstate_powered_off:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_firepower_cfprequipmentfanoperstate_power_problem:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_firepower_cfprequipmentfanoperstate_fabric_conn_problem:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_firepower_cfprequipmentfanoperstate_fabric_unsupported_conn:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_firepower_cfprequipmentfanoperstate_removed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_firepower_cfprequipmentfanoperstate_voltage_problem:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_firepower_cfprequipmentfanoperstate_thermal_problem:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_firepower_cfprequipmentfanoperstate_config:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_firepower_cfprequipmentfanoperstate_equipment_problem:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_firepower_cfprequipmentfanoperstate_decomissioning:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_firepower_cfprequipmentfanoperstate_chassis_limit_exceeded:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_firepower_cfprequipmentfanoperstate_performance_problem:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_firepower_cfprequipmentpsupower_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_firepower_cfprequipmentpsupower:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_firepower_cfprequipmentpsupower_ok:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_firepower_cfprequipmentpsupower_not_supported:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_firepower_cfprequipmentpsupower_failed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_firepower_cfprequipmentpsupower_oir_failed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_firepower_cfprequipmentpsupower_oir_invalid:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_firepower_cfprequipmentpsupower_test:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_firepower_cfprequipmentpsupower_false:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_firepower_cfprequipmentpsupower_online:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_firepower_cfprequipmentpsupower_offline:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_firepower_cfprequipmentpsupower_offduty:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_firepower_cfprequipmentpsupower_degraded:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_firepower_cfprequipmentpsupower_power_save:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_firepower_cfprequipmentpsupower_error:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_firepower_systemuptime:
+    base: 86400.0
+    min: 0.0
+    max: 315360000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_firepower_ifnumber:
+    base: 26.0
+    min: 26.0
+    max: 26.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_admin_status:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_admin_status_down:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_admin_status_testing:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_down:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_testing:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_dormant:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_notpresent:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_lowerlayerdown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_speed:
+    from_attr: if_speed_mbps
+    base: 1000.0
+    min: 0.0
+    max: 400000.0
+  if_in_octets_rate:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_out_octets_rate:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_ucast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_out_ucast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_mcast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_firepower_ifhcoutmulticastpkts:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_bcast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_firepower_ifhcoutbroadcastpkts:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_errors_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  if_out_errors_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  if_in_discards_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  if_out_discards_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  cisco_firepower_iftotaloperstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_firepower_iftotaloperstatus_down:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_firepower_iftotaloperstatus_testing:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_firepower_iftotaloperstatus_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_firepower_iftotaloperstatus_dormant:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_firepower_iftotaloperstatus_notpresent:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_firepower_iftotaloperstatus_lowerlayerdown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+contexts:
+- id: snmp.device_prof_cpu_usage
+  title: The current CPU utilization
+  units: '%'
+  family: System/CPU/Usage
+  chart_type: line
+  priority: 60000
+  shape: independent
+  dimensions:
+  - id: cpu_usage
+    signal: device_cpu_usage
+  instances:
+    group: cpu_index
+    chart_prefix: cpu_usage
+    family: System/CPU/Usage
+    labels:
+      cpu_index: '{instance}'
+- id: snmp.device_prof_memory_free
+  title: Memory free
+  units: By
+  family: System/Memory/Free
+  chart_type: line
+  priority: 60001
+  shape: independent
+  dimensions:
+  - id: memory_free
+    signal: cisco_firepower_memory_free
+  instances:
+    group: mem_index
+    chart_prefix: memory_free
+    family: System/Memory/Free
+    labels:
+      mem_index: '{instance}'
+- id: snmp.device_prof_memory_used
+  title: Memory used
+  units: By
+  family: System/Memory/Used
+  chart_type: line
+  priority: 60002
+  shape: independent
+  dimensions:
+  - id: memory_used
+    signal: cisco_firepower_memory_used
+  instances:
+    group: mem_index
+    chart_prefix: memory_used
+    family: System/Memory/Used
+    labels:
+      mem_index: '{instance}'
+- id: snmp.device_prof_cfprSmMonitorDataDiskAvailable
+  title: Data disk available
+  units: By
+  family: System/Disk/Data/Available
+  chart_type: line
+  priority: 60003
+  shape: independent
+  dimensions:
+  - id: cfprsmmonitordatadiskavailab
+    signal: cisco_firepower_cfprsmmonitordatadiskavailable
+  instances:
+    group: cfpr_sm_monitor_dn
+    chart_prefix: cfprsmmonitordatadiskavailable
+    family: System/Disk/Data/Available
+    labels:
+      cfpr_sm_monitor_dn: '{instance}'
+- id: snmp.device_prof_cfprSmMonitorDataDiskTotal
+  title: Data disk total
+  units: By
+  family: System/Disk/Data/Total
+  chart_type: line
+  priority: 60004
+  shape: independent
+  dimensions:
+  - id: cfprsmmonitordatadisktotal
+    signal: cisco_firepower_cfprsmmonitordatadisktotal
+  instances:
+    group: cfpr_sm_monitor_dn
+    chart_prefix: cfprsmmonitordatadisktotal
+    family: System/Disk/Data/Total
+    labels:
+      cfpr_sm_monitor_dn: '{instance}'
+- id: snmp.device_prof_cfprEquipmentFanOperState
+  title: Equipment/Fans
+  units: '{status}'
+  family: Hardware/Fan/Operational/Status
+  chart_type: line
+  priority: 60005
+  shape: independent
+  dimensions:
+  - id: unknown
+    signal: cisco_firepower_cfprequipmentfanoperstate
+  - id: operable
+    signal: cisco_firepower_cfprequipmentfanoperstate_operable
+  - id: accessibility_problem
+    signal: cisco_firepower_cfprequipmentfanoperstate_accessibility_problem
+  - id: not_supported
+    signal: cisco_firepower_cfprequipmentfanoperstate_not_supported
+  - id: discovery
+    signal: cisco_firepower_cfprequipmentfanoperstate_discovery
+  - id: discovery_failed
+    signal: cisco_firepower_cfprequipmentfanoperstate_discovery_failed
+  - id: identify
+    signal: cisco_firepower_cfprequipmentfanoperstate_identify
+  - id: post_failure
+    signal: cisco_firepower_cfprequipmentfanoperstate_post_failure
+  - id: upgrade_problem
+    signal: cisco_firepower_cfprequipmentfanoperstate_upgrade_problem
+  - id: peer_comm_problem
+    signal: cisco_firepower_cfprequipmentfanoperstate_peer_comm_problem
+  - id: auto_upgrade
+    signal: cisco_firepower_cfprequipmentfanoperstate_auto_upgrade
+  - id: link_activate_blocked
+    signal: cisco_firepower_cfprequipmentfanoperstate_link_activate_blocked
+  - id: identity_unestablishable
+    signal: cisco_firepower_cfprequipmentfanoperstate_identity_unestablishable
+  - id: bios_post_timeout
+    signal: cisco_firepower_cfprequipmentfanoperstate_bios_post_timeout
+  - id: disabled
+    signal: cisco_firepower_cfprequipmentfanoperstate_disabled
+  - id: malformed_fru
+    signal: cisco_firepower_cfprequipmentfanoperstate_malformed_fru
+  - id: inoperable
+    signal: cisco_firepower_cfprequipmentfanoperstate_inoperable
+  - id: degraded
+    signal: cisco_firepower_cfprequipmentfanoperstate_degraded
+  - id: powered_off
+    signal: cisco_firepower_cfprequipmentfanoperstate_powered_off
+  - id: power_problem
+    signal: cisco_firepower_cfprequipmentfanoperstate_power_problem
+  - id: fabric_conn_problem
+    signal: cisco_firepower_cfprequipmentfanoperstate_fabric_conn_problem
+  - id: fabric_unsupported_conn
+    signal: cisco_firepower_cfprequipmentfanoperstate_fabric_unsupported_conn
+  - id: removed
+    signal: cisco_firepower_cfprequipmentfanoperstate_removed
+  - id: voltage_problem
+    signal: cisco_firepower_cfprequipmentfanoperstate_voltage_problem
+  - id: thermal_problem
+    signal: cisco_firepower_cfprequipmentfanoperstate_thermal_problem
+  - id: config
+    signal: cisco_firepower_cfprequipmentfanoperstate_config
+  - id: equipment_problem
+    signal: cisco_firepower_cfprequipmentfanoperstate_equipment_problem
+  - id: decomissioning
+    signal: cisco_firepower_cfprequipmentfanoperstate_decomissioning
+  - id: chassis_limit_exceeded
+    signal: cisco_firepower_cfprequipmentfanoperstate_chassis_limit_exceeded
+  - id: performance_problem
+    signal: cisco_firepower_cfprequipmentfanoperstate_performance_problem
+  instances:
+    group: cfpr_equipment_fan_dn
+    chart_prefix: cfprequipmentfanoperstate
+    family: Hardware/Fan/Operational/Status
+    labels:
+      cfpr_equipment_fan_dn: '{instance}'
+- id: snmp.device_prof_cfprEquipmentPsuPower
+  title: Psu power state
+  units: '{status}'
+  family: Hardware/PowerSupply/Power/Status
+  chart_type: line
+  priority: 60006
+  shape: independent
+  dimensions:
+  - id: unknown
+    signal: cisco_firepower_cfprequipmentpsupower_unknown
+  - id: 'true'
+    signal: cisco_firepower_cfprequipmentpsupower
+  - id: ok
+    signal: cisco_firepower_cfprequipmentpsupower_ok
+  - id: not_supported
+    signal: cisco_firepower_cfprequipmentpsupower_not_supported
+  - id: failed
+    signal: cisco_firepower_cfprequipmentpsupower_failed
+  - id: oir_failed
+    signal: cisco_firepower_cfprequipmentpsupower_oir_failed
+  - id: oir_invalid
+    signal: cisco_firepower_cfprequipmentpsupower_oir_invalid
+  - id: test
+    signal: cisco_firepower_cfprequipmentpsupower_test
+  - id: 'false'
+    signal: cisco_firepower_cfprequipmentpsupower_false
+  - id: online
+    signal: cisco_firepower_cfprequipmentpsupower_online
+  - id: offline
+    signal: cisco_firepower_cfprequipmentpsupower_offline
+  - id: offduty
+    signal: cisco_firepower_cfprequipmentpsupower_offduty
+  - id: degraded
+    signal: cisco_firepower_cfprequipmentpsupower_degraded
+  - id: power_save
+    signal: cisco_firepower_cfprequipmentpsupower_power_save
+  - id: error
+    signal: cisco_firepower_cfprequipmentpsupower_error
+  instances:
+    group: cfpr_equipment_psu_dn
+    chart_prefix: cfprequipmentpsupower
+    family: Hardware/PowerSupply/Power/Status
+    labels:
+      cfpr_equipment_psu_dn: '{instance}'
+- id: snmp.device_prof_systemUptime
+  title: Time since the system was last rebooted or powered on.
+  units: s
+  family: System/Uptime
+  chart_type: line
+  priority: 60007
+  shape: independent
+  dimensions:
+  - id: systemuptime
+    signal: cisco_firepower_systemuptime
+- id: snmp.device_prof_ifNumber
+  title: Number of network interfaces regardless of their current state present on this system
+  units: '{interface}'
+  family: Network/Interface/Count
+  chart_type: line
+  priority: 60008
+  shape: independent
+  dimensions:
+  - id: ifnumber
+    signal: cisco_firepower_ifnumber
+- id: snmp.device_prof_ifAdminStatus
+  title: Current administrative state of the interface
+  units: '{status}'
+  family: Network/Interface/Status/Admin
+  chart_type: line
+  priority: 60009
+  shape: independent
+  dimensions:
+  - id: up
+    signal: if_admin_status
+  - id: down
+    signal: if_admin_status_down
+  - id: testing
+    signal: if_admin_status_testing
+  instances:
+    group: interface
+    chart_prefix: ifadminstatus
+    family: Network/Interface/Status/Admin
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifOperStatus
+  title: Current operational state of the interface
+  units: '{status}'
+  family: Network/Interface/Status/Operational
+  chart_type: line
+  priority: 60010
+  shape: independent
+  dimensions:
+  - id: up
+    signal: if_oper_status
+  - id: down
+    signal: if_oper_status_down
+  - id: testing
+    signal: if_oper_status_testing
+  - id: unknown
+    signal: if_oper_status_unknown
+  - id: dormant
+    signal: if_oper_status_dormant
+  - id: notpresent
+    signal: if_oper_status_notpresent
+  - id: lowerlayerdown
+    signal: if_oper_status_lowerlayerdown
+  instances:
+    group: interface
+    chart_prefix: ifoperstatus
+    family: Network/Interface/Status/Operational
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifHighSpeed
+  title: Estimate of the interface's current bandwidth
+  units: bit/s
+  family: Network/Interface/Speed
+  chart_type: area
+  priority: 60011
+  shape: counters
+  dimensions:
+  - id: ifhighspeed
+    rate_signal: if_speed
+  instances:
+    group: interface
+    chart_prefix: ifhighspeed
+    family: Network/Interface/Speed
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifTotalTraffic
+  title: Total traffic across all interfaces
+  units: bit/s
+  family: Network/Total/Traffic
+  chart_type: area
+  priority: 60012
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_octets_rate
+  - id: out
+    rate_signal: if_out_octets_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalPacketsUcast
+  title: Total unicast packets across all interfaces
+  units: '{packet}/s'
+  family: Network/Total/Packet/Unicast
+  chart_type: line
+  priority: 60013
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_ucast_rate
+  - id: out
+    rate_signal: if_out_ucast_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalPacketsMulticast
+  title: Total multicast packets across all interfaces
+  units: '{packet}/s'
+  family: Network/Total/Packet/Multicast
+  chart_type: line
+  priority: 60014
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_mcast_rate
+  - id: out
+    rate_signal: cisco_firepower_ifhcoutmulticastpkts
+    multiplier: -1
+- id: snmp.device_prof_ifTotalPacketsBroadcast
+  title: Total broadcast packets across all interfaces
+  units: '{packet}/s'
+  family: Network/Total/Packet/Broadcast
+  chart_type: line
+  priority: 60015
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_bcast_rate
+  - id: out
+    rate_signal: cisco_firepower_ifhcoutbroadcastpkts
+    multiplier: -1
+- id: snmp.device_prof_ifTotalErrors
+  title: Total packets with errors across all interfaces
+  units: '{error}/s'
+  family: Network/Total/Error
+  chart_type: line
+  priority: 60016
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_errors_rate
+  - id: out
+    rate_signal: if_out_errors_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalDiscards
+  title: Total packets discarded across all interfaces
+  units: '{discard}/s'
+  family: Network/Total/Discard
+  chart_type: line
+  priority: 60017
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_discards_rate
+  - id: out
+    rate_signal: if_out_discards_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalOperStatus
+  title: Total count of interfaces by operational status
+  units: '{status}'
+  family: Network/Total/Interface/Status
+  chart_type: line
+  priority: 60018
+  shape: independent
+  dimensions:
+  - id: up
+    signal: cisco_firepower_iftotaloperstatus
+  - id: down
+    signal: cisco_firepower_iftotaloperstatus_down
+  - id: testing
+    signal: cisco_firepower_iftotaloperstatus_testing
+  - id: unknown
+    signal: cisco_firepower_iftotaloperstatus_unknown
+  - id: dormant
+    signal: cisco_firepower_iftotaloperstatus_dormant
+  - id: notpresent
+    signal: cisco_firepower_iftotaloperstatus_notpresent
+  - id: lowerlayerdown
+    signal: cisco_firepower_iftotaloperstatus_lowerlayerdown
+- id: snmp.device_prof_ifTraffic
+  title: Traffic
+  units: bit/s
+  family: Network/Interface/Traffic/Total
+  chart_type: area
+  priority: 60019
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_octets_rate
+  - id: out
+    rate_signal: if_out_octets_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: iftraffic
+    family: Network/Interface/Traffic/Total
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifPacketsUcast
+  title: Unicast packets
+  units: '{packet}/s'
+  family: Network/Interface/Packet/Unicast
+  chart_type: line
+  priority: 60020
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_ucast_rate
+  - id: out
+    rate_signal: if_out_ucast_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifpacketsucast
+    family: Network/Interface/Packet/Unicast
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifPacketsMulticast
+  title: Multicast packets
+  units: '{packet}/s'
+  family: Network/Interface/Packet/Multicast
+  chart_type: line
+  priority: 60021
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_mcast_rate
+  - id: out
+    rate_signal: cisco_firepower_ifhcoutmulticastpkts
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifpacketsmulticast
+    family: Network/Interface/Packet/Multicast
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifPacketsBroadcast
+  title: Broadcast packets
+  units: '{packet}/s'
+  family: Network/Interface/Packet/Broadcast
+  chart_type: line
+  priority: 60022
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_bcast_rate
+  - id: out
+    rate_signal: cisco_firepower_ifhcoutbroadcastpkts
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifpacketsbroadcast
+    family: Network/Interface/Packet/Broadcast
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifErrors
+  title: Packets with errors
+  units: '{error}/s'
+  family: Network/Interface/Error/Total
+  chart_type: line
+  priority: 60023
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_errors_rate
+  - id: out
+    rate_signal: if_out_errors_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: iferrors
+    family: Network/Interface/Error/Total
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifDiscards
+  title: Packets discarded
+  units: '{discard}/s'
+  family: Network/Interface/Discard
+  chart_type: line
+  priority: 60024
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_discards_rate
+  - id: out
+    rate_signal: if_out_discards_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifdiscards
+    family: Network/Interface/Discard
+    labels:
+      interface: '{instance}'

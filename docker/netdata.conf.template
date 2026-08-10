@@ -10,6 +10,24 @@
 [global]
     hostname = __SIM_NAME__-parent
 
+# The container's agent is part of the simulation, so it carries the same marking
+# as the nodes it serves. Without this the fleet's vnodes were all labelled
+# `simulated=true` and the one node beside them was not - the single node in the
+# Space that could be mistaken for real infrastructure.
+#
+# The agent reads this section into host labels
+# (netdata/netdata @ c23face0bd94 src/database/rrdhost-labels.c:152).
+#
+# `infra_sim_role` is deliberately not a server role: a room rule selecting
+# `web` or `db` must not pick up the simulation's agent, while a rule on
+# `infra_sim_name` correctly does.
+[host labels]
+    simulated = true
+    infra_sim_name = __SIM_NAME__
+    infra_sim_role = sim-parent
+    latitude = __SIM_LATITUDE__
+    longitude = __SIM_LONGITUDE__
+
 [plugins]
     # Nothing that measures the container itself.
     proc = no

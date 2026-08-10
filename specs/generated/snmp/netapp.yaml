@@ -1,0 +1,1244 @@
+version: 1
+name: netapp
+description: NetApp Network device, as Netdata's SNMP collector reports it. Generated from go.d/snmp.profiles/default/netapp.yaml
+  with its `extends` chain resolved. Contexts, units, families and metric names are the device's own; values are a plausible
+  fiction.
+signals:
+  netapp_cfinterconnectstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  netapp_misccacheage:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  netapp_nchttpactivecliconns:
+    base: 240.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  netapp_extcache64hits:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  netapp_svtotaltransmbs:
+    base: 3100000.0
+    min: 0.0
+    max: 1250000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  netapp_svtotalsuccesses:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  netapp_svtotalfailures:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  netapp_svlag:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  netapp_svstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  netapp_svstatus_paused:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  netapp_svstatus_transferring:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  netapp_svstatus_pending:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  netapp_svstatus_aborting:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  netapp_svstatus_quiescing:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  netapp_svstatus_resyncing:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  netapp_svstate:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  netapp_svstate_snapvaulted:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  netapp_svstate_brokenoff:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  netapp_svstate_quiesced:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  netapp_svstate_source:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  netapp_svstate_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  netapp_svstate_restoring:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  netapp_snapmirrortotaltransmbs:
+    base: 3100000.0
+    min: 0.0
+    max: 1250000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  netapp_snapmirrortotalsuccesses:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  netapp_snapmirrortotalfailures:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  netapp_snapmirrorlag:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  netapp_snapmirrorstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  netapp_snapmirrorstatus_snapmirrored:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  netapp_snapmirrorstatus_brokenoff:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  netapp_snapmirrorstatus_quiesced:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  netapp_snapmirrorstatus_source:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  netapp_snapmirrorstatus_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  netapp_snapmirrorstate:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  netapp_snapmirrorstate_insync:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  netapp_snapmirrorstate_transferring:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  netapp_snapmirrorstate_pending:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  netapp_snapmirrorstate_aborting:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  netapp_snapmirrorstate_migrating:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  netapp_snapmirrorstate_quiescing:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  netapp_snapmirrorstate_resyncing:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  netapp_snapmirrorstate_waiting:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  netapp_snapmirrorstate_syncing:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  netapp_dfstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  netapp_dfstatus_replayed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  netapp_dfstatus_mounted:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  netapp_dfstatus_frozen:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  netapp_dfstatus_destroying:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  netapp_dfstatus_creating:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  netapp_dfstatus_mounting:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  netapp_dfstatus_unmounting:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  netapp_dfstatus_nofsinfo:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  netapp_dfstatus_replaying:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  netapp_dfmirrorstatus_invalid:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  netapp_dfmirrorstatus_limbo:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  netapp_dfmirrorstatus_uninitialized:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  netapp_dfmirrorstatus_needcpcheck:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  netapp_dfmirrorstatus_cpcheckwait:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  netapp_dfmirrorstatus_unmirrored:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  netapp_dfmirrorstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  netapp_dfmirrorstatus_degraded:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  netapp_dfmirrorstatus_resyncing:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  netapp_dfmirrorstatus_failed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  netapp_dfhightotalkbytes:
+    base: 4294967296.0
+    min: 4294967296.0
+    max: 4294967296.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  netapp_dfhighusedkbytes:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  netapp_dfhighavailkbytes:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  netapp_dfinodesused:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  netapp_dfinodesfree:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  netapp_if64inoctets:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  netapp_if64outoctets:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  netapp_if64inucastpkts:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  netapp_if64outucastpkts:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  netapp_if64innucastpkts:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  netapp_if64outnucastpkts:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  netapp_if64indiscards:
+    base: 0.0
+    min: 0.0
+    max: 15000000.0
+  netapp_if64outdiscards:
+    base: 0.0
+    min: 0.0
+    max: 15000000.0
+  netapp_if64inerrors:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  netapp_if64outerrors:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  netapp_if64inunknownprotos:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  netapp_systemuptime:
+    base: 86400.0
+    min: 0.0
+    max: 315360000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: snmp.device_prof_cfInterconnectStatus
+  title: The current status of the interconnect
+  units: '{status}'
+  family: System/ClusterFailover/Interconnect/Status
+  chart_type: line
+  priority: 60000
+  shape: independent
+  dimensions:
+  - id: cfinterconnectstatus
+    signal: netapp_cfinterconnectstatus
+- id: snmp.device_prof_miscCacheAge
+  title: Age in minutes of the oldest read-only blocks in the buffer cache
+  units: min
+  family: Storage/Cache/Buffer/Age
+  chart_type: line
+  priority: 60001
+  shape: independent
+  dimensions:
+  - id: misccacheage
+    signal: netapp_misccacheage
+- id: snmp.device_prof_ncHttpActiveCliConns
+  title: Number of currently active TCP/IP connections to HTTP clients
+  units: '{connection}'
+  family: Network/HTTP/Connection/Active
+  chart_type: line
+  priority: 60002
+  shape: independent
+  dimensions:
+  - id: nchttpactivecliconns
+    signal: netapp_nchttpactivecliconns
+- id: snmp.device_prof_extcache64Hits
+  title: Number of wafl buffers read from the external cache
+  units: '{buffer}/s'
+  family: Storage/Cache/External/Hit
+  chart_type: line
+  priority: 60003
+  shape: counters
+  dimensions:
+  - id: extcache64hits
+    rate_signal: netapp_extcache64hits
+- id: snmp.device_prof_svTotalTransMBs
+  title: Transfer size
+  units: By/s
+  family: Storage/SnapVault/Transfer/Throughput
+  chart_type: line
+  priority: 60004
+  shape: counters
+  dimensions:
+  - id: svtotaltransmbs
+    rate_signal: netapp_svtotaltransmbs
+  instances:
+    group: sv_index
+    chart_prefix: svtotaltransmbs
+    family: Storage/SnapVault/Transfer/Throughput
+    labels:
+      sv_index: '{instance}'
+- id: snmp.device_prof_svTotalSuccesses
+  title: Successful transfers
+  units: '{transfer}/s'
+  family: Storage/SnapVault/Transfer/Success
+  chart_type: line
+  priority: 60005
+  shape: counters
+  dimensions:
+  - id: svtotalsuccesses
+    rate_signal: netapp_svtotalsuccesses
+  instances:
+    group: sv_index
+    chart_prefix: svtotalsuccesses
+    family: Storage/SnapVault/Transfer/Success
+    labels:
+      sv_index: '{instance}'
+- id: snmp.device_prof_svTotalFailures
+  title: Failed or aborted transfers
+  units: '{transfer}/s'
+  family: Storage/SnapVault/Transfer/Failure
+  chart_type: line
+  priority: 60006
+  shape: counters
+  dimensions:
+  - id: svtotalfailures
+    rate_signal: netapp_svtotalfailures
+  instances:
+    group: sv_index
+    chart_prefix: svtotalfailures
+    family: Storage/SnapVault/Transfer/Failure
+    labels:
+      sv_index: '{instance}'
+- id: snmp.device_prof_svLag
+  title: Shows how far away the destination is from the source.
+  units: cs
+  family: Storage/SnapVault/Sync/Lag
+  chart_type: line
+  priority: 60007
+  shape: independent
+  dimensions:
+  - id: svlag
+    signal: netapp_svlag
+  instances:
+    group: sv_index
+    chart_prefix: svlag
+    family: Storage/SnapVault/Sync/Lag
+    labels:
+      sv_index: '{instance}'
+- id: snmp.device_prof_svStatus
+  title: Current transfer status
+  units: '{status}'
+  family: Storage/SnapVault/Transfer/Status
+  chart_type: line
+  priority: 60008
+  shape: independent
+  dimensions:
+  - id: idle
+    signal: netapp_svstatus
+  - id: paused
+    signal: netapp_svstatus_paused
+  - id: transferring
+    signal: netapp_svstatus_transferring
+  - id: pending
+    signal: netapp_svstatus_pending
+  - id: aborting
+    signal: netapp_svstatus_aborting
+  - id: quiescing
+    signal: netapp_svstatus_quiescing
+  - id: resyncing
+    signal: netapp_svstatus_resyncing
+  instances:
+    group: sv_index
+    chart_prefix: svstatus
+    family: Storage/SnapVault/Transfer/Status
+    labels:
+      sv_index: '{instance}'
+- id: snmp.device_prof_svState
+  title: Current state of the SnapVault relationship
+  units: '{status}'
+  family: Storage/SnapVault/Relationship/Status
+  chart_type: line
+  priority: 60009
+  shape: independent
+  dimensions:
+  - id: uninitialized
+    signal: netapp_svstate
+  - id: snapvaulted
+    signal: netapp_svstate_snapvaulted
+  - id: brokenoff
+    signal: netapp_svstate_brokenoff
+  - id: quiesced
+    signal: netapp_svstate_quiesced
+  - id: source
+    signal: netapp_svstate_source
+  - id: unknown
+    signal: netapp_svstate_unknown
+  - id: restoring
+    signal: netapp_svstate_restoring
+  instances:
+    group: sv_index
+    chart_prefix: svstate
+    family: Storage/SnapVault/Relationship/Status
+    labels:
+      sv_index: '{instance}'
+- id: snmp.device_prof_snapmirrorTotalTransMBs
+  title: Transfer size
+  units: By/s
+  family: Storage/SnapMirror/Transfer/Throughput
+  chart_type: line
+  priority: 60010
+  shape: counters
+  dimensions:
+  - id: snapmirrortotaltransmbs
+    rate_signal: netapp_snapmirrortotaltransmbs
+  instances:
+    group: sm_index
+    chart_prefix: snapmirrortotaltransmbs
+    family: Storage/SnapMirror/Transfer/Throughput
+    labels:
+      sm_index: '{instance}'
+- id: snmp.device_prof_snapmirrorTotalSuccesses
+  title: Successful transfers
+  units: '{transfer}/s'
+  family: Storage/SnapMirror/Transfer/Success
+  chart_type: line
+  priority: 60011
+  shape: counters
+  dimensions:
+  - id: snapmirrortotalsuccesses
+    rate_signal: netapp_snapmirrortotalsuccesses
+  instances:
+    group: sm_index
+    chart_prefix: snapmirrortotalsuccesses
+    family: Storage/SnapMirror/Transfer/Success
+    labels:
+      sm_index: '{instance}'
+- id: snmp.device_prof_snapmirrorTotalFailures
+  title: Failed or aborted transfers
+  units: '{transfer}/s'
+  family: Storage/SnapMirror/Transfer/Failure
+  chart_type: line
+  priority: 60012
+  shape: counters
+  dimensions:
+  - id: snapmirrortotalfailures
+    rate_signal: netapp_snapmirrortotalfailures
+  instances:
+    group: sm_index
+    chart_prefix: snapmirrortotalfailures
+    family: Storage/SnapMirror/Transfer/Failure
+    labels:
+      sm_index: '{instance}'
+- id: snmp.device_prof_snapmirrorLag
+  title: How far behind from the source the destination is
+  units: cs
+  family: Storage/SnapMirror/Sync/Lag
+  chart_type: line
+  priority: 60013
+  shape: independent
+  dimensions:
+  - id: snapmirrorlag
+    signal: netapp_snapmirrorlag
+  instances:
+    group: sm_index
+    chart_prefix: snapmirrorlag
+    family: Storage/SnapMirror/Sync/Lag
+    labels:
+      sm_index: '{instance}'
+- id: snmp.device_prof_snapmirrorStatus
+  title: Current transfer status of the SnapMirror
+  units: '{status}'
+  family: Storage/SnapMirror/Transfer/Status
+  chart_type: line
+  priority: 60014
+  shape: independent
+  dimensions:
+  - id: uninitialized
+    signal: netapp_snapmirrorstatus
+  - id: snapmirrored
+    signal: netapp_snapmirrorstatus_snapmirrored
+  - id: brokenoff
+    signal: netapp_snapmirrorstatus_brokenoff
+  - id: quiesced
+    signal: netapp_snapmirrorstatus_quiesced
+  - id: source
+    signal: netapp_snapmirrorstatus_source
+  - id: unknown
+    signal: netapp_snapmirrorstatus_unknown
+  instances:
+    group: sm_index
+    chart_prefix: snapmirrorstatus
+    family: Storage/SnapMirror/Transfer/Status
+    labels:
+      sm_index: '{instance}'
+- id: snmp.device_prof_snapmirrorState
+  title: Current state of the SnapMirror
+  units: '{status}'
+  family: Storage/SnapMirror/State/Status
+  chart_type: line
+  priority: 60015
+  shape: independent
+  dimensions:
+  - id: idle
+    signal: netapp_snapmirrorstate
+  - id: insync
+    signal: netapp_snapmirrorstate_insync
+  - id: transferring
+    signal: netapp_snapmirrorstate_transferring
+  - id: pending
+    signal: netapp_snapmirrorstate_pending
+  - id: aborting
+    signal: netapp_snapmirrorstate_aborting
+  - id: migrating
+    signal: netapp_snapmirrorstate_migrating
+  - id: quiescing
+    signal: netapp_snapmirrorstate_quiescing
+  - id: resyncing
+    signal: netapp_snapmirrorstate_resyncing
+  - id: waiting
+    signal: netapp_snapmirrorstate_waiting
+  - id: syncing
+    signal: netapp_snapmirrorstate_syncing
+  instances:
+    group: sm_index
+    chart_prefix: snapmirrorstate
+    family: Storage/SnapMirror/State/Status
+    labels:
+      sm_index: '{instance}'
+- id: snmp.device_prof_dfStatus
+  title: The status of the file system
+  units: '{status}'
+  family: System/FileSystem/Status
+  chart_type: line
+  priority: 60016
+  shape: independent
+  dimensions:
+  - id: unmounted
+    signal: netapp_dfstatus
+  - id: replayed
+    signal: netapp_dfstatus_replayed
+  - id: mounted
+    signal: netapp_dfstatus_mounted
+  - id: frozen
+    signal: netapp_dfstatus_frozen
+  - id: destroying
+    signal: netapp_dfstatus_destroying
+  - id: creating
+    signal: netapp_dfstatus_creating
+  - id: mounting
+    signal: netapp_dfstatus_mounting
+  - id: unmounting
+    signal: netapp_dfstatus_unmounting
+  - id: nofsinfo
+    signal: netapp_dfstatus_nofsinfo
+  - id: replaying
+    signal: netapp_dfstatus_replaying
+  instances:
+    group: df_index
+    chart_prefix: dfstatus
+    family: System/FileSystem/Status
+    labels:
+      df_index: '{instance}'
+- id: snmp.device_prof_dfMirrorStatus
+  title: The status of the file system
+  units: '{status}'
+  family: System/FileSystem/Mirror/Status
+  chart_type: line
+  priority: 60017
+  shape: independent
+  dimensions:
+  - id: invalid
+    signal: netapp_dfmirrorstatus_invalid
+  - id: limbo
+    signal: netapp_dfmirrorstatus_limbo
+  - id: uninitialized
+    signal: netapp_dfmirrorstatus_uninitialized
+  - id: needcpcheck
+    signal: netapp_dfmirrorstatus_needcpcheck
+  - id: cpcheckwait
+    signal: netapp_dfmirrorstatus_cpcheckwait
+  - id: unmirrored
+    signal: netapp_dfmirrorstatus_unmirrored
+  - id: normal
+    signal: netapp_dfmirrorstatus
+  - id: degraded
+    signal: netapp_dfmirrorstatus_degraded
+  - id: resyncing
+    signal: netapp_dfmirrorstatus_resyncing
+  - id: failed
+    signal: netapp_dfmirrorstatus_failed
+  instances:
+    group: df_index
+    chart_prefix: dfmirrorstatus
+    family: System/FileSystem/Mirror/Status
+    labels:
+      df_index: '{instance}'
+- id: snmp.device_prof_dfHighTotalKBytes
+  title: Total capacity for the referenced file system
+  units: By
+  family: System/FileSystem/Space/Total
+  chart_type: line
+  priority: 60018
+  shape: independent
+  dimensions:
+  - id: dfhightotalkbytes
+    signal: netapp_dfhightotalkbytes
+  instances:
+    group: df_index
+    chart_prefix: dfhightotalkbytes
+    family: System/FileSystem/Space/Total
+    labels:
+      df_index: '{instance}'
+- id: snmp.device_prof_dfHighUsedKBytes
+  title: The total disk space that is in use on the referenced file system
+  units: By
+  family: System/FileSystem/Space/Used
+  chart_type: line
+  priority: 60019
+  shape: independent
+  dimensions:
+  - id: dfhighusedkbytes
+    signal: netapp_dfhighusedkbytes
+  instances:
+    group: df_index
+    chart_prefix: dfhighusedkbytes
+    family: System/FileSystem/Space/Used
+    labels:
+      df_index: '{instance}'
+- id: snmp.device_prof_dfHighAvailKBytes
+  title: Total disk space that is free for use on the referenced file system
+  units: By
+  family: System/FileSystem/Space/Available
+  chart_type: line
+  priority: 60020
+  shape: independent
+  dimensions:
+  - id: dfhighavailkbytes
+    signal: netapp_dfhighavailkbytes
+  instances:
+    group: df_index
+    chart_prefix: dfhighavailkbytes
+    family: System/FileSystem/Space/Available
+    labels:
+      df_index: '{instance}'
+- id: snmp.device_prof_dfInodesUsed
+  title: Total number of inodes in use on the referenced file system
+  units: '{inode}'
+  family: System/FileSystem/Inode/Used
+  chart_type: line
+  priority: 60021
+  shape: independent
+  dimensions:
+  - id: dfinodesused
+    signal: netapp_dfinodesused
+  instances:
+    group: df_index
+    chart_prefix: dfinodesused
+    family: System/FileSystem/Inode/Used
+    labels:
+      df_index: '{instance}'
+- id: snmp.device_prof_dfInodesFree
+  title: Total number of inodes that are available for use on the referenced file system
+  units: '{inode}'
+  family: System/FileSystem/Inode/Free
+  chart_type: line
+  priority: 60022
+  shape: independent
+  dimensions:
+  - id: dfinodesfree
+    signal: netapp_dfinodesfree
+  instances:
+    group: df_index
+    chart_prefix: dfinodesfree
+    family: System/FileSystem/Inode/Free
+    labels:
+      df_index: '{instance}'
+- id: snmp.device_prof_if64InOctets
+  title: The total number of octets received on the interface, including framing characters
+  units: bit/s
+  family: Network/Interface/Traffic/Total/In
+  chart_type: area
+  priority: 60023
+  shape: counters
+  dimensions:
+  - id: if64inoctets
+    rate_signal: netapp_if64inoctets
+  instances:
+    group: interface
+    chart_prefix: if64inoctets
+    family: Network/Interface/Traffic/Total/In
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_if64OutOctets
+  title: The total number of octets transmitted out of the interface, including framing characters
+  units: bit/s
+  family: Network/Interface/Traffic/Total/Out
+  chart_type: area
+  priority: 60024
+  shape: counters
+  dimensions:
+  - id: if64outoctets
+    rate_signal: netapp_if64outoctets
+  instances:
+    group: interface
+    chart_prefix: if64outoctets
+    family: Network/Interface/Traffic/Total/Out
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_if64InUcastPkts
+  title: The number of unicast packets delivered to a higher-layer protocol
+  units: '{packet}/s'
+  family: Network/Interface/Packet/Unicast/In
+  chart_type: line
+  priority: 60025
+  shape: counters
+  dimensions:
+  - id: if64inucastpkts
+    rate_signal: netapp_if64inucastpkts
+  instances:
+    group: interface
+    chart_prefix: if64inucastpkts
+    family: Network/Interface/Packet/Unicast/In
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_if64OutUcastPkts
+  title: The total number of unicast packets requested to be transmitted
+  units: '{packet}/s'
+  family: Network/Interface/Packet/Unicast/Out
+  chart_type: line
+  priority: 60026
+  shape: counters
+  dimensions:
+  - id: if64outucastpkts
+    rate_signal: netapp_if64outucastpkts
+  instances:
+    group: interface
+    chart_prefix: if64outucastpkts
+    family: Network/Interface/Packet/Unicast/Out
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_if64InNUcastPkts
+  title: The number of non-unicast (broadcast/multicast) packets delivered to a higher-layer protocol
+  units: '{packet}/s'
+  family: Network/Interface/Packet/NonUnicast/In
+  chart_type: line
+  priority: 60027
+  shape: counters
+  dimensions:
+  - id: if64innucastpkts
+    rate_signal: netapp_if64innucastpkts
+  instances:
+    group: interface
+    chart_prefix: if64innucastpkts
+    family: Network/Interface/Packet/NonUnicast/In
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_if64OutNUcastPkts
+  title: The total number of non-unicast packets requested to be transmitted
+  units: '{packet}/s'
+  family: Network/Interface/Packet/NonUnicast/Out
+  chart_type: line
+  priority: 60028
+  shape: counters
+  dimensions:
+  - id: if64outnucastpkts
+    rate_signal: netapp_if64outnucastpkts
+  instances:
+    group: interface
+    chart_prefix: if64outnucastpkts
+    family: Network/Interface/Packet/NonUnicast/Out
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_if64InDiscards
+  title: The number of inbound packets discarded even though no errors were detected
+  units: '{packet}/s'
+  family: Network/Interface/Packet/Discard/In
+  chart_type: line
+  priority: 60029
+  shape: counters
+  dimensions:
+  - id: if64indiscards
+    rate_signal: netapp_if64indiscards
+  instances:
+    group: interface
+    chart_prefix: if64indiscards
+    family: Network/Interface/Packet/Discard/In
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_if64OutDiscards
+  title: The number of outbound packets discarded even though no errors were detected
+  units: '{packet}/s'
+  family: Network/Interface/Packet/Discard/Out
+  chart_type: line
+  priority: 60030
+  shape: counters
+  dimensions:
+  - id: if64outdiscards
+    rate_signal: netapp_if64outdiscards
+  instances:
+    group: interface
+    chart_prefix: if64outdiscards
+    family: Network/Interface/Packet/Discard/Out
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_if64InErrors
+  title: The number of inbound packets containing errors preventing delivery to higher-layer protocol
+  units: '{error}/s'
+  family: Network/Interface/Error/Total/In
+  chart_type: line
+  priority: 60031
+  shape: counters
+  dimensions:
+  - id: if64inerrors
+    rate_signal: netapp_if64inerrors
+  instances:
+    group: interface
+    chart_prefix: if64inerrors
+    family: Network/Interface/Error/Total/In
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_if64OutErrors
+  title: The number of outbound packets that could not be transmitted due to errors
+  units: '{error}/s'
+  family: Network/Interface/Error/Total/Out
+  chart_type: line
+  priority: 60032
+  shape: counters
+  dimensions:
+  - id: if64outerrors
+    rate_signal: netapp_if64outerrors
+  instances:
+    group: interface
+    chart_prefix: if64outerrors
+    family: Network/Interface/Error/Total/Out
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_if64InUnknownProtos
+  title: The number of packets discarded due to unknown or unsupported protocol
+  units: '{packet}/s'
+  family: Network/Interface/Error/UnknownProtocol
+  chart_type: line
+  priority: 60033
+  shape: counters
+  dimensions:
+  - id: if64inunknownprotos
+    rate_signal: netapp_if64inunknownprotos
+  instances:
+    group: interface
+    chart_prefix: if64inunknownprotos
+    family: Network/Interface/Error/UnknownProtocol
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_systemUptime
+  title: Time since the system was last rebooted or powered on.
+  units: s
+  family: System/Uptime
+  chart_type: line
+  priority: 60034
+  shape: independent
+  dimensions:
+  - id: systemuptime
+    signal: netapp_systemuptime

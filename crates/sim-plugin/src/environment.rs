@@ -108,7 +108,23 @@ pub struct Environment {
     #[serde(default)]
     pub warmup_incidents: bool,
 
+    /// Where this fleet is, recorded once for the whole simulation.
+    ///
+    /// Per-node coordinates are host labels on each node; this exists so the
+    /// simulation's *own* agent can be labelled with the same place, and so a
+    /// script can read the fleet's location without parsing every node.
+    #[serde(default)]
+    pub site: Option<SiteDef>,
+
     pub nodes: Vec<NodeDef>,
+}
+
+/// A fleet's location. Written by the renderer, read by the container tooling.
+#[derive(Debug, Clone, Copy, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct SiteDef {
+    pub latitude: f64,
+    pub longitude: f64,
 }
 
 fn default_update_every() -> i64 {

@@ -1,0 +1,1035 @@
+version: 1
+name: infinera_coriant_groove
+description: Infinera Network device, as Netdata's SNMP collector reports it. Generated from go.d/snmp.profiles/default/infinera-coriant-groove.yaml
+  with its `extends` chain resolved. Contexts, units, families and metric names are the device's own; values are a plausible
+  fiction.
+signals:
+  infinera_coriant_groove_coriant_groove_systempowerconsumptioncurrent:
+    base: 145.0
+    min: 0.0
+    max: 4000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  infinera_coriant_groove_coriant_groove_shelfinlettemperature:
+    base: 41.0
+    min: 0.0
+    max: 120.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  infinera_coriant_groove_coriant_groove_shelfoutlettemperature:
+    base: 41.0
+    min: 0.0
+    max: 120.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  infinera_coriant_groove_coriant_groove_shelfadminstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  infinera_coriant_groove_coriant_groove_shelfadminstatus_down:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  infinera_coriant_groove_coriant_groove_shelfoperstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  infinera_coriant_groove_coriant_groove_shelfoperstatus_down:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  infinera_coriant_groove_coriant_groove_cardfanspeedrate:
+    base: 35.0
+    min: 35.0
+    max: 35.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  infinera_coriant_groove_coriant_groove_cardtemperature:
+    base: 41.0
+    min: 0.0
+    max: 120.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  infinera_coriant_groove_coriant_groove_cardadminstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  infinera_coriant_groove_coriant_groove_cardadminstatus_down:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  infinera_coriant_groove_coriant_groove_cardoperstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  infinera_coriant_groove_coriant_groove_cardoperstatus_down:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  infinera_coriant_groove_coriant_groove_cardmode_notapplicable:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  infinera_coriant_groove_coriant_groove_cardmode:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  infinera_coriant_groove_coriant_groove_cardmode_regen:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  infinera_coriant_groove_coriant_groove_cardmode_mixfunction:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  infinera_coriant_groove_coriant_groove_cardmode_greymuxponder:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  infinera_coriant_groove_coriant_groove_portrxopticalpower:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  infinera_coriant_groove_coriant_groove_porttxopticalpower:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  infinera_coriant_groove_coriant_groove_ochoscd:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  infinera_coriant_groove_coriant_groove_ochososnr:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  infinera_coriant_groove_coriant_groove_ochosadminstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  infinera_coriant_groove_coriant_groove_ochosadminstatus_down:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  infinera_coriant_groove_coriant_groove_ochosoperstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  infinera_coriant_groove_coriant_groove_ochosoperstatus_down:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  infinera_coriant_groove_systemuptime:
+    base: 86400.0
+    min: 0.0
+    max: 315360000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  infinera_coriant_groove_ifnumber:
+    base: 26.0
+    min: 26.0
+    max: 26.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_admin_status:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_admin_status_down:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_admin_status_testing:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_down:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_testing:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_dormant:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_notpresent:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_lowerlayerdown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_speed:
+    from_attr: if_speed_mbps
+    base: 1000.0
+    min: 0.0
+    max: 400000.0
+  if_in_octets_rate:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_out_octets_rate:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_ucast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_out_ucast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_mcast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  infinera_coriant_groove_ifhcoutmulticastpkts:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_bcast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  infinera_coriant_groove_ifhcoutbroadcastpkts:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_errors_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  if_out_errors_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  if_in_discards_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  if_out_discards_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  infinera_coriant_groove_iftotaloperstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  infinera_coriant_groove_iftotaloperstatus_down:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  infinera_coriant_groove_iftotaloperstatus_testing:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  infinera_coriant_groove_iftotaloperstatus_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  infinera_coriant_groove_iftotaloperstatus_dormant:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  infinera_coriant_groove_iftotaloperstatus_notpresent:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  infinera_coriant_groove_iftotaloperstatus_lowerlayerdown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+contexts:
+- id: snmp.device_prof_coriant_groove_systemPowerConsumptionCurrent
+  title: Current power consumption of the system
+  units: W
+  family: System/Power/Usage
+  chart_type: line
+  priority: 60000
+  shape: independent
+  dimensions:
+  - id: coriant_groove_systempowerco
+    signal: infinera_coriant_groove_coriant_groove_systempowerconsumptioncurrent
+- id: snmp.device_prof_coriant_groove_shelfInletTemperature
+  title: Shelf inlet temperature
+  units: Cel
+  family: Hardware/Shelf/Temperature/Inlet
+  chart_type: line
+  priority: 60001
+  shape: independent
+  dimensions:
+  - id: coriant_groove_shelfinlettem
+    signal: infinera_coriant_groove_coriant_groove_shelfinlettemperature
+  instances:
+    group: coriant_groove_shelf_id
+    chart_prefix: coriant_groove_shelfinlettemperature
+    family: Hardware/Shelf/Temperature/Inlet
+    labels:
+      coriant_groove_shelf_id: '{instance}'
+- id: snmp.device_prof_coriant_groove_shelfOutletTemperature
+  title: Shelf outlet temperature
+  units: Cel
+  family: Hardware/Shelf/Temperature/Outlet
+  chart_type: line
+  priority: 60002
+  shape: independent
+  dimensions:
+  - id: coriant_groove_shelfoutlette
+    signal: infinera_coriant_groove_coriant_groove_shelfoutlettemperature
+  instances:
+    group: coriant_groove_shelf_id
+    chart_prefix: coriant_groove_shelfoutlettemperature
+    family: Hardware/Shelf/Temperature/Outlet
+    labels:
+      coriant_groove_shelf_id: '{instance}'
+- id: snmp.device_prof_coriant_groove_shelfAdminStatus
+  title: The administrative state specifies the permission to use or prohibition against using the resource
+  units: '{status}'
+  family: Hardware/Shelf/Admin/Status
+  chart_type: line
+  priority: 60003
+  shape: independent
+  dimensions:
+  - id: up
+    signal: infinera_coriant_groove_coriant_groove_shelfadminstatus
+  - id: down
+    signal: infinera_coriant_groove_coriant_groove_shelfadminstatus_down
+  instances:
+    group: coriant_groove_shelf_id
+    chart_prefix: coriant_groove_shelfadminstatus
+    family: Hardware/Shelf/Admin/Status
+    labels:
+      coriant_groove_shelf_id: '{instance}'
+- id: snmp.device_prof_coriant_groove_shelfOperStatus
+  title: The operational state specifies whether or not a resource is able to provide service
+  units: '{status}'
+  family: Hardware/Shelf/Operational/Status
+  chart_type: line
+  priority: 60004
+  shape: independent
+  dimensions:
+  - id: up
+    signal: infinera_coriant_groove_coriant_groove_shelfoperstatus
+  - id: down
+    signal: infinera_coriant_groove_coriant_groove_shelfoperstatus_down
+  instances:
+    group: coriant_groove_shelf_id
+    chart_prefix: coriant_groove_shelfoperstatus
+    family: Hardware/Shelf/Operational/Status
+    labels:
+      coriant_groove_shelf_id: '{instance}'
+- id: snmp.device_prof_coriant_groove_cardFanSpeedRate
+  title: The fan speed of percentage
+  units: '%'
+  family: Hardware/Card/Fan/Speed
+  chart_type: line
+  priority: 60005
+  shape: independent
+  dimensions:
+  - id: coriant_groove_cardfanspeedr
+    signal: infinera_coriant_groove_coriant_groove_cardfanspeedrate
+  instances:
+    group: coriant_groove_card_required_type
+    chart_prefix: coriant_groove_cardfanspeedrate
+    family: Hardware/Card/Fan/Speed
+    labels:
+      coriant_groove_card_required_type: '{instance}'
+- id: snmp.device_prof_coriant_groove_cardTemperature
+  title: Temperature at the monitoring point
+  units: Cel
+  family: Hardware/Card/Temperature/Value
+  chart_type: line
+  priority: 60006
+  shape: independent
+  dimensions:
+  - id: coriant_groove_cardtemperatu
+    signal: infinera_coriant_groove_coriant_groove_cardtemperature
+  instances:
+    group: coriant_groove_card_required_type
+    chart_prefix: coriant_groove_cardtemperature
+    family: Hardware/Card/Temperature/Value
+    labels:
+      coriant_groove_card_required_type: '{instance}'
+- id: snmp.device_prof_coriant_groove_cardAdminStatus
+  title: The administrative state specifies the permission to use or prohibition against using the resource
+  units: '{status}'
+  family: Hardware/Card/Admin/Status
+  chart_type: line
+  priority: 60007
+  shape: independent
+  dimensions:
+  - id: up
+    signal: infinera_coriant_groove_coriant_groove_cardadminstatus
+  - id: down
+    signal: infinera_coriant_groove_coriant_groove_cardadminstatus_down
+  instances:
+    group: coriant_groove_card_required_type
+    chart_prefix: coriant_groove_cardadminstatus
+    family: Hardware/Card/Admin/Status
+    labels:
+      coriant_groove_card_required_type: '{instance}'
+- id: snmp.device_prof_coriant_groove_cardOperStatus
+  title: The operational state specifies whether or not a resource is able to provide service
+  units: '{status}'
+  family: Hardware/Card/Operational/Status
+  chart_type: line
+  priority: 60008
+  shape: independent
+  dimensions:
+  - id: up
+    signal: infinera_coriant_groove_coriant_groove_cardoperstatus
+  - id: down
+    signal: infinera_coriant_groove_coriant_groove_cardoperstatus_down
+  instances:
+    group: coriant_groove_card_required_type
+    chart_prefix: coriant_groove_cardoperstatus
+    family: Hardware/Card/Operational/Status
+    labels:
+      coriant_groove_card_required_type: '{instance}'
+- id: snmp.device_prof_coriant_groove_cardMode
+  title: The card mode
+  units: '{status}'
+  family: Hardware/Card/Mode/Status
+  chart_type: line
+  priority: 60009
+  shape: independent
+  dimensions:
+  - id: notapplicable
+    signal: infinera_coriant_groove_coriant_groove_cardmode_notapplicable
+  - id: normal
+    signal: infinera_coriant_groove_coriant_groove_cardmode
+  - id: regen
+    signal: infinera_coriant_groove_coriant_groove_cardmode_regen
+  - id: mixfunction
+    signal: infinera_coriant_groove_coriant_groove_cardmode_mixfunction
+  - id: greymuxponder
+    signal: infinera_coriant_groove_coriant_groove_cardmode_greymuxponder
+  instances:
+    group: coriant_groove_card_required_type
+    chart_prefix: coriant_groove_cardmode
+    family: Hardware/Card/Mode/Status
+    labels:
+      coriant_groove_card_required_type: '{instance}'
+- id: snmp.device_prof_coriant_groove_portRxOpticalPower
+  title: Received optical power
+  units: dBm
+  family: Network/Optical/Port/Power/Rx
+  chart_type: line
+  priority: 60010
+  shape: independent
+  dimensions:
+  - id: coriant_groove_portrxoptical
+    signal: infinera_coriant_groove_coriant_groove_portrxopticalpower
+  instances:
+    group: coriant_groove_port_name
+    chart_prefix: coriant_groove_portrxopticalpower
+    family: Network/Optical/Port/Power/Rx
+    labels:
+      coriant_groove_port_name: '{instance}'
+- id: snmp.device_prof_coriant_groove_portTxOpticalPower
+  title: Transmitted optical power
+  units: dBm
+  family: Network/Optical/Port/Power/Tx
+  chart_type: line
+  priority: 60011
+  shape: independent
+  dimensions:
+  - id: coriant_groove_porttxoptical
+    signal: infinera_coriant_groove_coriant_groove_porttxopticalpower
+  instances:
+    group: coriant_groove_port_name
+    chart_prefix: coriant_groove_porttxopticalpower
+    family: Network/Optical/Port/Power/Tx
+    labels:
+      coriant_groove_port_name: '{instance}'
+- id: snmp.device_prof_coriant_groove_ochOsCD
+  title: Value of Chromatic Dispersion
+  units: ps/nm
+  family: Network/Optical/Channel/ChromaticDispersion
+  chart_type: line
+  priority: 60012
+  shape: independent
+  dimensions:
+  - id: coriant_groove_ochoscd
+    signal: infinera_coriant_groove_coriant_groove_ochoscd
+  instances:
+    group: coriant_groove_och_os_alias_name
+    chart_prefix: coriant_groove_ochoscd
+    family: Network/Optical/Channel/ChromaticDispersion
+    labels:
+      coriant_groove_och_os_alias_name: '{instance}'
+- id: snmp.device_prof_coriant_groove_ochOsOSNR
+  title: Current value of OSNR
+  units: dB
+  family: Network/Optical/Channel/OSNR
+  chart_type: line
+  priority: 60013
+  shape: independent
+  dimensions:
+  - id: coriant_groove_ochososnr
+    signal: infinera_coriant_groove_coriant_groove_ochososnr
+  instances:
+    group: coriant_groove_och_os_alias_name
+    chart_prefix: coriant_groove_ochososnr
+    family: Network/Optical/Channel/OSNR
+    labels:
+      coriant_groove_och_os_alias_name: '{instance}'
+- id: snmp.device_prof_coriant_groove_ochOsAdminStatus
+  title: The administrative state specifies the permission to use or prohibition against using the resource
+  units: '{status}'
+  family: Network/Optical/Channel/Admin/Status
+  chart_type: line
+  priority: 60014
+  shape: independent
+  dimensions:
+  - id: up
+    signal: infinera_coriant_groove_coriant_groove_ochosadminstatus
+  - id: down
+    signal: infinera_coriant_groove_coriant_groove_ochosadminstatus_down
+  instances:
+    group: coriant_groove_och_os_alias_name
+    chart_prefix: coriant_groove_ochosadminstatus
+    family: Network/Optical/Channel/Admin/Status
+    labels:
+      coriant_groove_och_os_alias_name: '{instance}'
+- id: snmp.device_prof_coriant_groove_ochOsOperStatus
+  title: The operational state specifies whether or not a resource is able to provide service
+  units: '{status}'
+  family: Network/Optical/Channel/Operational/Status
+  chart_type: line
+  priority: 60015
+  shape: independent
+  dimensions:
+  - id: up
+    signal: infinera_coriant_groove_coriant_groove_ochosoperstatus
+  - id: down
+    signal: infinera_coriant_groove_coriant_groove_ochosoperstatus_down
+  instances:
+    group: coriant_groove_och_os_alias_name
+    chart_prefix: coriant_groove_ochosoperstatus
+    family: Network/Optical/Channel/Operational/Status
+    labels:
+      coriant_groove_och_os_alias_name: '{instance}'
+- id: snmp.device_prof_systemUptime
+  title: Time since the system was last rebooted or powered on.
+  units: s
+  family: System/Uptime
+  chart_type: line
+  priority: 60016
+  shape: independent
+  dimensions:
+  - id: systemuptime
+    signal: infinera_coriant_groove_systemuptime
+- id: snmp.device_prof_ifNumber
+  title: Number of network interfaces regardless of their current state present on this system
+  units: '{interface}'
+  family: Network/Interface/Count
+  chart_type: line
+  priority: 60017
+  shape: independent
+  dimensions:
+  - id: ifnumber
+    signal: infinera_coriant_groove_ifnumber
+- id: snmp.device_prof_ifAdminStatus
+  title: Current administrative state of the interface
+  units: '{status}'
+  family: Network/Interface/Status/Admin
+  chart_type: line
+  priority: 60018
+  shape: independent
+  dimensions:
+  - id: up
+    signal: if_admin_status
+  - id: down
+    signal: if_admin_status_down
+  - id: testing
+    signal: if_admin_status_testing
+  instances:
+    group: interface
+    chart_prefix: ifadminstatus
+    family: Network/Interface/Status/Admin
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifOperStatus
+  title: Current operational state of the interface
+  units: '{status}'
+  family: Network/Interface/Status/Operational
+  chart_type: line
+  priority: 60019
+  shape: independent
+  dimensions:
+  - id: up
+    signal: if_oper_status
+  - id: down
+    signal: if_oper_status_down
+  - id: testing
+    signal: if_oper_status_testing
+  - id: unknown
+    signal: if_oper_status_unknown
+  - id: dormant
+    signal: if_oper_status_dormant
+  - id: notpresent
+    signal: if_oper_status_notpresent
+  - id: lowerlayerdown
+    signal: if_oper_status_lowerlayerdown
+  instances:
+    group: interface
+    chart_prefix: ifoperstatus
+    family: Network/Interface/Status/Operational
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifHighSpeed
+  title: Estimate of the interface's current bandwidth
+  units: bit/s
+  family: Network/Interface/Speed
+  chart_type: area
+  priority: 60020
+  shape: counters
+  dimensions:
+  - id: ifhighspeed
+    rate_signal: if_speed
+  instances:
+    group: interface
+    chart_prefix: ifhighspeed
+    family: Network/Interface/Speed
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifTotalTraffic
+  title: Total traffic across all interfaces
+  units: bit/s
+  family: Network/Total/Traffic
+  chart_type: area
+  priority: 60021
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_octets_rate
+  - id: out
+    rate_signal: if_out_octets_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalPacketsUcast
+  title: Total unicast packets across all interfaces
+  units: '{packet}/s'
+  family: Network/Total/Packet/Unicast
+  chart_type: line
+  priority: 60022
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_ucast_rate
+  - id: out
+    rate_signal: if_out_ucast_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalPacketsMulticast
+  title: Total multicast packets across all interfaces
+  units: '{packet}/s'
+  family: Network/Total/Packet/Multicast
+  chart_type: line
+  priority: 60023
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_mcast_rate
+  - id: out
+    rate_signal: infinera_coriant_groove_ifhcoutmulticastpkts
+    multiplier: -1
+- id: snmp.device_prof_ifTotalPacketsBroadcast
+  title: Total broadcast packets across all interfaces
+  units: '{packet}/s'
+  family: Network/Total/Packet/Broadcast
+  chart_type: line
+  priority: 60024
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_bcast_rate
+  - id: out
+    rate_signal: infinera_coriant_groove_ifhcoutbroadcastpkts
+    multiplier: -1
+- id: snmp.device_prof_ifTotalErrors
+  title: Total packets with errors across all interfaces
+  units: '{error}/s'
+  family: Network/Total/Error
+  chart_type: line
+  priority: 60025
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_errors_rate
+  - id: out
+    rate_signal: if_out_errors_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalDiscards
+  title: Total packets discarded across all interfaces
+  units: '{discard}/s'
+  family: Network/Total/Discard
+  chart_type: line
+  priority: 60026
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_discards_rate
+  - id: out
+    rate_signal: if_out_discards_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalOperStatus
+  title: Total count of interfaces by operational status
+  units: '{status}'
+  family: Network/Total/Interface/Status
+  chart_type: line
+  priority: 60027
+  shape: independent
+  dimensions:
+  - id: up
+    signal: infinera_coriant_groove_iftotaloperstatus
+  - id: down
+    signal: infinera_coriant_groove_iftotaloperstatus_down
+  - id: testing
+    signal: infinera_coriant_groove_iftotaloperstatus_testing
+  - id: unknown
+    signal: infinera_coriant_groove_iftotaloperstatus_unknown
+  - id: dormant
+    signal: infinera_coriant_groove_iftotaloperstatus_dormant
+  - id: notpresent
+    signal: infinera_coriant_groove_iftotaloperstatus_notpresent
+  - id: lowerlayerdown
+    signal: infinera_coriant_groove_iftotaloperstatus_lowerlayerdown
+- id: snmp.device_prof_ifTraffic
+  title: Traffic
+  units: bit/s
+  family: Network/Interface/Traffic/Total
+  chart_type: area
+  priority: 60028
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_octets_rate
+  - id: out
+    rate_signal: if_out_octets_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: iftraffic
+    family: Network/Interface/Traffic/Total
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifPacketsUcast
+  title: Unicast packets
+  units: '{packet}/s'
+  family: Network/Interface/Packet/Unicast
+  chart_type: line
+  priority: 60029
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_ucast_rate
+  - id: out
+    rate_signal: if_out_ucast_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifpacketsucast
+    family: Network/Interface/Packet/Unicast
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifPacketsMulticast
+  title: Multicast packets
+  units: '{packet}/s'
+  family: Network/Interface/Packet/Multicast
+  chart_type: line
+  priority: 60030
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_mcast_rate
+  - id: out
+    rate_signal: infinera_coriant_groove_ifhcoutmulticastpkts
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifpacketsmulticast
+    family: Network/Interface/Packet/Multicast
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifPacketsBroadcast
+  title: Broadcast packets
+  units: '{packet}/s'
+  family: Network/Interface/Packet/Broadcast
+  chart_type: line
+  priority: 60031
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_bcast_rate
+  - id: out
+    rate_signal: infinera_coriant_groove_ifhcoutbroadcastpkts
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifpacketsbroadcast
+    family: Network/Interface/Packet/Broadcast
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifErrors
+  title: Packets with errors
+  units: '{error}/s'
+  family: Network/Interface/Error/Total
+  chart_type: line
+  priority: 60032
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_errors_rate
+  - id: out
+    rate_signal: if_out_errors_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: iferrors
+    family: Network/Interface/Error/Total
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifDiscards
+  title: Packets discarded
+  units: '{discard}/s'
+  family: Network/Interface/Discard
+  chart_type: line
+  priority: 60033
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_discards_rate
+  - id: out
+    rate_signal: if_out_discards_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifdiscards
+    family: Network/Interface/Discard
+    labels:
+      interface: '{instance}'

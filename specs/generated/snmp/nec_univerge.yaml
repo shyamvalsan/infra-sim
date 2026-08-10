@@ -1,0 +1,1331 @@
+version: 1
+name: nec_univerge
+description: NEC Network device, as Netdata's SNMP collector reports it. Generated from go.d/snmp.profiles/default/nec-univerge.yaml
+  with its `extends` chain resolved. Contexts, units, families and metric names are the device's own; values are a plausible
+  fiction.
+signals:
+  nec_univerge_nec_picocelsius:
+    base: 41.0
+    min: 0.0
+    max: 120.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nec_univerge_nec_picofahrenheit:
+    base: 106.0
+    min: 0.0
+    max: 250.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nec_univerge_nec_picovoltage:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  device_cpu_usage:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  device_memory_usage:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nec_univerge_nec_pikeglobalactivetunnels:
+    base: 18.0
+    min: 0.0
+    max: 65536.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nec_univerge_nec_pikeglobalinnotifys:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nec_univerge_nec_pikeglobalinp2exchgs:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nec_univerge_nec_pikeglobalinp2exchginvalids:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nec_univerge_nec_pikeglobalinp2exchgrejects:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  nec_univerge_nec_pikeglobalinp2sadelrequests:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nec_univerge_nec_pikeglobaloutnotifys:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nec_univerge_nec_pikeglobaloutp2exchgs:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nec_univerge_nec_pikeglobaloutp2exchginvalids:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nec_univerge_nec_pikeglobaloutp2exchgrejects:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  nec_univerge_nec_pikeglobaloutp2sadelrequests:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nec_univerge_nec_pikeglobalinittunnels:
+    base: 18.0
+    min: 0.0
+    max: 65536.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nec_univerge_nec_pikeglobalinittunnelfails:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  nec_univerge_nec_pikeglobalresptunnelfails:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  nec_univerge_nec_pikeglobalauthfails:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  nec_univerge_nec_pikeglobaldecryptfails:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  nec_univerge_nec_pikeglobalhashvalidfails:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  nec_univerge_nec_pikeglobalresptunnels:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nec_univerge_nec_pikeglobalinp1sadelrequests:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nec_univerge_nec_pikeglobaloutp1sadelrequests:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nec_univerge_nec_pipsecglobalactivetunnels:
+    base: 18.0
+    min: 0.0
+    max: 65536.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nec_univerge_nec_pipsecglobalinoctets:
+    base: 3100000.0
+    min: 0.0
+    max: 1250000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nec_univerge_nec_pipsecglobalinpkts:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nec_univerge_nec_pipsecglobalindrops:
+    base: 0.0
+    min: 0.0
+    max: 15000000.0
+  nec_univerge_nec_pipsecglobalinreplaydrops:
+    base: 0.0
+    min: 0.0
+    max: 15000000.0
+  nec_univerge_nec_pipsecglobalinauths:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nec_univerge_nec_pipsecglobalinauthfails:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  nec_univerge_nec_pipsecglobalindecrypts:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nec_univerge_nec_pipsecglobalindecryptfails:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  nec_univerge_nec_pipsecglobaloutoctets:
+    base: 3100000.0
+    min: 0.0
+    max: 1250000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nec_univerge_nec_pipsecglobaloutpkts:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nec_univerge_nec_pipsecglobaloutdrops:
+    base: 0.0
+    min: 0.0
+    max: 15000000.0
+  nec_univerge_nec_pipsecglobaloutauths:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nec_univerge_nec_pipsecglobaloutauthfails:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  nec_univerge_nec_pipsecglobaloutencrypts:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nec_univerge_nec_pipsecglobaloutencryptfails:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  nec_univerge_nec_pipsecglobalnosafails:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  nec_univerge_systemuptime:
+    base: 86400.0
+    min: 0.0
+    max: 315360000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nec_univerge_ifnumber:
+    base: 26.0
+    min: 26.0
+    max: 26.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_admin_status:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_admin_status_down:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_admin_status_testing:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_down:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_testing:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_dormant:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_notpresent:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_lowerlayerdown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_speed:
+    from_attr: if_speed_mbps
+    base: 1000.0
+    min: 0.0
+    max: 400000.0
+  if_in_octets_rate:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_out_octets_rate:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_ucast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_out_ucast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_mcast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nec_univerge_ifhcoutmulticastpkts:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_bcast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  nec_univerge_ifhcoutbroadcastpkts:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_errors_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  if_out_errors_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  if_in_discards_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  if_out_discards_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  nec_univerge_iftotaloperstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  nec_univerge_iftotaloperstatus_down:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  nec_univerge_iftotaloperstatus_testing:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  nec_univerge_iftotaloperstatus_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  nec_univerge_iftotaloperstatus_dormant:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  nec_univerge_iftotaloperstatus_notpresent:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  nec_univerge_iftotaloperstatus_lowerlayerdown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+contexts:
+- id: snmp.device_prof_nec_picoCelsius
+  title: Indicates the temperature of the equipment inside
+  units: Cel
+  family: Hardware/Temperature/Internal
+  chart_type: line
+  priority: 60000
+  shape: independent
+  dimensions:
+  - id: nec_picocelsius
+    signal: nec_univerge_nec_picocelsius
+- id: snmp.device_prof_nec_picoFahrenheit
+  title: Indicates the temperature of the equipment inside
+  units: degF
+  family: Hardware/Temperature/Internal/Fahrenheit
+  chart_type: line
+  priority: 60001
+  shape: independent
+  dimensions:
+  - id: nec_picofahrenheit
+    signal: nec_univerge_nec_picofahrenheit
+- id: snmp.device_prof_nec_picoVoltage
+  title: Indicates the observed voltage
+  units: mV
+  family: Hardware/Sensor/Voltage/Value
+  chart_type: line
+  priority: 60002
+  shape: independent
+  dimensions:
+  - id: nec_picovoltage
+    signal: nec_univerge_nec_picovoltage
+- id: snmp.device_prof_cpu_usage
+  title: The current CPU utilization
+  units: '%'
+  family: System/CPU/Usage
+  chart_type: line
+  priority: 60003
+  shape: independent
+  dimensions:
+  - id: cpu_usage
+    signal: device_cpu_usage
+- id: snmp.device_prof_memory_usage
+  title: Memory usage percentage
+  units: '%'
+  family: System/Memory/Usage
+  chart_type: line
+  priority: 60004
+  shape: independent
+  dimensions:
+  - id: memory_usage
+    signal: device_memory_usage
+- id: snmp.device_prof_nec_pikeGlobalActiveTunnels
+  title: Currently active IPsec Phase-1 IKE Tunnels
+  units: '{tunnel}'
+  family: Network/VPN/IPSec/Phase1/Tunnel/Active
+  chart_type: line
+  priority: 60005
+  shape: independent
+  dimensions:
+  - id: nec_pikeglobalactivetunnels
+    signal: nec_univerge_nec_pikeglobalactivetunnels
+- id: snmp.device_prof_nec_pikeGlobalInNotifys
+  title: Notifys received by IPsec Phase-1 IKE Tunnels
+  units: '{notification}/s'
+  family: Network/VPN/IPSec/Phase1/Notification/In
+  chart_type: line
+  priority: 60006
+  shape: counters
+  dimensions:
+  - id: nec_pikeglobalinnotifys
+    rate_signal: nec_univerge_nec_pikeglobalinnotifys
+- id: snmp.device_prof_nec_pikeGlobalInP2Exchgs
+  title: IPsec Phase-2 exchanges received by IPsec Phase-1 IKE Tunnels
+  units: '{exchange}/s'
+  family: Network/VPN/IPSec/Phase2/Exchange/In
+  chart_type: line
+  priority: 60007
+  shape: counters
+  dimensions:
+  - id: nec_pikeglobalinp2exchgs
+    rate_signal: nec_univerge_nec_pikeglobalinp2exchgs
+- id: snmp.device_prof_nec_pikeGlobalInP2ExchgInvalids
+  title: IPsec Phase-2 exchanges which were received and found to be contain references to unrecognized security parameters
+  units: '{exchange}/s'
+  family: Network/VPN/IPSec/Phase2/Exchange/Invalid/In
+  chart_type: line
+  priority: 60008
+  shape: counters
+  dimensions:
+  - id: nec_pikeglobalinp2exchginval
+    rate_signal: nec_univerge_nec_pikeglobalinp2exchginvalids
+- id: snmp.device_prof_nec_pikeGlobalInP2ExchgRejects
+  title: IPsec Phase-2 exchanges which were received and validated but were rejected by the local policy
+  units: '{exchange}/s'
+  family: Network/VPN/IPSec/Phase2/Exchange/Reject/In
+  chart_type: line
+  priority: 60009
+  shape: counters
+  dimensions:
+  - id: nec_pikeglobalinp2exchgrejec
+    rate_signal: nec_univerge_nec_pikeglobalinp2exchgrejects
+- id: snmp.device_prof_nec_pikeGlobalInP2SaDelRequests
+  title: IPsec Phase-2 security association delete requests received by IPsec Phase-1 IKE Tunnels
+  units: '{request}/s'
+  family: Network/VPN/IPSec/Phase2/SA/DeleteRequest/In
+  chart_type: line
+  priority: 60010
+  shape: counters
+  dimensions:
+  - id: nec_pikeglobalinp2sadelreque
+    rate_signal: nec_univerge_nec_pikeglobalinp2sadelrequests
+- id: snmp.device_prof_nec_pikeGlobalOutNotifys
+  title: Notifys sent by IPsec Phase-1 IKE Tunnels
+  units: '{notification}/s'
+  family: Network/VPN/IPSec/Phase1/Notification/Out
+  chart_type: line
+  priority: 60011
+  shape: counters
+  dimensions:
+  - id: nec_pikeglobaloutnotifys
+    rate_signal: nec_univerge_nec_pikeglobaloutnotifys
+- id: snmp.device_prof_nec_pikeGlobalOutP2Exchgs
+  title: IPsec Phase-2 exchanges which were sent by IPsec Phase-1 IKE Tunnels
+  units: '{exchange}/s'
+  family: Network/VPN/IPSec/Phase2/Exchange/Out
+  chart_type: line
+  priority: 60012
+  shape: counters
+  dimensions:
+  - id: nec_pikeglobaloutp2exchgs
+    rate_signal: nec_univerge_nec_pikeglobaloutp2exchgs
+- id: snmp.device_prof_nec_pikeGlobalOutP2ExchgInvalids
+  title: IPsec Phase-2 exchanges which were sent and were flagged by the peer to contain references to unrecognized security
+    parameters
+  units: '{exchange}/s'
+  family: Network/VPN/IPSec/Phase2/Exchange/Invalid/Out
+  chart_type: line
+  priority: 60013
+  shape: counters
+  dimensions:
+  - id: nec_pikeglobaloutp2exchginva
+    rate_signal: nec_univerge_nec_pikeglobaloutp2exchginvalids
+- id: snmp.device_prof_nec_pikeGlobalOutP2ExchgRejects
+  title: IPsec Phase-2 exchanges which were sent, validated by the peer but were rejected by the peers policy
+  units: '{exchange}/s'
+  family: Network/VPN/IPSec/Phase2/Exchange/Reject/Out
+  chart_type: line
+  priority: 60014
+  shape: counters
+  dimensions:
+  - id: nec_pikeglobaloutp2exchgreje
+    rate_signal: nec_univerge_nec_pikeglobaloutp2exchgrejects
+- id: snmp.device_prof_nec_pikeGlobalOutP2SaDelRequests
+  title: IPsec Phase-2 SA delete requests sent by IPsec Phase-1 IKE Tunnels
+  units: '{request}/s'
+  family: Network/VPN/IPSec/Phase2/SA/DeleteRequest/Out
+  chart_type: line
+  priority: 60015
+  shape: counters
+  dimensions:
+  - id: nec_pikeglobaloutp2sadelrequ
+    rate_signal: nec_univerge_nec_pikeglobaloutp2sadelrequests
+- id: snmp.device_prof_nec_pikeGlobalInitTunnels
+  title: IPSec Phase-1 IKE Tunnels which were locally initiated
+  units: '{tunnel}'
+  family: Network/VPN/IPSec/Phase1/Tunnel/Initiated
+  chart_type: line
+  priority: 60016
+  shape: independent
+  dimensions:
+  - id: nec_pikeglobalinittunnels
+    signal: nec_univerge_nec_pikeglobalinittunnels
+- id: snmp.device_prof_nec_pikeGlobalInitTunnelFails
+  title: IPsec Phase-1 IKE Tunnels which were locally initiated and failed to activate
+  units: '{tunnel}/s'
+  family: Network/VPN/IPSec/Phase1/Tunnel/Failure/Initiated
+  chart_type: line
+  priority: 60017
+  shape: counters
+  dimensions:
+  - id: nec_pikeglobalinittunnelfail
+    rate_signal: nec_univerge_nec_pikeglobalinittunnelfails
+- id: snmp.device_prof_nec_pikeGlobalRespTunnelFails
+  title: IPsec Phase-1 IKE Tunnels which were remotely initiated and failed to activate
+  units: '{tunnel}/s'
+  family: Network/VPN/IPSec/Phase1/Tunnel/Failure/Responder
+  chart_type: line
+  priority: 60018
+  shape: counters
+  dimensions:
+  - id: nec_pikeglobalresptunnelfail
+    rate_signal: nec_univerge_nec_pikeglobalresptunnelfails
+- id: snmp.device_prof_nec_pikeGlobalAuthFails
+  title: Authentications which ended in failure by IPsec Phase-1 IKE Tunnels
+  units: '{failure}/s'
+  family: Network/VPN/IPSec/Phase1/Authentication/Failure
+  chart_type: line
+  priority: 60019
+  shape: counters
+  dimensions:
+  - id: nec_pikeglobalauthfails
+    rate_signal: nec_univerge_nec_pikeglobalauthfails
+- id: snmp.device_prof_nec_pikeGlobalDecryptFails
+  title: Decryptions which ended in failure by IPsec Phase-1 IKE Tunnels
+  units: '{failure}/s'
+  family: Network/VPN/IPSec/Phase1/Decryption/Failure
+  chart_type: line
+  priority: 60020
+  shape: counters
+  dimensions:
+  - id: nec_pikeglobaldecryptfails
+    rate_signal: nec_univerge_nec_pikeglobaldecryptfails
+- id: snmp.device_prof_nec_pikeGlobalHashValidFails
+  title: Hash validations which ended in failure by IPsec Phase-1 Tunnels
+  units: '{failure}/s'
+  family: Network/VPN/IPSec/Phase1/HashValidation/Failure
+  chart_type: line
+  priority: 60021
+  shape: counters
+  dimensions:
+  - id: nec_pikeglobalhashvalidfails
+    rate_signal: nec_univerge_nec_pikeglobalhashvalidfails
+- id: snmp.device_prof_nec_pikeGlobalRespTunnels
+  title: IPsec Phase-1 IKE Tunnels hich were remotely initiated
+  units: '{tunnel}/s'
+  family: Network/VPN/IPSec/Phase1/Tunnel/Responder
+  chart_type: line
+  priority: 60022
+  shape: counters
+  dimensions:
+  - id: nec_pikeglobalresptunnels
+    rate_signal: nec_univerge_nec_pikeglobalresptunnels
+- id: snmp.device_prof_nec_pikeGlobalInP1SaDelRequests
+  title: ISAKMP security association delete requests received by IPsec Phase-1 Tunnels
+  units: '{request}/s'
+  family: Network/VPN/IPSec/Phase1/SA/DeleteRequest/In
+  chart_type: line
+  priority: 60023
+  shape: counters
+  dimensions:
+  - id: nec_pikeglobalinp1sadelreque
+    rate_signal: nec_univerge_nec_pikeglobalinp1sadelrequests
+- id: snmp.device_prof_nec_pikeGlobalOutP1SaDelRequests
+  title: ISAKMP security association delete requests sent by IPsec Phase-1 Tunnels
+  units: '{request}/s'
+  family: Network/VPN/IPSec/Phase1/SA/DeleteRequest/Out
+  chart_type: line
+  priority: 60024
+  shape: counters
+  dimensions:
+  - id: nec_pikeglobaloutp1sadelrequ
+    rate_signal: nec_univerge_nec_pikeglobaloutp1sadelrequests
+- id: snmp.device_prof_nec_pipSecGlobalActiveTunnels
+  title: Currently active IPsec Phase-2 Tunnels
+  units: '{tunnel}'
+  family: Network/VPN/IPSec/Phase2/Tunnel/Active
+  chart_type: line
+  priority: 60025
+  shape: independent
+  dimensions:
+  - id: nec_pipsecglobalactivetunnel
+    signal: nec_univerge_nec_pipsecglobalactivetunnels
+- id: snmp.device_prof_nec_pipSecGlobalInOctets
+  title: Data received by IPsec Phase-2 Tunnels
+  units: By/s
+  family: Network/VPN/IPSec/Phase2/Throughput/In
+  chart_type: line
+  priority: 60026
+  shape: counters
+  dimensions:
+  - id: nec_pipsecglobalinoctets
+    rate_signal: nec_univerge_nec_pipsecglobalinoctets
+- id: snmp.device_prof_nec_pipSecGlobalInPkts
+  title: Packets received by IPsec Phase-2 Tunnels
+  units: '{packet}/s'
+  family: Network/VPN/IPSec/Phase2/Packet/In
+  chart_type: line
+  priority: 60027
+  shape: counters
+  dimensions:
+  - id: nec_pipsecglobalinpkts
+    rate_signal: nec_univerge_nec_pipsecglobalinpkts
+- id: snmp.device_prof_nec_pipSecGlobalInDrops
+  title: Packets dropped during receive processing by IPsec Phase-2 Tunnels
+  units: '{packet}/s'
+  family: Network/VPN/IPSec/Phase2/Packet/Dropped/In
+  chart_type: line
+  priority: 60028
+  shape: counters
+  dimensions:
+  - id: nec_pipsecglobalindrops
+    rate_signal: nec_univerge_nec_pipsecglobalindrops
+- id: snmp.device_prof_nec_pipSecGlobalInReplayDrops
+  title: Packets dropped during receive processing due to Anti-Replay processing by IPsec Phase-2 Tunnels
+  units: '{packet}/s'
+  family: Network/VPN/IPSec/Phase2/Packet/Dropped/Replay
+  chart_type: line
+  priority: 60029
+  shape: counters
+  dimensions:
+  - id: nec_pipsecglobalinreplaydrop
+    rate_signal: nec_univerge_nec_pipsecglobalinreplaydrops
+- id: snmp.device_prof_nec_pipSecGlobalInAuths
+  title: Inbound authentications performed by IPsec Phase-2 Tunnels
+  units: '{authentication}/s'
+  family: Network/VPN/IPSec/Phase2/Authentication/In
+  chart_type: line
+  priority: 60030
+  shape: counters
+  dimensions:
+  - id: nec_pipsecglobalinauths
+    rate_signal: nec_univerge_nec_pipsecglobalinauths
+- id: snmp.device_prof_nec_pipSecGlobalInAuthFails
+  title: Inbound authentication which ended in failure by IPsec Phase-2 Tunnels
+  units: '{failure}/s'
+  family: Network/VPN/IPSec/Phase2/Authentication/Failure/In
+  chart_type: line
+  priority: 60031
+  shape: counters
+  dimensions:
+  - id: nec_pipsecglobalinauthfails
+    rate_signal: nec_univerge_nec_pipsecglobalinauthfails
+- id: snmp.device_prof_nec_pipSecGlobalInDecrypts
+  title: Inbound decryptions performed by IPsec Phase-2 Tunnels
+  units: '{decryption}/s'
+  family: Network/VPN/IPSec/Phase2/Decryption/In
+  chart_type: line
+  priority: 60032
+  shape: counters
+  dimensions:
+  - id: nec_pipsecglobalindecrypts
+    rate_signal: nec_univerge_nec_pipsecglobalindecrypts
+- id: snmp.device_prof_nec_pipSecGlobalInDecryptFails
+  title: Inbound decryptions which ended in failure by IPsec Phase-2 Tunnels
+  units: '{failure}/s'
+  family: Network/VPN/IPSec/Phase2/Decryption/Failure/In
+  chart_type: line
+  priority: 60033
+  shape: counters
+  dimensions:
+  - id: nec_pipsecglobalindecryptfai
+    rate_signal: nec_univerge_nec_pipsecglobalindecryptfails
+- id: snmp.device_prof_nec_pipSecGlobalOutOctets
+  title: Data sent by IPsec Phase-2 Tunnels
+  units: By/s
+  family: Network/VPN/IPSec/Phase2/Throughput/Out
+  chart_type: line
+  priority: 60034
+  shape: counters
+  dimensions:
+  - id: nec_pipsecglobaloutoctets
+    rate_signal: nec_univerge_nec_pipsecglobaloutoctets
+- id: snmp.device_prof_nec_pipSecGlobalOutPkts
+  title: Packets sent by IPsec Phase-2 Tunnels
+  units: '{packet}/s'
+  family: Network/VPN/IPSec/Phase2/Packet/Out
+  chart_type: line
+  priority: 60035
+  shape: counters
+  dimensions:
+  - id: nec_pipsecglobaloutpkts
+    rate_signal: nec_univerge_nec_pipsecglobaloutpkts
+- id: snmp.device_prof_nec_pipSecGlobalOutDrops
+  title: Packets dropped during send processing by IPsec Phase-2 Tunnels
+  units: '{packet}/s'
+  family: Network/VPN/IPSec/Phase2/Packet/Dropped/Out
+  chart_type: line
+  priority: 60036
+  shape: counters
+  dimensions:
+  - id: nec_pipsecglobaloutdrops
+    rate_signal: nec_univerge_nec_pipsecglobaloutdrops
+- id: snmp.device_prof_nec_pipSecGlobalOutAuths
+  title: Outbound authentications performed by IPsec Phase-2 Tunnels
+  units: '{authentication}/s'
+  family: Network/VPN/IPSec/Phase2/Authentication/Out
+  chart_type: line
+  priority: 60037
+  shape: counters
+  dimensions:
+  - id: nec_pipsecglobaloutauths
+    rate_signal: nec_univerge_nec_pipsecglobaloutauths
+- id: snmp.device_prof_nec_pipSecGlobalOutAuthFails
+  title: Outbound authentication's which ended in failure by IPsec Phase-2 Tunnels
+  units: '{failure}/s'
+  family: Network/VPN/IPSec/Phase2/Authentication/Failure/Out
+  chart_type: line
+  priority: 60038
+  shape: counters
+  dimensions:
+  - id: nec_pipsecglobaloutauthfails
+    rate_signal: nec_univerge_nec_pipsecglobaloutauthfails
+- id: snmp.device_prof_nec_pipSecGlobalOutEncrypts
+  title: Outbound encryptions performed by IPsec Phase-2 Tunnels
+  units: '{encryption}/s'
+  family: Network/VPN/IPSec/Phase2/Encryption/Out
+  chart_type: line
+  priority: 60039
+  shape: counters
+  dimensions:
+  - id: nec_pipsecglobaloutencrypts
+    rate_signal: nec_univerge_nec_pipsecglobaloutencrypts
+- id: snmp.device_prof_nec_pipSecGlobalOutEncryptFails
+  title: Outbound encryptions which ended in failure by IPsec Phase-2 Tunnels
+  units: '{failure}/s'
+  family: Network/VPN/IPSec/Phase2/Encryption/Failure/Out
+  chart_type: line
+  priority: 60040
+  shape: counters
+  dimensions:
+  - id: nec_pipsecglobaloutencryptfa
+    rate_signal: nec_univerge_nec_pipsecglobaloutencryptfails
+- id: snmp.device_prof_nec_pipSecGlobalNoSaFails
+  title: Non-existent SA in failures which occurred during processing by IPsec Phase-2 Tunnels
+  units: '{failure}/s'
+  family: Network/VPN/IPSec/Phase2/SA/Failure/NoSA
+  chart_type: line
+  priority: 60041
+  shape: counters
+  dimensions:
+  - id: nec_pipsecglobalnosafails
+    rate_signal: nec_univerge_nec_pipsecglobalnosafails
+- id: snmp.device_prof_systemUptime
+  title: Time since the system was last rebooted or powered on.
+  units: s
+  family: System/Uptime
+  chart_type: line
+  priority: 60042
+  shape: independent
+  dimensions:
+  - id: systemuptime
+    signal: nec_univerge_systemuptime
+- id: snmp.device_prof_ifNumber
+  title: Number of network interfaces regardless of their current state present on this system
+  units: '{interface}'
+  family: Network/Interface/Count
+  chart_type: line
+  priority: 60043
+  shape: independent
+  dimensions:
+  - id: ifnumber
+    signal: nec_univerge_ifnumber
+- id: snmp.device_prof_ifAdminStatus
+  title: Current administrative state of the interface
+  units: '{status}'
+  family: Network/Interface/Status/Admin
+  chart_type: line
+  priority: 60044
+  shape: independent
+  dimensions:
+  - id: up
+    signal: if_admin_status
+  - id: down
+    signal: if_admin_status_down
+  - id: testing
+    signal: if_admin_status_testing
+  instances:
+    group: interface
+    chart_prefix: ifadminstatus
+    family: Network/Interface/Status/Admin
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifOperStatus
+  title: Current operational state of the interface
+  units: '{status}'
+  family: Network/Interface/Status/Operational
+  chart_type: line
+  priority: 60045
+  shape: independent
+  dimensions:
+  - id: up
+    signal: if_oper_status
+  - id: down
+    signal: if_oper_status_down
+  - id: testing
+    signal: if_oper_status_testing
+  - id: unknown
+    signal: if_oper_status_unknown
+  - id: dormant
+    signal: if_oper_status_dormant
+  - id: notpresent
+    signal: if_oper_status_notpresent
+  - id: lowerlayerdown
+    signal: if_oper_status_lowerlayerdown
+  instances:
+    group: interface
+    chart_prefix: ifoperstatus
+    family: Network/Interface/Status/Operational
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifHighSpeed
+  title: Estimate of the interface's current bandwidth
+  units: bit/s
+  family: Network/Interface/Speed
+  chart_type: area
+  priority: 60046
+  shape: counters
+  dimensions:
+  - id: ifhighspeed
+    rate_signal: if_speed
+  instances:
+    group: interface
+    chart_prefix: ifhighspeed
+    family: Network/Interface/Speed
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifTotalTraffic
+  title: Total traffic across all interfaces
+  units: bit/s
+  family: Network/Total/Traffic
+  chart_type: area
+  priority: 60047
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_octets_rate
+  - id: out
+    rate_signal: if_out_octets_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalPacketsUcast
+  title: Total unicast packets across all interfaces
+  units: '{packet}/s'
+  family: Network/Total/Packet/Unicast
+  chart_type: line
+  priority: 60048
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_ucast_rate
+  - id: out
+    rate_signal: if_out_ucast_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalPacketsMulticast
+  title: Total multicast packets across all interfaces
+  units: '{packet}/s'
+  family: Network/Total/Packet/Multicast
+  chart_type: line
+  priority: 60049
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_mcast_rate
+  - id: out
+    rate_signal: nec_univerge_ifhcoutmulticastpkts
+    multiplier: -1
+- id: snmp.device_prof_ifTotalPacketsBroadcast
+  title: Total broadcast packets across all interfaces
+  units: '{packet}/s'
+  family: Network/Total/Packet/Broadcast
+  chart_type: line
+  priority: 60050
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_bcast_rate
+  - id: out
+    rate_signal: nec_univerge_ifhcoutbroadcastpkts
+    multiplier: -1
+- id: snmp.device_prof_ifTotalErrors
+  title: Total packets with errors across all interfaces
+  units: '{error}/s'
+  family: Network/Total/Error
+  chart_type: line
+  priority: 60051
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_errors_rate
+  - id: out
+    rate_signal: if_out_errors_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalDiscards
+  title: Total packets discarded across all interfaces
+  units: '{discard}/s'
+  family: Network/Total/Discard
+  chart_type: line
+  priority: 60052
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_discards_rate
+  - id: out
+    rate_signal: if_out_discards_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalOperStatus
+  title: Total count of interfaces by operational status
+  units: '{status}'
+  family: Network/Total/Interface/Status
+  chart_type: line
+  priority: 60053
+  shape: independent
+  dimensions:
+  - id: up
+    signal: nec_univerge_iftotaloperstatus
+  - id: down
+    signal: nec_univerge_iftotaloperstatus_down
+  - id: testing
+    signal: nec_univerge_iftotaloperstatus_testing
+  - id: unknown
+    signal: nec_univerge_iftotaloperstatus_unknown
+  - id: dormant
+    signal: nec_univerge_iftotaloperstatus_dormant
+  - id: notpresent
+    signal: nec_univerge_iftotaloperstatus_notpresent
+  - id: lowerlayerdown
+    signal: nec_univerge_iftotaloperstatus_lowerlayerdown
+- id: snmp.device_prof_ifTraffic
+  title: Traffic
+  units: bit/s
+  family: Network/Interface/Traffic/Total
+  chart_type: area
+  priority: 60054
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_octets_rate
+  - id: out
+    rate_signal: if_out_octets_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: iftraffic
+    family: Network/Interface/Traffic/Total
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifPacketsUcast
+  title: Unicast packets
+  units: '{packet}/s'
+  family: Network/Interface/Packet/Unicast
+  chart_type: line
+  priority: 60055
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_ucast_rate
+  - id: out
+    rate_signal: if_out_ucast_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifpacketsucast
+    family: Network/Interface/Packet/Unicast
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifPacketsMulticast
+  title: Multicast packets
+  units: '{packet}/s'
+  family: Network/Interface/Packet/Multicast
+  chart_type: line
+  priority: 60056
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_mcast_rate
+  - id: out
+    rate_signal: nec_univerge_ifhcoutmulticastpkts
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifpacketsmulticast
+    family: Network/Interface/Packet/Multicast
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifPacketsBroadcast
+  title: Broadcast packets
+  units: '{packet}/s'
+  family: Network/Interface/Packet/Broadcast
+  chart_type: line
+  priority: 60057
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_bcast_rate
+  - id: out
+    rate_signal: nec_univerge_ifhcoutbroadcastpkts
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifpacketsbroadcast
+    family: Network/Interface/Packet/Broadcast
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifErrors
+  title: Packets with errors
+  units: '{error}/s'
+  family: Network/Interface/Error/Total
+  chart_type: line
+  priority: 60058
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_errors_rate
+  - id: out
+    rate_signal: if_out_errors_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: iferrors
+    family: Network/Interface/Error/Total
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifDiscards
+  title: Packets discarded
+  units: '{discard}/s'
+  family: Network/Interface/Discard
+  chart_type: line
+  priority: 60059
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_discards_rate
+  - id: out
+    rate_signal: if_out_discards_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifdiscards
+    family: Network/Interface/Discard
+    labels:
+      interface: '{instance}'

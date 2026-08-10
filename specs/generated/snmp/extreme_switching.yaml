@@ -1,0 +1,983 @@
+version: 1
+name: extreme_switching
+description: Extreme Switch, as Netdata's SNMP collector reports it. Generated from go.d/snmp.profiles/default/extreme-switching.yaml
+  with its `extends` chain resolved. Contexts, units, families and metric names are the device's own; values are a plausible
+  fiction.
+signals:
+  device_cpu_usage:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  device_memory_total_bytes:
+    base: 4294967296.0
+    min: 4294967296.0
+    max: 4294967296.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  extreme_switching_memory_free:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  extreme_switching_extremeovertemperaturealarm:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  extreme_switching_extremeovertemperaturealarm_clear:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  extreme_switching_extremecurrenttemperature:
+    base: 41.0
+    min: 0.0
+    max: 120.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  extreme_switching_extremeprimarypoweroperational:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  extreme_switching_extremeprimarypoweroperational_failed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  extreme_switching_extremeredundantpowerstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  extreme_switching_extremeredundantpowerstatus_present_ok:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  extreme_switching_extremeredundantpowerstatus_present_not_ok:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  extreme_switching_extremeredundantpoweralarm_clear:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  extreme_switching_extremeredundantpoweralarm:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  extreme_switching_extremeinputpowervoltage:
+    base: 12.0
+    min: 0.0
+    max: 480.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  extreme_switching_extremepowerstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  extreme_switching_extremepowerstatus_present_ok:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  extreme_switching_extremepowerstatus_present_not_ok:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  extreme_switching_extremepoweralarm_clear:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  extreme_switching_extremepoweralarm:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  extreme_switching_extremesystempowerstate:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  extreme_switching_extremesystempowerstate_sufficient_but_not_redundant_power:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  extreme_switching_extremesystempowerstate_redundant_power_available:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  extreme_switching_extremesystempowerstate_insufficient_power:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  extreme_switching_extremefanoperational:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  extreme_switching_extremefanoperational_failed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  extreme_switching_systemuptime:
+    base: 86400.0
+    min: 0.0
+    max: 315360000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  extreme_switching_ifnumber:
+    base: 26.0
+    min: 26.0
+    max: 26.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_admin_status:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_admin_status_down:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_admin_status_testing:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_down:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_testing:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_dormant:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_notpresent:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_lowerlayerdown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_speed:
+    from_attr: if_speed_mbps
+    base: 1000.0
+    min: 0.0
+    max: 400000.0
+  extreme_switching_entphysensorvalue:
+    base: 12.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  extreme_switching_entphysensoroperstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  extreme_switching_entphysensoroperstatus_unavailable:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  extreme_switching_entphysensoroperstatus_nonoperational:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_in_octets_rate:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_out_octets_rate:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_ucast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_out_ucast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_mcast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  extreme_switching_ifhcoutmulticastpkts:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_bcast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  extreme_switching_ifhcoutbroadcastpkts:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_errors_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  if_out_errors_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  if_in_discards_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  if_out_discards_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  extreme_switching_iftotaloperstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  extreme_switching_iftotaloperstatus_down:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  extreme_switching_iftotaloperstatus_testing:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  extreme_switching_iftotaloperstatus_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  extreme_switching_iftotaloperstatus_dormant:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  extreme_switching_iftotaloperstatus_notpresent:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  extreme_switching_iftotaloperstatus_lowerlayerdown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+contexts:
+- id: snmp.device_prof_cpu_usage
+  title: The current CPU utilization
+  units: '%'
+  family: System/CPU/Usage
+  chart_type: line
+  priority: 60000
+  shape: independent
+  dimensions:
+  - id: cpu_usage
+    signal: device_cpu_usage
+- id: snmp.device_prof_memory_total
+  title: Total amount of DRAM in Kbytes in the system.
+  units: By
+  family: System/Memory/Total
+  chart_type: line
+  priority: 60001
+  shape: independent
+  dimensions:
+  - id: memory_total
+    signal: device_memory_total_bytes
+  instances:
+    group: mem_index
+    chart_prefix: memory_total
+    family: System/Memory/Total
+    labels:
+      mem_index: '{instance}'
+- id: snmp.device_prof_memory_free
+  title: Total amount of free memory in Kbytes in the system.
+  units: By
+  family: System/Memory/Free
+  chart_type: line
+  priority: 60002
+  shape: independent
+  dimensions:
+  - id: memory_free
+    signal: extreme_switching_memory_free
+  instances:
+    group: mem_index
+    chart_prefix: memory_free
+    family: System/Memory/Free
+    labels:
+      mem_index: '{instance}'
+- id: snmp.device_prof_extremeOverTemperatureAlarm
+  title: Over temperature alarm status
+  units: '{status}'
+  family: Hardware/Sensor/Temperature/Alarm/Status
+  chart_type: line
+  priority: 60003
+  shape: independent
+  dimensions:
+  - id: active
+    signal: extreme_switching_extremeovertemperaturealarm
+  - id: clear
+    signal: extreme_switching_extremeovertemperaturealarm_clear
+- id: snmp.device_prof_extremeCurrentTemperature
+  title: Current temperature measured inside device enclosure.
+  units: Cel
+  family: Hardware/Sensor/Temperature/Value
+  chart_type: line
+  priority: 60004
+  shape: independent
+  dimensions:
+  - id: extremecurrenttemperature
+    signal: extreme_switching_extremecurrenttemperature
+- id: snmp.device_prof_extremePrimaryPowerOperational
+  title: Primary power operational status
+  units: '{status}'
+  family: Hardware/Power/Primary/Status
+  chart_type: line
+  priority: 60005
+  shape: independent
+  dimensions:
+  - id: ok
+    signal: extreme_switching_extremeprimarypoweroperational
+  - id: failed
+    signal: extreme_switching_extremeprimarypoweroperational_failed
+- id: snmp.device_prof_extremeRedundantPowerStatus
+  title: Redundant power supply status
+  units: '{status}'
+  family: Hardware/Power/Redundant/Status
+  chart_type: line
+  priority: 60006
+  shape: independent
+  dimensions:
+  - id: not_present
+    signal: extreme_switching_extremeredundantpowerstatus
+  - id: present_ok
+    signal: extreme_switching_extremeredundantpowerstatus_present_ok
+  - id: present_not_ok
+    signal: extreme_switching_extremeredundantpowerstatus_present_not_ok
+- id: snmp.device_prof_extremeRedundantPowerAlarm
+  title: Redundant power alarm status
+  units: '{status}'
+  family: Hardware/Power/Redundant/Alarm/Status
+  chart_type: line
+  priority: 60007
+  shape: independent
+  dimensions:
+  - id: clear
+    signal: extreme_switching_extremeredundantpoweralarm_clear
+  - id: active
+    signal: extreme_switching_extremeredundantpoweralarm
+- id: snmp.device_prof_extremeInputPowerVoltage
+  title: The input power voltage at which the system is currently operating.
+  units: V
+  family: Hardware/Power/Input/Voltage
+  chart_type: line
+  priority: 60008
+  shape: independent
+  dimensions:
+  - id: extremeinputpowervoltage
+    signal: extreme_switching_extremeinputpowervoltage
+- id: snmp.device_prof_extremePowerStatus
+  title: Power supply status
+  units: '{status}'
+  family: Hardware/Power/Status
+  chart_type: line
+  priority: 60009
+  shape: independent
+  dimensions:
+  - id: not_present
+    signal: extreme_switching_extremepowerstatus
+  - id: present_ok
+    signal: extreme_switching_extremepowerstatus_present_ok
+  - id: present_not_ok
+    signal: extreme_switching_extremepowerstatus_present_not_ok
+- id: snmp.device_prof_extremePowerAlarm
+  title: Power alarm status
+  units: '{status}'
+  family: Hardware/Power/Alarm/Status
+  chart_type: line
+  priority: 60010
+  shape: independent
+  dimensions:
+  - id: clear
+    signal: extreme_switching_extremepoweralarm_clear
+  - id: active
+    signal: extreme_switching_extremepoweralarm
+- id: snmp.device_prof_extremeSystemPowerState
+  title: Overall system power state
+  units: '{status}'
+  family: Hardware/Power/Overall/Status
+  chart_type: line
+  priority: 60011
+  shape: independent
+  dimensions:
+  - id: computing
+    signal: extreme_switching_extremesystempowerstate
+  - id: sufficient_but_not_redundant
+    signal: extreme_switching_extremesystempowerstate_sufficient_but_not_redundant_power
+  - id: redundant_power_available
+    signal: extreme_switching_extremesystempowerstate_redundant_power_available
+  - id: insufficient_power
+    signal: extreme_switching_extremesystempowerstate_insufficient_power
+- id: snmp.device_prof_extremeFanOperational
+  title: Operational status of a cooling fan
+  units: '{status}'
+  family: Hardware/Fan/Status
+  chart_type: line
+  priority: 60012
+  shape: independent
+  dimensions:
+  - id: ok
+    signal: extreme_switching_extremefanoperational
+  - id: failed
+    signal: extreme_switching_extremefanoperational_failed
+  instances:
+    group: fan_index
+    chart_prefix: extremefanoperational
+    family: Hardware/Fan/Status
+    labels:
+      fan_index: '{instance}'
+- id: snmp.device_prof_systemUptime
+  title: Time since the system was last rebooted or powered on.
+  units: s
+  family: System/Uptime
+  chart_type: line
+  priority: 60013
+  shape: independent
+  dimensions:
+  - id: systemuptime
+    signal: extreme_switching_systemuptime
+- id: snmp.device_prof_ifNumber
+  title: Number of network interfaces regardless of their current state present on this system
+  units: '{interface}'
+  family: Network/Interface/Count
+  chart_type: line
+  priority: 60014
+  shape: independent
+  dimensions:
+  - id: ifnumber
+    signal: extreme_switching_ifnumber
+- id: snmp.device_prof_ifAdminStatus
+  title: Current administrative state of the interface
+  units: '{status}'
+  family: Network/Interface/Status/Admin
+  chart_type: line
+  priority: 60015
+  shape: independent
+  dimensions:
+  - id: up
+    signal: if_admin_status
+  - id: down
+    signal: if_admin_status_down
+  - id: testing
+    signal: if_admin_status_testing
+  instances:
+    group: interface
+    chart_prefix: ifadminstatus
+    family: Network/Interface/Status/Admin
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifOperStatus
+  title: Current operational state of the interface
+  units: '{status}'
+  family: Network/Interface/Status/Operational
+  chart_type: line
+  priority: 60016
+  shape: independent
+  dimensions:
+  - id: up
+    signal: if_oper_status
+  - id: down
+    signal: if_oper_status_down
+  - id: testing
+    signal: if_oper_status_testing
+  - id: unknown
+    signal: if_oper_status_unknown
+  - id: dormant
+    signal: if_oper_status_dormant
+  - id: notpresent
+    signal: if_oper_status_notpresent
+  - id: lowerlayerdown
+    signal: if_oper_status_lowerlayerdown
+  instances:
+    group: interface
+    chart_prefix: ifoperstatus
+    family: Network/Interface/Status/Operational
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifHighSpeed
+  title: Estimate of the interface's current bandwidth
+  units: bit/s
+  family: Network/Interface/Speed
+  chart_type: area
+  priority: 60017
+  shape: counters
+  dimensions:
+  - id: ifhighspeed
+    rate_signal: if_speed
+  instances:
+    group: interface
+    chart_prefix: ifhighspeed
+    family: Network/Interface/Speed
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_entPhySensorValue
+  title: Most recent measurement obtained by the agent for this sensor
+  units: '1'
+  family: Hardware/Sensor/Value
+  chart_type: line
+  priority: 60018
+  shape: independent
+  dimensions:
+  - id: entphysensorvalue
+    signal: extreme_switching_entphysensorvalue
+  instances:
+    group: sensor_index
+    chart_prefix: entphysensorvalue
+    family: Hardware/Sensor/Value
+    labels:
+      sensor_index: '{instance}'
+- id: snmp.device_prof_entPhySensorOperStatus
+  title: Operational status of the sensor
+  units: '{status}'
+  family: Hardware/Sensor/Status
+  chart_type: line
+  priority: 60019
+  shape: independent
+  dimensions:
+  - id: ok
+    signal: extreme_switching_entphysensoroperstatus
+  - id: unavailable
+    signal: extreme_switching_entphysensoroperstatus_unavailable
+  - id: nonoperational
+    signal: extreme_switching_entphysensoroperstatus_nonoperational
+  instances:
+    group: sensor_index
+    chart_prefix: entphysensoroperstatus
+    family: Hardware/Sensor/Status
+    labels:
+      sensor_index: '{instance}'
+- id: snmp.device_prof_ifTotalTraffic
+  title: Total traffic across all interfaces
+  units: bit/s
+  family: Network/Total/Traffic
+  chart_type: area
+  priority: 60020
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_octets_rate
+  - id: out
+    rate_signal: if_out_octets_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalPacketsUcast
+  title: Total unicast packets across all interfaces
+  units: '{packet}/s'
+  family: Network/Total/Packet/Unicast
+  chart_type: line
+  priority: 60021
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_ucast_rate
+  - id: out
+    rate_signal: if_out_ucast_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalPacketsMulticast
+  title: Total multicast packets across all interfaces
+  units: '{packet}/s'
+  family: Network/Total/Packet/Multicast
+  chart_type: line
+  priority: 60022
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_mcast_rate
+  - id: out
+    rate_signal: extreme_switching_ifhcoutmulticastpkts
+    multiplier: -1
+- id: snmp.device_prof_ifTotalPacketsBroadcast
+  title: Total broadcast packets across all interfaces
+  units: '{packet}/s'
+  family: Network/Total/Packet/Broadcast
+  chart_type: line
+  priority: 60023
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_bcast_rate
+  - id: out
+    rate_signal: extreme_switching_ifhcoutbroadcastpkts
+    multiplier: -1
+- id: snmp.device_prof_ifTotalErrors
+  title: Total packets with errors across all interfaces
+  units: '{error}/s'
+  family: Network/Total/Error
+  chart_type: line
+  priority: 60024
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_errors_rate
+  - id: out
+    rate_signal: if_out_errors_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalDiscards
+  title: Total packets discarded across all interfaces
+  units: '{discard}/s'
+  family: Network/Total/Discard
+  chart_type: line
+  priority: 60025
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_discards_rate
+  - id: out
+    rate_signal: if_out_discards_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalOperStatus
+  title: Total count of interfaces by operational status
+  units: '{status}'
+  family: Network/Total/Interface/Status
+  chart_type: line
+  priority: 60026
+  shape: independent
+  dimensions:
+  - id: up
+    signal: extreme_switching_iftotaloperstatus
+  - id: down
+    signal: extreme_switching_iftotaloperstatus_down
+  - id: testing
+    signal: extreme_switching_iftotaloperstatus_testing
+  - id: unknown
+    signal: extreme_switching_iftotaloperstatus_unknown
+  - id: dormant
+    signal: extreme_switching_iftotaloperstatus_dormant
+  - id: notpresent
+    signal: extreme_switching_iftotaloperstatus_notpresent
+  - id: lowerlayerdown
+    signal: extreme_switching_iftotaloperstatus_lowerlayerdown
+- id: snmp.device_prof_ifTraffic
+  title: Traffic
+  units: bit/s
+  family: Network/Interface/Traffic/Total
+  chart_type: area
+  priority: 60027
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_octets_rate
+  - id: out
+    rate_signal: if_out_octets_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: iftraffic
+    family: Network/Interface/Traffic/Total
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifPacketsUcast
+  title: Unicast packets
+  units: '{packet}/s'
+  family: Network/Interface/Packet/Unicast
+  chart_type: line
+  priority: 60028
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_ucast_rate
+  - id: out
+    rate_signal: if_out_ucast_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifpacketsucast
+    family: Network/Interface/Packet/Unicast
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifPacketsMulticast
+  title: Multicast packets
+  units: '{packet}/s'
+  family: Network/Interface/Packet/Multicast
+  chart_type: line
+  priority: 60029
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_mcast_rate
+  - id: out
+    rate_signal: extreme_switching_ifhcoutmulticastpkts
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifpacketsmulticast
+    family: Network/Interface/Packet/Multicast
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifPacketsBroadcast
+  title: Broadcast packets
+  units: '{packet}/s'
+  family: Network/Interface/Packet/Broadcast
+  chart_type: line
+  priority: 60030
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_bcast_rate
+  - id: out
+    rate_signal: extreme_switching_ifhcoutbroadcastpkts
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifpacketsbroadcast
+    family: Network/Interface/Packet/Broadcast
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifErrors
+  title: Packets with errors
+  units: '{error}/s'
+  family: Network/Interface/Error/Total
+  chart_type: line
+  priority: 60031
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_errors_rate
+  - id: out
+    rate_signal: if_out_errors_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: iferrors
+    family: Network/Interface/Error/Total
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifDiscards
+  title: Packets discarded
+  units: '{discard}/s'
+  family: Network/Interface/Discard
+  chart_type: line
+  priority: 60032
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_discards_rate
+  - id: out
+    rate_signal: if_out_discards_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifdiscards
+    family: Network/Interface/Discard
+    labels:
+      interface: '{instance}'

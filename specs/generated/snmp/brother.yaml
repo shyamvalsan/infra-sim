@@ -1,0 +1,28 @@
+version: 1
+name: brother
+description: Brother Network device, as Netdata's SNMP collector reports it. Generated from go.d/snmp.profiles/default/brother.yaml
+  with its `extends` chain resolved. Contexts, units, families and metric names are the device's own; values are a plausible
+  fiction.
+signals:
+  brother_systemuptime:
+    base: 86400.0
+    min: 0.0
+    max: 315360000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: snmp.device_prof_systemUptime
+  title: Time since the system was last rebooted or powered on.
+  units: s
+  family: System/Uptime
+  chart_type: line
+  priority: 60000
+  shape: independent
+  dimensions:
+  - id: systemuptime
+    signal: brother_systemuptime

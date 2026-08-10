@@ -1,0 +1,845 @@
+version: 1
+name: apc_netbotz
+description: APC Sensor, as Netdata's SNMP collector reports it. Generated from go.d/snmp.profiles/default/apc-netbotz.yaml
+  with its `extends` chain resolved. Contexts, units, families and metric names are the device's own; values are a plausible
+  fiction.
+signals:
+  apc_netbotz_enclosurestatus_disconnected:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  apc_netbotz_enclosurestatus_error:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  apc_netbotz_enclosurestatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  apc_netbotz_enclosureerrorstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  apc_netbotz_enclosureerrorstatus_info:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  apc_netbotz_enclosureerrorstatus_warning:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  apc_netbotz_enclosureerrorstatus_error:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  apc_netbotz_enclosureerrorstatus_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  apc_netbotz_enclosureerrorstatus_failure:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  apc_netbotz_dinportstatus_disconnected:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  apc_netbotz_dinportstatus_error:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  apc_netbotz_dinportstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  apc_netbotz_otherportstatus_disconnected:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  apc_netbotz_otherportstatus_error:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  apc_netbotz_otherportstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  apc_netbotz_tempsensorvalueint:
+    base: 41.0
+    min: 0.0
+    max: 120.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apc_netbotz_tempsensorvalueintf:
+    base: 106.0
+    min: 0.0
+    max: 250.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apc_netbotz_tempsensorerrorstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  apc_netbotz_tempsensorerrorstatus_info:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  apc_netbotz_tempsensorerrorstatus_warning:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  apc_netbotz_tempsensorerrorstatus_error:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  apc_netbotz_tempsensorerrorstatus_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  apc_netbotz_tempsensorerrorstatus_failure:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  apc_netbotz_humisensorvalueint:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apc_netbotz_humisensorerrorstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  apc_netbotz_humisensorerrorstatus_info:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  apc_netbotz_humisensorerrorstatus_warning:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  apc_netbotz_humisensorerrorstatus_error:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  apc_netbotz_humisensorerrorstatus_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  apc_netbotz_humisensorerrorstatus_failure:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  apc_netbotz_dewpointsensorvalueint:
+    base: 41.0
+    min: 0.0
+    max: 120.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apc_netbotz_dewpointsensorvalueintf:
+    base: 106.0
+    min: 0.0
+    max: 250.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  apc_netbotz_dewpointsensorerrorstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  apc_netbotz_dewpointsensorerrorstatus_info:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  apc_netbotz_dewpointsensorerrorstatus_warning:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  apc_netbotz_dewpointsensorerrorstatus_error:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  apc_netbotz_dewpointsensorerrorstatus_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  apc_netbotz_dewpointsensorerrorstatus_failure:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  apc_netbotz_doorswitchsensorvalue:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  apc_netbotz_doorswitchsensorvalue_open:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  apc_netbotz_doorswitchsensorvalue_closed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  apc_netbotz_doorswitchsensorerrorstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  apc_netbotz_doorswitchsensorerrorstatus_info:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  apc_netbotz_doorswitchsensorerrorstatus_warning:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  apc_netbotz_doorswitchsensorerrorstatus_error:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  apc_netbotz_doorswitchsensorerrorstatus_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  apc_netbotz_doorswitchsensorerrorstatus_failure:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  apc_netbotz_otherstatesensorerrorstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  apc_netbotz_otherstatesensorerrorstatus_info:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  apc_netbotz_otherstatesensorerrorstatus_warning:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  apc_netbotz_otherstatesensorerrorstatus_error:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  apc_netbotz_otherstatesensorerrorstatus_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  apc_netbotz_otherstatesensorerrorstatus_failure:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  apc_netbotz_errorcondseverity:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  apc_netbotz_errorcondseverity_info:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  apc_netbotz_errorcondseverity_warning:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  apc_netbotz_errorcondseverity_error:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  apc_netbotz_errorcondseverity_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  apc_netbotz_errorcondseverity_failure:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  apc_netbotz_errorcondresolved_false:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  apc_netbotz_errorcondresolved:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  apc_netbotz_errorcondresolved_null:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  apc_netbotz_systemuptime:
+    base: 86400.0
+    min: 0.0
+    max: 315360000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: snmp.device_prof_enclosureStatus
+  title: The status of the enclosure
+  units: '{status}'
+  family: Hardware/Enclosure/Status
+  chart_type: line
+  priority: 60000
+  shape: independent
+  dimensions:
+  - id: disconnected
+    signal: apc_netbotz_enclosurestatus_disconnected
+  - id: error
+    signal: apc_netbotz_enclosurestatus_error
+  - id: normal
+    signal: apc_netbotz_enclosurestatus
+  instances:
+    group: netbotz_enclosure_index
+    chart_prefix: enclosurestatus
+    family: Hardware/Enclosure/Status
+    labels:
+      netbotz_enclosure_index: '{instance}'
+- id: snmp.device_prof_enclosureErrorStatus
+  title: The error status of the enclosure
+  units: '{status}'
+  family: Hardware/Enclosure/Error/Status
+  chart_type: line
+  priority: 60001
+  shape: independent
+  dimensions:
+  - id: normal
+    signal: apc_netbotz_enclosureerrorstatus
+  - id: info
+    signal: apc_netbotz_enclosureerrorstatus_info
+  - id: warning
+    signal: apc_netbotz_enclosureerrorstatus_warning
+  - id: error
+    signal: apc_netbotz_enclosureerrorstatus_error
+  - id: critical
+    signal: apc_netbotz_enclosureerrorstatus_critical
+  - id: failure
+    signal: apc_netbotz_enclosureerrorstatus_failure
+  instances:
+    group: netbotz_enclosure_index
+    chart_prefix: enclosureerrorstatus
+    family: Hardware/Enclosure/Error/Status
+    labels:
+      netbotz_enclosure_index: '{instance}'
+- id: snmp.device_prof_dinPortStatus
+  title: The error status of the sensor
+  units: '{status}'
+  family: Hardware/Port/DIN/Status
+  chart_type: line
+  priority: 60002
+  shape: independent
+  dimensions:
+  - id: disconnected
+    signal: apc_netbotz_dinportstatus_disconnected
+  - id: error
+    signal: apc_netbotz_dinportstatus_error
+  - id: normal
+    signal: apc_netbotz_dinportstatus
+  instances:
+    group: netbotz_din_port_index
+    chart_prefix: dinportstatus
+    family: Hardware/Port/DIN/Status
+    labels:
+      netbotz_din_port_index: '{instance}'
+- id: snmp.device_prof_otherPortStatus
+  title: The error status of the sensor
+  units: '{status}'
+  family: Hardware/Port/Other/Status
+  chart_type: line
+  priority: 60003
+  shape: independent
+  dimensions:
+  - id: disconnected
+    signal: apc_netbotz_otherportstatus_disconnected
+  - id: error
+    signal: apc_netbotz_otherportstatus_error
+  - id: normal
+    signal: apc_netbotz_otherportstatus
+  instances:
+    group: netbotz_other_port_index
+    chart_prefix: otherportstatus
+    family: Hardware/Port/Other/Status
+    labels:
+      netbotz_other_port_index: '{instance}'
+- id: snmp.device_prof_tempSensorValueInt
+  title: The temperature measured by the sensor
+  units: Cel
+  family: Hardware/Sensor/Temperature/Value
+  chart_type: line
+  priority: 60004
+  shape: independent
+  dimensions:
+  - id: tempsensorvalueint
+    signal: apc_netbotz_tempsensorvalueint
+  instances:
+    group: netbotz_temp_sensor_index
+    chart_prefix: tempsensorvalueint
+    family: Hardware/Sensor/Temperature/Value
+    labels:
+      netbotz_temp_sensor_index: '{instance}'
+- id: snmp.device_prof_tempSensorValueIntF
+  title: The temperature measured by the sensor
+  units: degF
+  family: Hardware/Sensor/Temperature/Value
+  chart_type: line
+  priority: 60005
+  shape: independent
+  dimensions:
+  - id: tempsensorvalueintf
+    signal: apc_netbotz_tempsensorvalueintf
+  instances:
+    group: netbotz_temp_sensor_index
+    chart_prefix: tempsensorvalueintf
+    family: Hardware/Sensor/Temperature/Value
+    labels:
+      netbotz_temp_sensor_index: '{instance}'
+- id: snmp.device_prof_tempSensorErrorStatus
+  title: The error status of the sensor
+  units: '{status}'
+  family: Hardware/Sensor/Temperature/Status
+  chart_type: line
+  priority: 60006
+  shape: independent
+  dimensions:
+  - id: normal
+    signal: apc_netbotz_tempsensorerrorstatus
+  - id: info
+    signal: apc_netbotz_tempsensorerrorstatus_info
+  - id: warning
+    signal: apc_netbotz_tempsensorerrorstatus_warning
+  - id: error
+    signal: apc_netbotz_tempsensorerrorstatus_error
+  - id: critical
+    signal: apc_netbotz_tempsensorerrorstatus_critical
+  - id: failure
+    signal: apc_netbotz_tempsensorerrorstatus_failure
+  instances:
+    group: netbotz_temp_sensor_index
+    chart_prefix: tempsensorerrorstatus
+    family: Hardware/Sensor/Temperature/Status
+    labels:
+      netbotz_temp_sensor_index: '{instance}'
+- id: snmp.device_prof_humiSensorValueInt
+  title: The relative humidity measured by the sensor
+  units: '%'
+  family: Hardware/Sensor/Humidity/Value
+  chart_type: line
+  priority: 60007
+  shape: independent
+  dimensions:
+  - id: humisensorvalueint
+    signal: apc_netbotz_humisensorvalueint
+  instances:
+    group: netbotz_humi_sensor_index
+    chart_prefix: humisensorvalueint
+    family: Hardware/Sensor/Humidity/Value
+    labels:
+      netbotz_humi_sensor_index: '{instance}'
+- id: snmp.device_prof_humiSensorErrorStatus
+  title: The error status of the sensor
+  units: '{status}'
+  family: Hardware/Sensor/Humidity/Status
+  chart_type: line
+  priority: 60008
+  shape: independent
+  dimensions:
+  - id: normal
+    signal: apc_netbotz_humisensorerrorstatus
+  - id: info
+    signal: apc_netbotz_humisensorerrorstatus_info
+  - id: warning
+    signal: apc_netbotz_humisensorerrorstatus_warning
+  - id: error
+    signal: apc_netbotz_humisensorerrorstatus_error
+  - id: critical
+    signal: apc_netbotz_humisensorerrorstatus_critical
+  - id: failure
+    signal: apc_netbotz_humisensorerrorstatus_failure
+  instances:
+    group: netbotz_humi_sensor_index
+    chart_prefix: humisensorerrorstatus
+    family: Hardware/Sensor/Humidity/Status
+    labels:
+      netbotz_humi_sensor_index: '{instance}'
+- id: snmp.device_prof_dewPointSensorValueInt
+  title: The dew point measured by the sensor
+  units: Cel
+  family: Hardware/Sensor/DewPoint/Value
+  chart_type: line
+  priority: 60009
+  shape: independent
+  dimensions:
+  - id: dewpointsensorvalueint
+    signal: apc_netbotz_dewpointsensorvalueint
+  instances:
+    group: netbotz_dew_point_sensor_index
+    chart_prefix: dewpointsensorvalueint
+    family: Hardware/Sensor/DewPoint/Value
+    labels:
+      netbotz_dew_point_sensor_index: '{instance}'
+- id: snmp.device_prof_dewPointSensorValueIntF
+  title: The dew point measured by the sensor
+  units: degF
+  family: Hardware/Sensor/DewPoint/Value
+  chart_type: line
+  priority: 60010
+  shape: independent
+  dimensions:
+  - id: dewpointsensorvalueintf
+    signal: apc_netbotz_dewpointsensorvalueintf
+  instances:
+    group: netbotz_dew_point_sensor_index
+    chart_prefix: dewpointsensorvalueintf
+    family: Hardware/Sensor/DewPoint/Value
+    labels:
+      netbotz_dew_point_sensor_index: '{instance}'
+- id: snmp.device_prof_dewPointSensorErrorStatus
+  title: The error status of the sensor
+  units: '{status}'
+  family: Hardware/Sensor/DewPoint/Status
+  chart_type: line
+  priority: 60011
+  shape: independent
+  dimensions:
+  - id: normal
+    signal: apc_netbotz_dewpointsensorerrorstatus
+  - id: info
+    signal: apc_netbotz_dewpointsensorerrorstatus_info
+  - id: warning
+    signal: apc_netbotz_dewpointsensorerrorstatus_warning
+  - id: error
+    signal: apc_netbotz_dewpointsensorerrorstatus_error
+  - id: critical
+    signal: apc_netbotz_dewpointsensorerrorstatus_critical
+  - id: failure
+    signal: apc_netbotz_dewpointsensorerrorstatus_failure
+  instances:
+    group: netbotz_dew_point_sensor_index
+    chart_prefix: dewpointsensorerrorstatus
+    family: Hardware/Sensor/DewPoint/Status
+    labels:
+      netbotz_dew_point_sensor_index: '{instance}'
+- id: snmp.device_prof_doorSwitchSensorValue
+  title: Whether the door is open or closed
+  units: '{status}'
+  family: Hardware/Sensor/DoorSwitch/Position
+  chart_type: line
+  priority: 60012
+  shape: independent
+  dimensions:
+  - id: 'null'
+    signal: apc_netbotz_doorswitchsensorvalue
+  - id: open
+    signal: apc_netbotz_doorswitchsensorvalue_open
+  - id: closed
+    signal: apc_netbotz_doorswitchsensorvalue_closed
+  instances:
+    group: netbotz_door_switch_sensor_index
+    chart_prefix: doorswitchsensorvalue
+    family: Hardware/Sensor/DoorSwitch/Position
+    labels:
+      netbotz_door_switch_sensor_index: '{instance}'
+- id: snmp.device_prof_doorSwitchSensorErrorStatus
+  title: The error status of the sensor
+  units: '{status}'
+  family: Hardware/Sensor/DoorSwitch/Status
+  chart_type: line
+  priority: 60013
+  shape: independent
+  dimensions:
+  - id: normal
+    signal: apc_netbotz_doorswitchsensorerrorstatus
+  - id: info
+    signal: apc_netbotz_doorswitchsensorerrorstatus_info
+  - id: warning
+    signal: apc_netbotz_doorswitchsensorerrorstatus_warning
+  - id: error
+    signal: apc_netbotz_doorswitchsensorerrorstatus_error
+  - id: critical
+    signal: apc_netbotz_doorswitchsensorerrorstatus_critical
+  - id: failure
+    signal: apc_netbotz_doorswitchsensorerrorstatus_failure
+  instances:
+    group: netbotz_door_switch_sensor_index
+    chart_prefix: doorswitchsensorerrorstatus
+    family: Hardware/Sensor/DoorSwitch/Status
+    labels:
+      netbotz_door_switch_sensor_index: '{instance}'
+- id: snmp.device_prof_otherStateSensorErrorStatus
+  title: The error status of the sensor
+  units: '{status}'
+  family: Hardware/Sensor/OtherState/Status
+  chart_type: line
+  priority: 60014
+  shape: independent
+  dimensions:
+  - id: normal
+    signal: apc_netbotz_otherstatesensorerrorstatus
+  - id: info
+    signal: apc_netbotz_otherstatesensorerrorstatus_info
+  - id: warning
+    signal: apc_netbotz_otherstatesensorerrorstatus_warning
+  - id: error
+    signal: apc_netbotz_otherstatesensorerrorstatus_error
+  - id: critical
+    signal: apc_netbotz_otherstatesensorerrorstatus_critical
+  - id: failure
+    signal: apc_netbotz_otherstatesensorerrorstatus_failure
+  instances:
+    group: netbotz_other_state_sensor_label
+    chart_prefix: otherstatesensorerrorstatus
+    family: Hardware/Sensor/OtherState/Status
+    labels:
+      netbotz_other_state_sensor_label: '{instance}'
+- id: snmp.device_prof_errorCondSeverity
+  title: The relative severity of the error condition
+  units: '{status}'
+  family: System/Alert/Severity
+  chart_type: line
+  priority: 60015
+  shape: independent
+  dimensions:
+  - id: normal
+    signal: apc_netbotz_errorcondseverity
+  - id: info
+    signal: apc_netbotz_errorcondseverity_info
+  - id: warning
+    signal: apc_netbotz_errorcondseverity_warning
+  - id: error
+    signal: apc_netbotz_errorcondseverity_error
+  - id: critical
+    signal: apc_netbotz_errorcondseverity_critical
+  - id: failure
+    signal: apc_netbotz_errorcondseverity_failure
+  instances:
+    group: netbotz_error_cond_index
+    chart_prefix: errorcondseverity
+    family: System/Alert/Severity
+    labels:
+      netbotz_error_cond_index: '{instance}'
+- id: snmp.device_prof_errorCondResolved
+  title: Whether the error condition was resolved
+  units: '{status}'
+  family: System/Alert/Resolution/Status
+  chart_type: line
+  priority: 60016
+  shape: independent
+  dimensions:
+  - id: 'false'
+    signal: apc_netbotz_errorcondresolved_false
+  - id: 'true'
+    signal: apc_netbotz_errorcondresolved
+  - id: 'null'
+    signal: apc_netbotz_errorcondresolved_null
+  instances:
+    group: netbotz_error_cond_index
+    chart_prefix: errorcondresolved
+    family: System/Alert/Resolution/Status
+    labels:
+      netbotz_error_cond_index: '{instance}'
+- id: snmp.device_prof_systemUptime
+  title: Time since the system was last rebooted or powered on.
+  units: s
+  family: System/Uptime
+  chart_type: line
+  priority: 60017
+  shape: independent
+  dimensions:
+  - id: systemuptime
+    signal: apc_netbotz_systemuptime

@@ -33,12 +33,127 @@ pub struct Group {
     pub count: usize,
     pub role: String,
     pub services: Vec<String>,
+    /// Where these nodes are. `None` means unplaced: no coordinates are written
+    /// at all, rather than a default that would put a prospect's estate off the
+    /// coast of Africa.
+    pub site: Option<Site>,
+    /// What this network device is, for its `device_vendor`, `device_model` and
+    /// `device_type` labels. Set from the device catalogue when a model is
+    /// picked; absent, the generic switch's own labels are used.
+    ///
+    /// A node loading Netdata's Cisco Catalyst profile while labelled as a
+    /// made-up switch model is the kind of contradiction an SRE reads first.
+    pub device: Option<DeviceIdentity>,
     /// Hostname element, e.g. `checkout` in `acme-checkout-01`. `None` uses the
     /// role's own slug. The LLM path sets this so hostnames carry the
     /// prospect's vocabulary instead of ours.
     pub slug: Option<String>,
     /// The phrase this came from, echoed back so the SE can check the reading.
     pub source: String,
+}
+
+/// The fleet's home. Its own location when it has one; otherwise the site of the
+/// largest placed group, so a fleet assembled without a fleet-level location
+/// still places the simulation's agent somewhere true.
+fn fleet_site(reading: &Reading) -> Option<Site> {
+    reading.site.or_else(|| {
+        reading
+            .groups
+            .iter()
+            .filter(|g| g.site.is_some())
+            .fold(None::<&Group>, |best, g| match best {
+                Some(b) if b.count >= g.count => Some(b),
+                _ => Some(g),
+            })
+            .and_then(|g| g.site)
+    })
+}
+
+/// The `latitude`/`longitude` label lines for one node, or nothing when the
+/// group has no site. Emitted for every node class, because a switch is at a
+/// site as much as a server is.
+fn site_labels(site: Option<Site>, hostname: &str) -> Vec<String> {
+    match site {
+        None => Vec::new(),
+        Some(s) => {
+            let (lat, lon) = s.scattered(hostname);
+            vec![
+                format!("      latitude: {lat:.6}"),
+                format!("      longitude: {lon:.6}"),
+            ]
+        }
+    }
+}
+
+/// What a network device says it is.
+#[derive(Debug, Clone, PartialEq)]
+pub struct DeviceIdentity {
+    pub vendor: String,
+    pub model: String,
+    /// `switch`, `router`, `firewall`, ... from the profile's own metadata.
+    pub kind: String,
+}
+
+/// splitmix64's finalizer. Spreads a change in any input bit across all 64.
+fn mix(mut z: u64) -> u64 {
+    z = (z ^ (z >> 30)).wrapping_mul(0xbf58_476d_1ce4_e5b9);
+    z = (z ^ (z >> 27)).wrapping_mul(0x94d0_49bb_1331_11eb);
+    z ^ (z >> 31)
+}
+
+/// A geographic site, for the `latitude` and `longitude` host labels.
+///
+/// Netdata Cloud reads these to place a node on a map. The agent itself does not
+/// interpret them - they are ordinary host labels.
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub struct Site {
+    pub lat: f64,
+    pub lon: f64,
+}
+
+impl Site {
+    /// Reject anything that is not a point on Earth. A silently wrong coordinate
+    /// is worse than a refused one: it puts the prospect's fleet somewhere
+    /// visibly absurd in front of them.
+    pub fn new(lat: f64, lon: f64) -> Result<Self, String> {
+        if !lat.is_finite() || !(-90.0..=90.0).contains(&lat) {
+            return Err(format!("latitude {lat} is not between -90 and 90"));
+        }
+        if !lon.is_finite() || !(-180.0..=180.0).contains(&lon) {
+            return Err(format!("longitude {lon} is not between -180 and 180"));
+        }
+        Ok(Self { lat, lon })
+    }
+
+    /// This site, offset by up to roughly 500m, fixed by hostname.
+    ///
+    /// Machines in one rack really do share a coordinate, but 27 nodes on one
+    /// pin is a map that hides 26 of them. The offset is derived from the
+    /// hostname so a node never moves between runs, re-skins or reinstalls.
+    pub fn scattered(&self, hostname: &str) -> (f64, f64) {
+        // ~500m of latitude. Longitude degrees shrink towards the poles, so the
+        // east-west offset is divided by cos(lat) to keep the scatter circular.
+        const SPREAD_DEG: f64 = 0.0045;
+        let h = hostname.bytes().fold(0xcbf2_9ce4_8422_2325u64, |acc, b| {
+            (acc ^ u64::from(b)).wrapping_mul(0x0000_0100_0000_01b3)
+        });
+        // FNV on its own is not enough here. `-web-01` and `-web-02` differ in
+        // one trailing byte, which barely moves FNV's upper bits, so two windows
+        // of the same hash gave every node at a site the same longitude and
+        // latitudes 7m apart. Avalanche first, and derive each axis from its own
+        // mixed stream.
+        let unit = |bits: u64| (bits & 0xffff) as f64 / 32_767.5 - 1.0;
+        let lat = (self.lat + unit(mix(h)) * SPREAD_DEG).clamp(-90.0, 90.0);
+        let shrink = self.lat.to_radians().cos().abs().max(0.02);
+        let mut lon = self.lon + unit(mix(h ^ 0x9e37_79b9_7f4a_7c15)) * SPREAD_DEG / shrink;
+        // A site near the antimeridian must wrap, not clamp.
+        if lon > 180.0 {
+            lon -= 360.0;
+        } else if lon < -180.0 {
+            lon += 360.0;
+        }
+        (lat, lon)
+    }
 }
 
 impl Group {
@@ -55,6 +170,12 @@ impl Group {
     pub fn effective_slug(&self) -> &str {
         if let Some(s) = self.slug.as_deref().filter(|s| !s.is_empty()) {
             return s;
+        }
+        // A network device's service is its model, not software installed on it:
+        // a Catalyst is still `sw-01` to whoever runs the network, and the hero
+        // scenario targets that suffix.
+        if self.role == "network-device" {
+            return slug_for(&self.role);
         }
         match self.distinctive_service() {
             Some(svc) => svc,
@@ -88,6 +209,14 @@ pub struct Reading {
     pub groups: Vec<Group>,
     /// Phrases that matched no known role or service.
     pub unrecognised: Vec<String>,
+    /// The fleet's own location: the default every group inherits, and the place
+    /// the simulation's own agent is labelled with.
+    ///
+    /// Held here rather than inferred from the groups. Inferring it picked the
+    /// largest placed group, which on a tie between two groups labelled the
+    /// simulation's agent with a *group override* instead of the fleet's own
+    /// location - visible on a live agent as a parent node in the wrong city.
+    pub site: Option<Site>,
 }
 
 impl Reading {
@@ -498,15 +627,97 @@ fn persona(role: &str) -> Persona {
     }
 }
 
-/// Base spec for a role, when it is not the fleet's Linux baseline.
+/// Base spec for a group, when it is not the fleet's Linux baseline.
 ///
-/// Only network devices differ today. Returning a path here is what makes a
-/// mixed fleet possible: the node carries its own `generator:`.
-fn base_spec(role: &str) -> Option<&'static str> {
-    match role {
-        "network-device" => Some("../specs/network-device.yaml"),
-        _ => None,
+/// Returning a path here is what makes a mixed fleet possible: the node carries
+/// its own `generator:`.
+///
+/// A network device picks its own model. Selecting `cisco-catalyst` on a
+/// network-device group uses the spec generated from Netdata's own Cisco
+/// Catalyst SNMP profile, which reports per-supervisor CPU, chassis temperature,
+/// power supplies and FRU state - none of which the generic switch spec has. The
+/// device is expressed as the group's service so the integration picker needs no
+/// new machinery.
+fn base_spec(role: &str, services: &[String]) -> Option<String> {
+    if role != "network-device" {
+        return None;
     }
+    // A device profile id is the one service a network device can carry.
+    match services.iter().find(|s| *s != "processes") {
+        Some(model) => Some(format!(
+            "../specs/generated/snmp/{}.yaml",
+            model.replace('-', "_")
+        )),
+        None => Some("../specs/network-device.yaml".to_string()),
+    }
+}
+
+/// One entry in a device's instance list: name, weight, and a port speed where
+/// the instance is a port.
+type DeviceInstance = (String, f64, Option<u32>);
+
+/// Instance lists a simulated network device carries.
+///
+/// A vendor profile tables many things; a device only charts the groups the
+/// environment gives it, because a context whose instance group is absent is
+/// skipped. So this populates the hardware a switch really has - ports, CPUs,
+/// memory pools, sensors, fans, power supplies - and leaves the topology tables
+/// (OSPF neighbours, CDP peers, MAC tables) empty. Those describe a network this
+/// simulation does not have, and inventing them would be inventing peers.
+fn device_instances() -> Vec<(&'static str, Vec<DeviceInstance>)> {
+    let ports: Vec<(String, f64, Option<u32>)> = ports()
+        .into_iter()
+        .map(|(n, w, speed)| (n, w, Some(speed)))
+        .collect();
+    vec![
+        ("interface", ports),
+        (
+            "cpu_index",
+            vec![("1".into(), 1.0, None), ("2".into(), 0.85, None)],
+        ),
+        (
+            "mem_pool_index",
+            vec![("Processor".into(), 1.0, None), ("IO".into(), 0.4, None)],
+        ),
+        (
+            "temp_index",
+            vec![
+                ("Inlet".into(), 1.0, None),
+                ("Outlet".into(), 1.12, None),
+                ("Supervisor".into(), 1.2, None),
+            ],
+        ),
+        (
+            "sensor_index",
+            vec![("Inlet".into(), 1.0, None), ("Hotspot".into(), 1.15, None)],
+        ),
+        (
+            "power_supply_index",
+            vec![("PSU1".into(), 1.0, None), ("PSU2".into(), 1.0, None)],
+        ),
+        (
+            "fan_status_index",
+            vec![
+                ("Fan1".into(), 1.0, None),
+                ("Fan2".into(), 1.0, None),
+                ("Fan3".into(), 1.0, None),
+                ("Fan4".into(), 1.0, None),
+            ],
+        ),
+        (
+            "fru_index",
+            vec![("1".into(), 1.0, None), ("2".into(), 1.0, None)],
+        ),
+        (
+            "storage_index",
+            vec![("Flash".into(), 1.0, None), ("NVRAM".into(), 0.2, None)],
+        ),
+        (
+            "voltage_index",
+            vec![("12V".into(), 1.0, None), ("3V3".into(), 0.275, None)],
+        ),
+        ("chassis_switch_id", vec![("1".into(), 1.0, None)]),
+    ]
 }
 
 /// Ports on a simulated device, by index. A 24-port access switch with two
@@ -734,6 +945,8 @@ fn match_clause(clause: &str, available: &[String]) -> Option<Group> {
         // Keyword matching has no evidence for a better name than the role's.
         slug: None,
         source: clause.to_string(),
+        site: None,
+        device: None,
     })
 }
 
@@ -853,12 +1066,28 @@ pub fn render(reading: &Reading, name: &str, seed: u64, prefix: &str) -> String 
         "generator: ../specs/linux-system.yaml".into(),
         "specs: ../specs".into(),
         "scenarios: ../scenarios".into(),
+    ];
+
+    // The fleet's own site, recorded once so the simulation's agent can be given
+    // the same coordinates as the nodes it serves. Per-node coordinates are
+    // written on each node below; this is the fleet's home, taken from the
+    // largest placed group.
+    if let Some(site) = fleet_site(reading) {
+        lines.push(String::new());
+        lines.push("# Where this fleet is. The container's own agent is labelled".into());
+        lines.push("# from here, so no node in the Space is left unplaced.".into());
+        lines.push("site:".into());
+        lines.push(format!("  latitude: {:.6}", site.lat));
+        lines.push(format!("  longitude: {:.6}", site.lon));
+    }
+
+    lines.extend([
         String::new(),
         "# GUIDs are derived from the environment name and hostname, so".into(),
         "# regenerating this file reproduces the same node identities rather".into(),
         "# than orphaning the history of a fleet that is already running.".into(),
         "nodes:".into(),
-    ];
+    ]);
 
     for group in &reading.groups {
         let (cores, ram_kb, disk, itype) = hardware(&group.role);
@@ -893,26 +1122,47 @@ pub fn render(reading: &Reading, name: &str, seed: u64, prefix: &str) -> String 
             // Emitting the Linux shape here and letting the charts fall away
             // would still leave the node advertising cores and RAM it does not
             // have, in labels an SRE reads first.
-            if let Some(base) = base_spec(&group.role) {
+            if let Some(base) = base_spec(&group.role, &group.services) {
                 lines.push(format!("    generator: {base}"));
                 lines.push("    services: []".into());
                 lines.push("    utc_offset_secs: 0".into());
                 lines.push("    attrs: {}".into());
                 lines.push("    instances:".into());
-                lines.push("      interface:".into());
-                for (name, weight, speed) in ports() {
-                    lines.push(format!(
-                        "        - {{ name: {name}, weight: {weight}, \
-                         attrs: {{ if_speed_mbps: {speed} }} }}"
-                    ));
+                for (group_name, entries) in device_instances() {
+                    lines.push(format!("      {group_name}:"));
+                    for (name, weight, speed) in entries {
+                        // Quoted: an SNMP index is a name that happens to look
+                        // like a number, and `name: 1` parses as an integer.
+                        match speed {
+                            Some(mbps) => lines.push(format!(
+                                "        - {{ name: \"{name}\", weight: {weight}, \
+                                 attrs: {{ if_speed_mbps: {mbps} }} }}"
+                            )),
+                            None => lines.push(format!(
+                                "        - {{ name: \"{name}\", weight: {weight} }}"
+                            )),
+                        }
+                    }
                 }
                 lines.push("    labels:".into());
                 lines.push("      _install_type: infra-sim".into());
-                lines.push("      device_vendor: sim-networks".into());
-                lines.push("      device_model: SIM-2960X-24".into());
-                lines.push("      device_type: switch".into());
+                match &group.device {
+                    Some(d) => {
+                        lines.push(format!("      device_vendor: {}", d.vendor));
+                        lines.push(format!("      device_model: {}", d.model));
+                        lines.push(format!("      device_type: {}", d.kind));
+                    }
+                    // No model chosen: a generic managed switch, and visibly
+                    // synthetic rather than borrowing a real vendor's name.
+                    None => {
+                        lines.push("      device_vendor: sim-networks".into());
+                        lines.push("      device_model: SIM-2960X-24".into());
+                        lines.push("      device_type: switch".into());
+                    }
+                }
                 lines.push(format!("      infra_sim_role: {}", group.role));
                 lines.push("      infra_sim_env: production".into());
+                lines.extend(site_labels(group.site, &hostname));
                 continue;
             }
 
@@ -979,6 +1229,7 @@ pub fn render(reading: &Reading, name: &str, seed: u64, prefix: &str) -> String 
             lines.push("      _install_type: infra-sim".into());
             lines.push(format!("      infra_sim_role: {}", group.role));
             lines.push("      infra_sim_env: production".into());
+            lines.extend(site_labels(group.site, &hostname));
         }
     }
 
@@ -1025,9 +1276,12 @@ mod tests {
                     services: vec![],
                     slug: Some(format!("g{i}")),
                     source: String::new(),
+                    site: None,
+                    device: None,
                 })
                 .collect(),
             unrecognised: vec![],
+            site: None,
         };
         for (from, target) in [
             (vec![2, 20, 3, 1], 50usize),
@@ -1060,6 +1314,8 @@ mod tests {
                     services: vec![],
                     slug: Some("lb".into()),
                     source: String::new(),
+                    site: None,
+                    device: None,
                 },
                 super::Group {
                     count: 20,
@@ -1067,9 +1323,12 @@ mod tests {
                     services: vec![],
                     slug: Some("web".into()),
                     source: String::new(),
+                    site: None,
+                    device: None,
                 },
             ],
             unrecognised: vec![],
+            site: None,
         };
         super::scale_to_target(&mut r, 55);
         // 2:20 is 1:10; at 55 nodes that is 5 and 50.
@@ -1086,8 +1345,11 @@ mod tests {
                 services: vec![],
                 slug: None,
                 source: String::new(),
+                site: None,
+                device: None,
             }],
             unrecognised: vec![],
+            site: None,
         };
         assert!(super::scale_to_target(&mut r, 4).is_none());
         assert!(super::scale_to_target(&mut r, 0).is_none());
@@ -1188,6 +1450,8 @@ mod tests {
             services: services.iter().map(|s| s.to_string()).collect(),
             slug: None,
             source: String::new(),
+            site: None,
+            device: None,
         };
         // Distinctive software names the node.
         assert_eq!(g("web", &["ceph"]).effective_slug(), "ceph");
@@ -1217,6 +1481,8 @@ mod tests {
                     services: vec!["nginx".into()],
                     slug: None,
                     source: String::new(),
+                    site: None,
+                    device: None,
                 },
                 super::Group {
                     count: 2,
@@ -1224,6 +1490,8 @@ mod tests {
                     services: vec!["nginx".into()],
                     slug: None,
                     source: String::new(),
+                    site: None,
+                    device: None,
                 },
                 super::Group {
                     count: 3,
@@ -1231,9 +1499,12 @@ mod tests {
                     services: vec!["nginx".into()],
                     slug: None,
                     source: String::new(),
+                    site: None,
+                    device: None,
                 },
             ],
             unrecognised: vec![],
+            site: None,
         };
         r.dedupe_slugs();
         // The two identical web groups merged; the lb group did not.
@@ -1268,6 +1539,254 @@ mod tests {
     fn an_empty_description_produces_no_groups() {
         assert!(parse("").groups.is_empty());
         assert!(parse("   ").groups.is_empty());
+    }
+
+    #[test]
+    fn a_placed_fleet_labels_every_node_and_scatters_them() {
+        let site = Site::new(50.1109, 8.6821).expect("Frankfurt is on Earth");
+        let reading = Reading {
+            groups: vec![
+                Group {
+                    count: 3,
+                    role: "web".into(),
+                    services: vec!["nginx".into()],
+                    slug: None,
+                    source: String::new(),
+                    site: Some(site),
+                    device: None,
+                },
+                Group {
+                    count: 2,
+                    role: "network-device".into(),
+                    services: Vec::new(),
+                    slug: None,
+                    source: String::new(),
+                    site: Some(Site::new(52.3676, 4.9041).unwrap()),
+                    device: None,
+                },
+            ],
+            unrecognised: Vec::new(),
+            site: None,
+        };
+        let yaml = render(&reading, "acme", 7, "acme-");
+        // Every node, including the switches: a device is at a site too.
+        assert_eq!(yaml.matches("      latitude:").count(), 5, "{yaml}");
+        assert_eq!(yaml.matches("      longitude:").count(), 5, "{yaml}");
+        // With no fleet-level location, the largest placed group stands in.
+        assert!(yaml.contains("site:\n  latitude: 50.110900"), "{yaml}");
+
+        // Both axes have to move, and stay inside roughly 500m. Deriving them
+        // from two windows of one FNV hash gave every node the same longitude,
+        // because adjacent hostnames barely move its upper bits.
+        let lats = coords(&yaml, "      latitude: ");
+        let lons = coords(&yaml, "      longitude: ");
+        let web_lats = &lats[..3];
+        let web_lons = &lons[..3];
+        assert!(
+            spread(web_lats) > 0.0005,
+            "latitudes barely moved: {web_lats:?}"
+        );
+        assert!(
+            spread(web_lons) > 0.0005,
+            "longitudes barely moved: {web_lons:?}"
+        );
+        for (lat, lon) in web_lats.iter().zip(web_lons) {
+            assert!(
+                (lat - 50.1109).abs() < 0.005,
+                "{lat} is too far from the site"
+            );
+            assert!(
+                (lon - 8.6821).abs() < 0.008,
+                "{lon} is too far from the site"
+            );
+        }
+    }
+
+    #[test]
+    fn the_fleets_own_location_beats_a_group_override() {
+        // Both groups hold two nodes, so inferring the fleet's site from the
+        // largest group is a coin toss - and it landed on the switches' city,
+        // which put the simulation's own agent in Amsterdam on a live agent while
+        // the operator had typed Frankfurt.
+        let reading = Reading {
+            groups: vec![
+                Group {
+                    count: 2,
+                    role: "web".into(),
+                    services: Vec::new(),
+                    slug: None,
+                    source: String::new(),
+                    site: Some(Site::new(50.1109, 8.6821).unwrap()),
+                    device: None,
+                },
+                Group {
+                    count: 2,
+                    role: "network-device".into(),
+                    services: Vec::new(),
+                    slug: None,
+                    source: String::new(),
+                    site: Some(Site::new(52.3676, 4.9041).unwrap()),
+                    device: None,
+                },
+            ],
+            unrecognised: Vec::new(),
+            site: Some(Site::new(50.1109, 8.6821).unwrap()),
+        };
+        let yaml = render(&reading, "acme", 7, "acme-");
+        assert!(yaml.contains("site:\n  latitude: 50.110900"), "{yaml}");
+    }
+
+    #[test]
+    fn a_chosen_model_labels_the_node_as_that_device() {
+        // A node loading the Cisco Catalyst profile must not also claim to be a
+        // switch model this project invented.
+        let reading = Reading {
+            groups: vec![Group {
+                count: 1,
+                role: "network-device".into(),
+                services: vec!["cisco_catalyst".into()],
+                slug: None,
+                source: String::new(),
+                site: None,
+                device: Some(DeviceIdentity {
+                    vendor: "Cisco".into(),
+                    model: "cisco_catalyst".into(),
+                    kind: "switch".into(),
+                }),
+            }],
+            unrecognised: Vec::new(),
+            site: None,
+        };
+        let yaml = render(&reading, "acme", 7, "acme-");
+        assert!(yaml.contains("device_vendor: Cisco"), "{yaml}");
+        assert!(yaml.contains("device_model: cisco_catalyst"), "{yaml}");
+        assert!(!yaml.contains("sim-networks"), "{yaml}");
+    }
+
+    #[test]
+    fn a_generic_switch_keeps_visibly_synthetic_labels() {
+        let r = Reading {
+            groups: vec![Group {
+                count: 1,
+                role: "network-device".into(),
+                services: Vec::new(),
+                slug: None,
+                source: String::new(),
+                site: None,
+                device: None,
+            }],
+            unrecognised: Vec::new(),
+            site: None,
+        };
+        let yaml = render(&r, "acme", 7, "acme-");
+        assert!(yaml.contains("device_vendor: sim-networks"), "{yaml}");
+    }
+
+    #[test]
+    fn an_unplaced_fleet_writes_no_coordinates_at_all() {
+        // Better than defaulting to 0,0, which places a prospect's estate in the
+        // Gulf of Guinea and looks deliberate.
+        let r = parse("2 web servers");
+        let yaml = render(&r, "acme", 7, "acme-");
+        assert!(!yaml.contains("latitude"), "{yaml}");
+        assert!(!yaml.contains("site:"), "{yaml}");
+    }
+
+    #[test]
+    fn a_site_is_a_point_on_earth_or_an_error() {
+        assert!(Site::new(91.0, 0.0).is_err());
+        assert!(Site::new(0.0, 181.0).is_err());
+        assert!(Site::new(f64::NAN, 0.0).is_err());
+        assert!(Site::new(-90.0, 180.0).is_ok());
+    }
+
+    #[test]
+    fn scatter_wraps_across_the_antimeridian() {
+        // Suva sits close enough to 180 that a westward offset must wrap rather
+        // than clamp, or a node lands on a longitude that does not exist.
+        let site = Site::new(-18.14, 179.9999).unwrap();
+        for n in 0..40 {
+            let (lat, lon) = site.scattered(&format!("sim-edge-{n:02}"));
+            assert!((-90.0..=90.0).contains(&lat), "{lat}");
+            assert!((-180.0..=180.0).contains(&lon), "{lon}");
+        }
+    }
+
+    #[test]
+    fn scatter_is_stable_across_runs() {
+        let site = Site::new(50.1109, 8.6821).unwrap();
+        assert_eq!(site.scattered("acme-web-01"), site.scattered("acme-web-01"));
+        assert_ne!(site.scattered("acme-web-01"), site.scattered("acme-web-02"));
+    }
+
+    fn coords(yaml: &str, key: &str) -> Vec<f64> {
+        yaml.lines()
+            .filter_map(|l| l.strip_prefix(key))
+            .map(|v| v.trim().parse().expect("a rendered coordinate"))
+            .collect()
+    }
+
+    fn spread(v: &[f64]) -> f64 {
+        let (mut lo, mut hi) = (f64::MAX, f64::MIN);
+        for x in v {
+            lo = lo.min(*x);
+            hi = hi.max(*x);
+        }
+        hi - lo
+    }
+
+    #[test]
+    fn a_device_model_sets_the_nodes_generator_without_renaming_it() {
+        // The model is the node's hardware, not software installed on it. Two
+        // things must hold: the node loads the vendor profile's spec, and it is
+        // still `sw-01`, which is the suffix switch-uplink-degrading targets.
+        let reading = Reading {
+            groups: vec![Group {
+                count: 2,
+                role: "network-device".into(),
+                services: vec!["cisco_nexus".into()],
+                slug: None,
+                source: "2 x network-device".into(),
+                site: None,
+                device: None,
+            }],
+            unrecognised: Vec::new(),
+            site: None,
+        };
+        let yaml = render(&reading, "acme", 7, "acme-");
+        assert!(
+            yaml.contains("generator: ../specs/generated/snmp/cisco_nexus.yaml"),
+            "{yaml}"
+        );
+        assert!(yaml.contains("hostname: acme-sw-01"), "{yaml}");
+        assert!(!yaml.contains("cisco-nexus-01"), "{yaml}");
+        // The ports a scenario names by instance have to be there.
+        assert!(yaml.contains("TenGigabitEthernet1/1/1"), "{yaml}");
+        // An SNMP index is a name that looks like a number, so it must be quoted
+        // or the environment fails to parse.
+        assert!(yaml.contains("name: \"1\""), "{yaml}");
+    }
+
+    #[test]
+    fn a_device_group_with_no_model_uses_the_generic_switch() {
+        let reading = Reading {
+            groups: vec![Group {
+                count: 1,
+                role: "network-device".into(),
+                services: Vec::new(),
+                slug: None,
+                source: "1 x network-device".into(),
+                site: None,
+                device: None,
+            }],
+            unrecognised: Vec::new(),
+            site: None,
+        };
+        let yaml = render(&reading, "acme", 7, "acme-");
+        assert!(
+            yaml.contains("generator: ../specs/network-device.yaml"),
+            "{yaml}"
+        );
     }
 
     #[test]

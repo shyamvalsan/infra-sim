@@ -1,0 +1,1930 @@
+version: 1
+name: cisco_ironport_email
+description: Cisco Secure Email Gateway, as Netdata's SNMP collector reports it. Generated from go.d/snmp.profiles/default/cisco-ironport-email.yaml
+  with its `extends` chain resolved. Contexts, units, families and metric names are the device's own; values are a plausible
+  fiction.
+signals:
+  device_memory_usage:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  device_cpu_usage:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_ironport_email_ironport_oldestmessageage:
+    base: 86400.0
+    min: 0.0
+    max: 315360000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_ironport_email_ironport_percentdiskioutilization:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_ironport_email_ironport_percentqueueutilization:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_ironport_email_ironport_queueavailabilitystatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_ironport_email_ironport_queueavailabilitystatus_1:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_ironport_email_ironport_queueavailabilitystatus_2:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_ironport_email_ironport_resourceconservationreason:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_ironport_email_ironport_resourceconservationreason_1:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_ironport_email_ironport_resourceconservationreason_4:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_ironport_email_ironport_resourceconservationreason_3:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_ironport_email_ironport_memoryavailabilitystatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_ironport_email_ironport_memoryavailabilitystatus_3:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_ironport_email_ironport_memoryavailabilitystatus_2:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_ironport_email_ironport_powersupplystatus_not_installed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_ironport_email_ironport_powersupplystatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_ironport_email_ironport_powersupplystatus_no_ac:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_ironport_email_ironport_powersupplystatus_faulty:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_ironport_email_ironport_powersupplyredundancy:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_ironport_email_ironport_powersupplyredundancy_redundancy_lost:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_ironport_email_ironport_degreescelsius:
+    base: 41.0
+    min: 0.0
+    max: 120.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_ironport_email_ironport_fanrpms:
+    base: 4200.0
+    min: 0.0
+    max: 30000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_ironport_email_ironport_workqueuemessages:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_ironport_email_ironport_keysecondsuntilexpire:
+    base: 86400.0
+    min: 0.0
+    max: 315360000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_ironport_email_ironport_updates:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_ironport_email_ironport_updatefailures:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  cisco_ironport_email_ironport_outstandingdnsrequests:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_ironport_email_ironport_pendingdnsrequests:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_ironport_email_ironport_raidevents:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+  cisco_ironport_email_ironport_raidstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_ironport_email_ironport_raidstatus_failed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_ironport_email_ironport_raidstatus_rebuilding:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_ironport_email_ironport_openfilesorsockets:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_ironport_email_ironport_mailtransferthreads:
+    base: 740.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_ironport_email_ironport_fipsmode:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_ironport_email_ironport_fipsmode_1:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_ironport_email_ironport_percentcpuload:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_ironport_email_ironport_cacheclientrequests:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_ironport_email_ironport_cacheclienterrors:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  cisco_ironport_email_ironport_cacheclientidleconns:
+    base: 240.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_ironport_email_ironport_cacheclienttotalconns:
+    base: 240.0
+    min: 240.0
+    max: 240.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_ironport_email_ironport_cacheclientmaxconns:
+    base: 240.0
+    min: 240.0
+    max: 240.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_ironport_email_ironport_cacheclientaccepts:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_ironport_email_ironport_cacheclientreqdenials:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_ironport_email_ironport_cacheserverrequests:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_ironport_email_ironport_cacheserversockets:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_ironport_email_ironport_cacheservererrors:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  cisco_ironport_email_ironport_cacheserveridleconns:
+    base: 240.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_ironport_email_ironport_cacheservertotalconns:
+    base: 240.0
+    min: 240.0
+    max: 240.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_ironport_email_ironport_cacheservercloseidleconns:
+    base: 46.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_ironport_email_ironport_cacheserverlimitidleconns:
+    base: 46.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_ironport_email_ironport_cacheserverconnsthresh:
+    base: 240.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_ironport_email_ironport_cachetotalhttpreqs:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_ironport_email_ironport_cachemeanresptime:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_ironport_email_ironport_cachemeanmissresptime:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_ironport_email_ironport_cachemeanhitresptime:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_ironport_email_ironport_cachemeanhitratio:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_ironport_email_ironport_cachemeanbytehitratio:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_ironport_email_ironport_cachetotalbandwidthsaving:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_ironport_email_ironport_cacheduration:
+    base: 86400.0
+    min: 0.0
+    max: 315360000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_ironport_email_ironport_cachecltreplyerrpct:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_ironport_email_ironport_cachethruputnow:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_ironport_email_ironport_cachebwidthsavingnow:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_ironport_email_ironport_cachebwidthspentnow:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_ironport_email_ironport_cachebwidthtotalnow:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_ironport_email_ironport_cachehitsnow:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_ironport_email_ironport_cachemissesnow:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_ironport_email_ironport_cachehitresptimenow:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_ironport_email_ironport_cachemissresptimenow:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_ironport_email_ironport_cachetotalresptimenow:
+    base: 24.0
+    min: 24.0
+    max: 24.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_ironport_email_ironport_cacheerrsnow:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_ironport_email_ironport_cachedeniednow:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  cisco_ironport_email_ironport_cacheerrresptimenow:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_ironport_email_ironport_cachedeniedresptimenow:
+    base: 0.0
+    min: 0.0
+    max: 600000.0
+  cisco_ironport_email_systemuptime:
+    base: 86400.0
+    min: 0.0
+    max: 315360000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_ironport_email_ifnumber:
+    base: 26.0
+    min: 26.0
+    max: 26.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_admin_status:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_admin_status_down:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_admin_status_testing:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_down:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_testing:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_dormant:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_notpresent:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_lowerlayerdown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_speed:
+    from_attr: if_speed_mbps
+    base: 1000.0
+    min: 0.0
+    max: 400000.0
+  if_in_octets_rate:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_out_octets_rate:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_ucast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_out_ucast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_mcast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_ironport_email_ifhcoutmulticastpkts:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_bcast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_ironport_email_ifhcoutbroadcastpkts:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_errors_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  if_out_errors_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  if_in_discards_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  if_out_discards_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  cisco_ironport_email_iftotaloperstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_ironport_email_iftotaloperstatus_down:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_ironport_email_iftotaloperstatus_testing:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_ironport_email_iftotaloperstatus_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_ironport_email_iftotaloperstatus_dormant:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_ironport_email_iftotaloperstatus_notpresent:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_ironport_email_iftotaloperstatus_lowerlayerdown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+contexts:
+- id: snmp.device_prof_memory_usage
+  title: This object provides a general idea of how much memory is being consumed by the appliance software
+  units: '%'
+  family: System/Memory/Usage
+  chart_type: line
+  priority: 60000
+  shape: independent
+  dimensions:
+  - id: memory_usage
+    signal: device_memory_usage
+- id: snmp.device_prof_cpu_usage
+  title: The current CPU utilization
+  units: '%'
+  family: System/CPU/Usage
+  chart_type: line
+  priority: 60001
+  shape: independent
+  dimensions:
+  - id: cpu_usage
+    signal: device_cpu_usage
+- id: snmp.device_prof_ironport_oldestMessageAge
+  title: The number of seconds the oldest message has been in queue
+  units: s
+  family: Mail/Queue/Message/Age/Oldest
+  chart_type: line
+  priority: 60002
+  shape: independent
+  dimensions:
+  - id: ironport_oldestmessageage
+    signal: cisco_ironport_email_ironport_oldestmessageage
+- id: snmp.device_prof_ironport_perCentDiskIOUtilization
+  title: Disk I/O within the last 5-15 seconds
+  units: '%'
+  family: System/Disk/IO/Utilization
+  chart_type: line
+  priority: 60003
+  shape: independent
+  dimensions:
+  - id: ironport_percentdiskioutiliz
+    signal: cisco_ironport_email_ironport_percentdiskioutilization
+- id: snmp.device_prof_ironport_perCentQueueUtilization
+  title: Percent of total queue capacity used
+  units: '%'
+  family: Mail/Queue/Utilization
+  chart_type: line
+  priority: 60004
+  shape: independent
+  dimensions:
+  - id: ironport_percentqueueutiliza
+    signal: cisco_ironport_email_ironport_percentqueueutilization
+- id: snmp.device_prof_ironport_queueAvailabilityStatus
+  title: Status indicating the current availability of the message queue
+  units: '{status}'
+  family: Mail/Queue/Status/Availability
+  chart_type: line
+  priority: 60005
+  shape: independent
+  dimensions:
+  - id: '3'
+    signal: cisco_ironport_email_ironport_queueavailabilitystatus
+  - id: '1'
+    signal: cisco_ironport_email_ironport_queueavailabilitystatus_1
+  - id: '2'
+    signal: cisco_ironport_email_ironport_queueavailabilitystatus_2
+- id: snmp.device_prof_ironport_resourceConservationReason
+  title: Reason the appliance is conserving resources
+  units: '{status}'
+  family: System/Resource/Conservation/Reason
+  chart_type: line
+  priority: 60006
+  shape: independent
+  dimensions:
+  - id: '2'
+    signal: cisco_ironport_email_ironport_resourceconservationreason
+  - id: '1'
+    signal: cisco_ironport_email_ironport_resourceconservationreason_1
+  - id: '4'
+    signal: cisco_ironport_email_ironport_resourceconservationreason_4
+  - id: '3'
+    signal: cisco_ironport_email_ironport_resourceconservationreason_3
+- id: snmp.device_prof_ironport_memoryAvailabilityStatus
+  title: Current status of memory availability
+  units: '{status}'
+  family: System/Memory/Status/Availability
+  chart_type: line
+  priority: 60007
+  shape: independent
+  dimensions:
+  - id: '1'
+    signal: cisco_ironport_email_ironport_memoryavailabilitystatus
+  - id: '3'
+    signal: cisco_ironport_email_ironport_memoryavailabilitystatus_3
+  - id: '2'
+    signal: cisco_ironport_email_ironport_memoryavailabilitystatus_2
+- id: snmp.device_prof_ironport_powerSupplyStatus
+  title: Status of the power supply
+  units: '{status}'
+  family: Hardware/Power/Status/Operational
+  chart_type: line
+  priority: 60008
+  shape: independent
+  dimensions:
+  - id: not_installed
+    signal: cisco_ironport_email_ironport_powersupplystatus_not_installed
+  - id: healthy
+    signal: cisco_ironport_email_ironport_powersupplystatus
+  - id: no_ac
+    signal: cisco_ironport_email_ironport_powersupplystatus_no_ac
+  - id: faulty
+    signal: cisco_ironport_email_ironport_powersupplystatus_faulty
+  instances:
+    group: ironport_power_supply_name
+    chart_prefix: ironport_powersupplystatus
+    family: Hardware/Power/Status/Operational
+    labels:
+      ironport_power_supply_name: '{instance}'
+- id: snmp.device_prof_ironport_powerSupplyRedundancy
+  title: Status of a collection of one or more power supplies
+  units: '{status}'
+  family: Hardware/Power/Status/Redundancy
+  chart_type: line
+  priority: 60009
+  shape: independent
+  dimensions:
+  - id: redundancy_ok
+    signal: cisco_ironport_email_ironport_powersupplyredundancy
+  - id: redundancy_lost
+    signal: cisco_ironport_email_ironport_powersupplyredundancy_redundancy_lost
+  instances:
+    group: ironport_power_supply_name
+    chart_prefix: ironport_powersupplyredundancy
+    family: Hardware/Power/Status/Redundancy
+    labels:
+      ironport_power_supply_name: '{instance}'
+- id: snmp.device_prof_ironport_degreesCelsius
+  title: Temperature reading for the sensor being instrumented
+  units: Cel
+  family: Hardware/Sensor/Temperature/Value
+  chart_type: line
+  priority: 60010
+  shape: independent
+  dimensions:
+  - id: ironport_degreescelsius
+    signal: cisco_ironport_email_ironport_degreescelsius
+  instances:
+    group: ironport_temperature_name
+    chart_prefix: ironport_degreescelsius
+    family: Hardware/Sensor/Temperature/Value
+    labels:
+      ironport_temperature_name: '{instance}'
+- id: snmp.device_prof_ironport_fanRPMs
+  title: Speed in RPMs of the chassis fan
+  units: '{revolution}/min'
+  family: Hardware/Fan/Speed
+  chart_type: line
+  priority: 60011
+  shape: independent
+  dimensions:
+  - id: ironport_fanrpms
+    signal: cisco_ironport_email_ironport_fanrpms
+  instances:
+    group: ironport_fan_name
+    chart_prefix: ironport_fanrpms
+    family: Hardware/Fan/Speed
+    labels:
+      ironport_fan_name: '{instance}'
+- id: snmp.device_prof_ironport_workQueueMessages
+  title: Number of messages in the work queue
+  units: '{message}'
+  family: Mail/Queue/Work/Messages
+  chart_type: line
+  priority: 60012
+  shape: independent
+  dimensions:
+  - id: ironport_workqueuemessages
+    signal: cisco_ironport_email_ironport_workqueuemessages
+- id: snmp.device_prof_ironport_keySecondsUntilExpire
+  title: Seconds until the valid Feature Key expires
+  units: s
+  family: System/License/Key/Expiration
+  chart_type: line
+  priority: 60013
+  shape: independent
+  dimensions:
+  - id: ironport_keysecondsuntilexpi
+    signal: cisco_ironport_email_ironport_keysecondsuntilexpire
+  instances:
+    group: ironport_key_description
+    chart_prefix: ironport_keysecondsuntilexpire
+    family: System/License/Key/Expiration
+    labels:
+      ironport_key_description: '{instance}'
+- id: snmp.device_prof_ironport_updates
+  title: The number of successful attempts that have occurred when updating a service
+  units: '{attempt}/s'
+  family: System/Service/Update/Successful
+  chart_type: line
+  priority: 60014
+  shape: counters
+  dimensions:
+  - id: ironport_updates
+    rate_signal: cisco_ironport_email_ironport_updates
+  instances:
+    group: ironport_update_service_name
+    chart_prefix: ironport_updates
+    family: System/Service/Update/Successful
+    labels:
+      ironport_update_service_name: '{instance}'
+- id: snmp.device_prof_ironport_updateFailures
+  title: The number of failed attempts that have occurred when updating a service.
+  units: '{attempt}/s'
+  family: System/Service/Update/Failed
+  chart_type: line
+  priority: 60015
+  shape: counters
+  dimensions:
+  - id: ironport_updatefailures
+    rate_signal: cisco_ironport_email_ironport_updatefailures
+  instances:
+    group: ironport_update_service_name
+    chart_prefix: ironport_updatefailures
+    family: System/Service/Update/Failed
+    labels:
+      ironport_update_service_name: '{instance}'
+- id: snmp.device_prof_ironport_outstandingDNSRequests
+  title: Number of DNS requests that have been sent but for which no reply has been received
+  units: '{request}/s'
+  family: Network/DNS/Request/Outstanding
+  chart_type: line
+  priority: 60016
+  shape: counters
+  dimensions:
+  - id: ironport_outstandingdnsreque
+    rate_signal: cisco_ironport_email_ironport_outstandingdnsrequests
+- id: snmp.device_prof_ironport_pendingDNSRequests
+  title: Number of DNS requests waiting to be sent
+  units: '{request}'
+  family: Network/DNS/Request/Pending
+  chart_type: line
+  priority: 60017
+  shape: independent
+  dimensions:
+  - id: ironport_pendingdnsrequests
+    signal: cisco_ironport_email_ironport_pendingdnsrequests
+- id: snmp.device_prof_ironport_raidEvents
+  title: The total number of RAID events that have occurred since the last appliance power on event
+  units: '{event}/s'
+  family: Hardware/Disk/RAID/Event/Total
+  chart_type: line
+  priority: 60018
+  shape: counters
+  dimensions:
+  - id: ironport_raidevents
+    rate_signal: cisco_ironport_email_ironport_raidevents
+- id: snmp.device_prof_ironport_raidStatus
+  title: Represents the status of a drive attached to a RAID controller in the appliance
+  units: '{status}'
+  family: Hardware/Disk/RAID/Status
+  chart_type: line
+  priority: 60019
+  shape: independent
+  dimensions:
+  - id: healthy
+    signal: cisco_ironport_email_ironport_raidstatus
+  - id: failed
+    signal: cisco_ironport_email_ironport_raidstatus_failed
+  - id: rebuilding
+    signal: cisco_ironport_email_ironport_raidstatus_rebuilding
+  instances:
+    group: ironport_raid_id
+    chart_prefix: ironport_raidstatus
+    family: Hardware/Disk/RAID/Status
+    labels:
+      ironport_raid_id: '{instance}'
+- id: snmp.device_prof_ironport_openFilesOrSockets
+  title: This object notes how many files or sockets are open on the appliance. In normal operating conditions, the measurement
+    is taken at least once every 5-15 seconds.
+  units: '{fd}'
+  family: System/Resource/FileDescriptor/Open
+  chart_type: line
+  priority: 60020
+  shape: independent
+  dimensions:
+  - id: ironport_openfilesorsockets
+    signal: cisco_ironport_email_ironport_openfilesorsockets
+- id: snmp.device_prof_ironport_mailTransferThreads
+  title: Number of threads that perform some task related to transferring mail.
+  units: '{thread}'
+  family: Mail/Transfer/Thread/Active
+  chart_type: line
+  priority: 60021
+  shape: independent
+  dimensions:
+  - id: ironport_mailtransferthreads
+    signal: cisco_ironport_email_ironport_mailtransferthreads
+- id: snmp.device_prof_ironport_fipsMode
+  title: Indicates whether the appliance is operating in FIPS mode
+  units: '{status}'
+  family: System/Security/FIPS/Mode
+  chart_type: line
+  priority: 60022
+  shape: independent
+  dimensions:
+  - id: '2'
+    signal: cisco_ironport_email_ironport_fipsmode
+  - id: '1'
+    signal: cisco_ironport_email_ironport_fipsmode_1
+- id: snmp.device_prof_ironport_perCentCPULoad
+  title: This object provides a general idea of how busy the CPU is according to the appliance software, within the last 5
+    seconds of ironport
+  units: '%'
+  family: System/CPU/Load
+  chart_type: line
+  priority: 60023
+  shape: independent
+  dimensions:
+  - id: ironport_percentcpuload
+    signal: cisco_ironport_email_ironport_percentcpuload
+- id: snmp.device_prof_ironport_cacheClientRequests
+  title: The number of HTTP requests received from clients
+  units: '{request}/s'
+  family: Web/HTTP/Client/Request/Total
+  chart_type: line
+  priority: 60024
+  shape: counters
+  dimensions:
+  - id: ironport_cacheclientrequests
+    rate_signal: cisco_ironport_email_ironport_cacheclientrequests
+- id: snmp.device_prof_ironport_cacheClientErrors
+  title: The number of HTTP errors caused by client connections.
+  units: '{error}/s'
+  family: Web/HTTP/Client/Error/Total
+  chart_type: line
+  priority: 60025
+  shape: counters
+  dimensions:
+  - id: ironport_cacheclienterrors
+    rate_signal: cisco_ironport_email_ironport_cacheclienterrors
+- id: snmp.device_prof_ironport_cacheClientIdleConns
+  title: The number of connected but idle persistent client connections
+  units: '{connection}'
+  family: Web/HTTP/Client/Connection/Idle
+  chart_type: line
+  priority: 60026
+  shape: independent
+  dimensions:
+  - id: ironport_cacheclientidleconn
+    signal: cisco_ironport_email_ironport_cacheclientidleconns
+- id: snmp.device_prof_ironport_cacheClientTotalConns
+  title: The current number of active + idle client connections
+  units: '{connection}'
+  family: Web/HTTP/Client/Connection/Total
+  chart_type: line
+  priority: 60027
+  shape: independent
+  dimensions:
+  - id: ironport_cacheclienttotalcon
+    signal: cisco_ironport_email_ironport_cacheclienttotalconns
+- id: snmp.device_prof_ironport_cacheClientMaxConns
+  title: The maximum number of simultaneous client connections that will be allowed
+  units: '{connection}'
+  family: Web/HTTP/Client/Connection/Maximum
+  chart_type: line
+  priority: 60028
+  shape: independent
+  dimensions:
+  - id: ironport_cacheclientmaxconns
+    signal: cisco_ironport_email_ironport_cacheclientmaxconns
+- id: snmp.device_prof_ironport_cacheClientAccepts
+  title: The total number of sockets accepted from the clients
+  units: '{socket}/s'
+  family: Web/HTTP/Client/Socket/Accepted
+  chart_type: line
+  priority: 60029
+  shape: counters
+  dimensions:
+  - id: ironport_cacheclientaccepts
+    rate_signal: cisco_ironport_email_ironport_cacheclientaccepts
+- id: snmp.device_prof_ironport_cacheClientReqDenials
+  title: The number of responses blocked by access control
+  units: '{response}/s'
+  family: Web/HTTP/Client/Response/Denied
+  chart_type: line
+  priority: 60030
+  shape: counters
+  dimensions:
+  - id: ironport_cacheclientreqdenia
+    rate_signal: cisco_ironport_email_ironport_cacheclientreqdenials
+- id: snmp.device_prof_ironport_cacheServerRequests
+  title: The total number of HTTP requests sent to servers
+  units: '{request}/s'
+  family: Web/HTTP/Server/Request/Total
+  chart_type: line
+  priority: 60031
+  shape: counters
+  dimensions:
+  - id: ironport_cacheserverrequests
+    rate_signal: cisco_ironport_email_ironport_cacheserverrequests
+- id: snmp.device_prof_ironport_cacheServerSockets
+  title: The total number of sockets opened from the servers
+  units: '{socket}'
+  family: Web/HTTP/Server/Socket/Total
+  chart_type: line
+  priority: 60032
+  shape: independent
+  dimensions:
+  - id: ironport_cacheserversockets
+    signal: cisco_ironport_email_ironport_cacheserversockets
+- id: snmp.device_prof_ironport_cacheServerErrors
+  title: The number of HTTP errors while fetching objects
+  units: '{error}/s'
+  family: Web/HTTP/Server/Error/Total
+  chart_type: line
+  priority: 60033
+  shape: counters
+  dimensions:
+  - id: ironport_cacheservererrors
+    rate_signal: cisco_ironport_email_ironport_cacheservererrors
+- id: snmp.device_prof_ironport_cacheServerIdleConns
+  title: The number of connected but idle persistent server connections
+  units: '{connection}'
+  family: Web/HTTP/Server/Connection/Idle
+  chart_type: line
+  priority: 60034
+  shape: independent
+  dimensions:
+  - id: ironport_cacheserveridleconn
+    signal: cisco_ironport_email_ironport_cacheserveridleconns
+- id: snmp.device_prof_ironport_cacheServerTotalConns
+  title: The current number of active + idle server connections
+  units: '{connection}'
+  family: Web/HTTP/Server/Connection/Total
+  chart_type: line
+  priority: 60035
+  shape: independent
+  dimensions:
+  - id: ironport_cacheservertotalcon
+    signal: cisco_ironport_email_ironport_cacheservertotalconns
+- id: snmp.device_prof_ironport_cacheServerCloseIdleConns
+  title: The number of server connections closed due to idle time limits
+  units: '{connection}/s'
+  family: Web/HTTP/Server/Connection/Closed
+  chart_type: line
+  priority: 60036
+  shape: counters
+  dimensions:
+  - id: ironport_cacheservercloseidl
+    rate_signal: cisco_ironport_email_ironport_cacheservercloseidleconns
+- id: snmp.device_prof_ironport_cacheServerLimitIdleConns
+  title: The number of times the number of idle persistent connections hit the count limit and caused a connection to be closed
+  units: '{connection}/s'
+  family: Web/HTTP/Server/Connection/Limited
+  chart_type: line
+  priority: 60037
+  shape: counters
+  dimensions:
+  - id: ironport_cacheserverlimitidl
+    rate_signal: cisco_ironport_email_ironport_cacheserverlimitidleconns
+- id: snmp.device_prof_ironport_cacheServerConnsThresh
+  title: The limit on the number of server connections
+  units: '{connection}'
+  family: Web/HTTP/Server/Connection/Threshold
+  chart_type: line
+  priority: 60038
+  shape: independent
+  dimensions:
+  - id: ironport_cacheserverconnsthr
+    signal: cisco_ironport_email_ironport_cacheserverconnsthresh
+- id: snmp.device_prof_ironport_cacheTotalHttpReqs
+  title: Total number of HTTP requests from clients
+  units: '{request}/s'
+  family: Web/HTTP/Request/Total
+  chart_type: line
+  priority: 60039
+  shape: counters
+  dimensions:
+  - id: ironport_cachetotalhttpreqs
+    rate_signal: cisco_ironport_email_ironport_cachetotalhttpreqs
+- id: snmp.device_prof_ironport_cacheMeanRespTime
+  title: The HTTP mean response time
+  units: ms
+  family: Web/HTTP/Response/Time/Mean
+  chart_type: line
+  priority: 60040
+  shape: independent
+  dimensions:
+  - id: ironport_cachemeanresptime
+    signal: cisco_ironport_email_ironport_cachemeanresptime
+- id: snmp.device_prof_ironport_cacheMeanMissRespTime
+  title: The HTTP mean response time of Misses
+  units: ms
+  family: Web/HTTP/Response/Time/Miss
+  chart_type: line
+  priority: 60041
+  shape: independent
+  dimensions:
+  - id: ironport_cachemeanmissrespti
+    signal: cisco_ironport_email_ironport_cachemeanmissresptime
+- id: snmp.device_prof_ironport_cacheMeanHitRespTime
+  title: The HTTP mean response time of Hits
+  units: ms
+  family: Web/HTTP/Response/Time/Hit
+  chart_type: line
+  priority: 60042
+  shape: independent
+  dimensions:
+  - id: ironport_cachemeanhitresptim
+    signal: cisco_ironport_email_ironport_cachemeanhitresptime
+- id: snmp.device_prof_ironport_cacheMeanHitRatio
+  title: The HTTP hit ratio
+  units: '%'
+  family: Web/Cache/Hit/Ratio
+  chart_type: line
+  priority: 60043
+  shape: independent
+  dimensions:
+  - id: ironport_cachemeanhitratio
+    signal: cisco_ironport_email_ironport_cachemeanhitratio
+- id: snmp.device_prof_ironport_cacheMeanByteHitRatio
+  title: The HTTP byte hit ratio
+  units: '%'
+  family: Web/Cache/Hit/ByteRatio
+  chart_type: line
+  priority: 60044
+  shape: independent
+  dimensions:
+  - id: ironport_cachemeanbytehitrat
+    signal: cisco_ironport_email_ironport_cachemeanbytehitratio
+- id: snmp.device_prof_ironport_cacheTotalBandwidthSaving
+  title: The total bandwidth savings for HTTP
+  units: bit/s
+  family: Network/Bandwidth/Savings/Total
+  chart_type: area
+  priority: 60045
+  shape: counters
+  dimensions:
+  - id: ironport_cachetotalbandwidth
+    rate_signal: cisco_ironport_email_ironport_cachetotalbandwidthsaving
+- id: snmp.device_prof_ironport_cacheDuration
+  title: The proxy up time
+  units: s
+  family: System/Uptime
+  chart_type: line
+  priority: 60046
+  shape: independent
+  dimensions:
+  - id: ironport_cacheduration
+    signal: cisco_ironport_email_ironport_cacheduration
+- id: snmp.device_prof_ironport_cacheCltReplyErrPct
+  title: The percentage of errors in the HTTP replies to clients
+  units: '%'
+  family: Web/HTTP/Client/Error
+  chart_type: line
+  priority: 60047
+  shape: independent
+  dimensions:
+  - id: ironport_cachecltreplyerrpct
+    signal: cisco_ironport_email_ironport_cachecltreplyerrpct
+- id: snmp.device_prof_ironport_cacheThruputNow
+  title: Request throughput in the last minute
+  units: '{request}'
+  family: Web/Throughput/Request/Current
+  chart_type: line
+  priority: 60048
+  shape: independent
+  dimensions:
+  - id: ironport_cachethruputnow
+    signal: cisco_ironport_email_ironport_cachethruputnow
+- id: snmp.device_prof_ironport_cacheBwidthSavingNow
+  title: Bandwidth savings in the last minute
+  units: bit/s
+  family: Network/Bandwidth/Savings/Current
+  chart_type: area
+  priority: 60049
+  shape: counters
+  dimensions:
+  - id: ironport_cachebwidthsavingno
+    rate_signal: cisco_ironport_email_ironport_cachebwidthsavingnow
+- id: snmp.device_prof_ironport_cacheBwidthSpentNow
+  title: Bandwidth spent in the last minute
+  units: bit/s
+  family: Network/Bandwidth/Usage/Current
+  chart_type: area
+  priority: 60050
+  shape: counters
+  dimensions:
+  - id: ironport_cachebwidthspentnow
+    rate_signal: cisco_ironport_email_ironport_cachebwidthspentnow
+- id: snmp.device_prof_ironport_cacheBwidthTotalNow
+  title: Bandwidth total in the last minute
+  units: bit/s
+  family: Network/Bandwidth/Total/Current
+  chart_type: area
+  priority: 60051
+  shape: counters
+  dimensions:
+  - id: ironport_cachebwidthtotalnow
+    rate_signal: cisco_ironport_email_ironport_cachebwidthtotalnow
+- id: snmp.device_prof_ironport_cacheHitsNow
+  title: Hit throughput in the last minute
+  units: '{hit}'
+  family: Web/Cache/Hit/Throughput
+  chart_type: line
+  priority: 60052
+  shape: independent
+  dimensions:
+  - id: ironport_cachehitsnow
+    signal: cisco_ironport_email_ironport_cachehitsnow
+- id: snmp.device_prof_ironport_cacheMissesNow
+  title: Miss throughput in the last minute
+  units: '{miss}'
+  family: Web/Cache/Miss/Throughput
+  chart_type: line
+  priority: 60053
+  shape: independent
+  dimensions:
+  - id: ironport_cachemissesnow
+    signal: cisco_ironport_email_ironport_cachemissesnow
+- id: snmp.device_prof_ironport_cacheHitRespTimeNow
+  title: Cache hit response time in the last minute
+  units: ms
+  family: Web/Cache/Response/Time/Hit
+  chart_type: line
+  priority: 60054
+  shape: independent
+  dimensions:
+  - id: ironport_cachehitresptimenow
+    signal: cisco_ironport_email_ironport_cachehitresptimenow
+- id: snmp.device_prof_ironport_cacheMissRespTimeNow
+  title: Cache miss response time in the last minute
+  units: ms
+  family: Web/Cache/Response/Time/Miss
+  chart_type: line
+  priority: 60055
+  shape: independent
+  dimensions:
+  - id: ironport_cachemissresptimeno
+    signal: cisco_ironport_email_ironport_cachemissresptimenow
+- id: snmp.device_prof_ironport_cacheTotalRespTimeNow
+  title: Cache total response time in the last minute
+  units: ms
+  family: Web/Cache/Response/Time/Total
+  chart_type: line
+  priority: 60056
+  shape: independent
+  dimensions:
+  - id: ironport_cachetotalresptimen
+    signal: cisco_ironport_email_ironport_cachetotalresptimenow
+- id: snmp.device_prof_ironport_cacheErrsNow
+  title: Cache error throughput time in the last minute
+  units: '{error}'
+  family: Web/Cache/Error/Throughput
+  chart_type: line
+  priority: 60057
+  shape: independent
+  dimensions:
+  - id: ironport_cacheerrsnow
+    signal: cisco_ironport_email_ironport_cacheerrsnow
+- id: snmp.device_prof_ironport_cacheDeniedNow
+  title: Cache denial throughput time in the last minute
+  units: '{denial}'
+  family: Web/Cache/Denied/Throughput
+  chart_type: line
+  priority: 60058
+  shape: independent
+  dimensions:
+  - id: ironport_cachedeniednow
+    signal: cisco_ironport_email_ironport_cachedeniednow
+- id: snmp.device_prof_ironport_cacheErrRespTimeNow
+  title: Cache error response time in the last minute
+  units: ms
+  family: Web/Cache/Response/Time/Error
+  chart_type: line
+  priority: 60059
+  shape: independent
+  dimensions:
+  - id: ironport_cacheerrresptimenow
+    signal: cisco_ironport_email_ironport_cacheerrresptimenow
+- id: snmp.device_prof_ironport_cacheDeniedRespTimeNow
+  title: Cache denial response time in the last minute
+  units: ms
+  family: Web/Cache/Response/Time/Denied
+  chart_type: line
+  priority: 60060
+  shape: independent
+  dimensions:
+  - id: ironport_cachedeniedresptime
+    signal: cisco_ironport_email_ironport_cachedeniedresptimenow
+- id: snmp.device_prof_systemUptime
+  title: Time since the system was last rebooted or powered on.
+  units: s
+  family: System/Uptime
+  chart_type: line
+  priority: 60061
+  shape: independent
+  dimensions:
+  - id: systemuptime
+    signal: cisco_ironport_email_systemuptime
+- id: snmp.device_prof_ifNumber
+  title: Number of network interfaces regardless of their current state present on this system
+  units: '{interface}'
+  family: Network/Interface/Count
+  chart_type: line
+  priority: 60062
+  shape: independent
+  dimensions:
+  - id: ifnumber
+    signal: cisco_ironport_email_ifnumber
+- id: snmp.device_prof_ifAdminStatus
+  title: Current administrative state of the interface
+  units: '{status}'
+  family: Network/Interface/Status/Admin
+  chart_type: line
+  priority: 60063
+  shape: independent
+  dimensions:
+  - id: up
+    signal: if_admin_status
+  - id: down
+    signal: if_admin_status_down
+  - id: testing
+    signal: if_admin_status_testing
+  instances:
+    group: interface
+    chart_prefix: ifadminstatus
+    family: Network/Interface/Status/Admin
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifOperStatus
+  title: Current operational state of the interface
+  units: '{status}'
+  family: Network/Interface/Status/Operational
+  chart_type: line
+  priority: 60064
+  shape: independent
+  dimensions:
+  - id: up
+    signal: if_oper_status
+  - id: down
+    signal: if_oper_status_down
+  - id: testing
+    signal: if_oper_status_testing
+  - id: unknown
+    signal: if_oper_status_unknown
+  - id: dormant
+    signal: if_oper_status_dormant
+  - id: notpresent
+    signal: if_oper_status_notpresent
+  - id: lowerlayerdown
+    signal: if_oper_status_lowerlayerdown
+  instances:
+    group: interface
+    chart_prefix: ifoperstatus
+    family: Network/Interface/Status/Operational
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifHighSpeed
+  title: Estimate of the interface's current bandwidth
+  units: bit/s
+  family: Network/Interface/Speed
+  chart_type: area
+  priority: 60065
+  shape: counters
+  dimensions:
+  - id: ifhighspeed
+    rate_signal: if_speed
+  instances:
+    group: interface
+    chart_prefix: ifhighspeed
+    family: Network/Interface/Speed
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifTotalTraffic
+  title: Total traffic across all interfaces
+  units: bit/s
+  family: Network/Total/Traffic
+  chart_type: area
+  priority: 60066
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_octets_rate
+  - id: out
+    rate_signal: if_out_octets_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalPacketsUcast
+  title: Total unicast packets across all interfaces
+  units: '{packet}/s'
+  family: Network/Total/Packet/Unicast
+  chart_type: line
+  priority: 60067
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_ucast_rate
+  - id: out
+    rate_signal: if_out_ucast_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalPacketsMulticast
+  title: Total multicast packets across all interfaces
+  units: '{packet}/s'
+  family: Network/Total/Packet/Multicast
+  chart_type: line
+  priority: 60068
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_mcast_rate
+  - id: out
+    rate_signal: cisco_ironport_email_ifhcoutmulticastpkts
+    multiplier: -1
+- id: snmp.device_prof_ifTotalPacketsBroadcast
+  title: Total broadcast packets across all interfaces
+  units: '{packet}/s'
+  family: Network/Total/Packet/Broadcast
+  chart_type: line
+  priority: 60069
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_bcast_rate
+  - id: out
+    rate_signal: cisco_ironport_email_ifhcoutbroadcastpkts
+    multiplier: -1
+- id: snmp.device_prof_ifTotalErrors
+  title: Total packets with errors across all interfaces
+  units: '{error}/s'
+  family: Network/Total/Error
+  chart_type: line
+  priority: 60070
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_errors_rate
+  - id: out
+    rate_signal: if_out_errors_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalDiscards
+  title: Total packets discarded across all interfaces
+  units: '{discard}/s'
+  family: Network/Total/Discard
+  chart_type: line
+  priority: 60071
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_discards_rate
+  - id: out
+    rate_signal: if_out_discards_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalOperStatus
+  title: Total count of interfaces by operational status
+  units: '{status}'
+  family: Network/Total/Interface/Status
+  chart_type: line
+  priority: 60072
+  shape: independent
+  dimensions:
+  - id: up
+    signal: cisco_ironport_email_iftotaloperstatus
+  - id: down
+    signal: cisco_ironport_email_iftotaloperstatus_down
+  - id: testing
+    signal: cisco_ironport_email_iftotaloperstatus_testing
+  - id: unknown
+    signal: cisco_ironport_email_iftotaloperstatus_unknown
+  - id: dormant
+    signal: cisco_ironport_email_iftotaloperstatus_dormant
+  - id: notpresent
+    signal: cisco_ironport_email_iftotaloperstatus_notpresent
+  - id: lowerlayerdown
+    signal: cisco_ironport_email_iftotaloperstatus_lowerlayerdown
+- id: snmp.device_prof_ifTraffic
+  title: Traffic
+  units: bit/s
+  family: Network/Interface/Traffic/Total
+  chart_type: area
+  priority: 60073
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_octets_rate
+  - id: out
+    rate_signal: if_out_octets_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: iftraffic
+    family: Network/Interface/Traffic/Total
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifPacketsUcast
+  title: Unicast packets
+  units: '{packet}/s'
+  family: Network/Interface/Packet/Unicast
+  chart_type: line
+  priority: 60074
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_ucast_rate
+  - id: out
+    rate_signal: if_out_ucast_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifpacketsucast
+    family: Network/Interface/Packet/Unicast
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifPacketsMulticast
+  title: Multicast packets
+  units: '{packet}/s'
+  family: Network/Interface/Packet/Multicast
+  chart_type: line
+  priority: 60075
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_mcast_rate
+  - id: out
+    rate_signal: cisco_ironport_email_ifhcoutmulticastpkts
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifpacketsmulticast
+    family: Network/Interface/Packet/Multicast
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifPacketsBroadcast
+  title: Broadcast packets
+  units: '{packet}/s'
+  family: Network/Interface/Packet/Broadcast
+  chart_type: line
+  priority: 60076
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_bcast_rate
+  - id: out
+    rate_signal: cisco_ironport_email_ifhcoutbroadcastpkts
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifpacketsbroadcast
+    family: Network/Interface/Packet/Broadcast
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifErrors
+  title: Packets with errors
+  units: '{error}/s'
+  family: Network/Interface/Error/Total
+  chart_type: line
+  priority: 60077
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_errors_rate
+  - id: out
+    rate_signal: if_out_errors_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: iferrors
+    family: Network/Interface/Error/Total
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifDiscards
+  title: Packets discarded
+  units: '{discard}/s'
+  family: Network/Interface/Discard
+  chart_type: line
+  priority: 60078
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_discards_rate
+  - id: out
+    rate_signal: if_out_discards_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifdiscards
+    family: Network/Interface/Discard
+    labels:
+      interface: '{instance}'

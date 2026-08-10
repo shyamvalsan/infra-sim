@@ -1,0 +1,1035 @@
+version: 1
+name: cisco_sb
+description: Cisco SMB, as Netdata's SNMP collector reports it. Generated from go.d/snmp.profiles/default/cisco-sb.yaml with
+  its `extends` chain resolved. Contexts, units, families and metric names are the device's own; values are a plausible fiction.
+signals:
+  device_cpu_usage:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_sb_systemuptime:
+    base: 86400.0
+    min: 0.0
+    max: 315360000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_sb_ifnumber:
+    base: 26.0
+    min: 26.0
+    max: 26.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_admin_status:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_admin_status_down:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_admin_status_testing:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_down:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_testing:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_dormant:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_notpresent:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_lowerlayerdown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_speed:
+    from_attr: if_speed_mbps
+    base: 1000.0
+    min: 0.0
+    max: 400000.0
+  cisco_sb_lldpstatsremtableslastchangetime:
+    base: 12.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_sb_lldpstatsremtablesinserts:
+    base: 12.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_sb_lldpstatsremtablesdeletes:
+    base: 12.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_sb_lldpstatsremtablesdrops:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  cisco_sb_lldpstatsremtablesageouts:
+    base: 12.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_sb_lldpstatstxportframestotal:
+    base: 12.0
+    min: 12.0
+    max: 12.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_sb_lldpstatsrxportframesdiscardedtotal:
+    base: 12.0
+    min: 12.0
+    max: 12.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_sb_lldpstatsrxportframeserrors:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  cisco_sb_lldpstatsrxportframestotal:
+    base: 12.0
+    min: 12.0
+    max: 12.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_sb_lldpstatsrxporttlvsdiscardedtotal:
+    base: 12.0
+    min: 12.0
+    max: 12.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_sb_lldpstatsrxporttlvsunrecognizedtotal:
+    base: 12.0
+    min: 12.0
+    max: 12.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_sb_lldpstatsrxportageoutstotal:
+    base: 12.0
+    min: 12.0
+    max: 12.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_sb_cdpglobalrun:
+    base: 12.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_sb_cdpglobalmessageinterval:
+    base: 12.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_sb_cdpglobalholdtime:
+    base: 12.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_sb_cdpglobaldeviceid:
+    base: 12.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_sb_cdpgloballastchange:
+    base: 12.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_sb_cdpglobaldeviceidformat:
+    base: 12.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_sb_cdpinterfaceenable:
+    base: 12.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_sb_cdpinterfacemessageinterval:
+    base: 12.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_sb_cdpinterfacename:
+    base: 12.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_octets_rate:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_out_octets_rate:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_ucast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_out_ucast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_mcast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_sb_ifhcoutmulticastpkts:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_bcast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_sb_ifhcoutbroadcastpkts:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_errors_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  if_out_errors_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  if_in_discards_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  if_out_discards_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  cisco_sb_iftotaloperstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_sb_iftotaloperstatus_down:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_sb_iftotaloperstatus_testing:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_sb_iftotaloperstatus_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_sb_iftotaloperstatus_dormant:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_sb_iftotaloperstatus_notpresent:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_sb_iftotaloperstatus_lowerlayerdown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+contexts:
+- id: snmp.device_prof_cpu_usage
+  title: The current CPU utilization
+  units: '%'
+  family: System/CPU/Usage
+  chart_type: line
+  priority: 60000
+  shape: independent
+  dimensions:
+  - id: cpu_usage
+    signal: device_cpu_usage
+- id: snmp.device_prof_systemUptime
+  title: Time since the system was last rebooted or powered on.
+  units: s
+  family: System/Uptime
+  chart_type: line
+  priority: 60001
+  shape: independent
+  dimensions:
+  - id: systemuptime
+    signal: cisco_sb_systemuptime
+- id: snmp.device_prof_ifNumber
+  title: Number of network interfaces regardless of their current state present on this system
+  units: '{interface}'
+  family: Network/Interface/Count
+  chart_type: line
+  priority: 60002
+  shape: independent
+  dimensions:
+  - id: ifnumber
+    signal: cisco_sb_ifnumber
+- id: snmp.device_prof_ifAdminStatus
+  title: Current administrative state of the interface
+  units: '{status}'
+  family: Network/Interface/Status/Admin
+  chart_type: line
+  priority: 60003
+  shape: independent
+  dimensions:
+  - id: up
+    signal: if_admin_status
+  - id: down
+    signal: if_admin_status_down
+  - id: testing
+    signal: if_admin_status_testing
+  instances:
+    group: interface
+    chart_prefix: ifadminstatus
+    family: Network/Interface/Status/Admin
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifOperStatus
+  title: Current operational state of the interface
+  units: '{status}'
+  family: Network/Interface/Status/Operational
+  chart_type: line
+  priority: 60004
+  shape: independent
+  dimensions:
+  - id: up
+    signal: if_oper_status
+  - id: down
+    signal: if_oper_status_down
+  - id: testing
+    signal: if_oper_status_testing
+  - id: unknown
+    signal: if_oper_status_unknown
+  - id: dormant
+    signal: if_oper_status_dormant
+  - id: notpresent
+    signal: if_oper_status_notpresent
+  - id: lowerlayerdown
+    signal: if_oper_status_lowerlayerdown
+  instances:
+    group: interface
+    chart_prefix: ifoperstatus
+    family: Network/Interface/Status/Operational
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifHighSpeed
+  title: Estimate of the interface's current bandwidth
+  units: bit/s
+  family: Network/Interface/Speed
+  chart_type: area
+  priority: 60005
+  shape: counters
+  dimensions:
+  - id: ifhighspeed
+    rate_signal: if_speed
+  instances:
+    group: interface
+    chart_prefix: ifhighspeed
+    family: Network/Interface/Speed
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_lldpStatsRemTablesLastChangeTime
+  title: SNMP metric lldpStatsRemTablesLastChangeTime
+  units: '1'
+  family: lldpstatsremtableslastchangetime
+  chart_type: line
+  priority: 60006
+  shape: independent
+  dimensions:
+  - id: lldpstatsremtableslastchange
+    signal: cisco_sb_lldpstatsremtableslastchangetime
+- id: snmp.device_prof_lldpStatsRemTablesInserts
+  title: SNMP metric lldpStatsRemTablesInserts
+  units: '1'
+  family: lldpstatsremtablesinserts
+  chart_type: line
+  priority: 60007
+  shape: independent
+  dimensions:
+  - id: lldpstatsremtablesinserts
+    signal: cisco_sb_lldpstatsremtablesinserts
+- id: snmp.device_prof_lldpStatsRemTablesDeletes
+  title: SNMP metric lldpStatsRemTablesDeletes
+  units: '1'
+  family: lldpstatsremtablesdeletes
+  chart_type: line
+  priority: 60008
+  shape: independent
+  dimensions:
+  - id: lldpstatsremtablesdeletes
+    signal: cisco_sb_lldpstatsremtablesdeletes
+- id: snmp.device_prof_lldpStatsRemTablesDrops
+  title: SNMP metric lldpStatsRemTablesDrops
+  units: '1'
+  family: lldpstatsremtablesdrops
+  chart_type: line
+  priority: 60009
+  shape: independent
+  dimensions:
+  - id: lldpstatsremtablesdrops
+    signal: cisco_sb_lldpstatsremtablesdrops
+- id: snmp.device_prof_lldpStatsRemTablesAgeouts
+  title: SNMP metric lldpStatsRemTablesAgeouts
+  units: '1'
+  family: lldpstatsremtablesageouts
+  chart_type: line
+  priority: 60010
+  shape: independent
+  dimensions:
+  - id: lldpstatsremtablesageouts
+    signal: cisco_sb_lldpstatsremtablesageouts
+- id: snmp.device_prof_lldpStatsTxPortFramesTotal
+  title: SNMP metric lldpStatsTxPortFramesTotal
+  units: '1'
+  family: lldpstatstxporttable
+  chart_type: line
+  priority: 60011
+  shape: independent
+  dimensions:
+  - id: lldpstatstxportframestotal
+    signal: cisco_sb_lldpstatstxportframestotal
+  instances:
+    group: lldp_loc_port_num
+    chart_prefix: lldpstatstxportframestotal
+    family: lldpstatstxporttable
+    labels:
+      lldp_loc_port_num: '{instance}'
+- id: snmp.device_prof_lldpStatsRxPortFramesDiscardedTotal
+  title: SNMP metric lldpStatsRxPortFramesDiscardedTotal
+  units: '1'
+  family: lldpstatsrxporttable
+  chart_type: line
+  priority: 60012
+  shape: independent
+  dimensions:
+  - id: lldpstatsrxportframesdiscard
+    signal: cisco_sb_lldpstatsrxportframesdiscardedtotal
+  instances:
+    group: lldp_loc_port_num
+    chart_prefix: lldpstatsrxportframesdiscardedtotal
+    family: lldpstatsrxporttable
+    labels:
+      lldp_loc_port_num: '{instance}'
+- id: snmp.device_prof_lldpStatsRxPortFramesErrors
+  title: SNMP metric lldpStatsRxPortFramesErrors
+  units: '1'
+  family: lldpstatsrxporttable
+  chart_type: line
+  priority: 60013
+  shape: independent
+  dimensions:
+  - id: lldpstatsrxportframeserrors
+    signal: cisco_sb_lldpstatsrxportframeserrors
+  instances:
+    group: lldp_loc_port_num
+    chart_prefix: lldpstatsrxportframeserrors
+    family: lldpstatsrxporttable
+    labels:
+      lldp_loc_port_num: '{instance}'
+- id: snmp.device_prof_lldpStatsRxPortFramesTotal
+  title: SNMP metric lldpStatsRxPortFramesTotal
+  units: '1'
+  family: lldpstatsrxporttable
+  chart_type: line
+  priority: 60014
+  shape: independent
+  dimensions:
+  - id: lldpstatsrxportframestotal
+    signal: cisco_sb_lldpstatsrxportframestotal
+  instances:
+    group: lldp_loc_port_num
+    chart_prefix: lldpstatsrxportframestotal
+    family: lldpstatsrxporttable
+    labels:
+      lldp_loc_port_num: '{instance}'
+- id: snmp.device_prof_lldpStatsRxPortTLVsDiscardedTotal
+  title: SNMP metric lldpStatsRxPortTLVsDiscardedTotal
+  units: '1'
+  family: lldpstatsrxporttable
+  chart_type: line
+  priority: 60015
+  shape: independent
+  dimensions:
+  - id: lldpstatsrxporttlvsdiscarded
+    signal: cisco_sb_lldpstatsrxporttlvsdiscardedtotal
+  instances:
+    group: lldp_loc_port_num
+    chart_prefix: lldpstatsrxporttlvsdiscardedtotal
+    family: lldpstatsrxporttable
+    labels:
+      lldp_loc_port_num: '{instance}'
+- id: snmp.device_prof_lldpStatsRxPortTLVsUnrecognizedTotal
+  title: SNMP metric lldpStatsRxPortTLVsUnrecognizedTotal
+  units: '1'
+  family: lldpstatsrxporttable
+  chart_type: line
+  priority: 60016
+  shape: independent
+  dimensions:
+  - id: lldpstatsrxporttlvsunrecogni
+    signal: cisco_sb_lldpstatsrxporttlvsunrecognizedtotal
+  instances:
+    group: lldp_loc_port_num
+    chart_prefix: lldpstatsrxporttlvsunrecognizedtotal
+    family: lldpstatsrxporttable
+    labels:
+      lldp_loc_port_num: '{instance}'
+- id: snmp.device_prof_lldpStatsRxPortAgeoutsTotal
+  title: SNMP metric lldpStatsRxPortAgeoutsTotal
+  units: '1'
+  family: lldpstatsrxporttable
+  chart_type: line
+  priority: 60017
+  shape: independent
+  dimensions:
+  - id: lldpstatsrxportageoutstotal
+    signal: cisco_sb_lldpstatsrxportageoutstotal
+  instances:
+    group: lldp_loc_port_num
+    chart_prefix: lldpstatsrxportageoutstotal
+    family: lldpstatsrxporttable
+    labels:
+      lldp_loc_port_num: '{instance}'
+- id: snmp.device_prof_cdpGlobalRun
+  title: SNMP metric cdpGlobalRun
+  units: '1'
+  family: cdpglobalrun
+  chart_type: line
+  priority: 60018
+  shape: independent
+  dimensions:
+  - id: cdpglobalrun
+    signal: cisco_sb_cdpglobalrun
+- id: snmp.device_prof_cdpGlobalMessageInterval
+  title: SNMP metric cdpGlobalMessageInterval
+  units: '1'
+  family: cdpglobalmessageinterval
+  chart_type: line
+  priority: 60019
+  shape: independent
+  dimensions:
+  - id: cdpglobalmessageinterval
+    signal: cisco_sb_cdpglobalmessageinterval
+- id: snmp.device_prof_cdpGlobalHoldTime
+  title: SNMP metric cdpGlobalHoldTime
+  units: '1'
+  family: cdpglobalholdtime
+  chart_type: line
+  priority: 60020
+  shape: independent
+  dimensions:
+  - id: cdpglobalholdtime
+    signal: cisco_sb_cdpglobalholdtime
+- id: snmp.device_prof_cdpGlobalDeviceId
+  title: SNMP metric cdpGlobalDeviceId
+  units: '1'
+  family: cdpglobaldeviceid
+  chart_type: line
+  priority: 60021
+  shape: independent
+  dimensions:
+  - id: cdpglobaldeviceid
+    signal: cisco_sb_cdpglobaldeviceid
+- id: snmp.device_prof_cdpGlobalLastChange
+  title: SNMP metric cdpGlobalLastChange
+  units: '1'
+  family: cdpgloballastchange
+  chart_type: line
+  priority: 60022
+  shape: independent
+  dimensions:
+  - id: cdpgloballastchange
+    signal: cisco_sb_cdpgloballastchange
+- id: snmp.device_prof_cdpGlobalDeviceIdFormat
+  title: SNMP metric cdpGlobalDeviceIdFormat
+  units: '1'
+  family: cdpglobaldeviceidformat
+  chart_type: line
+  priority: 60023
+  shape: independent
+  dimensions:
+  - id: cdpglobaldeviceidformat
+    signal: cisco_sb_cdpglobaldeviceidformat
+- id: snmp.device_prof_cdpInterfaceEnable
+  title: SNMP metric cdpInterfaceEnable
+  units: '1'
+  family: cdpinterfacetable
+  chart_type: line
+  priority: 60024
+  shape: independent
+  dimensions:
+  - id: cdpinterfaceenable
+    signal: cisco_sb_cdpinterfaceenable
+  instances:
+    group: cdp_if_index
+    chart_prefix: cdpinterfaceenable
+    family: cdpinterfacetable
+    labels:
+      cdp_if_index: '{instance}'
+- id: snmp.device_prof_cdpInterfaceMessageInterval
+  title: SNMP metric cdpInterfaceMessageInterval
+  units: '1'
+  family: cdpinterfacetable
+  chart_type: line
+  priority: 60025
+  shape: independent
+  dimensions:
+  - id: cdpinterfacemessageinterval
+    signal: cisco_sb_cdpinterfacemessageinterval
+  instances:
+    group: cdp_if_index
+    chart_prefix: cdpinterfacemessageinterval
+    family: cdpinterfacetable
+    labels:
+      cdp_if_index: '{instance}'
+- id: snmp.device_prof_cdpInterfaceName
+  title: SNMP metric cdpInterfaceName
+  units: '1'
+  family: cdpinterfacetable
+  chart_type: line
+  priority: 60026
+  shape: independent
+  dimensions:
+  - id: cdpinterfacename
+    signal: cisco_sb_cdpinterfacename
+  instances:
+    group: cdp_if_index
+    chart_prefix: cdpinterfacename
+    family: cdpinterfacetable
+    labels:
+      cdp_if_index: '{instance}'
+- id: snmp.device_prof_ifTotalTraffic
+  title: Total traffic across all interfaces
+  units: bit/s
+  family: Network/Total/Traffic
+  chart_type: area
+  priority: 60027
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_octets_rate
+  - id: out
+    rate_signal: if_out_octets_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalPacketsUcast
+  title: Total unicast packets across all interfaces
+  units: '{packet}/s'
+  family: Network/Total/Packet/Unicast
+  chart_type: line
+  priority: 60028
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_ucast_rate
+  - id: out
+    rate_signal: if_out_ucast_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalPacketsMulticast
+  title: Total multicast packets across all interfaces
+  units: '{packet}/s'
+  family: Network/Total/Packet/Multicast
+  chart_type: line
+  priority: 60029
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_mcast_rate
+  - id: out
+    rate_signal: cisco_sb_ifhcoutmulticastpkts
+    multiplier: -1
+- id: snmp.device_prof_ifTotalPacketsBroadcast
+  title: Total broadcast packets across all interfaces
+  units: '{packet}/s'
+  family: Network/Total/Packet/Broadcast
+  chart_type: line
+  priority: 60030
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_bcast_rate
+  - id: out
+    rate_signal: cisco_sb_ifhcoutbroadcastpkts
+    multiplier: -1
+- id: snmp.device_prof_ifTotalErrors
+  title: Total packets with errors across all interfaces
+  units: '{error}/s'
+  family: Network/Total/Error
+  chart_type: line
+  priority: 60031
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_errors_rate
+  - id: out
+    rate_signal: if_out_errors_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalDiscards
+  title: Total packets discarded across all interfaces
+  units: '{discard}/s'
+  family: Network/Total/Discard
+  chart_type: line
+  priority: 60032
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_discards_rate
+  - id: out
+    rate_signal: if_out_discards_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalOperStatus
+  title: Total count of interfaces by operational status
+  units: '{status}'
+  family: Network/Total/Interface/Status
+  chart_type: line
+  priority: 60033
+  shape: independent
+  dimensions:
+  - id: up
+    signal: cisco_sb_iftotaloperstatus
+  - id: down
+    signal: cisco_sb_iftotaloperstatus_down
+  - id: testing
+    signal: cisco_sb_iftotaloperstatus_testing
+  - id: unknown
+    signal: cisco_sb_iftotaloperstatus_unknown
+  - id: dormant
+    signal: cisco_sb_iftotaloperstatus_dormant
+  - id: notpresent
+    signal: cisco_sb_iftotaloperstatus_notpresent
+  - id: lowerlayerdown
+    signal: cisco_sb_iftotaloperstatus_lowerlayerdown
+- id: snmp.device_prof_ifTraffic
+  title: Traffic
+  units: bit/s
+  family: Network/Interface/Traffic/Total
+  chart_type: area
+  priority: 60034
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_octets_rate
+  - id: out
+    rate_signal: if_out_octets_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: iftraffic
+    family: Network/Interface/Traffic/Total
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifPacketsUcast
+  title: Unicast packets
+  units: '{packet}/s'
+  family: Network/Interface/Packet/Unicast
+  chart_type: line
+  priority: 60035
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_ucast_rate
+  - id: out
+    rate_signal: if_out_ucast_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifpacketsucast
+    family: Network/Interface/Packet/Unicast
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifPacketsMulticast
+  title: Multicast packets
+  units: '{packet}/s'
+  family: Network/Interface/Packet/Multicast
+  chart_type: line
+  priority: 60036
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_mcast_rate
+  - id: out
+    rate_signal: cisco_sb_ifhcoutmulticastpkts
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifpacketsmulticast
+    family: Network/Interface/Packet/Multicast
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifPacketsBroadcast
+  title: Broadcast packets
+  units: '{packet}/s'
+  family: Network/Interface/Packet/Broadcast
+  chart_type: line
+  priority: 60037
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_bcast_rate
+  - id: out
+    rate_signal: cisco_sb_ifhcoutbroadcastpkts
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifpacketsbroadcast
+    family: Network/Interface/Packet/Broadcast
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifErrors
+  title: Packets with errors
+  units: '{error}/s'
+  family: Network/Interface/Error/Total
+  chart_type: line
+  priority: 60038
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_errors_rate
+  - id: out
+    rate_signal: if_out_errors_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: iferrors
+    family: Network/Interface/Error/Total
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifDiscards
+  title: Packets discarded
+  units: '{discard}/s'
+  family: Network/Interface/Discard
+  chart_type: line
+  priority: 60039
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_discards_rate
+  - id: out
+    rate_signal: if_out_discards_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifdiscards
+    family: Network/Interface/Discard
+    labels:
+      interface: '{instance}'

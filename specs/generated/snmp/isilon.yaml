@@ -1,0 +1,2258 @@
+version: 1
+name: isilon
+description: Dell Storage, as Netdata's SNMP collector reports it. Generated from go.d/snmp.profiles/default/isilon.yaml with
+  its `extends` chain resolved. Contexts, units, families and metric names are the device's own; values are a plausible fiction.
+signals:
+  isilon_fanspeed:
+    base: 4200.0
+    min: 4200.0
+    max: 4200.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  isilon_clusterhealth:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  isilon_clusterhealth_attn:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  isilon_clusterhealth_down:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  isilon_clusterhealth_invalid:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  isilon_clusterifsinbytes:
+    base: 3100000.0
+    min: 0.0
+    max: 1250000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  isilon_clusterifsoutbytes:
+    base: 3100000.0
+    min: 0.0
+    max: 1250000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  isilon_ifsusedbytes:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  isilon_ifstotalbytes:
+    base: 4294967296.0
+    min: 4294967296.0
+    max: 4294967296.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  isilon_nodehealth:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  isilon_nodehealth_attn:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  isilon_nodehealth_down:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  isilon_nodehealth_invalid:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  isilon_nodeifsinbytes:
+    base: 3100000.0
+    min: 0.0
+    max: 1250000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  isilon_nodeifsoutbytes:
+    base: 3100000.0
+    min: 0.0
+    max: 1250000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  isilon_disksizebytes:
+    base: 4294967296.0
+    min: 4294967296.0
+    max: 4294967296.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  isilon_diskstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  isilon_diskstatus_1:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  isilon_diskstatus_2:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  isilon_diskstatus_4:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  isilon_protocolopspersecond:
+    base: 240.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  isilon_latencymin:
+    base: 2400.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  isilon_latencymax:
+    base: 2400.0
+    min: 2400.0
+    max: 2400.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  isilon_latencyaverage:
+    base: 2400.0
+    min: 0.0
+    max: 60000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  isilon_quotahardthreshold:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  isilon_quotasoftthreshold:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  isilon_quotausage:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  isilon_quotaadvisorythreshold:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  isilon_systemuptime:
+    base: 86400.0
+    min: 0.0
+    max: 315360000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  isilon_ipsystemstatshcinoctets:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  isilon_ipsystemstatshcoutoctets:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  isilon_ipsystemstatshcinmcastoctets:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  isilon_ipsystemstatshcoutmcastoctets:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  isilon_ipsystemstatshcinreceives:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  isilon_ipsystemstatshcoutrequests:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  isilon_ipsystemstatshcouttransmits:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  isilon_ipsystemstatshcinbcastpkts:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  isilon_ipsystemstatshcoutbcastpkts:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  isilon_ipsystemstatshcinmcastpkts:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  isilon_ipsystemstatshcoutmcastpkts:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  isilon_ipsystemstatshcinforwdatagrams:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  isilon_ipsystemstatshcoutforwdatagrams:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  isilon_ipsystemstatsinhdrerrors:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  isilon_ipsystemstatsinnoroutes:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  isilon_ipsystemstatsinaddrerrors:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  isilon_ipsystemstatsinunknownprotos:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  isilon_ipsystemstatsintruncatedpkts:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  isilon_ipsystemstatsreasmfails:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  isilon_ipsystemstatsindiscards:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  isilon_ipsystemstatsoutnoroutes:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  isilon_ipsystemstatsoutfragfails:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  isilon_ipsystemstatsoutdiscards:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  isilon_ipsystemstatsoutfragreqds:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  isilon_ipsystemstatsoutfragoks:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  isilon_ipsystemstatsoutfragcreates:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  isilon_ipsystemstatsreasmreqds:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  isilon_ipsystemstatsreasmoks:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  isilon_ipifstatshcinoctets:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  isilon_ipifstatshcoutoctets:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  isilon_ipifstatshcinmcastoctets:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  isilon_ipifstatshcoutmcastoctets:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  isilon_ipifstatshcindelivers:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  isilon_ipifstatshcoutrequests:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  isilon_ipifstatshcouttransmits:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  isilon_ipifstatshcinmcastpkts:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  isilon_ipifstatshcoutmcastpkts:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  isilon_ipifstatshcinbcastpkts:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  isilon_ipifstatshcoutbcastpkts:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  isilon_ipifstatsindiscards:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  isilon_ipifstatsoutdiscards:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  isilon_ipifstatsinhdrerrors:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  isilon_ipifstatsinnoroutes:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  isilon_ipifstatsinaddrerrors:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  isilon_ipifstatsinunknownprotos:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  isilon_ipifstatsintruncatedpkts:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  isilon_ipifstatsoutfragfails:
+    base: 0.0
+    min: 0.0
+    max: 15000000.0
+  isilon_ipifstatsreasmfails:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  isilon_ipifstatsoutfragoks:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  isilon_ipifstatsoutfragreqds:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  isilon_ipifstatsoutfragcreates:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  isilon_ipifstatsreasmreqds:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  isilon_ipifstatsreasmoks:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  isilon_ipifstatshcinforwdatagrams:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  isilon_ipifstatshcoutforwdatagrams:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  isilon_tcpcurrestab:
+    base: 240.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  isilon_tcpactiveopens:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  isilon_tcppassiveopens:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  isilon_tcphcinsegs:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  isilon_tcpinsegs:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  isilon_tcphcoutsegs:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  isilon_tcpoutsegs:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  isilon_tcpinerrs:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  isilon_tcpattemptfails:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  isilon_tcpestabresets:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  isilon_tcpoutrsts:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  isilon_tcpretranssegs:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  isilon_udphcindatagrams:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  isilon_udpindatagrams:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  isilon_udphcoutdatagrams:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  isilon_udpoutdatagrams:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  isilon_udpinerrors:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  isilon_udpnoports:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+contexts:
+- id: snmp.device_prof_fanSpeed
+  title: The current speed of the fan in revolutions per minute
+  units: '{revolution}/min'
+  family: Hardware/Fan/Speed
+  chart_type: line
+  priority: 60000
+  shape: independent
+  dimensions:
+  - id: fanspeed
+    signal: isilon_fanspeed
+  instances:
+    group: fan_number
+    chart_prefix: fanspeed
+    family: Hardware/Fan/Speed
+    labels:
+      fan_number: '{instance}'
+- id: snmp.device_prof_clusterHealth
+  title: The overall health of the cluster
+  units: '{status}'
+  family: System/Cluster/Health/Status
+  chart_type: line
+  priority: 60001
+  shape: independent
+  dimensions:
+  - id: ok
+    signal: isilon_clusterhealth
+  - id: attn
+    signal: isilon_clusterhealth_attn
+  - id: down
+    signal: isilon_clusterhealth_down
+  - id: invalid
+    signal: isilon_clusterhealth_invalid
+- id: snmp.device_prof_clusterIfsInBytes
+  title: The cumulative number of bytes into /ifs
+  units: By/s
+  family: Storage/FileSystem/Throughput/In
+  chart_type: line
+  priority: 60002
+  shape: counters
+  dimensions:
+  - id: clusterifsinbytes
+    rate_signal: isilon_clusterifsinbytes
+- id: snmp.device_prof_clusterIfsOutBytes
+  title: The cumulative number of bytes out of /ifs
+  units: By/s
+  family: Storage/FileSystem/Throughput/Out
+  chart_type: line
+  priority: 60003
+  shape: counters
+  dimensions:
+  - id: clusterifsoutbytes
+    rate_signal: isilon_clusterifsoutbytes
+- id: snmp.device_prof_ifsUsedBytes
+  title: The number of bytes used in the /ifs filesystem
+  units: By
+  family: Storage/FileSystem/Used
+  chart_type: line
+  priority: 60004
+  shape: independent
+  dimensions:
+  - id: ifsusedbytes
+    signal: isilon_ifsusedbytes
+- id: snmp.device_prof_ifsTotalBytes
+  title: The total cluster capacity of the /ifs filesystem in bytes
+  units: By
+  family: Storage/FileSystem/Total
+  chart_type: line
+  priority: 60005
+  shape: independent
+  dimensions:
+  - id: ifstotalbytes
+    signal: isilon_ifstotalbytes
+- id: snmp.device_prof_nodeHealth
+  title: The overall health of the node
+  units: '{status}'
+  family: System/Node/Health/Status
+  chart_type: line
+  priority: 60006
+  shape: independent
+  dimensions:
+  - id: ok
+    signal: isilon_nodehealth
+  - id: attn
+    signal: isilon_nodehealth_attn
+  - id: down
+    signal: isilon_nodehealth_down
+  - id: invalid
+    signal: isilon_nodehealth_invalid
+- id: snmp.device_prof_nodeIfsInBytes
+  title: The number of bytes into /ifs through this node
+  units: By/s
+  family: System/Node/Throughput/In
+  chart_type: line
+  priority: 60007
+  shape: counters
+  dimensions:
+  - id: nodeifsinbytes
+    rate_signal: isilon_nodeifsinbytes
+- id: snmp.device_prof_nodeIfsOutBytes
+  title: The number of bytes out of /ifs through this node
+  units: By/s
+  family: System/Node/Throughput/Out
+  chart_type: line
+  priority: 60008
+  shape: counters
+  dimensions:
+  - id: nodeifsoutbytes
+    rate_signal: isilon_nodeifsoutbytes
+- id: snmp.device_prof_diskSizeBytes
+  title: The size of the disk in bytes
+  units: By
+  family: Hardware/Disk/Size
+  chart_type: line
+  priority: 60009
+  shape: independent
+  dimensions:
+  - id: disksizebytes
+    signal: isilon_disksizebytes
+  instances:
+    group: disk_bay
+    chart_prefix: disksizebytes
+    family: Hardware/Disk/Size
+    labels:
+      disk_bay: '{instance}'
+- id: snmp.device_prof_diskStatus
+  title: The operational status of the disk
+  units: '{status}'
+  family: Hardware/Disk/Status
+  chart_type: line
+  priority: 60010
+  shape: independent
+  dimensions:
+  - id: '3'
+    signal: isilon_diskstatus
+  - id: '1'
+    signal: isilon_diskstatus_1
+  - id: '2'
+    signal: isilon_diskstatus_2
+  - id: '4'
+    signal: isilon_diskstatus_4
+  instances:
+    group: disk_bay
+    chart_prefix: diskstatus
+    family: Hardware/Disk/Status
+    labels:
+      disk_bay: '{instance}'
+- id: snmp.device_prof_protocolOpsPerSecond
+  title: The number of operations per second for the last 5 second
+  units: '{operation}/s'
+  family: Storage/Protocol/Operations
+  chart_type: line
+  priority: 60011
+  shape: counters
+  dimensions:
+  - id: protocolopspersecond
+    rate_signal: isilon_protocolopspersecond
+  instances:
+    group: protocol_name
+    chart_prefix: protocolopspersecond
+    family: Storage/Protocol/Operations
+    labels:
+      protocol_name: '{instance}'
+- id: snmp.device_prof_latencyMin
+  title: The minimum latency in microseconds for all operations for the protocol
+  units: us
+  family: Storage/Protocol/Latency/Min
+  chart_type: line
+  priority: 60012
+  shape: independent
+  dimensions:
+  - id: latencymin
+    signal: isilon_latencymin
+  instances:
+    group: protocol_name
+    chart_prefix: latencymin
+    family: Storage/Protocol/Latency/Min
+    labels:
+      protocol_name: '{instance}'
+- id: snmp.device_prof_latencyMax
+  title: The maximum latency in microseconds for all operations for the protocol
+  units: us
+  family: Storage/Protocol/Latency/Max
+  chart_type: line
+  priority: 60013
+  shape: independent
+  dimensions:
+  - id: latencymax
+    signal: isilon_latencymax
+  instances:
+    group: protocol_name
+    chart_prefix: latencymax
+    family: Storage/Protocol/Latency/Max
+    labels:
+      protocol_name: '{instance}'
+- id: snmp.device_prof_latencyAverage
+  title: The average latency in microseconds for all operations for the protocol
+  units: us
+  family: Storage/Protocol/Latency/Average
+  chart_type: line
+  priority: 60014
+  shape: independent
+  dimensions:
+  - id: latencyaverage
+    signal: isilon_latencyaverage
+  instances:
+    group: protocol_name
+    chart_prefix: latencyaverage
+    family: Storage/Protocol/Latency/Average
+    labels:
+      protocol_name: '{instance}'
+- id: snmp.device_prof_quotaHardThreshold
+  title: The hard threshold in bytes
+  units: By
+  family: Storage/Quota/Threshold/Hard
+  chart_type: line
+  priority: 60015
+  shape: independent
+  dimensions:
+  - id: quotahardthreshold
+    signal: isilon_quotahardthreshold
+  instances:
+    group: quota_domain_id
+    chart_prefix: quotahardthreshold
+    family: Storage/Quota/Threshold/Hard
+    labels:
+      quota_domain_id: '{instance}'
+- id: snmp.device_prof_quotaSoftThreshold
+  title: The soft threshold in bytes
+  units: By
+  family: Storage/Quota/Threshold/Soft
+  chart_type: line
+  priority: 60016
+  shape: independent
+  dimensions:
+  - id: quotasoftthreshold
+    signal: isilon_quotasoftthreshold
+  instances:
+    group: quota_domain_id
+    chart_prefix: quotasoftthreshold
+    family: Storage/Quota/Threshold/Soft
+    labels:
+      quota_domain_id: '{instance}'
+- id: snmp.device_prof_quotaUsage
+  title: The current quota usage in bytes
+  units: By
+  family: Storage/Quota/Usage
+  chart_type: line
+  priority: 60017
+  shape: independent
+  dimensions:
+  - id: quotausage
+    signal: isilon_quotausage
+  instances:
+    group: quota_domain_id
+    chart_prefix: quotausage
+    family: Storage/Quota/Usage
+    labels:
+      quota_domain_id: '{instance}'
+- id: snmp.device_prof_quotaAdvisoryThreshold
+  title: The advisory threshold in bytes
+  units: By
+  family: Storage/Quota/Threshold/Advisory
+  chart_type: line
+  priority: 60018
+  shape: independent
+  dimensions:
+  - id: quotaadvisorythreshold
+    signal: isilon_quotaadvisorythreshold
+  instances:
+    group: quota_domain_id
+    chart_prefix: quotaadvisorythreshold
+    family: Storage/Quota/Threshold/Advisory
+    labels:
+      quota_domain_id: '{instance}'
+- id: snmp.device_prof_systemUptime
+  title: Time since the system was last rebooted or powered on.
+  units: s
+  family: System/Uptime
+  chart_type: line
+  priority: 60019
+  shape: independent
+  dimensions:
+  - id: systemuptime
+    signal: isilon_systemuptime
+- id: snmp.device_prof_ipSystemStatsHCInOctets
+  title: Octets received in input IP datagrams
+  units: bit/s
+  family: Network/IP/Traffic/Total/In
+  chart_type: area
+  priority: 60020
+  shape: counters
+  dimensions:
+  - id: ipsystemstatshcinoctets
+    rate_signal: isilon_ipsystemstatshcinoctets
+  instances:
+    group: ipversion
+    chart_prefix: ipsystemstatshcinoctets
+    family: Network/IP/Traffic/Total/In
+    labels:
+      ipversion: '{instance}'
+- id: snmp.device_prof_ipSystemStatsHCOutOctets
+  title: The total number of octets in IP datagrams delivered to the lower layers for transmission
+  units: bit/s
+  family: Network/IP/Traffic/Total/Out
+  chart_type: area
+  priority: 60021
+  shape: counters
+  dimensions:
+  - id: ipsystemstatshcoutoctets
+    rate_signal: isilon_ipsystemstatshcoutoctets
+  instances:
+    group: ipversion
+    chart_prefix: ipsystemstatshcoutoctets
+    family: Network/IP/Traffic/Total/Out
+    labels:
+      ipversion: '{instance}'
+- id: snmp.device_prof_ipSystemStatsHCInMcastOctets
+  title: The total number of octets received in IP multicast datagrams
+  units: bit/s
+  family: Network/IP/Traffic/Multicast/In
+  chart_type: area
+  priority: 60022
+  shape: counters
+  dimensions:
+  - id: ipsystemstatshcinmcastoctets
+    rate_signal: isilon_ipsystemstatshcinmcastoctets
+  instances:
+    group: ipversion
+    chart_prefix: ipsystemstatshcinmcastoctets
+    family: Network/IP/Traffic/Multicast/In
+    labels:
+      ipversion: '{instance}'
+- id: snmp.device_prof_ipSystemStatsHCOutMcastOctets
+  title: The total number of octets transmitted in IP multicast datagrams
+  units: bit/s
+  family: Network/IP/Traffic/Multicast/Out
+  chart_type: area
+  priority: 60023
+  shape: counters
+  dimensions:
+  - id: ipsystemstatshcoutmcastoctet
+    rate_signal: isilon_ipsystemstatshcoutmcastoctets
+  instances:
+    group: ipversion
+    chart_prefix: ipsystemstatshcoutmcastoctets
+    family: Network/IP/Traffic/Multicast/Out
+    labels:
+      ipversion: '{instance}'
+- id: snmp.device_prof_ipSystemStatsHCInReceives
+  title: Input IP datagrams received
+  units: '{packet}/s'
+  family: Network/IP/Datagram/Total/In
+  chart_type: line
+  priority: 60024
+  shape: counters
+  dimensions:
+  - id: ipsystemstatshcinreceives
+    rate_signal: isilon_ipsystemstatshcinreceives
+  instances:
+    group: ipversion
+    chart_prefix: ipsystemstatshcinreceives
+    family: Network/IP/Datagram/Total/In
+    labels:
+      ipversion: '{instance}'
+- id: snmp.device_prof_ipSystemStatsHCOutRequests
+  title: The total number of IP datagrams that local IP user-protocols including ICMP supplied to IP in requests for transmission
+  units: '{packet}/s'
+  family: Network/IP/Datagram/Request/Out
+  chart_type: line
+  priority: 60025
+  shape: counters
+  dimensions:
+  - id: ipsystemstatshcoutrequests
+    rate_signal: isilon_ipsystemstatshcoutrequests
+  instances:
+    group: ipversion
+    chart_prefix: ipsystemstatshcoutrequests
+    family: Network/IP/Datagram/Request/Out
+    labels:
+      ipversion: '{instance}'
+- id: snmp.device_prof_ipSystemStatsHCOutTransmits
+  title: The total number of IP datagrams that this entity supplied to the lower layers for transmission
+  units: '{packet}/s'
+  family: Network/IP/Datagram/Total/Out
+  chart_type: line
+  priority: 60026
+  shape: counters
+  dimensions:
+  - id: ipsystemstatshcouttransmits
+    rate_signal: isilon_ipsystemstatshcouttransmits
+  instances:
+    group: ipversion
+    chart_prefix: ipsystemstatshcouttransmits
+    family: Network/IP/Datagram/Total/Out
+    labels:
+      ipversion: '{instance}'
+- id: snmp.device_prof_ipSystemStatsHCInBcastPkts
+  title: The number of IP broadcast datagrams received
+  units: '{packet}/s'
+  family: Network/IP/Datagram/Broadcast/In
+  chart_type: line
+  priority: 60027
+  shape: counters
+  dimensions:
+  - id: ipsystemstatshcinbcastpkts
+    rate_signal: isilon_ipsystemstatshcinbcastpkts
+  instances:
+    group: ipversion
+    chart_prefix: ipsystemstatshcinbcastpkts
+    family: Network/IP/Datagram/Broadcast/In
+    labels:
+      ipversion: '{instance}'
+- id: snmp.device_prof_ipSystemStatsHCOutBcastPkts
+  title: The number of IP broadcast datagrams transmitted
+  units: '{packet}/s'
+  family: Network/IP/Datagram/Broadcast/Out
+  chart_type: line
+  priority: 60028
+  shape: counters
+  dimensions:
+  - id: ipsystemstatshcoutbcastpkts
+    rate_signal: isilon_ipsystemstatshcoutbcastpkts
+  instances:
+    group: ipversion
+    chart_prefix: ipsystemstatshcoutbcastpkts
+    family: Network/IP/Datagram/Broadcast/Out
+    labels:
+      ipversion: '{instance}'
+- id: snmp.device_prof_ipSystemStatsHCInMcastPkts
+  title: The number of IP multicast datagrams received
+  units: '{packet}/s'
+  family: Network/IP/Datagram/Multicast/In
+  chart_type: line
+  priority: 60029
+  shape: counters
+  dimensions:
+  - id: ipsystemstatshcinmcastpkts
+    rate_signal: isilon_ipsystemstatshcinmcastpkts
+  instances:
+    group: ipversion
+    chart_prefix: ipsystemstatshcinmcastpkts
+    family: Network/IP/Datagram/Multicast/In
+    labels:
+      ipversion: '{instance}'
+- id: snmp.device_prof_ipSystemStatsHCOutMcastPkts
+  title: The number of IP multicast datagrams transmitted
+  units: '{packet}/s'
+  family: Network/IP/Datagram/Multicast/Out
+  chart_type: line
+  priority: 60030
+  shape: counters
+  dimensions:
+  - id: ipsystemstatshcoutmcastpkts
+    rate_signal: isilon_ipsystemstatshcoutmcastpkts
+  instances:
+    group: ipversion
+    chart_prefix: ipsystemstatshcoutmcastpkts
+    family: Network/IP/Datagram/Multicast/Out
+    labels:
+      ipversion: '{instance}'
+- id: snmp.device_prof_ipSystemStatsHCInForwDatagrams
+  title: Input datagrams for which this entity was not their final IP destination and for which this entity attempted to find
+    a route to forward them to that final destination
+  units: '{forward}/s'
+  family: Network/IP/Forward/In
+  chart_type: line
+  priority: 60031
+  shape: counters
+  dimensions:
+  - id: ipsystemstatshcinforwdatagra
+    rate_signal: isilon_ipsystemstatshcinforwdatagrams
+  instances:
+    group: ipversion
+    chart_prefix: ipsystemstatshcinforwdatagrams
+    family: Network/IP/Forward/In
+    labels:
+      ipversion: '{instance}'
+- id: snmp.device_prof_ipSystemStatsHCOutForwDatagrams
+  title: The number of datagrams for which this entity was not their final IP destination and for which it was successful
+    in finding a path to their final destination
+  units: '{packet}/s'
+  family: Network/IP/Forward/Out
+  chart_type: line
+  priority: 60032
+  shape: counters
+  dimensions:
+  - id: ipsystemstatshcoutforwdatagr
+    rate_signal: isilon_ipsystemstatshcoutforwdatagrams
+  instances:
+    group: ipversion
+    chart_prefix: ipsystemstatshcoutforwdatagrams
+    family: Network/IP/Forward/Out
+    labels:
+      ipversion: '{instance}'
+- id: snmp.device_prof_ipSystemStatsInHdrErrors
+  title: Discarded input IP datagrams due to errors in their IP headers
+  units: '{error}/s'
+  family: Network/IP/Error/Header/In
+  chart_type: line
+  priority: 60033
+  shape: counters
+  dimensions:
+  - id: ipsystemstatsinhdrerrors
+    rate_signal: isilon_ipsystemstatsinhdrerrors
+  instances:
+    group: ipversion
+    chart_prefix: ipsystemstatsinhdrerrors
+    family: Network/IP/Error/Header/In
+    labels:
+      ipversion: '{instance}'
+- id: snmp.device_prof_ipSystemStatsInNoRoutes
+  title: Input IP datagrams discarded because no route could be found to transmit them to their destination
+  units: '{errors}/s'
+  family: Network/IP/Error/NoRoute/In
+  chart_type: line
+  priority: 60034
+  shape: counters
+  dimensions:
+  - id: ipsystemstatsinnoroutes
+    rate_signal: isilon_ipsystemstatsinnoroutes
+  instances:
+    group: ipversion
+    chart_prefix: ipsystemstatsinnoroutes
+    family: Network/IP/Error/NoRoute/In
+    labels:
+      ipversion: '{instance}'
+- id: snmp.device_prof_ipSystemStatsInAddrErrors
+  title: Input IP datagrams discarded due to invalid IP address in header
+  units: '{error}/s'
+  family: Network/IP/Error/Address/In
+  chart_type: line
+  priority: 60035
+  shape: counters
+  dimensions:
+  - id: ipsystemstatsinaddrerrors
+    rate_signal: isilon_ipsystemstatsinaddrerrors
+  instances:
+    group: ipversion
+    chart_prefix: ipsystemstatsinaddrerrors
+    family: Network/IP/Error/Address/In
+    labels:
+      ipversion: '{instance}'
+- id: snmp.device_prof_ipSystemStatsInUnknownProtos
+  title: Locally-addressed IP datagrams received successfully but discarded due to an unknown or unsupported protocol
+  units: '{error}/s'
+  family: Network/IP/Error/UnknownProtocol/In
+  chart_type: line
+  priority: 60036
+  shape: counters
+  dimensions:
+  - id: ipsystemstatsinunknownprotos
+    rate_signal: isilon_ipsystemstatsinunknownprotos
+  instances:
+    group: ipversion
+    chart_prefix: ipsystemstatsinunknownprotos
+    family: Network/IP/Error/UnknownProtocol/In
+    labels:
+      ipversion: '{instance}'
+- id: snmp.device_prof_ipSystemStatsInTruncatedPkts
+  title: Input IP datagrams discarded due to datagram frame not carrying enough data
+  units: '{error}/s'
+  family: Network/IP/Error/Truncated/In
+  chart_type: line
+  priority: 60037
+  shape: counters
+  dimensions:
+  - id: ipsystemstatsintruncatedpkts
+    rate_signal: isilon_ipsystemstatsintruncatedpkts
+  instances:
+    group: ipversion
+    chart_prefix: ipsystemstatsintruncatedpkts
+    family: Network/IP/Error/Truncated/In
+    labels:
+      ipversion: '{instance}'
+- id: snmp.device_prof_ipSystemStatsReasmFails
+  title: The number of failures detected by the IP re-assembly algorithm
+  units: '{error}/s'
+  family: Network/IP/Error/ReassemblyFailure/Count
+  chart_type: line
+  priority: 60038
+  shape: counters
+  dimensions:
+  - id: ipsystemstatsreasmfails
+    rate_signal: isilon_ipsystemstatsreasmfails
+  instances:
+    group: ipversion
+    chart_prefix: ipsystemstatsreasmfails
+    family: Network/IP/Error/ReassemblyFailure/Count
+    labels:
+      ipversion: '{instance}'
+- id: snmp.device_prof_ipSystemStatsInDiscards
+  title: The number of input IP datagrams for which no problems were encountered to prevent their continued processing, but
+    were discarded
+  units: '{error}/s'
+  family: Network/IP/Discard/In
+  chart_type: line
+  priority: 60039
+  shape: counters
+  dimensions:
+  - id: ipsystemstatsindiscards
+    rate_signal: isilon_ipsystemstatsindiscards
+  instances:
+    group: ipversion
+    chart_prefix: ipsystemstatsindiscards
+    family: Network/IP/Discard/In
+    labels:
+      ipversion: '{instance}'
+- id: snmp.device_prof_ipSystemStatsOutNoRoutes
+  title: The number of locally generated IP datagrams discarded because no route could be found to transmit them to their
+    destination
+  units: '{error}/s'
+  family: Network/IP/Error/NoRoute/Out
+  chart_type: line
+  priority: 60040
+  shape: counters
+  dimensions:
+  - id: ipsystemstatsoutnoroutes
+    rate_signal: isilon_ipsystemstatsoutnoroutes
+  instances:
+    group: ipversion
+    chart_prefix: ipsystemstatsoutnoroutes
+    family: Network/IP/Error/NoRoute/Out
+    labels:
+      ipversion: '{instance}'
+- id: snmp.device_prof_ipSystemStatsOutFragFails
+  title: The number of IP datagrams that have been discarded because they needed to be fragmented but could not be
+  units: '{error}/s'
+  family: Network/IP/Error/FragmentationFailure/Out
+  chart_type: line
+  priority: 60041
+  shape: counters
+  dimensions:
+  - id: ipsystemstatsoutfragfails
+    rate_signal: isilon_ipsystemstatsoutfragfails
+  instances:
+    group: ipversion
+    chart_prefix: ipsystemstatsoutfragfails
+    family: Network/IP/Error/FragmentationFailure/Out
+    labels:
+      ipversion: '{instance}'
+- id: snmp.device_prof_ipSystemStatsOutDiscards
+  title: The number of output IP datagrams for which no problem was encountered to prevent their transmission to their destination,
+    but were discarded
+  units: '{error}/s'
+  family: Network/IP/Discard/Out
+  chart_type: line
+  priority: 60042
+  shape: counters
+  dimensions:
+  - id: ipsystemstatsoutdiscards
+    rate_signal: isilon_ipsystemstatsoutdiscards
+  instances:
+    group: ipversion
+    chart_prefix: ipsystemstatsoutdiscards
+    family: Network/IP/Discard/Out
+    labels:
+      ipversion: '{instance}'
+- id: snmp.device_prof_ipSystemStatsOutFragReqds
+  title: The number of IP datagrams that would require fragmentation in order to be transmitted
+  units: '{packet}/s'
+  family: Network/IP/Fragmentation/Required/Out
+  chart_type: line
+  priority: 60043
+  shape: counters
+  dimensions:
+  - id: ipsystemstatsoutfragreqds
+    rate_signal: isilon_ipsystemstatsoutfragreqds
+  instances:
+    group: ipversion
+    chart_prefix: ipsystemstatsoutfragreqds
+    family: Network/IP/Fragmentation/Required/Out
+    labels:
+      ipversion: '{instance}'
+- id: snmp.device_prof_ipSystemStatsOutFragOKs
+  title: The number of IP datagrams that have been successfully fragmented
+  units: '{packet}/s'
+  family: Network/IP/Fragmentation/Success/Out
+  chart_type: line
+  priority: 60044
+  shape: counters
+  dimensions:
+  - id: ipsystemstatsoutfragoks
+    rate_signal: isilon_ipsystemstatsoutfragoks
+  instances:
+    group: ipversion
+    chart_prefix: ipsystemstatsoutfragoks
+    family: Network/IP/Fragmentation/Success/Out
+    labels:
+      ipversion: '{instance}'
+- id: snmp.device_prof_ipSystemStatsOutFragCreates
+  title: The number of output datagram fragments that have been generated as a result of IP fragmentation
+  units: '{fragment}/s'
+  family: Network/IP/Fragmentation/Created/Out
+  chart_type: line
+  priority: 60045
+  shape: counters
+  dimensions:
+  - id: ipsystemstatsoutfragcreates
+    rate_signal: isilon_ipsystemstatsoutfragcreates
+  instances:
+    group: ipversion
+    chart_prefix: ipsystemstatsoutfragcreates
+    family: Network/IP/Fragmentation/Created/Out
+    labels:
+      ipversion: '{instance}'
+- id: snmp.device_prof_ipSystemStatsReasmReqds
+  title: The number of IP fragments received that needed to be reassembled at this interface
+  units: '{fragment}/s'
+  family: Network/IP/Fragmentation/ReassemblyRequired/In
+  chart_type: line
+  priority: 60046
+  shape: counters
+  dimensions:
+  - id: ipsystemstatsreasmreqds
+    rate_signal: isilon_ipsystemstatsreasmreqds
+  instances:
+    group: ipversion
+    chart_prefix: ipsystemstatsreasmreqds
+    family: Network/IP/Fragmentation/ReassemblyRequired/In
+    labels:
+      ipversion: '{instance}'
+- id: snmp.device_prof_ipSystemStatsReasmOKs
+  title: The number of IP datagrams successfully reassembled
+  units: '{packet}/s'
+  family: Network/IP/Fragmentation/ReassemblySuccess/Count
+  chart_type: line
+  priority: 60047
+  shape: counters
+  dimensions:
+  - id: ipsystemstatsreasmoks
+    rate_signal: isilon_ipsystemstatsreasmoks
+  instances:
+    group: ipversion
+    chart_prefix: ipsystemstatsreasmoks
+    family: Network/IP/Fragmentation/ReassemblySuccess/Count
+    labels:
+      ipversion: '{instance}'
+- id: snmp.device_prof_ipIfStatsHCInOctets
+  title: The total number of octets received in input IP datagrams, including those received in error
+  units: bit/s
+  family: Network/Interface/IP/Traffic/Total/In
+  chart_type: area
+  priority: 60048
+  shape: counters
+  dimensions:
+  - id: ipifstatshcinoctets
+    rate_signal: isilon_ipifstatshcinoctets
+  instances:
+    group: interface
+    chart_prefix: ipifstatshcinoctets
+    family: Network/Interface/IP/Traffic/Total/In
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ipIfStatsHCOutOctets
+  title: The total number of octets in IP datagrams delivered to the lower layers for transmission
+  units: bit/s
+  family: Network/Interface/IP/Traffic/Total/Out
+  chart_type: area
+  priority: 60049
+  shape: counters
+  dimensions:
+  - id: ipifstatshcoutoctets
+    rate_signal: isilon_ipifstatshcoutoctets
+  instances:
+    group: interface
+    chart_prefix: ipifstatshcoutoctets
+    family: Network/Interface/IP/Traffic/Total/Out
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ipIfStatsHCInMcastOctets
+  title: The total number of octets received in IP multicast datagrams
+  units: bit/s
+  family: Network/Interface/IP/Traffic/Multicast/In
+  chart_type: area
+  priority: 60050
+  shape: counters
+  dimensions:
+  - id: ipifstatshcinmcastoctets
+    rate_signal: isilon_ipifstatshcinmcastoctets
+  instances:
+    group: interface
+    chart_prefix: ipifstatshcinmcastoctets
+    family: Network/Interface/IP/Traffic/Multicast/In
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ipIfStatsHCOutMcastOctets
+  title: The total number of octets transmitted in IP multicast datagrams
+  units: bit/s
+  family: Network/Interface/IP/Traffic/Multicast/Out
+  chart_type: area
+  priority: 60051
+  shape: counters
+  dimensions:
+  - id: ipifstatshcoutmcastoctets
+    rate_signal: isilon_ipifstatshcoutmcastoctets
+  instances:
+    group: interface
+    chart_prefix: ipifstatshcoutmcastoctets
+    family: Network/Interface/IP/Traffic/Multicast/Out
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ipIfStatsHCInDelivers
+  title: The total number of datagrams successfully delivered to IP user-protocols including ICMP
+  units: '{packet}/s'
+  family: Network/Interface/IP/Datagram/Delivered/In
+  chart_type: line
+  priority: 60052
+  shape: counters
+  dimensions:
+  - id: ipifstatshcindelivers
+    rate_signal: isilon_ipifstatshcindelivers
+  instances:
+    group: interface
+    chart_prefix: ipifstatshcindelivers
+    family: Network/Interface/IP/Datagram/Delivered/In
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ipIfStatsHCOutRequests
+  title: The total number of IP datagrams that local IP user-protocols including ICMP supplied to IP in requests for transmission
+  units: '{packet}/s'
+  family: Network/Interface/IP/Datagram/Request/Out
+  chart_type: line
+  priority: 60053
+  shape: counters
+  dimensions:
+  - id: ipifstatshcoutrequests
+    rate_signal: isilon_ipifstatshcoutrequests
+  instances:
+    group: interface
+    chart_prefix: ipifstatshcoutrequests
+    family: Network/Interface/IP/Datagram/Request/Out
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ipIfStatsHCOutTransmits
+  title: The total number of IP datagrams that this entity supplied to the lower layers for transmission
+  units: '{packet}/s'
+  family: Network/Interface/IP/Datagram/Total/Out
+  chart_type: line
+  priority: 60054
+  shape: counters
+  dimensions:
+  - id: ipifstatshcouttransmits
+    rate_signal: isilon_ipifstatshcouttransmits
+  instances:
+    group: interface
+    chart_prefix: ipifstatshcouttransmits
+    family: Network/Interface/IP/Datagram/Total/Out
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ipIfStatsHCInMcastPkts
+  title: The number of IP multicast datagrams received
+  units: '{packet}/s'
+  family: Network/Interface/IP/Datagram/Multicast/In
+  chart_type: line
+  priority: 60055
+  shape: counters
+  dimensions:
+  - id: ipifstatshcinmcastpkts
+    rate_signal: isilon_ipifstatshcinmcastpkts
+  instances:
+    group: interface
+    chart_prefix: ipifstatshcinmcastpkts
+    family: Network/Interface/IP/Datagram/Multicast/In
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ipIfStatsHCOutMcastPkts
+  title: The number of IP multicast datagrams transmitted
+  units: '{packet}/s'
+  family: Network/Interface/IP/Datagram/Multicast/Out
+  chart_type: line
+  priority: 60056
+  shape: counters
+  dimensions:
+  - id: ipifstatshcoutmcastpkts
+    rate_signal: isilon_ipifstatshcoutmcastpkts
+  instances:
+    group: interface
+    chart_prefix: ipifstatshcoutmcastpkts
+    family: Network/Interface/IP/Datagram/Multicast/Out
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ipIfStatsHCInBcastPkts
+  title: The number of IP broadcast datagrams received
+  units: '{packet}/s'
+  family: Network/Interface/IP/Datagram/Broadcast/In
+  chart_type: line
+  priority: 60057
+  shape: counters
+  dimensions:
+  - id: ipifstatshcinbcastpkts
+    rate_signal: isilon_ipifstatshcinbcastpkts
+  instances:
+    group: interface
+    chart_prefix: ipifstatshcinbcastpkts
+    family: Network/Interface/IP/Datagram/Broadcast/In
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ipIfStatsHCOutBcastPkts
+  title: The number of IP broadcast datagrams transmitted
+  units: '{packet}/s'
+  family: Network/Interface/IP/Datagram/Broadcast/Out
+  chart_type: line
+  priority: 60058
+  shape: counters
+  dimensions:
+  - id: ipifstatshcoutbcastpkts
+    rate_signal: isilon_ipifstatshcoutbcastpkts
+  instances:
+    group: interface
+    chart_prefix: ipifstatshcoutbcastpkts
+    family: Network/Interface/IP/Datagram/Broadcast/Out
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ipIfStatsInDiscards
+  title: The number of input IP datagrams for which no problems were encountered to prevent their continued processing, but
+    were discarded
+  units: '{error}/s'
+  family: Network/Interface/IP/Discard/In
+  chart_type: line
+  priority: 60059
+  shape: counters
+  dimensions:
+  - id: ipifstatsindiscards
+    rate_signal: isilon_ipifstatsindiscards
+  instances:
+    group: interface
+    chart_prefix: ipifstatsindiscards
+    family: Network/Interface/IP/Discard/In
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ipIfStatsOutDiscards
+  title: The number of output IP datagrams for which no problem was encountered to prevent their transmission to their destination,
+    but were discarded
+  units: '{error}/s'
+  family: Network/Interface/IP/Discard/Out
+  chart_type: line
+  priority: 60060
+  shape: counters
+  dimensions:
+  - id: ipifstatsoutdiscards
+    rate_signal: isilon_ipifstatsoutdiscards
+  instances:
+    group: interface
+    chart_prefix: ipifstatsoutdiscards
+    family: Network/Interface/IP/Discard/Out
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ipIfStatsInHdrErrors
+  title: The number of input IP datagrams discarded due to errors in their IP headers
+  units: '{error}/s'
+  family: Network/Interface/IP/Error/Header/In
+  chart_type: line
+  priority: 60061
+  shape: counters
+  dimensions:
+  - id: ipifstatsinhdrerrors
+    rate_signal: isilon_ipifstatsinhdrerrors
+  instances:
+    group: interface
+    chart_prefix: ipifstatsinhdrerrors
+    family: Network/Interface/IP/Error/Header/In
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ipIfStatsInNoRoutes
+  title: The number of input IP datagrams discarded because no route could be found to transmit them to their destination
+  units: '{error}/s'
+  family: Network/Interface/IP/Error/NoRoute/In
+  chart_type: line
+  priority: 60062
+  shape: counters
+  dimensions:
+  - id: ipifstatsinnoroutes
+    rate_signal: isilon_ipifstatsinnoroutes
+  instances:
+    group: interface
+    chart_prefix: ipifstatsinnoroutes
+    family: Network/Interface/IP/Error/NoRoute/In
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ipIfStatsInAddrErrors
+  title: The number of input IP datagrams discarded because the IP address in their IP header's destination field was not
+    a valid address to be received at this entity
+  units: '{error}/s'
+  family: Network/Interface/IP/Error/Address/In
+  chart_type: line
+  priority: 60063
+  shape: counters
+  dimensions:
+  - id: ipifstatsinaddrerrors
+    rate_signal: isilon_ipifstatsinaddrerrors
+  instances:
+    group: interface
+    chart_prefix: ipifstatsinaddrerrors
+    family: Network/Interface/IP/Error/Address/In
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ipIfStatsInUnknownProtos
+  title: The number of locally-addressed IP datagrams received successfully but discarded because of an unknown or unsupported
+    protocol
+  units: '{error}/s'
+  family: Network/Interface/IP/Error/UnknownProtocol/In
+  chart_type: line
+  priority: 60064
+  shape: counters
+  dimensions:
+  - id: ipifstatsinunknownprotos
+    rate_signal: isilon_ipifstatsinunknownprotos
+  instances:
+    group: interface
+    chart_prefix: ipifstatsinunknownprotos
+    family: Network/Interface/IP/Error/UnknownProtocol/In
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ipIfStatsInTruncatedPkts
+  title: The number of input IP datagrams discarded because the datagram frame didn't carry enough data
+  units: '{error}/s'
+  family: Network/Interface/IP/Error/Truncated/In
+  chart_type: line
+  priority: 60065
+  shape: counters
+  dimensions:
+  - id: ipifstatsintruncatedpkts
+    rate_signal: isilon_ipifstatsintruncatedpkts
+  instances:
+    group: interface
+    chart_prefix: ipifstatsintruncatedpkts
+    family: Network/Interface/IP/Error/Truncated/In
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ipIfStatsOutFragFails
+  title: The number of IP datagrams that have been discarded because they needed to be fragmented but could not be
+  units: '{packet}/s'
+  family: Network/Interface/IP/Error/FragmentationFailure/Out
+  chart_type: line
+  priority: 60066
+  shape: counters
+  dimensions:
+  - id: ipifstatsoutfragfails
+    rate_signal: isilon_ipifstatsoutfragfails
+  instances:
+    group: interface
+    chart_prefix: ipifstatsoutfragfails
+    family: Network/Interface/IP/Error/FragmentationFailure/Out
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ipIfStatsReasmFails
+  title: The number of failures detected by the IP re-assembly algorithm
+  units: '{error}/s'
+  family: Network/Interface/IP/Error/ReassemblyFailure/Count
+  chart_type: line
+  priority: 60067
+  shape: counters
+  dimensions:
+  - id: ipifstatsreasmfails
+    rate_signal: isilon_ipifstatsreasmfails
+  instances:
+    group: interface
+    chart_prefix: ipifstatsreasmfails
+    family: Network/Interface/IP/Error/ReassemblyFailure/Count
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ipIfStatsOutFragOKs
+  title: The number of IP datagrams that have been successfully fragmented
+  units: '{packet}/s'
+  family: Network/Interface/IP/Fragmentation/Success/Out
+  chart_type: line
+  priority: 60068
+  shape: counters
+  dimensions:
+  - id: ipifstatsoutfragoks
+    rate_signal: isilon_ipifstatsoutfragoks
+  instances:
+    group: interface
+    chart_prefix: ipifstatsoutfragoks
+    family: Network/Interface/IP/Fragmentation/Success/Out
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ipIfStatsOutFragReqds
+  title: The number of IP datagrams that would require fragmentation in order to be transmitted
+  units: '{packet}/s'
+  family: Network/Interface/IP/Fragmentation/Required/Out
+  chart_type: line
+  priority: 60069
+  shape: counters
+  dimensions:
+  - id: ipifstatsoutfragreqds
+    rate_signal: isilon_ipifstatsoutfragreqds
+  instances:
+    group: interface
+    chart_prefix: ipifstatsoutfragreqds
+    family: Network/Interface/IP/Fragmentation/Required/Out
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ipIfStatsOutFragCreates
+  title: The number of output datagram fragments that have been generated as a result of IP fragmentation
+  units: '{fragment}/s'
+  family: Network/Interface/IP/Fragmentation/Created/Out
+  chart_type: line
+  priority: 60070
+  shape: counters
+  dimensions:
+  - id: ipifstatsoutfragcreates
+    rate_signal: isilon_ipifstatsoutfragcreates
+  instances:
+    group: interface
+    chart_prefix: ipifstatsoutfragcreates
+    family: Network/Interface/IP/Fragmentation/Created/Out
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ipIfStatsReasmReqds
+  title: The number of IP fragments received that needed to be reassembled at this interface
+  units: '{fragment}/s'
+  family: Network/Interface/IP/Fragmentation/ReassemblyRequired/In
+  chart_type: line
+  priority: 60071
+  shape: counters
+  dimensions:
+  - id: ipifstatsreasmreqds
+    rate_signal: isilon_ipifstatsreasmreqds
+  instances:
+    group: interface
+    chart_prefix: ipifstatsreasmreqds
+    family: Network/Interface/IP/Fragmentation/ReassemblyRequired/In
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ipIfStatsReasmOKs
+  title: The number of IP datagrams successfully reassembled
+  units: '{packet}/s'
+  family: Network/Interface/IP/Fragmentation/ReassemblySuccess/Count
+  chart_type: line
+  priority: 60072
+  shape: counters
+  dimensions:
+  - id: ipifstatsreasmoks
+    rate_signal: isilon_ipifstatsreasmoks
+  instances:
+    group: interface
+    chart_prefix: ipifstatsreasmoks
+    family: Network/Interface/IP/Fragmentation/ReassemblySuccess/Count
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ipIfStatsHCInForwDatagrams
+  title: The number of input datagrams for which this entity was not their final IP destination and for which this entity
+    attempted to find a route to forward them to that final destination
+  units: '{forward}/s'
+  family: Network/Interface/IP/Forward/In
+  chart_type: line
+  priority: 60073
+  shape: counters
+  dimensions:
+  - id: ipifstatshcinforwdatagrams
+    rate_signal: isilon_ipifstatshcinforwdatagrams
+  instances:
+    group: interface
+    chart_prefix: ipifstatshcinforwdatagrams
+    family: Network/Interface/IP/Forward/In
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ipIfStatsHCOutForwDatagrams
+  title: The number of datagrams for which this entity was not their final IP destination and for which it was successful
+    in finding a path to their final destination
+  units: '{packet}/s'
+  family: Network/Interface/IP/Forward/Out
+  chart_type: line
+  priority: 60074
+  shape: counters
+  dimensions:
+  - id: ipifstatshcoutforwdatagrams
+    rate_signal: isilon_ipifstatshcoutforwdatagrams
+  instances:
+    group: interface
+    chart_prefix: ipifstatshcoutforwdatagrams
+    family: Network/Interface/IP/Forward/Out
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_tcpCurrEstab
+  title: Current TCP connections in ESTABLISHED or CLOSE-WAIT state
+  units: '{connection}'
+  family: Network/TCP/Connection/Active/Count
+  chart_type: line
+  priority: 60075
+  shape: independent
+  dimensions:
+  - id: tcpcurrestab
+    signal: isilon_tcpcurrestab
+- id: snmp.device_prof_tcpActiveOpens
+  title: TCP connections transitioning from CLOSED to SYN-SENT
+  units: '{transition}/s'
+  family: Network/TCP/Connection/Open/Active/Count
+  chart_type: line
+  priority: 60076
+  shape: counters
+  dimensions:
+  - id: tcpactiveopens
+    rate_signal: isilon_tcpactiveopens
+- id: snmp.device_prof_tcpPassiveOpens
+  title: TCP connections transitioning from LISTEN to SYN-RCVD
+  units: '{transition}/s'
+  family: Network/TCP/Connection/Open/Passive/Count
+  chart_type: line
+  priority: 60077
+  shape: counters
+  dimensions:
+  - id: tcppassiveopens
+    rate_signal: isilon_tcppassiveopens
+- id: snmp.device_prof_tcpHCInSegs
+  title: TCP segments received
+  units: '{packet}/s'
+  family: Network/TCP/Segment/Total/In
+  chart_type: line
+  priority: 60078
+  shape: counters
+  dimensions:
+  - id: tcphcinsegs
+    rate_signal: isilon_tcphcinsegs
+- id: snmp.device_prof_tcpInSegs
+  title: TCP segments received
+  units: '{packet}/s'
+  family: Network/TCP/Segment/Total/In
+  chart_type: line
+  priority: 60079
+  shape: counters
+  dimensions:
+  - id: tcpinsegs
+    rate_signal: isilon_tcpinsegs
+- id: snmp.device_prof_tcpHCOutSegs
+  title: TCP segments sent
+  units: '{packet}/s'
+  family: Network/TCP/Segment/Total/Out
+  chart_type: line
+  priority: 60080
+  shape: counters
+  dimensions:
+  - id: tcphcoutsegs
+    rate_signal: isilon_tcphcoutsegs
+- id: snmp.device_prof_tcpOutSegs
+  title: TCP segments sent
+  units: '{packet}/s'
+  family: Network/TCP/Segment/Total/Out
+  chart_type: line
+  priority: 60081
+  shape: counters
+  dimensions:
+  - id: tcpoutsegs
+    rate_signal: isilon_tcpoutsegs
+- id: snmp.device_prof_tcpInErrs
+  title: TCP segments received with errors
+  units: '{error}/s'
+  family: Network/TCP/Segment/Error/In
+  chart_type: line
+  priority: 60082
+  shape: counters
+  dimensions:
+  - id: tcpinerrs
+    rate_signal: isilon_tcpinerrs
+- id: snmp.device_prof_tcpAttemptFails
+  title: Failed TCP connection attempts
+  units: '{failure}/s'
+  family: Network/TCP/Connection/Failure/Count
+  chart_type: line
+  priority: 60083
+  shape: counters
+  dimensions:
+  - id: tcpattemptfails
+    rate_signal: isilon_tcpattemptfails
+- id: snmp.device_prof_tcpEstabResets
+  title: TCP connections reset from ESTABLISHED/CLOSE-WAIT
+  units: '{reset}/s'
+  family: Network/TCP/Connection/Reset/Count
+  chart_type: line
+  priority: 60084
+  shape: counters
+  dimensions:
+  - id: tcpestabresets
+    rate_signal: isilon_tcpestabresets
+- id: snmp.device_prof_tcpOutRsts
+  title: TCP segments sent with RST flag
+  units: '{reset}/s'
+  family: Network/TCP/Segment/Reset/Out
+  chart_type: line
+  priority: 60085
+  shape: counters
+  dimensions:
+  - id: tcpoutrsts
+    rate_signal: isilon_tcpoutrsts
+- id: snmp.device_prof_tcpRetransSegs
+  title: TCP segments retransmitted
+  units: '{retransmit}/s'
+  family: Network/TCP/Segment/Retransmit/Out
+  chart_type: line
+  priority: 60086
+  shape: counters
+  dimensions:
+  - id: tcpretranssegs
+    rate_signal: isilon_tcpretranssegs
+- id: snmp.device_prof_udpHCInDatagrams
+  title: UDP datagrams received
+  units: '{packet}/s'
+  family: Network/UDP/Datagram/Total/In
+  chart_type: line
+  priority: 60087
+  shape: counters
+  dimensions:
+  - id: udphcindatagrams
+    rate_signal: isilon_udphcindatagrams
+- id: snmp.device_prof_udpInDatagrams
+  title: UDP datagrams received
+  units: '{packet}/s'
+  family: Network/UDP/Datagram/Total/In
+  chart_type: line
+  priority: 60088
+  shape: counters
+  dimensions:
+  - id: udpindatagrams
+    rate_signal: isilon_udpindatagrams
+- id: snmp.device_prof_udpHCOutDatagrams
+  title: UDP datagrams sent
+  units: '{packet}/s'
+  family: Network/UDP/Datagram/Total/Out
+  chart_type: line
+  priority: 60089
+  shape: counters
+  dimensions:
+  - id: udphcoutdatagrams
+    rate_signal: isilon_udphcoutdatagrams
+- id: snmp.device_prof_udpOutDatagrams
+  title: UDP datagrams sent
+  units: '{packet}/s'
+  family: Network/UDP/Datagram/Total/Out
+  chart_type: line
+  priority: 60090
+  shape: counters
+  dimensions:
+  - id: udpoutdatagrams
+    rate_signal: isilon_udpoutdatagrams
+- id: snmp.device_prof_udpInErrors
+  title: UDP datagrams received but couldn't be delivered (not due to missing app)
+  units: '{error}/s'
+  family: Network/UDP/Datagram/Error/In
+  chart_type: line
+  priority: 60091
+  shape: counters
+  dimensions:
+  - id: udpinerrors
+    rate_signal: isilon_udpinerrors
+- id: snmp.device_prof_udpNoPorts
+  title: UDP datagrams received with no app on the destination port
+  units: '{error}/s'
+  family: Network/UDP/Datagram/Error/NoPort
+  chart_type: line
+  priority: 60092
+  shape: counters
+  dimensions:
+  - id: udpnoports
+    rate_signal: isilon_udpnoports

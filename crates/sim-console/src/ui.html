@@ -250,8 +250,23 @@ A role is a node shape — cores, RAM, disks, and which scenarios can target it 
         <option value="">start from a template…</option></select></span>
     </h2>
     <div class="body">
+      <div class="row" style="margin-bottom:14px">
+        <label class="field"><span>Fleet latitude <i class="tip" tabindex="0" data-tip="Where this fleet is. Written to every node as the `latitude` and `longitude` host labels, which is what Netdata Cloud reads to place a node on a map.
+
+Decimal degrees. Latitude -90 to 90, longitude -180 to 180. Leave both blank and no coordinates are written at all — better than a default that would put the prospect's estate in the Gulf of Guinea.
+
+Any single group can override this, for an estate with more than one site.
+
+Nodes at one site are scattered by a few hundred metres, fixed by hostname, so a map shows a countable cluster instead of one pin hiding the rest.">i</i></span>
+          <input id="fleetLat" type="number" step="any" placeholder="50.1109"
+                 style="width:120px" oninput="renderRoles()"></label>
+        <label class="field"><span>Fleet longitude</span>
+          <input id="fleetLon" type="number" step="any" placeholder="8.6821"
+                 style="width:120px" oninput="renderRoles()"></label>
+        <span class="note" id="siteNote" style="align-self:end"></span>
+      </div>
       <table class="fleet"><thead><tr>
-        <th style="width:70px">Nodes</th><th style="width:190px">Role</th><th>Integrations</th><th style="width:30px"></th>
+        <th style="width:70px">Nodes</th><th style="width:190px">Role</th><th>Integrations</th><th style="width:170px">Location</th><th style="width:30px"></th>
       </tr></thead><tbody id="roles"></tbody></table>
       <button class="link" onclick="addRow()" style="margin-top:8px">+ add a group</button>
 
@@ -365,7 +380,12 @@ Removing the nodes and the Space from Netdata Cloud stays manual — you will be
     </div>
     <div class="grid" id="pickerGrid"></div>
     <footer>
-      <span class="meta"><i class="tip" tabindex="0" data-tip="DEEP — hand-authored: signals are causally coupled and hero scenarios target them by name.
+      <span class="meta" id="pickerDeviceNote" style="display:none"><i class="tip" tabindex="0" data-tip="Every model is generated from Netdata's own SNMP device profile for it, so the contexts, units, families and metric names are the ones that device really reports — per-supervisor CPU on a Catalyst, chassis sensors on a Nexus.
+
+Pick nothing and the group uses a generic managed switch: standard IF-MIB ports, CPU, memory and uptime.
+
+The standard interface counters keep the same names across every model, so the uplink-degradation scenario works on any of them.">i</i> where these come from</span>
+      <span class="meta" id="pickerDeepNote"><i class="tip" tabindex="0" data-tip="DEEP — hand-authored: signals are causally coupled and hero scenarios target them by name.
 
 The rest are generated from Netdata's own collector metadata: right contexts, units, chart types and dimension names, but signals move independently and no scenario targets them.
 
@@ -468,10 +488,36 @@ function iconFor(it, cls) {
     : `<span class="ini ${cls}">${ini}</span>`;
 }
 
+// A network device is picked by model, not by collector: what a Catalyst reports
+// is decided by the device, and Netdata ships the profile that says so. Same
+// sheet, different catalogue, and one model per group rather than a set.
+function isDeviceRow(i) { return ROWS[i] && ROWS[i].role === "network-device"; }
+
+function pickerSource() {
+  return isDeviceRow(pickerRow)
+    ? (CAT.devices || []).map(d => ({
+        id: d.id, name: d.id.replace(/_/g, " "), category: d.vendor,
+        charts: d.charts, sub: d.device_type, icon: "", modelled: "profile" }))
+    : CAT.integrations;
+}
+
 function openPicker(index) {
   pickerRow = index;
-  $("pickerTitle").textContent = "Integrations on these " + ROWS[index].role + " nodes";
+  const dev = isDeviceRow(index);
+  $("pickerTitle").textContent = dev
+    ? "Device model for these " + ROWS[index].count + " network devices"
+    : "Integrations on these " + ROWS[index].role + " nodes";
+  $("pickerSearch").placeholder = dev
+    ? "search 105 device models \u2014 catalyst, nexus, big-ip, mx\u2026"
+    : "search 150+ integrations \u2014 postgres, kafka, snmp, nvidia\u2026";
   $("pickerSearch").value = ""; $("pickerSel").checked = false;
+  $("pickerDeviceNote").style.display = dev ? "" : "none";
+  $("pickerDeepNote").style.display = dev ? "none" : "";
+  // Vendor is the useful axis for devices, category for collectors.
+  const groups = [...new Set(pickerSource().map(i => i.category))].sort();
+  $("pickerCat").innerHTML =
+    `<option value="">${dev ? "every vendor" : "every category"}</option>` +
+    groups.map(c => `<option value="${esc(c)}">${esc(c.replace(/-/g, " "))}</option>`).join("");
   $("picker").classList.add("on");
   document.body.classList.add("locked");
   renderPicker();
@@ -489,17 +535,22 @@ function renderPicker() {
   const cat = $("pickerCat").value;
   const onlySel = $("pickerSel").checked;
   const sel = ROWS[pickerRow].services;
-  const list = CAT.integrations.filter(it =>
+  const dev = isDeviceRow(pickerRow);
+  const list = pickerSource().filter(it =>
     (!cat || it.category === cat) &&
     (!onlySel || sel.has(it.id)) &&
-    (!q || it.id.includes(q) || it.name.toLowerCase().includes(q) || it.category.includes(q)));
+    (!q || it.id.includes(q) || it.name.toLowerCase().includes(q) ||
+     (it.category || "").toLowerCase().includes(q) ||
+     (it.sub || "").toLowerCase().includes(q)));
 
-  $("pickerCount").textContent = `${sel.size} selected · ${list.length} shown`;
+  $("pickerCount").textContent = dev
+    ? `${sel.size ? [...sel][0].replace(/_/g, " ") : "generic switch"} · ${list.length} shown`
+    : `${sel.size} selected · ${list.length} shown`;
   $("pickerGrid").innerHTML = list.map(it => `
     <div class="card ${sel.has(it.id) ? "on" : ""}" onclick="toggleSel('${esc(it.id)}')">
       ${iconFor(it, "")}
       <div><div class="n">${esc(it.name)}</div>
-        <div class="s">${it.charts} charts
+        <div class="s">${it.charts} charts${it.sub ? " · " + esc(it.sub) : ""}
           ${it.modelled === "deep" ? '<span class="tag deep">deep</span>' : ""}</div></div>
     </div>`).join("") ||
     `<div class="note">nothing matches “${esc(q)}”</div>`;
@@ -507,7 +558,15 @@ function renderPicker() {
 
 function toggleSel(id) {
   const s = ROWS[pickerRow].services;
-  s.has(id) ? s.delete(id) : s.add(id);
+  // One model per device group: a switch is one piece of hardware, and the
+  // node's whole generator spec comes from the profile.
+  if (isDeviceRow(pickerRow)) {
+    const had = s.has(id);
+    s.clear();
+    if (!had) s.add(id);
+  } else {
+    s.has(id) ? s.delete(id) : s.add(id);
+  }
   renderPicker();
 }
 
@@ -522,11 +581,18 @@ function addRow(role, count, services) {
 }
 
 function setRole(i, role) {
+  const was = ROWS[i].role;
   ROWS[i].role = role;
-  // Swapping the role re-arms the defaults only while the row is untouched;
-  // silently discarding a hand-picked list would be worse than a stale one.
-  if (!ROWS[i].touched) {
+  // Crossing into or out of network-device always resets the selection: a device
+  // model is not a collector, so keeping it would send the backend an id it
+  // rightly rejects.
+  const crossed = (was === "network-device") !== (role === "network-device");
+  // Otherwise swapping the role re-arms the defaults only while the row is
+  // untouched; silently discarding a hand-picked list would be worse than a
+  // stale one.
+  if (crossed || !ROWS[i].touched) {
     ROWS[i].services = new Set(CAT.roles.find(x => x.role === role).default_services);
+    if (crossed) ROWS[i].touched = false;
   }
   renderRoles();
 }
@@ -535,11 +601,16 @@ function renderRoles() {
   if (!ROWS.length) {
     $("roles").innerHTML = `<tr><td colspan="4" class="note">
       no groups yet — describe the estate above, pick a template, or add one</td></tr>`;
+    setSiteNote();
     return;
   }
+  setSiteNote();
   $("roles").innerHTML = ROWS.map((row, i) => {
     const chips = [...row.services].map(id => {
-      const it = CAT.byId[id] || { id, name: id, charts: 0 };
+      const it = CAT.byId[id] ||
+        (CAT.deviceById && CAT.deviceById[id]
+          ? { id, name: id.replace(/_/g, " "), charts: CAT.deviceById[id].charts }
+          : { id, name: id, charts: 0 });
       return `<span class="chip">${iconFor(it, "")}<b>${esc(it.name)}</b>
                 <span class="x" onclick="dropSel(${i},'${esc(id)}')">×</span></span>`;
     }).join("");
@@ -551,8 +622,13 @@ function renderRoles() {
         CAT.roles.map(r => `<option value="${esc(r.role)}" ${r.role === row.role ? "selected" : ""}>${esc(r.role)}</option>`).join("")
       }</select> <i class="tip" tabindex="0" data-tip="${esc(summary)}">i</i></td>
       <td><div class="chips">${chips}
-          <button class="link" onclick="openPicker(${i})">${row.services.size ? "add / remove" : "+ add integrations"}</button>
+          <button class="link" onclick="openPicker(${i})">${
+            row.role === "network-device"
+              ? (row.services.size ? "change model" : "+ pick a device model")
+              : (row.services.size ? "add / remove" : "+ add integrations")
+          }</button>
           </div></td>
+      <td>${locationCell(i)}</td>
       <td><button class="link" title="remove this group" onclick="ROWS.splice(${i},1); renderRoles()">×</button></td>
     </tr>`;
   }).join("");
@@ -561,14 +637,70 @@ function renderRoles() {
 
 function dropSel(i, id) { ROWS[i].services.delete(id); ROWS[i].touched = true; renderRoles(); }
 
+// --- location -------------------------------------------------------------
+// A number field that is blank, or holds something that is not a number, is
+// "unset" — not zero. Reading it as zero would silently place a fleet at the
+// intersection of the equator and the prime meridian.
+function numOrNull(el) {
+  const v = (el.value || "").trim();
+  if (!v) return null;
+  const n = Number(v);
+  return Number.isFinite(n) ? n : null;
+}
+function fleetSite() { return [numOrNull($("fleetLat")), numOrNull($("fleetLon"))]; }
+
+function setSiteNote() {
+  const [lat, lon] = fleetSite();
+  const n = $("siteNote");
+  if (!n) return;
+  if (lat === null && lon === null) { n.textContent = "unplaced — no coordinates written"; return; }
+  if (lat === null || lon === null) { n.textContent = "give both, or neither"; return; }
+  const bad = lat < -90 || lat > 90 || lon < -180 || lon > 180;
+  n.textContent = bad
+    ? "outside -90..90 / -180..180"
+    : `every group without its own location sits here`;
+}
+
+function locationCell(i) {
+  const row = ROWS[i];
+  if (row.lat !== undefined && row.lat !== null && row.lon !== undefined && row.lon !== null) {
+    return `<span class="chip"><b>${row.lat.toFixed(4)}, ${row.lon.toFixed(4)}</b>
+              <span class="x" title="use the fleet's location" onclick="clearRowSite(${i})">×</span></span>`;
+  }
+  const [lat, lon] = fleetSite();
+  const inherited = lat !== null && lon !== null
+    ? `${lat.toFixed(4)}, ${lon.toFixed(4)}` : "unplaced";
+  return `<button class="link" onclick="setRowSite(${i})"
+            title="give this group its own coordinates">${esc(inherited)}</button>`;
+}
+
+function setRowSite(i) {
+  const [flat, flon] = fleetSite();
+  const cur = prompt(
+    "Coordinates for the " + ROWS[i].role + " group, as `latitude, longitude`.\n" +
+    "Blank uses the fleet's location.",
+    flat !== null && flon !== null ? `${flat}, ${flon}` : "");
+  if (cur === null) return;
+  if (!cur.trim()) { clearRowSite(i); return; }
+  const parts = cur.split(/[ ,]+/).filter(Boolean).map(Number);
+  if (parts.length !== 2 || !parts.every(Number.isFinite)) {
+    alert("Give two numbers, e.g. 52.3676, 4.9041"); return;
+  }
+  const [lat, lon] = parts;
+  if (lat < -90 || lat > 90 || lon < -180 || lon > 180) {
+    alert("Latitude must be -90..90 and longitude -180..180"); return;
+  }
+  ROWS[i].lat = lat; ROWS[i].lon = lon;
+  renderRoles();
+}
+
+function clearRowSite(i) { ROWS[i].lat = null; ROWS[i].lon = null; renderRoles(); }
+
 // --- catalogue ------------------------------------------------------------
 async function loadCatalogue() {
   CAT = await (await fetch("/api/catalogue")).json();
   CAT.byId = Object.fromEntries(CAT.integrations.map(i => [i.id, i]));
-
-  const cats = [...new Set(CAT.integrations.map(i => i.category))].sort();
-  $("pickerCat").innerHTML = `<option value="">every category</option>` +
-    cats.map(c => `<option value="${esc(c)}">${esc(c.replace(/-/g, " "))}</option>`).join("");
+  CAT.deviceById = Object.fromEntries((CAT.devices || []).map(d => [d.id, d]));
 
   $("template").innerHTML = `<option value="">start from a template…</option>` +
     (CAT.templates || []).map(t =>
@@ -602,13 +734,22 @@ function applyTemplate() {
 function setRows(groups) {
   ROWS = groups.map(g => ({
     role: g.role, count: g.count, services: new Set(g.services), touched: true,
+    lat: g.latitude ?? null, lon: g.longitude ?? null,
   }));
   renderRoles();
 }
 
 function collectGroups() {
-  return ROWS.filter(r => r.count > 0)
-             .map(r => ({ role: r.role, count: r.count, services: [...r.services] }));
+  // Only a group with its own coordinates sends any: the backend applies the
+  // fleet's location to the rest, so an unset row stays unset rather than being
+  // frozen to whatever the fleet field held at submit time.
+  return ROWS.filter(r => r.count > 0).map(r => {
+    const g = { role: r.role, count: r.count, services: [...r.services] };
+    if (r.lat !== undefined && r.lat !== null && r.lon !== undefined && r.lon !== null) {
+      g.latitude = r.lat; g.longitude = r.lon;
+    }
+    return g;
+  });
 }
 
 // --- describe -------------------------------------------------------------
@@ -649,8 +790,14 @@ async function doCreate() {
   const out = $("createOut"), btn = $("createBtn");
   const groups = collectGroups();
   const name = $("newName").value.trim();
+  const [lat, lon] = fleetSite();
   if (!name) { out.className = "out bad"; out.textContent = "a name is required"; return; }
   if (!groups.length) { out.className = "out bad"; out.textContent = "set a node count on at least one role"; return; }
+  if ((lat === null) !== (lon === null)) {
+    out.className = "out bad";
+    out.textContent = "give both latitude and longitude, or neither";
+    return;
+  }
   btn.disabled = true; out.className = "out"; out.textContent = "";
   startProgress("create", false);
   try {
@@ -658,6 +805,7 @@ async function doCreate() {
       method: "POST", headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         name, groups,
+        latitude: lat, longitude: lon,
         exporters: $("exporters").checked,
         claim_token: $("token").value,
         claim_rooms: $("rooms").value.trim(),
@@ -706,7 +854,13 @@ async function doTeardown() {
   const out = $("teardownOut");
   out.className = "out"; out.textContent = "tearing down…";
   try {
-    const r = await (await fetch("/api/teardown", { method: "POST" })).json();
+    // Name the target. The endpoint used to take no body and removed whatever it
+    // considered active, which with two simulations running destroyed the wrong
+    // one.
+    const r = await (await fetch("/api/teardown", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name: (INSTALLED && INSTALLED.name) || "" }),
+    })).json();
     if (r.error) { out.className = "out bad"; out.textContent = r.error; return; }
     out.className = "out";
     out.textContent = r.steps.map(s =>

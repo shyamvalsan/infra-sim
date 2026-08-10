@@ -1,0 +1,942 @@
+version: 1
+name: sophos_xgs_firewall
+description: Sophos Firewall, as Netdata's SNMP collector reports it. Generated from go.d/snmp.profiles/default/sophos-xgs-firewall.yaml
+  with its `extends` chain resolved. Contexts, units, families and metric names are the device's own; values are a plausible
+  fiction.
+signals:
+  device_memory_usage:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  device_memory_total_bytes:
+    base: 4294967296.0
+    min: 4294967296.0
+    max: 4294967296.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  sophos_xgs_firewall_sfosdiskcapacity:
+    base: 4294967296.0
+    min: 4294967296.0
+    max: 4294967296.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  sophos_xgs_firewall_sfosdiskpercentusage:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  sophos_xgs_firewall_sfosswapcapacity:
+    base: 120.0
+    min: 120.0
+    max: 120.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  sophos_xgs_firewall_sfosswappercentusage:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  sophos_xgs_firewall_sfosliveuserscount:
+    base: 180.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  sophos_xgs_firewall_sfoshttphits:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  sophos_xgs_firewall_sfosftphits:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  sophos_xgs_firewall_sfospop3hits:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  sophos_xgs_firewall_sfosimaphits:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  sophos_xgs_firewall_sfossmtphits:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  sophos_xgs_firewall_sfosipsecvpnactivetunnel:
+    base: 18.0
+    min: 0.0
+    max: 65536.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  sophos_xgs_firewall_systemuptime:
+    base: 86400.0
+    min: 0.0
+    max: 315360000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  sophos_xgs_firewall_hrsystemnumusers:
+    base: 180.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  sophos_xgs_firewall_hrsystemprocesses:
+    base: 180.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  device_cpu_usage:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  sophos_xgs_firewall_hrstoragesize:
+    base: 4294967296.0
+    min: 4294967296.0
+    max: 4294967296.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  sophos_xgs_firewall_hrstorageused:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  sophos_xgs_firewall_ifnumber:
+    base: 26.0
+    min: 26.0
+    max: 26.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_admin_status:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_admin_status_down:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_admin_status_testing:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_down:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_testing:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_dormant:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_notpresent:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_lowerlayerdown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_speed:
+    from_attr: if_speed_mbps
+    base: 1000.0
+    min: 0.0
+    max: 400000.0
+  if_in_octets_rate:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_out_octets_rate:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_ucast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_out_ucast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_mcast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  sophos_xgs_firewall_ifhcoutmulticastpkts:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_bcast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  sophos_xgs_firewall_ifhcoutbroadcastpkts:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_errors_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  if_out_errors_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  if_in_discards_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  if_out_discards_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  sophos_xgs_firewall_iftotaloperstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  sophos_xgs_firewall_iftotaloperstatus_down:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  sophos_xgs_firewall_iftotaloperstatus_testing:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  sophos_xgs_firewall_iftotaloperstatus_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  sophos_xgs_firewall_iftotaloperstatus_dormant:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  sophos_xgs_firewall_iftotaloperstatus_notpresent:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  sophos_xgs_firewall_iftotaloperstatus_lowerlayerdown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+contexts:
+- id: snmp.device_prof_memory_usage
+  title: Percentage usage of main memory
+  units: '%'
+  family: System/Memory/Usage
+  chart_type: line
+  priority: 60000
+  shape: independent
+  dimensions:
+  - id: memory_usage
+    signal: device_memory_usage
+- id: snmp.device_prof_memory_total
+  title: Memory capacity in MB
+  units: By
+  family: System/Memory/Total
+  chart_type: line
+  priority: 60001
+  shape: independent
+  dimensions:
+  - id: memory_total
+    signal: device_memory_total_bytes
+- id: snmp.device_prof_sfosDiskCapacity
+  title: Disk capacity in MB
+  units: By
+  family: System/Disk/Total
+  chart_type: line
+  priority: 60002
+  shape: independent
+  dimensions:
+  - id: sfosdiskcapacity
+    signal: sophos_xgs_firewall_sfosdiskcapacity
+- id: snmp.device_prof_sfosDiskPercentUsage
+  title: '% Disk usage'
+  units: '%'
+  family: System/Disk/Usage
+  chart_type: line
+  priority: 60003
+  shape: independent
+  dimensions:
+  - id: sfosdiskpercentusage
+    signal: sophos_xgs_firewall_sfosdiskpercentusage
+- id: snmp.device_prof_sfosSwapCapacity
+  title: Swap Capacity in MB
+  units: MBy
+  family: System/Memory/Swap/Total
+  chart_type: line
+  priority: 60004
+  shape: independent
+  dimensions:
+  - id: sfosswapcapacity
+    signal: sophos_xgs_firewall_sfosswapcapacity
+- id: snmp.device_prof_sfosSwapPercentUsage
+  title: '% usage of swap'
+  units: '%'
+  family: System/Memory/Swap/Usage
+  chart_type: line
+  priority: 60005
+  shape: independent
+  dimensions:
+  - id: sfosswappercentusage
+    signal: sophos_xgs_firewall_sfosswappercentusage
+- id: snmp.device_prof_sfosLiveUsersCount
+  title: Display live user count login into captive portal
+  units: '{session}'
+  family: System/User/Portal/Active
+  chart_type: line
+  priority: 60006
+  shape: independent
+  dimensions:
+  - id: sfosliveuserscount
+    signal: sophos_xgs_firewall_sfosliveuserscount
+- id: snmp.device_prof_sfosHTTPHits
+  title: Number of HTTP hits
+  units: '{request}/s'
+  family: Network/Protocol/HTTP/Request/Total
+  chart_type: line
+  priority: 60007
+  shape: counters
+  dimensions:
+  - id: sfoshttphits
+    rate_signal: sophos_xgs_firewall_sfoshttphits
+- id: snmp.device_prof_sfosFTPHits
+  title: Number of FTP hits
+  units: '{request}/s'
+  family: Network/Protocol/FTP/Request/Total
+  chart_type: line
+  priority: 60008
+  shape: counters
+  dimensions:
+  - id: sfosftphits
+    rate_signal: sophos_xgs_firewall_sfosftphits
+- id: snmp.device_prof_sfosPOP3Hits
+  title: Number of POP3 hits
+  units: '{request}/s'
+  family: Network/Protocol/POP3/Request/Total
+  chart_type: line
+  priority: 60009
+  shape: counters
+  dimensions:
+  - id: sfospop3hits
+    rate_signal: sophos_xgs_firewall_sfospop3hits
+- id: snmp.device_prof_sfosImapHits
+  title: Number of IMAP hits
+  units: '{request}/s'
+  family: Network/Protocol/IMAP/Request/Total
+  chart_type: line
+  priority: 60010
+  shape: counters
+  dimensions:
+  - id: sfosimaphits
+    rate_signal: sophos_xgs_firewall_sfosimaphits
+- id: snmp.device_prof_sfosSmtpHits
+  title: Number of SMTP hits
+  units: '{request}/s'
+  family: Network/Protocol/SMTP/Request/Total
+  chart_type: line
+  priority: 60011
+  shape: counters
+  dimensions:
+  - id: sfossmtphits
+    rate_signal: sophos_xgs_firewall_sfossmtphits
+- id: snmp.device_prof_sfosIPSecVpnActiveTunnel
+  title: Count of active tunnel
+  units: '{tunnel}'
+  family: Network/VPN/IPSec/Tunnel/Active
+  chart_type: line
+  priority: 60012
+  shape: independent
+  dimensions:
+  - id: sfosipsecvpnactivetunnel
+    signal: sophos_xgs_firewall_sfosipsecvpnactivetunnel
+  instances:
+    group: sfos_ip_sec_vpn_conn_index
+    chart_prefix: sfosipsecvpnactivetunnel
+    family: Network/VPN/IPSec/Tunnel/Active
+    labels:
+      sfos_ip_sec_vpn_conn_index: '{instance}'
+- id: snmp.device_prof_systemUptime
+  title: Time since the system was last rebooted or powered on.
+  units: s
+  family: System/Uptime
+  chart_type: line
+  priority: 60013
+  shape: independent
+  dimensions:
+  - id: systemuptime
+    signal: sophos_xgs_firewall_systemuptime
+- id: snmp.device_prof_hrSystemNumUsers
+  title: The number of user sessions for which this host is storing state information. A session is a collection of processes
+    requiring a single act of user authentication and possibly subject to collective job control.
+  units: '{session}'
+  family: System/Activity/UserSession/Active
+  chart_type: line
+  priority: 60014
+  shape: independent
+  dimensions:
+  - id: hrsystemnumusers
+    signal: sophos_xgs_firewall_hrsystemnumusers
+- id: snmp.device_prof_hrSystemProcesses
+  title: The number of process contexts currently loaded or running on this system.
+  units: '{process}'
+  family: System/Activity/Process/Active
+  chart_type: line
+  priority: 60015
+  shape: independent
+  dimensions:
+  - id: hrsystemprocesses
+    signal: sophos_xgs_firewall_hrsystemprocesses
+- id: snmp.device_prof_cpu_usage
+  title: The current CPU utilization
+  units: '%'
+  family: System/CPU/Usage
+  chart_type: line
+  priority: 60016
+  shape: independent
+  dimensions:
+  - id: cpu_usage
+    signal: device_cpu_usage
+  instances:
+    group: cpu_index
+    chart_prefix: cpu_usage
+    family: System/CPU/Usage
+    labels:
+      cpu_index: '{instance}'
+- id: snmp.device_prof_hrStorageSize
+  title: SNMP metric hrStorageSize
+  units: By
+  family: hrstoragetable
+  chart_type: line
+  priority: 60017
+  shape: independent
+  dimensions:
+  - id: hrstoragesize
+    signal: sophos_xgs_firewall_hrstoragesize
+  instances:
+    group: storage_index
+    chart_prefix: hrstoragesize
+    family: hrstoragetable
+    labels:
+      storage_index: '{instance}'
+- id: snmp.device_prof_hrStorageUsed
+  title: SNMP metric hrStorageUsed
+  units: By
+  family: hrstoragetable
+  chart_type: line
+  priority: 60018
+  shape: independent
+  dimensions:
+  - id: hrstorageused
+    signal: sophos_xgs_firewall_hrstorageused
+  instances:
+    group: storage_index
+    chart_prefix: hrstorageused
+    family: hrstoragetable
+    labels:
+      storage_index: '{instance}'
+- id: snmp.device_prof_ifNumber
+  title: Number of network interfaces regardless of their current state present on this system
+  units: '{interface}'
+  family: Network/Interface/Count
+  chart_type: line
+  priority: 60019
+  shape: independent
+  dimensions:
+  - id: ifnumber
+    signal: sophos_xgs_firewall_ifnumber
+- id: snmp.device_prof_ifAdminStatus
+  title: Current administrative state of the interface
+  units: '{status}'
+  family: Network/Interface/Status/Admin
+  chart_type: line
+  priority: 60020
+  shape: independent
+  dimensions:
+  - id: up
+    signal: if_admin_status
+  - id: down
+    signal: if_admin_status_down
+  - id: testing
+    signal: if_admin_status_testing
+  instances:
+    group: interface
+    chart_prefix: ifadminstatus
+    family: Network/Interface/Status/Admin
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifOperStatus
+  title: Current operational state of the interface
+  units: '{status}'
+  family: Network/Interface/Status/Operational
+  chart_type: line
+  priority: 60021
+  shape: independent
+  dimensions:
+  - id: up
+    signal: if_oper_status
+  - id: down
+    signal: if_oper_status_down
+  - id: testing
+    signal: if_oper_status_testing
+  - id: unknown
+    signal: if_oper_status_unknown
+  - id: dormant
+    signal: if_oper_status_dormant
+  - id: notpresent
+    signal: if_oper_status_notpresent
+  - id: lowerlayerdown
+    signal: if_oper_status_lowerlayerdown
+  instances:
+    group: interface
+    chart_prefix: ifoperstatus
+    family: Network/Interface/Status/Operational
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifHighSpeed
+  title: Estimate of the interface's current bandwidth
+  units: bit/s
+  family: Network/Interface/Speed
+  chart_type: area
+  priority: 60022
+  shape: counters
+  dimensions:
+  - id: ifhighspeed
+    rate_signal: if_speed
+  instances:
+    group: interface
+    chart_prefix: ifhighspeed
+    family: Network/Interface/Speed
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifTotalTraffic
+  title: Total traffic across all interfaces
+  units: bit/s
+  family: Network/Total/Traffic
+  chart_type: area
+  priority: 60023
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_octets_rate
+  - id: out
+    rate_signal: if_out_octets_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalPacketsUcast
+  title: Total unicast packets across all interfaces
+  units: '{packet}/s'
+  family: Network/Total/Packet/Unicast
+  chart_type: line
+  priority: 60024
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_ucast_rate
+  - id: out
+    rate_signal: if_out_ucast_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalPacketsMulticast
+  title: Total multicast packets across all interfaces
+  units: '{packet}/s'
+  family: Network/Total/Packet/Multicast
+  chart_type: line
+  priority: 60025
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_mcast_rate
+  - id: out
+    rate_signal: sophos_xgs_firewall_ifhcoutmulticastpkts
+    multiplier: -1
+- id: snmp.device_prof_ifTotalPacketsBroadcast
+  title: Total broadcast packets across all interfaces
+  units: '{packet}/s'
+  family: Network/Total/Packet/Broadcast
+  chart_type: line
+  priority: 60026
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_bcast_rate
+  - id: out
+    rate_signal: sophos_xgs_firewall_ifhcoutbroadcastpkts
+    multiplier: -1
+- id: snmp.device_prof_ifTotalErrors
+  title: Total packets with errors across all interfaces
+  units: '{error}/s'
+  family: Network/Total/Error
+  chart_type: line
+  priority: 60027
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_errors_rate
+  - id: out
+    rate_signal: if_out_errors_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalDiscards
+  title: Total packets discarded across all interfaces
+  units: '{discard}/s'
+  family: Network/Total/Discard
+  chart_type: line
+  priority: 60028
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_discards_rate
+  - id: out
+    rate_signal: if_out_discards_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalOperStatus
+  title: Total count of interfaces by operational status
+  units: '{status}'
+  family: Network/Total/Interface/Status
+  chart_type: line
+  priority: 60029
+  shape: independent
+  dimensions:
+  - id: up
+    signal: sophos_xgs_firewall_iftotaloperstatus
+  - id: down
+    signal: sophos_xgs_firewall_iftotaloperstatus_down
+  - id: testing
+    signal: sophos_xgs_firewall_iftotaloperstatus_testing
+  - id: unknown
+    signal: sophos_xgs_firewall_iftotaloperstatus_unknown
+  - id: dormant
+    signal: sophos_xgs_firewall_iftotaloperstatus_dormant
+  - id: notpresent
+    signal: sophos_xgs_firewall_iftotaloperstatus_notpresent
+  - id: lowerlayerdown
+    signal: sophos_xgs_firewall_iftotaloperstatus_lowerlayerdown
+- id: snmp.device_prof_ifTraffic
+  title: Traffic
+  units: bit/s
+  family: Network/Interface/Traffic/Total
+  chart_type: area
+  priority: 60030
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_octets_rate
+  - id: out
+    rate_signal: if_out_octets_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: iftraffic
+    family: Network/Interface/Traffic/Total
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifPacketsUcast
+  title: Unicast packets
+  units: '{packet}/s'
+  family: Network/Interface/Packet/Unicast
+  chart_type: line
+  priority: 60031
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_ucast_rate
+  - id: out
+    rate_signal: if_out_ucast_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifpacketsucast
+    family: Network/Interface/Packet/Unicast
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifPacketsMulticast
+  title: Multicast packets
+  units: '{packet}/s'
+  family: Network/Interface/Packet/Multicast
+  chart_type: line
+  priority: 60032
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_mcast_rate
+  - id: out
+    rate_signal: sophos_xgs_firewall_ifhcoutmulticastpkts
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifpacketsmulticast
+    family: Network/Interface/Packet/Multicast
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifPacketsBroadcast
+  title: Broadcast packets
+  units: '{packet}/s'
+  family: Network/Interface/Packet/Broadcast
+  chart_type: line
+  priority: 60033
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_bcast_rate
+  - id: out
+    rate_signal: sophos_xgs_firewall_ifhcoutbroadcastpkts
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifpacketsbroadcast
+    family: Network/Interface/Packet/Broadcast
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifErrors
+  title: Packets with errors
+  units: '{error}/s'
+  family: Network/Interface/Error/Total
+  chart_type: line
+  priority: 60034
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_errors_rate
+  - id: out
+    rate_signal: if_out_errors_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: iferrors
+    family: Network/Interface/Error/Total
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifDiscards
+  title: Packets discarded
+  units: '{discard}/s'
+  family: Network/Interface/Discard
+  chart_type: line
+  priority: 60035
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_discards_rate
+  - id: out
+    rate_signal: if_out_discards_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifdiscards
+    family: Network/Interface/Discard
+    labels:
+      interface: '{instance}'

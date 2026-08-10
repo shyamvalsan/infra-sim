@@ -1,0 +1,1355 @@
+version: 1
+name: eaton_epdu
+description: Eaton PDU, as Netdata's SNMP collector reports it. Generated from go.d/snmp.profiles/default/eaton-epdu.yaml
+  with its `extends` chain resolved. Contexts, units, families and metric names are the device's own; values are a plausible
+  fiction.
+signals:
+  eaton_epdu_eaton_epdu_communicationstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_communicationstatus_communicationlost:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_internalstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_internalstatus_internalfailure:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_strappingstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_strappingstatus_communicationlost:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_inputfrequency:
+    base: 60.0
+    min: 0.0
+    max: 120.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  eaton_epdu_eaton_epdu_inputfrequencystatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_inputfrequencystatus_outofrange:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_inputvoltage:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  eaton_epdu_eaton_epdu_inputvoltagethstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_inputvoltagethstatus_lowwarning:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_inputvoltagethstatus_lowcritical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_inputvoltagethstatus_highwarning:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_inputvoltagethstatus_highcritical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_inputcurrent:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  eaton_epdu_eaton_epdu_inputcurrentpercentload:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  eaton_epdu_eaton_epdu_inputcurrentthstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_inputcurrentthstatus_lowwarning:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_inputcurrentthstatus_lowcritical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_inputcurrentthstatus_highwarning:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_inputcurrentthstatus_highcritical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_inputva:
+    base: 168.0
+    min: 0.0
+    max: 5000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  eaton_epdu_eaton_epdu_inputwatts:
+    base: 145.0
+    min: 0.0
+    max: 4000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  eaton_epdu_eaton_epdu_groupbreakerstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_groupbreakerstatus_breakeron:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_groupbreakerstatus_breakeroff:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_groupvoltage:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  eaton_epdu_eaton_epdu_groupvoltagethstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_groupvoltagethstatus_lowwarning:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_groupvoltagethstatus_lowcritical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_groupvoltagethstatus_highwarning:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_groupvoltagethstatus_highcritical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_groupcurrent:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  eaton_epdu_eaton_epdu_groupcurrentpercentload:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  eaton_epdu_eaton_epdu_groupcurrentthstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_groupcurrentthstatus_lowwarning:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_groupcurrentthstatus_lowcritical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_groupcurrentthstatus_highwarning:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_groupcurrentthstatus_highcritical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_groupva:
+    base: 168.0
+    min: 0.0
+    max: 5000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  eaton_epdu_eaton_epdu_groupwatts:
+    base: 145.0
+    min: 0.0
+    max: 4000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  eaton_epdu_eaton_epdu_groupcontrolstatus_false:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_groupcontrolstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_groupcontrolstatus_rebooting:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_groupcontrolstatus_mixed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_outletvoltage:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  eaton_epdu_eaton_epdu_outletvoltagethstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_outletvoltagethstatus_lowwarning:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_outletvoltagethstatus_lowcritical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_outletvoltagethstatus_highwarning:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_outletvoltagethstatus_highcritical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_outletcurrent:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  eaton_epdu_eaton_epdu_outletcurrentpercentload:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  eaton_epdu_eaton_epdu_outletcurrentthstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_outletcurrentthstatus_lowwarning:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_outletcurrentthstatus_lowcritical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_outletcurrentthstatus_highwarning:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_outletcurrentthstatus_highcritical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_outletva:
+    base: 168.0
+    min: 0.0
+    max: 5000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  eaton_epdu_eaton_epdu_outletwatts:
+    base: 145.0
+    min: 0.0
+    max: 4000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  eaton_epdu_eaton_epdu_temperaturevalue:
+    base: 41.0
+    min: 0.0
+    max: 120.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  eaton_epdu_eaton_epdu_temperatureprobestatus_bad:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_temperatureprobestatus_disconnected:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_temperatureprobestatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_temperaturethstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_temperaturethstatus_lowwarning:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_temperaturethstatus_lowcritical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_temperaturethstatus_highwarning:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_temperaturethstatus_highcritical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_humidityvalue:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  eaton_epdu_eaton_epdu_humidityprobestatus_bad:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_humidityprobestatus_disconnected:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_humidityprobestatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_humiditythstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_humiditythstatus_lowwarning:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_humiditythstatus_lowcritical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_humiditythstatus_highwarning:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_humiditythstatus_highcritical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_contactprobestatus_bad:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_contactprobestatus_disconnected:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_contactprobestatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_contactstate:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_contactstate_contactopen:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_eaton_epdu_contactstate_contactclosed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  eaton_epdu_systemuptime:
+    base: 86400.0
+    min: 0.0
+    max: 315360000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: snmp.device_prof_eaton_epdu_communicationStatus
+  title: Status of the internal communication with the PDU
+  units: '{status}'
+  family: Hardware/PDU/Communication/Status
+  chart_type: line
+  priority: 60000
+  shape: independent
+  dimensions:
+  - id: good
+    signal: eaton_epdu_eaton_epdu_communicationstatus
+  - id: communicationlost
+    signal: eaton_epdu_eaton_epdu_communicationstatus_communicationlost
+- id: snmp.device_prof_eaton_epdu_internalStatus
+  title: Status of the internal failure inside the PDU
+  units: '{status}'
+  family: Hardware/PDU/Internal/Status
+  chart_type: line
+  priority: 60001
+  shape: independent
+  dimensions:
+  - id: good
+    signal: eaton_epdu_eaton_epdu_internalstatus
+  - id: internalfailure
+    signal: eaton_epdu_eaton_epdu_internalstatus_internalfailure
+- id: snmp.device_prof_eaton_epdu_strappingStatus
+  title: Status of the external communication with a strapping unit
+  units: '{status}'
+  family: Hardware/PDU/Strapping/Status
+  chart_type: line
+  priority: 60002
+  shape: independent
+  dimensions:
+  - id: good
+    signal: eaton_epdu_eaton_epdu_strappingstatus
+  - id: communicationlost
+    signal: eaton_epdu_eaton_epdu_strappingstatus_communicationlost
+- id: snmp.device_prof_eaton_epdu_inputFrequency
+  title: Units are 0.1 Hz; divide by ten to get Hz
+  units: Hz
+  family: PowerFlow/Input/Frequency/Value
+  chart_type: line
+  priority: 60003
+  shape: independent
+  dimensions:
+  - id: eaton_epdu_inputfrequency
+    signal: eaton_epdu_eaton_epdu_inputfrequency
+  instances:
+    group: eaton_epdu_input_index
+    chart_prefix: eaton_epdu_inputfrequency
+    family: PowerFlow/Input/Frequency/Value
+    labels:
+      eaton_epdu_input_index: '{instance}'
+- id: snmp.device_prof_eaton_epdu_inputFrequencyStatus
+  title: Status of the measured input frequency relative to the nominal frequency and the admitted tolerance
+  units: '{status}'
+  family: PowerFlow/Input/Frequency/Status
+  chart_type: line
+  priority: 60004
+  shape: independent
+  dimensions:
+  - id: good
+    signal: eaton_epdu_eaton_epdu_inputfrequencystatus
+  - id: outofrange
+    signal: eaton_epdu_eaton_epdu_inputfrequencystatus_outofrange
+  instances:
+    group: eaton_epdu_input_index
+    chart_prefix: eaton_epdu_inputfrequencystatus
+    family: PowerFlow/Input/Frequency/Status
+    labels:
+      eaton_epdu_input_index: '{instance}'
+- id: snmp.device_prof_eaton_epdu_inputVoltage
+  title: An input voltage measurement value
+  units: mV
+  family: PowerFlow/Input/Voltage/Value
+  chart_type: line
+  priority: 60005
+  shape: independent
+  dimensions:
+  - id: eaton_epdu_inputvoltage
+    signal: eaton_epdu_eaton_epdu_inputvoltage
+  instances:
+    group: eaton_epdu_input_index
+    chart_prefix: eaton_epdu_inputvoltage
+    family: PowerFlow/Input/Voltage/Value
+    labels:
+      eaton_epdu_input_index: '{instance}'
+- id: snmp.device_prof_eaton_epdu_inputVoltageThStatus
+  title: Status of the measured input voltage relative to the configured thresholds
+  units: '{status}'
+  family: PowerFlow/Input/Voltage/Threshold/Status
+  chart_type: line
+  priority: 60006
+  shape: independent
+  dimensions:
+  - id: good
+    signal: eaton_epdu_eaton_epdu_inputvoltagethstatus
+  - id: lowwarning
+    signal: eaton_epdu_eaton_epdu_inputvoltagethstatus_lowwarning
+  - id: lowcritical
+    signal: eaton_epdu_eaton_epdu_inputvoltagethstatus_lowcritical
+  - id: highwarning
+    signal: eaton_epdu_eaton_epdu_inputvoltagethstatus_highwarning
+  - id: highcritical
+    signal: eaton_epdu_eaton_epdu_inputvoltagethstatus_highcritical
+  instances:
+    group: eaton_epdu_input_index
+    chart_prefix: eaton_epdu_inputvoltagethstatus
+    family: PowerFlow/Input/Voltage/Threshold/Status
+    labels:
+      eaton_epdu_input_index: '{instance}'
+- id: snmp.device_prof_eaton_epdu_inputCurrent
+  title: An input current measurement value
+  units: mA
+  family: PowerFlow/Input/Current/Value
+  chart_type: line
+  priority: 60007
+  shape: independent
+  dimensions:
+  - id: eaton_epdu_inputcurrent
+    signal: eaton_epdu_eaton_epdu_inputcurrent
+  instances:
+    group: eaton_epdu_input_index
+    chart_prefix: eaton_epdu_inputcurrent
+    family: PowerFlow/Input/Current/Value
+    labels:
+      eaton_epdu_input_index: '{instance}'
+- id: snmp.device_prof_eaton_epdu_inputCurrentPercentLoad
+  title: Current percent load based on the rated current capacity
+  units: '%'
+  family: PowerFlow/Input/Current/Load
+  chart_type: line
+  priority: 60008
+  shape: independent
+  dimensions:
+  - id: eaton_epdu_inputcurrentperce
+    signal: eaton_epdu_eaton_epdu_inputcurrentpercentload
+  instances:
+    group: eaton_epdu_input_index
+    chart_prefix: eaton_epdu_inputcurrentpercentload
+    family: PowerFlow/Input/Current/Load
+    labels:
+      eaton_epdu_input_index: '{instance}'
+- id: snmp.device_prof_eaton_epdu_inputCurrentThStatus
+  title: Status of the measured input current relative to the configured thresholds
+  units: '{status}'
+  family: PowerFlow/Input/Current/Threshold/Status
+  chart_type: line
+  priority: 60009
+  shape: independent
+  dimensions:
+  - id: good
+    signal: eaton_epdu_eaton_epdu_inputcurrentthstatus
+  - id: lowwarning
+    signal: eaton_epdu_eaton_epdu_inputcurrentthstatus_lowwarning
+  - id: lowcritical
+    signal: eaton_epdu_eaton_epdu_inputcurrentthstatus_lowcritical
+  - id: highwarning
+    signal: eaton_epdu_eaton_epdu_inputcurrentthstatus_highwarning
+  - id: highcritical
+    signal: eaton_epdu_eaton_epdu_inputcurrentthstatus_highcritical
+  instances:
+    group: eaton_epdu_input_index
+    chart_prefix: eaton_epdu_inputcurrentthstatus
+    family: PowerFlow/Input/Current/Threshold/Status
+    labels:
+      eaton_epdu_input_index: '{instance}'
+- id: snmp.device_prof_eaton_epdu_inputVA
+  title: An input VA value
+  units: VA
+  family: PowerFlow/Input/Apparent
+  chart_type: line
+  priority: 60010
+  shape: independent
+  dimensions:
+  - id: eaton_epdu_inputva
+    signal: eaton_epdu_eaton_epdu_inputva
+  instances:
+    group: eaton_epdu_input_index
+    chart_prefix: eaton_epdu_inputva
+    family: PowerFlow/Input/Apparent
+    labels:
+      eaton_epdu_input_index: '{instance}'
+- id: snmp.device_prof_eaton_epdu_inputWatts
+  title: An input Watts value
+  units: W
+  family: PowerFlow/Input/Active
+  chart_type: line
+  priority: 60011
+  shape: independent
+  dimensions:
+  - id: eaton_epdu_inputwatts
+    signal: eaton_epdu_eaton_epdu_inputwatts
+  instances:
+    group: eaton_epdu_input_index
+    chart_prefix: eaton_epdu_inputwatts
+    family: PowerFlow/Input/Active
+    labels:
+      eaton_epdu_input_index: '{instance}'
+- id: snmp.device_prof_eaton_epdu_groupBreakerStatus
+  title: Indicates whether a breaker is turned off or on
+  units: '{status}'
+  family: Hardware/Breaker/Status
+  chart_type: line
+  priority: 60012
+  shape: independent
+  dimensions:
+  - id: notapplicable
+    signal: eaton_epdu_eaton_epdu_groupbreakerstatus
+  - id: breakeron
+    signal: eaton_epdu_eaton_epdu_groupbreakerstatus_breakeron
+  - id: breakeroff
+    signal: eaton_epdu_eaton_epdu_groupbreakerstatus_breakeroff
+  instances:
+    group: eaton_epdu_group_index
+    chart_prefix: eaton_epdu_groupbreakerstatus
+    family: Hardware/Breaker/Status
+    labels:
+      eaton_epdu_group_index: '{instance}'
+- id: snmp.device_prof_eaton_epdu_groupVoltage
+  title: Units are millivolts
+  units: mV
+  family: PowerFlow/Group/Voltage/Value
+  chart_type: line
+  priority: 60013
+  shape: independent
+  dimensions:
+  - id: eaton_epdu_groupvoltage
+    signal: eaton_epdu_eaton_epdu_groupvoltage
+  instances:
+    group: eaton_epdu_group_index
+    chart_prefix: eaton_epdu_groupvoltage
+    family: PowerFlow/Group/Voltage/Value
+    labels:
+      eaton_epdu_group_index: '{instance}'
+- id: snmp.device_prof_eaton_epdu_groupVoltageThStatus
+  title: Status of the measured group voltage relative to the configured thresholds
+  units: '{status}'
+  family: PowerFlow/Group/Voltage/Threshold/Status
+  chart_type: line
+  priority: 60014
+  shape: independent
+  dimensions:
+  - id: good
+    signal: eaton_epdu_eaton_epdu_groupvoltagethstatus
+  - id: lowwarning
+    signal: eaton_epdu_eaton_epdu_groupvoltagethstatus_lowwarning
+  - id: lowcritical
+    signal: eaton_epdu_eaton_epdu_groupvoltagethstatus_lowcritical
+  - id: highwarning
+    signal: eaton_epdu_eaton_epdu_groupvoltagethstatus_highwarning
+  - id: highcritical
+    signal: eaton_epdu_eaton_epdu_groupvoltagethstatus_highcritical
+  instances:
+    group: eaton_epdu_group_index
+    chart_prefix: eaton_epdu_groupvoltagethstatus
+    family: PowerFlow/Group/Voltage/Threshold/Status
+    labels:
+      eaton_epdu_group_index: '{instance}'
+- id: snmp.device_prof_eaton_epdu_groupCurrent
+  title: A group current measurement value
+  units: mA
+  family: PowerFlow/Group/Current/Value
+  chart_type: line
+  priority: 60015
+  shape: independent
+  dimensions:
+  - id: eaton_epdu_groupcurrent
+    signal: eaton_epdu_eaton_epdu_groupcurrent
+  instances:
+    group: eaton_epdu_group_index
+    chart_prefix: eaton_epdu_groupcurrent
+    family: PowerFlow/Group/Current/Value
+    labels:
+      eaton_epdu_group_index: '{instance}'
+- id: snmp.device_prof_eaton_epdu_groupCurrentPercentLoad
+  title: Current percent load based on the rated current capacity
+  units: '%'
+  family: PowerFlow/Group/Current/Load
+  chart_type: line
+  priority: 60016
+  shape: independent
+  dimensions:
+  - id: eaton_epdu_groupcurrentperce
+    signal: eaton_epdu_eaton_epdu_groupcurrentpercentload
+  instances:
+    group: eaton_epdu_group_index
+    chart_prefix: eaton_epdu_groupcurrentpercentload
+    family: PowerFlow/Group/Current/Load
+    labels:
+      eaton_epdu_group_index: '{instance}'
+- id: snmp.device_prof_eaton_epdu_groupCurrentThStatus
+  title: Status of the measured group current relative to the configured thresholds
+  units: '{status}'
+  family: PowerFlow/Group/Current/Threshold/Status
+  chart_type: line
+  priority: 60017
+  shape: independent
+  dimensions:
+  - id: good
+    signal: eaton_epdu_eaton_epdu_groupcurrentthstatus
+  - id: lowwarning
+    signal: eaton_epdu_eaton_epdu_groupcurrentthstatus_lowwarning
+  - id: lowcritical
+    signal: eaton_epdu_eaton_epdu_groupcurrentthstatus_lowcritical
+  - id: highwarning
+    signal: eaton_epdu_eaton_epdu_groupcurrentthstatus_highwarning
+  - id: highcritical
+    signal: eaton_epdu_eaton_epdu_groupcurrentthstatus_highcritical
+  instances:
+    group: eaton_epdu_group_index
+    chart_prefix: eaton_epdu_groupcurrentthstatus
+    family: PowerFlow/Group/Current/Threshold/Status
+    labels:
+      eaton_epdu_group_index: '{instance}'
+- id: snmp.device_prof_eaton_epdu_groupVA
+  title: A group VA value
+  units: VA
+  family: PowerFlow/Group/Apparent
+  chart_type: line
+  priority: 60018
+  shape: independent
+  dimensions:
+  - id: eaton_epdu_groupva
+    signal: eaton_epdu_eaton_epdu_groupva
+  instances:
+    group: eaton_epdu_group_index
+    chart_prefix: eaton_epdu_groupva
+    family: PowerFlow/Group/Apparent
+    labels:
+      eaton_epdu_group_index: '{instance}'
+- id: snmp.device_prof_eaton_epdu_groupWatts
+  title: A group Watts value
+  units: W
+  family: PowerFlow/Group/Active
+  chart_type: line
+  priority: 60019
+  shape: independent
+  dimensions:
+  - id: eaton_epdu_groupwatts
+    signal: eaton_epdu_eaton_epdu_groupwatts
+  instances:
+    group: eaton_epdu_group_index
+    chart_prefix: eaton_epdu_groupwatts
+    family: PowerFlow/Group/Active
+    labels:
+      eaton_epdu_group_index: '{instance}'
+- id: snmp.device_prof_eaton_epdu_groupControlStatus
+  title: Current state of a controlled group
+  units: '{status}'
+  family: Hardware/Group/Control/Status
+  chart_type: line
+  priority: 60020
+  shape: independent
+  dimensions:
+  - id: 'false'
+    signal: eaton_epdu_eaton_epdu_groupcontrolstatus_false
+  - id: 'true'
+    signal: eaton_epdu_eaton_epdu_groupcontrolstatus
+  - id: rebooting
+    signal: eaton_epdu_eaton_epdu_groupcontrolstatus_rebooting
+  - id: mixed
+    signal: eaton_epdu_eaton_epdu_groupcontrolstatus_mixed
+  instances:
+    group: eaton_epdu_group_index
+    chart_prefix: eaton_epdu_groupcontrolstatus
+    family: Hardware/Group/Control/Status
+    labels:
+      eaton_epdu_group_index: '{instance}'
+- id: snmp.device_prof_eaton_epdu_outletVoltage
+  title: Units are millivolts
+  units: mV
+  family: PowerFlow/Outlet/Voltage/Value
+  chart_type: line
+  priority: 60021
+  shape: independent
+  dimensions:
+  - id: eaton_epdu_outletvoltage
+    signal: eaton_epdu_eaton_epdu_outletvoltage
+  instances:
+    group: eaton_epdu_outlet_index
+    chart_prefix: eaton_epdu_outletvoltage
+    family: PowerFlow/Outlet/Voltage/Value
+    labels:
+      eaton_epdu_outlet_index: '{instance}'
+- id: snmp.device_prof_eaton_epdu_outletVoltageThStatus
+  title: Status of the measured outlet voltage relative to the configured thresholds
+  units: '{status}'
+  family: PowerFlow/Outlet/Voltage/Threshold/Status
+  chart_type: line
+  priority: 60022
+  shape: independent
+  dimensions:
+  - id: good
+    signal: eaton_epdu_eaton_epdu_outletvoltagethstatus
+  - id: lowwarning
+    signal: eaton_epdu_eaton_epdu_outletvoltagethstatus_lowwarning
+  - id: lowcritical
+    signal: eaton_epdu_eaton_epdu_outletvoltagethstatus_lowcritical
+  - id: highwarning
+    signal: eaton_epdu_eaton_epdu_outletvoltagethstatus_highwarning
+  - id: highcritical
+    signal: eaton_epdu_eaton_epdu_outletvoltagethstatus_highcritical
+  instances:
+    group: eaton_epdu_outlet_index
+    chart_prefix: eaton_epdu_outletvoltagethstatus
+    family: PowerFlow/Outlet/Voltage/Threshold/Status
+    labels:
+      eaton_epdu_outlet_index: '{instance}'
+- id: snmp.device_prof_eaton_epdu_outletCurrent
+  title: An outlet current measurement value
+  units: mA
+  family: PowerFlow/Outlet/Current/Value
+  chart_type: line
+  priority: 60023
+  shape: independent
+  dimensions:
+  - id: eaton_epdu_outletcurrent
+    signal: eaton_epdu_eaton_epdu_outletcurrent
+  instances:
+    group: eaton_epdu_outlet_index
+    chart_prefix: eaton_epdu_outletcurrent
+    family: PowerFlow/Outlet/Current/Value
+    labels:
+      eaton_epdu_outlet_index: '{instance}'
+- id: snmp.device_prof_eaton_epdu_outletCurrentPercentLoad
+  title: Current percent load based on the rated current capacity
+  units: '%'
+  family: PowerFlow/Outlet/Current/Load
+  chart_type: line
+  priority: 60024
+  shape: independent
+  dimensions:
+  - id: eaton_epdu_outletcurrentperc
+    signal: eaton_epdu_eaton_epdu_outletcurrentpercentload
+  instances:
+    group: eaton_epdu_outlet_index
+    chart_prefix: eaton_epdu_outletcurrentpercentload
+    family: PowerFlow/Outlet/Current/Load
+    labels:
+      eaton_epdu_outlet_index: '{instance}'
+- id: snmp.device_prof_eaton_epdu_outletCurrentThStatus
+  title: Status of the measured outlet current relative to the configured thresholds
+  units: '{status}'
+  family: PowerFlow/Outlet/Current/Threshold/Status
+  chart_type: line
+  priority: 60025
+  shape: independent
+  dimensions:
+  - id: good
+    signal: eaton_epdu_eaton_epdu_outletcurrentthstatus
+  - id: lowwarning
+    signal: eaton_epdu_eaton_epdu_outletcurrentthstatus_lowwarning
+  - id: lowcritical
+    signal: eaton_epdu_eaton_epdu_outletcurrentthstatus_lowcritical
+  - id: highwarning
+    signal: eaton_epdu_eaton_epdu_outletcurrentthstatus_highwarning
+  - id: highcritical
+    signal: eaton_epdu_eaton_epdu_outletcurrentthstatus_highcritical
+  instances:
+    group: eaton_epdu_outlet_index
+    chart_prefix: eaton_epdu_outletcurrentthstatus
+    family: PowerFlow/Outlet/Current/Threshold/Status
+    labels:
+      eaton_epdu_outlet_index: '{instance}'
+- id: snmp.device_prof_eaton_epdu_outletVA
+  title: An outlet VA value
+  units: VA
+  family: PowerFlow/Outlet/Apparent
+  chart_type: line
+  priority: 60026
+  shape: independent
+  dimensions:
+  - id: eaton_epdu_outletva
+    signal: eaton_epdu_eaton_epdu_outletva
+  instances:
+    group: eaton_epdu_outlet_index
+    chart_prefix: eaton_epdu_outletva
+    family: PowerFlow/Outlet/Apparent
+    labels:
+      eaton_epdu_outlet_index: '{instance}'
+- id: snmp.device_prof_eaton_epdu_outletWatts
+  title: An outlet Watts value
+  units: W
+  family: PowerFlow/Outlet/Active
+  chart_type: line
+  priority: 60027
+  shape: independent
+  dimensions:
+  - id: eaton_epdu_outletwatts
+    signal: eaton_epdu_eaton_epdu_outletwatts
+  instances:
+    group: eaton_epdu_outlet_index
+    chart_prefix: eaton_epdu_outletwatts
+    family: PowerFlow/Outlet/Active
+    labels:
+      eaton_epdu_outlet_index: '{instance}'
+- id: snmp.device_prof_eaton_epdu_temperatureValue
+  title: Temperature value
+  units: Cel
+  family: Hardware/Sensor/Temperature/Value
+  chart_type: line
+  priority: 60028
+  shape: independent
+  dimensions:
+  - id: eaton_epdu_temperaturevalue
+    signal: eaton_epdu_eaton_epdu_temperaturevalue
+  instances:
+    group: eaton_epdu_temperature_index
+    chart_prefix: eaton_epdu_temperaturevalue
+    family: Hardware/Sensor/Temperature/Value
+    labels:
+      eaton_epdu_temperature_index: '{instance}'
+- id: snmp.device_prof_eaton_epdu_temperatureProbeStatus
+  title: Indicates whether a probe is connected or not
+  units: '{status}'
+  family: Hardware/Sensor/Temperature/Probe/Status
+  chart_type: line
+  priority: 60029
+  shape: independent
+  dimensions:
+  - id: bad
+    signal: eaton_epdu_eaton_epdu_temperatureprobestatus_bad
+  - id: disconnected
+    signal: eaton_epdu_eaton_epdu_temperatureprobestatus_disconnected
+  - id: connected
+    signal: eaton_epdu_eaton_epdu_temperatureprobestatus
+  instances:
+    group: eaton_epdu_temperature_index
+    chart_prefix: eaton_epdu_temperatureprobestatus
+    family: Hardware/Sensor/Temperature/Probe/Status
+    labels:
+      eaton_epdu_temperature_index: '{instance}'
+- id: snmp.device_prof_eaton_epdu_temperatureThStatus
+  title: Status of the measured temperature relative to the configured thresholds
+  units: '{status}'
+  family: Hardware/Sensor/Temperature/Threshold/Status
+  chart_type: line
+  priority: 60030
+  shape: independent
+  dimensions:
+  - id: good
+    signal: eaton_epdu_eaton_epdu_temperaturethstatus
+  - id: lowwarning
+    signal: eaton_epdu_eaton_epdu_temperaturethstatus_lowwarning
+  - id: lowcritical
+    signal: eaton_epdu_eaton_epdu_temperaturethstatus_lowcritical
+  - id: highwarning
+    signal: eaton_epdu_eaton_epdu_temperaturethstatus_highwarning
+  - id: highcritical
+    signal: eaton_epdu_eaton_epdu_temperaturethstatus_highcritical
+  instances:
+    group: eaton_epdu_temperature_index
+    chart_prefix: eaton_epdu_temperaturethstatus
+    family: Hardware/Sensor/Temperature/Threshold/Status
+    labels:
+      eaton_epdu_temperature_index: '{instance}'
+- id: snmp.device_prof_eaton_epdu_humidityValue
+  title: Units are tenths of a percent relative humidity Divide the value by 10 to get %RH
+  units: '%'
+  family: Hardware/Sensor/Humidity/Value
+  chart_type: line
+  priority: 60031
+  shape: independent
+  dimensions:
+  - id: eaton_epdu_humidityvalue
+    signal: eaton_epdu_eaton_epdu_humidityvalue
+  instances:
+    group: eaton_epdu_humidity_index
+    chart_prefix: eaton_epdu_humidityvalue
+    family: Hardware/Sensor/Humidity/Value
+    labels:
+      eaton_epdu_humidity_index: '{instance}'
+- id: snmp.device_prof_eaton_epdu_humidityProbeStatus
+  title: Indicates whether a probe is connected or not
+  units: '{status}'
+  family: Hardware/Sensor/Humidity/Probe/Status
+  chart_type: line
+  priority: 60032
+  shape: independent
+  dimensions:
+  - id: bad
+    signal: eaton_epdu_eaton_epdu_humidityprobestatus_bad
+  - id: disconnected
+    signal: eaton_epdu_eaton_epdu_humidityprobestatus_disconnected
+  - id: connected
+    signal: eaton_epdu_eaton_epdu_humidityprobestatus
+  instances:
+    group: eaton_epdu_humidity_index
+    chart_prefix: eaton_epdu_humidityprobestatus
+    family: Hardware/Sensor/Humidity/Probe/Status
+    labels:
+      eaton_epdu_humidity_index: '{instance}'
+- id: snmp.device_prof_eaton_epdu_humidityThStatus
+  title: Status of the measured humidity relative to the configured thresholds
+  units: '{status}'
+  family: Hardware/Sensor/Humidity/Threshold/Status
+  chart_type: line
+  priority: 60033
+  shape: independent
+  dimensions:
+  - id: good
+    signal: eaton_epdu_eaton_epdu_humiditythstatus
+  - id: lowwarning
+    signal: eaton_epdu_eaton_epdu_humiditythstatus_lowwarning
+  - id: lowcritical
+    signal: eaton_epdu_eaton_epdu_humiditythstatus_lowcritical
+  - id: highwarning
+    signal: eaton_epdu_eaton_epdu_humiditythstatus_highwarning
+  - id: highcritical
+    signal: eaton_epdu_eaton_epdu_humiditythstatus_highcritical
+  instances:
+    group: eaton_epdu_humidity_index
+    chart_prefix: eaton_epdu_humiditythstatus
+    family: Hardware/Sensor/Humidity/Threshold/Status
+    labels:
+      eaton_epdu_humidity_index: '{instance}'
+- id: snmp.device_prof_eaton_epdu_contactProbeStatus
+  title: Indicates whether a probe is connected or not
+  units: '{status}'
+  family: Hardware/Sensor/Contact/Probe/Status
+  chart_type: line
+  priority: 60034
+  shape: independent
+  dimensions:
+  - id: bad
+    signal: eaton_epdu_eaton_epdu_contactprobestatus_bad
+  - id: disconnected
+    signal: eaton_epdu_eaton_epdu_contactprobestatus_disconnected
+  - id: connected
+    signal: eaton_epdu_eaton_epdu_contactprobestatus
+  instances:
+    group: eaton_epdu_contact_index
+    chart_prefix: eaton_epdu_contactprobestatus
+    family: Hardware/Sensor/Contact/Probe/Status
+    labels:
+      eaton_epdu_contact_index: '{instance}'
+- id: snmp.device_prof_eaton_epdu_contactState
+  title: The state of the contact sensor
+  units: '{status}'
+  family: Hardware/Sensor/Contact/Status
+  chart_type: line
+  priority: 60035
+  shape: independent
+  dimensions:
+  - id: contactbad
+    signal: eaton_epdu_eaton_epdu_contactstate
+  - id: contactopen
+    signal: eaton_epdu_eaton_epdu_contactstate_contactopen
+  - id: contactclosed
+    signal: eaton_epdu_eaton_epdu_contactstate_contactclosed
+  instances:
+    group: eaton_epdu_contact_index
+    chart_prefix: eaton_epdu_contactstate
+    family: Hardware/Sensor/Contact/Status
+    labels:
+      eaton_epdu_contact_index: '{instance}'
+- id: snmp.device_prof_systemUptime
+  title: Time since the system was last rebooted or powered on.
+  units: s
+  family: System/Uptime
+  chart_type: line
+  priority: 60036
+  shape: independent
+  dimensions:
+  - id: systemuptime
+    signal: eaton_epdu_systemuptime

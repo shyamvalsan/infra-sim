@@ -1,0 +1,1356 @@
+version: 1
+name: cisco_legacy_wlc
+description: Cisco Wireless LAN Controller, as Netdata's SNMP collector reports it. Generated from go.d/snmp.profiles/default/cisco-legacy-wlc.yaml
+  with its `extends` chain resolved. Contexts, units, families and metric names are the device's own; values are a plausible
+  fiction.
+signals:
+  device_cpu_usage:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_legacy_wlc_memory_free:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  device_memory_total_bytes:
+    base: 4294967296.0
+    min: 4294967296.0
+    max: 4294967296.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_legacy_wlc_systemuptime:
+    base: 86400.0
+    min: 0.0
+    max: 315360000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_legacy_wlc_ifnumber:
+    base: 26.0
+    min: 26.0
+    max: 26.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_admin_status:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_admin_status_down:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_admin_status_testing:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_down:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_testing:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_dormant:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_notpresent:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_lowerlayerdown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_speed:
+    from_attr: if_speed_mbps
+    base: 1000.0
+    min: 0.0
+    max: 400000.0
+  cisco_legacy_wlc_tcpcurrestab:
+    base: 240.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_legacy_wlc_tcpactiveopens:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_legacy_wlc_tcppassiveopens:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_legacy_wlc_tcphcinsegs:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_legacy_wlc_tcpinsegs:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_legacy_wlc_tcphcoutsegs:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_legacy_wlc_tcpoutsegs:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_legacy_wlc_tcpinerrs:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  cisco_legacy_wlc_tcpattemptfails:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  cisco_legacy_wlc_tcpestabresets:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_legacy_wlc_tcpoutrsts:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_legacy_wlc_tcpretranssegs:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  cisco_legacy_wlc_udphcindatagrams:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_legacy_wlc_udpindatagrams:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_legacy_wlc_udphcoutdatagrams:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_legacy_wlc_udpoutdatagrams:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_legacy_wlc_udpinerrors:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  cisco_legacy_wlc_udpnoports:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  cisco_legacy_wlc_bsnapoperationstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_legacy_wlc_bsnapoperationstatus_disassociating:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_legacy_wlc_bsnapoperationstatus_downloading:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_legacy_wlc_bsnapadminstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_legacy_wlc_bsnapadminstatus_disable:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_legacy_wlc_bsnapifoperstatus_down:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_legacy_wlc_bsnapifoperstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_legacy_wlc_bsnapifadminstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_legacy_wlc_bsnapifadminstatus_disable:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_legacy_wlc_bsnapifnoofusers:
+    base: 34.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_legacy_wlc_bsnapifloadrxutilization:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_legacy_wlc_bsnapifloadtxutilization:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_legacy_wlc_bsnapifpoorsnrclients:
+    base: 52.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_legacy_wlc_bsnapifloadchannelutilization:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_legacy_wlc_bsndot11essadminstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_legacy_wlc_bsndot11essadminstatus_enable:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_legacy_wlc_bsndot11essrowstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_legacy_wlc_bsndot11essrowstatus_notinservice:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_legacy_wlc_bsndot11essrowstatus_notready:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_legacy_wlc_bsndot11essrowstatus_createandgo:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_legacy_wlc_bsndot11essrowstatus_createandwait:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_legacy_wlc_bsndot11essrowstatus_destroy:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_legacy_wlc_bsndot11essnumberofmobilestations:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_octets_rate:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_out_octets_rate:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_ucast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_out_ucast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_mcast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_legacy_wlc_ifhcoutmulticastpkts:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_bcast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_legacy_wlc_ifhcoutbroadcastpkts:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_errors_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  if_out_errors_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  if_in_discards_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  if_out_discards_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  cisco_legacy_wlc_iftotaloperstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_legacy_wlc_iftotaloperstatus_down:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_legacy_wlc_iftotaloperstatus_testing:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_legacy_wlc_iftotaloperstatus_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_legacy_wlc_iftotaloperstatus_dormant:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_legacy_wlc_iftotaloperstatus_notpresent:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_legacy_wlc_iftotaloperstatus_lowerlayerdown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+contexts:
+- id: snmp.device_prof_cpu_usage
+  title: The current CPU utilization
+  units: '%'
+  family: System/CPU/Usage
+  chart_type: line
+  priority: 60000
+  shape: independent
+  dimensions:
+  - id: cpu_usage
+    signal: device_cpu_usage
+- id: snmp.device_prof_memory_free
+  title: Free RAM of the switch
+  units: By
+  family: System/Memory/RAM/Free
+  chart_type: line
+  priority: 60001
+  shape: independent
+  dimensions:
+  - id: memory_free
+    signal: cisco_legacy_wlc_memory_free
+- id: snmp.device_prof_memory_total
+  title: Total RAM of the switch
+  units: By
+  family: System/Memory/RAM/Total
+  chart_type: line
+  priority: 60002
+  shape: independent
+  dimensions:
+  - id: memory_total
+    signal: device_memory_total_bytes
+- id: snmp.device_prof_systemUptime
+  title: Time since the system was last rebooted or powered on.
+  units: s
+  family: System/Uptime
+  chart_type: line
+  priority: 60003
+  shape: independent
+  dimensions:
+  - id: systemuptime
+    signal: cisco_legacy_wlc_systemuptime
+- id: snmp.device_prof_ifNumber
+  title: Number of network interfaces regardless of their current state present on this system
+  units: '{interface}'
+  family: Network/Interface/Count
+  chart_type: line
+  priority: 60004
+  shape: independent
+  dimensions:
+  - id: ifnumber
+    signal: cisco_legacy_wlc_ifnumber
+- id: snmp.device_prof_ifAdminStatus
+  title: Current administrative state of the interface
+  units: '{status}'
+  family: Network/Interface/Status/Admin
+  chart_type: line
+  priority: 60005
+  shape: independent
+  dimensions:
+  - id: up
+    signal: if_admin_status
+  - id: down
+    signal: if_admin_status_down
+  - id: testing
+    signal: if_admin_status_testing
+  instances:
+    group: interface
+    chart_prefix: ifadminstatus
+    family: Network/Interface/Status/Admin
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifOperStatus
+  title: Current operational state of the interface
+  units: '{status}'
+  family: Network/Interface/Status/Operational
+  chart_type: line
+  priority: 60006
+  shape: independent
+  dimensions:
+  - id: up
+    signal: if_oper_status
+  - id: down
+    signal: if_oper_status_down
+  - id: testing
+    signal: if_oper_status_testing
+  - id: unknown
+    signal: if_oper_status_unknown
+  - id: dormant
+    signal: if_oper_status_dormant
+  - id: notpresent
+    signal: if_oper_status_notpresent
+  - id: lowerlayerdown
+    signal: if_oper_status_lowerlayerdown
+  instances:
+    group: interface
+    chart_prefix: ifoperstatus
+    family: Network/Interface/Status/Operational
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifHighSpeed
+  title: Estimate of the interface's current bandwidth
+  units: bit/s
+  family: Network/Interface/Speed
+  chart_type: area
+  priority: 60007
+  shape: counters
+  dimensions:
+  - id: ifhighspeed
+    rate_signal: if_speed
+  instances:
+    group: interface
+    chart_prefix: ifhighspeed
+    family: Network/Interface/Speed
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_tcpCurrEstab
+  title: Current TCP connections in ESTABLISHED or CLOSE-WAIT state
+  units: '{connection}'
+  family: Network/TCP/Connection/Active/Count
+  chart_type: line
+  priority: 60008
+  shape: independent
+  dimensions:
+  - id: tcpcurrestab
+    signal: cisco_legacy_wlc_tcpcurrestab
+- id: snmp.device_prof_tcpActiveOpens
+  title: TCP connections transitioning from CLOSED to SYN-SENT
+  units: '{transition}/s'
+  family: Network/TCP/Connection/Open/Active/Count
+  chart_type: line
+  priority: 60009
+  shape: counters
+  dimensions:
+  - id: tcpactiveopens
+    rate_signal: cisco_legacy_wlc_tcpactiveopens
+- id: snmp.device_prof_tcpPassiveOpens
+  title: TCP connections transitioning from LISTEN to SYN-RCVD
+  units: '{transition}/s'
+  family: Network/TCP/Connection/Open/Passive/Count
+  chart_type: line
+  priority: 60010
+  shape: counters
+  dimensions:
+  - id: tcppassiveopens
+    rate_signal: cisco_legacy_wlc_tcppassiveopens
+- id: snmp.device_prof_tcpHCInSegs
+  title: TCP segments received
+  units: '{packet}/s'
+  family: Network/TCP/Segment/Total/In
+  chart_type: line
+  priority: 60011
+  shape: counters
+  dimensions:
+  - id: tcphcinsegs
+    rate_signal: cisco_legacy_wlc_tcphcinsegs
+- id: snmp.device_prof_tcpInSegs
+  title: TCP segments received
+  units: '{packet}/s'
+  family: Network/TCP/Segment/Total/In
+  chart_type: line
+  priority: 60012
+  shape: counters
+  dimensions:
+  - id: tcpinsegs
+    rate_signal: cisco_legacy_wlc_tcpinsegs
+- id: snmp.device_prof_tcpHCOutSegs
+  title: TCP segments sent
+  units: '{packet}/s'
+  family: Network/TCP/Segment/Total/Out
+  chart_type: line
+  priority: 60013
+  shape: counters
+  dimensions:
+  - id: tcphcoutsegs
+    rate_signal: cisco_legacy_wlc_tcphcoutsegs
+- id: snmp.device_prof_tcpOutSegs
+  title: TCP segments sent
+  units: '{packet}/s'
+  family: Network/TCP/Segment/Total/Out
+  chart_type: line
+  priority: 60014
+  shape: counters
+  dimensions:
+  - id: tcpoutsegs
+    rate_signal: cisco_legacy_wlc_tcpoutsegs
+- id: snmp.device_prof_tcpInErrs
+  title: TCP segments received with errors
+  units: '{error}/s'
+  family: Network/TCP/Segment/Error/In
+  chart_type: line
+  priority: 60015
+  shape: counters
+  dimensions:
+  - id: tcpinerrs
+    rate_signal: cisco_legacy_wlc_tcpinerrs
+- id: snmp.device_prof_tcpAttemptFails
+  title: Failed TCP connection attempts
+  units: '{failure}/s'
+  family: Network/TCP/Connection/Failure/Count
+  chart_type: line
+  priority: 60016
+  shape: counters
+  dimensions:
+  - id: tcpattemptfails
+    rate_signal: cisco_legacy_wlc_tcpattemptfails
+- id: snmp.device_prof_tcpEstabResets
+  title: TCP connections reset from ESTABLISHED/CLOSE-WAIT
+  units: '{reset}/s'
+  family: Network/TCP/Connection/Reset/Count
+  chart_type: line
+  priority: 60017
+  shape: counters
+  dimensions:
+  - id: tcpestabresets
+    rate_signal: cisco_legacy_wlc_tcpestabresets
+- id: snmp.device_prof_tcpOutRsts
+  title: TCP segments sent with RST flag
+  units: '{reset}/s'
+  family: Network/TCP/Segment/Reset/Out
+  chart_type: line
+  priority: 60018
+  shape: counters
+  dimensions:
+  - id: tcpoutrsts
+    rate_signal: cisco_legacy_wlc_tcpoutrsts
+- id: snmp.device_prof_tcpRetransSegs
+  title: TCP segments retransmitted
+  units: '{retransmit}/s'
+  family: Network/TCP/Segment/Retransmit/Out
+  chart_type: line
+  priority: 60019
+  shape: counters
+  dimensions:
+  - id: tcpretranssegs
+    rate_signal: cisco_legacy_wlc_tcpretranssegs
+- id: snmp.device_prof_udpHCInDatagrams
+  title: UDP datagrams received
+  units: '{packet}/s'
+  family: Network/UDP/Datagram/Total/In
+  chart_type: line
+  priority: 60020
+  shape: counters
+  dimensions:
+  - id: udphcindatagrams
+    rate_signal: cisco_legacy_wlc_udphcindatagrams
+- id: snmp.device_prof_udpInDatagrams
+  title: UDP datagrams received
+  units: '{packet}/s'
+  family: Network/UDP/Datagram/Total/In
+  chart_type: line
+  priority: 60021
+  shape: counters
+  dimensions:
+  - id: udpindatagrams
+    rate_signal: cisco_legacy_wlc_udpindatagrams
+- id: snmp.device_prof_udpHCOutDatagrams
+  title: UDP datagrams sent
+  units: '{packet}/s'
+  family: Network/UDP/Datagram/Total/Out
+  chart_type: line
+  priority: 60022
+  shape: counters
+  dimensions:
+  - id: udphcoutdatagrams
+    rate_signal: cisco_legacy_wlc_udphcoutdatagrams
+- id: snmp.device_prof_udpOutDatagrams
+  title: UDP datagrams sent
+  units: '{packet}/s'
+  family: Network/UDP/Datagram/Total/Out
+  chart_type: line
+  priority: 60023
+  shape: counters
+  dimensions:
+  - id: udpoutdatagrams
+    rate_signal: cisco_legacy_wlc_udpoutdatagrams
+- id: snmp.device_prof_udpInErrors
+  title: UDP datagrams received but couldn't be delivered (not due to missing app)
+  units: '{error}/s'
+  family: Network/UDP/Datagram/Error/In
+  chart_type: line
+  priority: 60024
+  shape: counters
+  dimensions:
+  - id: udpinerrors
+    rate_signal: cisco_legacy_wlc_udpinerrors
+- id: snmp.device_prof_udpNoPorts
+  title: UDP datagrams received with no app on the destination port
+  units: '{error}/s'
+  family: Network/UDP/Datagram/Error/NoPort
+  chart_type: line
+  priority: 60025
+  shape: counters
+  dimensions:
+  - id: udpnoports
+    rate_signal: cisco_legacy_wlc_udpnoports
+- id: snmp.device_prof_bsnAPOperationStatus
+  title: Operation State of the AP
+  units: '{status}'
+  family: Network/Wireless/AccessPoint/Operational/Status
+  chart_type: line
+  priority: 60026
+  shape: independent
+  dimensions:
+  - id: associated
+    signal: cisco_legacy_wlc_bsnapoperationstatus
+  - id: disassociating
+    signal: cisco_legacy_wlc_bsnapoperationstatus_disassociating
+  - id: downloading
+    signal: cisco_legacy_wlc_bsnapoperationstatus_downloading
+  instances:
+    group: ap_mac_address
+    chart_prefix: bsnapoperationstatus
+    family: Network/Wireless/AccessPoint/Operational/Status
+    labels:
+      ap_mac_address: '{instance}'
+- id: snmp.device_prof_bsnAPAdminStatus
+  title: Admin State of the AP
+  units: '{status}'
+  family: Network/Wireless/AccessPoint/Admin/Status
+  chart_type: line
+  priority: 60027
+  shape: independent
+  dimensions:
+  - id: enable
+    signal: cisco_legacy_wlc_bsnapadminstatus
+  - id: disable
+    signal: cisco_legacy_wlc_bsnapadminstatus_disable
+  instances:
+    group: ap_mac_address
+    chart_prefix: bsnapadminstatus
+    family: Network/Wireless/AccessPoint/Admin/Status
+    labels:
+      ap_mac_address: '{instance}'
+- id: snmp.device_prof_bsnAPIfOperStatus
+  title: Operational status of the interface
+  units: '{status}'
+  family: Network/Wireless/AccessPoint/Interface/Operational/Status
+  chart_type: line
+  priority: 60028
+  shape: independent
+  dimensions:
+  - id: down
+    signal: cisco_legacy_wlc_bsnapifoperstatus_down
+  - id: up
+    signal: cisco_legacy_wlc_bsnapifoperstatus
+  instances:
+    group: ap_if_slot_id
+    chart_prefix: bsnapifoperstatus
+    family: Network/Wireless/AccessPoint/Interface/Operational/Status
+    labels:
+      ap_if_slot_id: '{instance}'
+- id: snmp.device_prof_bsnAPIfAdminStatus
+  title: Admin status of the interface
+  units: '{status}'
+  family: Network/Wireless/AccessPoint/Interface/Admin/Status
+  chart_type: line
+  priority: 60029
+  shape: independent
+  dimensions:
+  - id: enable
+    signal: cisco_legacy_wlc_bsnapifadminstatus
+  - id: disable
+    signal: cisco_legacy_wlc_bsnapifadminstatus_disable
+  instances:
+    group: ap_if_slot_id
+    chart_prefix: bsnapifadminstatus
+    family: Network/Wireless/AccessPoint/Interface/Admin/Status
+    labels:
+      ap_if_slot_id: '{instance}'
+- id: snmp.device_prof_bsnApIfNoOfUsers
+  title: Number of users associated with this radio
+  units: '{user}'
+  family: Network/Wireless/AccessPoint/Interface/User/Count
+  chart_type: line
+  priority: 60030
+  shape: independent
+  dimensions:
+  - id: bsnapifnoofusers
+    signal: cisco_legacy_wlc_bsnapifnoofusers
+  instances:
+    group: ap_if_slot_id
+    chart_prefix: bsnapifnoofusers
+    family: Network/Wireless/AccessPoint/Interface/User/Count
+    labels:
+      ap_if_slot_id: '{instance}'
+- id: snmp.device_prof_bsnAPIfLoadRxUtilization
+  title: Percentage of time the Airespace AP receiver is busy operating on packets
+  units: '%'
+  family: Network/Wireless/AccessPoint/Radio/Receiver/Utilization
+  chart_type: line
+  priority: 60031
+  shape: independent
+  dimensions:
+  - id: bsnapifloadrxutilization
+    signal: cisco_legacy_wlc_bsnapifloadrxutilization
+  instances:
+    group: ap_if_slot_id
+    chart_prefix: bsnapifloadrxutilization
+    family: Network/Wireless/AccessPoint/Radio/Receiver/Utilization
+    labels:
+      ap_if_slot_id: '{instance}'
+- id: snmp.device_prof_bsnAPIfLoadTxUtilization
+  title: Percentage of time the Airespace AP transmitter is busy operating on packets
+  units: '%'
+  family: Network/Wireless/AccessPoint/Radio/Transmitter/Utilization
+  chart_type: line
+  priority: 60032
+  shape: independent
+  dimensions:
+  - id: bsnapifloadtxutilization
+    signal: cisco_legacy_wlc_bsnapifloadtxutilization
+  instances:
+    group: ap_if_slot_id
+    chart_prefix: bsnapifloadtxutilization
+    family: Network/Wireless/AccessPoint/Radio/Transmitter/Utilization
+    labels:
+      ap_if_slot_id: '{instance}'
+- id: snmp.device_prof_bsnAPIfPoorSNRClients
+  title: Number of clients with poor SNR attached to this Airespace AP at the last measurement interval
+  units: '{client}'
+  family: Network/Wireless/AccessPoint/Client/PoorSNR
+  chart_type: line
+  priority: 60033
+  shape: independent
+  dimensions:
+  - id: bsnapifpoorsnrclients
+    signal: cisco_legacy_wlc_bsnapifpoorsnrclients
+  instances:
+    group: ap_if_slot_id
+    chart_prefix: bsnapifpoorsnrclients
+    family: Network/Wireless/AccessPoint/Client/PoorSNR
+    labels:
+      ap_if_slot_id: '{instance}'
+- id: snmp.device_prof_bsnAPIfLoadChannelUtilization
+  title: Channel utilization
+  units: '%'
+  family: Network/Wireless/AccessPoint/Radio/Channel/Utilization
+  chart_type: line
+  priority: 60034
+  shape: independent
+  dimensions:
+  - id: bsnapifloadchannelutilizatio
+    signal: cisco_legacy_wlc_bsnapifloadchannelutilization
+  instances:
+    group: ap_if_slot_id
+    chart_prefix: bsnapifloadchannelutilization
+    family: Network/Wireless/AccessPoint/Radio/Channel/Utilization
+    labels:
+      ap_if_slot_id: '{instance}'
+- id: snmp.device_prof_bsnDot11EssAdminStatus
+  title: Administrative Status of ESS(WLAN)
+  units: '{status}'
+  family: Network/Wireless/WLAN/Admin/Status
+  chart_type: line
+  priority: 60035
+  shape: independent
+  dimensions:
+  - id: disable
+    signal: cisco_legacy_wlc_bsndot11essadminstatus
+  - id: enable
+    signal: cisco_legacy_wlc_bsndot11essadminstatus_enable
+  instances:
+    group: wlan_index
+    chart_prefix: bsndot11essadminstatus
+    family: Network/Wireless/WLAN/Admin/Status
+    labels:
+      wlan_index: '{instance}'
+- id: snmp.device_prof_bsnDot11EssRowStatus
+  title: Row status type for the bsnDot11EssEntry
+  units: '{status}'
+  family: Network/Wireless/WLAN/Config/RowStatus
+  chart_type: line
+  priority: 60036
+  shape: independent
+  dimensions:
+  - id: active
+    signal: cisco_legacy_wlc_bsndot11essrowstatus
+  - id: notinservice
+    signal: cisco_legacy_wlc_bsndot11essrowstatus_notinservice
+  - id: notready
+    signal: cisco_legacy_wlc_bsndot11essrowstatus_notready
+  - id: createandgo
+    signal: cisco_legacy_wlc_bsndot11essrowstatus_createandgo
+  - id: createandwait
+    signal: cisco_legacy_wlc_bsndot11essrowstatus_createandwait
+  - id: destroy
+    signal: cisco_legacy_wlc_bsndot11essrowstatus_destroy
+  instances:
+    group: wlan_index
+    chart_prefix: bsndot11essrowstatus
+    family: Network/Wireless/WLAN/Config/RowStatus
+    labels:
+      wlan_index: '{instance}'
+- id: snmp.device_prof_bsnDot11EssNumberOfMobileStations
+  title: Number of mobile stations currently associated with the WLAN
+  units: '{station}'
+  family: Network/Wireless/WLAN/Station/Count
+  chart_type: line
+  priority: 60037
+  shape: independent
+  dimensions:
+  - id: bsndot11essnumberofmobilesta
+    signal: cisco_legacy_wlc_bsndot11essnumberofmobilestations
+  instances:
+    group: wlan_index
+    chart_prefix: bsndot11essnumberofmobilestations
+    family: Network/Wireless/WLAN/Station/Count
+    labels:
+      wlan_index: '{instance}'
+- id: snmp.device_prof_ifTotalTraffic
+  title: Total traffic across all interfaces
+  units: bit/s
+  family: Network/Total/Traffic
+  chart_type: area
+  priority: 60038
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_octets_rate
+  - id: out
+    rate_signal: if_out_octets_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalPacketsUcast
+  title: Total unicast packets across all interfaces
+  units: '{packet}/s'
+  family: Network/Total/Packet/Unicast
+  chart_type: line
+  priority: 60039
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_ucast_rate
+  - id: out
+    rate_signal: if_out_ucast_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalPacketsMulticast
+  title: Total multicast packets across all interfaces
+  units: '{packet}/s'
+  family: Network/Total/Packet/Multicast
+  chart_type: line
+  priority: 60040
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_mcast_rate
+  - id: out
+    rate_signal: cisco_legacy_wlc_ifhcoutmulticastpkts
+    multiplier: -1
+- id: snmp.device_prof_ifTotalPacketsBroadcast
+  title: Total broadcast packets across all interfaces
+  units: '{packet}/s'
+  family: Network/Total/Packet/Broadcast
+  chart_type: line
+  priority: 60041
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_bcast_rate
+  - id: out
+    rate_signal: cisco_legacy_wlc_ifhcoutbroadcastpkts
+    multiplier: -1
+- id: snmp.device_prof_ifTotalErrors
+  title: Total packets with errors across all interfaces
+  units: '{error}/s'
+  family: Network/Total/Error
+  chart_type: line
+  priority: 60042
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_errors_rate
+  - id: out
+    rate_signal: if_out_errors_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalDiscards
+  title: Total packets discarded across all interfaces
+  units: '{discard}/s'
+  family: Network/Total/Discard
+  chart_type: line
+  priority: 60043
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_discards_rate
+  - id: out
+    rate_signal: if_out_discards_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalOperStatus
+  title: Total count of interfaces by operational status
+  units: '{status}'
+  family: Network/Total/Interface/Status
+  chart_type: line
+  priority: 60044
+  shape: independent
+  dimensions:
+  - id: up
+    signal: cisco_legacy_wlc_iftotaloperstatus
+  - id: down
+    signal: cisco_legacy_wlc_iftotaloperstatus_down
+  - id: testing
+    signal: cisco_legacy_wlc_iftotaloperstatus_testing
+  - id: unknown
+    signal: cisco_legacy_wlc_iftotaloperstatus_unknown
+  - id: dormant
+    signal: cisco_legacy_wlc_iftotaloperstatus_dormant
+  - id: notpresent
+    signal: cisco_legacy_wlc_iftotaloperstatus_notpresent
+  - id: lowerlayerdown
+    signal: cisco_legacy_wlc_iftotaloperstatus_lowerlayerdown
+- id: snmp.device_prof_ifTraffic
+  title: Traffic
+  units: bit/s
+  family: Network/Interface/Traffic/Total
+  chart_type: area
+  priority: 60045
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_octets_rate
+  - id: out
+    rate_signal: if_out_octets_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: iftraffic
+    family: Network/Interface/Traffic/Total
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifPacketsUcast
+  title: Unicast packets
+  units: '{packet}/s'
+  family: Network/Interface/Packet/Unicast
+  chart_type: line
+  priority: 60046
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_ucast_rate
+  - id: out
+    rate_signal: if_out_ucast_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifpacketsucast
+    family: Network/Interface/Packet/Unicast
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifPacketsMulticast
+  title: Multicast packets
+  units: '{packet}/s'
+  family: Network/Interface/Packet/Multicast
+  chart_type: line
+  priority: 60047
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_mcast_rate
+  - id: out
+    rate_signal: cisco_legacy_wlc_ifhcoutmulticastpkts
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifpacketsmulticast
+    family: Network/Interface/Packet/Multicast
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifPacketsBroadcast
+  title: Broadcast packets
+  units: '{packet}/s'
+  family: Network/Interface/Packet/Broadcast
+  chart_type: line
+  priority: 60048
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_bcast_rate
+  - id: out
+    rate_signal: cisco_legacy_wlc_ifhcoutbroadcastpkts
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifpacketsbroadcast
+    family: Network/Interface/Packet/Broadcast
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifErrors
+  title: Packets with errors
+  units: '{error}/s'
+  family: Network/Interface/Error/Total
+  chart_type: line
+  priority: 60049
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_errors_rate
+  - id: out
+    rate_signal: if_out_errors_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: iferrors
+    family: Network/Interface/Error/Total
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifDiscards
+  title: Packets discarded
+  units: '{discard}/s'
+  family: Network/Interface/Discard
+  chart_type: line
+  priority: 60050
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_discards_rate
+  - id: out
+    rate_signal: if_out_discards_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifdiscards
+    family: Network/Interface/Discard
+    labels:
+      interface: '{instance}'

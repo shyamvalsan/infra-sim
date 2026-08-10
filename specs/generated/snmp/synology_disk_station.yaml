@@ -1,0 +1,1508 @@
+version: 1
+name: synology_disk_station
+description: Synology Storage, as Netdata's SNMP collector reports it. Generated from go.d/snmp.profiles/default/synology-disk-station.yaml
+  with its `extends` chain resolved. Contexts, units, families and metric names are the device's own; values are a plausible
+  fiction.
+signals:
+  device_cpu_usage:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  synology_disk_station_synology_system_systemstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  synology_disk_station_synology_system_systemstatus_1:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  synology_disk_station_synology_system_temperature:
+    base: 41.0
+    min: 0.0
+    max: 120.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  synology_disk_station_synology_system_powerstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  synology_disk_station_synology_system_powerstatus_failed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  synology_disk_station_synology_system_systemfanstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  synology_disk_station_synology_system_systemfanstatus_failed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  synology_disk_station_synology_system_cpufanstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  synology_disk_station_synology_system_cpufanstatus_failed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  synology_disk_station_synology_system_upgradeavailable:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  synology_disk_station_synology_system_upgradeavailable_unavailable:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  synology_disk_station_synology_system_upgradeavailable_connecting:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  synology_disk_station_synology_system_upgradeavailable_disconnected:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  synology_disk_station_synology_system_upgradeavailable_others:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  synology_disk_station_synology_disktemperature:
+    base: 41.0
+    min: 0.0
+    max: 120.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  synology_disk_station_synology_diskstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  synology_disk_station_synology_diskstatus_initialized:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  synology_disk_station_synology_diskstatus_not_initialized:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  synology_disk_station_synology_diskstatus_system_partition_failed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  synology_disk_station_synology_diskstatus_crashed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  synology_disk_station_synology_raidfreesize:
+    base: 4294967296.0
+    min: 4294967296.0
+    max: 4294967296.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  synology_disk_station_synology_raidtotalsize:
+    base: 4294967296.0
+    min: 4294967296.0
+    max: 4294967296.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  synology_disk_station_synology_raid_raidstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  synology_disk_station_synology_raid_raidstatus_canceling:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  synology_disk_station_synology_raid_raidstatus_degrade:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  synology_disk_station_synology_raid_raidstatus_crashed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  synology_disk_station_synology_raid_raidstatus_data_scrubbing:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  synology_disk_station_synology_raid_raidstatus_raid_deploying:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  synology_disk_station_synology_raid_raidstatus_raid_un_deploying:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  synology_disk_station_synology_raid_raidstatus_raid_mount_cache:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  synology_disk_station_synology_raid_raidstatus_raid_unmount_cache:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  synology_disk_station_synology_raid_raidstatus_raid_expanding_unfinished_shr:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  synology_disk_station_synology_raid_raidstatus_raid_convert_shr_to_pool:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  synology_disk_station_synology_raid_raidstatus_repairing:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  synology_disk_station_synology_raid_raidstatus_raid_migrate_shr1_to_shr2:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  synology_disk_station_synology_raid_raidstatus_raid_unknown_status:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  synology_disk_station_synology_raid_raidstatus_migrating:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  synology_disk_station_synology_raid_raidstatus_expanding:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  synology_disk_station_synology_raid_raidstatus_deleting:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  synology_disk_station_synology_raid_raidstatus_creating:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  synology_disk_station_synology_raid_raidstatus_raid_syncing:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  synology_disk_station_synology_raid_raidstatus_raid_parity_checking:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  synology_disk_station_synology_raid_raidstatus_raid_assembling:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  synology_disk_station_synology_disksmartattrcurrent:
+    base: 12.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  synology_disk_station_synology_disksmartattrthreshold:
+    base: 12.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  synology_disk_station_synology_serviceusers:
+    base: 34.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  synology_disk_station_synology_storageioreads:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  synology_disk_station_synology_storageiowrites:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  synology_disk_station_synology_storageiola:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  synology_disk_station_synology_storageionreadx:
+    base: 3100000.0
+    min: 0.0
+    max: 1250000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  synology_disk_station_synology_storageionwrittenx:
+    base: 3100000.0
+    min: 0.0
+    max: 1250000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  synology_disk_station_synology_spaceioreads:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  synology_disk_station_synology_spaceiowrites:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  synology_disk_station_synology_spaceiola:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  synology_disk_station_synology_spaceionreadx:
+    base: 3100000.0
+    min: 0.0
+    max: 1250000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  synology_disk_station_synology_spaceionwrittenx:
+    base: 3100000.0
+    min: 0.0
+    max: 1250000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  synology_disk_station_synology_system_gpuinfosupported:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  synology_disk_station_synology_system_gpuinfosupported_unsupported:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  synology_disk_station_synology_gpuutilization:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  synology_disk_station_synology_gpumemoryutilization:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  synology_disk_station_systemuptime:
+    base: 86400.0
+    min: 0.0
+    max: 315360000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  synology_disk_station_ifnumber:
+    base: 26.0
+    min: 26.0
+    max: 26.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_admin_status:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_admin_status_down:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_admin_status_testing:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_down:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_testing:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_dormant:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_notpresent:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_lowerlayerdown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_speed:
+    from_attr: if_speed_mbps
+    base: 1000.0
+    min: 0.0
+    max: 400000.0
+  if_in_octets_rate:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_out_octets_rate:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_ucast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_out_ucast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_mcast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  synology_disk_station_ifhcoutmulticastpkts:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_bcast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  synology_disk_station_ifhcoutbroadcastpkts:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_errors_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  if_out_errors_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  if_in_discards_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  if_out_discards_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  synology_disk_station_iftotaloperstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  synology_disk_station_iftotaloperstatus_down:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  synology_disk_station_iftotaloperstatus_testing:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  synology_disk_station_iftotaloperstatus_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  synology_disk_station_iftotaloperstatus_dormant:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  synology_disk_station_iftotaloperstatus_notpresent:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  synology_disk_station_iftotaloperstatus_lowerlayerdown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+contexts:
+- id: snmp.device_prof_cpu_usage
+  title: The 1,5 and 15 minute load averages
+  units: '{load_average}'
+  family: System/CPU/Load
+  chart_type: line
+  priority: 60000
+  shape: independent
+  dimensions:
+  - id: cpu_usage
+    signal: device_cpu_usage
+- id: snmp.device_prof_synology_system_systemStatus
+  title: System status
+  units: '{status}'
+  family: System/Status
+  chart_type: line
+  priority: 60001
+  shape: independent
+  dimensions:
+  - id: '2'
+    signal: synology_disk_station_synology_system_systemstatus
+  - id: '1'
+    signal: synology_disk_station_synology_system_systemstatus_1
+- id: snmp.device_prof_synology_system_temperature
+  title: The temperature of Disk Station
+  units: Cel
+  family: Hardware/Temperature/Value
+  chart_type: line
+  priority: 60002
+  shape: independent
+  dimensions:
+  - id: synology_system_temperature
+    signal: synology_disk_station_synology_system_temperature
+- id: snmp.device_prof_synology_system_powerStatus
+  title: Power status
+  units: '{status}'
+  family: Hardware/Power/Status
+  chart_type: line
+  priority: 60003
+  shape: independent
+  dimensions:
+  - id: normal
+    signal: synology_disk_station_synology_system_powerstatus
+  - id: failed
+    signal: synology_disk_station_synology_system_powerstatus_failed
+- id: snmp.device_prof_synology_system_systemFanStatus
+  title: Fan status
+  units: '{status}'
+  family: Hardware/Fan/Status/System
+  chart_type: line
+  priority: 60004
+  shape: independent
+  dimensions:
+  - id: normal
+    signal: synology_disk_station_synology_system_systemfanstatus
+  - id: failed
+    signal: synology_disk_station_synology_system_systemfanstatus_failed
+- id: snmp.device_prof_synology_system_cpuFanStatus
+  title: CPU fan status
+  units: '{status}'
+  family: Hardware/Fan/Status/CPU
+  chart_type: line
+  priority: 60005
+  shape: independent
+  dimensions:
+  - id: normal
+    signal: synology_disk_station_synology_system_cpufanstatus
+  - id: failed
+    signal: synology_disk_station_synology_system_cpufanstatus_failed
+- id: snmp.device_prof_synology_system_upgradeAvailable
+  title: System upgrade availability
+  units: '{status}'
+  family: System/Upgrade/Status
+  chart_type: line
+  priority: 60006
+  shape: independent
+  dimensions:
+  - id: available
+    signal: synology_disk_station_synology_system_upgradeavailable
+  - id: unavailable
+    signal: synology_disk_station_synology_system_upgradeavailable_unavailable
+  - id: connecting
+    signal: synology_disk_station_synology_system_upgradeavailable_connecting
+  - id: disconnected
+    signal: synology_disk_station_synology_system_upgradeavailable_disconnected
+  - id: others
+    signal: synology_disk_station_synology_system_upgradeavailable_others
+- id: snmp.device_prof_synology_diskTemperature
+  title: The temperature of each disk uses Celsius degree
+  units: Cel
+  family: Hardware/Disk/Temperature/Value
+  chart_type: line
+  priority: 60007
+  shape: independent
+  dimensions:
+  - id: synology_disktemperature
+    signal: synology_disk_station_synology_disktemperature
+  instances:
+    group: synology_disk_id
+    chart_prefix: synology_disktemperature
+    family: Hardware/Disk/Temperature/Value
+    labels:
+      synology_disk_id: '{instance}'
+- id: snmp.device_prof_synology_diskStatus
+  title: Disk status
+  units: '{status}'
+  family: Hardware/Disk/Status
+  chart_type: line
+  priority: 60008
+  shape: independent
+  dimensions:
+  - id: normal
+    signal: synology_disk_station_synology_diskstatus
+  - id: initialized
+    signal: synology_disk_station_synology_diskstatus_initialized
+  - id: not_initialized
+    signal: synology_disk_station_synology_diskstatus_not_initialized
+  - id: system_partition_failed
+    signal: synology_disk_station_synology_diskstatus_system_partition_failed
+  - id: crashed
+    signal: synology_disk_station_synology_diskstatus_crashed
+  instances:
+    group: synology_disk_id
+    chart_prefix: synology_diskstatus
+    family: Hardware/Disk/Status
+    labels:
+      synology_disk_id: '{instance}'
+- id: snmp.device_prof_synology_raidFreeSize
+  title: The free size of raid
+  units: By
+  family: Storage/RAID/Free
+  chart_type: line
+  priority: 60009
+  shape: independent
+  dimensions:
+  - id: synology_raidfreesize
+    signal: synology_disk_station_synology_raidfreesize
+  instances:
+    group: synology_raid_index
+    chart_prefix: synology_raidfreesize
+    family: Storage/RAID/Free
+    labels:
+      synology_raid_index: '{instance}'
+- id: snmp.device_prof_synology_raidTotalSize
+  title: The total size of raid
+  units: By
+  family: Storage/RAID/Total
+  chart_type: line
+  priority: 60010
+  shape: independent
+  dimensions:
+  - id: synology_raidtotalsize
+    signal: synology_disk_station_synology_raidtotalsize
+  instances:
+    group: synology_raid_index
+    chart_prefix: synology_raidtotalsize
+    family: Storage/RAID/Total
+    labels:
+      synology_raid_index: '{instance}'
+- id: snmp.device_prof_synology_raid_raidStatus
+  title: Raid status
+  units: '{status}'
+  family: Storage/RAID/Status
+  chart_type: line
+  priority: 60011
+  shape: independent
+  dimensions:
+  - id: normal
+    signal: synology_disk_station_synology_raid_raidstatus
+  - id: canceling
+    signal: synology_disk_station_synology_raid_raidstatus_canceling
+  - id: degrade
+    signal: synology_disk_station_synology_raid_raidstatus_degrade
+  - id: crashed
+    signal: synology_disk_station_synology_raid_raidstatus_crashed
+  - id: data_scrubbing
+    signal: synology_disk_station_synology_raid_raidstatus_data_scrubbing
+  - id: raid_deploying
+    signal: synology_disk_station_synology_raid_raidstatus_raid_deploying
+  - id: raid_un_deploying
+    signal: synology_disk_station_synology_raid_raidstatus_raid_un_deploying
+  - id: raid_mount_cache
+    signal: synology_disk_station_synology_raid_raidstatus_raid_mount_cache
+  - id: raid_unmount_cache
+    signal: synology_disk_station_synology_raid_raidstatus_raid_unmount_cache
+  - id: raid_expanding_unfinished_sh
+    signal: synology_disk_station_synology_raid_raidstatus_raid_expanding_unfinished_shr
+  - id: raid_convert_shr_to_pool
+    signal: synology_disk_station_synology_raid_raidstatus_raid_convert_shr_to_pool
+  - id: repairing
+    signal: synology_disk_station_synology_raid_raidstatus_repairing
+  - id: raid_migrate_shr1_to_shr2
+    signal: synology_disk_station_synology_raid_raidstatus_raid_migrate_shr1_to_shr2
+  - id: raid_unknown_status
+    signal: synology_disk_station_synology_raid_raidstatus_raid_unknown_status
+  - id: migrating
+    signal: synology_disk_station_synology_raid_raidstatus_migrating
+  - id: expanding
+    signal: synology_disk_station_synology_raid_raidstatus_expanding
+  - id: deleting
+    signal: synology_disk_station_synology_raid_raidstatus_deleting
+  - id: creating
+    signal: synology_disk_station_synology_raid_raidstatus_creating
+  - id: raid_syncing
+    signal: synology_disk_station_synology_raid_raidstatus_raid_syncing
+  - id: raid_parity_checking
+    signal: synology_disk_station_synology_raid_raidstatus_raid_parity_checking
+  - id: raid_assembling
+    signal: synology_disk_station_synology_raid_raidstatus_raid_assembling
+  instances:
+    group: synology_raid_index
+    chart_prefix: synology_raid_raidstatus
+    family: Storage/RAID/Status
+    labels:
+      synology_raid_index: '{instance}'
+- id: snmp.device_prof_synology_diskSMARTAttrCurrent
+  title: SMART attribute current value
+  units: '1'
+  family: Hardware/Disk/SMART/Current
+  chart_type: line
+  priority: 60012
+  shape: independent
+  dimensions:
+  - id: synology_disksmartattrcurren
+    signal: synology_disk_station_synology_disksmartattrcurrent
+  instances:
+    group: synology_disk_smart_info_dev_name
+    chart_prefix: synology_disksmartattrcurrent
+    family: Hardware/Disk/SMART/Current
+    labels:
+      synology_disk_smart_info_dev_name: '{instance}'
+- id: snmp.device_prof_synology_diskSMARTAttrThreshold
+  title: SMART attribute threshold value
+  units: '1'
+  family: Hardware/Disk/SMART/Threshold
+  chart_type: line
+  priority: 60013
+  shape: independent
+  dimensions:
+  - id: synology_disksmartattrthresh
+    signal: synology_disk_station_synology_disksmartattrthreshold
+  instances:
+    group: synology_disk_smart_info_dev_name
+    chart_prefix: synology_disksmartattrthreshold
+    family: Hardware/Disk/SMART/Threshold
+    labels:
+      synology_disk_smart_info_dev_name: '{instance}'
+- id: snmp.device_prof_synology_serviceUsers
+  title: Number of users using this service
+  units: '{user}'
+  family: System/Service/User/Active
+  chart_type: line
+  priority: 60014
+  shape: independent
+  dimensions:
+  - id: synology_serviceusers
+    signal: synology_disk_station_synology_serviceusers
+  instances:
+    group: service_index
+    chart_prefix: synology_serviceusers
+    family: System/Service/User/Active
+    labels:
+      service_index: '{instance}'
+- id: snmp.device_prof_synology_storageIOReads
+  title: The number of read accesses from this device since boot
+  units: '{access}/s'
+  family: Storage/IO/Operations/Read
+  chart_type: line
+  priority: 60015
+  shape: counters
+  dimensions:
+  - id: synology_storageioreads
+    rate_signal: synology_disk_station_synology_storageioreads
+  instances:
+    group: storage_io_device_index
+    chart_prefix: synology_storageioreads
+    family: Storage/IO/Operations/Read
+    labels:
+      storage_io_device_index: '{instance}'
+- id: snmp.device_prof_synology_storageIOWrites
+  title: The number of write accesses to this device since boot
+  units: '{access}/s'
+  family: Storage/IO/Operations/Write
+  chart_type: line
+  priority: 60016
+  shape: counters
+  dimensions:
+  - id: synology_storageiowrites
+    rate_signal: synology_disk_station_synology_storageiowrites
+  instances:
+    group: storage_io_device_index
+    chart_prefix: synology_storageiowrites
+    family: Storage/IO/Operations/Write
+    labels:
+      storage_io_device_index: '{instance}'
+- id: snmp.device_prof_synology_storageIOLA
+  title: The load of disk
+  units: '%'
+  family: Storage/IO/Load
+  chart_type: line
+  priority: 60017
+  shape: independent
+  dimensions:
+  - id: synology_storageiola
+    signal: synology_disk_station_synology_storageiola
+  instances:
+    group: storage_io_device_index
+    chart_prefix: synology_storageiola
+    family: Storage/IO/Load
+    labels:
+      storage_io_device_index: '{instance}'
+- id: snmp.device_prof_synology_storageIONReadX
+  title: The number of bytes read from this device since boot
+  units: By/s
+  family: Storage/IO/Throughput/Read
+  chart_type: line
+  priority: 60018
+  shape: counters
+  dimensions:
+  - id: synology_storageionreadx
+    rate_signal: synology_disk_station_synology_storageionreadx
+  instances:
+    group: storage_io_device_index
+    chart_prefix: synology_storageionreadx
+    family: Storage/IO/Throughput/Read
+    labels:
+      storage_io_device_index: '{instance}'
+- id: snmp.device_prof_synology_storageIONWrittenX
+  title: The number of bytes written to this device since boot
+  units: By/s
+  family: Storage/IO/Throughput/Write
+  chart_type: line
+  priority: 60019
+  shape: counters
+  dimensions:
+  - id: synology_storageionwrittenx
+    rate_signal: synology_disk_station_synology_storageionwrittenx
+  instances:
+    group: storage_io_device_index
+    chart_prefix: synology_storageionwrittenx
+    family: Storage/IO/Throughput/Write
+    labels:
+      storage_io_device_index: '{instance}'
+- id: snmp.device_prof_synology_spaceIOReads
+  title: The number of read accesses from this device since boot
+  units: '{access}/s'
+  family: Storage/Volume/IO/Operations/Read
+  chart_type: line
+  priority: 60020
+  shape: counters
+  dimensions:
+  - id: synology_spaceioreads
+    rate_signal: synology_disk_station_synology_spaceioreads
+  instances:
+    group: space_io_device_index
+    chart_prefix: synology_spaceioreads
+    family: Storage/Volume/IO/Operations/Read
+    labels:
+      space_io_device_index: '{instance}'
+- id: snmp.device_prof_synology_spaceIOWrites
+  title: The number of write accesses to this device since boot
+  units: '{access}/s'
+  family: Storage/Volume/IO/Operations/Write
+  chart_type: line
+  priority: 60021
+  shape: counters
+  dimensions:
+  - id: synology_spaceiowrites
+    rate_signal: synology_disk_station_synology_spaceiowrites
+  instances:
+    group: space_io_device_index
+    chart_prefix: synology_spaceiowrites
+    family: Storage/Volume/IO/Operations/Write
+    labels:
+      space_io_device_index: '{instance}'
+- id: snmp.device_prof_synology_spaceIOLA
+  title: The load of disk
+  units: '%'
+  family: Storage/Volume/IO/Load
+  chart_type: line
+  priority: 60022
+  shape: independent
+  dimensions:
+  - id: synology_spaceiola
+    signal: synology_disk_station_synology_spaceiola
+  instances:
+    group: space_io_device_index
+    chart_prefix: synology_spaceiola
+    family: Storage/Volume/IO/Load
+    labels:
+      space_io_device_index: '{instance}'
+- id: snmp.device_prof_synology_spaceIONReadX
+  title: The number of bytes read from this device since boot
+  units: By/s
+  family: Storage/Volume/IO/Throughput/Read
+  chart_type: line
+  priority: 60023
+  shape: counters
+  dimensions:
+  - id: synology_spaceionreadx
+    rate_signal: synology_disk_station_synology_spaceionreadx
+  instances:
+    group: space_io_device_index
+    chart_prefix: synology_spaceionreadx
+    family: Storage/Volume/IO/Throughput/Read
+    labels:
+      space_io_device_index: '{instance}'
+- id: snmp.device_prof_synology_spaceIONWrittenX
+  title: The number of bytes written to this device since boot
+  units: By/s
+  family: Storage/Volume/IO/Throughput/Write
+  chart_type: line
+  priority: 60024
+  shape: counters
+  dimensions:
+  - id: synology_spaceionwrittenx
+    rate_signal: synology_disk_station_synology_spaceionwrittenx
+  instances:
+    group: space_io_device_index
+    chart_prefix: synology_spaceionwrittenx
+    family: Storage/Volume/IO/Throughput/Write
+    labels:
+      space_io_device_index: '{instance}'
+- id: snmp.device_prof_synology_system_gpuInfoSupported
+  title: GPU info support status
+  units: '{status}'
+  family: System/GPU/Support/Status
+  chart_type: line
+  priority: 60025
+  shape: independent
+  dimensions:
+  - id: supported
+    signal: synology_disk_station_synology_system_gpuinfosupported
+  - id: unsupported
+    signal: synology_disk_station_synology_system_gpuinfosupported_unsupported
+- id: snmp.device_prof_synology_gpuUtilization
+  title: GPU utilization
+  units: '%'
+  family: System/GPU/Usage
+  chart_type: line
+  priority: 60026
+  shape: independent
+  dimensions:
+  - id: synology_gpuutilization
+    signal: synology_disk_station_synology_gpuutilization
+- id: snmp.device_prof_synology_gpuMemoryUtilization
+  title: GPU memory utilization
+  units: '%'
+  family: System/GPU/Memory/Usage
+  chart_type: line
+  priority: 60027
+  shape: independent
+  dimensions:
+  - id: synology_gpumemoryutilizatio
+    signal: synology_disk_station_synology_gpumemoryutilization
+- id: snmp.device_prof_systemUptime
+  title: Time since the system was last rebooted or powered on.
+  units: s
+  family: System/Uptime
+  chart_type: line
+  priority: 60028
+  shape: independent
+  dimensions:
+  - id: systemuptime
+    signal: synology_disk_station_systemuptime
+- id: snmp.device_prof_ifNumber
+  title: Number of network interfaces regardless of their current state present on this system
+  units: '{interface}'
+  family: Network/Interface/Count
+  chart_type: line
+  priority: 60029
+  shape: independent
+  dimensions:
+  - id: ifnumber
+    signal: synology_disk_station_ifnumber
+- id: snmp.device_prof_ifAdminStatus
+  title: Current administrative state of the interface
+  units: '{status}'
+  family: Network/Interface/Status/Admin
+  chart_type: line
+  priority: 60030
+  shape: independent
+  dimensions:
+  - id: up
+    signal: if_admin_status
+  - id: down
+    signal: if_admin_status_down
+  - id: testing
+    signal: if_admin_status_testing
+  instances:
+    group: interface
+    chart_prefix: ifadminstatus
+    family: Network/Interface/Status/Admin
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifOperStatus
+  title: Current operational state of the interface
+  units: '{status}'
+  family: Network/Interface/Status/Operational
+  chart_type: line
+  priority: 60031
+  shape: independent
+  dimensions:
+  - id: up
+    signal: if_oper_status
+  - id: down
+    signal: if_oper_status_down
+  - id: testing
+    signal: if_oper_status_testing
+  - id: unknown
+    signal: if_oper_status_unknown
+  - id: dormant
+    signal: if_oper_status_dormant
+  - id: notpresent
+    signal: if_oper_status_notpresent
+  - id: lowerlayerdown
+    signal: if_oper_status_lowerlayerdown
+  instances:
+    group: interface
+    chart_prefix: ifoperstatus
+    family: Network/Interface/Status/Operational
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifHighSpeed
+  title: Estimate of the interface's current bandwidth
+  units: bit/s
+  family: Network/Interface/Speed
+  chart_type: area
+  priority: 60032
+  shape: counters
+  dimensions:
+  - id: ifhighspeed
+    rate_signal: if_speed
+  instances:
+    group: interface
+    chart_prefix: ifhighspeed
+    family: Network/Interface/Speed
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifTotalTraffic
+  title: Total traffic across all interfaces
+  units: bit/s
+  family: Network/Total/Traffic
+  chart_type: area
+  priority: 60033
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_octets_rate
+  - id: out
+    rate_signal: if_out_octets_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalPacketsUcast
+  title: Total unicast packets across all interfaces
+  units: '{packet}/s'
+  family: Network/Total/Packet/Unicast
+  chart_type: line
+  priority: 60034
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_ucast_rate
+  - id: out
+    rate_signal: if_out_ucast_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalPacketsMulticast
+  title: Total multicast packets across all interfaces
+  units: '{packet}/s'
+  family: Network/Total/Packet/Multicast
+  chart_type: line
+  priority: 60035
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_mcast_rate
+  - id: out
+    rate_signal: synology_disk_station_ifhcoutmulticastpkts
+    multiplier: -1
+- id: snmp.device_prof_ifTotalPacketsBroadcast
+  title: Total broadcast packets across all interfaces
+  units: '{packet}/s'
+  family: Network/Total/Packet/Broadcast
+  chart_type: line
+  priority: 60036
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_bcast_rate
+  - id: out
+    rate_signal: synology_disk_station_ifhcoutbroadcastpkts
+    multiplier: -1
+- id: snmp.device_prof_ifTotalErrors
+  title: Total packets with errors across all interfaces
+  units: '{error}/s'
+  family: Network/Total/Error
+  chart_type: line
+  priority: 60037
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_errors_rate
+  - id: out
+    rate_signal: if_out_errors_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalDiscards
+  title: Total packets discarded across all interfaces
+  units: '{discard}/s'
+  family: Network/Total/Discard
+  chart_type: line
+  priority: 60038
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_discards_rate
+  - id: out
+    rate_signal: if_out_discards_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalOperStatus
+  title: Total count of interfaces by operational status
+  units: '{status}'
+  family: Network/Total/Interface/Status
+  chart_type: line
+  priority: 60039
+  shape: independent
+  dimensions:
+  - id: up
+    signal: synology_disk_station_iftotaloperstatus
+  - id: down
+    signal: synology_disk_station_iftotaloperstatus_down
+  - id: testing
+    signal: synology_disk_station_iftotaloperstatus_testing
+  - id: unknown
+    signal: synology_disk_station_iftotaloperstatus_unknown
+  - id: dormant
+    signal: synology_disk_station_iftotaloperstatus_dormant
+  - id: notpresent
+    signal: synology_disk_station_iftotaloperstatus_notpresent
+  - id: lowerlayerdown
+    signal: synology_disk_station_iftotaloperstatus_lowerlayerdown
+- id: snmp.device_prof_ifTraffic
+  title: Traffic
+  units: bit/s
+  family: Network/Interface/Traffic/Total
+  chart_type: area
+  priority: 60040
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_octets_rate
+  - id: out
+    rate_signal: if_out_octets_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: iftraffic
+    family: Network/Interface/Traffic/Total
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifPacketsUcast
+  title: Unicast packets
+  units: '{packet}/s'
+  family: Network/Interface/Packet/Unicast
+  chart_type: line
+  priority: 60041
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_ucast_rate
+  - id: out
+    rate_signal: if_out_ucast_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifpacketsucast
+    family: Network/Interface/Packet/Unicast
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifPacketsMulticast
+  title: Multicast packets
+  units: '{packet}/s'
+  family: Network/Interface/Packet/Multicast
+  chart_type: line
+  priority: 60042
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_mcast_rate
+  - id: out
+    rate_signal: synology_disk_station_ifhcoutmulticastpkts
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifpacketsmulticast
+    family: Network/Interface/Packet/Multicast
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifPacketsBroadcast
+  title: Broadcast packets
+  units: '{packet}/s'
+  family: Network/Interface/Packet/Broadcast
+  chart_type: line
+  priority: 60043
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_bcast_rate
+  - id: out
+    rate_signal: synology_disk_station_ifhcoutbroadcastpkts
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifpacketsbroadcast
+    family: Network/Interface/Packet/Broadcast
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifErrors
+  title: Packets with errors
+  units: '{error}/s'
+  family: Network/Interface/Error/Total
+  chart_type: line
+  priority: 60044
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_errors_rate
+  - id: out
+    rate_signal: if_out_errors_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: iferrors
+    family: Network/Interface/Error/Total
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifDiscards
+  title: Packets discarded
+  units: '{discard}/s'
+  family: Network/Interface/Discard
+  chart_type: line
+  priority: 60045
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_discards_rate
+  - id: out
+    rate_signal: if_out_discards_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifdiscards
+    family: Network/Interface/Discard
+    labels:
+      interface: '{instance}'

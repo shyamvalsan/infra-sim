@@ -1,0 +1,292 @@
+version: 1
+name: sinetica_eagle_i
+description: Panduit Network device, as Netdata's SNMP collector reports it. Generated from go.d/snmp.profiles/default/sinetica-eagle-i.yaml
+  with its `extends` chain resolved. Contexts, units, families and metric names are the device's own; values are a plausible
+  fiction.
+signals:
+  sinetica_eagle_i_hawk_i2_ipcontnormstate:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  sinetica_eagle_i_hawk_i2_ipcontnormstate_closed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  sinetica_eagle_i_hawk_i2_ipcontcurrstate:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  sinetica_eagle_i_hawk_i2_ipcontcurrstate_closed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  sinetica_eagle_i_hawk_i2_ipcontcurrstate_armed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  sinetica_eagle_i_hawk_i2_ipcontcurrstate_triggered:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  sinetica_eagle_i_hawk_i2_opnormstate:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  sinetica_eagle_i_hawk_i2_opnormstate_false:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  sinetica_eagle_i_hawk_i2_opcurrstate:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  sinetica_eagle_i_hawk_i2_opcurrstate_false:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  sinetica_eagle_i_hawk_i2_opcontrolstate:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  sinetica_eagle_i_hawk_i2_opcontrolstate_deactivate:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  sinetica_eagle_i_hawk_i2_opcontrolstate_logic:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  sinetica_eagle_i_hawk_i2_pdurmsvoltsvalue:
+    base: 12.0
+    min: 0.0
+    max: 480.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  sinetica_eagle_i_hawk_i2_pdurmsampsvalue:
+    base: 3.2
+    min: 0.0
+    max: 200.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  sinetica_eagle_i_hawk_i2_pdutotalenergyvalue:
+    base: 120.0
+    min: 120.0
+    max: 120.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  sinetica_eagle_i_systemuptime:
+    base: 86400.0
+    min: 0.0
+    max: 315360000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: snmp.device_prof_hawk_i2_ipContNormState
+  title: Normal state of the input contact
+  units: '{status}'
+  family: Hardware/Input/Contact/State/Normal
+  chart_type: line
+  priority: 60000
+  shape: independent
+  dimensions:
+  - id: open
+    signal: sinetica_eagle_i_hawk_i2_ipcontnormstate
+  - id: closed
+    signal: sinetica_eagle_i_hawk_i2_ipcontnormstate_closed
+  instances:
+    group: hawk_i2_ip_cont_index
+    chart_prefix: hawk_i2_ipcontnormstate
+    family: Hardware/Input/Contact/State/Normal
+    labels:
+      hawk_i2_ip_cont_index: '{instance}'
+- id: snmp.device_prof_hawk_i2_ipContCurrState
+  title: Current state of the input contact
+  units: '{status}'
+  family: Hardware/Input/Contact/State/Current
+  chart_type: line
+  priority: 60001
+  shape: independent
+  dimensions:
+  - id: open
+    signal: sinetica_eagle_i_hawk_i2_ipcontcurrstate
+  - id: closed
+    signal: sinetica_eagle_i_hawk_i2_ipcontcurrstate_closed
+  - id: armed
+    signal: sinetica_eagle_i_hawk_i2_ipcontcurrstate_armed
+  - id: triggered
+    signal: sinetica_eagle_i_hawk_i2_ipcontcurrstate_triggered
+  instances:
+    group: hawk_i2_ip_cont_index
+    chart_prefix: hawk_i2_ipcontcurrstate
+    family: Hardware/Input/Contact/State/Current
+    labels:
+      hawk_i2_ip_cont_index: '{instance}'
+- id: snmp.device_prof_hawk_i2_opNormState
+  title: Normal state of the output
+  units: '{status}'
+  family: Hardware/Output/State/Normal
+  chart_type: line
+  priority: 60002
+  shape: independent
+  dimensions:
+  - id: 'true'
+    signal: sinetica_eagle_i_hawk_i2_opnormstate
+  - id: 'false'
+    signal: sinetica_eagle_i_hawk_i2_opnormstate_false
+  instances:
+    group: hawk_i2_op_index
+    chart_prefix: hawk_i2_opnormstate
+    family: Hardware/Output/State/Normal
+    labels:
+      hawk_i2_op_index: '{instance}'
+- id: snmp.device_prof_hawk_i2_opCurrState
+  title: Current state of the output
+  units: '{status}'
+  family: Hardware/Output/State/Current
+  chart_type: line
+  priority: 60003
+  shape: independent
+  dimensions:
+  - id: 'true'
+    signal: sinetica_eagle_i_hawk_i2_opcurrstate
+  - id: 'false'
+    signal: sinetica_eagle_i_hawk_i2_opcurrstate_false
+  instances:
+    group: hawk_i2_op_index
+    chart_prefix: hawk_i2_opcurrstate
+    family: Hardware/Output/State/Current
+    labels:
+      hawk_i2_op_index: '{instance}'
+- id: snmp.device_prof_hawk_i2_opControlState
+  title: Control state of the output
+  units: '{status}'
+  family: Hardware/Output/State/Control
+  chart_type: line
+  priority: 60004
+  shape: independent
+  dimensions:
+  - id: activate
+    signal: sinetica_eagle_i_hawk_i2_opcontrolstate
+  - id: deactivate
+    signal: sinetica_eagle_i_hawk_i2_opcontrolstate_deactivate
+  - id: logic
+    signal: sinetica_eagle_i_hawk_i2_opcontrolstate_logic
+  instances:
+    group: hawk_i2_op_index
+    chart_prefix: hawk_i2_opcontrolstate
+    family: Hardware/Output/State/Control
+    labels:
+      hawk_i2_op_index: '{instance}'
+- id: snmp.device_prof_hawk_i2_pduRMSVoltsValue
+  title: RMS Volts value
+  units: V
+  family: Hardware/PDU/Voltage/Value
+  chart_type: line
+  priority: 60005
+  shape: independent
+  dimensions:
+  - id: hawk_i2_pdurmsvoltsvalue
+    signal: sinetica_eagle_i_hawk_i2_pdurmsvoltsvalue
+  instances:
+    group: hawk_i2_pdu_index
+    chart_prefix: hawk_i2_pdurmsvoltsvalue
+    family: Hardware/PDU/Voltage/Value
+    labels:
+      hawk_i2_pdu_index: '{instance}'
+- id: snmp.device_prof_hawk_i2_pduRMSAmpsValue
+  title: RMS current value
+  units: A
+  family: Hardware/PDU/Current/Value
+  chart_type: line
+  priority: 60006
+  shape: independent
+  dimensions:
+  - id: hawk_i2_pdurmsampsvalue
+    signal: sinetica_eagle_i_hawk_i2_pdurmsampsvalue
+  instances:
+    group: hawk_i2_pdu_index
+    chart_prefix: hawk_i2_pdurmsampsvalue
+    family: Hardware/PDU/Current/Value
+    labels:
+      hawk_i2_pdu_index: '{instance}'
+- id: snmp.device_prof_hawk_i2_pduTotalEnergyValue
+  title: Total energy value
+  units: Wh
+  family: Hardware/PDU/Energy/Total
+  chart_type: line
+  priority: 60007
+  shape: independent
+  dimensions:
+  - id: hawk_i2_pdutotalenergyvalue
+    signal: sinetica_eagle_i_hawk_i2_pdutotalenergyvalue
+  instances:
+    group: hawk_i2_pdu_index
+    chart_prefix: hawk_i2_pdutotalenergyvalue
+    family: Hardware/PDU/Energy/Total
+    labels:
+      hawk_i2_pdu_index: '{instance}'
+- id: snmp.device_prof_systemUptime
+  title: Time since the system was last rebooted or powered on.
+  units: s
+  family: System/Uptime
+  chart_type: line
+  priority: 60008
+  shape: independent
+  dimensions:
+  - id: systemuptime
+    signal: sinetica_eagle_i_systemuptime

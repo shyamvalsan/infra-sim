@@ -1,0 +1,2335 @@
+version: 1
+name: ixsystems_truenas
+description: iXsystems Storage, as Netdata's SNMP collector reports it. Generated from go.d/snmp.profiles/default/ixsystems-truenas.yaml
+  with its `extends` chain resolved. Contexts, units, families and metric names are the device's own; values are a plausible
+  fiction.
+signals:
+  ixsystems_truenas_freenas_zpoolreadbytes:
+    base: 3100000.0
+    min: 0.0
+    max: 1250000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_freenas_zpoolwritebytes:
+    base: 3100000.0
+    min: 0.0
+    max: 1250000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_freenas_zpoolsize:
+    base: 4294967296.0
+    min: 4294967296.0
+    max: 4294967296.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  ixsystems_truenas_freenas_zpoolused:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_freenas_zpoolavailable:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_freenas_zpoolhealth:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  ixsystems_truenas_freenas_zpoolhealth_degraded:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  ixsystems_truenas_freenas_zpoolhealth_faulted:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  ixsystems_truenas_freenas_zpoolhealth_offline:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  ixsystems_truenas_freenas_zpoolhealth_unavail:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  ixsystems_truenas_freenas_zpoolhealth_removed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  ixsystems_truenas_freenas_zpoolreadops:
+    base: 240.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_freenas_zpoolwriteops:
+    base: 240.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_freenas_datasetsize:
+    base: 4294967296.0
+    min: 4294967296.0
+    max: 4294967296.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  ixsystems_truenas_freenas_datasetused:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_freenas_datasetavailable:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_freenas_zvolsize:
+    base: 4294967296.0
+    min: 4294967296.0
+    max: 4294967296.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  ixsystems_truenas_freenas_zvolused:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_freenas_zvolavailable:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_freenas_zvolreferenced:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_freenas_zfsarcsize:
+    base: 4294967296.0
+    min: 4294967296.0
+    max: 4294967296.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  ixsystems_truenas_freenas_zfsarccachemissratio:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_freenas_zfsarcmeta:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_freenas_zfsarcdata:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_freenas_zfsarchits:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_freenas_zfsarcmisses:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_freenas_zfsarcc:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_freenas_zfsarcp:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_freenas_zfsarcmisspercent:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_freenas_zfsarccachehitratio:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_freenas_zfsl2archits:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_freenas_zfsl2arcmisses:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_freenas_zfsl2arcread:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_freenas_zfsl2arcwrite:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_freenas_zfsl2arcsize:
+    base: 4294967296.0
+    min: 4294967296.0
+    max: 4294967296.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  ixsystems_truenas_freenas_zfszilstatops1sec:
+    base: 240.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_freenas_zfszilstatops5sec:
+    base: 240.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_freenas_zfszilstatops10sec:
+    base: 240.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_systemuptime:
+    base: 86400.0
+    min: 0.0
+    max: 315360000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_hrsystemnumusers:
+    base: 180.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_hrsystemprocesses:
+    base: 180.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  device_cpu_usage:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_hrstoragesize:
+    base: 4294967296.0
+    min: 4294967296.0
+    max: 4294967296.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  ixsystems_truenas_hrstorageused:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_ifnumber:
+    base: 26.0
+    min: 26.0
+    max: 26.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_admin_status:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_admin_status_down:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_admin_status_testing:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_down:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_testing:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_dormant:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_notpresent:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_lowerlayerdown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_speed:
+    from_attr: if_speed_mbps
+    base: 1000.0
+    min: 0.0
+    max: 400000.0
+  ixsystems_truenas_ucd_memorytotal:
+    base: 4294967296.0
+    min: 4294967296.0
+    max: 4294967296.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  ixsystems_truenas_memory_free:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_ucd_memtotalswap:
+    base: 4294967296.0
+    min: 4294967296.0
+    max: 4294967296.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  ixsystems_truenas_ucd_memavailswap:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_ucd_memtotalfree:
+    base: 4294967296.0
+    min: 4294967296.0
+    max: 4294967296.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  ixsystems_truenas_ucd_memminimumswap:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_ucd_memshared:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_ucd_membuffer:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_ucd_memcached:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_ucd_dsktotal:
+    base: 4294967296.0
+    min: 4294967296.0
+    max: 4294967296.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  ixsystems_truenas_ucd_dskavail:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_ucd_dskused:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_ucd_dskpercent:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_ucd_dskpercentnode:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_ucd_dskerrorflag:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  ixsystems_truenas_ucd_dskerrorflag_error:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  ixsystems_truenas_ucd_diskioreads:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_ucd_diskiowrites:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_ucd_diskiola1:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_ucd_diskiola5:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_ucd_diskiola15:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_ucd_diskionreadx:
+    base: 3100000.0
+    min: 0.0
+    max: 1250000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_ucd_diskionwrittenx:
+    base: 3100000.0
+    min: 0.0
+    max: 1250000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_ucd_ssiorawsent:
+    base: 3100000.0
+    min: 0.0
+    max: 1250000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_ucd_ssiorawreceived:
+    base: 3100000.0
+    min: 0.0
+    max: 1250000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_ucd_ssrawinterrupts:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_ucd_ssrawcontexts:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_ucd_ssrawswapin:
+    base: 3100000.0
+    min: 0.0
+    max: 1250000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_ucd_ssrawswapout:
+    base: 3100000.0
+    min: 0.0
+    max: 1250000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_octets_rate:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_out_octets_rate:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_ucast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_out_ucast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_mcast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_ifhcoutmulticastpkts:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_bcast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_ifhcoutbroadcastpkts:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_errors_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  if_out_errors_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  if_in_discards_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  if_out_discards_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  ixsystems_truenas_iftotaloperstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  ixsystems_truenas_iftotaloperstatus_down:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  ixsystems_truenas_iftotaloperstatus_testing:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  ixsystems_truenas_iftotaloperstatus_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  ixsystems_truenas_iftotaloperstatus_dormant:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  ixsystems_truenas_iftotaloperstatus_notpresent:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  ixsystems_truenas_iftotaloperstatus_lowerlayerdown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  ixsystems_truenas_ucd_sscpurawuser:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_ucd_sscpurawnice:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_ucd_sscpurawsystem:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_ucd_sscpurawkernel:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_ucd_sscpurawwait:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_ucd_sscpurawinterrupt:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_ucd_sscpurawsoftirq:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_ucd_sscpurawsteal:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_ucd_sscpurawguest:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_ucd_sscpurawguestnice:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_ucd_cpuload1m:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_ucd_cpuload5m:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  ixsystems_truenas_ucd_cpuload15m:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: snmp.device_prof_freenas_zpoolReadBytes
+  title: The bandwidth of all read operations (including metadata), expressed as units per second (averaged since system booted)
+  units: By/s
+  family: Storage/ZFS/Pool/IO/Throughput/Read
+  chart_type: line
+  priority: 60000
+  shape: counters
+  dimensions:
+  - id: freenas_zpoolreadbytes
+    rate_signal: ixsystems_truenas_freenas_zpoolreadbytes
+  instances:
+    group: freenas_zpool_index
+    chart_prefix: freenas_zpoolreadbytes
+    family: Storage/ZFS/Pool/IO/Throughput/Read
+    labels:
+      freenas_zpool_index: '{instance}'
+- id: snmp.device_prof_freenas_zpoolWriteBytes
+  title: The bandwidth of all write operations, expressed as units per second (averaged since system booted).
+  units: By/s
+  family: Storage/ZFS/Pool/IO/Throughput/Write
+  chart_type: line
+  priority: 60001
+  shape: counters
+  dimensions:
+  - id: freenas_zpoolwritebytes
+    rate_signal: ixsystems_truenas_freenas_zpoolwritebytes
+  instances:
+    group: freenas_zpool_index
+    chart_prefix: freenas_zpoolwritebytes
+    family: Storage/ZFS/Pool/IO/Throughput/Write
+    labels:
+      freenas_zpool_index: '{instance}'
+- id: snmp.device_prof_freenas_zpoolSize
+  title: Size of the pool
+  units: By
+  family: Storage/ZFS/Pool/Space/Size
+  chart_type: line
+  priority: 60002
+  shape: independent
+  dimensions:
+  - id: freenas_zpoolsize
+    signal: ixsystems_truenas_freenas_zpoolsize
+  instances:
+    group: freenas_zpool_index
+    chart_prefix: freenas_zpoolsize
+    family: Storage/ZFS/Pool/Space/Size
+    labels:
+      freenas_zpool_index: '{instance}'
+- id: snmp.device_prof_freenas_zpoolUsed
+  title: Used space in the pool
+  units: By
+  family: Storage/ZFS/Pool/Space/Used
+  chart_type: line
+  priority: 60003
+  shape: independent
+  dimensions:
+  - id: freenas_zpoolused
+    signal: ixsystems_truenas_freenas_zpoolused
+  instances:
+    group: freenas_zpool_index
+    chart_prefix: freenas_zpoolused
+    family: Storage/ZFS/Pool/Space/Used
+    labels:
+      freenas_zpool_index: '{instance}'
+- id: snmp.device_prof_freenas_zpoolAvailable
+  title: Available space in the pool
+  units: By
+  family: Storage/ZFS/Pool/Space/Available
+  chart_type: line
+  priority: 60004
+  shape: independent
+  dimensions:
+  - id: freenas_zpoolavailable
+    signal: ixsystems_truenas_freenas_zpoolavailable
+  instances:
+    group: freenas_zpool_index
+    chart_prefix: freenas_zpoolavailable
+    family: Storage/ZFS/Pool/Space/Available
+    labels:
+      freenas_zpool_index: '{instance}'
+- id: snmp.device_prof_freenas_zpoolHealth
+  title: The current health of the containing pool, as reported by zpool status.
+  units: '{status}'
+  family: Storage/ZFS/Pool/Health/Status
+  chart_type: line
+  priority: 60005
+  shape: independent
+  dimensions:
+  - id: online
+    signal: ixsystems_truenas_freenas_zpoolhealth
+  - id: degraded
+    signal: ixsystems_truenas_freenas_zpoolhealth_degraded
+  - id: faulted
+    signal: ixsystems_truenas_freenas_zpoolhealth_faulted
+  - id: offline
+    signal: ixsystems_truenas_freenas_zpoolhealth_offline
+  - id: unavail
+    signal: ixsystems_truenas_freenas_zpoolhealth_unavail
+  - id: removed
+    signal: ixsystems_truenas_freenas_zpoolhealth_removed
+  instances:
+    group: freenas_zpool_index
+    chart_prefix: freenas_zpoolhealth
+    family: Storage/ZFS/Pool/Health/Status
+    labels:
+      freenas_zpool_index: '{instance}'
+- id: snmp.device_prof_freenas_zpoolReadOps
+  title: The number of read I/O operations sent to the pool or device, including metadata requests (averaged since system
+    booted).
+  units: '{operation}/s'
+  family: Storage/ZFS/Pool/IO/Operations/Read
+  chart_type: line
+  priority: 60006
+  shape: counters
+  dimensions:
+  - id: freenas_zpoolreadops
+    rate_signal: ixsystems_truenas_freenas_zpoolreadops
+  instances:
+    group: freenas_zpool_index
+    chart_prefix: freenas_zpoolreadops
+    family: Storage/ZFS/Pool/IO/Operations/Read
+    labels:
+      freenas_zpool_index: '{instance}'
+- id: snmp.device_prof_freenas_zpoolWriteOps
+  title: The number of write I/O operations sent to the pool or device (averaged since system booted).
+  units: '{operation}/s'
+  family: Storage/ZFS/Pool/IO/Operations/Write
+  chart_type: line
+  priority: 60007
+  shape: counters
+  dimensions:
+  - id: freenas_zpoolwriteops
+    rate_signal: ixsystems_truenas_freenas_zpoolwriteops
+  instances:
+    group: freenas_zpool_index
+    chart_prefix: freenas_zpoolwriteops
+    family: Storage/ZFS/Pool/IO/Operations/Write
+    labels:
+      freenas_zpool_index: '{instance}'
+- id: snmp.device_prof_freenas_datasetSize
+  title: Size of the dataset
+  units: By
+  family: Storage/ZFS/Dataset/Space/Size
+  chart_type: line
+  priority: 60008
+  shape: independent
+  dimensions:
+  - id: freenas_datasetsize
+    signal: ixsystems_truenas_freenas_datasetsize
+  instances:
+    group: freenas_dataset_index
+    chart_prefix: freenas_datasetsize
+    family: Storage/ZFS/Dataset/Space/Size
+    labels:
+      freenas_dataset_index: '{instance}'
+- id: snmp.device_prof_freenas_datasetUsed
+  title: Used space in the dataset
+  units: By
+  family: Storage/ZFS/Dataset/Space/Used
+  chart_type: line
+  priority: 60009
+  shape: independent
+  dimensions:
+  - id: freenas_datasetused
+    signal: ixsystems_truenas_freenas_datasetused
+  instances:
+    group: freenas_dataset_index
+    chart_prefix: freenas_datasetused
+    family: Storage/ZFS/Dataset/Space/Used
+    labels:
+      freenas_dataset_index: '{instance}'
+- id: snmp.device_prof_freenas_datasetAvailable
+  title: Available space in the dataset
+  units: By
+  family: Storage/ZFS/Dataset/Space/Available
+  chart_type: line
+  priority: 60010
+  shape: independent
+  dimensions:
+  - id: freenas_datasetavailable
+    signal: ixsystems_truenas_freenas_datasetavailable
+  instances:
+    group: freenas_dataset_index
+    chart_prefix: freenas_datasetavailable
+    family: Storage/ZFS/Dataset/Space/Available
+    labels:
+      freenas_dataset_index: '{instance}'
+- id: snmp.device_prof_freenas_zvolSize
+  title: Size of the zvol
+  units: By
+  family: Storage/ZFS/Volume/Space/Size
+  chart_type: line
+  priority: 60011
+  shape: independent
+  dimensions:
+  - id: freenas_zvolsize
+    signal: ixsystems_truenas_freenas_zvolsize
+  instances:
+    group: freenas_zvol_index
+    chart_prefix: freenas_zvolsize
+    family: Storage/ZFS/Volume/Space/Size
+    labels:
+      freenas_zvol_index: '{instance}'
+- id: snmp.device_prof_freenas_zvolUsed
+  title: Used space in the zvol
+  units: By
+  family: Storage/ZFS/Volume/Space/Used
+  chart_type: line
+  priority: 60012
+  shape: independent
+  dimensions:
+  - id: freenas_zvolused
+    signal: ixsystems_truenas_freenas_zvolused
+  instances:
+    group: freenas_zvol_index
+    chart_prefix: freenas_zvolused
+    family: Storage/ZFS/Volume/Space/Used
+    labels:
+      freenas_zvol_index: '{instance}'
+- id: snmp.device_prof_freenas_zvolAvailable
+  title: Available space in the zvol
+  units: By
+  family: Storage/ZFS/Volume/Space/Available
+  chart_type: line
+  priority: 60013
+  shape: independent
+  dimensions:
+  - id: freenas_zvolavailable
+    signal: ixsystems_truenas_freenas_zvolavailable
+  instances:
+    group: freenas_zvol_index
+    chart_prefix: freenas_zvolavailable
+    family: Storage/ZFS/Volume/Space/Available
+    labels:
+      freenas_zvol_index: '{instance}'
+- id: snmp.device_prof_freenas_zvolReferenced
+  title: Referenced space in the zvol
+  units: By
+  family: Storage/ZFS/Volume/Space/Referenced
+  chart_type: line
+  priority: 60014
+  shape: independent
+  dimensions:
+  - id: freenas_zvolreferenced
+    signal: ixsystems_truenas_freenas_zvolreferenced
+  instances:
+    group: freenas_zvol_index
+    chart_prefix: freenas_zvolreferenced
+    family: Storage/ZFS/Volume/Space/Referenced
+    labels:
+      freenas_zvol_index: '{instance}'
+- id: snmp.device_prof_freenas_zfsArcSize
+  title: Size of the ARC cache
+  units: By
+  family: Storage/ZFS/Cache/ARC/Size
+  chart_type: line
+  priority: 60015
+  shape: independent
+  dimensions:
+  - id: freenas_zfsarcsize
+    signal: ixsystems_truenas_freenas_zfsarcsize
+- id: snmp.device_prof_freenas_zfsArcCacheMissRatio
+  title: Arc cache miss ration percentage
+  units: '%'
+  family: Storage/ZFS/Cache/ARC/MissRatio
+  chart_type: line
+  priority: 60016
+  shape: independent
+  dimensions:
+  - id: freenas_zfsarccachemissratio
+    signal: ixsystems_truenas_freenas_zfsarccachemissratio
+- id: snmp.device_prof_freenas_zfsArcMeta
+  title: Metadata size in the ARC cache
+  units: By
+  family: Storage/ZFS/Cache/ARC/Metadata
+  chart_type: line
+  priority: 60017
+  shape: independent
+  dimensions:
+  - id: freenas_zfsarcmeta
+    signal: ixsystems_truenas_freenas_zfsarcmeta
+- id: snmp.device_prof_freenas_zfsArcData
+  title: Data size in the ARC cache
+  units: By
+  family: Storage/ZFS/Cache/ARC/Data
+  chart_type: line
+  priority: 60018
+  shape: independent
+  dimensions:
+  - id: freenas_zfsarcdata
+    signal: ixsystems_truenas_freenas_zfsarcdata
+- id: snmp.device_prof_freenas_zfsArcHits
+  title: Number of ARC cache hits
+  units: '{hit}/s'
+  family: Storage/ZFS/Cache/ARC/Hit
+  chart_type: line
+  priority: 60019
+  shape: counters
+  dimensions:
+  - id: freenas_zfsarchits
+    rate_signal: ixsystems_truenas_freenas_zfsarchits
+- id: snmp.device_prof_freenas_zfsArcMisses
+  title: Number of ARC cache misses
+  units: '{miss}/s'
+  family: Storage/ZFS/Cache/ARC/Miss
+  chart_type: line
+  priority: 60020
+  shape: counters
+  dimensions:
+  - id: freenas_zfsarcmisses
+    rate_signal: ixsystems_truenas_freenas_zfsarcmisses
+- id: snmp.device_prof_freenas_zfsArcC
+  title: ARC cache target size
+  units: By
+  family: Storage/ZFS/Cache/ARC/TargetSize
+  chart_type: line
+  priority: 60021
+  shape: independent
+  dimensions:
+  - id: freenas_zfsarcc
+    signal: ixsystems_truenas_freenas_zfsarcc
+- id: snmp.device_prof_freenas_zfsArcP
+  title: ARC cache size
+  units: By
+  family: Storage/ZFS/Cache/ARC/P
+  chart_type: line
+  priority: 60022
+  shape: independent
+  dimensions:
+  - id: freenas_zfsarcp
+    signal: ixsystems_truenas_freenas_zfsarcp
+- id: snmp.device_prof_freenas_zfsArcMissPercent
+  title: Arc miss percentage
+  units: '%'
+  family: Storage/ZFS/Cache/ARC/MissPercent
+  chart_type: line
+  priority: 60023
+  shape: independent
+  dimensions:
+  - id: freenas_zfsarcmisspercent
+    signal: ixsystems_truenas_freenas_zfsarcmisspercent
+- id: snmp.device_prof_freenas_zfsArcCacheHitRatio
+  title: Arc cache hit ration percentage
+  units: '%'
+  family: Storage/ZFS/Cache/ARC/HitRatio
+  chart_type: line
+  priority: 60024
+  shape: independent
+  dimensions:
+  - id: freenas_zfsarccachehitratio
+    signal: ixsystems_truenas_freenas_zfsarccachehitratio
+- id: snmp.device_prof_freenas_zfsL2ArcHits
+  title: Number of L2ARC cache hits
+  units: '{hit}/s'
+  family: Storage/ZFS/Cache/L2ARC/Hit
+  chart_type: line
+  priority: 60025
+  shape: counters
+  dimensions:
+  - id: freenas_zfsl2archits
+    rate_signal: ixsystems_truenas_freenas_zfsl2archits
+- id: snmp.device_prof_freenas_zfsL2ArcMisses
+  title: Number of L2ARC cache misses
+  units: '{miss}/s'
+  family: Storage/ZFS/Cache/L2ARC/Miss
+  chart_type: line
+  priority: 60026
+  shape: counters
+  dimensions:
+  - id: freenas_zfsl2arcmisses
+    rate_signal: ixsystems_truenas_freenas_zfsl2arcmisses
+- id: snmp.device_prof_freenas_zfsL2ArcRead
+  title: Number of L2ARC reads
+  units: '{read}/s'
+  family: Storage/ZFS/Cache/L2ARC/Read
+  chart_type: line
+  priority: 60027
+  shape: counters
+  dimensions:
+  - id: freenas_zfsl2arcread
+    rate_signal: ixsystems_truenas_freenas_zfsl2arcread
+- id: snmp.device_prof_freenas_zfsL2ArcWrite
+  title: Number of L2ARC writes
+  units: '{write}/s'
+  family: Storage/ZFS/Cache/L2ARC/Write
+  chart_type: line
+  priority: 60028
+  shape: counters
+  dimensions:
+  - id: freenas_zfsl2arcwrite
+    rate_signal: ixsystems_truenas_freenas_zfsl2arcwrite
+- id: snmp.device_prof_freenas_zfsL2ArcSize
+  title: Size of the L2ARC cache
+  units: By
+  family: Storage/ZFS/Cache/L2ARC/Size
+  chart_type: line
+  priority: 60029
+  shape: independent
+  dimensions:
+  - id: freenas_zfsl2arcsize
+    signal: ixsystems_truenas_freenas_zfsl2arcsize
+- id: snmp.device_prof_freenas_zfsZilstatOps1sec
+  title: The ops column parsed from the command zilstat 1 1
+  units: '{operation}/s'
+  family: Storage/ZFS/ZIL/Operations/1s
+  chart_type: line
+  priority: 60030
+  shape: counters
+  dimensions:
+  - id: freenas_zfszilstatops1sec
+    rate_signal: ixsystems_truenas_freenas_zfszilstatops1sec
+- id: snmp.device_prof_freenas_zfsZilstatOps5sec
+  title: The ops column parsed from the command zilstat 5 1
+  units: '{operation}/s'
+  family: Storage/ZFS/ZIL/Operations/5s
+  chart_type: line
+  priority: 60031
+  shape: counters
+  dimensions:
+  - id: freenas_zfszilstatops5sec
+    rate_signal: ixsystems_truenas_freenas_zfszilstatops5sec
+- id: snmp.device_prof_freenas_zfsZilstatOps10sec
+  title: The ops column parsed from the command zilstat 10 1
+  units: '{operation}/s'
+  family: Storage/ZFS/ZIL/Operations/10s
+  chart_type: line
+  priority: 60032
+  shape: counters
+  dimensions:
+  - id: freenas_zfszilstatops10sec
+    rate_signal: ixsystems_truenas_freenas_zfszilstatops10sec
+- id: snmp.device_prof_systemUptime
+  title: Time since the system was last rebooted or powered on.
+  units: s
+  family: System/Uptime
+  chart_type: line
+  priority: 60033
+  shape: independent
+  dimensions:
+  - id: systemuptime
+    signal: ixsystems_truenas_systemuptime
+- id: snmp.device_prof_hrSystemNumUsers
+  title: The number of user sessions for which this host is storing state information. A session is a collection of processes
+    requiring a single act of user authentication and possibly subject to collective job control.
+  units: '{session}'
+  family: System/Activity/UserSession/Active
+  chart_type: line
+  priority: 60034
+  shape: independent
+  dimensions:
+  - id: hrsystemnumusers
+    signal: ixsystems_truenas_hrsystemnumusers
+- id: snmp.device_prof_hrSystemProcesses
+  title: The number of process contexts currently loaded or running on this system.
+  units: '{process}'
+  family: System/Activity/Process/Active
+  chart_type: line
+  priority: 60035
+  shape: independent
+  dimensions:
+  - id: hrsystemprocesses
+    signal: ixsystems_truenas_hrsystemprocesses
+- id: snmp.device_prof_cpu_usage
+  title: The current CPU utilization
+  units: '%'
+  family: System/CPU/Usage
+  chart_type: line
+  priority: 60036
+  shape: independent
+  dimensions:
+  - id: cpu_usage
+    signal: device_cpu_usage
+  instances:
+    group: cpu_index
+    chart_prefix: cpu_usage
+    family: System/CPU/Usage
+    labels:
+      cpu_index: '{instance}'
+- id: snmp.device_prof_hrStorageSize
+  title: SNMP metric hrStorageSize
+  units: By
+  family: hrstoragetable
+  chart_type: line
+  priority: 60037
+  shape: independent
+  dimensions:
+  - id: hrstoragesize
+    signal: ixsystems_truenas_hrstoragesize
+  instances:
+    group: storage_index
+    chart_prefix: hrstoragesize
+    family: hrstoragetable
+    labels:
+      storage_index: '{instance}'
+- id: snmp.device_prof_hrStorageUsed
+  title: SNMP metric hrStorageUsed
+  units: By
+  family: hrstoragetable
+  chart_type: line
+  priority: 60038
+  shape: independent
+  dimensions:
+  - id: hrstorageused
+    signal: ixsystems_truenas_hrstorageused
+  instances:
+    group: storage_index
+    chart_prefix: hrstorageused
+    family: hrstoragetable
+    labels:
+      storage_index: '{instance}'
+- id: snmp.device_prof_ifNumber
+  title: Number of network interfaces regardless of their current state present on this system
+  units: '{interface}'
+  family: Network/Interface/Count
+  chart_type: line
+  priority: 60039
+  shape: independent
+  dimensions:
+  - id: ifnumber
+    signal: ixsystems_truenas_ifnumber
+- id: snmp.device_prof_ifAdminStatus
+  title: Current administrative state of the interface
+  units: '{status}'
+  family: Network/Interface/Status/Admin
+  chart_type: line
+  priority: 60040
+  shape: independent
+  dimensions:
+  - id: up
+    signal: if_admin_status
+  - id: down
+    signal: if_admin_status_down
+  - id: testing
+    signal: if_admin_status_testing
+  instances:
+    group: interface
+    chart_prefix: ifadminstatus
+    family: Network/Interface/Status/Admin
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifOperStatus
+  title: Current operational state of the interface
+  units: '{status}'
+  family: Network/Interface/Status/Operational
+  chart_type: line
+  priority: 60041
+  shape: independent
+  dimensions:
+  - id: up
+    signal: if_oper_status
+  - id: down
+    signal: if_oper_status_down
+  - id: testing
+    signal: if_oper_status_testing
+  - id: unknown
+    signal: if_oper_status_unknown
+  - id: dormant
+    signal: if_oper_status_dormant
+  - id: notpresent
+    signal: if_oper_status_notpresent
+  - id: lowerlayerdown
+    signal: if_oper_status_lowerlayerdown
+  instances:
+    group: interface
+    chart_prefix: ifoperstatus
+    family: Network/Interface/Status/Operational
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifHighSpeed
+  title: Estimate of the interface's current bandwidth
+  units: bit/s
+  family: Network/Interface/Speed
+  chart_type: area
+  priority: 60042
+  shape: counters
+  dimensions:
+  - id: ifhighspeed
+    rate_signal: if_speed
+  instances:
+    group: interface
+    chart_prefix: ifhighspeed
+    family: Network/Interface/Speed
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ucd_memoryTotal
+  title: The total amount of real/physical memory installed on this host
+  units: By
+  family: System/Memory/Physical/Total
+  chart_type: line
+  priority: 60043
+  shape: independent
+  dimensions:
+  - id: ucd_memorytotal
+    signal: ixsystems_truenas_ucd_memorytotal
+- id: snmp.device_prof_memory_free
+  title: The amount of real/physical memory currently unused or available
+  units: By
+  family: System/Memory/Physical/Free
+  chart_type: line
+  priority: 60044
+  shape: independent
+  dimensions:
+  - id: memory_free
+    signal: ixsystems_truenas_memory_free
+- id: snmp.device_prof_ucd_memTotalSwap
+  title: The total amount of swap space configured for this host
+  units: By
+  family: System/Memory/Swap/Total
+  chart_type: line
+  priority: 60045
+  shape: independent
+  dimensions:
+  - id: ucd_memtotalswap
+    signal: ixsystems_truenas_ucd_memtotalswap
+- id: snmp.device_prof_ucd_memAvailSwap
+  title: The amount of swap space currently unused or available
+  units: By
+  family: System/Memory/Swap/Available
+  chart_type: line
+  priority: 60046
+  shape: independent
+  dimensions:
+  - id: ucd_memavailswap
+    signal: ixsystems_truenas_ucd_memavailswap
+- id: snmp.device_prof_ucd_memTotalFree
+  title: The total amount of memory free or available for use on this host
+  units: By
+  family: System/Memory/Available/Total
+  chart_type: line
+  priority: 60047
+  shape: independent
+  dimensions:
+  - id: ucd_memtotalfree
+    signal: ixsystems_truenas_ucd_memtotalfree
+- id: snmp.device_prof_ucd_memMinimumSwap
+  title: The minimum amount of swap space expected to be kept free or available during normal operation of this host
+  units: By
+  family: System/Memory/Swap/Minimum
+  chart_type: line
+  priority: 60048
+  shape: independent
+  dimensions:
+  - id: ucd_memminimumswap
+    signal: ixsystems_truenas_ucd_memminimumswap
+- id: snmp.device_prof_ucd_memShared
+  title: The total amount of real or virtual memory currently allocated for use as shared memory
+  units: By
+  family: System/Memory/Physical/Shared
+  chart_type: line
+  priority: 60049
+  shape: independent
+  dimensions:
+  - id: ucd_memshared
+    signal: ixsystems_truenas_ucd_memshared
+- id: snmp.device_prof_ucd_memBuffer
+  title: The total amount of real or virtual memory currently allocated for use as memory buffers
+  units: By
+  family: System/Memory/Physical/Buffer
+  chart_type: line
+  priority: 60050
+  shape: independent
+  dimensions:
+  - id: ucd_membuffer
+    signal: ixsystems_truenas_ucd_membuffer
+- id: snmp.device_prof_ucd_memCached
+  title: The total amount of real or virtual memory currently allocated for use as cached memory
+  units: By
+  family: System/Memory/Physical/Cached
+  chart_type: line
+  priority: 60051
+  shape: independent
+  dimensions:
+  - id: ucd_memcached
+    signal: ixsystems_truenas_ucd_memcached
+- id: snmp.device_prof_ucd_dskTotal
+  title: Total size of the disk/partition
+  units: By
+  family: System/Disk/Space/Total
+  chart_type: line
+  priority: 60052
+  shape: independent
+  dimensions:
+  - id: ucd_dsktotal
+    signal: ixsystems_truenas_ucd_dsktotal
+  instances:
+    group: ucd_dsk_path
+    chart_prefix: ucd_dsktotal
+    family: System/Disk/Space/Total
+    labels:
+      ucd_dsk_path: '{instance}'
+- id: snmp.device_prof_ucd_dskAvail
+  title: Available space on the disk
+  units: By
+  family: System/Disk/Space/Available
+  chart_type: line
+  priority: 60053
+  shape: independent
+  dimensions:
+  - id: ucd_dskavail
+    signal: ixsystems_truenas_ucd_dskavail
+  instances:
+    group: ucd_dsk_path
+    chart_prefix: ucd_dskavail
+    family: System/Disk/Space/Available
+    labels:
+      ucd_dsk_path: '{instance}'
+- id: snmp.device_prof_ucd_dskUsed
+  title: Used space on the disk
+  units: By
+  family: System/Disk/Space/Used
+  chart_type: line
+  priority: 60054
+  shape: independent
+  dimensions:
+  - id: ucd_dskused
+    signal: ixsystems_truenas_ucd_dskused
+  instances:
+    group: ucd_dsk_path
+    chart_prefix: ucd_dskused
+    family: System/Disk/Space/Used
+    labels:
+      ucd_dsk_path: '{instance}'
+- id: snmp.device_prof_ucd_dskPercent
+  title: Percentage of space used on disk
+  units: '%'
+  family: System/Disk/Usage
+  chart_type: line
+  priority: 60055
+  shape: independent
+  dimensions:
+  - id: ucd_dskpercent
+    signal: ixsystems_truenas_ucd_dskpercent
+  instances:
+    group: ucd_dsk_path
+    chart_prefix: ucd_dskpercent
+    family: System/Disk/Usage
+    labels:
+      ucd_dsk_path: '{instance}'
+- id: snmp.device_prof_ucd_dskPercentNode
+  title: Percentage of inodes used on disk
+  units: '%'
+  family: System/Disk/Inode/Usage
+  chart_type: line
+  priority: 60056
+  shape: independent
+  dimensions:
+  - id: ucd_dskpercentnode
+    signal: ixsystems_truenas_ucd_dskpercentnode
+  instances:
+    group: ucd_dsk_path
+    chart_prefix: ucd_dskpercentnode
+    family: System/Disk/Inode/Usage
+    labels:
+      ucd_dsk_path: '{instance}'
+- id: snmp.device_prof_ucd_dskErrorFlag
+  title: Flag signaling that the disk or partition is under the minimum required space configured for it
+  units: '{status}'
+  family: System/Disk/Error/Status
+  chart_type: line
+  priority: 60057
+  shape: independent
+  dimensions:
+  - id: no_error
+    signal: ixsystems_truenas_ucd_dskerrorflag
+  - id: error
+    signal: ixsystems_truenas_ucd_dskerrorflag_error
+  instances:
+    group: ucd_dsk_path
+    chart_prefix: ucd_dskerrorflag
+    family: System/Disk/Error/Status
+    labels:
+      ucd_dsk_path: '{instance}'
+- id: snmp.device_prof_ucd_diskIOReads
+  title: The number of read accesses from this device since boot
+  units: '{read}/s'
+  family: System/Disk/IOPS/Read
+  chart_type: line
+  priority: 60058
+  shape: counters
+  dimensions:
+  - id: ucd_diskioreads
+    rate_signal: ixsystems_truenas_ucd_diskioreads
+  instances:
+    group: ucd_disk_io_device
+    chart_prefix: ucd_diskioreads
+    family: System/Disk/IOPS/Read
+    labels:
+      ucd_disk_io_device: '{instance}'
+- id: snmp.device_prof_ucd_diskIOWrites
+  title: The number of write accesses to this device since boot
+  units: '{write}/s'
+  family: System/Disk/IOPS/Write
+  chart_type: line
+  priority: 60059
+  shape: counters
+  dimensions:
+  - id: ucd_diskiowrites
+    rate_signal: ixsystems_truenas_ucd_diskiowrites
+  instances:
+    group: ucd_disk_io_device
+    chart_prefix: ucd_diskiowrites
+    family: System/Disk/IOPS/Write
+    labels:
+      ucd_disk_io_device: '{instance}'
+- id: snmp.device_prof_ucd_diskIOLA1
+  title: The 1 minute average load of disk (%)
+  units: '%'
+  family: System/Disk/LoadAverage/1Min
+  chart_type: line
+  priority: 60060
+  shape: independent
+  dimensions:
+  - id: ucd_diskiola1
+    signal: ixsystems_truenas_ucd_diskiola1
+  instances:
+    group: ucd_disk_io_device
+    chart_prefix: ucd_diskiola1
+    family: System/Disk/LoadAverage/1Min
+    labels:
+      ucd_disk_io_device: '{instance}'
+- id: snmp.device_prof_ucd_diskIOLA5
+  title: The 5 minute average load of disk (%)
+  units: '%'
+  family: System/Disk/LoadAverage/5Min
+  chart_type: line
+  priority: 60061
+  shape: independent
+  dimensions:
+  - id: ucd_diskiola5
+    signal: ixsystems_truenas_ucd_diskiola5
+  instances:
+    group: ucd_disk_io_device
+    chart_prefix: ucd_diskiola5
+    family: System/Disk/LoadAverage/5Min
+    labels:
+      ucd_disk_io_device: '{instance}'
+- id: snmp.device_prof_ucd_diskIOLA15
+  title: The 15 minute average load of disk (%)
+  units: '%'
+  family: System/Disk/LoadAverage/15Min
+  chart_type: line
+  priority: 60062
+  shape: independent
+  dimensions:
+  - id: ucd_diskiola15
+    signal: ixsystems_truenas_ucd_diskiola15
+  instances:
+    group: ucd_disk_io_device
+    chart_prefix: ucd_diskiola15
+    family: System/Disk/LoadAverage/15Min
+    labels:
+      ucd_disk_io_device: '{instance}'
+- id: snmp.device_prof_ucd_diskIONReadX
+  title: The number of bytes read from this device since boot
+  units: By/s
+  family: System/Disk/IO/Read
+  chart_type: line
+  priority: 60063
+  shape: counters
+  dimensions:
+  - id: ucd_diskionreadx
+    rate_signal: ixsystems_truenas_ucd_diskionreadx
+  instances:
+    group: ucd_disk_io_device
+    chart_prefix: ucd_diskionreadx
+    family: System/Disk/IO/Read
+    labels:
+      ucd_disk_io_device: '{instance}'
+- id: snmp.device_prof_ucd_diskIONWrittenX
+  title: The number of bytes written to this device since boot
+  units: By/s
+  family: System/Disk/IO/Write
+  chart_type: line
+  priority: 60064
+  shape: counters
+  dimensions:
+  - id: ucd_diskionwrittenx
+    rate_signal: ixsystems_truenas_ucd_diskionwrittenx
+  instances:
+    group: ucd_disk_io_device
+    chart_prefix: ucd_diskionwrittenx
+    family: System/Disk/IO/Write
+    labels:
+      ucd_disk_io_device: '{instance}'
+- id: snmp.device_prof_ucd_ssIORawSent
+  title: Amount of data written to disk or other block device
+  units: By/s
+  family: System/Disk/Total/IO/Write
+  chart_type: line
+  priority: 60065
+  shape: counters
+  dimensions:
+  - id: ucd_ssiorawsent
+    rate_signal: ixsystems_truenas_ucd_ssiorawsent
+- id: snmp.device_prof_ucd_ssIORawReceived
+  title: Amount of data read from disk or other block device
+  units: By/s
+  family: System/Disk/Total/IO/Read
+  chart_type: line
+  priority: 60066
+  shape: counters
+  dimensions:
+  - id: ucd_ssiorawreceived
+    rate_signal: ixsystems_truenas_ucd_ssiorawreceived
+- id: snmp.device_prof_ucd_ssRawInterrupts
+  title: Number of interrupts processed
+  units: '{interrupt}/s'
+  family: System/CPU/Interrupts
+  chart_type: line
+  priority: 60067
+  shape: counters
+  dimensions:
+  - id: ucd_ssrawinterrupts
+    rate_signal: ixsystems_truenas_ucd_ssrawinterrupts
+- id: snmp.device_prof_ucd_ssRawContexts
+  title: Number of context switches
+  units: '{switch}/s'
+  family: System/CPU/ContextSwitches
+  chart_type: line
+  priority: 60068
+  shape: counters
+  dimensions:
+  - id: ucd_ssrawcontexts
+    rate_signal: ixsystems_truenas_ucd_ssrawcontexts
+- id: snmp.device_prof_ucd_ssRawSwapIn
+  title: Amount of memory swapped in from disk
+  units: By/s
+  family: System/Memory/Swap/IO/In
+  chart_type: line
+  priority: 60069
+  shape: counters
+  dimensions:
+  - id: ucd_ssrawswapin
+    rate_signal: ixsystems_truenas_ucd_ssrawswapin
+- id: snmp.device_prof_ucd_ssRawSwapOut
+  title: Amount of memory swapped out to disk
+  units: By/s
+  family: System/Memory/Swap/IO/Out
+  chart_type: line
+  priority: 60070
+  shape: counters
+  dimensions:
+  - id: ucd_ssrawswapout
+    rate_signal: ixsystems_truenas_ucd_ssrawswapout
+- id: snmp.device_prof_ifTotalTraffic
+  title: Total traffic across all interfaces
+  units: bit/s
+  family: Network/Total/Traffic
+  chart_type: area
+  priority: 60071
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_octets_rate
+  - id: out
+    rate_signal: if_out_octets_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalPacketsUcast
+  title: Total unicast packets across all interfaces
+  units: '{packet}/s'
+  family: Network/Total/Packet/Unicast
+  chart_type: line
+  priority: 60072
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_ucast_rate
+  - id: out
+    rate_signal: if_out_ucast_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalPacketsMulticast
+  title: Total multicast packets across all interfaces
+  units: '{packet}/s'
+  family: Network/Total/Packet/Multicast
+  chart_type: line
+  priority: 60073
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_mcast_rate
+  - id: out
+    rate_signal: ixsystems_truenas_ifhcoutmulticastpkts
+    multiplier: -1
+- id: snmp.device_prof_ifTotalPacketsBroadcast
+  title: Total broadcast packets across all interfaces
+  units: '{packet}/s'
+  family: Network/Total/Packet/Broadcast
+  chart_type: line
+  priority: 60074
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_bcast_rate
+  - id: out
+    rate_signal: ixsystems_truenas_ifhcoutbroadcastpkts
+    multiplier: -1
+- id: snmp.device_prof_ifTotalErrors
+  title: Total packets with errors across all interfaces
+  units: '{error}/s'
+  family: Network/Total/Error
+  chart_type: line
+  priority: 60075
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_errors_rate
+  - id: out
+    rate_signal: if_out_errors_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalDiscards
+  title: Total packets discarded across all interfaces
+  units: '{discard}/s'
+  family: Network/Total/Discard
+  chart_type: line
+  priority: 60076
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_discards_rate
+  - id: out
+    rate_signal: if_out_discards_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalOperStatus
+  title: Total count of interfaces by operational status
+  units: '{status}'
+  family: Network/Total/Interface/Status
+  chart_type: line
+  priority: 60077
+  shape: independent
+  dimensions:
+  - id: up
+    signal: ixsystems_truenas_iftotaloperstatus
+  - id: down
+    signal: ixsystems_truenas_iftotaloperstatus_down
+  - id: testing
+    signal: ixsystems_truenas_iftotaloperstatus_testing
+  - id: unknown
+    signal: ixsystems_truenas_iftotaloperstatus_unknown
+  - id: dormant
+    signal: ixsystems_truenas_iftotaloperstatus_dormant
+  - id: notpresent
+    signal: ixsystems_truenas_iftotaloperstatus_notpresent
+  - id: lowerlayerdown
+    signal: ixsystems_truenas_iftotaloperstatus_lowerlayerdown
+- id: snmp.device_prof_ifTraffic
+  title: Traffic
+  units: bit/s
+  family: Network/Interface/Traffic/Total
+  chart_type: area
+  priority: 60078
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_octets_rate
+  - id: out
+    rate_signal: if_out_octets_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: iftraffic
+    family: Network/Interface/Traffic/Total
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifPacketsUcast
+  title: Unicast packets
+  units: '{packet}/s'
+  family: Network/Interface/Packet/Unicast
+  chart_type: line
+  priority: 60079
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_ucast_rate
+  - id: out
+    rate_signal: if_out_ucast_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifpacketsucast
+    family: Network/Interface/Packet/Unicast
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifPacketsMulticast
+  title: Multicast packets
+  units: '{packet}/s'
+  family: Network/Interface/Packet/Multicast
+  chart_type: line
+  priority: 60080
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_mcast_rate
+  - id: out
+    rate_signal: ixsystems_truenas_ifhcoutmulticastpkts
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifpacketsmulticast
+    family: Network/Interface/Packet/Multicast
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifPacketsBroadcast
+  title: Broadcast packets
+  units: '{packet}/s'
+  family: Network/Interface/Packet/Broadcast
+  chart_type: line
+  priority: 60081
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_bcast_rate
+  - id: out
+    rate_signal: ixsystems_truenas_ifhcoutbroadcastpkts
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifpacketsbroadcast
+    family: Network/Interface/Packet/Broadcast
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifErrors
+  title: Packets with errors
+  units: '{error}/s'
+  family: Network/Interface/Error/Total
+  chart_type: line
+  priority: 60082
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_errors_rate
+  - id: out
+    rate_signal: if_out_errors_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: iferrors
+    family: Network/Interface/Error/Total
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifDiscards
+  title: Packets discarded
+  units: '{discard}/s'
+  family: Network/Interface/Discard
+  chart_type: line
+  priority: 60083
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_discards_rate
+  - id: out
+    rate_signal: if_out_discards_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifdiscards
+    family: Network/Interface/Discard
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ucd_cpu_usage
+  title: CPU usage breakdown
+  units: '%'
+  family: System/CPU/Usage
+  chart_type: line
+  priority: 60084
+  shape: independent
+  dimensions:
+  - id: user
+    signal: ixsystems_truenas_ucd_sscpurawuser
+  - id: nice
+    signal: ixsystems_truenas_ucd_sscpurawnice
+  - id: system
+    signal: ixsystems_truenas_ucd_sscpurawsystem
+  - id: kernel
+    signal: ixsystems_truenas_ucd_sscpurawkernel
+  - id: iowait
+    signal: ixsystems_truenas_ucd_sscpurawwait
+  - id: irq
+    signal: ixsystems_truenas_ucd_sscpurawinterrupt
+  - id: softirq
+    signal: ixsystems_truenas_ucd_sscpurawsoftirq
+  - id: steal
+    signal: ixsystems_truenas_ucd_sscpurawsteal
+  - id: guest
+    signal: ixsystems_truenas_ucd_sscpurawguest
+  - id: guest_nice
+    signal: ixsystems_truenas_ucd_sscpurawguestnice
+- id: snmp.device_prof_ucd_cpuLoad
+  title: Load average
+  units: '{load_average}'
+  family: System/LoadAverage
+  chart_type: line
+  priority: 60085
+  shape: independent
+  dimensions:
+  - id: 1m
+    signal: ixsystems_truenas_ucd_cpuload1m
+  - id: 5m
+    signal: ixsystems_truenas_ucd_cpuload5m
+  - id: 15m
+    signal: ixsystems_truenas_ucd_cpuload15m

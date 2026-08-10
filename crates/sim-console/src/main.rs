@@ -541,37 +541,101 @@ async fn logs(
     }
 }
 
-async fn teardown(State(app): State<Arc<AppState>>) -> impl IntoResponse {
+fn container_teardown_steps(name: &str, detail: String) -> Vec<provision::TeardownStep> {
+    vec![
+        provision::TeardownStep {
+            name: format!("Remove the container running '{name}'"),
+            done: true,
+            detail,
+            manual: false,
+        },
+        provision::TeardownStep {
+            name: "Nothing left behind".into(),
+            done: true,
+            detail: "the agent, its database and every simulated node went with the \
+                     container - no stale nodes to clear"
+                .into(),
+            manual: false,
+        },
+        provision::TeardownStep {
+            name: "Remove the Space or room from Netdata Cloud".into(),
+            done: false,
+            detail: "one Space per prospect, never reused".into(),
+            manual: true,
+        },
+    ]
+}
+
+/// Which simulation to tear down.
+///
+/// The name is required and checked. This endpoint used to take no body at all
+/// and remove whatever the console currently considered "active" - which, with
+/// two simulations running, silently destroyed the wrong one. A destructive
+/// action must name its target and refuse when it does not match.
+#[derive(Debug, serde::Deserialize)]
+struct TeardownRequest {
+    #[serde(default)]
+    name: String,
+}
+
+async fn teardown(
+    State(app): State<Arc<AppState>>,
+    Json(req): Json<TeardownRequest>,
+) -> impl IntoResponse {
     let repo = app.repo.clone();
     let (_, env, control) = target(&app);
     let active = app.active.lock().ok().and_then(|g| g.clone());
+
+    // Every containerised simulation on this machine, so a mismatch can say what
+    // the caller probably meant.
+    let running = container::list(&repo);
+    let asked = req.name.trim().to_string();
+
+    if !asked.is_empty() {
+        if let Some(wanted) = running.iter().find(|a| a.name == asked).cloned() {
+            let out = tokio::task::spawn_blocking(move || container::teardown(&repo, &wanted.name))
+                .await;
+            if let Ok(mut g) = app.active.lock() {
+                if g.as_ref().is_some_and(|a| a.name == asked) {
+                    *g = None;
+                }
+            }
+            return match out {
+                Ok(Ok(detail)) => Json(serde_json::json!({
+                    "steps": container_teardown_steps(&asked, detail)
+                })),
+                Ok(Err(e)) => Json(json_err(e)),
+                Err(e) => Json(json_err(format!("teardown task failed: {e}"))),
+            };
+        }
+        if !running.is_empty() {
+            return Json(json_err(format!(
+                "no simulation named '{asked}'. Running: {}",
+                running
+                    .iter()
+                    .map(|a| a.name.as_str())
+                    .collect::<Vec<_>>()
+                    .join(", ")
+            )));
+        }
+    } else if running.len() > 1 {
+        return Json(json_err(format!(
+            "{} simulations are running - name the one to tear down: {}",
+            running.len(),
+            running
+                .iter()
+                .map(|a| a.name.as_str())
+                .collect::<Vec<_>>()
+                .join(", ")
+        )));
+    }
+
     let out = tokio::task::spawn_blocking(move || match active {
         // A containerised simulation is removed whole: the container carries
         // the agent, its database and every vnode, so there is nothing left
         // stale and nothing to unregister.
         Some(a) => match container::teardown(&repo, &a.name) {
-            Ok(detail) => Ok(vec![
-                provision::TeardownStep {
-                    name: format!("Remove the container running '{}'", a.name),
-                    done: true,
-                    detail,
-                    manual: false,
-                },
-                provision::TeardownStep {
-                    name: "Nothing left behind".into(),
-                    done: true,
-                    detail: "the agent, its database and every simulated node went with the \
-                             container - no stale nodes to clear"
-                        .into(),
-                    manual: false,
-                },
-                provision::TeardownStep {
-                    name: "Remove the Space or room from Netdata Cloud".into(),
-                    done: false,
-                    detail: "one Space per prospect, never reused".into(),
-                    manual: true,
-                },
-            ]),
+            Ok(detail) => Ok(container_teardown_steps(&a.name, detail)),
             Err(e) => Err(e),
         },
         None => Ok(provision::teardown(&repo, &control, &env)),

@@ -41,6 +41,12 @@ pub struct GroupRequest {
     /// base-only node is a real thing to demo.
     #[serde(default)]
     pub services: Vec<String>,
+    /// Where this group's nodes are. Absent means the fleet's own location, so a
+    /// single-site estate is one field and a multi-site one is still expressible.
+    #[serde(default)]
+    pub latitude: Option<f64>,
+    #[serde(default)]
+    pub longitude: Option<f64>,
 }
 
 #[derive(Debug, Deserialize)]
@@ -50,6 +56,12 @@ pub struct CreateRequest {
     /// without orphaning the fleet's history.
     pub name: String,
     pub groups: Vec<GroupRequest>,
+    /// The fleet's location, used by every group that does not override it, and
+    /// recorded once so the simulation's own agent is placed too.
+    #[serde(default)]
+    pub latitude: Option<f64>,
+    #[serde(default)]
+    pub longitude: Option<f64>,
     /// Simulated hours to check before installing.
     ///
     /// Not an operator choice any more. It was presented as "history", which it
@@ -108,6 +120,36 @@ pub struct Catalogue {
     pub templates: Vec<TemplateOption>,
     /// Every integration the picker can offer, with its Netdata icon.
     pub integrations: Vec<Integration>,
+    /// Every SNMP device model a network-device group can be, generated from
+    /// Netdata's own device profiles.
+    pub devices: Vec<SnmpDevice>,
+}
+
+/// One selectable network device model.
+///
+/// A switch is not a Linux box running software, so it is picked by vendor and
+/// model rather than by collector: what a Catalyst reports is decided by the
+/// device, and Netdata already ships the profile that says so.
+#[derive(Debug, Clone, Serialize, serde::Deserialize)]
+pub struct SnmpDevice {
+    pub id: String,
+    pub vendor: String,
+    pub device_type: String,
+    #[serde(default)]
+    pub charts: usize,
+}
+
+/// Read the committed SNMP device catalogue.
+pub fn snmp_devices(repo: &Path) -> Vec<SnmpDevice> {
+    #[derive(serde::Deserialize)]
+    struct File {
+        devices: Vec<SnmpDevice>,
+    }
+    std::fs::read_to_string(repo.join("integrations").join("snmp-devices.json"))
+        .ok()
+        .and_then(|t| serde_json::from_str::<File>(&t).ok())
+        .map(|f| f.devices)
+        .unwrap_or_default()
 }
 
 /// One selectable collector.
@@ -160,6 +202,7 @@ pub fn catalogue(specs_dir: &Path, env_dir: &Path, repo: &Path) -> Catalogue {
     Catalogue {
         templates: templates(env_dir),
         integrations: integrations(repo),
+        devices: snmp_devices(repo),
         roles: roles()
             .into_iter()
             .map(|r| RoleOption {
@@ -175,6 +218,63 @@ pub fn catalogue(specs_dir: &Path, env_dir: &Path, repo: &Path) -> Catalogue {
             })
             .collect(),
         services,
+    }
+}
+
+/// The fleet's own location, from the create request.
+fn fleet_site(req: &CreateRequest) -> Result<Option<sim_engine::describe::Site>, String> {
+    match (req.latitude, req.longitude) {
+        (None, None) => Ok(None),
+        (Some(lat), Some(lon)) => sim_engine::describe::Site::new(lat, lon).map(Some),
+        _ => Err("give both a fleet latitude and longitude, or neither".into()),
+    }
+}
+
+/// The identity a chosen device model gives a group, from the catalogue.
+///
+/// Read here rather than in the renderer: the renderer takes a `Reading`, and the
+/// catalogue is a console concern. A group with no model gets `None` and the
+/// generic switch's visibly-synthetic labels.
+fn device_identity(
+    g: &GroupRequest,
+    devices: &[SnmpDevice],
+) -> Option<sim_engine::describe::DeviceIdentity> {
+    if g.role != "network-device" {
+        return None;
+    }
+    let picked = g.services.iter().find(|s| *s != "processes")?;
+    let d = devices.iter().find(|d| &d.id == picked)?;
+    Some(sim_engine::describe::DeviceIdentity {
+        vendor: d.vendor.clone(),
+        model: d.id.clone(),
+        // Netdata's profiles write a device type like "Server Load Balancer";
+        // labels read better lowercased with single words.
+        kind: d.device_type.to_lowercase().replace(' ', "-"),
+    })
+}
+
+/// The site for one group: its own coordinates, else the fleet's, else unplaced.
+///
+/// A half-specified pair is refused rather than guessed at - a latitude with no
+/// longitude is a typo, and placing the fleet on the prime meridian because of
+/// one would be worse than saying so.
+fn group_site(
+    g: &GroupRequest,
+    fleet: (Option<f64>, Option<f64>),
+) -> Result<Option<sim_engine::describe::Site>, String> {
+    let (lat, lon) = match (g.latitude, g.longitude) {
+        (None, None) => fleet,
+        pair => pair,
+    };
+    match (lat, lon) {
+        (None, None) => Ok(None),
+        (Some(lat), Some(lon)) => sim_engine::describe::Site::new(lat, lon)
+            .map(Some)
+            .map_err(|e| format!("{} group: {e}", g.role)),
+        _ => Err(format!(
+            "the {} group has only one of latitude and longitude; give both or neither",
+            g.role
+        )),
     }
 }
 
@@ -214,6 +314,8 @@ pub fn build_environment(
     known.sort();
     known.dedup();
     let known_roles: Vec<String> = roles().iter().map(|r| r.role.to_string()).collect();
+    let devices = snmp_devices(repo);
+    let device_ids: Vec<String> = devices.iter().map(|d| d.id.clone()).collect();
 
     let mut groups = Vec::new();
     for g in &req.groups {
@@ -223,9 +325,21 @@ pub fn build_environment(
         if !known_roles.contains(&g.role) {
             return Err(format!("unknown role '{}'", g.role));
         }
+        // A network-device group's one "service" is its model. Validating it
+        // against the collector list would reject every device, and validating a
+        // collector against the device list would accept nonsense.
+        let allowed = if g.role == "network-device" {
+            &device_ids
+        } else {
+            &known
+        };
         for svc in &g.services {
-            if !known.contains(svc) {
-                return Err(format!("no generator spec for '{svc}'"));
+            if !allowed.contains(svc) {
+                return Err(if g.role == "network-device" {
+                    format!("no SNMP device profile for '{svc}'")
+                } else {
+                    format!("no generator spec for '{svc}'")
+                });
             }
         }
         groups.push(Group {
@@ -234,6 +348,8 @@ pub fn build_environment(
             services: g.services.clone(),
             slug: None,
             source: format!("{} x {}", g.count, g.role),
+            site: group_site(g, (req.latitude, req.longitude))?,
+            device: device_identity(g, &devices),
         });
     }
     if groups.is_empty() {
@@ -243,6 +359,9 @@ pub fn build_environment(
     let mut reading = Reading {
         groups,
         unrecognised: Vec::new(),
+        // The fleet's own location, not a group override: this is what the
+        // simulation's own agent is labelled with.
+        site: fleet_site(req)?,
     };
     reading.dedupe_slugs();
     let nodes: usize = reading.groups.iter().map(|g| g.count).sum();
@@ -295,6 +414,8 @@ pub fn create(
     known.sort();
     known.dedup();
     let known_roles: Vec<String> = roles().iter().map(|r| r.role.to_string()).collect();
+    let devices = snmp_devices(repo);
+    let device_ids: Vec<String> = devices.iter().map(|d| d.id.clone()).collect();
 
     let mut notes = Vec::new();
     let mut groups = Vec::new();
@@ -305,10 +426,19 @@ pub fn create(
         if !known_roles.contains(&g.role) {
             return Err(format!("unknown role '{}'", g.role));
         }
+        // A network-device group's one "service" is its model, checked against
+        // the SNMP device profiles rather than the collector specs.
+        let allowed = if g.role == "network-device" {
+            &device_ids
+        } else {
+            &known
+        };
         let mut services = Vec::new();
         for s in &g.services {
-            if known.contains(s) {
+            if allowed.contains(s) {
                 services.push(s.clone());
+            } else if g.role == "network-device" {
+                return Err(format!("no SNMP device profile for '{s}'"));
             } else {
                 // Silently dropping it would produce a node whose dashboard is
                 // missing the service the SE ticked.
@@ -324,6 +454,8 @@ pub fn create(
             services,
             slug: None,
             source: format!("{} x {}", g.count, g.role),
+            site: group_site(g, (req.latitude, req.longitude))?,
+            device: device_identity(g, &devices),
         });
     }
 
@@ -334,6 +466,9 @@ pub fn create(
     let mut reading = Reading {
         groups,
         unrecognised: Vec::new(),
+        // The fleet's own location, not a group override: this is what the
+        // simulation's own agent is labelled with.
+        site: fleet_site(req)?,
     };
     // Two rows of the same role would emit colliding hostnames, and the GUID
     // derives from the hostname - so that is two nodes claiming one identity.
@@ -840,6 +975,10 @@ pub fn describe(repo: &Path, req: &DescribeRequest) -> Result<DescribeResponse, 
                 role: g.role.clone(),
                 count: g.count,
                 services: g.services.clone(),
+                // The reading places nothing: a description says what a prospect
+                // runs, not where, and the location is entered separately.
+                latitude: g.site.map(|s| s.lat),
+                longitude: g.site.map(|s| s.lon),
             })
             .collect(),
         source,
@@ -1077,6 +1216,15 @@ fn install(repo: &Path, binary: &Path, env_path: &Path, services: &[String]) -> 
         }
     }
 
+    // A node may carry its own `generator:` - a network device points at one of
+    // the specs generated from Netdata's SNMP profiles, which live a directory
+    // deeper than the service specs. Copy whatever the environment actually
+    // names, so a nested path travels with the fleet instead of the plugin dying
+    // on its first tick looking for it.
+    let env_text = std::fs::read_to_string(env_path)
+        .map_err(|e| format!("cannot read '{}': {e}", env_path.display()))?;
+    copy_generators(repo, install_dir, &env_text)?;
+
     // A hand-authored spec may `extends:` a generated one for its breadth. That
     // dependency has to travel with it: without this the fleet installed
     // cleanly and then the plugin died on the first tick, because the lint had
@@ -1129,6 +1277,46 @@ fn stop_plugin(plugin: &Path) {
     for pid in plugin_pids(plugin) {
         let _ = Command::new("kill").arg(pid.to_string()).status();
     }
+}
+
+/// Copy every spec an environment names in a `generator:`, preserving its path
+/// under `specs/`.
+///
+/// Only the top level of `specs/` is copied wholesale; the generated specs are
+/// 11MB and a fleet uses a handful. This picks out exactly the ones the
+/// environment points at.
+fn copy_generators(repo: &Path, install_dir: &Path, env_text: &str) -> Result<(), String> {
+    let mut wanted: Vec<&str> = env_text
+        .lines()
+        .filter_map(|l| l.trim().strip_prefix("generator:"))
+        .map(str::trim)
+        .filter_map(|p| {
+            p.strip_prefix("../specs/")
+                .or_else(|| p.strip_prefix("specs/"))
+        })
+        .collect();
+    wanted.sort_unstable();
+    wanted.dedup();
+
+    for rel in wanted {
+        // A path from the environment file must not climb out of specs/.
+        if rel.contains("..") {
+            return Err(format!("refusing a generator path outside specs/: '{rel}'"));
+        }
+        let from = repo.join("specs").join(rel);
+        if !from.exists() {
+            return Err(format!(
+                "the environment names a missing spec: 'specs/{rel}'"
+            ));
+        }
+        let to = install_dir.join("specs").join(rel);
+        if let Some(parent) = to.parent() {
+            std::fs::create_dir_all(parent)
+                .map_err(|e| format!("cannot create '{}': {e}", parent.display()))?;
+        }
+        std::fs::copy(&from, &to).map_err(|e| format!("cannot copy '{}': {e}", from.display()))?;
+    }
+    Ok(())
 }
 
 /// Copy every spec named by an `extends:` in an already-installed spec.

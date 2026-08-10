@@ -1,0 +1,5989 @@
+version: 1
+name: cisco_load_balancer
+description: Cisco Server Load Balancer, as Netdata's SNMP collector reports it. Generated from go.d/snmp.profiles/default/cisco-load-balancer.yaml
+  with its `extends` chain resolved. Contexts, units, families and metric names are the device's own; values are a plausible
+  fiction.
+signals:
+  cisco_load_balancer_slbstatscreatedconnections:
+    base: 46.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_slbstatscreatedhcconnections:
+    base: 46.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_slbstatsestablishedconnections:
+    base: 46.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_slbstatsestablishedhcconnections:
+    base: 46.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_slbstatsdestroyedconnections:
+    base: 46.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_slbstatsdestroyedhcconnections:
+    base: 46.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_slbstatsreassignedconnections:
+    base: 46.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_slbstatsreassignedhcconnections:
+    base: 46.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_cslbxstatscurrconnections:
+    base: 240.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_cslbxstatsfailedconns:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  cisco_load_balancer_cslbxstatsl4policyconns:
+    base: 46.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_cslbxstatsl4policyhcconns:
+    base: 46.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_cslbxstatsl7policyconns:
+    base: 46.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_cslbxstatsl7policyhcconns:
+    base: 46.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_cslbxstatsdroppedl4policyconns:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  cisco_load_balancer_cslbxstatsdroppedl4policyhcconns:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  cisco_load_balancer_cslbxstatsdroppedl7policyconns:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  cisco_load_balancer_cslbxstatsdroppedl7policyhcconns:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  cisco_load_balancer_cslbxstatsftpconns:
+    base: 46.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_cslbxstatshttpredirectconns:
+    base: 46.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_cslbxstatsdroppedredirectconns:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  cisco_load_balancer_cslbxstatsnomatchpolicyrejects:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  cisco_load_balancer_cslbxstatsnomatchpolicyhcrejects:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  cisco_load_balancer_cslbxstatsnocfgpolicyrejects:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  cisco_load_balancer_cslbxstatsnocfgpolicyhcrejects:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  cisco_load_balancer_cslbxstatsnoactiveserverrejects:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  cisco_load_balancer_cslbxstatsacldenyrejects:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  cisco_load_balancer_cslbxstatsacldenyhcrejects:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  cisco_load_balancer_cslbxstatsmaxparselenrejects:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  cisco_load_balancer_cslbxstatsbadsslformatrejects:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  cisco_load_balancer_cslbxstatsl7parsererrorrejects:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  cisco_load_balancer_cslbxstatsvermismatchrejects:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  cisco_load_balancer_cslbxstatsvermismatchhcrejects:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  cisco_load_balancer_cslbxstatsoutofmemoryrejects:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  cisco_load_balancer_cslbxstatstimedoutconnections:
+    base: 46.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_cslbxstatstcpchecksumerrorpkts:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  cisco_load_balancer_cslbxstatsipchecksumerrorpkts:
+    base: 0.0
+    min: 0.0
+    max: 15000000.0
+  cisco_load_balancer_systemuptime:
+    base: 86400.0
+    min: 0.0
+    max: 315360000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_cefcfrupoweradminstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_cefcfrupoweradminstatus_false:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_cefcfrupoweradminstatus_inline_auto:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_cefcfrupoweradminstatus_inline_on:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_cefcfrupoweradminstatus_power_cycle:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_cefcfrupoweroperstatus_off_env_other:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_cefcfrupoweroperstatus_off_cooling:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_cefcfrupoweroperstatus_off_connector_rating:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_cefcfrupoweroperstatus_on_but_inline_power_fail:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_cefcfrupoweroperstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_cefcfrupoweroperstatus_off_admin:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_cefcfrupoweroperstatus_off_denied:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_cefcfrupoweroperstatus_off_env_power:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_cefcfrupoweroperstatus_off_env_temp:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_cefcfrupoweroperstatus_off_env_fan:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_cefcfrupoweroperstatus_failed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_cefcfrupoweroperstatus_on_but_fan_fail:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_cefcfrucurrent:
+    base: 3.2
+    min: 0.0
+    max: 200.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  device_cpu_usage:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_cpmcputotal1minrev:
+    base: 35.0
+    min: 35.0
+    max: 35.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_cpmcputotal5minrev:
+    base: 35.0
+    min: 35.0
+    max: 35.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_cpmcpuloadavg1min:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_cpmcpuloadavg5min:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_cpmcpuloadavg15min:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_cieifresetcount:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_ciscoenvmontemperaturestatusvalue:
+    base: 41.0
+    min: 0.0
+    max: 120.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_ciscoenvmontemperaturestate:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_ciscoenvmontemperaturestate_warning:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_ciscoenvmontemperaturestate_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_ciscoenvmontemperaturestate_shutdown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_ciscoenvmontemperaturestate_not_present:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_ciscoenvmontemperaturestate_not_functioning:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_ciscoenvmonsupplystate:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_ciscoenvmonsupplystate_warning:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_ciscoenvmonsupplystate_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_ciscoenvmonsupplystate_shutdown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_ciscoenvmonsupplystate_not_present:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_ciscoenvmonsupplystate_not_functioning:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_ciscoenvmonfanstate:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_ciscoenvmonfanstate_warning:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_ciscoenvmonfanstate_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_ciscoenvmonfanstate_shutdown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_ciscoenvmonfanstate_not_present:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_ciscoenvmonfanstate_not_functioning:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_cswstackportoperstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_cswstackportoperstatus_down:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_cswstackportoperstatus_forceddown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_cswswitchrole:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_cswswitchrole_member:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_cswswitchrole_not_member:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_cswswitchrole_standby:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_cswswitchstate_waiting:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_cswswitchstate_invalid:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_cswswitchstate_removed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_cswswitchstate_progressing:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_cswswitchstate_added:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_cswswitchstate:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_cswswitchstate_sdm_mismatch:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_cswswitchstate_ver_mismatch:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_cswswitchstate_feature_mismatch:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_cswswitchstate_new_master_init:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_cswswitchstate_provisioned:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_cefcfantrayoperstatus_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_cefcfantrayoperstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_cefcfantrayoperstatus_down:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_cefcfantrayoperstatus_warning:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_ciscomemorypoolused:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_ciscomemorypoolfree:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_ciscomemorypoollargestfree:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_cfwconnectionstatcount:
+    base: 12.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_cfwhardwarestatusvalue_other:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_cfwhardwarestatusvalue_standby:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_cfwhardwarestatusvalue:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_cfwhardwarestatusvalue_down:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_cfwhardwarestatusvalue_error:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_cfwhardwarestatusvalue_overtemp:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_cfwhardwarestatusvalue_busy:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_cfwhardwarestatusvalue_nomedia:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_cfwhardwarestatusvalue_backup:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_cfwhardwarestatusvalue_active:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_cvschassisuptime:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_rttmonlatestrttopersense_other:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_rttmonlatestrttopersense:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_rttmonlatestrttopersense_application_specific:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_rttmonlatestrttopersense_dns_server_timeout:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_rttmonlatestrttopersense_tcp_connect_timeout:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_rttmonlatestrttopersense_http_transaction_timeout:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_rttmonlatestrttopersense_dns_query_error:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_rttmonlatestrttopersense_http_error:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_rttmonlatestrttopersense_error:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_rttmonlatestrttopersense_disconnected:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_rttmonlatestrttopersense_over_threshold:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_rttmonlatestrttopersense_timeout:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_rttmonlatestrttopersense_busy:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_rttmonlatestrttopersense_not_connected:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_rttmonlatestrttopersense_dropped:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_rttmonlatestrttopersense_sequence_error:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_rttmonlatestrttopersense_verify_error:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_rttmonctrloperstate_reset:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_rttmonctrloperstate_orderly_stop:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_rttmonctrloperstate_immediate_stop:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_rttmonctrloperstate_pending:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_rttmonctrloperstate_inactive:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_rttmonctrloperstate:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_rttmonctrloperstate_restart:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_rttmonctrlopertimeoutoccurred_timeout_occurred:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_rttmonctrlopertimeoutoccurred:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_rttmonctrloperconnectionlostoccurred_connection_lost_occurred:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_rttmonctrloperconnectionlostoccurred:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_rttmonctrloperoverthresholdoccurred_over_threshold_occurred:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_rttmonctrloperoverthresholdoccurred:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_ifnumber:
+    base: 26.0
+    min: 26.0
+    max: 26.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_admin_status:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_admin_status_down:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_admin_status_testing:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_down:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_testing:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_dormant:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_notpresent:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_lowerlayerdown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_speed:
+    from_attr: if_speed_mbps
+    base: 1000.0
+    min: 0.0
+    max: 400000.0
+  cisco_load_balancer_lldpstatsremtableslastchangetime:
+    base: 12.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_lldpstatsremtablesinserts:
+    base: 12.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_lldpstatsremtablesdeletes:
+    base: 12.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_lldpstatsremtablesdrops:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  cisco_load_balancer_lldpstatsremtablesageouts:
+    base: 12.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_lldpstatstxportframestotal:
+    base: 12.0
+    min: 12.0
+    max: 12.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_lldpstatsrxportframesdiscardedtotal:
+    base: 12.0
+    min: 12.0
+    max: 12.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_lldpstatsrxportframeserrors:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  cisco_load_balancer_lldpstatsrxportframestotal:
+    base: 12.0
+    min: 12.0
+    max: 12.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_lldpstatsrxporttlvsdiscardedtotal:
+    base: 12.0
+    min: 12.0
+    max: 12.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_lldpstatsrxporttlvsunrecognizedtotal:
+    base: 12.0
+    min: 12.0
+    max: 12.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_lldpstatsrxportageoutstotal:
+    base: 12.0
+    min: 12.0
+    max: 12.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_cdpglobalrun:
+    base: 12.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_cdpglobalmessageinterval:
+    base: 12.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_cdpglobalholdtime:
+    base: 12.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_cdpglobaldeviceid:
+    base: 12.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_cdpgloballastchange:
+    base: 12.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_cdpglobaldeviceidformat:
+    base: 12.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_cdpinterfaceenable:
+    base: 12.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_cdpinterfacemessageinterval:
+    base: 12.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_cdpinterfacename:
+    base: 12.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_tcpcurrestab:
+    base: 240.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_tcpactiveopens:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_tcppassiveopens:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_tcphcinsegs:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_tcpinsegs:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_tcphcoutsegs:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_tcpoutsegs:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_tcpinerrs:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  cisco_load_balancer_tcpattemptfails:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  cisco_load_balancer_tcpestabresets:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_tcpoutrsts:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_tcpretranssegs:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  cisco_load_balancer_udphcindatagrams:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_udpindatagrams:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_udphcoutdatagrams:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_udpoutdatagrams:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_udpinerrors:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  cisco_load_balancer_udpnoports:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  cisco_load_balancer_ospfnbrstate:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_ospfnbrstate_attempt:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_ospfnbrstate_init:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_ospfnbrstate_twoway:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_ospfnbrstate_exchangestart:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_ospfnbrstate_exchange:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_ospfnbrstate_loading:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_ospfnbrstate_full:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_ospfnbrevents:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+  cisco_load_balancer_ospfnbrlsretransqlen:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  cisco_load_balancer_ospfvirtnbrstate:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_ospfvirtnbrstate_attempt:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_ospfvirtnbrstate_init:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_ospfvirtnbrstate_two_way:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_ospfvirtnbrstate_exchange_start:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_ospfvirtnbrstate_exchange:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_ospfvirtnbrstate_loading:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_ospfvirtnbrstate_full:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_ospfvirtnbrevents:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_ospfvirtnbrlsretransqlen:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  cisco_load_balancer_ospfifstate:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_ospfifstate_loopback:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_ospfifstate_waiting:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_ospfifstate_point_to_point:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_ospfifstate_designated_router:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_ospfifstate_backup_designated_router:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_ospfifstate_other_designated_router:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_ospfiflsacount:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_ospfvirtifstate:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_ospfvirtifstate_point_to_point:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_ospfvirtiflsacount:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_ipsystemstatshcinoctets:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_ipsystemstatshcoutoctets:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_ipsystemstatshcinmcastoctets:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_ipsystemstatshcoutmcastoctets:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_ipsystemstatshcinreceives:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_ipsystemstatshcoutrequests:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_ipsystemstatshcouttransmits:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_ipsystemstatshcinbcastpkts:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_ipsystemstatshcoutbcastpkts:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_ipsystemstatshcinmcastpkts:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_ipsystemstatshcoutmcastpkts:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_ipsystemstatshcinforwdatagrams:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_ipsystemstatshcoutforwdatagrams:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_ipsystemstatsinhdrerrors:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  cisco_load_balancer_ipsystemstatsinnoroutes:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_ipsystemstatsinaddrerrors:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  cisco_load_balancer_ipsystemstatsinunknownprotos:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  cisco_load_balancer_ipsystemstatsintruncatedpkts:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  cisco_load_balancer_ipsystemstatsreasmfails:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  cisco_load_balancer_ipsystemstatsindiscards:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  cisco_load_balancer_ipsystemstatsoutnoroutes:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  cisco_load_balancer_ipsystemstatsoutfragfails:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  cisco_load_balancer_ipsystemstatsoutdiscards:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  cisco_load_balancer_ipsystemstatsoutfragreqds:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_ipsystemstatsoutfragoks:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_ipsystemstatsoutfragcreates:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_ipsystemstatsreasmreqds:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_ipsystemstatsreasmoks:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_ipifstatshcinoctets:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_ipifstatshcoutoctets:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_ipifstatshcinmcastoctets:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_ipifstatshcoutmcastoctets:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_ipifstatshcindelivers:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_ipifstatshcoutrequests:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_ipifstatshcouttransmits:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_ipifstatshcinmcastpkts:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_ipifstatshcoutmcastpkts:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_ipifstatshcinbcastpkts:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_ipifstatshcoutbcastpkts:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_ipifstatsindiscards:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  cisco_load_balancer_ipifstatsoutdiscards:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  cisco_load_balancer_ipifstatsinhdrerrors:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  cisco_load_balancer_ipifstatsinnoroutes:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  cisco_load_balancer_ipifstatsinaddrerrors:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  cisco_load_balancer_ipifstatsinunknownprotos:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  cisco_load_balancer_ipifstatsintruncatedpkts:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  cisco_load_balancer_ipifstatsoutfragfails:
+    base: 0.0
+    min: 0.0
+    max: 15000000.0
+  cisco_load_balancer_ipifstatsreasmfails:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  cisco_load_balancer_ipifstatsoutfragoks:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_ipifstatsoutfragreqds:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_ipifstatsoutfragcreates:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_ipifstatsreasmreqds:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_ipifstatsreasmoks:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_ipifstatshcinforwdatagrams:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_ipifstatshcoutforwdatagrams:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_cempmempoollowestfree:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_ciscoenvmonvoltagestatusvalue:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_ciscoenvmonvoltagestate:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_ciscoenvmonvoltagestate_warning:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_ciscoenvmonvoltagestate_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_ciscoenvmonvoltagestate_shutdown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_ciscoenvmonvoltagestate_not_present:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_ciscoenvmonvoltagestate_not_functioning:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_crfstatusunitstate_not_known:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_crfstatusunitstate_active_preconfig:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_crfstatusunitstate_active_postconfig:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_crfstatusunitstate_active_extraload:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_crfstatusunitstate_active_handback:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_crfstatusunitstate_disabled:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_crfstatusunitstate_initialization:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_crfstatusunitstate_negotiation:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_crfstatusunitstate_standby_cold:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_crfstatusunitstate_standby_hot:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_crfstatusunitstate_active_fast:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_crfstatusunitstate_active_drain:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_crfstatusunitstate:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_crfstatuspeerunitstate_not_known:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_crfstatuspeerunitstate_active_preconfig:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_crfstatuspeerunitstate_active_postconfig:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_crfstatuspeerunitstate_active_extraload:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_crfstatuspeerunitstate_active_handback:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_crfstatuspeerunitstate_disabled:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_crfstatuspeerunitstate_initialization:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_crfstatuspeerunitstate_negotiation:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_crfstatuspeerunitstate_standby_cold:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_crfstatuspeerunitstate_standby_hot:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_crfstatuspeerunitstate_active_fast:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_crfstatuspeerunitstate_active_drain:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_crfstatuspeerunitstate:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_crfstatusduplexmode:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_crfstatusduplexmode_duplex:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_crfstatuslastswactreasoncode:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_crfstatuslastswactreasoncode_active_no_ext_power:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_crfstatuslastswactreasoncode_active_no_response:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_crfstatuslastswactreasoncode_none:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_crfstatuslastswactreasoncode_not_known:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_crfstatuslastswactreasoncode_user_initiated:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_crfstatuslastswactreasoncode_user_forced:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_crfstatuslastswactreasoncode_active_removed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_crfstatuslastswactreasoncode_active_failed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_crfstatuslastswactreasoncode_active_no_heartbeat:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_crfstatuslastswactreasoncode_active_no_shelf_power:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_cswringredundant:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_cswringredundant_not_redundant:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_in_octets_rate:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_out_octets_rate:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_ucast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_out_ucast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_mcast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_ifhcoutmulticastpkts:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_bcast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cisco_load_balancer_ifhcoutbroadcastpkts:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_errors_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  if_out_errors_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  if_in_discards_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  if_out_discards_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  cisco_load_balancer_iftotaloperstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_iftotaloperstatus_down:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_iftotaloperstatus_testing:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_iftotaloperstatus_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_iftotaloperstatus_dormant:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_iftotaloperstatus_notpresent:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cisco_load_balancer_iftotaloperstatus_lowerlayerdown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+contexts:
+- id: snmp.device_prof_slbStatsCreatedConnections
+  title: Number of TCP and UDP connections created since SLB was configured
+  units: '{connection}/s'
+  family: Network/LoadBalancer/Connection/Created
+  chart_type: line
+  priority: 60000
+  shape: counters
+  dimensions:
+  - id: slbstatscreatedconnections
+    rate_signal: cisco_load_balancer_slbstatscreatedconnections
+  instances:
+    group: slb_entity_index
+    chart_prefix: slbstatscreatedconnections
+    family: Network/LoadBalancer/Connection/Created
+    labels:
+      slb_entity_index: '{instance}'
+- id: snmp.device_prof_slbStatsCreatedHCConnections
+  title: Number of connections created by SLB since it was configured (64-bit)
+  units: '{connection}/s'
+  family: Network/LoadBalancer/Connection/Created
+  chart_type: line
+  priority: 60001
+  shape: counters
+  dimensions:
+  - id: slbstatscreatedhcconnections
+    rate_signal: cisco_load_balancer_slbstatscreatedhcconnections
+  instances:
+    group: slb_entity_index
+    chart_prefix: slbstatscreatedhcconnections
+    family: Network/LoadBalancer/Connection/Created
+    labels:
+      slb_entity_index: '{instance}'
+- id: snmp.device_prof_slbStatsEstablishedConnections
+  title: Number of connections established through SLB
+  units: '{connection}/s'
+  family: Network/LoadBalancer/Connection/Established
+  chart_type: line
+  priority: 60002
+  shape: counters
+  dimensions:
+  - id: slbstatsestablishedconnectio
+    rate_signal: cisco_load_balancer_slbstatsestablishedconnections
+  instances:
+    group: slb_entity_index
+    chart_prefix: slbstatsestablishedconnections
+    family: Network/LoadBalancer/Connection/Established
+    labels:
+      slb_entity_index: '{instance}'
+- id: snmp.device_prof_slbStatsEstablishedHCConnections
+  title: Number of connections established through SLB (64-bit)
+  units: '{connection}/s'
+  family: Network/LoadBalancer/Connection/Established
+  chart_type: line
+  priority: 60003
+  shape: counters
+  dimensions:
+  - id: slbstatsestablishedhcconnect
+    rate_signal: cisco_load_balancer_slbstatsestablishedhcconnections
+  instances:
+    group: slb_entity_index
+    chart_prefix: slbstatsestablishedhcconnections
+    family: Network/LoadBalancer/Connection/Established
+    labels:
+      slb_entity_index: '{instance}'
+- id: snmp.device_prof_slbStatsDestroyedConnections
+  title: Number of TCP and UDP connections destroyed by SLB
+  units: '{connection}/s'
+  family: Network/LoadBalancer/Connection/Destroyed
+  chart_type: line
+  priority: 60004
+  shape: counters
+  dimensions:
+  - id: slbstatsdestroyedconnections
+    rate_signal: cisco_load_balancer_slbstatsdestroyedconnections
+  instances:
+    group: slb_entity_index
+    chart_prefix: slbstatsdestroyedconnections
+    family: Network/LoadBalancer/Connection/Destroyed
+    labels:
+      slb_entity_index: '{instance}'
+- id: snmp.device_prof_slbStatsDestroyedHCConnections
+  title: Number of TCP and UDP connections destroyed by SLB (64-bit)
+  units: '{connection}/s'
+  family: Network/LoadBalancer/Connection/Destroyed
+  chart_type: line
+  priority: 60005
+  shape: counters
+  dimensions:
+  - id: slbstatsdestroyedhcconnectio
+    rate_signal: cisco_load_balancer_slbstatsdestroyedhcconnections
+  instances:
+    group: slb_entity_index
+    chart_prefix: slbstatsdestroyedhcconnections
+    family: Network/LoadBalancer/Connection/Destroyed
+    labels:
+      slb_entity_index: '{instance}'
+- id: snmp.device_prof_slbStatsReassignedConnections
+  title: Number of TCP and UDP connections reassigned from one real server to another
+  units: '{connection}/s'
+  family: Network/LoadBalancer/Connection/Reassigned
+  chart_type: line
+  priority: 60006
+  shape: counters
+  dimensions:
+  - id: slbstatsreassignedconnection
+    rate_signal: cisco_load_balancer_slbstatsreassignedconnections
+  instances:
+    group: slb_entity_index
+    chart_prefix: slbstatsreassignedconnections
+    family: Network/LoadBalancer/Connection/Reassigned
+    labels:
+      slb_entity_index: '{instance}'
+- id: snmp.device_prof_slbStatsReassignedHCConnections
+  title: Number of TCP and UDP connections reassigned from one real server to another (64-bit)
+  units: '{connection}/s'
+  family: Network/LoadBalancer/Connection/Reassigned
+  chart_type: line
+  priority: 60007
+  shape: counters
+  dimensions:
+  - id: slbstatsreassignedhcconnecti
+    rate_signal: cisco_load_balancer_slbstatsreassignedhcconnections
+  instances:
+    group: slb_entity_index
+    chart_prefix: slbstatsreassignedhcconnections
+    family: Network/LoadBalancer/Connection/Reassigned
+    labels:
+      slb_entity_index: '{instance}'
+- id: snmp.device_prof_cslbxStatsCurrConnections
+  title: Number of connections currently still open
+  units: '{connection}'
+  family: Network/LoadBalancer/Connection/Current
+  chart_type: line
+  priority: 60008
+  shape: independent
+  dimensions:
+  - id: cslbxstatscurrconnections
+    signal: cisco_load_balancer_cslbxstatscurrconnections
+  instances:
+    group: slb_entity_index
+    chart_prefix: cslbxstatscurrconnections
+    family: Network/LoadBalancer/Connection/Current
+    labels:
+      slb_entity_index: '{instance}'
+- id: snmp.device_prof_cslbxStatsFailedConns
+  title: Number of connections that were load balanced to real servers that then failed to respond
+  units: '{connection}/s'
+  family: Network/LoadBalancer/Connection/Failed
+  chart_type: line
+  priority: 60009
+  shape: counters
+  dimensions:
+  - id: cslbxstatsfailedconns
+    rate_signal: cisco_load_balancer_cslbxstatsfailedconns
+  instances:
+    group: slb_entity_index
+    chart_prefix: cslbxstatsfailedconns
+    family: Network/LoadBalancer/Connection/Failed
+    labels:
+      slb_entity_index: '{instance}'
+- id: snmp.device_prof_cslbxStatsL4PolicyConns
+  title: Number of connections made to the virtual servers with only layer 4 configuration
+  units: '{connection}/s'
+  family: Network/LoadBalancer/VirtualServer/Layer4/Connection
+  chart_type: line
+  priority: 60010
+  shape: counters
+  dimensions:
+  - id: cslbxstatsl4policyconns
+    rate_signal: cisco_load_balancer_cslbxstatsl4policyconns
+  instances:
+    group: slb_entity_index
+    chart_prefix: cslbxstatsl4policyconns
+    family: Network/LoadBalancer/VirtualServer/Layer4/Connection
+    labels:
+      slb_entity_index: '{instance}'
+- id: snmp.device_prof_cslbxStatsL4PolicyHCConns
+  title: Number of connections made to the virtual servers with only layer 4 configuration (64-bit)
+  units: '{connection}/s'
+  family: Network/LoadBalancer/VirtualServer/Layer4/Connection
+  chart_type: line
+  priority: 60011
+  shape: counters
+  dimensions:
+  - id: cslbxstatsl4policyhcconns
+    rate_signal: cisco_load_balancer_cslbxstatsl4policyhcconns
+  instances:
+    group: slb_entity_index
+    chart_prefix: cslbxstatsl4policyhcconns
+    family: Network/LoadBalancer/VirtualServer/Layer4/Connection
+    labels:
+      slb_entity_index: '{instance}'
+- id: snmp.device_prof_cslbxStatsL7PolicyConns
+  title: Number of connections made to the virtual servers with some layer 7 configuration
+  units: '{connection}/s'
+  family: Network/LoadBalancer/VirtualServer/Layer7/Connection
+  chart_type: line
+  priority: 60012
+  shape: counters
+  dimensions:
+  - id: cslbxstatsl7policyconns
+    rate_signal: cisco_load_balancer_cslbxstatsl7policyconns
+  instances:
+    group: slb_entity_index
+    chart_prefix: cslbxstatsl7policyconns
+    family: Network/LoadBalancer/VirtualServer/Layer7/Connection
+    labels:
+      slb_entity_index: '{instance}'
+- id: snmp.device_prof_cslbxStatsL7PolicyHCConns
+  title: Number of connections made to the virtual servers with some layer 7 configuration (64-bit)
+  units: '{connection}/s'
+  family: Network/LoadBalancer/VirtualServer/Layer7/Connection
+  chart_type: line
+  priority: 60013
+  shape: counters
+  dimensions:
+  - id: cslbxstatsl7policyhcconns
+    rate_signal: cisco_load_balancer_cslbxstatsl7policyhcconns
+  instances:
+    group: slb_entity_index
+    chart_prefix: cslbxstatsl7policyhcconns
+    family: Network/LoadBalancer/VirtualServer/Layer7/Connection
+    labels:
+      slb_entity_index: '{instance}'
+- id: snmp.device_prof_cslbxStatsDroppedL4PolicyConns
+  title: Number of connections dropped by virtual servers with only layer 4 configuration
+  units: '{connection}/s'
+  family: Network/LoadBalancer/VirtualServer/Layer4/Dropped
+  chart_type: line
+  priority: 60014
+  shape: counters
+  dimensions:
+  - id: cslbxstatsdroppedl4policycon
+    rate_signal: cisco_load_balancer_cslbxstatsdroppedl4policyconns
+  instances:
+    group: slb_entity_index
+    chart_prefix: cslbxstatsdroppedl4policyconns
+    family: Network/LoadBalancer/VirtualServer/Layer4/Dropped
+    labels:
+      slb_entity_index: '{instance}'
+- id: snmp.device_prof_cslbxStatsDroppedL4PolicyHCConns
+  title: Number of connections dropped by virtual servers with only layer 4 configuration (64-bit)
+  units: '{connection}/s'
+  family: Network/LoadBalancer/VirtualServer/Layer4/Dropped
+  chart_type: line
+  priority: 60015
+  shape: counters
+  dimensions:
+  - id: cslbxstatsdroppedl4policyhcc
+    rate_signal: cisco_load_balancer_cslbxstatsdroppedl4policyhcconns
+  instances:
+    group: slb_entity_index
+    chart_prefix: cslbxstatsdroppedl4policyhcconns
+    family: Network/LoadBalancer/VirtualServer/Layer4/Dropped
+    labels:
+      slb_entity_index: '{instance}'
+- id: snmp.device_prof_cslbxStatsDroppedL7PolicyConns
+  title: Number of connections dropped by virtual servers with some layer 7 policy
+  units: '{connection}/s'
+  family: Network/LoadBalancer/VirtualServer/Layer7/Dropped
+  chart_type: line
+  priority: 60016
+  shape: counters
+  dimensions:
+  - id: cslbxstatsdroppedl7policycon
+    rate_signal: cisco_load_balancer_cslbxstatsdroppedl7policyconns
+  instances:
+    group: slb_entity_index
+    chart_prefix: cslbxstatsdroppedl7policyconns
+    family: Network/LoadBalancer/VirtualServer/Layer7/Dropped
+    labels:
+      slb_entity_index: '{instance}'
+- id: snmp.device_prof_cslbxStatsDroppedL7PolicyHCConns
+  title: Number of connections dropped by virtual servers with some layer 7 configuration
+  units: '{connection}/s'
+  family: Network/LoadBalancer/VirtualServer/Layer7/Dropped
+  chart_type: line
+  priority: 60017
+  shape: counters
+  dimensions:
+  - id: cslbxstatsdroppedl7policyhcc
+    rate_signal: cisco_load_balancer_cslbxstatsdroppedl7policyhcconns
+  instances:
+    group: slb_entity_index
+    chart_prefix: cslbxstatsdroppedl7policyhcconns
+    family: Network/LoadBalancer/VirtualServer/Layer7/Dropped
+    labels:
+      slb_entity_index: '{instance}'
+- id: snmp.device_prof_cslbxStatsFtpConns
+  title: Number of connections made to virtual servers with the FTP service
+  units: '{connection}/s'
+  family: Network/LoadBalancer/VirtualServer/FTP/Connection
+  chart_type: line
+  priority: 60018
+  shape: counters
+  dimensions:
+  - id: cslbxstatsftpconns
+    rate_signal: cisco_load_balancer_cslbxstatsftpconns
+  instances:
+    group: slb_entity_index
+    chart_prefix: cslbxstatsftpconns
+    family: Network/LoadBalancer/VirtualServer/FTP/Connection
+    labels:
+      slb_entity_index: '{instance}'
+- id: snmp.device_prof_cslbxStatsHttpRedirectConns
+  title: Number of connections made to HTTP redirect servers
+  units: '{connection}/s'
+  family: Network/LoadBalancer/HTTPRedirect/Connection
+  chart_type: line
+  priority: 60019
+  shape: counters
+  dimensions:
+  - id: cslbxstatshttpredirectconns
+    rate_signal: cisco_load_balancer_cslbxstatshttpredirectconns
+  instances:
+    group: slb_entity_index
+    chart_prefix: cslbxstatshttpredirectconns
+    family: Network/LoadBalancer/HTTPRedirect/Connection
+    labels:
+      slb_entity_index: '{instance}'
+- id: snmp.device_prof_cslbxStatsDroppedRedirectConns
+  title: Number of connections dropped by HTTP redirect servers
+  units: '{connection}/s'
+  family: Network/LoadBalancer/HTTPRedirect/Dropped
+  chart_type: line
+  priority: 60020
+  shape: counters
+  dimensions:
+  - id: cslbxstatsdroppedredirectcon
+    rate_signal: cisco_load_balancer_cslbxstatsdroppedredirectconns
+  instances:
+    group: slb_entity_index
+    chart_prefix: cslbxstatsdroppedredirectconns
+    family: Network/LoadBalancer/HTTPRedirect/Dropped
+    labels:
+      slb_entity_index: '{instance}'
+- id: snmp.device_prof_cslbxStatsNoMatchPolicyRejects
+  title: Number of connections rejected because they failed to match any configured policy
+  units: '{connection}/s'
+  family: Network/LoadBalancer/Connection/Rejected/NoPolicy
+  chart_type: line
+  priority: 60021
+  shape: counters
+  dimensions:
+  - id: cslbxstatsnomatchpolicyrejec
+    rate_signal: cisco_load_balancer_cslbxstatsnomatchpolicyrejects
+  instances:
+    group: slb_entity_index
+    chart_prefix: cslbxstatsnomatchpolicyrejects
+    family: Network/LoadBalancer/Connection/Rejected/NoPolicy
+    labels:
+      slb_entity_index: '{instance}'
+- id: snmp.device_prof_cslbxStatsNoMatchPolicyHCRejects
+  title: Number of connections rejected because they failed to match any configured policy (64-bit)
+  units: '{connection}/s'
+  family: Network/LoadBalancer/Connection/Rejected/NoPolicy
+  chart_type: line
+  priority: 60022
+  shape: counters
+  dimensions:
+  - id: cslbxstatsnomatchpolicyhcrej
+    rate_signal: cisco_load_balancer_cslbxstatsnomatchpolicyhcrejects
+  instances:
+    group: slb_entity_index
+    chart_prefix: cslbxstatsnomatchpolicyhcrejects
+    family: Network/LoadBalancer/Connection/Rejected/NoPolicy
+    labels:
+      slb_entity_index: '{instance}'
+- id: snmp.device_prof_cslbxStatsNoCfgPolicyRejects
+  title: Number of connections rejected because the matching virtual server was not configured with any policy
+  units: '{connection}/s'
+  family: Network/LoadBalancer/Connection/Rejected/NoConfig
+  chart_type: line
+  priority: 60023
+  shape: counters
+  dimensions:
+  - id: cslbxstatsnocfgpolicyrejects
+    rate_signal: cisco_load_balancer_cslbxstatsnocfgpolicyrejects
+  instances:
+    group: slb_entity_index
+    chart_prefix: cslbxstatsnocfgpolicyrejects
+    family: Network/LoadBalancer/Connection/Rejected/NoConfig
+    labels:
+      slb_entity_index: '{instance}'
+- id: snmp.device_prof_cslbxStatsNoCfgPolicyHCRejects
+  title: Number of connections rejected because the matching virtual server was not configured with any policy (64-bit)
+  units: '{connection}/s'
+  family: Network/LoadBalancer/Connection/Rejected/NoConfig
+  chart_type: line
+  priority: 60024
+  shape: counters
+  dimensions:
+  - id: cslbxstatsnocfgpolicyhcrejec
+    rate_signal: cisco_load_balancer_cslbxstatsnocfgpolicyhcrejects
+  instances:
+    group: slb_entity_index
+    chart_prefix: cslbxstatsnocfgpolicyhcrejects
+    family: Network/LoadBalancer/Connection/Rejected/NoConfig
+    labels:
+      slb_entity_index: '{instance}'
+- id: snmp.device_prof_cslbxStatsNoActiveServerRejects
+  title: Number of connections rejected because the chosen server farm did not have any active servers
+  units: '{connection}/s'
+  family: Network/LoadBalancer/Connection/Rejected/NoServer
+  chart_type: line
+  priority: 60025
+  shape: counters
+  dimensions:
+  - id: cslbxstatsnoactiveserverreje
+    rate_signal: cisco_load_balancer_cslbxstatsnoactiveserverrejects
+  instances:
+    group: slb_entity_index
+    chart_prefix: cslbxstatsnoactiveserverrejects
+    family: Network/LoadBalancer/Connection/Rejected/NoServer
+    labels:
+      slb_entity_index: '{instance}'
+- id: snmp.device_prof_cslbxStatsAclDenyRejects
+  title: Number of connections rejected because the the matching client access list was configured to deny access
+  units: '{connection}/s'
+  family: Network/LoadBalancer/Connection/Rejected/ACL
+  chart_type: line
+  priority: 60026
+  shape: counters
+  dimensions:
+  - id: cslbxstatsacldenyrejects
+    rate_signal: cisco_load_balancer_cslbxstatsacldenyrejects
+  instances:
+    group: slb_entity_index
+    chart_prefix: cslbxstatsacldenyrejects
+    family: Network/LoadBalancer/Connection/Rejected/ACL
+    labels:
+      slb_entity_index: '{instance}'
+- id: snmp.device_prof_cslbxStatsAclDenyHCRejects
+  title: Number of connections rejected because the the matching client access list was configured to deny access (64-bit)
+  units: '{connection}/s'
+  family: Network/LoadBalancer/Connection/Rejected/ACL
+  chart_type: line
+  priority: 60027
+  shape: counters
+  dimensions:
+  - id: cslbxstatsacldenyhcrejects
+    rate_signal: cisco_load_balancer_cslbxstatsacldenyhcrejects
+  instances:
+    group: slb_entity_index
+    chart_prefix: cslbxstatsacldenyhcrejects
+    family: Network/LoadBalancer/Connection/Rejected/ACL
+    labels:
+      slb_entity_index: '{instance}'
+- id: snmp.device_prof_cslbxStatsMaxParseLenRejects
+  title: Number of connections rejected because the length of an HTTP request or response header exceeded the maximum L7 parse
+    length configured for the matching virtual server
+  units: '{connection}/s'
+  family: Network/LoadBalancer/Connection/Rejected/ParseLength
+  chart_type: line
+  priority: 60028
+  shape: counters
+  dimensions:
+  - id: cslbxstatsmaxparselenrejects
+    rate_signal: cisco_load_balancer_cslbxstatsmaxparselenrejects
+  instances:
+    group: slb_entity_index
+    chart_prefix: cslbxstatsmaxparselenrejects
+    family: Network/LoadBalancer/Connection/Rejected/ParseLength
+    labels:
+      slb_entity_index: '{instance}'
+- id: snmp.device_prof_cslbxStatsBadSslFormatRejects
+  title: Number of connections rejected because some invalid or unrecognized SSL format was detected
+  units: '{connection}/s'
+  family: Network/LoadBalancer/Connection/Rejected/SSL
+  chart_type: line
+  priority: 60029
+  shape: counters
+  dimensions:
+  - id: cslbxstatsbadsslformatreject
+    rate_signal: cisco_load_balancer_cslbxstatsbadsslformatrejects
+  instances:
+    group: slb_entity_index
+    chart_prefix: cslbxstatsbadsslformatrejects
+    family: Network/LoadBalancer/Connection/Rejected/SSL
+    labels:
+      slb_entity_index: '{instance}'
+- id: snmp.device_prof_cslbxStatsL7ParserErrorRejects
+  title: Number of connections rejected because an error occurred while parsing the connection data at Layer 7
+  units: '{connection}/s'
+  family: Network/LoadBalancer/Connection/Rejected/ParseError
+  chart_type: line
+  priority: 60030
+  shape: counters
+  dimensions:
+  - id: cslbxstatsl7parsererrorrejec
+    rate_signal: cisco_load_balancer_cslbxstatsl7parsererrorrejects
+  instances:
+    group: slb_entity_index
+    chart_prefix: cslbxstatsl7parsererrorrejects
+    family: Network/LoadBalancer/Connection/Rejected/ParseError
+    labels:
+      slb_entity_index: '{instance}'
+- id: snmp.device_prof_cslbxStatsVerMismatchRejects
+  title: Number of connections rejected because the Layer 7 configuration was changed while Layer 7 parsing was occurring
+    on the connection
+  units: '{connection}/s'
+  family: Network/LoadBalancer/Connection/Rejected/VersionMismatch
+  chart_type: line
+  priority: 60031
+  shape: counters
+  dimensions:
+  - id: cslbxstatsvermismatchrejects
+    rate_signal: cisco_load_balancer_cslbxstatsvermismatchrejects
+  instances:
+    group: slb_entity_index
+    chart_prefix: cslbxstatsvermismatchrejects
+    family: Network/LoadBalancer/Connection/Rejected/VersionMismatch
+    labels:
+      slb_entity_index: '{instance}'
+- id: snmp.device_prof_cslbxStatsVerMismatchHCRejects
+  title: Number of connections rejected because the Layer 7 configuration was changed while Layer 7 parsing was occurring
+    on the connection (64-bit)
+  units: '{connection}/s'
+  family: Network/LoadBalancer/Connection/Rejected/VersionMismatch
+  chart_type: line
+  priority: 60032
+  shape: counters
+  dimensions:
+  - id: cslbxstatsvermismatchhcrejec
+    rate_signal: cisco_load_balancer_cslbxstatsvermismatchhcrejects
+  instances:
+    group: slb_entity_index
+    chart_prefix: cslbxstatsvermismatchhcrejects
+    family: Network/LoadBalancer/Connection/Rejected/VersionMismatch
+    labels:
+      slb_entity_index: '{instance}'
+- id: snmp.device_prof_cslbxStatsOutOfMemoryRejects
+  title: Number of connections rejected because the SLB module could not allocate the required memory
+  units: '{connection}/s'
+  family: Network/LoadBalancer/Connection/Rejected/Memory
+  chart_type: line
+  priority: 60033
+  shape: counters
+  dimensions:
+  - id: cslbxstatsoutofmemoryrejects
+    rate_signal: cisco_load_balancer_cslbxstatsoutofmemoryrejects
+  instances:
+    group: slb_entity_index
+    chart_prefix: cslbxstatsoutofmemoryrejects
+    family: Network/LoadBalancer/Connection/Rejected/Memory
+    labels:
+      slb_entity_index: '{instance}'
+- id: snmp.device_prof_cslbxStatsTimedOutConnections
+  title: Number of connections that were terminated because they were idle longer than the configured idle timeout value
+  units: '{connection}/s'
+  family: Network/LoadBalancer/Connection/Timeout
+  chart_type: line
+  priority: 60034
+  shape: counters
+  dimensions:
+  - id: cslbxstatstimedoutconnection
+    rate_signal: cisco_load_balancer_cslbxstatstimedoutconnections
+  instances:
+    group: slb_entity_index
+    chart_prefix: cslbxstatstimedoutconnections
+    family: Network/LoadBalancer/Connection/Timeout
+    labels:
+      slb_entity_index: '{instance}'
+- id: snmp.device_prof_cslbxStatsTcpChecksumErrorPkts
+  title: Accumulated number of TCP packets which have checksum error
+  units: '{error}/s'
+  family: Network/TCP/Error/Checksum
+  chart_type: line
+  priority: 60035
+  shape: counters
+  dimensions:
+  - id: cslbxstatstcpchecksumerrorpk
+    rate_signal: cisco_load_balancer_cslbxstatstcpchecksumerrorpkts
+  instances:
+    group: slb_entity_index
+    chart_prefix: cslbxstatstcpchecksumerrorpkts
+    family: Network/TCP/Error/Checksum
+    labels:
+      slb_entity_index: '{instance}'
+- id: snmp.device_prof_cslbxStatsIpChecksumErrorPkts
+  title: Accumulated number of IP packets which have checksum error
+  units: '{packet}/s'
+  family: Network/IP/Error/Checksum
+  chart_type: line
+  priority: 60036
+  shape: counters
+  dimensions:
+  - id: cslbxstatsipchecksumerrorpkt
+    rate_signal: cisco_load_balancer_cslbxstatsipchecksumerrorpkts
+  instances:
+    group: slb_entity_index
+    chart_prefix: cslbxstatsipchecksumerrorpkts
+    family: Network/IP/Error/Checksum
+    labels:
+      slb_entity_index: '{instance}'
+- id: snmp.device_prof_systemUptime
+  title: Time since the system was last rebooted or powered on.
+  units: s
+  family: System/Uptime
+  chart_type: line
+  priority: 60037
+  shape: independent
+  dimensions:
+  - id: systemuptime
+    signal: cisco_load_balancer_systemuptime
+- id: snmp.device_prof_cefcFRUPowerAdminStatus
+  title: Administratively desired FRU power state
+  units: '{status}'
+  family: Hardware/FRU/Power/Status/Admin
+  chart_type: line
+  priority: 60038
+  shape: independent
+  dimensions:
+  - id: 'true'
+    signal: cisco_load_balancer_cefcfrupoweradminstatus
+  - id: 'false'
+    signal: cisco_load_balancer_cefcfrupoweradminstatus_false
+  - id: inline_auto
+    signal: cisco_load_balancer_cefcfrupoweradminstatus_inline_auto
+  - id: inline_on
+    signal: cisco_load_balancer_cefcfrupoweradminstatus_inline_on
+  - id: power_cycle
+    signal: cisco_load_balancer_cefcfrupoweradminstatus_power_cycle
+  instances:
+    group: fru_index
+    chart_prefix: cefcfrupoweradminstatus
+    family: Hardware/FRU/Power/Status/Admin
+    labels:
+      fru_index: '{instance}'
+- id: snmp.device_prof_cefcFRUPowerOperStatus
+  title: Operational FRU power state
+  units: '{status}'
+  family: Hardware/FRU/Power/Status/Operational
+  chart_type: line
+  priority: 60039
+  shape: independent
+  dimensions:
+  - id: off_env_other
+    signal: cisco_load_balancer_cefcfrupoweroperstatus_off_env_other
+  - id: off_cooling
+    signal: cisco_load_balancer_cefcfrupoweroperstatus_off_cooling
+  - id: off_connector_rating
+    signal: cisco_load_balancer_cefcfrupoweroperstatus_off_connector_rating
+  - id: on_but_inline_power_fail
+    signal: cisco_load_balancer_cefcfrupoweroperstatus_on_but_inline_power_fail
+  - id: 'true'
+    signal: cisco_load_balancer_cefcfrupoweroperstatus
+  - id: off_admin
+    signal: cisco_load_balancer_cefcfrupoweroperstatus_off_admin
+  - id: off_denied
+    signal: cisco_load_balancer_cefcfrupoweroperstatus_off_denied
+  - id: off_env_power
+    signal: cisco_load_balancer_cefcfrupoweroperstatus_off_env_power
+  - id: off_env_temp
+    signal: cisco_load_balancer_cefcfrupoweroperstatus_off_env_temp
+  - id: off_env_fan
+    signal: cisco_load_balancer_cefcfrupoweroperstatus_off_env_fan
+  - id: failed
+    signal: cisco_load_balancer_cefcfrupoweroperstatus_failed
+  - id: on_but_fan_fail
+    signal: cisco_load_balancer_cefcfrupoweroperstatus_on_but_fan_fail
+  instances:
+    group: fru_index
+    chart_prefix: cefcfrupoweroperstatus
+    family: Hardware/FRU/Power/Status/Operational
+    labels:
+      fru_index: '{instance}'
+- id: snmp.device_prof_cefcFRUCurrent
+  title: Current supplied by the FRU or current required to operate the FRU
+  units: A
+  family: Hardware/FRU/Power/Current
+  chart_type: line
+  priority: 60040
+  shape: independent
+  dimensions:
+  - id: cefcfrucurrent
+    signal: cisco_load_balancer_cefcfrucurrent
+  instances:
+    group: fru_index
+    chart_prefix: cefcfrucurrent
+    family: Hardware/FRU/Power/Current
+    labels:
+      fru_index: '{instance}'
+- id: snmp.device_prof_cpu_usage
+  title: The current CPU utilization
+  units: '%'
+  family: System/CPU/Usage
+  chart_type: line
+  priority: 60041
+  shape: independent
+  dimensions:
+  - id: cpu_usage
+    signal: device_cpu_usage
+  instances:
+    group: cpu_index
+    chart_prefix: cpu_usage
+    family: System/CPU/Usage
+    labels:
+      cpu_index: '{instance}'
+- id: snmp.device_prof_cpmCPUTotal1minRev
+  title: Overall CPU busy percentage in the last 1 minute period
+  units: '%'
+  family: System/CPU/Usage
+  chart_type: line
+  priority: 60042
+  shape: independent
+  dimensions:
+  - id: cpmcputotal1minrev
+    signal: cisco_load_balancer_cpmcputotal1minrev
+  instances:
+    group: cpu_index
+    chart_prefix: cpmcputotal1minrev
+    family: System/CPU/Usage
+    labels:
+      cpu_index: '{instance}'
+- id: snmp.device_prof_cpmCPUTotal5minRev
+  title: Overall CPU busy percentage in the last 5 minute period
+  units: '%'
+  family: System/CPU/Usage
+  chart_type: line
+  priority: 60043
+  shape: independent
+  dimensions:
+  - id: cpmcputotal5minrev
+    signal: cisco_load_balancer_cpmcputotal5minrev
+  instances:
+    group: cpu_index
+    chart_prefix: cpmcputotal5minrev
+    family: System/CPU/Usage
+    labels:
+      cpu_index: '{instance}'
+- id: snmp.device_prof_cpmCPULoadAvg1min
+  title: CPU load average over the last 1 minute
+  units: '{load_average}'
+  family: System/CPU/LoadAvg
+  chart_type: line
+  priority: 60044
+  shape: independent
+  dimensions:
+  - id: cpmcpuloadavg1min
+    signal: cisco_load_balancer_cpmcpuloadavg1min
+  instances:
+    group: cpu_index
+    chart_prefix: cpmcpuloadavg1min
+    family: System/CPU/LoadAvg
+    labels:
+      cpu_index: '{instance}'
+- id: snmp.device_prof_cpmCPULoadAvg5min
+  title: CPU load average over the last 5 minutes
+  units: '{load_average}'
+  family: System/CPU/LoadAvg
+  chart_type: line
+  priority: 60045
+  shape: independent
+  dimensions:
+  - id: cpmcpuloadavg5min
+    signal: cisco_load_balancer_cpmcpuloadavg5min
+  instances:
+    group: cpu_index
+    chart_prefix: cpmcpuloadavg5min
+    family: System/CPU/LoadAvg
+    labels:
+      cpu_index: '{instance}'
+- id: snmp.device_prof_cpmCPULoadAvg15min
+  title: CPU load average over the last 15 minutes
+  units: '{load_average}'
+  family: System/CPU/LoadAvg
+  chart_type: line
+  priority: 60046
+  shape: independent
+  dimensions:
+  - id: cpmcpuloadavg15min
+    signal: cisco_load_balancer_cpmcpuloadavg15min
+  instances:
+    group: cpu_index
+    chart_prefix: cpmcpuloadavg15min
+    family: System/CPU/LoadAvg
+    labels:
+      cpu_index: '{instance}'
+- id: snmp.device_prof_cieIfResetCount
+  title: Number of times the interface was internally reset and brought up
+  units: '{reset}/s'
+  family: Network/Interface/Reset/Count
+  chart_type: line
+  priority: 60047
+  shape: counters
+  dimensions:
+  - id: cieifresetcount
+    rate_signal: cisco_load_balancer_cieifresetcount
+  instances:
+    group: interface
+    chart_prefix: cieifresetcount
+    family: Network/Interface/Reset/Count
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ciscoEnvMonTemperatureStatusValue
+  title: Current measurement of the testpoint
+  units: Cel
+  family: Hardware/Sensor/Temperature/Value
+  chart_type: line
+  priority: 60048
+  shape: independent
+  dimensions:
+  - id: ciscoenvmontemperaturestatus
+    signal: cisco_load_balancer_ciscoenvmontemperaturestatusvalue
+  instances:
+    group: temp_index
+    chart_prefix: ciscoenvmontemperaturestatusvalue
+    family: Hardware/Sensor/Temperature/Value
+    labels:
+      temp_index: '{instance}'
+- id: snmp.device_prof_ciscoEnvMonTemperatureState
+  title: Current state of the testpoint
+  units: '{status}'
+  family: Hardware/Sensor/Temperature/Status
+  chart_type: line
+  priority: 60049
+  shape: independent
+  dimensions:
+  - id: normal
+    signal: cisco_load_balancer_ciscoenvmontemperaturestate
+  - id: warning
+    signal: cisco_load_balancer_ciscoenvmontemperaturestate_warning
+  - id: critical
+    signal: cisco_load_balancer_ciscoenvmontemperaturestate_critical
+  - id: shutdown
+    signal: cisco_load_balancer_ciscoenvmontemperaturestate_shutdown
+  - id: not_present
+    signal: cisco_load_balancer_ciscoenvmontemperaturestate_not_present
+  - id: not_functioning
+    signal: cisco_load_balancer_ciscoenvmontemperaturestate_not_functioning
+  instances:
+    group: temp_index
+    chart_prefix: ciscoenvmontemperaturestate
+    family: Hardware/Sensor/Temperature/Status
+    labels:
+      temp_index: '{instance}'
+- id: snmp.device_prof_ciscoEnvMonSupplyState
+  title: Current state of the power supply
+  units: '{status}'
+  family: Hardware/PowerSupply/Status
+  chart_type: line
+  priority: 60050
+  shape: independent
+  dimensions:
+  - id: normal
+    signal: cisco_load_balancer_ciscoenvmonsupplystate
+  - id: warning
+    signal: cisco_load_balancer_ciscoenvmonsupplystate_warning
+  - id: critical
+    signal: cisco_load_balancer_ciscoenvmonsupplystate_critical
+  - id: shutdown
+    signal: cisco_load_balancer_ciscoenvmonsupplystate_shutdown
+  - id: not_present
+    signal: cisco_load_balancer_ciscoenvmonsupplystate_not_present
+  - id: not_functioning
+    signal: cisco_load_balancer_ciscoenvmonsupplystate_not_functioning
+  instances:
+    group: power_supply_index
+    chart_prefix: ciscoenvmonsupplystate
+    family: Hardware/PowerSupply/Status
+    labels:
+      power_supply_index: '{instance}'
+- id: snmp.device_prof_ciscoEnvMonFanState
+  title: Current state of the fan
+  units: '{status}'
+  family: Hardware/Fan/Status
+  chart_type: line
+  priority: 60051
+  shape: independent
+  dimensions:
+  - id: normal
+    signal: cisco_load_balancer_ciscoenvmonfanstate
+  - id: warning
+    signal: cisco_load_balancer_ciscoenvmonfanstate_warning
+  - id: critical
+    signal: cisco_load_balancer_ciscoenvmonfanstate_critical
+  - id: shutdown
+    signal: cisco_load_balancer_ciscoenvmonfanstate_shutdown
+  - id: not_present
+    signal: cisco_load_balancer_ciscoenvmonfanstate_not_present
+  - id: not_functioning
+    signal: cisco_load_balancer_ciscoenvmonfanstate_not_functioning
+  instances:
+    group: fan_status_index
+    chart_prefix: ciscoenvmonfanstate
+    family: Hardware/Fan/Status
+    labels:
+      fan_status_index: '{instance}'
+- id: snmp.device_prof_cswStackPortOperStatus
+  title: State of the stackport
+  units: '{status}'
+  family: Hardware/StackWise/Port/Status
+  chart_type: line
+  priority: 60052
+  shape: independent
+  dimensions:
+  - id: up
+    signal: cisco_load_balancer_cswstackportoperstatus
+  - id: down
+    signal: cisco_load_balancer_cswstackportoperstatus_down
+  - id: forceddown
+    signal: cisco_load_balancer_cswstackportoperstatus_forceddown
+  instances:
+    group: stack_port_index
+    chart_prefix: cswstackportoperstatus
+    family: Hardware/StackWise/Port/Status
+    labels:
+      stack_port_index: '{instance}'
+- id: snmp.device_prof_cswSwitchRole
+  title: Role of a switch in the stack
+  units: '{role}'
+  family: Hardware/StackWise/Switch/Role
+  chart_type: line
+  priority: 60053
+  shape: independent
+  dimensions:
+  - id: master
+    signal: cisco_load_balancer_cswswitchrole
+  - id: member
+    signal: cisco_load_balancer_cswswitchrole_member
+  - id: not_member
+    signal: cisco_load_balancer_cswswitchrole_not_member
+  - id: standby
+    signal: cisco_load_balancer_cswswitchrole_standby
+  instances:
+    group: mac_addr
+    chart_prefix: cswswitchrole
+    family: Hardware/StackWise/Switch/Role
+    labels:
+      mac_addr: '{instance}'
+- id: snmp.device_prof_cswSwitchState
+  title: Current state of a switch
+  units: '{status}'
+  family: Hardware/StackWise/Switch/Status
+  chart_type: line
+  priority: 60054
+  shape: independent
+  dimensions:
+  - id: waiting
+    signal: cisco_load_balancer_cswswitchstate_waiting
+  - id: invalid
+    signal: cisco_load_balancer_cswswitchstate_invalid
+  - id: removed
+    signal: cisco_load_balancer_cswswitchstate_removed
+  - id: progressing
+    signal: cisco_load_balancer_cswswitchstate_progressing
+  - id: added
+    signal: cisco_load_balancer_cswswitchstate_added
+  - id: ready
+    signal: cisco_load_balancer_cswswitchstate
+  - id: sdm_mismatch
+    signal: cisco_load_balancer_cswswitchstate_sdm_mismatch
+  - id: ver_mismatch
+    signal: cisco_load_balancer_cswswitchstate_ver_mismatch
+  - id: feature_mismatch
+    signal: cisco_load_balancer_cswswitchstate_feature_mismatch
+  - id: new_master_init
+    signal: cisco_load_balancer_cswswitchstate_new_master_init
+  - id: provisioned
+    signal: cisco_load_balancer_cswswitchstate_provisioned
+  instances:
+    group: mac_addr
+    chart_prefix: cswswitchstate
+    family: Hardware/StackWise/Switch/Status
+    labels:
+      mac_addr: '{instance}'
+- id: snmp.device_prof_cefcFanTrayOperStatus
+  title: Operational state of the fan or fan tray
+  units: '{status}'
+  family: Hardware/FanTray/Status
+  chart_type: line
+  priority: 60055
+  shape: independent
+  dimensions:
+  - id: unknown
+    signal: cisco_load_balancer_cefcfantrayoperstatus_unknown
+  - id: up
+    signal: cisco_load_balancer_cefcfantrayoperstatus
+  - id: down
+    signal: cisco_load_balancer_cefcfantrayoperstatus_down
+  - id: warning
+    signal: cisco_load_balancer_cefcfantrayoperstatus_warning
+  instances:
+    group: fru_index
+    chart_prefix: cefcfantrayoperstatus
+    family: Hardware/FanTray/Status
+    labels:
+      fru_index: '{instance}'
+- id: snmp.device_prof_ciscoMemoryPoolUsed
+  title: Number of bytes from the memory pool currently in use
+  units: By
+  family: System/Memory/Pool/Used
+  chart_type: line
+  priority: 60056
+  shape: independent
+  dimensions:
+  - id: ciscomemorypoolused
+    signal: cisco_load_balancer_ciscomemorypoolused
+  instances:
+    group: mem_pool_index
+    chart_prefix: ciscomemorypoolused
+    family: System/Memory/Pool/Used
+    labels:
+      mem_pool_index: '{instance}'
+- id: snmp.device_prof_ciscoMemoryPoolFree
+  title: Number of bytes from the memory pool currently unused
+  units: By
+  family: System/Memory/Pool/Free
+  chart_type: line
+  priority: 60057
+  shape: independent
+  dimensions:
+  - id: ciscomemorypoolfree
+    signal: cisco_load_balancer_ciscomemorypoolfree
+  instances:
+    group: mem_pool_index
+    chart_prefix: ciscomemorypoolfree
+    family: System/Memory/Pool/Free
+    labels:
+      mem_pool_index: '{instance}'
+- id: snmp.device_prof_ciscoMemoryPoolLargestFree
+  title: Largest number of contiguous bytes from the memory pool currently unused
+  units: By
+  family: System/Memory/Pool/LargestFree
+  chart_type: line
+  priority: 60058
+  shape: independent
+  dimensions:
+  - id: ciscomemorypoollargestfree
+    signal: cisco_load_balancer_ciscomemorypoollargestfree
+  instances:
+    group: mem_pool_index
+    chart_prefix: ciscomemorypoollargestfree
+    family: System/Memory/Pool/LargestFree
+    labels:
+      mem_pool_index: '{instance}'
+- id: snmp.device_prof_cfwConnectionStatCount
+  title: Integer that contains the value of the resource statistic.
+  units: '1'
+  family: Network/Firewall/Connection/Count
+  chart_type: line
+  priority: 60059
+  shape: independent
+  dimensions:
+  - id: cfwconnectionstatcount
+    signal: cisco_load_balancer_cfwconnectionstatcount
+  instances:
+    group: conn_stat_id
+    chart_prefix: cfwconnectionstatcount
+    family: Network/Firewall/Connection/Count
+    labels:
+      conn_stat_id: '{instance}'
+- id: snmp.device_prof_cfwHardwareStatusValue
+  title: Current status of the resource
+  units: '{status}'
+  family: Hardware/Firewall/Status
+  chart_type: line
+  priority: 60060
+  shape: independent
+  dimensions:
+  - id: other
+    signal: cisco_load_balancer_cfwhardwarestatusvalue_other
+  - id: standby
+    signal: cisco_load_balancer_cfwhardwarestatusvalue_standby
+  - id: up
+    signal: cisco_load_balancer_cfwhardwarestatusvalue
+  - id: down
+    signal: cisco_load_balancer_cfwhardwarestatusvalue_down
+  - id: error
+    signal: cisco_load_balancer_cfwhardwarestatusvalue_error
+  - id: overtemp
+    signal: cisco_load_balancer_cfwhardwarestatusvalue_overtemp
+  - id: busy
+    signal: cisco_load_balancer_cfwhardwarestatusvalue_busy
+  - id: nomedia
+    signal: cisco_load_balancer_cfwhardwarestatusvalue_nomedia
+  - id: backup
+    signal: cisco_load_balancer_cfwhardwarestatusvalue_backup
+  - id: active
+    signal: cisco_load_balancer_cfwhardwarestatusvalue_active
+  instances:
+    group: hardware_type
+    chart_prefix: cfwhardwarestatusvalue
+    family: Hardware/Firewall/Status
+    labels:
+      hardware_type: '{instance}'
+- id: snmp.device_prof_cvsChassisUpTime
+  title: Up time for the chassis since last re-initialization
+  units: cs
+  family: System/VirtualSwitch/Chassis/Uptime
+  chart_type: line
+  priority: 60061
+  shape: independent
+  dimensions:
+  - id: cvschassisuptime
+    signal: cisco_load_balancer_cvschassisuptime
+  instances:
+    group: chassis_switch_id
+    chart_prefix: cvschassisuptime
+    family: System/VirtualSwitch/Chassis/Uptime
+    labels:
+      chassis_switch_id: '{instance}'
+- id: snmp.device_prof_rttMonLatestRttOperSense
+  title: Sense code for the completion status of the latest RTT operation
+  units: '{status}'
+  family: Network/RTT/Operation/Status
+  chart_type: line
+  priority: 60062
+  shape: independent
+  dimensions:
+  - id: other
+    signal: cisco_load_balancer_rttmonlatestrttopersense_other
+  - id: ok
+    signal: cisco_load_balancer_rttmonlatestrttopersense
+  - id: application_specific
+    signal: cisco_load_balancer_rttmonlatestrttopersense_application_specific
+  - id: dns_server_timeout
+    signal: cisco_load_balancer_rttmonlatestrttopersense_dns_server_timeout
+  - id: tcp_connect_timeout
+    signal: cisco_load_balancer_rttmonlatestrttopersense_tcp_connect_timeout
+  - id: http_transaction_timeout
+    signal: cisco_load_balancer_rttmonlatestrttopersense_http_transaction_timeout
+  - id: dns_query_error
+    signal: cisco_load_balancer_rttmonlatestrttopersense_dns_query_error
+  - id: http_error
+    signal: cisco_load_balancer_rttmonlatestrttopersense_http_error
+  - id: error
+    signal: cisco_load_balancer_rttmonlatestrttopersense_error
+  - id: disconnected
+    signal: cisco_load_balancer_rttmonlatestrttopersense_disconnected
+  - id: over_threshold
+    signal: cisco_load_balancer_rttmonlatestrttopersense_over_threshold
+  - id: timeout
+    signal: cisco_load_balancer_rttmonlatestrttopersense_timeout
+  - id: busy
+    signal: cisco_load_balancer_rttmonlatestrttopersense_busy
+  - id: not_connected
+    signal: cisco_load_balancer_rttmonlatestrttopersense_not_connected
+  - id: dropped
+    signal: cisco_load_balancer_rttmonlatestrttopersense_dropped
+  - id: sequence_error
+    signal: cisco_load_balancer_rttmonlatestrttopersense_sequence_error
+  - id: verify_error
+    signal: cisco_load_balancer_rttmonlatestrttopersense_verify_error
+  instances:
+    group: rtt_index
+    chart_prefix: rttmonlatestrttopersense
+    family: Network/RTT/Operation/Status
+    labels:
+      rtt_index: '{instance}'
+- id: snmp.device_prof_rttMonCtrlOperState
+  title: Used to manage the state of the probe that is implementing conceptual RTT control row.
+  units: '{status}'
+  family: Network/RTT/Control/Status/State
+  chart_type: line
+  priority: 60063
+  shape: independent
+  dimensions:
+  - id: reset
+    signal: cisco_load_balancer_rttmonctrloperstate_reset
+  - id: orderly_stop
+    signal: cisco_load_balancer_rttmonctrloperstate_orderly_stop
+  - id: immediate_stop
+    signal: cisco_load_balancer_rttmonctrloperstate_immediate_stop
+  - id: pending
+    signal: cisco_load_balancer_rttmonctrloperstate_pending
+  - id: inactive
+    signal: cisco_load_balancer_rttmonctrloperstate_inactive
+  - id: active
+    signal: cisco_load_balancer_rttmonctrloperstate
+  - id: restart
+    signal: cisco_load_balancer_rttmonctrloperstate_restart
+  instances:
+    group: rtt_index
+    chart_prefix: rttmonctrloperstate
+    family: Network/RTT/Control/Status/State
+    labels:
+      rtt_index: '{instance}'
+- id: snmp.device_prof_rttMonCtrlOperTimeoutOccurred
+  title: Indicates if a timeout occurred for the RTT operation
+  units: '{status}'
+  family: Network/RTT/Control/Status/Timeout
+  chart_type: line
+  priority: 60064
+  shape: independent
+  dimensions:
+  - id: timeout_occurred
+    signal: cisco_load_balancer_rttmonctrlopertimeoutoccurred_timeout_occurred
+  - id: ok
+    signal: cisco_load_balancer_rttmonctrlopertimeoutoccurred
+  instances:
+    group: rtt_index
+    chart_prefix: rttmonctrlopertimeoutoccurred
+    family: Network/RTT/Control/Status/Timeout
+    labels:
+      rtt_index: '{instance}'
+- id: snmp.device_prof_rttMonCtrlOperConnectionLostOccurred
+  title: Indicates if a connection lost occurred for the RTT operation
+  units: '{status}'
+  family: Network/RTT/Control/Status/ConnectionLost
+  chart_type: line
+  priority: 60065
+  shape: independent
+  dimensions:
+  - id: connection_lost_occurred
+    signal: cisco_load_balancer_rttmonctrloperconnectionlostoccurred_connection_lost_occurred
+  - id: ok
+    signal: cisco_load_balancer_rttmonctrloperconnectionlostoccurred
+  instances:
+    group: rtt_index
+    chart_prefix: rttmonctrloperconnectionlostoccurred
+    family: Network/RTT/Control/Status/ConnectionLost
+    labels:
+      rtt_index: '{instance}'
+- id: snmp.device_prof_rttMonCtrlOperOverThresholdOccurred
+  title: Indicates if the latest RTT operation exceeded its configured threshold value
+  units: '{status}'
+  family: Network/RTT/Control/Status/OverThreshold
+  chart_type: line
+  priority: 60066
+  shape: independent
+  dimensions:
+  - id: over_threshold_occurred
+    signal: cisco_load_balancer_rttmonctrloperoverthresholdoccurred_over_threshold_occurred
+  - id: ok
+    signal: cisco_load_balancer_rttmonctrloperoverthresholdoccurred
+  instances:
+    group: rtt_index
+    chart_prefix: rttmonctrloperoverthresholdoccurred
+    family: Network/RTT/Control/Status/OverThreshold
+    labels:
+      rtt_index: '{instance}'
+- id: snmp.device_prof_ifNumber
+  title: Number of network interfaces regardless of their current state present on this system
+  units: '{interface}'
+  family: Network/Interface/Count
+  chart_type: line
+  priority: 60067
+  shape: independent
+  dimensions:
+  - id: ifnumber
+    signal: cisco_load_balancer_ifnumber
+- id: snmp.device_prof_ifAdminStatus
+  title: Current administrative state of the interface
+  units: '{status}'
+  family: Network/Interface/Status/Admin
+  chart_type: line
+  priority: 60068
+  shape: independent
+  dimensions:
+  - id: up
+    signal: if_admin_status
+  - id: down
+    signal: if_admin_status_down
+  - id: testing
+    signal: if_admin_status_testing
+  instances:
+    group: interface
+    chart_prefix: ifadminstatus
+    family: Network/Interface/Status/Admin
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifOperStatus
+  title: Current operational state of the interface
+  units: '{status}'
+  family: Network/Interface/Status/Operational
+  chart_type: line
+  priority: 60069
+  shape: independent
+  dimensions:
+  - id: up
+    signal: if_oper_status
+  - id: down
+    signal: if_oper_status_down
+  - id: testing
+    signal: if_oper_status_testing
+  - id: unknown
+    signal: if_oper_status_unknown
+  - id: dormant
+    signal: if_oper_status_dormant
+  - id: notpresent
+    signal: if_oper_status_notpresent
+  - id: lowerlayerdown
+    signal: if_oper_status_lowerlayerdown
+  instances:
+    group: interface
+    chart_prefix: ifoperstatus
+    family: Network/Interface/Status/Operational
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifHighSpeed
+  title: Estimate of the interface's current bandwidth
+  units: bit/s
+  family: Network/Interface/Speed
+  chart_type: area
+  priority: 60070
+  shape: counters
+  dimensions:
+  - id: ifhighspeed
+    rate_signal: if_speed
+  instances:
+    group: interface
+    chart_prefix: ifhighspeed
+    family: Network/Interface/Speed
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_lldpStatsRemTablesLastChangeTime
+  title: SNMP metric lldpStatsRemTablesLastChangeTime
+  units: '1'
+  family: lldpstatsremtableslastchangetime
+  chart_type: line
+  priority: 60071
+  shape: independent
+  dimensions:
+  - id: lldpstatsremtableslastchange
+    signal: cisco_load_balancer_lldpstatsremtableslastchangetime
+- id: snmp.device_prof_lldpStatsRemTablesInserts
+  title: SNMP metric lldpStatsRemTablesInserts
+  units: '1'
+  family: lldpstatsremtablesinserts
+  chart_type: line
+  priority: 60072
+  shape: independent
+  dimensions:
+  - id: lldpstatsremtablesinserts
+    signal: cisco_load_balancer_lldpstatsremtablesinserts
+- id: snmp.device_prof_lldpStatsRemTablesDeletes
+  title: SNMP metric lldpStatsRemTablesDeletes
+  units: '1'
+  family: lldpstatsremtablesdeletes
+  chart_type: line
+  priority: 60073
+  shape: independent
+  dimensions:
+  - id: lldpstatsremtablesdeletes
+    signal: cisco_load_balancer_lldpstatsremtablesdeletes
+- id: snmp.device_prof_lldpStatsRemTablesDrops
+  title: SNMP metric lldpStatsRemTablesDrops
+  units: '1'
+  family: lldpstatsremtablesdrops
+  chart_type: line
+  priority: 60074
+  shape: independent
+  dimensions:
+  - id: lldpstatsremtablesdrops
+    signal: cisco_load_balancer_lldpstatsremtablesdrops
+- id: snmp.device_prof_lldpStatsRemTablesAgeouts
+  title: SNMP metric lldpStatsRemTablesAgeouts
+  units: '1'
+  family: lldpstatsremtablesageouts
+  chart_type: line
+  priority: 60075
+  shape: independent
+  dimensions:
+  - id: lldpstatsremtablesageouts
+    signal: cisco_load_balancer_lldpstatsremtablesageouts
+- id: snmp.device_prof_lldpStatsTxPortFramesTotal
+  title: SNMP metric lldpStatsTxPortFramesTotal
+  units: '1'
+  family: lldpstatstxporttable
+  chart_type: line
+  priority: 60076
+  shape: independent
+  dimensions:
+  - id: lldpstatstxportframestotal
+    signal: cisco_load_balancer_lldpstatstxportframestotal
+  instances:
+    group: lldp_loc_port_num
+    chart_prefix: lldpstatstxportframestotal
+    family: lldpstatstxporttable
+    labels:
+      lldp_loc_port_num: '{instance}'
+- id: snmp.device_prof_lldpStatsRxPortFramesDiscardedTotal
+  title: SNMP metric lldpStatsRxPortFramesDiscardedTotal
+  units: '1'
+  family: lldpstatsrxporttable
+  chart_type: line
+  priority: 60077
+  shape: independent
+  dimensions:
+  - id: lldpstatsrxportframesdiscard
+    signal: cisco_load_balancer_lldpstatsrxportframesdiscardedtotal
+  instances:
+    group: lldp_loc_port_num
+    chart_prefix: lldpstatsrxportframesdiscardedtotal
+    family: lldpstatsrxporttable
+    labels:
+      lldp_loc_port_num: '{instance}'
+- id: snmp.device_prof_lldpStatsRxPortFramesErrors
+  title: SNMP metric lldpStatsRxPortFramesErrors
+  units: '1'
+  family: lldpstatsrxporttable
+  chart_type: line
+  priority: 60078
+  shape: independent
+  dimensions:
+  - id: lldpstatsrxportframeserrors
+    signal: cisco_load_balancer_lldpstatsrxportframeserrors
+  instances:
+    group: lldp_loc_port_num
+    chart_prefix: lldpstatsrxportframeserrors
+    family: lldpstatsrxporttable
+    labels:
+      lldp_loc_port_num: '{instance}'
+- id: snmp.device_prof_lldpStatsRxPortFramesTotal
+  title: SNMP metric lldpStatsRxPortFramesTotal
+  units: '1'
+  family: lldpstatsrxporttable
+  chart_type: line
+  priority: 60079
+  shape: independent
+  dimensions:
+  - id: lldpstatsrxportframestotal
+    signal: cisco_load_balancer_lldpstatsrxportframestotal
+  instances:
+    group: lldp_loc_port_num
+    chart_prefix: lldpstatsrxportframestotal
+    family: lldpstatsrxporttable
+    labels:
+      lldp_loc_port_num: '{instance}'
+- id: snmp.device_prof_lldpStatsRxPortTLVsDiscardedTotal
+  title: SNMP metric lldpStatsRxPortTLVsDiscardedTotal
+  units: '1'
+  family: lldpstatsrxporttable
+  chart_type: line
+  priority: 60080
+  shape: independent
+  dimensions:
+  - id: lldpstatsrxporttlvsdiscarded
+    signal: cisco_load_balancer_lldpstatsrxporttlvsdiscardedtotal
+  instances:
+    group: lldp_loc_port_num
+    chart_prefix: lldpstatsrxporttlvsdiscardedtotal
+    family: lldpstatsrxporttable
+    labels:
+      lldp_loc_port_num: '{instance}'
+- id: snmp.device_prof_lldpStatsRxPortTLVsUnrecognizedTotal
+  title: SNMP metric lldpStatsRxPortTLVsUnrecognizedTotal
+  units: '1'
+  family: lldpstatsrxporttable
+  chart_type: line
+  priority: 60081
+  shape: independent
+  dimensions:
+  - id: lldpstatsrxporttlvsunrecogni
+    signal: cisco_load_balancer_lldpstatsrxporttlvsunrecognizedtotal
+  instances:
+    group: lldp_loc_port_num
+    chart_prefix: lldpstatsrxporttlvsunrecognizedtotal
+    family: lldpstatsrxporttable
+    labels:
+      lldp_loc_port_num: '{instance}'
+- id: snmp.device_prof_lldpStatsRxPortAgeoutsTotal
+  title: SNMP metric lldpStatsRxPortAgeoutsTotal
+  units: '1'
+  family: lldpstatsrxporttable
+  chart_type: line
+  priority: 60082
+  shape: independent
+  dimensions:
+  - id: lldpstatsrxportageoutstotal
+    signal: cisco_load_balancer_lldpstatsrxportageoutstotal
+  instances:
+    group: lldp_loc_port_num
+    chart_prefix: lldpstatsrxportageoutstotal
+    family: lldpstatsrxporttable
+    labels:
+      lldp_loc_port_num: '{instance}'
+- id: snmp.device_prof_cdpGlobalRun
+  title: SNMP metric cdpGlobalRun
+  units: '1'
+  family: cdpglobalrun
+  chart_type: line
+  priority: 60083
+  shape: independent
+  dimensions:
+  - id: cdpglobalrun
+    signal: cisco_load_balancer_cdpglobalrun
+- id: snmp.device_prof_cdpGlobalMessageInterval
+  title: SNMP metric cdpGlobalMessageInterval
+  units: '1'
+  family: cdpglobalmessageinterval
+  chart_type: line
+  priority: 60084
+  shape: independent
+  dimensions:
+  - id: cdpglobalmessageinterval
+    signal: cisco_load_balancer_cdpglobalmessageinterval
+- id: snmp.device_prof_cdpGlobalHoldTime
+  title: SNMP metric cdpGlobalHoldTime
+  units: '1'
+  family: cdpglobalholdtime
+  chart_type: line
+  priority: 60085
+  shape: independent
+  dimensions:
+  - id: cdpglobalholdtime
+    signal: cisco_load_balancer_cdpglobalholdtime
+- id: snmp.device_prof_cdpGlobalDeviceId
+  title: SNMP metric cdpGlobalDeviceId
+  units: '1'
+  family: cdpglobaldeviceid
+  chart_type: line
+  priority: 60086
+  shape: independent
+  dimensions:
+  - id: cdpglobaldeviceid
+    signal: cisco_load_balancer_cdpglobaldeviceid
+- id: snmp.device_prof_cdpGlobalLastChange
+  title: SNMP metric cdpGlobalLastChange
+  units: '1'
+  family: cdpgloballastchange
+  chart_type: line
+  priority: 60087
+  shape: independent
+  dimensions:
+  - id: cdpgloballastchange
+    signal: cisco_load_balancer_cdpgloballastchange
+- id: snmp.device_prof_cdpGlobalDeviceIdFormat
+  title: SNMP metric cdpGlobalDeviceIdFormat
+  units: '1'
+  family: cdpglobaldeviceidformat
+  chart_type: line
+  priority: 60088
+  shape: independent
+  dimensions:
+  - id: cdpglobaldeviceidformat
+    signal: cisco_load_balancer_cdpglobaldeviceidformat
+- id: snmp.device_prof_cdpInterfaceEnable
+  title: SNMP metric cdpInterfaceEnable
+  units: '1'
+  family: cdpinterfacetable
+  chart_type: line
+  priority: 60089
+  shape: independent
+  dimensions:
+  - id: cdpinterfaceenable
+    signal: cisco_load_balancer_cdpinterfaceenable
+  instances:
+    group: cdp_if_index
+    chart_prefix: cdpinterfaceenable
+    family: cdpinterfacetable
+    labels:
+      cdp_if_index: '{instance}'
+- id: snmp.device_prof_cdpInterfaceMessageInterval
+  title: SNMP metric cdpInterfaceMessageInterval
+  units: '1'
+  family: cdpinterfacetable
+  chart_type: line
+  priority: 60090
+  shape: independent
+  dimensions:
+  - id: cdpinterfacemessageinterval
+    signal: cisco_load_balancer_cdpinterfacemessageinterval
+  instances:
+    group: cdp_if_index
+    chart_prefix: cdpinterfacemessageinterval
+    family: cdpinterfacetable
+    labels:
+      cdp_if_index: '{instance}'
+- id: snmp.device_prof_cdpInterfaceName
+  title: SNMP metric cdpInterfaceName
+  units: '1'
+  family: cdpinterfacetable
+  chart_type: line
+  priority: 60091
+  shape: independent
+  dimensions:
+  - id: cdpinterfacename
+    signal: cisco_load_balancer_cdpinterfacename
+  instances:
+    group: cdp_if_index
+    chart_prefix: cdpinterfacename
+    family: cdpinterfacetable
+    labels:
+      cdp_if_index: '{instance}'
+- id: snmp.device_prof_tcpCurrEstab
+  title: Current TCP connections in ESTABLISHED or CLOSE-WAIT state
+  units: '{connection}'
+  family: Network/TCP/Connection/Active/Count
+  chart_type: line
+  priority: 60092
+  shape: independent
+  dimensions:
+  - id: tcpcurrestab
+    signal: cisco_load_balancer_tcpcurrestab
+- id: snmp.device_prof_tcpActiveOpens
+  title: TCP connections transitioning from CLOSED to SYN-SENT
+  units: '{transition}/s'
+  family: Network/TCP/Connection/Open/Active/Count
+  chart_type: line
+  priority: 60093
+  shape: counters
+  dimensions:
+  - id: tcpactiveopens
+    rate_signal: cisco_load_balancer_tcpactiveopens
+- id: snmp.device_prof_tcpPassiveOpens
+  title: TCP connections transitioning from LISTEN to SYN-RCVD
+  units: '{transition}/s'
+  family: Network/TCP/Connection/Open/Passive/Count
+  chart_type: line
+  priority: 60094
+  shape: counters
+  dimensions:
+  - id: tcppassiveopens
+    rate_signal: cisco_load_balancer_tcppassiveopens
+- id: snmp.device_prof_tcpHCInSegs
+  title: TCP segments received
+  units: '{packet}/s'
+  family: Network/TCP/Segment/Total/In
+  chart_type: line
+  priority: 60095
+  shape: counters
+  dimensions:
+  - id: tcphcinsegs
+    rate_signal: cisco_load_balancer_tcphcinsegs
+- id: snmp.device_prof_tcpInSegs
+  title: TCP segments received
+  units: '{packet}/s'
+  family: Network/TCP/Segment/Total/In
+  chart_type: line
+  priority: 60096
+  shape: counters
+  dimensions:
+  - id: tcpinsegs
+    rate_signal: cisco_load_balancer_tcpinsegs
+- id: snmp.device_prof_tcpHCOutSegs
+  title: TCP segments sent
+  units: '{packet}/s'
+  family: Network/TCP/Segment/Total/Out
+  chart_type: line
+  priority: 60097
+  shape: counters
+  dimensions:
+  - id: tcphcoutsegs
+    rate_signal: cisco_load_balancer_tcphcoutsegs
+- id: snmp.device_prof_tcpOutSegs
+  title: TCP segments sent
+  units: '{packet}/s'
+  family: Network/TCP/Segment/Total/Out
+  chart_type: line
+  priority: 60098
+  shape: counters
+  dimensions:
+  - id: tcpoutsegs
+    rate_signal: cisco_load_balancer_tcpoutsegs
+- id: snmp.device_prof_tcpInErrs
+  title: TCP segments received with errors
+  units: '{error}/s'
+  family: Network/TCP/Segment/Error/In
+  chart_type: line
+  priority: 60099
+  shape: counters
+  dimensions:
+  - id: tcpinerrs
+    rate_signal: cisco_load_balancer_tcpinerrs
+- id: snmp.device_prof_tcpAttemptFails
+  title: Failed TCP connection attempts
+  units: '{failure}/s'
+  family: Network/TCP/Connection/Failure/Count
+  chart_type: line
+  priority: 60100
+  shape: counters
+  dimensions:
+  - id: tcpattemptfails
+    rate_signal: cisco_load_balancer_tcpattemptfails
+- id: snmp.device_prof_tcpEstabResets
+  title: TCP connections reset from ESTABLISHED/CLOSE-WAIT
+  units: '{reset}/s'
+  family: Network/TCP/Connection/Reset/Count
+  chart_type: line
+  priority: 60101
+  shape: counters
+  dimensions:
+  - id: tcpestabresets
+    rate_signal: cisco_load_balancer_tcpestabresets
+- id: snmp.device_prof_tcpOutRsts
+  title: TCP segments sent with RST flag
+  units: '{reset}/s'
+  family: Network/TCP/Segment/Reset/Out
+  chart_type: line
+  priority: 60102
+  shape: counters
+  dimensions:
+  - id: tcpoutrsts
+    rate_signal: cisco_load_balancer_tcpoutrsts
+- id: snmp.device_prof_tcpRetransSegs
+  title: TCP segments retransmitted
+  units: '{retransmit}/s'
+  family: Network/TCP/Segment/Retransmit/Out
+  chart_type: line
+  priority: 60103
+  shape: counters
+  dimensions:
+  - id: tcpretranssegs
+    rate_signal: cisco_load_balancer_tcpretranssegs
+- id: snmp.device_prof_udpHCInDatagrams
+  title: UDP datagrams received
+  units: '{packet}/s'
+  family: Network/UDP/Datagram/Total/In
+  chart_type: line
+  priority: 60104
+  shape: counters
+  dimensions:
+  - id: udphcindatagrams
+    rate_signal: cisco_load_balancer_udphcindatagrams
+- id: snmp.device_prof_udpInDatagrams
+  title: UDP datagrams received
+  units: '{packet}/s'
+  family: Network/UDP/Datagram/Total/In
+  chart_type: line
+  priority: 60105
+  shape: counters
+  dimensions:
+  - id: udpindatagrams
+    rate_signal: cisco_load_balancer_udpindatagrams
+- id: snmp.device_prof_udpHCOutDatagrams
+  title: UDP datagrams sent
+  units: '{packet}/s'
+  family: Network/UDP/Datagram/Total/Out
+  chart_type: line
+  priority: 60106
+  shape: counters
+  dimensions:
+  - id: udphcoutdatagrams
+    rate_signal: cisco_load_balancer_udphcoutdatagrams
+- id: snmp.device_prof_udpOutDatagrams
+  title: UDP datagrams sent
+  units: '{packet}/s'
+  family: Network/UDP/Datagram/Total/Out
+  chart_type: line
+  priority: 60107
+  shape: counters
+  dimensions:
+  - id: udpoutdatagrams
+    rate_signal: cisco_load_balancer_udpoutdatagrams
+- id: snmp.device_prof_udpInErrors
+  title: UDP datagrams received but couldn't be delivered (not due to missing app)
+  units: '{error}/s'
+  family: Network/UDP/Datagram/Error/In
+  chart_type: line
+  priority: 60108
+  shape: counters
+  dimensions:
+  - id: udpinerrors
+    rate_signal: cisco_load_balancer_udpinerrors
+- id: snmp.device_prof_udpNoPorts
+  title: UDP datagrams received with no app on the destination port
+  units: '{error}/s'
+  family: Network/UDP/Datagram/Error/NoPort
+  chart_type: line
+  priority: 60109
+  shape: counters
+  dimensions:
+  - id: udpnoports
+    rate_signal: cisco_load_balancer_udpnoports
+- id: snmp.device_prof_ospfNbrState
+  title: The state of the relationship with this neighbor
+  units: '{status}'
+  family: Network/Routing/OSPF/Neighbor/State/Status
+  chart_type: line
+  priority: 60110
+  shape: independent
+  dimensions:
+  - id: down
+    signal: cisco_load_balancer_ospfnbrstate
+  - id: attempt
+    signal: cisco_load_balancer_ospfnbrstate_attempt
+  - id: init
+    signal: cisco_load_balancer_ospfnbrstate_init
+  - id: twoway
+    signal: cisco_load_balancer_ospfnbrstate_twoway
+  - id: exchangestart
+    signal: cisco_load_balancer_ospfnbrstate_exchangestart
+  - id: exchange
+    signal: cisco_load_balancer_ospfnbrstate_exchange
+  - id: loading
+    signal: cisco_load_balancer_ospfnbrstate_loading
+  - id: full
+    signal: cisco_load_balancer_ospfnbrstate_full
+  instances:
+    group: neighbor_id
+    chart_prefix: ospfnbrstate
+    family: Network/Routing/OSPF/Neighbor/State/Status
+    labels:
+      neighbor_id: '{instance}'
+- id: snmp.device_prof_ospfNbrEvents
+  title: The number of times this neighbor relationship has changed state or an error has occurred
+  units: '{event}/s'
+  family: Network/Routing/OSPF/Neighbor/Event/Count
+  chart_type: line
+  priority: 60111
+  shape: counters
+  dimensions:
+  - id: ospfnbrevents
+    rate_signal: cisco_load_balancer_ospfnbrevents
+  instances:
+    group: neighbor_id
+    chart_prefix: ospfnbrevents
+    family: Network/Routing/OSPF/Neighbor/Event/Count
+    labels:
+      neighbor_id: '{instance}'
+- id: snmp.device_prof_ospfNbrLsRetransQLen
+  title: The current length of the retransmission queue
+  units: '{message}'
+  family: Network/Routing/OSPF/Neighbor/Queue/RetransmitLength
+  chart_type: line
+  priority: 60112
+  shape: independent
+  dimensions:
+  - id: ospfnbrlsretransqlen
+    signal: cisco_load_balancer_ospfnbrlsretransqlen
+  instances:
+    group: neighbor_id
+    chart_prefix: ospfnbrlsretransqlen
+    family: Network/Routing/OSPF/Neighbor/Queue/RetransmitLength
+    labels:
+      neighbor_id: '{instance}'
+- id: snmp.device_prof_ospfVirtNbrState
+  title: The state of the virtual neighbor relationship
+  units: '{status}'
+  family: Network/Routing/OSPF/VirtualNeighbor/State/Status
+  chart_type: line
+  priority: 60113
+  shape: independent
+  dimensions:
+  - id: down
+    signal: cisco_load_balancer_ospfvirtnbrstate
+  - id: attempt
+    signal: cisco_load_balancer_ospfvirtnbrstate_attempt
+  - id: init
+    signal: cisco_load_balancer_ospfvirtnbrstate_init
+  - id: two_way
+    signal: cisco_load_balancer_ospfvirtnbrstate_two_way
+  - id: exchange_start
+    signal: cisco_load_balancer_ospfvirtnbrstate_exchange_start
+  - id: exchange
+    signal: cisco_load_balancer_ospfvirtnbrstate_exchange
+  - id: loading
+    signal: cisco_load_balancer_ospfvirtnbrstate_loading
+  - id: full
+    signal: cisco_load_balancer_ospfvirtnbrstate_full
+  instances:
+    group: neighbor_id
+    chart_prefix: ospfvirtnbrstate
+    family: Network/Routing/OSPF/VirtualNeighbor/State/Status
+    labels:
+      neighbor_id: '{instance}'
+- id: snmp.device_prof_ospfVirtNbrEvents
+  title: The number of times this virtual link has changed its state or an error has occurred
+  units: '{change}/s'
+  family: Network/Routing/OSPF/VirtualNeighbor/Event/Count
+  chart_type: line
+  priority: 60114
+  shape: counters
+  dimensions:
+  - id: ospfvirtnbrevents
+    rate_signal: cisco_load_balancer_ospfvirtnbrevents
+  instances:
+    group: neighbor_id
+    chart_prefix: ospfvirtnbrevents
+    family: Network/Routing/OSPF/VirtualNeighbor/Event/Count
+    labels:
+      neighbor_id: '{instance}'
+- id: snmp.device_prof_ospfVirtNbrLsRetransQLen
+  title: The current length of the retransmission queue
+  units: '{message}'
+  family: Network/Routing/OSPF/VirtualNeighbor/Queue/RetransmitLength
+  chart_type: line
+  priority: 60115
+  shape: independent
+  dimensions:
+  - id: ospfvirtnbrlsretransqlen
+    signal: cisco_load_balancer_ospfvirtnbrlsretransqlen
+  instances:
+    group: neighbor_id
+    chart_prefix: ospfvirtnbrlsretransqlen
+    family: Network/Routing/OSPF/VirtualNeighbor/Queue/RetransmitLength
+    labels:
+      neighbor_id: '{instance}'
+- id: snmp.device_prof_ospfIfState
+  title: The OSPF Interface State
+  units: '{status}'
+  family: Network/Routing/OSPF/Interface/State/Status
+  chart_type: line
+  priority: 60116
+  shape: independent
+  dimensions:
+  - id: down
+    signal: cisco_load_balancer_ospfifstate
+  - id: loopback
+    signal: cisco_load_balancer_ospfifstate_loopback
+  - id: waiting
+    signal: cisco_load_balancer_ospfifstate_waiting
+  - id: point_to_point
+    signal: cisco_load_balancer_ospfifstate_point_to_point
+  - id: designated_router
+    signal: cisco_load_balancer_ospfifstate_designated_router
+  - id: backup_designated_router
+    signal: cisco_load_balancer_ospfifstate_backup_designated_router
+  - id: other_designated_router
+    signal: cisco_load_balancer_ospfifstate_other_designated_router
+  instances:
+    group: ospf_ip_addr
+    chart_prefix: ospfifstate
+    family: Network/Routing/OSPF/Interface/State/Status
+    labels:
+      ospf_ip_addr: '{instance}'
+- id: snmp.device_prof_ospfIfLsaCount
+  title: The total number of link-local link state advertisements in this interface's link-local link state database
+  units: '{advertisement}/s'
+  family: Network/Routing/OSPF/Interface/LinkStateAdvertisement/Count
+  chart_type: line
+  priority: 60117
+  shape: counters
+  dimensions:
+  - id: ospfiflsacount
+    rate_signal: cisco_load_balancer_ospfiflsacount
+  instances:
+    group: ospf_ip_addr
+    chart_prefix: ospfiflsacount
+    family: Network/Routing/OSPF/Interface/LinkStateAdvertisement/Count
+    labels:
+      ospf_ip_addr: '{instance}'
+- id: snmp.device_prof_ospfVirtIfState
+  title: OSPF virtual interface states
+  units: '{status}'
+  family: Network/Routing/OSPF/VirtualInterface/State/Status
+  chart_type: line
+  priority: 60118
+  shape: independent
+  dimensions:
+  - id: down
+    signal: cisco_load_balancer_ospfvirtifstate
+  - id: point_to_point
+    signal: cisco_load_balancer_ospfvirtifstate_point_to_point
+  instances:
+    group: neighbor_id
+    chart_prefix: ospfvirtifstate
+    family: Network/Routing/OSPF/VirtualInterface/State/Status
+    labels:
+      neighbor_id: '{instance}'
+- id: snmp.device_prof_ospfVirtIfLsaCount
+  title: The total number of link-local link state advertisements in this virtual interface's link-local link state database
+  units: '{advertisement}/s'
+  family: Network/Routing/OSPF/VirtualInterface/LinkStateAdvertisement/Count
+  chart_type: line
+  priority: 60119
+  shape: counters
+  dimensions:
+  - id: ospfvirtiflsacount
+    rate_signal: cisco_load_balancer_ospfvirtiflsacount
+  instances:
+    group: neighbor_id
+    chart_prefix: ospfvirtiflsacount
+    family: Network/Routing/OSPF/VirtualInterface/LinkStateAdvertisement/Count
+    labels:
+      neighbor_id: '{instance}'
+- id: snmp.device_prof_ipSystemStatsHCInOctets
+  title: Octets received in input IP datagrams
+  units: bit/s
+  family: Network/IP/Traffic/Total/In
+  chart_type: area
+  priority: 60120
+  shape: counters
+  dimensions:
+  - id: ipsystemstatshcinoctets
+    rate_signal: cisco_load_balancer_ipsystemstatshcinoctets
+  instances:
+    group: ipversion
+    chart_prefix: ipsystemstatshcinoctets
+    family: Network/IP/Traffic/Total/In
+    labels:
+      ipversion: '{instance}'
+- id: snmp.device_prof_ipSystemStatsHCOutOctets
+  title: The total number of octets in IP datagrams delivered to the lower layers for transmission
+  units: bit/s
+  family: Network/IP/Traffic/Total/Out
+  chart_type: area
+  priority: 60121
+  shape: counters
+  dimensions:
+  - id: ipsystemstatshcoutoctets
+    rate_signal: cisco_load_balancer_ipsystemstatshcoutoctets
+  instances:
+    group: ipversion
+    chart_prefix: ipsystemstatshcoutoctets
+    family: Network/IP/Traffic/Total/Out
+    labels:
+      ipversion: '{instance}'
+- id: snmp.device_prof_ipSystemStatsHCInMcastOctets
+  title: The total number of octets received in IP multicast datagrams
+  units: bit/s
+  family: Network/IP/Traffic/Multicast/In
+  chart_type: area
+  priority: 60122
+  shape: counters
+  dimensions:
+  - id: ipsystemstatshcinmcastoctets
+    rate_signal: cisco_load_balancer_ipsystemstatshcinmcastoctets
+  instances:
+    group: ipversion
+    chart_prefix: ipsystemstatshcinmcastoctets
+    family: Network/IP/Traffic/Multicast/In
+    labels:
+      ipversion: '{instance}'
+- id: snmp.device_prof_ipSystemStatsHCOutMcastOctets
+  title: The total number of octets transmitted in IP multicast datagrams
+  units: bit/s
+  family: Network/IP/Traffic/Multicast/Out
+  chart_type: area
+  priority: 60123
+  shape: counters
+  dimensions:
+  - id: ipsystemstatshcoutmcastoctet
+    rate_signal: cisco_load_balancer_ipsystemstatshcoutmcastoctets
+  instances:
+    group: ipversion
+    chart_prefix: ipsystemstatshcoutmcastoctets
+    family: Network/IP/Traffic/Multicast/Out
+    labels:
+      ipversion: '{instance}'
+- id: snmp.device_prof_ipSystemStatsHCInReceives
+  title: Input IP datagrams received
+  units: '{packet}/s'
+  family: Network/IP/Datagram/Total/In
+  chart_type: line
+  priority: 60124
+  shape: counters
+  dimensions:
+  - id: ipsystemstatshcinreceives
+    rate_signal: cisco_load_balancer_ipsystemstatshcinreceives
+  instances:
+    group: ipversion
+    chart_prefix: ipsystemstatshcinreceives
+    family: Network/IP/Datagram/Total/In
+    labels:
+      ipversion: '{instance}'
+- id: snmp.device_prof_ipSystemStatsHCOutRequests
+  title: The total number of IP datagrams that local IP user-protocols including ICMP supplied to IP in requests for transmission
+  units: '{packet}/s'
+  family: Network/IP/Datagram/Request/Out
+  chart_type: line
+  priority: 60125
+  shape: counters
+  dimensions:
+  - id: ipsystemstatshcoutrequests
+    rate_signal: cisco_load_balancer_ipsystemstatshcoutrequests
+  instances:
+    group: ipversion
+    chart_prefix: ipsystemstatshcoutrequests
+    family: Network/IP/Datagram/Request/Out
+    labels:
+      ipversion: '{instance}'
+- id: snmp.device_prof_ipSystemStatsHCOutTransmits
+  title: The total number of IP datagrams that this entity supplied to the lower layers for transmission
+  units: '{packet}/s'
+  family: Network/IP/Datagram/Total/Out
+  chart_type: line
+  priority: 60126
+  shape: counters
+  dimensions:
+  - id: ipsystemstatshcouttransmits
+    rate_signal: cisco_load_balancer_ipsystemstatshcouttransmits
+  instances:
+    group: ipversion
+    chart_prefix: ipsystemstatshcouttransmits
+    family: Network/IP/Datagram/Total/Out
+    labels:
+      ipversion: '{instance}'
+- id: snmp.device_prof_ipSystemStatsHCInBcastPkts
+  title: The number of IP broadcast datagrams received
+  units: '{packet}/s'
+  family: Network/IP/Datagram/Broadcast/In
+  chart_type: line
+  priority: 60127
+  shape: counters
+  dimensions:
+  - id: ipsystemstatshcinbcastpkts
+    rate_signal: cisco_load_balancer_ipsystemstatshcinbcastpkts
+  instances:
+    group: ipversion
+    chart_prefix: ipsystemstatshcinbcastpkts
+    family: Network/IP/Datagram/Broadcast/In
+    labels:
+      ipversion: '{instance}'
+- id: snmp.device_prof_ipSystemStatsHCOutBcastPkts
+  title: The number of IP broadcast datagrams transmitted
+  units: '{packet}/s'
+  family: Network/IP/Datagram/Broadcast/Out
+  chart_type: line
+  priority: 60128
+  shape: counters
+  dimensions:
+  - id: ipsystemstatshcoutbcastpkts
+    rate_signal: cisco_load_balancer_ipsystemstatshcoutbcastpkts
+  instances:
+    group: ipversion
+    chart_prefix: ipsystemstatshcoutbcastpkts
+    family: Network/IP/Datagram/Broadcast/Out
+    labels:
+      ipversion: '{instance}'
+- id: snmp.device_prof_ipSystemStatsHCInMcastPkts
+  title: The number of IP multicast datagrams received
+  units: '{packet}/s'
+  family: Network/IP/Datagram/Multicast/In
+  chart_type: line
+  priority: 60129
+  shape: counters
+  dimensions:
+  - id: ipsystemstatshcinmcastpkts
+    rate_signal: cisco_load_balancer_ipsystemstatshcinmcastpkts
+  instances:
+    group: ipversion
+    chart_prefix: ipsystemstatshcinmcastpkts
+    family: Network/IP/Datagram/Multicast/In
+    labels:
+      ipversion: '{instance}'
+- id: snmp.device_prof_ipSystemStatsHCOutMcastPkts
+  title: The number of IP multicast datagrams transmitted
+  units: '{packet}/s'
+  family: Network/IP/Datagram/Multicast/Out
+  chart_type: line
+  priority: 60130
+  shape: counters
+  dimensions:
+  - id: ipsystemstatshcoutmcastpkts
+    rate_signal: cisco_load_balancer_ipsystemstatshcoutmcastpkts
+  instances:
+    group: ipversion
+    chart_prefix: ipsystemstatshcoutmcastpkts
+    family: Network/IP/Datagram/Multicast/Out
+    labels:
+      ipversion: '{instance}'
+- id: snmp.device_prof_ipSystemStatsHCInForwDatagrams
+  title: Input datagrams for which this entity was not their final IP destination and for which this entity attempted to find
+    a route to forward them to that final destination
+  units: '{forward}/s'
+  family: Network/IP/Forward/In
+  chart_type: line
+  priority: 60131
+  shape: counters
+  dimensions:
+  - id: ipsystemstatshcinforwdatagra
+    rate_signal: cisco_load_balancer_ipsystemstatshcinforwdatagrams
+  instances:
+    group: ipversion
+    chart_prefix: ipsystemstatshcinforwdatagrams
+    family: Network/IP/Forward/In
+    labels:
+      ipversion: '{instance}'
+- id: snmp.device_prof_ipSystemStatsHCOutForwDatagrams
+  title: The number of datagrams for which this entity was not their final IP destination and for which it was successful
+    in finding a path to their final destination
+  units: '{packet}/s'
+  family: Network/IP/Forward/Out
+  chart_type: line
+  priority: 60132
+  shape: counters
+  dimensions:
+  - id: ipsystemstatshcoutforwdatagr
+    rate_signal: cisco_load_balancer_ipsystemstatshcoutforwdatagrams
+  instances:
+    group: ipversion
+    chart_prefix: ipsystemstatshcoutforwdatagrams
+    family: Network/IP/Forward/Out
+    labels:
+      ipversion: '{instance}'
+- id: snmp.device_prof_ipSystemStatsInHdrErrors
+  title: Discarded input IP datagrams due to errors in their IP headers
+  units: '{error}/s'
+  family: Network/IP/Error/Header/In
+  chart_type: line
+  priority: 60133
+  shape: counters
+  dimensions:
+  - id: ipsystemstatsinhdrerrors
+    rate_signal: cisco_load_balancer_ipsystemstatsinhdrerrors
+  instances:
+    group: ipversion
+    chart_prefix: ipsystemstatsinhdrerrors
+    family: Network/IP/Error/Header/In
+    labels:
+      ipversion: '{instance}'
+- id: snmp.device_prof_ipSystemStatsInNoRoutes
+  title: Input IP datagrams discarded because no route could be found to transmit them to their destination
+  units: '{errors}/s'
+  family: Network/IP/Error/NoRoute/In
+  chart_type: line
+  priority: 60134
+  shape: counters
+  dimensions:
+  - id: ipsystemstatsinnoroutes
+    rate_signal: cisco_load_balancer_ipsystemstatsinnoroutes
+  instances:
+    group: ipversion
+    chart_prefix: ipsystemstatsinnoroutes
+    family: Network/IP/Error/NoRoute/In
+    labels:
+      ipversion: '{instance}'
+- id: snmp.device_prof_ipSystemStatsInAddrErrors
+  title: Input IP datagrams discarded due to invalid IP address in header
+  units: '{error}/s'
+  family: Network/IP/Error/Address/In
+  chart_type: line
+  priority: 60135
+  shape: counters
+  dimensions:
+  - id: ipsystemstatsinaddrerrors
+    rate_signal: cisco_load_balancer_ipsystemstatsinaddrerrors
+  instances:
+    group: ipversion
+    chart_prefix: ipsystemstatsinaddrerrors
+    family: Network/IP/Error/Address/In
+    labels:
+      ipversion: '{instance}'
+- id: snmp.device_prof_ipSystemStatsInUnknownProtos
+  title: Locally-addressed IP datagrams received successfully but discarded due to an unknown or unsupported protocol
+  units: '{error}/s'
+  family: Network/IP/Error/UnknownProtocol/In
+  chart_type: line
+  priority: 60136
+  shape: counters
+  dimensions:
+  - id: ipsystemstatsinunknownprotos
+    rate_signal: cisco_load_balancer_ipsystemstatsinunknownprotos
+  instances:
+    group: ipversion
+    chart_prefix: ipsystemstatsinunknownprotos
+    family: Network/IP/Error/UnknownProtocol/In
+    labels:
+      ipversion: '{instance}'
+- id: snmp.device_prof_ipSystemStatsInTruncatedPkts
+  title: Input IP datagrams discarded due to datagram frame not carrying enough data
+  units: '{error}/s'
+  family: Network/IP/Error/Truncated/In
+  chart_type: line
+  priority: 60137
+  shape: counters
+  dimensions:
+  - id: ipsystemstatsintruncatedpkts
+    rate_signal: cisco_load_balancer_ipsystemstatsintruncatedpkts
+  instances:
+    group: ipversion
+    chart_prefix: ipsystemstatsintruncatedpkts
+    family: Network/IP/Error/Truncated/In
+    labels:
+      ipversion: '{instance}'
+- id: snmp.device_prof_ipSystemStatsReasmFails
+  title: The number of failures detected by the IP re-assembly algorithm
+  units: '{error}/s'
+  family: Network/IP/Error/ReassemblyFailure/Count
+  chart_type: line
+  priority: 60138
+  shape: counters
+  dimensions:
+  - id: ipsystemstatsreasmfails
+    rate_signal: cisco_load_balancer_ipsystemstatsreasmfails
+  instances:
+    group: ipversion
+    chart_prefix: ipsystemstatsreasmfails
+    family: Network/IP/Error/ReassemblyFailure/Count
+    labels:
+      ipversion: '{instance}'
+- id: snmp.device_prof_ipSystemStatsInDiscards
+  title: The number of input IP datagrams for which no problems were encountered to prevent their continued processing, but
+    were discarded
+  units: '{error}/s'
+  family: Network/IP/Discard/In
+  chart_type: line
+  priority: 60139
+  shape: counters
+  dimensions:
+  - id: ipsystemstatsindiscards
+    rate_signal: cisco_load_balancer_ipsystemstatsindiscards
+  instances:
+    group: ipversion
+    chart_prefix: ipsystemstatsindiscards
+    family: Network/IP/Discard/In
+    labels:
+      ipversion: '{instance}'
+- id: snmp.device_prof_ipSystemStatsOutNoRoutes
+  title: The number of locally generated IP datagrams discarded because no route could be found to transmit them to their
+    destination
+  units: '{error}/s'
+  family: Network/IP/Error/NoRoute/Out
+  chart_type: line
+  priority: 60140
+  shape: counters
+  dimensions:
+  - id: ipsystemstatsoutnoroutes
+    rate_signal: cisco_load_balancer_ipsystemstatsoutnoroutes
+  instances:
+    group: ipversion
+    chart_prefix: ipsystemstatsoutnoroutes
+    family: Network/IP/Error/NoRoute/Out
+    labels:
+      ipversion: '{instance}'
+- id: snmp.device_prof_ipSystemStatsOutFragFails
+  title: The number of IP datagrams that have been discarded because they needed to be fragmented but could not be
+  units: '{error}/s'
+  family: Network/IP/Error/FragmentationFailure/Out
+  chart_type: line
+  priority: 60141
+  shape: counters
+  dimensions:
+  - id: ipsystemstatsoutfragfails
+    rate_signal: cisco_load_balancer_ipsystemstatsoutfragfails
+  instances:
+    group: ipversion
+    chart_prefix: ipsystemstatsoutfragfails
+    family: Network/IP/Error/FragmentationFailure/Out
+    labels:
+      ipversion: '{instance}'
+- id: snmp.device_prof_ipSystemStatsOutDiscards
+  title: The number of output IP datagrams for which no problem was encountered to prevent their transmission to their destination,
+    but were discarded
+  units: '{error}/s'
+  family: Network/IP/Discard/Out
+  chart_type: line
+  priority: 60142
+  shape: counters
+  dimensions:
+  - id: ipsystemstatsoutdiscards
+    rate_signal: cisco_load_balancer_ipsystemstatsoutdiscards
+  instances:
+    group: ipversion
+    chart_prefix: ipsystemstatsoutdiscards
+    family: Network/IP/Discard/Out
+    labels:
+      ipversion: '{instance}'
+- id: snmp.device_prof_ipSystemStatsOutFragReqds
+  title: The number of IP datagrams that would require fragmentation in order to be transmitted
+  units: '{packet}/s'
+  family: Network/IP/Fragmentation/Required/Out
+  chart_type: line
+  priority: 60143
+  shape: counters
+  dimensions:
+  - id: ipsystemstatsoutfragreqds
+    rate_signal: cisco_load_balancer_ipsystemstatsoutfragreqds
+  instances:
+    group: ipversion
+    chart_prefix: ipsystemstatsoutfragreqds
+    family: Network/IP/Fragmentation/Required/Out
+    labels:
+      ipversion: '{instance}'
+- id: snmp.device_prof_ipSystemStatsOutFragOKs
+  title: The number of IP datagrams that have been successfully fragmented
+  units: '{packet}/s'
+  family: Network/IP/Fragmentation/Success/Out
+  chart_type: line
+  priority: 60144
+  shape: counters
+  dimensions:
+  - id: ipsystemstatsoutfragoks
+    rate_signal: cisco_load_balancer_ipsystemstatsoutfragoks
+  instances:
+    group: ipversion
+    chart_prefix: ipsystemstatsoutfragoks
+    family: Network/IP/Fragmentation/Success/Out
+    labels:
+      ipversion: '{instance}'
+- id: snmp.device_prof_ipSystemStatsOutFragCreates
+  title: The number of output datagram fragments that have been generated as a result of IP fragmentation
+  units: '{fragment}/s'
+  family: Network/IP/Fragmentation/Created/Out
+  chart_type: line
+  priority: 60145
+  shape: counters
+  dimensions:
+  - id: ipsystemstatsoutfragcreates
+    rate_signal: cisco_load_balancer_ipsystemstatsoutfragcreates
+  instances:
+    group: ipversion
+    chart_prefix: ipsystemstatsoutfragcreates
+    family: Network/IP/Fragmentation/Created/Out
+    labels:
+      ipversion: '{instance}'
+- id: snmp.device_prof_ipSystemStatsReasmReqds
+  title: The number of IP fragments received that needed to be reassembled at this interface
+  units: '{fragment}/s'
+  family: Network/IP/Fragmentation/ReassemblyRequired/In
+  chart_type: line
+  priority: 60146
+  shape: counters
+  dimensions:
+  - id: ipsystemstatsreasmreqds
+    rate_signal: cisco_load_balancer_ipsystemstatsreasmreqds
+  instances:
+    group: ipversion
+    chart_prefix: ipsystemstatsreasmreqds
+    family: Network/IP/Fragmentation/ReassemblyRequired/In
+    labels:
+      ipversion: '{instance}'
+- id: snmp.device_prof_ipSystemStatsReasmOKs
+  title: The number of IP datagrams successfully reassembled
+  units: '{packet}/s'
+  family: Network/IP/Fragmentation/ReassemblySuccess/Count
+  chart_type: line
+  priority: 60147
+  shape: counters
+  dimensions:
+  - id: ipsystemstatsreasmoks
+    rate_signal: cisco_load_balancer_ipsystemstatsreasmoks
+  instances:
+    group: ipversion
+    chart_prefix: ipsystemstatsreasmoks
+    family: Network/IP/Fragmentation/ReassemblySuccess/Count
+    labels:
+      ipversion: '{instance}'
+- id: snmp.device_prof_ipIfStatsHCInOctets
+  title: The total number of octets received in input IP datagrams, including those received in error
+  units: bit/s
+  family: Network/Interface/IP/Traffic/Total/In
+  chart_type: area
+  priority: 60148
+  shape: counters
+  dimensions:
+  - id: ipifstatshcinoctets
+    rate_signal: cisco_load_balancer_ipifstatshcinoctets
+  instances:
+    group: interface
+    chart_prefix: ipifstatshcinoctets
+    family: Network/Interface/IP/Traffic/Total/In
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ipIfStatsHCOutOctets
+  title: The total number of octets in IP datagrams delivered to the lower layers for transmission
+  units: bit/s
+  family: Network/Interface/IP/Traffic/Total/Out
+  chart_type: area
+  priority: 60149
+  shape: counters
+  dimensions:
+  - id: ipifstatshcoutoctets
+    rate_signal: cisco_load_balancer_ipifstatshcoutoctets
+  instances:
+    group: interface
+    chart_prefix: ipifstatshcoutoctets
+    family: Network/Interface/IP/Traffic/Total/Out
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ipIfStatsHCInMcastOctets
+  title: The total number of octets received in IP multicast datagrams
+  units: bit/s
+  family: Network/Interface/IP/Traffic/Multicast/In
+  chart_type: area
+  priority: 60150
+  shape: counters
+  dimensions:
+  - id: ipifstatshcinmcastoctets
+    rate_signal: cisco_load_balancer_ipifstatshcinmcastoctets
+  instances:
+    group: interface
+    chart_prefix: ipifstatshcinmcastoctets
+    family: Network/Interface/IP/Traffic/Multicast/In
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ipIfStatsHCOutMcastOctets
+  title: The total number of octets transmitted in IP multicast datagrams
+  units: bit/s
+  family: Network/Interface/IP/Traffic/Multicast/Out
+  chart_type: area
+  priority: 60151
+  shape: counters
+  dimensions:
+  - id: ipifstatshcoutmcastoctets
+    rate_signal: cisco_load_balancer_ipifstatshcoutmcastoctets
+  instances:
+    group: interface
+    chart_prefix: ipifstatshcoutmcastoctets
+    family: Network/Interface/IP/Traffic/Multicast/Out
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ipIfStatsHCInDelivers
+  title: The total number of datagrams successfully delivered to IP user-protocols including ICMP
+  units: '{packet}/s'
+  family: Network/Interface/IP/Datagram/Delivered/In
+  chart_type: line
+  priority: 60152
+  shape: counters
+  dimensions:
+  - id: ipifstatshcindelivers
+    rate_signal: cisco_load_balancer_ipifstatshcindelivers
+  instances:
+    group: interface
+    chart_prefix: ipifstatshcindelivers
+    family: Network/Interface/IP/Datagram/Delivered/In
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ipIfStatsHCOutRequests
+  title: The total number of IP datagrams that local IP user-protocols including ICMP supplied to IP in requests for transmission
+  units: '{packet}/s'
+  family: Network/Interface/IP/Datagram/Request/Out
+  chart_type: line
+  priority: 60153
+  shape: counters
+  dimensions:
+  - id: ipifstatshcoutrequests
+    rate_signal: cisco_load_balancer_ipifstatshcoutrequests
+  instances:
+    group: interface
+    chart_prefix: ipifstatshcoutrequests
+    family: Network/Interface/IP/Datagram/Request/Out
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ipIfStatsHCOutTransmits
+  title: The total number of IP datagrams that this entity supplied to the lower layers for transmission
+  units: '{packet}/s'
+  family: Network/Interface/IP/Datagram/Total/Out
+  chart_type: line
+  priority: 60154
+  shape: counters
+  dimensions:
+  - id: ipifstatshcouttransmits
+    rate_signal: cisco_load_balancer_ipifstatshcouttransmits
+  instances:
+    group: interface
+    chart_prefix: ipifstatshcouttransmits
+    family: Network/Interface/IP/Datagram/Total/Out
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ipIfStatsHCInMcastPkts
+  title: The number of IP multicast datagrams received
+  units: '{packet}/s'
+  family: Network/Interface/IP/Datagram/Multicast/In
+  chart_type: line
+  priority: 60155
+  shape: counters
+  dimensions:
+  - id: ipifstatshcinmcastpkts
+    rate_signal: cisco_load_balancer_ipifstatshcinmcastpkts
+  instances:
+    group: interface
+    chart_prefix: ipifstatshcinmcastpkts
+    family: Network/Interface/IP/Datagram/Multicast/In
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ipIfStatsHCOutMcastPkts
+  title: The number of IP multicast datagrams transmitted
+  units: '{packet}/s'
+  family: Network/Interface/IP/Datagram/Multicast/Out
+  chart_type: line
+  priority: 60156
+  shape: counters
+  dimensions:
+  - id: ipifstatshcoutmcastpkts
+    rate_signal: cisco_load_balancer_ipifstatshcoutmcastpkts
+  instances:
+    group: interface
+    chart_prefix: ipifstatshcoutmcastpkts
+    family: Network/Interface/IP/Datagram/Multicast/Out
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ipIfStatsHCInBcastPkts
+  title: The number of IP broadcast datagrams received
+  units: '{packet}/s'
+  family: Network/Interface/IP/Datagram/Broadcast/In
+  chart_type: line
+  priority: 60157
+  shape: counters
+  dimensions:
+  - id: ipifstatshcinbcastpkts
+    rate_signal: cisco_load_balancer_ipifstatshcinbcastpkts
+  instances:
+    group: interface
+    chart_prefix: ipifstatshcinbcastpkts
+    family: Network/Interface/IP/Datagram/Broadcast/In
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ipIfStatsHCOutBcastPkts
+  title: The number of IP broadcast datagrams transmitted
+  units: '{packet}/s'
+  family: Network/Interface/IP/Datagram/Broadcast/Out
+  chart_type: line
+  priority: 60158
+  shape: counters
+  dimensions:
+  - id: ipifstatshcoutbcastpkts
+    rate_signal: cisco_load_balancer_ipifstatshcoutbcastpkts
+  instances:
+    group: interface
+    chart_prefix: ipifstatshcoutbcastpkts
+    family: Network/Interface/IP/Datagram/Broadcast/Out
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ipIfStatsInDiscards
+  title: The number of input IP datagrams for which no problems were encountered to prevent their continued processing, but
+    were discarded
+  units: '{error}/s'
+  family: Network/Interface/IP/Discard/In
+  chart_type: line
+  priority: 60159
+  shape: counters
+  dimensions:
+  - id: ipifstatsindiscards
+    rate_signal: cisco_load_balancer_ipifstatsindiscards
+  instances:
+    group: interface
+    chart_prefix: ipifstatsindiscards
+    family: Network/Interface/IP/Discard/In
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ipIfStatsOutDiscards
+  title: The number of output IP datagrams for which no problem was encountered to prevent their transmission to their destination,
+    but were discarded
+  units: '{error}/s'
+  family: Network/Interface/IP/Discard/Out
+  chart_type: line
+  priority: 60160
+  shape: counters
+  dimensions:
+  - id: ipifstatsoutdiscards
+    rate_signal: cisco_load_balancer_ipifstatsoutdiscards
+  instances:
+    group: interface
+    chart_prefix: ipifstatsoutdiscards
+    family: Network/Interface/IP/Discard/Out
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ipIfStatsInHdrErrors
+  title: The number of input IP datagrams discarded due to errors in their IP headers
+  units: '{error}/s'
+  family: Network/Interface/IP/Error/Header/In
+  chart_type: line
+  priority: 60161
+  shape: counters
+  dimensions:
+  - id: ipifstatsinhdrerrors
+    rate_signal: cisco_load_balancer_ipifstatsinhdrerrors
+  instances:
+    group: interface
+    chart_prefix: ipifstatsinhdrerrors
+    family: Network/Interface/IP/Error/Header/In
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ipIfStatsInNoRoutes
+  title: The number of input IP datagrams discarded because no route could be found to transmit them to their destination
+  units: '{error}/s'
+  family: Network/Interface/IP/Error/NoRoute/In
+  chart_type: line
+  priority: 60162
+  shape: counters
+  dimensions:
+  - id: ipifstatsinnoroutes
+    rate_signal: cisco_load_balancer_ipifstatsinnoroutes
+  instances:
+    group: interface
+    chart_prefix: ipifstatsinnoroutes
+    family: Network/Interface/IP/Error/NoRoute/In
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ipIfStatsInAddrErrors
+  title: The number of input IP datagrams discarded because the IP address in their IP header's destination field was not
+    a valid address to be received at this entity
+  units: '{error}/s'
+  family: Network/Interface/IP/Error/Address/In
+  chart_type: line
+  priority: 60163
+  shape: counters
+  dimensions:
+  - id: ipifstatsinaddrerrors
+    rate_signal: cisco_load_balancer_ipifstatsinaddrerrors
+  instances:
+    group: interface
+    chart_prefix: ipifstatsinaddrerrors
+    family: Network/Interface/IP/Error/Address/In
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ipIfStatsInUnknownProtos
+  title: The number of locally-addressed IP datagrams received successfully but discarded because of an unknown or unsupported
+    protocol
+  units: '{error}/s'
+  family: Network/Interface/IP/Error/UnknownProtocol/In
+  chart_type: line
+  priority: 60164
+  shape: counters
+  dimensions:
+  - id: ipifstatsinunknownprotos
+    rate_signal: cisco_load_balancer_ipifstatsinunknownprotos
+  instances:
+    group: interface
+    chart_prefix: ipifstatsinunknownprotos
+    family: Network/Interface/IP/Error/UnknownProtocol/In
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ipIfStatsInTruncatedPkts
+  title: The number of input IP datagrams discarded because the datagram frame didn't carry enough data
+  units: '{error}/s'
+  family: Network/Interface/IP/Error/Truncated/In
+  chart_type: line
+  priority: 60165
+  shape: counters
+  dimensions:
+  - id: ipifstatsintruncatedpkts
+    rate_signal: cisco_load_balancer_ipifstatsintruncatedpkts
+  instances:
+    group: interface
+    chart_prefix: ipifstatsintruncatedpkts
+    family: Network/Interface/IP/Error/Truncated/In
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ipIfStatsOutFragFails
+  title: The number of IP datagrams that have been discarded because they needed to be fragmented but could not be
+  units: '{packet}/s'
+  family: Network/Interface/IP/Error/FragmentationFailure/Out
+  chart_type: line
+  priority: 60166
+  shape: counters
+  dimensions:
+  - id: ipifstatsoutfragfails
+    rate_signal: cisco_load_balancer_ipifstatsoutfragfails
+  instances:
+    group: interface
+    chart_prefix: ipifstatsoutfragfails
+    family: Network/Interface/IP/Error/FragmentationFailure/Out
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ipIfStatsReasmFails
+  title: The number of failures detected by the IP re-assembly algorithm
+  units: '{error}/s'
+  family: Network/Interface/IP/Error/ReassemblyFailure/Count
+  chart_type: line
+  priority: 60167
+  shape: counters
+  dimensions:
+  - id: ipifstatsreasmfails
+    rate_signal: cisco_load_balancer_ipifstatsreasmfails
+  instances:
+    group: interface
+    chart_prefix: ipifstatsreasmfails
+    family: Network/Interface/IP/Error/ReassemblyFailure/Count
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ipIfStatsOutFragOKs
+  title: The number of IP datagrams that have been successfully fragmented
+  units: '{packet}/s'
+  family: Network/Interface/IP/Fragmentation/Success/Out
+  chart_type: line
+  priority: 60168
+  shape: counters
+  dimensions:
+  - id: ipifstatsoutfragoks
+    rate_signal: cisco_load_balancer_ipifstatsoutfragoks
+  instances:
+    group: interface
+    chart_prefix: ipifstatsoutfragoks
+    family: Network/Interface/IP/Fragmentation/Success/Out
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ipIfStatsOutFragReqds
+  title: The number of IP datagrams that would require fragmentation in order to be transmitted
+  units: '{packet}/s'
+  family: Network/Interface/IP/Fragmentation/Required/Out
+  chart_type: line
+  priority: 60169
+  shape: counters
+  dimensions:
+  - id: ipifstatsoutfragreqds
+    rate_signal: cisco_load_balancer_ipifstatsoutfragreqds
+  instances:
+    group: interface
+    chart_prefix: ipifstatsoutfragreqds
+    family: Network/Interface/IP/Fragmentation/Required/Out
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ipIfStatsOutFragCreates
+  title: The number of output datagram fragments that have been generated as a result of IP fragmentation
+  units: '{fragment}/s'
+  family: Network/Interface/IP/Fragmentation/Created/Out
+  chart_type: line
+  priority: 60170
+  shape: counters
+  dimensions:
+  - id: ipifstatsoutfragcreates
+    rate_signal: cisco_load_balancer_ipifstatsoutfragcreates
+  instances:
+    group: interface
+    chart_prefix: ipifstatsoutfragcreates
+    family: Network/Interface/IP/Fragmentation/Created/Out
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ipIfStatsReasmReqds
+  title: The number of IP fragments received that needed to be reassembled at this interface
+  units: '{fragment}/s'
+  family: Network/Interface/IP/Fragmentation/ReassemblyRequired/In
+  chart_type: line
+  priority: 60171
+  shape: counters
+  dimensions:
+  - id: ipifstatsreasmreqds
+    rate_signal: cisco_load_balancer_ipifstatsreasmreqds
+  instances:
+    group: interface
+    chart_prefix: ipifstatsreasmreqds
+    family: Network/Interface/IP/Fragmentation/ReassemblyRequired/In
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ipIfStatsReasmOKs
+  title: The number of IP datagrams successfully reassembled
+  units: '{packet}/s'
+  family: Network/Interface/IP/Fragmentation/ReassemblySuccess/Count
+  chart_type: line
+  priority: 60172
+  shape: counters
+  dimensions:
+  - id: ipifstatsreasmoks
+    rate_signal: cisco_load_balancer_ipifstatsreasmoks
+  instances:
+    group: interface
+    chart_prefix: ipifstatsreasmoks
+    family: Network/Interface/IP/Fragmentation/ReassemblySuccess/Count
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ipIfStatsHCInForwDatagrams
+  title: The number of input datagrams for which this entity was not their final IP destination and for which this entity
+    attempted to find a route to forward them to that final destination
+  units: '{forward}/s'
+  family: Network/Interface/IP/Forward/In
+  chart_type: line
+  priority: 60173
+  shape: counters
+  dimensions:
+  - id: ipifstatshcinforwdatagrams
+    rate_signal: cisco_load_balancer_ipifstatshcinforwdatagrams
+  instances:
+    group: interface
+    chart_prefix: ipifstatshcinforwdatagrams
+    family: Network/Interface/IP/Forward/In
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ipIfStatsHCOutForwDatagrams
+  title: The number of datagrams for which this entity was not their final IP destination and for which it was successful
+    in finding a path to their final destination
+  units: '{packet}/s'
+  family: Network/Interface/IP/Forward/Out
+  chart_type: line
+  priority: 60174
+  shape: counters
+  dimensions:
+  - id: ipifstatshcoutforwdatagrams
+    rate_signal: cisco_load_balancer_ipifstatshcoutforwdatagrams
+  instances:
+    group: interface
+    chart_prefix: ipifstatshcoutforwdatagrams
+    family: Network/Interface/IP/Forward/Out
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_cempMemPoolLowestFree
+  title: Lowest amount of free memory observed since last clear (watermark)
+  units: By
+  family: System/Memory/Enhanced/LowestFree
+  chart_type: line
+  priority: 60175
+  shape: independent
+  dimensions:
+  - id: cempmempoollowestfree
+    signal: cisco_load_balancer_cempmempoollowestfree
+  instances:
+    group: mem_pool_index
+    chart_prefix: cempmempoollowestfree
+    family: System/Memory/Enhanced/LowestFree
+    labels:
+      mem_pool_index: '{instance}'
+- id: snmp.device_prof_ciscoEnvMonVoltageStatusValue
+  title: Current measurement of the voltage testpoint
+  units: mV
+  family: Hardware/Sensor/Voltage/Value
+  chart_type: line
+  priority: 60176
+  shape: independent
+  dimensions:
+  - id: ciscoenvmonvoltagestatusvalu
+    signal: cisco_load_balancer_ciscoenvmonvoltagestatusvalue
+  instances:
+    group: voltage_index
+    chart_prefix: ciscoenvmonvoltagestatusvalue
+    family: Hardware/Sensor/Voltage/Value
+    labels:
+      voltage_index: '{instance}'
+- id: snmp.device_prof_ciscoEnvMonVoltageState
+  title: Current state of the voltage testpoint
+  units: '{status}'
+  family: Hardware/Sensor/Voltage/Status
+  chart_type: line
+  priority: 60177
+  shape: independent
+  dimensions:
+  - id: normal
+    signal: cisco_load_balancer_ciscoenvmonvoltagestate
+  - id: warning
+    signal: cisco_load_balancer_ciscoenvmonvoltagestate_warning
+  - id: critical
+    signal: cisco_load_balancer_ciscoenvmonvoltagestate_critical
+  - id: shutdown
+    signal: cisco_load_balancer_ciscoenvmonvoltagestate_shutdown
+  - id: not_present
+    signal: cisco_load_balancer_ciscoenvmonvoltagestate_not_present
+  - id: not_functioning
+    signal: cisco_load_balancer_ciscoenvmonvoltagestate_not_functioning
+  instances:
+    group: voltage_index
+    chart_prefix: ciscoenvmonvoltagestate
+    family: Hardware/Sensor/Voltage/Status
+    labels:
+      voltage_index: '{instance}'
+- id: snmp.device_prof_cRFStatusUnitState
+  title: Current state of this redundancy unit
+  units: '{status}'
+  family: Hardware/Redundancy/Unit/Status
+  chart_type: line
+  priority: 60178
+  shape: independent
+  dimensions:
+  - id: not_known
+    signal: cisco_load_balancer_crfstatusunitstate_not_known
+  - id: active_preconfig
+    signal: cisco_load_balancer_crfstatusunitstate_active_preconfig
+  - id: active_postconfig
+    signal: cisco_load_balancer_crfstatusunitstate_active_postconfig
+  - id: active_extraload
+    signal: cisco_load_balancer_crfstatusunitstate_active_extraload
+  - id: active_handback
+    signal: cisco_load_balancer_crfstatusunitstate_active_handback
+  - id: disabled
+    signal: cisco_load_balancer_crfstatusunitstate_disabled
+  - id: initialization
+    signal: cisco_load_balancer_crfstatusunitstate_initialization
+  - id: negotiation
+    signal: cisco_load_balancer_crfstatusunitstate_negotiation
+  - id: standby_cold
+    signal: cisco_load_balancer_crfstatusunitstate_standby_cold
+  - id: standby_hot
+    signal: cisco_load_balancer_crfstatusunitstate_standby_hot
+  - id: active_fast
+    signal: cisco_load_balancer_crfstatusunitstate_active_fast
+  - id: active_drain
+    signal: cisco_load_balancer_crfstatusunitstate_active_drain
+  - id: active
+    signal: cisco_load_balancer_crfstatusunitstate
+- id: snmp.device_prof_cRFStatusPeerUnitState
+  title: Current state of the peer redundancy unit
+  units: '{status}'
+  family: Hardware/Redundancy/Peer/Status
+  chart_type: line
+  priority: 60179
+  shape: independent
+  dimensions:
+  - id: not_known
+    signal: cisco_load_balancer_crfstatuspeerunitstate_not_known
+  - id: active_preconfig
+    signal: cisco_load_balancer_crfstatuspeerunitstate_active_preconfig
+  - id: active_postconfig
+    signal: cisco_load_balancer_crfstatuspeerunitstate_active_postconfig
+  - id: active_extraload
+    signal: cisco_load_balancer_crfstatuspeerunitstate_active_extraload
+  - id: active_handback
+    signal: cisco_load_balancer_crfstatuspeerunitstate_active_handback
+  - id: disabled
+    signal: cisco_load_balancer_crfstatuspeerunitstate_disabled
+  - id: initialization
+    signal: cisco_load_balancer_crfstatuspeerunitstate_initialization
+  - id: negotiation
+    signal: cisco_load_balancer_crfstatuspeerunitstate_negotiation
+  - id: standby_cold
+    signal: cisco_load_balancer_crfstatuspeerunitstate_standby_cold
+  - id: standby_hot
+    signal: cisco_load_balancer_crfstatuspeerunitstate_standby_hot
+  - id: active_fast
+    signal: cisco_load_balancer_crfstatuspeerunitstate_active_fast
+  - id: active_drain
+    signal: cisco_load_balancer_crfstatuspeerunitstate_active_drain
+  - id: active
+    signal: cisco_load_balancer_crfstatuspeerunitstate
+- id: snmp.device_prof_cRFStatusDuplexMode
+  title: Redundancy duplex mode (simplex=no redundancy, duplex=redundant pair)
+  units: '{status}'
+  family: Hardware/Redundancy/DuplexMode
+  chart_type: line
+  priority: 60180
+  shape: independent
+  dimensions:
+  - id: simplex
+    signal: cisco_load_balancer_crfstatusduplexmode
+  - id: duplex
+    signal: cisco_load_balancer_crfstatusduplexmode_duplex
+- id: snmp.device_prof_cRFStatusLastSwactReasonCode
+  title: Reason code for the last switchover
+  units: '{reason}'
+  family: Hardware/Redundancy/LastSwitchover/Reason
+  chart_type: line
+  priority: 60181
+  shape: independent
+  dimensions:
+  - id: unsupported
+    signal: cisco_load_balancer_crfstatuslastswactreasoncode
+  - id: active_no_ext_power
+    signal: cisco_load_balancer_crfstatuslastswactreasoncode_active_no_ext_power
+  - id: active_no_response
+    signal: cisco_load_balancer_crfstatuslastswactreasoncode_active_no_response
+  - id: none
+    signal: cisco_load_balancer_crfstatuslastswactreasoncode_none
+  - id: not_known
+    signal: cisco_load_balancer_crfstatuslastswactreasoncode_not_known
+  - id: user_initiated
+    signal: cisco_load_balancer_crfstatuslastswactreasoncode_user_initiated
+  - id: user_forced
+    signal: cisco_load_balancer_crfstatuslastswactreasoncode_user_forced
+  - id: active_removed
+    signal: cisco_load_balancer_crfstatuslastswactreasoncode_active_removed
+  - id: active_failed
+    signal: cisco_load_balancer_crfstatuslastswactreasoncode_active_failed
+  - id: active_no_heartbeat
+    signal: cisco_load_balancer_crfstatuslastswactreasoncode_active_no_heartbeat
+  - id: active_no_shelf_power
+    signal: cisco_load_balancer_crfstatuslastswactreasoncode_active_no_shelf_power
+- id: snmp.device_prof_cswRingRedundant
+  title: Whether the stack ring is in a redundant configuration
+  units: '{status}'
+  family: Hardware/StackWise/Ring/Redundancy
+  chart_type: line
+  priority: 60182
+  shape: independent
+  dimensions:
+  - id: redundant
+    signal: cisco_load_balancer_cswringredundant
+  - id: not_redundant
+    signal: cisco_load_balancer_cswringredundant_not_redundant
+- id: snmp.device_prof_ifTotalTraffic
+  title: Total traffic across all interfaces
+  units: bit/s
+  family: Network/Total/Traffic
+  chart_type: area
+  priority: 60183
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_octets_rate
+  - id: out
+    rate_signal: if_out_octets_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalPacketsUcast
+  title: Total unicast packets across all interfaces
+  units: '{packet}/s'
+  family: Network/Total/Packet/Unicast
+  chart_type: line
+  priority: 60184
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_ucast_rate
+  - id: out
+    rate_signal: if_out_ucast_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalPacketsMulticast
+  title: Total multicast packets across all interfaces
+  units: '{packet}/s'
+  family: Network/Total/Packet/Multicast
+  chart_type: line
+  priority: 60185
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_mcast_rate
+  - id: out
+    rate_signal: cisco_load_balancer_ifhcoutmulticastpkts
+    multiplier: -1
+- id: snmp.device_prof_ifTotalPacketsBroadcast
+  title: Total broadcast packets across all interfaces
+  units: '{packet}/s'
+  family: Network/Total/Packet/Broadcast
+  chart_type: line
+  priority: 60186
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_bcast_rate
+  - id: out
+    rate_signal: cisco_load_balancer_ifhcoutbroadcastpkts
+    multiplier: -1
+- id: snmp.device_prof_ifTotalErrors
+  title: Total packets with errors across all interfaces
+  units: '{error}/s'
+  family: Network/Total/Error
+  chart_type: line
+  priority: 60187
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_errors_rate
+  - id: out
+    rate_signal: if_out_errors_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalDiscards
+  title: Total packets discarded across all interfaces
+  units: '{discard}/s'
+  family: Network/Total/Discard
+  chart_type: line
+  priority: 60188
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_discards_rate
+  - id: out
+    rate_signal: if_out_discards_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalOperStatus
+  title: Total count of interfaces by operational status
+  units: '{status}'
+  family: Network/Total/Interface/Status
+  chart_type: line
+  priority: 60189
+  shape: independent
+  dimensions:
+  - id: up
+    signal: cisco_load_balancer_iftotaloperstatus
+  - id: down
+    signal: cisco_load_balancer_iftotaloperstatus_down
+  - id: testing
+    signal: cisco_load_balancer_iftotaloperstatus_testing
+  - id: unknown
+    signal: cisco_load_balancer_iftotaloperstatus_unknown
+  - id: dormant
+    signal: cisco_load_balancer_iftotaloperstatus_dormant
+  - id: notpresent
+    signal: cisco_load_balancer_iftotaloperstatus_notpresent
+  - id: lowerlayerdown
+    signal: cisco_load_balancer_iftotaloperstatus_lowerlayerdown
+- id: snmp.device_prof_ifTraffic
+  title: Traffic
+  units: bit/s
+  family: Network/Interface/Traffic/Total
+  chart_type: area
+  priority: 60190
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_octets_rate
+  - id: out
+    rate_signal: if_out_octets_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: iftraffic
+    family: Network/Interface/Traffic/Total
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifPacketsUcast
+  title: Unicast packets
+  units: '{packet}/s'
+  family: Network/Interface/Packet/Unicast
+  chart_type: line
+  priority: 60191
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_ucast_rate
+  - id: out
+    rate_signal: if_out_ucast_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifpacketsucast
+    family: Network/Interface/Packet/Unicast
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifPacketsMulticast
+  title: Multicast packets
+  units: '{packet}/s'
+  family: Network/Interface/Packet/Multicast
+  chart_type: line
+  priority: 60192
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_mcast_rate
+  - id: out
+    rate_signal: cisco_load_balancer_ifhcoutmulticastpkts
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifpacketsmulticast
+    family: Network/Interface/Packet/Multicast
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifPacketsBroadcast
+  title: Broadcast packets
+  units: '{packet}/s'
+  family: Network/Interface/Packet/Broadcast
+  chart_type: line
+  priority: 60193
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_bcast_rate
+  - id: out
+    rate_signal: cisco_load_balancer_ifhcoutbroadcastpkts
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifpacketsbroadcast
+    family: Network/Interface/Packet/Broadcast
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifErrors
+  title: Packets with errors
+  units: '{error}/s'
+  family: Network/Interface/Error/Total
+  chart_type: line
+  priority: 60194
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_errors_rate
+  - id: out
+    rate_signal: if_out_errors_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: iferrors
+    family: Network/Interface/Error/Total
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifDiscards
+  title: Packets discarded
+  units: '{discard}/s'
+  family: Network/Interface/Discard
+  chart_type: line
+  priority: 60195
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_discards_rate
+  - id: out
+    rate_signal: if_out_discards_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifdiscards
+    family: Network/Interface/Discard
+    labels:
+      interface: '{instance}'

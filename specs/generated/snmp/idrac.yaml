@@ -1,0 +1,3833 @@
+version: 1
+name: idrac
+description: Dell Server, as Netdata's SNMP collector reports it. Generated from go.d/snmp.profiles/default/idrac.yaml with
+  its `extends` chain resolved. Contexts, units, families and metric names are the device's own; values are a plausible fiction.
+signals:
+  idrac_systemuptime:
+    base: 86400.0
+    min: 0.0
+    max: 315360000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  idrac_systemstatechassisstatus_other:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatechassisstatus_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatechassisstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatechassisstatus_non_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatechassisstatus_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatechassisstatus_non_recoverable:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatepowerunitstatusredundancy:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatepowerunitstatusredundancy_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatepowerunitstatusredundancy_full:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatepowerunitstatusredundancy_degraded:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatepowerunitstatusredundancy_lost:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatepowerunitstatusredundancy_not_redundant:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatepowerunitstatusredundancy_redundancy_offline:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatepowersupplystatuscombined_other:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatepowersupplystatuscombined_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatepowersupplystatuscombined:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatepowersupplystatuscombined_non_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatepowersupplystatuscombined_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatepowersupplystatuscombined_non_recoverable:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstateamperagestatuscombined_other:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstateamperagestatuscombined_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstateamperagestatuscombined:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstateamperagestatuscombined_non_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstateamperagestatuscombined_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstateamperagestatuscombined_non_recoverable:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatecoolingunitstatusredundancy:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatecoolingunitstatusredundancy_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatecoolingunitstatusredundancy_full:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatecoolingunitstatusredundancy_degraded:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatecoolingunitstatusredundancy_lost:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatecoolingunitstatusredundancy_not_redundant:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatecoolingunitstatusredundancy_redundancy_offline:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatecoolingdevicestatuscombined_other:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatecoolingdevicestatuscombined_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatecoolingdevicestatuscombined:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatecoolingdevicestatuscombined_non_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatecoolingdevicestatuscombined_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatecoolingdevicestatuscombined_non_recoverable:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatetemperaturestatuscombined_other:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatetemperaturestatuscombined_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatetemperaturestatuscombined:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatetemperaturestatuscombined_non_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatetemperaturestatuscombined_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatetemperaturestatuscombined_non_recoverable:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatememorydevicestatuscombined_other:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatememorydevicestatuscombined_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatememorydevicestatuscombined:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatememorydevicestatuscombined_non_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatememorydevicestatuscombined_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatememorydevicestatuscombined_non_recoverable:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatechassisintrusionstatuscombined_other:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatechassisintrusionstatuscombined_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatechassisintrusionstatuscombined:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatechassisintrusionstatuscombined_non_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatechassisintrusionstatuscombined_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatechassisintrusionstatuscombined_non_recoverable:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatepowerunitstatuscombined_other:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatepowerunitstatuscombined_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatepowerunitstatuscombined:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatepowerunitstatuscombined_non_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatepowerunitstatuscombined_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatepowerunitstatuscombined_non_recoverable:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatecoolingunitstatuscombined_other:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatecoolingunitstatuscombined_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatecoolingunitstatuscombined:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatecoolingunitstatuscombined_non_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatecoolingunitstatuscombined_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatecoolingunitstatuscombined_non_recoverable:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstateprocessordevicestatuscombined_other:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstateprocessordevicestatuscombined_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstateprocessordevicestatuscombined:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstateprocessordevicestatuscombined_non_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstateprocessordevicestatuscombined_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstateprocessordevicestatuscombined_non_recoverable:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatetemperaturestatisticsstatuscombined_other:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatetemperaturestatisticsstatuscombined_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatetemperaturestatisticsstatuscombined:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatetemperaturestatisticsstatuscombined_non_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatetemperaturestatisticsstatuscombined_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemstatetemperaturestatisticsstatuscombined_non_recoverable:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_physicaldiskstate_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_physicaldiskstate_readonly:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_physicaldiskstate:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_physicaldiskstate_online:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_physicaldiskstate_foreign:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_physicaldiskstate_offline:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_physicaldiskstate_blocked:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_physicaldiskstate_failed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_physicaldiskstate_nonraid:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_physicaldiskstate_removed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_physicaldiskcapacityinmb:
+    base: 4294967296.0
+    min: 4294967296.0
+    max: 4294967296.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_physicaldiskusedspaceinmb:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  idrac_physicaldiskfreespaceinmb:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  idrac_enclosurepowersupplystate_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_enclosurepowersupplystate:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_enclosurepowersupplystate_failed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_enclosurepowersupplystate_missing:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_enclosurepowersupplystate_degraded:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_batterystate_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_batterystate:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_batterystate_failed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_batterystate_degraded:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_batterystate_missing:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_batterystate_charging:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_batterystate_below_threshold:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_controllerrollupstatus_other:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_controllerrollupstatus_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_controllerrollupstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_controllerrollupstatus_non_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_controllerrollupstatus_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_controllerrollupstatus_non_recoverable:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_pcidevicestatus_other:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_pcidevicestatus_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_pcidevicestatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_pcidevicestatus_non_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_pcidevicestatus_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_pcidevicestatus_non_recoverable:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemslotstatus_other:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemslotstatus_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemslotstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemslotstatus_non_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemslotstatus_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systemslotstatus_non_recoverable:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_networkdevicestatus_other:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_networkdevicestatus_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_networkdevicestatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_networkdevicestatus_non_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_networkdevicestatus_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_networkdevicestatus_non_recoverable:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systembiosstatus_other:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systembiosstatus_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systembiosstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systembiosstatus_non_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systembiosstatus_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systembiosstatus_non_recoverable:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_intrusionstatus_other:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_intrusionstatus_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_intrusionstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_intrusionstatus_non_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_intrusionstatus_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_intrusionstatus_non_recoverable:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_intrusionreading:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  idrac_powersupplyoutputwatts:
+    base: 145.0
+    min: 0.0
+    max: 4000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  idrac_powersupplymaximuminputvoltage:
+    base: 12.0
+    min: 12.0
+    max: 12.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_powersupplycurrentinputvoltage:
+    base: 12.0
+    min: 0.0
+    max: 480.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  idrac_amperageprobestatus_other:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_amperageprobestatus_failed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_amperageprobestatus_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_amperageprobestatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_amperageprobestatus_non_critical_upper:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_amperageprobestatus_critical_upper:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_amperageprobestatus_non_recoverable_upper:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_amperageprobestatus_non_critical_lower:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_amperageprobestatus_critical_lower:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_amperageprobestatus_non_recoverable_lower:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_amperageprobereading:
+    base: 3.2
+    min: 0.0
+    max: 200.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  idrac_powerusagestatus_other:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_powerusagestatus_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_powerusagestatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_powerusagestatus_non_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_powerusagestatus_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_powerusagestatus_non_recoverable:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_voltageprobestatus_other:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_voltageprobestatus_failed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_voltageprobestatus_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_voltageprobestatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_voltageprobestatus_non_critical_upper:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_voltageprobestatus_critical_upper:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_voltageprobestatus_non_recoverable_upper:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_voltageprobestatus_non_critical_lower:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_voltageprobestatus_critical_lower:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_voltageprobestatus_non_recoverable_lower:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_voltageprobereading:
+    base: 12.0
+    min: 0.0
+    max: 480.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  idrac_systembatterystatus_other:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systembatterystatus_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systembatterystatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systembatterystatus_non_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systembatterystatus_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systembatterystatus_non_recoverable:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_systembatteryreading:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  idrac_coolingunitredundancystatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_coolingunitredundancystatus_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_coolingunitredundancystatus_full:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_coolingunitredundancystatus_degraded:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_coolingunitredundancystatus_lost:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_coolingunitredundancystatus_not_redundant:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_coolingunitredundancystatus_redundancy_offline:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_coolingunitstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_coolingunitstatus_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_coolingunitstatus_full:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_coolingunitstatus_degraded:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_coolingunitstatus_lost:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_coolingunitstatus_not_redundant:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_coolingunitstatus_redundancy_offline:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_coolingdevicestatus_other:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_coolingdevicestatus_failed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_coolingdevicestatus_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_coolingdevicestatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_coolingdevicestatus_non_critical_upper:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_coolingdevicestatus_critical_upper:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_coolingdevicestatus_non_recoverable_upper:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_coolingdevicestatus_non_critical_lower:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_coolingdevicestatus_critical_lower:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_coolingdevicestatus_non_recoverable_lower:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_coolingdevicereading:
+    base: 4200.0
+    min: 0.0
+    max: 30000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  idrac_coolingdevicediscretereading:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  idrac_temperatureprobestatus_other:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_temperatureprobestatus_failed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_temperatureprobestatus_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_temperatureprobestatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_temperatureprobestatus_non_critical_upper:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_temperatureprobestatus_critical_upper:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_temperatureprobestatus_non_recoverable_upper:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_temperatureprobestatus_non_critical_lower:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_temperatureprobestatus_critical_lower:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_temperatureprobestatus_non_recoverable_lower:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_temperatureprobereading:
+    base: 41.0
+    min: 0.0
+    max: 120.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  idrac_temperatureprobediscretereading:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  idrac_processordevicestatus_other:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_processordevicestatus_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_processordevicestatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_processordevicestatus_non_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_processordevicestatus_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_processordevicestatus_non_recoverable:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_processordevicemaximumspeed:
+    base: 120.0
+    min: 120.0
+    max: 120.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_processordevicecurrentspeed:
+    base: 120.0
+    min: 120.0
+    max: 120.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_processordevicevoltage:
+    base: 12.0
+    min: 0.0
+    max: 480.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  idrac_processordevicestatusstatus_other:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_processordevicestatusstatus_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_processordevicestatusstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_processordevicestatusstatus_non_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_processordevicestatusstatus_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_processordevicestatusstatus_non_recoverable:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_processordevicestatusreading:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  idrac_memorydevicestatus_other:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_memorydevicestatus_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_memorydevicestatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_memorydevicestatus_non_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_memorydevicestatus_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_memorydevicestatus_non_recoverable:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_fruinformationstatus_other:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_fruinformationstatus_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_fruinformationstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_fruinformationstatus_non_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_fruinformationstatus_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_fruinformationstatus_non_recoverable:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_virtualdiskstate_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_virtualdiskstate:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_virtualdiskstate_failed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_virtualdiskstate_degraded:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_virtualdisksizeinmb:
+    base: 4294967296.0
+    min: 4294967296.0
+    max: 4294967296.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_virtualdiskcomponentstatus_other:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_virtualdiskcomponentstatus_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_virtualdiskcomponentstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_virtualdiskcomponentstatus_non_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_virtualdiskcomponentstatus_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_virtualdiskcomponentstatus_non_recoverable:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_virtualdiskt10pistatus_other:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_virtualdiskt10pistatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_virtualdiskt10pistatus_disabled:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_drscmccurrstatus_other:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_drscmccurrstatus_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_drscmccurrstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_drscmccurrstatus_non_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_drscmccurrstatus_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_drscmccurrstatus_non_recoverable:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_drsglobalcurrstatus_other:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_drsglobalcurrstatus_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_drsglobalcurrstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_drsglobalcurrstatus_non_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_drsglobalcurrstatus_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_drsglobalcurrstatus_non_recoverable:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_drspowercurrstatus_other:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_drspowercurrstatus_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_drspowercurrstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_drspowercurrstatus_non_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_drspowercurrstatus_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_drspowercurrstatus_non_recoverable:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_drsredcurrstatus_other:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_drsredcurrstatus_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_drsredcurrstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_drsredcurrstatus_non_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_drsredcurrstatus_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_drsredcurrstatus_non_recoverable:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_drsglobalsystemstatus_other:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_drsglobalsystemstatus_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_drsglobalsystemstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_drsglobalsystemstatus_non_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_drsglobalsystemstatus_critical:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_drsglobalsystemstatus_non_recoverable:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  idrac_drswattsreading:
+    base: 145.0
+    min: 0.0
+    max: 4000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  idrac_drsampsreading:
+    base: 3.2
+    min: 0.0
+    max: 200.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  idrac_drskwhcumulative:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  idrac_adapterrxpackets:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  idrac_adaptertxpackets:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  idrac_adapterrxbytes:
+    base: 3100000.0
+    min: 0.0
+    max: 1250000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  idrac_adaptertxbytes:
+    base: 3100000.0
+    min: 0.0
+    max: 1250000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  idrac_adapterrxerrors:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  idrac_adaptertxerrors:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  idrac_adapterrxdropped:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  idrac_adaptertxdropped:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  idrac_adapterrxmulticast:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  idrac_adaptercollisions:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+contexts:
+- id: snmp.device_prof_systemUptime
+  title: Time since the system was last rebooted or powered on.
+  units: s
+  family: System/Uptime
+  chart_type: line
+  priority: 60000
+  shape: independent
+  dimensions:
+  - id: systemuptime
+    signal: idrac_systemuptime
+- id: snmp.device_prof_systemStateChassisStatus
+  title: Chassis status of the system state
+  units: '{status}'
+  family: Hardware/Chassis/Status
+  chart_type: line
+  priority: 60001
+  shape: independent
+  dimensions:
+  - id: other
+    signal: idrac_systemstatechassisstatus_other
+  - id: unknown
+    signal: idrac_systemstatechassisstatus_unknown
+  - id: ok
+    signal: idrac_systemstatechassisstatus
+  - id: non_critical
+    signal: idrac_systemstatechassisstatus_non_critical
+  - id: critical
+    signal: idrac_systemstatechassisstatus_critical
+  - id: non_recoverable
+    signal: idrac_systemstatechassisstatus_non_recoverable
+  instances:
+    group: chassis_index
+    chart_prefix: systemstatechassisstatus
+    family: Hardware/Chassis/Status
+    labels:
+      chassis_index: '{instance}'
+- id: snmp.device_prof_systemStatePowerUnitStatusRedundancy
+  title: Power unit status redundancy of the system state
+  units: '{status}'
+  family: Hardware/Power/Unit/Redundancy/Status
+  chart_type: line
+  priority: 60002
+  shape: independent
+  dimensions:
+  - id: other
+    signal: idrac_systemstatepowerunitstatusredundancy
+  - id: unknown
+    signal: idrac_systemstatepowerunitstatusredundancy_unknown
+  - id: full
+    signal: idrac_systemstatepowerunitstatusredundancy_full
+  - id: degraded
+    signal: idrac_systemstatepowerunitstatusredundancy_degraded
+  - id: lost
+    signal: idrac_systemstatepowerunitstatusredundancy_lost
+  - id: not_redundant
+    signal: idrac_systemstatepowerunitstatusredundancy_not_redundant
+  - id: redundancy_offline
+    signal: idrac_systemstatepowerunitstatusredundancy_redundancy_offline
+  instances:
+    group: chassis_index
+    chart_prefix: systemstatepowerunitstatusredundancy
+    family: Hardware/Power/Unit/Redundancy/Status
+    labels:
+      chassis_index: '{instance}'
+- id: snmp.device_prof_systemStatePowerSupplyStatusCombined
+  title: Combined power supply status of the system state
+  units: '{state}'
+  family: Hardware/Power/Supply/Status/Combined
+  chart_type: line
+  priority: 60003
+  shape: independent
+  dimensions:
+  - id: other
+    signal: idrac_systemstatepowersupplystatuscombined_other
+  - id: unknown
+    signal: idrac_systemstatepowersupplystatuscombined_unknown
+  - id: ok
+    signal: idrac_systemstatepowersupplystatuscombined
+  - id: non_critical
+    signal: idrac_systemstatepowersupplystatuscombined_non_critical
+  - id: critical
+    signal: idrac_systemstatepowersupplystatuscombined_critical
+  - id: non_recoverable
+    signal: idrac_systemstatepowersupplystatuscombined_non_recoverable
+  instances:
+    group: chassis_index
+    chart_prefix: systemstatepowersupplystatuscombined
+    family: Hardware/Power/Supply/Status/Combined
+    labels:
+      chassis_index: '{instance}'
+- id: snmp.device_prof_systemStateAmperageStatusCombined
+  title: Combined amperage status of the system state
+  units: '{status}'
+  family: Hardware/Sensor/Amperage/Status/Combined
+  chart_type: line
+  priority: 60004
+  shape: independent
+  dimensions:
+  - id: other
+    signal: idrac_systemstateamperagestatuscombined_other
+  - id: unknown
+    signal: idrac_systemstateamperagestatuscombined_unknown
+  - id: ok
+    signal: idrac_systemstateamperagestatuscombined
+  - id: non_critical
+    signal: idrac_systemstateamperagestatuscombined_non_critical
+  - id: critical
+    signal: idrac_systemstateamperagestatuscombined_critical
+  - id: non_recoverable
+    signal: idrac_systemstateamperagestatuscombined_non_recoverable
+  instances:
+    group: chassis_index
+    chart_prefix: systemstateamperagestatuscombined
+    family: Hardware/Sensor/Amperage/Status/Combined
+    labels:
+      chassis_index: '{instance}'
+- id: snmp.device_prof_systemStateCoolingUnitStatusRedundancy
+  title: Cooling unit status redundancy of the system state
+  units: '{status}'
+  family: Hardware/Cooling/Unit/Redundancy/Status
+  chart_type: line
+  priority: 60005
+  shape: independent
+  dimensions:
+  - id: other
+    signal: idrac_systemstatecoolingunitstatusredundancy
+  - id: unknown
+    signal: idrac_systemstatecoolingunitstatusredundancy_unknown
+  - id: full
+    signal: idrac_systemstatecoolingunitstatusredundancy_full
+  - id: degraded
+    signal: idrac_systemstatecoolingunitstatusredundancy_degraded
+  - id: lost
+    signal: idrac_systemstatecoolingunitstatusredundancy_lost
+  - id: not_redundant
+    signal: idrac_systemstatecoolingunitstatusredundancy_not_redundant
+  - id: redundancy_offline
+    signal: idrac_systemstatecoolingunitstatusredundancy_redundancy_offline
+  instances:
+    group: chassis_index
+    chart_prefix: systemstatecoolingunitstatusredundancy
+    family: Hardware/Cooling/Unit/Redundancy/Status
+    labels:
+      chassis_index: '{instance}'
+- id: snmp.device_prof_systemStateCoolingDeviceStatusCombined
+  title: Combined cooling device status of the system state
+  units: '{status}'
+  family: Hardware/Cooling/Device/Status/Combined
+  chart_type: line
+  priority: 60006
+  shape: independent
+  dimensions:
+  - id: other
+    signal: idrac_systemstatecoolingdevicestatuscombined_other
+  - id: unknown
+    signal: idrac_systemstatecoolingdevicestatuscombined_unknown
+  - id: ok
+    signal: idrac_systemstatecoolingdevicestatuscombined
+  - id: non_critical
+    signal: idrac_systemstatecoolingdevicestatuscombined_non_critical
+  - id: critical
+    signal: idrac_systemstatecoolingdevicestatuscombined_critical
+  - id: non_recoverable
+    signal: idrac_systemstatecoolingdevicestatuscombined_non_recoverable
+  instances:
+    group: chassis_index
+    chart_prefix: systemstatecoolingdevicestatuscombined
+    family: Hardware/Cooling/Device/Status/Combined
+    labels:
+      chassis_index: '{instance}'
+- id: snmp.device_prof_systemStateTemperatureStatusCombined
+  title: Combined temperature status of the system state
+  units: '{status}'
+  family: Hardware/Sensor/Temperature/Status/Combined
+  chart_type: line
+  priority: 60007
+  shape: independent
+  dimensions:
+  - id: other
+    signal: idrac_systemstatetemperaturestatuscombined_other
+  - id: unknown
+    signal: idrac_systemstatetemperaturestatuscombined_unknown
+  - id: ok
+    signal: idrac_systemstatetemperaturestatuscombined
+  - id: non_critical
+    signal: idrac_systemstatetemperaturestatuscombined_non_critical
+  - id: critical
+    signal: idrac_systemstatetemperaturestatuscombined_critical
+  - id: non_recoverable
+    signal: idrac_systemstatetemperaturestatuscombined_non_recoverable
+  instances:
+    group: chassis_index
+    chart_prefix: systemstatetemperaturestatuscombined
+    family: Hardware/Sensor/Temperature/Status/Combined
+    labels:
+      chassis_index: '{instance}'
+- id: snmp.device_prof_systemStateMemoryDeviceStatusCombined
+  title: Combined memory device status of the system state
+  units: '{status}'
+  family: Hardware/Memory/Device/Status/Combined
+  chart_type: line
+  priority: 60008
+  shape: independent
+  dimensions:
+  - id: other
+    signal: idrac_systemstatememorydevicestatuscombined_other
+  - id: unknown
+    signal: idrac_systemstatememorydevicestatuscombined_unknown
+  - id: ok
+    signal: idrac_systemstatememorydevicestatuscombined
+  - id: non_critical
+    signal: idrac_systemstatememorydevicestatuscombined_non_critical
+  - id: critical
+    signal: idrac_systemstatememorydevicestatuscombined_critical
+  - id: non_recoverable
+    signal: idrac_systemstatememorydevicestatuscombined_non_recoverable
+  instances:
+    group: chassis_index
+    chart_prefix: systemstatememorydevicestatuscombined
+    family: Hardware/Memory/Device/Status/Combined
+    labels:
+      chassis_index: '{instance}'
+- id: snmp.device_prof_systemStateChassisIntrusionStatusCombined
+  title: Combined chassis intrusion status of the system state
+  units: '{status}'
+  family: Hardware/Chassis/Intrusion/Status/Combined
+  chart_type: line
+  priority: 60009
+  shape: independent
+  dimensions:
+  - id: other
+    signal: idrac_systemstatechassisintrusionstatuscombined_other
+  - id: unknown
+    signal: idrac_systemstatechassisintrusionstatuscombined_unknown
+  - id: ok
+    signal: idrac_systemstatechassisintrusionstatuscombined
+  - id: non_critical
+    signal: idrac_systemstatechassisintrusionstatuscombined_non_critical
+  - id: critical
+    signal: idrac_systemstatechassisintrusionstatuscombined_critical
+  - id: non_recoverable
+    signal: idrac_systemstatechassisintrusionstatuscombined_non_recoverable
+  instances:
+    group: chassis_index
+    chart_prefix: systemstatechassisintrusionstatuscombined
+    family: Hardware/Chassis/Intrusion/Status/Combined
+    labels:
+      chassis_index: '{instance}'
+- id: snmp.device_prof_systemStatePowerUnitStatusCombined
+  title: Combined power unit status of the system state
+  units: '{status}'
+  family: Hardware/Power/Unit/Status/Combined
+  chart_type: line
+  priority: 60010
+  shape: independent
+  dimensions:
+  - id: other
+    signal: idrac_systemstatepowerunitstatuscombined_other
+  - id: unknown
+    signal: idrac_systemstatepowerunitstatuscombined_unknown
+  - id: ok
+    signal: idrac_systemstatepowerunitstatuscombined
+  - id: non_critical
+    signal: idrac_systemstatepowerunitstatuscombined_non_critical
+  - id: critical
+    signal: idrac_systemstatepowerunitstatuscombined_critical
+  - id: non_recoverable
+    signal: idrac_systemstatepowerunitstatuscombined_non_recoverable
+  instances:
+    group: chassis_index
+    chart_prefix: systemstatepowerunitstatuscombined
+    family: Hardware/Power/Unit/Status/Combined
+    labels:
+      chassis_index: '{instance}'
+- id: snmp.device_prof_systemStateCoolingUnitStatusCombined
+  title: Combined cooling unit status of the system state
+  units: '{status}'
+  family: Hardware/Cooling/Unit/Status/Combined
+  chart_type: line
+  priority: 60011
+  shape: independent
+  dimensions:
+  - id: other
+    signal: idrac_systemstatecoolingunitstatuscombined_other
+  - id: unknown
+    signal: idrac_systemstatecoolingunitstatuscombined_unknown
+  - id: ok
+    signal: idrac_systemstatecoolingunitstatuscombined
+  - id: non_critical
+    signal: idrac_systemstatecoolingunitstatuscombined_non_critical
+  - id: critical
+    signal: idrac_systemstatecoolingunitstatuscombined_critical
+  - id: non_recoverable
+    signal: idrac_systemstatecoolingunitstatuscombined_non_recoverable
+  instances:
+    group: chassis_index
+    chart_prefix: systemstatecoolingunitstatuscombined
+    family: Hardware/Cooling/Unit/Status/Combined
+    labels:
+      chassis_index: '{instance}'
+- id: snmp.device_prof_systemStateProcessorDeviceStatusCombined
+  title: Combined processor device status of the system state
+  units: '{status}'
+  family: Hardware/Processor/Device/Status/Combined
+  chart_type: line
+  priority: 60012
+  shape: independent
+  dimensions:
+  - id: other
+    signal: idrac_systemstateprocessordevicestatuscombined_other
+  - id: unknown
+    signal: idrac_systemstateprocessordevicestatuscombined_unknown
+  - id: ok
+    signal: idrac_systemstateprocessordevicestatuscombined
+  - id: non_critical
+    signal: idrac_systemstateprocessordevicestatuscombined_non_critical
+  - id: critical
+    signal: idrac_systemstateprocessordevicestatuscombined_critical
+  - id: non_recoverable
+    signal: idrac_systemstateprocessordevicestatuscombined_non_recoverable
+  instances:
+    group: chassis_index
+    chart_prefix: systemstateprocessordevicestatuscombined
+    family: Hardware/Processor/Device/Status/Combined
+    labels:
+      chassis_index: '{instance}'
+- id: snmp.device_prof_systemStateTemperatureStatisticsStatusCombined
+  title: Combined temperature statistics status of the system state
+  units: '{status}'
+  family: Hardware/Sensor/Temperature/Statistics/Status/Combined
+  chart_type: line
+  priority: 60013
+  shape: independent
+  dimensions:
+  - id: other
+    signal: idrac_systemstatetemperaturestatisticsstatuscombined_other
+  - id: unknown
+    signal: idrac_systemstatetemperaturestatisticsstatuscombined_unknown
+  - id: ok
+    signal: idrac_systemstatetemperaturestatisticsstatuscombined
+  - id: non_critical
+    signal: idrac_systemstatetemperaturestatisticsstatuscombined_non_critical
+  - id: critical
+    signal: idrac_systemstatetemperaturestatisticsstatuscombined_critical
+  - id: non_recoverable
+    signal: idrac_systemstatetemperaturestatisticsstatuscombined_non_recoverable
+  instances:
+    group: chassis_index
+    chart_prefix: systemstatetemperaturestatisticsstatuscombined
+    family: Hardware/Sensor/Temperature/Statistics/Status/Combined
+    labels:
+      chassis_index: '{instance}'
+- id: snmp.device_prof_physicalDiskState
+  title: State of the physical disk
+  units: '{status}'
+  family: Hardware/Disk/Physical/State
+  chart_type: line
+  priority: 60014
+  shape: independent
+  dimensions:
+  - id: unknown
+    signal: idrac_physicaldiskstate_unknown
+  - id: readonly
+    signal: idrac_physicaldiskstate_readonly
+  - id: ready
+    signal: idrac_physicaldiskstate
+  - id: online
+    signal: idrac_physicaldiskstate_online
+  - id: foreign
+    signal: idrac_physicaldiskstate_foreign
+  - id: offline
+    signal: idrac_physicaldiskstate_offline
+  - id: blocked
+    signal: idrac_physicaldiskstate_blocked
+  - id: failed
+    signal: idrac_physicaldiskstate_failed
+  - id: nonraid
+    signal: idrac_physicaldiskstate_nonraid
+  - id: removed
+    signal: idrac_physicaldiskstate_removed
+  instances:
+    group: disk_number
+    chart_prefix: physicaldiskstate
+    family: Hardware/Disk/Physical/State
+    labels:
+      disk_number: '{instance}'
+- id: snmp.device_prof_physicalDiskCapacityInMB
+  title: Capacity of the physical disk in megabytes
+  units: By
+  family: Hardware/Disk/Physical/Capacity
+  chart_type: line
+  priority: 60015
+  shape: independent
+  dimensions:
+  - id: physicaldiskcapacityinmb
+    signal: idrac_physicaldiskcapacityinmb
+  instances:
+    group: disk_number
+    chart_prefix: physicaldiskcapacityinmb
+    family: Hardware/Disk/Physical/Capacity
+    labels:
+      disk_number: '{instance}'
+- id: snmp.device_prof_physicalDiskUsedSpaceInMB
+  title: Used space of the physical disk in megabytes
+  units: By
+  family: Hardware/Disk/Physical/Used
+  chart_type: line
+  priority: 60016
+  shape: independent
+  dimensions:
+  - id: physicaldiskusedspaceinmb
+    signal: idrac_physicaldiskusedspaceinmb
+  instances:
+    group: disk_number
+    chart_prefix: physicaldiskusedspaceinmb
+    family: Hardware/Disk/Physical/Used
+    labels:
+      disk_number: '{instance}'
+- id: snmp.device_prof_physicalDiskFreeSpaceInMB
+  title: Free space of the physical disk in megabytes
+  units: By
+  family: Hardware/Disk/Physical/Free
+  chart_type: line
+  priority: 60017
+  shape: independent
+  dimensions:
+  - id: physicaldiskfreespaceinmb
+    signal: idrac_physicaldiskfreespaceinmb
+  instances:
+    group: disk_number
+    chart_prefix: physicaldiskfreespaceinmb
+    family: Hardware/Disk/Physical/Free
+    labels:
+      disk_number: '{instance}'
+- id: snmp.device_prof_enclosurePowerSupplyState
+  title: State of the enclosure power supply
+  units: '{status}'
+  family: Hardware/Enclosure/PowerSupply/State
+  chart_type: line
+  priority: 60018
+  shape: independent
+  dimensions:
+  - id: unknown
+    signal: idrac_enclosurepowersupplystate_unknown
+  - id: ready
+    signal: idrac_enclosurepowersupplystate
+  - id: failed
+    signal: idrac_enclosurepowersupplystate_failed
+  - id: missing
+    signal: idrac_enclosurepowersupplystate_missing
+  - id: degraded
+    signal: idrac_enclosurepowersupplystate_degraded
+  instances:
+    group: supply_name
+    chart_prefix: enclosurepowersupplystate
+    family: Hardware/Enclosure/PowerSupply/State
+    labels:
+      supply_name: '{instance}'
+- id: snmp.device_prof_batteryState
+  title: State of the battery
+  units: '{status}'
+  family: Hardware/Battery/State
+  chart_type: line
+  priority: 60019
+  shape: independent
+  dimensions:
+  - id: unknown
+    signal: idrac_batterystate_unknown
+  - id: ready
+    signal: idrac_batterystate
+  - id: failed
+    signal: idrac_batterystate_failed
+  - id: degraded
+    signal: idrac_batterystate_degraded
+  - id: missing
+    signal: idrac_batterystate_missing
+  - id: charging
+    signal: idrac_batterystate_charging
+  - id: below_threshold
+    signal: idrac_batterystate_below_threshold
+  instances:
+    group: battery_fqdd
+    chart_prefix: batterystate
+    family: Hardware/Battery/State
+    labels:
+      battery_fqdd: '{instance}'
+- id: snmp.device_prof_controllerRollUpStatus
+  title: Roll up status of the controller
+  units: '{status}'
+  family: Hardware/Controller/Status/RollUp
+  chart_type: line
+  priority: 60020
+  shape: independent
+  dimensions:
+  - id: other
+    signal: idrac_controllerrollupstatus_other
+  - id: unknown
+    signal: idrac_controllerrollupstatus_unknown
+  - id: ok
+    signal: idrac_controllerrollupstatus
+  - id: non_critical
+    signal: idrac_controllerrollupstatus_non_critical
+  - id: critical
+    signal: idrac_controllerrollupstatus_critical
+  - id: non_recoverable
+    signal: idrac_controllerrollupstatus_non_recoverable
+  instances:
+    group: controller_number
+    chart_prefix: controllerrollupstatus
+    family: Hardware/Controller/Status/RollUp
+    labels:
+      controller_number: '{instance}'
+- id: snmp.device_prof_pCIDeviceStatus
+  title: Status of the PCI device
+  units: '{status}'
+  family: Hardware/PCIDevice/Status
+  chart_type: line
+  priority: 60021
+  shape: independent
+  dimensions:
+  - id: other
+    signal: idrac_pcidevicestatus_other
+  - id: unknown
+    signal: idrac_pcidevicestatus_unknown
+  - id: ok
+    signal: idrac_pcidevicestatus
+  - id: non_critical
+    signal: idrac_pcidevicestatus_non_critical
+  - id: critical
+    signal: idrac_pcidevicestatus_critical
+  - id: non_recoverable
+    signal: idrac_pcidevicestatus_non_recoverable
+  instances:
+    group: device_descr_name
+    chart_prefix: pcidevicestatus
+    family: Hardware/PCIDevice/Status
+    labels:
+      device_descr_name: '{instance}'
+- id: snmp.device_prof_systemSlotStatus
+  title: Status of the system slot
+  units: '{status}'
+  family: Hardware/Slot/Status
+  chart_type: line
+  priority: 60022
+  shape: independent
+  dimensions:
+  - id: other
+    signal: idrac_systemslotstatus_other
+  - id: unknown
+    signal: idrac_systemslotstatus_unknown
+  - id: ok
+    signal: idrac_systemslotstatus
+  - id: non_critical
+    signal: idrac_systemslotstatus_non_critical
+  - id: critical
+    signal: idrac_systemslotstatus_critical
+  - id: non_recoverable
+    signal: idrac_systemslotstatus_non_recoverable
+  instances:
+    group: slot_name
+    chart_prefix: systemslotstatus
+    family: Hardware/Slot/Status
+    labels:
+      slot_name: '{instance}'
+- id: snmp.device_prof_networkDeviceStatus
+  title: Status of the network device
+  units: '{status}'
+  family: Network/Device/Status
+  chart_type: line
+  priority: 60023
+  shape: independent
+  dimensions:
+  - id: other
+    signal: idrac_networkdevicestatus_other
+  - id: unknown
+    signal: idrac_networkdevicestatus_unknown
+  - id: ok
+    signal: idrac_networkdevicestatus
+  - id: non_critical
+    signal: idrac_networkdevicestatus_non_critical
+  - id: critical
+    signal: idrac_networkdevicestatus_critical
+  - id: non_recoverable
+    signal: idrac_networkdevicestatus_non_recoverable
+  instances:
+    group: chassis_index
+    chart_prefix: networkdevicestatus
+    family: Network/Device/Status
+    labels:
+      chassis_index: '{instance}'
+- id: snmp.device_prof_systemBIOSStatus
+  title: Status of the system BIOS
+  units: '{status}'
+  family: System/BIOS/Status
+  chart_type: line
+  priority: 60024
+  shape: independent
+  dimensions:
+  - id: other
+    signal: idrac_systembiosstatus_other
+  - id: unknown
+    signal: idrac_systembiosstatus_unknown
+  - id: ok
+    signal: idrac_systembiosstatus
+  - id: non_critical
+    signal: idrac_systembiosstatus_non_critical
+  - id: critical
+    signal: idrac_systembiosstatus_critical
+  - id: non_recoverable
+    signal: idrac_systembiosstatus_non_recoverable
+  instances:
+    group: chassis_index
+    chart_prefix: systembiosstatus
+    family: System/BIOS/Status
+    labels:
+      chassis_index: '{instance}'
+- id: snmp.device_prof_intrusionStatus
+  title: Status of the intrusion
+  units: '{status}'
+  family: Hardware/Intrusion/Status
+  chart_type: line
+  priority: 60025
+  shape: independent
+  dimensions:
+  - id: other
+    signal: idrac_intrusionstatus_other
+  - id: unknown
+    signal: idrac_intrusionstatus_unknown
+  - id: ok
+    signal: idrac_intrusionstatus
+  - id: non_critical
+    signal: idrac_intrusionstatus_non_critical
+  - id: critical
+    signal: idrac_intrusionstatus_critical
+  - id: non_recoverable
+    signal: idrac_intrusionstatus_non_recoverable
+  instances:
+    group: chassis_index
+    chart_prefix: intrusionstatus
+    family: Hardware/Intrusion/Status
+    labels:
+      chassis_index: '{instance}'
+- id: snmp.device_prof_intrusionReading
+  title: Reading of the intrusion
+  units: '{reading}'
+  family: Hardware/Intrusion/Reading
+  chart_type: line
+  priority: 60026
+  shape: independent
+  dimensions:
+  - id: intrusionreading
+    signal: idrac_intrusionreading
+  instances:
+    group: chassis_index
+    chart_prefix: intrusionreading
+    family: Hardware/Intrusion/Reading
+    labels:
+      chassis_index: '{instance}'
+- id: snmp.device_prof_powerSupplyOutputWatts
+  title: Output power of the power supply in watts
+  units: W
+  family: Hardware/PowerSupply/Output/Power
+  chart_type: line
+  priority: 60027
+  shape: independent
+  dimensions:
+  - id: powersupplyoutputwatts
+    signal: idrac_powersupplyoutputwatts
+  instances:
+    group: chassis_index
+    chart_prefix: powersupplyoutputwatts
+    family: Hardware/PowerSupply/Output/Power
+    labels:
+      chassis_index: '{instance}'
+- id: snmp.device_prof_powerSupplyMaximumInputVoltage
+  title: Maximum input voltage of the power supply
+  units: V
+  family: Hardware/PowerSupply/Input/Voltage/Maximum
+  chart_type: line
+  priority: 60028
+  shape: independent
+  dimensions:
+  - id: powersupplymaximuminputvolta
+    signal: idrac_powersupplymaximuminputvoltage
+  instances:
+    group: chassis_index
+    chart_prefix: powersupplymaximuminputvoltage
+    family: Hardware/PowerSupply/Input/Voltage/Maximum
+    labels:
+      chassis_index: '{instance}'
+- id: snmp.device_prof_powerSupplyCurrentInputVoltage
+  title: Current input voltage of the power supply
+  units: V
+  family: Hardware/PowerSupply/Input/Voltage/Current
+  chart_type: line
+  priority: 60029
+  shape: independent
+  dimensions:
+  - id: powersupplycurrentinputvolta
+    signal: idrac_powersupplycurrentinputvoltage
+  instances:
+    group: chassis_index
+    chart_prefix: powersupplycurrentinputvoltage
+    family: Hardware/PowerSupply/Input/Voltage/Current
+    labels:
+      chassis_index: '{instance}'
+- id: snmp.device_prof_amperageProbeStatus
+  title: Status of the amperage probe
+  units: '{status}'
+  family: Hardware/Sensor/Amperage/Status
+  chart_type: line
+  priority: 60030
+  shape: independent
+  dimensions:
+  - id: other
+    signal: idrac_amperageprobestatus_other
+  - id: failed
+    signal: idrac_amperageprobestatus_failed
+  - id: unknown
+    signal: idrac_amperageprobestatus_unknown
+  - id: ok
+    signal: idrac_amperageprobestatus
+  - id: non_critical_upper
+    signal: idrac_amperageprobestatus_non_critical_upper
+  - id: critical_upper
+    signal: idrac_amperageprobestatus_critical_upper
+  - id: non_recoverable_upper
+    signal: idrac_amperageprobestatus_non_recoverable_upper
+  - id: non_critical_lower
+    signal: idrac_amperageprobestatus_non_critical_lower
+  - id: critical_lower
+    signal: idrac_amperageprobestatus_critical_lower
+  - id: non_recoverable_lower
+    signal: idrac_amperageprobestatus_non_recoverable_lower
+  instances:
+    group: probe_type
+    chart_prefix: amperageprobestatus
+    family: Hardware/Sensor/Amperage/Status
+    labels:
+      probe_type: '{instance}'
+- id: snmp.device_prof_amperageProbeReading
+  title: Reading of the amperage probe in amperes
+  units: A
+  family: Hardware/Sensor/Amperage/Value
+  chart_type: line
+  priority: 60031
+  shape: independent
+  dimensions:
+  - id: amperageprobereading
+    signal: idrac_amperageprobereading
+  instances:
+    group: probe_type
+    chart_prefix: amperageprobereading
+    family: Hardware/Sensor/Amperage/Value
+    labels:
+      probe_type: '{instance}'
+- id: snmp.device_prof_powerUsageStatus
+  title: Status of the power usage
+  units: '{status}'
+  family: System/Power/Usage/Status
+  chart_type: line
+  priority: 60032
+  shape: independent
+  dimensions:
+  - id: other
+    signal: idrac_powerusagestatus_other
+  - id: unknown
+    signal: idrac_powerusagestatus_unknown
+  - id: ok
+    signal: idrac_powerusagestatus
+  - id: non_critical
+    signal: idrac_powerusagestatus_non_critical
+  - id: critical
+    signal: idrac_powerusagestatus_critical
+  - id: non_recoverable
+    signal: idrac_powerusagestatus_non_recoverable
+  instances:
+    group: chassis_index
+    chart_prefix: powerusagestatus
+    family: System/Power/Usage/Status
+    labels:
+      chassis_index: '{instance}'
+- id: snmp.device_prof_voltageProbeStatus
+  title: Status of the voltage probe
+  units: '{status}'
+  family: Hardware/Sensor/Voltage/Status
+  chart_type: line
+  priority: 60033
+  shape: independent
+  dimensions:
+  - id: other
+    signal: idrac_voltageprobestatus_other
+  - id: failed
+    signal: idrac_voltageprobestatus_failed
+  - id: unknown
+    signal: idrac_voltageprobestatus_unknown
+  - id: ok
+    signal: idrac_voltageprobestatus
+  - id: non_critical_upper
+    signal: idrac_voltageprobestatus_non_critical_upper
+  - id: critical_upper
+    signal: idrac_voltageprobestatus_critical_upper
+  - id: non_recoverable_upper
+    signal: idrac_voltageprobestatus_non_recoverable_upper
+  - id: non_critical_lower
+    signal: idrac_voltageprobestatus_non_critical_lower
+  - id: critical_lower
+    signal: idrac_voltageprobestatus_critical_lower
+  - id: non_recoverable_lower
+    signal: idrac_voltageprobestatus_non_recoverable_lower
+  instances:
+    group: chassis_index
+    chart_prefix: voltageprobestatus
+    family: Hardware/Sensor/Voltage/Status
+    labels:
+      chassis_index: '{instance}'
+- id: snmp.device_prof_voltageProbeReading
+  title: Reading of the voltage probe in volts
+  units: V
+  family: Hardware/Sensor/Voltage/Value
+  chart_type: line
+  priority: 60034
+  shape: independent
+  dimensions:
+  - id: voltageprobereading
+    signal: idrac_voltageprobereading
+  instances:
+    group: chassis_index
+    chart_prefix: voltageprobereading
+    family: Hardware/Sensor/Voltage/Value
+    labels:
+      chassis_index: '{instance}'
+- id: snmp.device_prof_systemBatteryStatus
+  title: Status of the system battery
+  units: '{status}'
+  family: Hardware/Battery/System/Status
+  chart_type: line
+  priority: 60035
+  shape: independent
+  dimensions:
+  - id: other
+    signal: idrac_systembatterystatus_other
+  - id: unknown
+    signal: idrac_systembatterystatus_unknown
+  - id: ok
+    signal: idrac_systembatterystatus
+  - id: non_critical
+    signal: idrac_systembatterystatus_non_critical
+  - id: critical
+    signal: idrac_systembatterystatus_critical
+  - id: non_recoverable
+    signal: idrac_systembatterystatus_non_recoverable
+  instances:
+    group: chassis_index
+    chart_prefix: systembatterystatus
+    family: Hardware/Battery/System/Status
+    labels:
+      chassis_index: '{instance}'
+- id: snmp.device_prof_systemBatteryReading
+  title: Reading of the system battery
+  units: '{reading}'
+  family: Hardware/Battery/System/Reading
+  chart_type: line
+  priority: 60036
+  shape: independent
+  dimensions:
+  - id: systembatteryreading
+    signal: idrac_systembatteryreading
+  instances:
+    group: chassis_index
+    chart_prefix: systembatteryreading
+    family: Hardware/Battery/System/Reading
+    labels:
+      chassis_index: '{instance}'
+- id: snmp.device_prof_coolingUnitRedundancyStatus
+  title: Redundancy status of the cooling unit
+  units: '{status}'
+  family: Hardware/Cooling/Unit/Redundancy/Status
+  chart_type: line
+  priority: 60037
+  shape: independent
+  dimensions:
+  - id: other
+    signal: idrac_coolingunitredundancystatus
+  - id: unknown
+    signal: idrac_coolingunitredundancystatus_unknown
+  - id: full
+    signal: idrac_coolingunitredundancystatus_full
+  - id: degraded
+    signal: idrac_coolingunitredundancystatus_degraded
+  - id: lost
+    signal: idrac_coolingunitredundancystatus_lost
+  - id: not_redundant
+    signal: idrac_coolingunitredundancystatus_not_redundant
+  - id: redundancy_offline
+    signal: idrac_coolingunitredundancystatus_redundancy_offline
+  instances:
+    group: chassis_index
+    chart_prefix: coolingunitredundancystatus
+    family: Hardware/Cooling/Unit/Redundancy/Status
+    labels:
+      chassis_index: '{instance}'
+- id: snmp.device_prof_coolingUnitStatus
+  title: Status of the cooling unit
+  units: '{status}'
+  family: Hardware/Cooling/Unit/Status
+  chart_type: line
+  priority: 60038
+  shape: independent
+  dimensions:
+  - id: other
+    signal: idrac_coolingunitstatus
+  - id: unknown
+    signal: idrac_coolingunitstatus_unknown
+  - id: full
+    signal: idrac_coolingunitstatus_full
+  - id: degraded
+    signal: idrac_coolingunitstatus_degraded
+  - id: lost
+    signal: idrac_coolingunitstatus_lost
+  - id: not_redundant
+    signal: idrac_coolingunitstatus_not_redundant
+  - id: redundancy_offline
+    signal: idrac_coolingunitstatus_redundancy_offline
+  instances:
+    group: chassis_index
+    chart_prefix: coolingunitstatus
+    family: Hardware/Cooling/Unit/Status
+    labels:
+      chassis_index: '{instance}'
+- id: snmp.device_prof_coolingDeviceStatus
+  title: Status of the cooling device
+  units: '{status}'
+  family: Hardware/Cooling/Device/Status
+  chart_type: line
+  priority: 60039
+  shape: independent
+  dimensions:
+  - id: other
+    signal: idrac_coolingdevicestatus_other
+  - id: failed
+    signal: idrac_coolingdevicestatus_failed
+  - id: unknown
+    signal: idrac_coolingdevicestatus_unknown
+  - id: ok
+    signal: idrac_coolingdevicestatus
+  - id: non_critical_upper
+    signal: idrac_coolingdevicestatus_non_critical_upper
+  - id: critical_upper
+    signal: idrac_coolingdevicestatus_critical_upper
+  - id: non_recoverable_upper
+    signal: idrac_coolingdevicestatus_non_recoverable_upper
+  - id: non_critical_lower
+    signal: idrac_coolingdevicestatus_non_critical_lower
+  - id: critical_lower
+    signal: idrac_coolingdevicestatus_critical_lower
+  - id: non_recoverable_lower
+    signal: idrac_coolingdevicestatus_non_recoverable_lower
+  instances:
+    group: chassis_index
+    chart_prefix: coolingdevicestatus
+    family: Hardware/Cooling/Device/Status
+    labels:
+      chassis_index: '{instance}'
+- id: snmp.device_prof_coolingDeviceReading
+  title: Reading of the cooling device
+  units: '{revolution}/min'
+  family: Hardware/Cooling/Device/Speed
+  chart_type: line
+  priority: 60040
+  shape: independent
+  dimensions:
+  - id: coolingdevicereading
+    signal: idrac_coolingdevicereading
+  instances:
+    group: chassis_index
+    chart_prefix: coolingdevicereading
+    family: Hardware/Cooling/Device/Speed
+    labels:
+      chassis_index: '{instance}'
+- id: snmp.device_prof_coolingDeviceDiscreteReading
+  title: Discrete reading of the cooling device
+  units: '{reading}'
+  family: Hardware/Cooling/Device/DiscreteReading
+  chart_type: line
+  priority: 60041
+  shape: independent
+  dimensions:
+  - id: coolingdevicediscretereading
+    signal: idrac_coolingdevicediscretereading
+  instances:
+    group: chassis_index
+    chart_prefix: coolingdevicediscretereading
+    family: Hardware/Cooling/Device/DiscreteReading
+    labels:
+      chassis_index: '{instance}'
+- id: snmp.device_prof_temperatureProbeStatus
+  title: Status of the temperature probe
+  units: '{status}'
+  family: Hardware/Sensor/Temperature/Status
+  chart_type: line
+  priority: 60042
+  shape: independent
+  dimensions:
+  - id: other
+    signal: idrac_temperatureprobestatus_other
+  - id: failed
+    signal: idrac_temperatureprobestatus_failed
+  - id: unknown
+    signal: idrac_temperatureprobestatus_unknown
+  - id: ok
+    signal: idrac_temperatureprobestatus
+  - id: non_critical_upper
+    signal: idrac_temperatureprobestatus_non_critical_upper
+  - id: critical_upper
+    signal: idrac_temperatureprobestatus_critical_upper
+  - id: non_recoverable_upper
+    signal: idrac_temperatureprobestatus_non_recoverable_upper
+  - id: non_critical_lower
+    signal: idrac_temperatureprobestatus_non_critical_lower
+  - id: critical_lower
+    signal: idrac_temperatureprobestatus_critical_lower
+  - id: non_recoverable_lower
+    signal: idrac_temperatureprobestatus_non_recoverable_lower
+  instances:
+    group: chassis_index
+    chart_prefix: temperatureprobestatus
+    family: Hardware/Sensor/Temperature/Status
+    labels:
+      chassis_index: '{instance}'
+- id: snmp.device_prof_temperatureProbeReading
+  title: Reading of the temperature probe in degrees Celsius
+  units: Cel
+  family: Hardware/Sensor/Temperature/Value
+  chart_type: line
+  priority: 60043
+  shape: independent
+  dimensions:
+  - id: temperatureprobereading
+    signal: idrac_temperatureprobereading
+  instances:
+    group: chassis_index
+    chart_prefix: temperatureprobereading
+    family: Hardware/Sensor/Temperature/Value
+    labels:
+      chassis_index: '{instance}'
+- id: snmp.device_prof_temperatureProbeDiscreteReading
+  title: Discrete reading of the temperature probe
+  units: '{reading}'
+  family: Hardware/Sensor/Temperature/DiscreteReading
+  chart_type: line
+  priority: 60044
+  shape: independent
+  dimensions:
+  - id: temperatureprobediscreteread
+    signal: idrac_temperatureprobediscretereading
+  instances:
+    group: chassis_index
+    chart_prefix: temperatureprobediscretereading
+    family: Hardware/Sensor/Temperature/DiscreteReading
+    labels:
+      chassis_index: '{instance}'
+- id: snmp.device_prof_processorDeviceStatus
+  title: Status of the processor device
+  units: '{status}'
+  family: Hardware/Processor/Status
+  chart_type: line
+  priority: 60045
+  shape: independent
+  dimensions:
+  - id: other
+    signal: idrac_processordevicestatus_other
+  - id: unknown
+    signal: idrac_processordevicestatus_unknown
+  - id: ok
+    signal: idrac_processordevicestatus
+  - id: non_critical
+    signal: idrac_processordevicestatus_non_critical
+  - id: critical
+    signal: idrac_processordevicestatus_critical
+  - id: non_recoverable
+    signal: idrac_processordevicestatus_non_recoverable
+  instances:
+    group: chassis_index
+    chart_prefix: processordevicestatus
+    family: Hardware/Processor/Status
+    labels:
+      chassis_index: '{instance}'
+- id: snmp.device_prof_processorDeviceMaximumSpeed
+  title: Maximum speed of the processor device in megahertz
+  units: MHz
+  family: Hardware/Processor/Speed/Maximum
+  chart_type: line
+  priority: 60046
+  shape: independent
+  dimensions:
+  - id: processordevicemaximumspeed
+    signal: idrac_processordevicemaximumspeed
+  instances:
+    group: chassis_index
+    chart_prefix: processordevicemaximumspeed
+    family: Hardware/Processor/Speed/Maximum
+    labels:
+      chassis_index: '{instance}'
+- id: snmp.device_prof_processorDeviceCurrentSpeed
+  title: Current speed of the processor device in megahertz
+  units: MHz
+  family: Hardware/Processor/Speed/Current
+  chart_type: line
+  priority: 60047
+  shape: independent
+  dimensions:
+  - id: processordevicecurrentspeed
+    signal: idrac_processordevicecurrentspeed
+  instances:
+    group: chassis_index
+    chart_prefix: processordevicecurrentspeed
+    family: Hardware/Processor/Speed/Current
+    labels:
+      chassis_index: '{instance}'
+- id: snmp.device_prof_processorDeviceVoltage
+  title: Voltage of the processor device in volts
+  units: V
+  family: Hardware/Processor/Voltage
+  chart_type: line
+  priority: 60048
+  shape: independent
+  dimensions:
+  - id: processordevicevoltage
+    signal: idrac_processordevicevoltage
+  instances:
+    group: chassis_index
+    chart_prefix: processordevicevoltage
+    family: Hardware/Processor/Voltage
+    labels:
+      chassis_index: '{instance}'
+- id: snmp.device_prof_processorDeviceStatusStatus
+  title: Status of the processor device status
+  units: '{status}'
+  family: Hardware/Processor/Device/Status/Status
+  chart_type: line
+  priority: 60049
+  shape: independent
+  dimensions:
+  - id: other
+    signal: idrac_processordevicestatusstatus_other
+  - id: unknown
+    signal: idrac_processordevicestatusstatus_unknown
+  - id: ok
+    signal: idrac_processordevicestatusstatus
+  - id: non_critical
+    signal: idrac_processordevicestatusstatus_non_critical
+  - id: critical
+    signal: idrac_processordevicestatusstatus_critical
+  - id: non_recoverable
+    signal: idrac_processordevicestatusstatus_non_recoverable
+  instances:
+    group: chassis_index
+    chart_prefix: processordevicestatusstatus
+    family: Hardware/Processor/Device/Status/Status
+    labels:
+      chassis_index: '{instance}'
+- id: snmp.device_prof_processorDeviceStatusReading
+  title: Reading of the processor device status
+  units: '{reading}'
+  family: Hardware/Processor/Device/Status/Reading
+  chart_type: line
+  priority: 60050
+  shape: independent
+  dimensions:
+  - id: processordevicestatusreading
+    signal: idrac_processordevicestatusreading
+  instances:
+    group: chassis_index
+    chart_prefix: processordevicestatusreading
+    family: Hardware/Processor/Device/Status/Reading
+    labels:
+      chassis_index: '{instance}'
+- id: snmp.device_prof_memoryDeviceStatus
+  title: Status of the memory device
+  units: '{status}'
+  family: Hardware/Memory/Status
+  chart_type: line
+  priority: 60051
+  shape: independent
+  dimensions:
+  - id: other
+    signal: idrac_memorydevicestatus_other
+  - id: unknown
+    signal: idrac_memorydevicestatus_unknown
+  - id: ok
+    signal: idrac_memorydevicestatus
+  - id: non_critical
+    signal: idrac_memorydevicestatus_non_critical
+  - id: critical
+    signal: idrac_memorydevicestatus_critical
+  - id: non_recoverable
+    signal: idrac_memorydevicestatus_non_recoverable
+  instances:
+    group: device_type
+    chart_prefix: memorydevicestatus
+    family: Hardware/Memory/Status
+    labels:
+      device_type: '{instance}'
+- id: snmp.device_prof_fruInformationStatus
+  title: Status of the FRU information
+  units: '{status}'
+  family: Hardware/FRU/Status
+  chart_type: line
+  priority: 60052
+  shape: independent
+  dimensions:
+  - id: other
+    signal: idrac_fruinformationstatus_other
+  - id: unknown
+    signal: idrac_fruinformationstatus_unknown
+  - id: ok
+    signal: idrac_fruinformationstatus
+  - id: non_critical
+    signal: idrac_fruinformationstatus_non_critical
+  - id: critical
+    signal: idrac_fruinformationstatus_critical
+  - id: non_recoverable
+    signal: idrac_fruinformationstatus_non_recoverable
+  instances:
+    group: chassis_index
+    chart_prefix: fruinformationstatus
+    family: Hardware/FRU/Status
+    labels:
+      chassis_index: '{instance}'
+- id: snmp.device_prof_virtualDiskState
+  title: State of the virtual disk
+  units: '{status}'
+  family: System/Disk/Virtual/State
+  chart_type: line
+  priority: 60053
+  shape: independent
+  dimensions:
+  - id: unknown
+    signal: idrac_virtualdiskstate_unknown
+  - id: online
+    signal: idrac_virtualdiskstate
+  - id: failed
+    signal: idrac_virtualdiskstate_failed
+  - id: degraded
+    signal: idrac_virtualdiskstate_degraded
+  instances:
+    group: virtual_disk_number
+    chart_prefix: virtualdiskstate
+    family: System/Disk/Virtual/State
+    labels:
+      virtual_disk_number: '{instance}'
+- id: snmp.device_prof_virtualDiskSizeInMB
+  title: Size of the virtual disk in megabytes
+  units: By
+  family: System/Disk/Virtual/Size
+  chart_type: line
+  priority: 60054
+  shape: independent
+  dimensions:
+  - id: virtualdisksizeinmb
+    signal: idrac_virtualdisksizeinmb
+  instances:
+    group: virtual_disk_number
+    chart_prefix: virtualdisksizeinmb
+    family: System/Disk/Virtual/Size
+    labels:
+      virtual_disk_number: '{instance}'
+- id: snmp.device_prof_virtualDiskComponentStatus
+  title: Component status of the virtual disk
+  units: '{status}'
+  family: System/Disk/Virtual/ComponentStatus
+  chart_type: line
+  priority: 60055
+  shape: independent
+  dimensions:
+  - id: other
+    signal: idrac_virtualdiskcomponentstatus_other
+  - id: unknown
+    signal: idrac_virtualdiskcomponentstatus_unknown
+  - id: ok
+    signal: idrac_virtualdiskcomponentstatus
+  - id: non_critical
+    signal: idrac_virtualdiskcomponentstatus_non_critical
+  - id: critical
+    signal: idrac_virtualdiskcomponentstatus_critical
+  - id: non_recoverable
+    signal: idrac_virtualdiskcomponentstatus_non_recoverable
+  instances:
+    group: virtual_disk_number
+    chart_prefix: virtualdiskcomponentstatus
+    family: System/Disk/Virtual/ComponentStatus
+    labels:
+      virtual_disk_number: '{instance}'
+- id: snmp.device_prof_virtualDiskT10PIStatus
+  title: T10 PI status of the virtual disk
+  units: '{status}'
+  family: System/Disk/Virtual/T10PIStatus
+  chart_type: line
+  priority: 60056
+  shape: independent
+  dimensions:
+  - id: other
+    signal: idrac_virtualdiskt10pistatus_other
+  - id: enabled
+    signal: idrac_virtualdiskt10pistatus
+  - id: disabled
+    signal: idrac_virtualdiskt10pistatus_disabled
+  instances:
+    group: virtual_disk_number
+    chart_prefix: virtualdiskt10pistatus
+    family: System/Disk/Virtual/T10PIStatus
+    labels:
+      virtual_disk_number: '{instance}'
+- id: snmp.device_prof_drsCMCCurrStatus
+  title: CMC health status being monitored by the chassis management card
+  units: '{status}'
+  family: Hardware/CMC/Status
+  chart_type: line
+  priority: 60057
+  shape: independent
+  dimensions:
+  - id: other
+    signal: idrac_drscmccurrstatus_other
+  - id: unknown
+    signal: idrac_drscmccurrstatus_unknown
+  - id: ok
+    signal: idrac_drscmccurrstatus
+  - id: non_critical
+    signal: idrac_drscmccurrstatus_non_critical
+  - id: critical
+    signal: idrac_drscmccurrstatus_critical
+  - id: non_recoverable
+    signal: idrac_drscmccurrstatus_non_recoverable
+- id: snmp.device_prof_drsGlobalCurrStatus
+  title: Overall chassis status being monitored by the chassis management card
+  units: '{status}'
+  family: System/Global/Status
+  chart_type: line
+  priority: 60058
+  shape: independent
+  dimensions:
+  - id: other
+    signal: idrac_drsglobalcurrstatus_other
+  - id: unknown
+    signal: idrac_drsglobalcurrstatus_unknown
+  - id: ok
+    signal: idrac_drsglobalcurrstatus
+  - id: non_critical
+    signal: idrac_drsglobalcurrstatus_non_critical
+  - id: critical
+    signal: idrac_drsglobalcurrstatus_critical
+  - id: non_recoverable
+    signal: idrac_drsglobalcurrstatus_non_recoverable
+- id: snmp.device_prof_drsPowerCurrStatus
+  title: Power subsystem health status being monitored by the chassis management card
+  units: '{status}'
+  family: Hardware/Power/Status
+  chart_type: line
+  priority: 60059
+  shape: independent
+  dimensions:
+  - id: other
+    signal: idrac_drspowercurrstatus_other
+  - id: unknown
+    signal: idrac_drspowercurrstatus_unknown
+  - id: ok
+    signal: idrac_drspowercurrstatus
+  - id: non_critical
+    signal: idrac_drspowercurrstatus_non_critical
+  - id: critical
+    signal: idrac_drspowercurrstatus_critical
+  - id: non_recoverable
+    signal: idrac_drspowercurrstatus_non_recoverable
+- id: snmp.device_prof_drsRedCurrStatus
+  title: Redundancy status being monitored by the chassis management card
+  units: '{status}'
+  family: System/Redundancy/Status
+  chart_type: line
+  priority: 60060
+  shape: independent
+  dimensions:
+  - id: other
+    signal: idrac_drsredcurrstatus_other
+  - id: unknown
+    signal: idrac_drsredcurrstatus_unknown
+  - id: ok
+    signal: idrac_drsredcurrstatus
+  - id: non_critical
+    signal: idrac_drsredcurrstatus_non_critical
+  - id: critical
+    signal: idrac_drsredcurrstatus_critical
+  - id: non_recoverable
+    signal: idrac_drsredcurrstatus_non_recoverable
+- id: snmp.device_prof_drsGlobalSystemStatus
+  title: Overall chassis status being monitored by the chassis management card
+  units: '{status}'
+  family: System/Global/SystemStatus
+  chart_type: line
+  priority: 60061
+  shape: independent
+  dimensions:
+  - id: other
+    signal: idrac_drsglobalsystemstatus_other
+  - id: unknown
+    signal: idrac_drsglobalsystemstatus_unknown
+  - id: ok
+    signal: idrac_drsglobalsystemstatus
+  - id: non_critical
+    signal: idrac_drsglobalsystemstatus_non_critical
+  - id: critical
+    signal: idrac_drsglobalsystemstatus_critical
+  - id: non_recoverable
+    signal: idrac_drsglobalsystemstatus_non_recoverable
+- id: snmp.device_prof_drsWattsReading
+  title: Instantaneous chassis power usage in watts
+  units: W
+  family: Hardware/Power/Usage
+  chart_type: line
+  priority: 60062
+  shape: independent
+  dimensions:
+  - id: drswattsreading
+    signal: idrac_drswattsreading
+  instances:
+    group: chassis_index
+    chart_prefix: drswattsreading
+    family: Hardware/Power/Usage
+    labels:
+      chassis_index: '{instance}'
+- id: snmp.device_prof_drsAmpsReading
+  title: Instantaneous chassis current usage in amperes
+  units: A
+  family: Hardware/Power/Current
+  chart_type: line
+  priority: 60063
+  shape: independent
+  dimensions:
+  - id: drsampsreading
+    signal: idrac_drsampsreading
+  instances:
+    group: chassis_index
+    chart_prefix: drsampsreading
+    family: Hardware/Power/Current
+    labels:
+      chassis_index: '{instance}'
+- id: snmp.device_prof_drsKWhCumulative
+  title: Cumulative chassis power usage in kilowatt hours since last reset
+  units: kWh
+  family: Hardware/Power/Energy/Cumulative
+  chart_type: line
+  priority: 60064
+  shape: independent
+  dimensions:
+  - id: drskwhcumulative
+    signal: idrac_drskwhcumulative
+  instances:
+    group: chassis_index
+    chart_prefix: drskwhcumulative
+    family: Hardware/Power/Energy/Cumulative
+    labels:
+      chassis_index: '{instance}'
+- id: snmp.device_prof_adapterRxPackets
+  title: Total number of packets received
+  units: '{packet}/s'
+  family: Network/Interface/Packet/Total/In
+  chart_type: line
+  priority: 60065
+  shape: counters
+  dimensions:
+  - id: adapterrxpackets
+    rate_signal: idrac_adapterrxpackets
+  instances:
+    group: adapter
+    chart_prefix: adapterrxpackets
+    family: Network/Interface/Packet/Total/In
+    labels:
+      adapter: '{instance}'
+- id: snmp.device_prof_adapterTxPackets
+  title: Total number of packets transmitted
+  units: '{packet}/s'
+  family: Network/Interface/Packet/Total/Out
+  chart_type: line
+  priority: 60066
+  shape: counters
+  dimensions:
+  - id: adaptertxpackets
+    rate_signal: idrac_adaptertxpackets
+  instances:
+    group: adapter
+    chart_prefix: adaptertxpackets
+    family: Network/Interface/Packet/Total/Out
+    labels:
+      adapter: '{instance}'
+- id: snmp.device_prof_adapterRxBytes
+  title: Total number of bytes received
+  units: By/s
+  family: Network/Interface/Traffic/Total/In
+  chart_type: line
+  priority: 60067
+  shape: counters
+  dimensions:
+  - id: adapterrxbytes
+    rate_signal: idrac_adapterrxbytes
+  instances:
+    group: adapter
+    chart_prefix: adapterrxbytes
+    family: Network/Interface/Traffic/Total/In
+    labels:
+      adapter: '{instance}'
+- id: snmp.device_prof_adapterTxBytes
+  title: Total number of bytes transmitted
+  units: By/s
+  family: Network/Interface/Traffic/Total/Out
+  chart_type: line
+  priority: 60068
+  shape: counters
+  dimensions:
+  - id: adaptertxbytes
+    rate_signal: idrac_adaptertxbytes
+  instances:
+    group: adapter
+    chart_prefix: adaptertxbytes
+    family: Network/Interface/Traffic/Total/Out
+    labels:
+      adapter: '{instance}'
+- id: snmp.device_prof_adapterRxErrors
+  title: Total number of packets received with errors (packets that failed to reach the protocol)
+  units: '{error}/s'
+  family: Network/Interface/Error/Total/In
+  chart_type: line
+  priority: 60069
+  shape: counters
+  dimensions:
+  - id: adapterrxerrors
+    rate_signal: idrac_adapterrxerrors
+  instances:
+    group: adapter
+    chart_prefix: adapterrxerrors
+    family: Network/Interface/Error/Total/In
+    labels:
+      adapter: '{instance}'
+- id: snmp.device_prof_adapterTxErrors
+  title: Total number of packets that failed to transmit
+  units: '{error}/s'
+  family: Network/Interface/Error/Total/Out
+  chart_type: line
+  priority: 60070
+  shape: counters
+  dimensions:
+  - id: adaptertxerrors
+    rate_signal: idrac_adaptertxerrors
+  instances:
+    group: adapter
+    chart_prefix: adaptertxerrors
+    family: Network/Interface/Error/Total/Out
+    labels:
+      adapter: '{instance}'
+- id: snmp.device_prof_adapterRxDropped
+  title: Total number of receive packets dropped due to overrun
+  units: '{drop}/s'
+  family: Network/Interface/Dropped/In
+  chart_type: line
+  priority: 60071
+  shape: counters
+  dimensions:
+  - id: adapterrxdropped
+    rate_signal: idrac_adapterrxdropped
+  instances:
+    group: adapter
+    chart_prefix: adapterrxdropped
+    family: Network/Interface/Dropped/In
+    labels:
+      adapter: '{instance}'
+- id: snmp.device_prof_adapterTxDropped
+  title: Total number of transmit packets dropped due to successive collisions
+  units: '{drop}/s'
+  family: Network/Interface/Dropped/Out
+  chart_type: line
+  priority: 60072
+  shape: counters
+  dimensions:
+  - id: adaptertxdropped
+    rate_signal: idrac_adaptertxdropped
+  instances:
+    group: adapter
+    chart_prefix: adaptertxdropped
+    family: Network/Interface/Dropped/Out
+    labels:
+      adapter: '{instance}'
+- id: snmp.device_prof_adapterRxMulticast
+  title: Total number of Multicast packets received
+  units: '{packet}/s'
+  family: Network/Interface/Multicast/In
+  chart_type: line
+  priority: 60073
+  shape: counters
+  dimensions:
+  - id: adapterrxmulticast
+    rate_signal: idrac_adapterrxmulticast
+  instances:
+    group: adapter
+    chart_prefix: adapterrxmulticast
+    family: Network/Interface/Multicast/In
+    labels:
+      adapter: '{instance}'
+- id: snmp.device_prof_adapterCollisions
+  title: Total number of single collisions
+  units: '{collision}/s'
+  family: Network/Interface/Error/Collision/Count
+  chart_type: line
+  priority: 60074
+  shape: counters
+  dimensions:
+  - id: adaptercollisions
+    rate_signal: idrac_adaptercollisions
+  instances:
+    group: adapter
+    chart_prefix: adaptercollisions
+    family: Network/Interface/Error/Collision/Count
+    labels:
+      adapter: '{instance}'

@@ -1,0 +1,1406 @@
+version: 1
+name: cyberpower_pdu
+description: Cyberpower PDU, as Netdata's SNMP collector reports it. Generated from go.d/snmp.profiles/default/cyberpower-pdu.yaml
+  with its `extends` chain resolved. Contexts, units, families and metric names are the device's own; values are a plausible
+  fiction.
+signals:
+  cyberpower_pdu_cyberpower_epduloadstatusload:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cyberpower_pdu_epduloadstatusloadstate:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cyberpower_pdu_epduloadstatusloadstate_loadlow:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cyberpower_pdu_epduloadstatusloadstate_loadnearoverload:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cyberpower_pdu_epduloadstatusloadstate_loadoverload:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cyberpower_pdu_cyberpower_epduloadstatusvoltage:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cyberpower_pdu_cyberpower_epduloadstatusactivepower:
+    base: 145.0
+    min: 0.0
+    max: 4000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cyberpower_pdu_cyberpower_epduloadstatusapparentpower:
+    base: 168.0
+    min: 0.0
+    max: 5000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cyberpower_pdu_cyberpower_epduloadstatuspowerfactor:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cyberpower_pdu_epduloadbankconfigalarm:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cyberpower_pdu_epduloadbankconfigalarm_undercurrentalarm:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cyberpower_pdu_epduloadbankconfigalarm_nearovercurrentalarm:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cyberpower_pdu_epduloadbankconfigalarm_overcurrentalarm:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cyberpower_pdu_cyberpower_epduoutletstatusload:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cyberpower_pdu_cyberpower_epduoutletstatusactivepower:
+    base: 145.0
+    min: 0.0
+    max: 4000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cyberpower_pdu_epduoutletstatusoutletstate:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cyberpower_pdu_epduoutletstatusoutletstate_outletstatusoff:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cyberpower_pdu_epduoutletstatusalarm:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cyberpower_pdu_epduoutletstatusalarm_undercurrentalarm:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cyberpower_pdu_epduoutletstatusalarm_nearovercurrentalarm:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cyberpower_pdu_epduoutletstatusalarm_overcurrentalarm:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cyberpower_pdu_epdupowersupply1status:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cyberpower_pdu_epdupowersupply1status_powersupplyonefailed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cyberpower_pdu_epdupowersupply2status:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cyberpower_pdu_epdupowersupply2status_powersupplytwofailed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cyberpower_pdu_epdupowersupply2status_powersupplytwonotpresent:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cyberpower_pdu_epdupowersupplyalarm:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cyberpower_pdu_epdupowersupplyalarm_powersupplyonefailed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cyberpower_pdu_epdupowersupplyalarm_powersupplytwofailed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cyberpower_pdu_epdupowersupplyalarm_powersupplyoneandtwofailed:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cyberpower_pdu_epdustatusbankstate:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cyberpower_pdu_epdustatusbankstate_bankloadlow:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cyberpower_pdu_epdustatusbankstate_bankloadnearoverload:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cyberpower_pdu_epdustatusbankstate_bankloadoverload:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cyberpower_pdu_epdustatusphasestate:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cyberpower_pdu_epdustatusphasestate_phase_load_low:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cyberpower_pdu_epdustatusphasestate_phase_load_near_overload:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cyberpower_pdu_epdustatusphasestate_phase_load_overload:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cyberpower_pdu_epdustatusoutletstate:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cyberpower_pdu_epdustatusoutletstate_outletloadlow:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cyberpower_pdu_epdustatusoutletstate_outletloadnearoverload:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cyberpower_pdu_epdustatusoutletstate_outletloadoverload:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cyberpower_pdu_cyberpower_epdustatusinputvoltage:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cyberpower_pdu_cyberpower_epdustatusinputfrequency:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cyberpower_pdu_cyberpower_epdu2devicestatuscurrentload:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cyberpower_pdu_cyberpower_epdu2devicestatuscurrentpeakload:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cyberpower_pdu_cyberpower_epdu2devicestatusapparentpower:
+    base: 168.0
+    min: 0.0
+    max: 5000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cyberpower_pdu_cyberpower_epdu2devicestatuspowerfactor:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cyberpower_pdu_epdu2devicestatusroletype:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cyberpower_pdu_epdu2devicestatusroletype_host:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cyberpower_pdu_epdu2devicestatusroletype_slave:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cyberpower_pdu_epdu2devicestatusloadstate:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cyberpower_pdu_epdu2devicestatusloadstate_undercurrentalarm:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cyberpower_pdu_epdu2devicestatusloadstate_nearovercurrentalarm:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cyberpower_pdu_epdu2devicestatusloadstate_overcurrentalarm:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cyberpower_pdu_epdu2devicestatuspowersupplyalarm:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cyberpower_pdu_epdu2devicestatuspowersupplyalarm_alarm:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cyberpower_pdu_epdu2devicestatuspowersupply1status:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cyberpower_pdu_epdu2devicestatuspowersupply1status_alarm:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cyberpower_pdu_epdu2devicestatuspowersupply2status:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cyberpower_pdu_epdu2devicestatuspowersupply2status_alarm:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cyberpower_pdu_cyberpower_epdu2phasestatusload:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cyberpower_pdu_cyberpower_epdu2phasestatusvoltage:
+    base: 12.0
+    min: 0.0
+    max: 480.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cyberpower_pdu_cyberpower_epdu2phasestatuspower:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cyberpower_pdu_cyberpower_epdu2phasestatusapparentpower:
+    base: 168.0
+    min: 0.0
+    max: 5000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cyberpower_pdu_cyberpower_epdu2phasestatuspowerfactor:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cyberpower_pdu_cyberpower_epdu2phasestatuspeakload:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cyberpower_pdu_epdu2phasestatusloadstate_lowload:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cyberpower_pdu_epdu2phasestatusloadstate:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cyberpower_pdu_epdu2phasestatusloadstate_nearoverload:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cyberpower_pdu_epdu2phasestatusloadstate_overload:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cyberpower_pdu_cyberpower_epdu2bankstatusload:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cyberpower_pdu_cyberpower_epdu2bankstatuspeakload:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cyberpower_pdu_epdu2bankstatusloadstate_lowload:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cyberpower_pdu_epdu2bankstatusloadstate:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cyberpower_pdu_epdu2bankstatusloadstate_nearoverload:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cyberpower_pdu_epdu2bankstatusloadstate_overload:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cyberpower_pdu_epdu2outletswitchedstatusstate:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cyberpower_pdu_epdu2outletswitchedstatusstate_outletstatusoff:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  cyberpower_pdu_cyberpower_envirtemperature:
+    base: 106.0
+    min: 0.0
+    max: 250.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cyberpower_pdu_cyberpower_envirtemperaturecelsius:
+    base: 41.0
+    min: 0.0
+    max: 120.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cyberpower_pdu_cyberpower_envirhumidity:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  cyberpower_pdu_systemuptime:
+    base: 86400.0
+    min: 0.0
+    max: 315360000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: snmp.device_prof_cyberpower_ePDULoadStatusLoad
+  title: Phase/bank load
+  units: dA
+  family: PowerFlow/Load/Current
+  chart_type: line
+  priority: 60000
+  shape: independent
+  dimensions:
+  - id: cyberpower_epduloadstatusloa
+    signal: cyberpower_pdu_cyberpower_epduloadstatusload
+  instances:
+    group: e_pdu_load_status_index
+    chart_prefix: cyberpower_epduloadstatusload
+    family: PowerFlow/Load/Current
+    labels:
+      e_pdu_load_status_index: '{instance}'
+- id: snmp.device_prof_ePDULoadStatusLoadState
+  title: Load state
+  units: '{status}'
+  family: PowerFlow/Load/Status
+  chart_type: line
+  priority: 60001
+  shape: independent
+  dimensions:
+  - id: loadnormal
+    signal: cyberpower_pdu_epduloadstatusloadstate
+  - id: loadlow
+    signal: cyberpower_pdu_epduloadstatusloadstate_loadlow
+  - id: loadnearoverload
+    signal: cyberpower_pdu_epduloadstatusloadstate_loadnearoverload
+  - id: loadoverload
+    signal: cyberpower_pdu_epduloadstatusloadstate_loadoverload
+  instances:
+    group: e_pdu_load_status_index
+    chart_prefix: epduloadstatusloadstate
+    family: PowerFlow/Load/Status
+    labels:
+      e_pdu_load_status_index: '{instance}'
+- id: snmp.device_prof_cyberpower_ePDULoadStatusVoltage
+  title: Phase/bank voltage measured
+  units: dV
+  family: PowerFlow/Voltage/Value
+  chart_type: line
+  priority: 60002
+  shape: independent
+  dimensions:
+  - id: cyberpower_epduloadstatusvol
+    signal: cyberpower_pdu_cyberpower_epduloadstatusvoltage
+  instances:
+    group: e_pdu_load_status_index
+    chart_prefix: cyberpower_epduloadstatusvoltage
+    family: PowerFlow/Voltage/Value
+    labels:
+      e_pdu_load_status_index: '{instance}'
+- id: snmp.device_prof_cyberpower_ePDULoadStatusActivePower
+  title: Phase/bank active power
+  units: W
+  family: PowerFlow/Power/Active
+  chart_type: line
+  priority: 60003
+  shape: independent
+  dimensions:
+  - id: cyberpower_epduloadstatusact
+    signal: cyberpower_pdu_cyberpower_epduloadstatusactivepower
+  instances:
+    group: e_pdu_load_status_index
+    chart_prefix: cyberpower_epduloadstatusactivepower
+    family: PowerFlow/Power/Active
+    labels:
+      e_pdu_load_status_index: '{instance}'
+- id: snmp.device_prof_cyberpower_ePDULoadStatusApparentPower
+  title: Phase/bank apparent power
+  units: VA
+  family: PowerFlow/Power/Apparent
+  chart_type: line
+  priority: 60004
+  shape: independent
+  dimensions:
+  - id: cyberpower_epduloadstatusapp
+    signal: cyberpower_pdu_cyberpower_epduloadstatusapparentpower
+  instances:
+    group: e_pdu_load_status_index
+    chart_prefix: cyberpower_epduloadstatusapparentpower
+    family: PowerFlow/Power/Apparent
+    labels:
+      e_pdu_load_status_index: '{instance}'
+- id: snmp.device_prof_cyberpower_ePDULoadStatusPowerFactor
+  title: Power factor of the output
+  units: '%'
+  family: PowerFlow/Power/Factor
+  chart_type: line
+  priority: 60005
+  shape: independent
+  dimensions:
+  - id: cyberpower_epduloadstatuspow
+    signal: cyberpower_pdu_cyberpower_epduloadstatuspowerfactor
+  instances:
+    group: e_pdu_load_status_index
+    chart_prefix: cyberpower_epduloadstatuspowerfactor
+    family: PowerFlow/Power/Factor
+    labels:
+      e_pdu_load_status_index: '{instance}'
+- id: snmp.device_prof_ePDULoadBankConfigAlarm
+  title: Bank Alarm
+  units: '{status}'
+  family: PowerFlow/Bank/Alarm/Status
+  chart_type: line
+  priority: 60006
+  shape: independent
+  dimensions:
+  - id: noloadalarm
+    signal: cyberpower_pdu_epduloadbankconfigalarm
+  - id: undercurrentalarm
+    signal: cyberpower_pdu_epduloadbankconfigalarm_undercurrentalarm
+  - id: nearovercurrentalarm
+    signal: cyberpower_pdu_epduloadbankconfigalarm_nearovercurrentalarm
+  - id: overcurrentalarm
+    signal: cyberpower_pdu_epduloadbankconfigalarm_overcurrentalarm
+  instances:
+    group: e_pdu_load_bank_config_index
+    chart_prefix: epduloadbankconfigalarm
+    family: PowerFlow/Bank/Alarm/Status
+    labels:
+      e_pdu_load_bank_config_index: '{instance}'
+- id: snmp.device_prof_cyberpower_ePDUOutletStatusLoad
+  title: Measured Outlet load for an Outlet Monitored Rack PDU
+  units: dA
+  family: PowerFlow/Outlet/Load/Current
+  chart_type: line
+  priority: 60007
+  shape: independent
+  dimensions:
+  - id: cyberpower_epduoutletstatusl
+    signal: cyberpower_pdu_cyberpower_epduoutletstatusload
+  instances:
+    group: e_pdu_outlet_status_index
+    chart_prefix: cyberpower_epduoutletstatusload
+    family: PowerFlow/Outlet/Load/Current
+    labels:
+      e_pdu_outlet_status_index: '{instance}'
+- id: snmp.device_prof_cyberpower_ePDUOutletStatusActivePower
+  title: Measured Outlet load for an Outlet Monitored Rack PDU
+  units: W
+  family: PowerFlow/Outlet/Power/Active
+  chart_type: line
+  priority: 60008
+  shape: independent
+  dimensions:
+  - id: cyberpower_epduoutletstatusa
+    signal: cyberpower_pdu_cyberpower_epduoutletstatusactivepower
+  instances:
+    group: e_pdu_outlet_status_index
+    chart_prefix: cyberpower_epduoutletstatusactivepower
+    family: PowerFlow/Outlet/Power/Active
+    labels:
+      e_pdu_outlet_status_index: '{instance}'
+- id: snmp.device_prof_ePDUOutletStatusOutletState
+  title: Outlet state
+  units: '{status}'
+  family: PowerFlow/Outlet/Status/Operational
+  chart_type: line
+  priority: 60009
+  shape: independent
+  dimensions:
+  - id: outletstatuson
+    signal: cyberpower_pdu_epduoutletstatusoutletstate
+  - id: outletstatusoff
+    signal: cyberpower_pdu_epduoutletstatusoutletstate_outletstatusoff
+  instances:
+    group: e_pdu_outlet_status_index
+    chart_prefix: epduoutletstatusoutletstate
+    family: PowerFlow/Outlet/Status/Operational
+    labels:
+      e_pdu_outlet_status_index: '{instance}'
+- id: snmp.device_prof_ePDUOutletStatusAlarm
+  title: Outlet Alarm
+  units: '{status}'
+  family: PowerFlow/Outlet/Alarm/Status
+  chart_type: line
+  priority: 60010
+  shape: independent
+  dimensions:
+  - id: noloadalarm
+    signal: cyberpower_pdu_epduoutletstatusalarm
+  - id: undercurrentalarm
+    signal: cyberpower_pdu_epduoutletstatusalarm_undercurrentalarm
+  - id: nearovercurrentalarm
+    signal: cyberpower_pdu_epduoutletstatusalarm_nearovercurrentalarm
+  - id: overcurrentalarm
+    signal: cyberpower_pdu_epduoutletstatusalarm_overcurrentalarm
+  instances:
+    group: e_pdu_outlet_status_index
+    chart_prefix: epduoutletstatusalarm
+    family: PowerFlow/Outlet/Alarm/Status
+    labels:
+      e_pdu_outlet_status_index: '{instance}'
+- id: snmp.device_prof_ePDUPowerSupply1Status
+  title: Power Supply 1 Status
+  units: '{status}'
+  family: Hardware/Power/Status/Supply1
+  chart_type: line
+  priority: 60011
+  shape: independent
+  dimensions:
+  - id: powersupplyoneok
+    signal: cyberpower_pdu_epdupowersupply1status
+  - id: powersupplyonefailed
+    signal: cyberpower_pdu_epdupowersupply1status_powersupplyonefailed
+- id: snmp.device_prof_ePDUPowerSupply2Status
+  title: Power Supply 2 Status
+  units: '{status}'
+  family: Hardware/Power/Status/Supply2
+  chart_type: line
+  priority: 60012
+  shape: independent
+  dimensions:
+  - id: powersupplytwook
+    signal: cyberpower_pdu_epdupowersupply2status
+  - id: powersupplytwofailed
+    signal: cyberpower_pdu_epdupowersupply2status_powersupplytwofailed
+  - id: powersupplytwonotpresent
+    signal: cyberpower_pdu_epdupowersupply2status_powersupplytwonotpresent
+- id: snmp.device_prof_ePDUPowerSupplyAlarm
+  title: Power Supply Alarm
+  units: '{status}'
+  family: Hardware/Power/Alarm/Status
+  chart_type: line
+  priority: 60013
+  shape: independent
+  dimensions:
+  - id: allavailablepowersuppliesok
+    signal: cyberpower_pdu_epdupowersupplyalarm
+  - id: powersupplyonefailed
+    signal: cyberpower_pdu_epdupowersupplyalarm_powersupplyonefailed
+  - id: powersupplytwofailed
+    signal: cyberpower_pdu_epdupowersupplyalarm_powersupplytwofailed
+  - id: powersupplyoneandtwofailed
+    signal: cyberpower_pdu_epdupowersupplyalarm_powersupplyoneandtwofailed
+- id: snmp.device_prof_ePDUStatusBankState
+  title: Bank load state
+  units: '{status}'
+  family: PowerFlow/Bank/Load/Status
+  chart_type: line
+  priority: 60014
+  shape: independent
+  dimensions:
+  - id: bankloadnormal
+    signal: cyberpower_pdu_epdustatusbankstate
+  - id: bankloadlow
+    signal: cyberpower_pdu_epdustatusbankstate_bankloadlow
+  - id: bankloadnearoverload
+    signal: cyberpower_pdu_epdustatusbankstate_bankloadnearoverload
+  - id: bankloadoverload
+    signal: cyberpower_pdu_epdustatusbankstate_bankloadoverload
+  instances:
+    group: e_pdu_status_bank_index
+    chart_prefix: epdustatusbankstate
+    family: PowerFlow/Bank/Load/Status
+    labels:
+      e_pdu_status_bank_index: '{instance}'
+- id: snmp.device_prof_ePDUStatusPhaseState
+  title: Phase load state
+  units: '{status}'
+  family: PowerFlow/Phase/Load/Status
+  chart_type: line
+  priority: 60015
+  shape: independent
+  dimensions:
+  - id: phase_load_normal
+    signal: cyberpower_pdu_epdustatusphasestate
+  - id: phase_load_low
+    signal: cyberpower_pdu_epdustatusphasestate_phase_load_low
+  - id: phase_load_near_overload
+    signal: cyberpower_pdu_epdustatusphasestate_phase_load_near_overload
+  - id: phase_load_overload
+    signal: cyberpower_pdu_epdustatusphasestate_phase_load_overload
+  instances:
+    group: e_pdu_status_phase_index
+    chart_prefix: epdustatusphasestate
+    family: PowerFlow/Phase/Load/Status
+    labels:
+      e_pdu_status_phase_index: '{instance}'
+- id: snmp.device_prof_ePDUStatusOutletState
+  title: Outlet load state
+  units: '{status}'
+  family: PowerFlow/Outlet/Load/Status
+  chart_type: line
+  priority: 60016
+  shape: independent
+  dimensions:
+  - id: outletloadnormal
+    signal: cyberpower_pdu_epdustatusoutletstate
+  - id: outletloadlow
+    signal: cyberpower_pdu_epdustatusoutletstate_outletloadlow
+  - id: outletloadnearoverload
+    signal: cyberpower_pdu_epdustatusoutletstate_outletloadnearoverload
+  - id: outletloadoverload
+    signal: cyberpower_pdu_epdustatusoutletstate_outletloadoverload
+  instances:
+    group: e_pdu_status_outlet_index
+    chart_prefix: epdustatusoutletstate
+    family: PowerFlow/Outlet/Load/Status
+    labels:
+      e_pdu_status_outlet_index: '{instance}'
+- id: snmp.device_prof_cyberpower_ePDUStatusInputVoltage
+  title: Input voltage
+  units: dV
+  family: PowerFlow/Input/Voltage/Value
+  chart_type: line
+  priority: 60017
+  shape: independent
+  dimensions:
+  - id: cyberpower_epdustatusinputvo
+    signal: cyberpower_pdu_cyberpower_epdustatusinputvoltage
+- id: snmp.device_prof_cyberpower_ePDUStatusInputFrequency
+  title: Input frequency
+  units: dHz
+  family: PowerFlow/Input/Frequency/Value
+  chart_type: line
+  priority: 60018
+  shape: independent
+  dimensions:
+  - id: cyberpower_epdustatusinputfr
+    signal: cyberpower_pdu_cyberpower_epdustatusinputfrequency
+- id: snmp.device_prof_cyberpower_ePDU2DeviceStatusCurrentLoad
+  title: Power consumption of the Rack PDU load
+  units: dA
+  family: PowerFlow/Rack/Load/Current
+  chart_type: line
+  priority: 60019
+  shape: independent
+  dimensions:
+  - id: cyberpower_epdu2devicestatus
+    signal: cyberpower_pdu_cyberpower_epdu2devicestatuscurrentload
+  instances:
+    group: e_pdu2_device_status_index
+    chart_prefix: cyberpower_epdu2devicestatuscurrentload
+    family: PowerFlow/Rack/Load/Current
+    labels:
+      e_pdu2_device_status_index: '{instance}'
+- id: snmp.device_prof_cyberpower_ePDU2DeviceStatusCurrentPeakLoad
+  title: Peak power consumption of the Rack PDU load
+  units: dA/s
+  family: PowerFlow/Rack/Load/Current/Peak
+  chart_type: line
+  priority: 60020
+  shape: counters
+  dimensions:
+  - id: cyberpower_epdu2devicestatus
+    rate_signal: cyberpower_pdu_cyberpower_epdu2devicestatuscurrentpeakload
+  instances:
+    group: e_pdu2_device_status_index
+    chart_prefix: cyberpower_epdu2devicestatuscurrentpeakload
+    family: PowerFlow/Rack/Load/Current/Peak
+    labels:
+      e_pdu2_device_status_index: '{instance}'
+- id: snmp.device_prof_cyberpower_ePDU2DeviceStatusApparentPower
+  title: Apparent power consumption of the Rack PDU load
+  units: VA
+  family: PowerFlow/Rack/Power/Apparent
+  chart_type: line
+  priority: 60021
+  shape: independent
+  dimensions:
+  - id: cyberpower_epdu2devicestatus
+    signal: cyberpower_pdu_cyberpower_epdu2devicestatusapparentpower
+  instances:
+    group: e_pdu2_device_status_index
+    chart_prefix: cyberpower_epdu2devicestatusapparentpower
+    family: PowerFlow/Rack/Power/Apparent
+    labels:
+      e_pdu2_device_status_index: '{instance}'
+- id: snmp.device_prof_cyberpower_ePDU2DeviceStatusPowerFactor
+  title: Power factor of the Rack PDU load
+  units: '%'
+  family: PowerFlow/Rack/Power/Factor
+  chart_type: line
+  priority: 60022
+  shape: independent
+  dimensions:
+  - id: cyberpower_epdu2devicestatus
+    signal: cyberpower_pdu_cyberpower_epdu2devicestatuspowerfactor
+  instances:
+    group: e_pdu2_device_status_index
+    chart_prefix: cyberpower_epdu2devicestatuspowerfactor
+    family: PowerFlow/Rack/Power/Factor
+    labels:
+      e_pdu2_device_status_index: '{instance}'
+- id: snmp.device_prof_ePDU2DeviceStatusRoleType
+  title: Rack PDU role on Daisy Chain group
+  units: '{status}'
+  family: System/Rack/Role/Status
+  chart_type: line
+  priority: 60023
+  shape: independent
+  dimensions:
+  - id: standalone
+    signal: cyberpower_pdu_epdu2devicestatusroletype
+  - id: host
+    signal: cyberpower_pdu_epdu2devicestatusroletype_host
+  - id: slave
+    signal: cyberpower_pdu_epdu2devicestatusroletype_slave
+  instances:
+    group: e_pdu2_device_status_index
+    chart_prefix: epdu2devicestatusroletype
+    family: System/Rack/Role/Status
+    labels:
+      e_pdu2_device_status_index: '{instance}'
+- id: snmp.device_prof_ePDU2DeviceStatusLoadState
+  title: Rack PDU load state
+  units: '{status}'
+  family: PowerFlow/Rack/Load/Status
+  chart_type: line
+  priority: 60024
+  shape: independent
+  dimensions:
+  - id: noloadalarm
+    signal: cyberpower_pdu_epdu2devicestatusloadstate
+  - id: undercurrentalarm
+    signal: cyberpower_pdu_epdu2devicestatusloadstate_undercurrentalarm
+  - id: nearovercurrentalarm
+    signal: cyberpower_pdu_epdu2devicestatusloadstate_nearovercurrentalarm
+  - id: overcurrentalarm
+    signal: cyberpower_pdu_epdu2devicestatusloadstate_overcurrentalarm
+  instances:
+    group: e_pdu2_device_status_index
+    chart_prefix: epdu2devicestatusloadstate
+    family: PowerFlow/Rack/Load/Status
+    labels:
+      e_pdu2_device_status_index: '{instance}'
+- id: snmp.device_prof_ePDU2DeviceStatusPowerSupplyAlarm
+  title: Rack PDU Power Supply alarm
+  units: '{status}'
+  family: Hardware/Power/Alarm/Status
+  chart_type: line
+  priority: 60025
+  shape: independent
+  dimensions:
+  - id: normal
+    signal: cyberpower_pdu_epdu2devicestatuspowersupplyalarm
+  - id: alarm
+    signal: cyberpower_pdu_epdu2devicestatuspowersupplyalarm_alarm
+  instances:
+    group: e_pdu2_device_status_index
+    chart_prefix: epdu2devicestatuspowersupplyalarm
+    family: Hardware/Power/Alarm/Status
+    labels:
+      e_pdu2_device_status_index: '{instance}'
+- id: snmp.device_prof_ePDU2DeviceStatusPowerSupply1Status
+  title: Rack PDU Power Supply 1 alarm
+  units: '{status}'
+  family: Hardware/Power/Status/Supply1
+  chart_type: line
+  priority: 60026
+  shape: independent
+  dimensions:
+  - id: normal
+    signal: cyberpower_pdu_epdu2devicestatuspowersupply1status
+  - id: alarm
+    signal: cyberpower_pdu_epdu2devicestatuspowersupply1status_alarm
+  instances:
+    group: e_pdu2_device_status_index
+    chart_prefix: epdu2devicestatuspowersupply1status
+    family: Hardware/Power/Status/Supply1
+    labels:
+      e_pdu2_device_status_index: '{instance}'
+- id: snmp.device_prof_ePDU2DeviceStatusPowerSupply2Status
+  title: Rack PDU Power Supply 2 alarm
+  units: '{status}'
+  family: Hardware/Power/Status/Supply2
+  chart_type: line
+  priority: 60027
+  shape: independent
+  dimensions:
+  - id: normal
+    signal: cyberpower_pdu_epdu2devicestatuspowersupply2status
+  - id: alarm
+    signal: cyberpower_pdu_epdu2devicestatuspowersupply2status_alarm
+  instances:
+    group: e_pdu2_device_status_index
+    chart_prefix: epdu2devicestatuspowersupply2status
+    family: Hardware/Power/Status/Supply2
+    labels:
+      e_pdu2_device_status_index: '{instance}'
+- id: snmp.device_prof_cyberpower_ePDU2PhaseStatusLoad
+  title: Current draw of the load on the Rack PDU phase
+  units: dA
+  family: PowerFlow/Rack/Phase/Load/Current
+  chart_type: line
+  priority: 60028
+  shape: independent
+  dimensions:
+  - id: cyberpower_epdu2phasestatusl
+    signal: cyberpower_pdu_cyberpower_epdu2phasestatusload
+  instances:
+    group: e_pdu2_phase_status_index
+    chart_prefix: cyberpower_epdu2phasestatusload
+    family: PowerFlow/Rack/Phase/Load/Current
+    labels:
+      e_pdu2_phase_status_index: '{instance}'
+- id: snmp.device_prof_cyberpower_ePDU2PhaseStatusVoltage
+  title: Voltage of the Rack PDU phase
+  units: V
+  family: PowerFlow/Rack/Phase/Voltage/Value
+  chart_type: line
+  priority: 60029
+  shape: independent
+  dimensions:
+  - id: cyberpower_epdu2phasestatusv
+    signal: cyberpower_pdu_cyberpower_epdu2phasestatusvoltage
+  instances:
+    group: e_pdu2_phase_status_index
+    chart_prefix: cyberpower_epdu2phasestatusvoltage
+    family: PowerFlow/Rack/Phase/Voltage/Value
+    labels:
+      e_pdu2_phase_status_index: '{instance}'
+- id: snmp.device_prof_cyberpower_ePDU2PhaseStatusPower
+  title: Load power consumed on the Rack PDU phase
+  units: kW
+  family: PowerFlow/Rack/Phase/Power/Active
+  chart_type: line
+  priority: 60030
+  shape: independent
+  dimensions:
+  - id: cyberpower_epdu2phasestatusp
+    signal: cyberpower_pdu_cyberpower_epdu2phasestatuspower
+  instances:
+    group: e_pdu2_phase_status_index
+    chart_prefix: cyberpower_epdu2phasestatuspower
+    family: PowerFlow/Rack/Phase/Power/Active
+    labels:
+      e_pdu2_phase_status_index: '{instance}'
+- id: snmp.device_prof_cyberpower_ePDU2PhaseStatusApparentPower
+  title: Load apparent power consumed on the Rack PDU phase
+  units: VA
+  family: PowerFlow/Rack/Phase/Power/Apparent
+  chart_type: line
+  priority: 60031
+  shape: independent
+  dimensions:
+  - id: cyberpower_epdu2phasestatusa
+    signal: cyberpower_pdu_cyberpower_epdu2phasestatusapparentpower
+  instances:
+    group: e_pdu2_phase_status_index
+    chart_prefix: cyberpower_epdu2phasestatusapparentpower
+    family: PowerFlow/Rack/Phase/Power/Apparent
+    labels:
+      e_pdu2_phase_status_index: '{instance}'
+- id: snmp.device_prof_cyberpower_ePDU2PhaseStatusPowerFactor
+  title: Load power factor of the Rack PDU phase
+  units: '%'
+  family: PowerFlow/Rack/Phase/Power/Factor
+  chart_type: line
+  priority: 60032
+  shape: independent
+  dimensions:
+  - id: cyberpower_epdu2phasestatusp
+    signal: cyberpower_pdu_cyberpower_epdu2phasestatuspowerfactor
+  instances:
+    group: e_pdu2_phase_status_index
+    chart_prefix: cyberpower_epdu2phasestatuspowerfactor
+    family: PowerFlow/Rack/Phase/Power/Factor
+    labels:
+      e_pdu2_phase_status_index: '{instance}'
+- id: snmp.device_prof_cyberpower_ePDU2PhaseStatusPeakLoad
+  title: Peak current of the Rack PDU phase load in tenths of Amps
+  units: dA/s
+  family: PowerFlow/Rack/Phase/Load/Current/Peak
+  chart_type: line
+  priority: 60033
+  shape: counters
+  dimensions:
+  - id: cyberpower_epdu2phasestatusp
+    rate_signal: cyberpower_pdu_cyberpower_epdu2phasestatuspeakload
+  instances:
+    group: e_pdu2_phase_status_index
+    chart_prefix: cyberpower_epdu2phasestatuspeakload
+    family: PowerFlow/Rack/Phase/Load/Current/Peak
+    labels:
+      e_pdu2_phase_status_index: '{instance}'
+- id: snmp.device_prof_ePDU2PhaseStatusLoadState
+  title: Phase load state
+  units: '{status}'
+  family: PowerFlow/Rack/Phase/Load/Status
+  chart_type: line
+  priority: 60034
+  shape: independent
+  dimensions:
+  - id: lowload
+    signal: cyberpower_pdu_epdu2phasestatusloadstate_lowload
+  - id: normal
+    signal: cyberpower_pdu_epdu2phasestatusloadstate
+  - id: nearoverload
+    signal: cyberpower_pdu_epdu2phasestatusloadstate_nearoverload
+  - id: overload
+    signal: cyberpower_pdu_epdu2phasestatusloadstate_overload
+  instances:
+    group: e_pdu2_phase_status_index
+    chart_prefix: epdu2phasestatusloadstate
+    family: PowerFlow/Rack/Phase/Load/Status
+    labels:
+      e_pdu2_phase_status_index: '{instance}'
+- id: snmp.device_prof_cyberpower_ePDU2BankStatusLoad
+  title: Current draw of the load on the Rack PDU bank
+  units: dA
+  family: PowerFlow/Rack/Bank/Load/Current
+  chart_type: line
+  priority: 60035
+  shape: independent
+  dimensions:
+  - id: cyberpower_epdu2bankstatuslo
+    signal: cyberpower_pdu_cyberpower_epdu2bankstatusload
+  instances:
+    group: e_pdu2_bank_status_index
+    chart_prefix: cyberpower_epdu2bankstatusload
+    family: PowerFlow/Rack/Bank/Load/Current
+    labels:
+      e_pdu2_bank_status_index: '{instance}'
+- id: snmp.device_prof_cyberpower_ePDU2BankStatusPeakLoad
+  title: Peak current of the Rack PDU bank load in tenths of Amps
+  units: dA/s
+  family: PowerFlow/Rack/Bank/Load/Current/Peak
+  chart_type: line
+  priority: 60036
+  shape: counters
+  dimensions:
+  - id: cyberpower_epdu2bankstatuspe
+    rate_signal: cyberpower_pdu_cyberpower_epdu2bankstatuspeakload
+  instances:
+    group: e_pdu2_bank_status_index
+    chart_prefix: cyberpower_epdu2bankstatuspeakload
+    family: PowerFlow/Rack/Bank/Load/Current/Peak
+    labels:
+      e_pdu2_bank_status_index: '{instance}'
+- id: snmp.device_prof_ePDU2BankStatusLoadState
+  title: Load status of the Rack PDU bank
+  units: '{status}'
+  family: PowerFlow/Rack/Bank/Load/Status
+  chart_type: line
+  priority: 60037
+  shape: independent
+  dimensions:
+  - id: lowload
+    signal: cyberpower_pdu_epdu2bankstatusloadstate_lowload
+  - id: normal
+    signal: cyberpower_pdu_epdu2bankstatusloadstate
+  - id: nearoverload
+    signal: cyberpower_pdu_epdu2bankstatusloadstate_nearoverload
+  - id: overload
+    signal: cyberpower_pdu_epdu2bankstatusloadstate_overload
+  instances:
+    group: e_pdu2_bank_status_index
+    chart_prefix: epdu2bankstatusloadstate
+    family: PowerFlow/Rack/Bank/Load/Status
+    labels:
+      e_pdu2_bank_status_index: '{instance}'
+- id: snmp.device_prof_ePDU2OutletSwitchedStatusState
+  title: Switch state of the Rack PDU switched outlet
+  units: '{status}'
+  family: PowerFlow/Rack/Outlet/Switched/Status
+  chart_type: line
+  priority: 60038
+  shape: independent
+  dimensions:
+  - id: outletstatuson
+    signal: cyberpower_pdu_epdu2outletswitchedstatusstate
+  - id: outletstatusoff
+    signal: cyberpower_pdu_epdu2outletswitchedstatusstate_outletstatusoff
+  instances:
+    group: e_pdu2_outlet_switched_status_index
+    chart_prefix: epdu2outletswitchedstatusstate
+    family: PowerFlow/Rack/Outlet/Switched/Status
+    labels:
+      e_pdu2_outlet_switched_status_index: '{instance}'
+- id: snmp.device_prof_cyberpower_envirTemperature
+  title: Environment temperature
+  units: degF
+  family: Environment/Temperature/Value
+  chart_type: line
+  priority: 60039
+  shape: independent
+  dimensions:
+  - id: cyberpower_envirtemperature
+    signal: cyberpower_pdu_cyberpower_envirtemperature
+- id: snmp.device_prof_cyberpower_envirTemperatureCelsius
+  title: Environment temperature expressed in Celsius
+  units: Cel
+  family: Environment/Temperature/Value
+  chart_type: line
+  priority: 60040
+  shape: independent
+  dimensions:
+  - id: cyberpower_envirtemperaturec
+    signal: cyberpower_pdu_cyberpower_envirtemperaturecelsius
+- id: snmp.device_prof_cyberpower_envirHumidity
+  title: Environment relative humidity expressed in percentage
+  units: '%'
+  family: Environment/Humidity/Value
+  chart_type: line
+  priority: 60041
+  shape: independent
+  dimensions:
+  - id: cyberpower_envirhumidity
+    signal: cyberpower_pdu_cyberpower_envirhumidity
+- id: snmp.device_prof_systemUptime
+  title: Time since the system was last rebooted or powered on.
+  units: s
+  family: System/Uptime
+  chart_type: line
+  priority: 60042
+  shape: independent
+  dimensions:
+  - id: systemuptime
+    signal: cyberpower_pdu_systemuptime

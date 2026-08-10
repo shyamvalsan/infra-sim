@@ -1,0 +1,1791 @@
+version: 1
+name: aruba_wireless_controller
+description: Aruba WLC, as Netdata's SNMP collector reports it. Generated from go.d/snmp.profiles/default/aruba-wireless-controller.yaml
+  with its `extends` chain resolved. Contexts, units, families and metric names are the device's own; values are a plausible
+  fiction.
+signals:
+  device_cpu_usage:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  device_memory_usage:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aruba_wireless_controller_wlsxsysextpacketlosspercent:
+    base: 0.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+  aruba_wireless_controller_sysxstoragesize:
+    base: 120.0
+    min: 120.0
+    max: 120.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  aruba_wireless_controller_sysxstorageused:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aruba_wireless_controller_apchannelnoise:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aruba_wireless_controller_apsignaltonoiseratio:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aruba_wireless_controller_apchannelframeretryrate:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aruba_wireless_controller_apchannelframelowspeedrate:
+    base: 35.0
+    min: 35.0
+    max: 35.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  aruba_wireless_controller_apchannelframenonunicastrate:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aruba_wireless_controller_apchannelframefragmentationrate:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aruba_wireless_controller_apchannelframereceiveerrorrate:
+    base: 0.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+  aruba_wireless_controller_apbsstxpackets:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aruba_wireless_controller_apbssrxpackets:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aruba_wireless_controller_apchannelbwrate:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aruba_wireless_controller_apbsstxbytes:
+    base: 3100000.0
+    min: 0.0
+    max: 1250000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aruba_wireless_controller_apbssrxbytes:
+    base: 3100000.0
+    min: 0.0
+    max: 1250000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aruba_wireless_controller_apbssbwrate:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aruba_wireless_controller_apbssframeretryrate:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aruba_wireless_controller_apbssframelowspeedrate:
+    base: 35.0
+    min: 35.0
+    max: 35.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  aruba_wireless_controller_apbssframenonunicastrate:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aruba_wireless_controller_apbssframefragmentationrate:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aruba_wireless_controller_apbssframereceiveerrorrate:
+    base: 0.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+  aruba_wireless_controller_wlsxnumofusers8021x:
+    base: 34.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aruba_wireless_controller_wlsxnumofusersvpn:
+    base: 34.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aruba_wireless_controller_wlsxnumofuserscp:
+    base: 34.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aruba_wireless_controller_wlsxnumofusersmac:
+    base: 34.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aruba_wireless_controller_wlsxnumofusersstateful8021x:
+    base: 34.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aruba_wireless_controller_haactiveaps:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aruba_wireless_controller_hastandbyaps:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aruba_wireless_controller_hatotalaps:
+    base: 120.0
+    min: 120.0
+    max: 120.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  aruba_wireless_controller_haactivevaptunnels:
+    base: 18.0
+    min: 0.0
+    max: 65536.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aruba_wireless_controller_hastandbyvaptunnels:
+    base: 18.0
+    min: 0.0
+    max: 65536.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aruba_wireless_controller_hatotalvaptunnels:
+    base: 18.0
+    min: 18.0
+    max: 18.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  aruba_wireless_controller_haaphbttunnels:
+    base: 18.0
+    min: 0.0
+    max: 65536.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aruba_wireless_controller_wlanstatransmitrate:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aruba_wireless_controller_wlanstarssi:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aruba_wireless_controller_wlanstauptime:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aruba_wireless_controller_wlanstatxbytes64:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aruba_wireless_controller_wlanstarxbytes64:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aruba_wireless_controller_lldpstatsremtableslastchangetime:
+    base: 12.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aruba_wireless_controller_lldpstatsremtablesinserts:
+    base: 12.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aruba_wireless_controller_lldpstatsremtablesdeletes:
+    base: 12.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aruba_wireless_controller_lldpstatsremtablesdrops:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  aruba_wireless_controller_lldpstatsremtablesageouts:
+    base: 12.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aruba_wireless_controller_lldpstatstxportframestotal:
+    base: 12.0
+    min: 12.0
+    max: 12.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  aruba_wireless_controller_lldpstatsrxportframesdiscardedtotal:
+    base: 12.0
+    min: 12.0
+    max: 12.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  aruba_wireless_controller_lldpstatsrxportframeserrors:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  aruba_wireless_controller_lldpstatsrxportframestotal:
+    base: 12.0
+    min: 12.0
+    max: 12.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  aruba_wireless_controller_lldpstatsrxporttlvsdiscardedtotal:
+    base: 12.0
+    min: 12.0
+    max: 12.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  aruba_wireless_controller_lldpstatsrxporttlvsunrecognizedtotal:
+    base: 12.0
+    min: 12.0
+    max: 12.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  aruba_wireless_controller_lldpstatsrxportageoutstotal:
+    base: 12.0
+    min: 12.0
+    max: 12.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  aruba_wireless_controller_systemuptime:
+    base: 86400.0
+    min: 0.0
+    max: 315360000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aruba_wireless_controller_ifnumber:
+    base: 26.0
+    min: 26.0
+    max: 26.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_admin_status:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_admin_status_down:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_admin_status_testing:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_down:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_testing:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_dormant:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_notpresent:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_lowerlayerdown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_speed:
+    from_attr: if_speed_mbps
+    base: 1000.0
+    min: 0.0
+    max: 400000.0
+  if_in_octets_rate:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_out_octets_rate:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_ucast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_out_ucast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_mcast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aruba_wireless_controller_ifhcoutmulticastpkts:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_bcast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  aruba_wireless_controller_ifhcoutbroadcastpkts:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_errors_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  if_out_errors_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  if_in_discards_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  if_out_discards_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  aruba_wireless_controller_iftotaloperstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  aruba_wireless_controller_iftotaloperstatus_down:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  aruba_wireless_controller_iftotaloperstatus_testing:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  aruba_wireless_controller_iftotaloperstatus_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  aruba_wireless_controller_iftotaloperstatus_dormant:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  aruba_wireless_controller_iftotaloperstatus_notpresent:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  aruba_wireless_controller_iftotaloperstatus_lowerlayerdown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+contexts:
+- id: snmp.device_prof_cpu_usage
+  title: The current CPU utilization
+  units: '%'
+  family: System/CPU/Usage
+  chart_type: line
+  priority: 60000
+  shape: independent
+  dimensions:
+  - id: cpu_usage
+    signal: device_cpu_usage
+- id: snmp.device_prof_memory_usage
+  title: Memory usage percentage
+  units: '%'
+  family: System/Memory/Usage
+  chart_type: line
+  priority: 60001
+  shape: independent
+  dimensions:
+  - id: memory_usage
+    signal: device_memory_usage
+- id: snmp.device_prof_wlsxSysExtPacketLossPercent
+  title: Packet loss percentage
+  units: '%'
+  family: Network/Packet/Loss
+  chart_type: line
+  priority: 60002
+  shape: independent
+  dimensions:
+  - id: wlsxsysextpacketlosspercent
+    signal: aruba_wireless_controller_wlsxsysextpacketlosspercent
+- id: snmp.device_prof_sysXStorageSize
+  title: Size of the storage filesystem in MB
+  units: MBy
+  family: System/Storage/Total
+  chart_type: line
+  priority: 60003
+  shape: independent
+  dimensions:
+  - id: sysxstoragesize
+    signal: aruba_wireless_controller_sysxstoragesize
+  instances:
+    group: sys_x_storage_type
+    chart_prefix: sysxstoragesize
+    family: System/Storage/Total
+    labels:
+      sys_x_storage_type: '{instance}'
+- id: snmp.device_prof_sysXStorageUsed
+  title: Size of the storage filesystem in MB
+  units: MBy
+  family: System/Storage/Used
+  chart_type: line
+  priority: 60004
+  shape: independent
+  dimensions:
+  - id: sysxstorageused
+    signal: aruba_wireless_controller_sysxstorageused
+  instances:
+    group: sys_x_storage_type
+    chart_prefix: sysxstorageused
+    family: System/Storage/Used
+    labels:
+      sys_x_storage_type: '{instance}'
+- id: snmp.device_prof_apChannelNoise
+  title: Noise on the channel
+  units: dB
+  family: Network/Wireless/AccessPoint/Channel/Noise
+  chart_type: line
+  priority: 60005
+  shape: independent
+  dimensions:
+  - id: apchannelnoise
+    signal: aruba_wireless_controller_apchannelnoise
+  instances:
+    group: ap_essid
+    chart_prefix: apchannelnoise
+    family: Network/Wireless/AccessPoint/Channel/Noise
+    labels:
+      ap_essid: '{instance}'
+- id: snmp.device_prof_apSignalToNoiseRatio
+  title: Signal to noise ratio for the BSSID
+  units: dB
+  family: Network/Wireless/AccessPoint/Signal/SNR
+  chart_type: line
+  priority: 60006
+  shape: independent
+  dimensions:
+  - id: apsignaltonoiseratio
+    signal: aruba_wireless_controller_apsignaltonoiseratio
+  instances:
+    group: ap_essid
+    chart_prefix: apsignaltonoiseratio
+    family: Network/Wireless/AccessPoint/Signal/SNR
+    labels:
+      ap_essid: '{instance}'
+- id: snmp.device_prof_apChannelFrameRetryRate
+  title: Number of retry packets as a percentage of the total packets transmitted and received on this channel
+  units: '%'
+  family: Network/Wireless/AccessPoint/Channel/Frame/Retry
+  chart_type: line
+  priority: 60007
+  shape: independent
+  dimensions:
+  - id: apchannelframeretryrate
+    signal: aruba_wireless_controller_apchannelframeretryrate
+  instances:
+    group: ap_stats_channel
+    chart_prefix: apchannelframeretryrate
+    family: Network/Wireless/AccessPoint/Channel/Frame/Retry
+    labels:
+      ap_stats_channel: '{instance}'
+- id: snmp.device_prof_apChannelFrameLowSpeedRate
+  title: Number of low data rate packets as a percentage of the total packets transmitted and received on this channel
+  units: '%'
+  family: Network/Wireless/AccessPoint/Channel/Frame/LowSpeed
+  chart_type: line
+  priority: 60008
+  shape: independent
+  dimensions:
+  - id: apchannelframelowspeedrate
+    signal: aruba_wireless_controller_apchannelframelowspeedrate
+  instances:
+    group: ap_stats_channel
+    chart_prefix: apchannelframelowspeedrate
+    family: Network/Wireless/AccessPoint/Channel/Frame/LowSpeed
+    labels:
+      ap_stats_channel: '{instance}'
+- id: snmp.device_prof_apChannelFrameNonUnicastRate
+  title: Number of broadcast and multicast packets as a percentage of the total packets transmitted on this channel
+  units: '%'
+  family: Network/Wireless/AccessPoint/Channel/Frame/NonUnicast
+  chart_type: line
+  priority: 60009
+  shape: independent
+  dimensions:
+  - id: apchannelframenonunicastrate
+    signal: aruba_wireless_controller_apchannelframenonunicastrate
+  instances:
+    group: ap_stats_channel
+    chart_prefix: apchannelframenonunicastrate
+    family: Network/Wireless/AccessPoint/Channel/Frame/NonUnicast
+    labels:
+      ap_stats_channel: '{instance}'
+- id: snmp.device_prof_apChannelFrameFragmentationRate
+  title: Number of fragments as a percentage of the total packets transmitted on this channel
+  units: '%'
+  family: Network/Wireless/AccessPoint/Channel/Frame/Fragmentation
+  chart_type: line
+  priority: 60010
+  shape: independent
+  dimensions:
+  - id: apchannelframefragmentationr
+    signal: aruba_wireless_controller_apchannelframefragmentationrate
+  instances:
+    group: ap_stats_channel
+    chart_prefix: apchannelframefragmentationrate
+    family: Network/Wireless/AccessPoint/Channel/Frame/Fragmentation
+    labels:
+      ap_stats_channel: '{instance}'
+- id: snmp.device_prof_apChannelFrameReceiveErrorRate
+  title: Number of error packets as a percentage of the total packets received on this channel
+  units: '%'
+  family: Network/Wireless/AccessPoint/Channel/Frame/Error
+  chart_type: line
+  priority: 60011
+  shape: independent
+  dimensions:
+  - id: apchannelframereceiveerrorra
+    signal: aruba_wireless_controller_apchannelframereceiveerrorrate
+  instances:
+    group: ap_stats_channel
+    chart_prefix: apchannelframereceiveerrorrate
+    family: Network/Wireless/AccessPoint/Channel/Frame/Error
+    labels:
+      ap_stats_channel: '{instance}'
+- id: snmp.device_prof_apBSSTxPackets
+  title: Total packets transmitted by the ap on this BSSID
+  units: '{packet}/s'
+  family: Network/Wireless/AccessPoint/BSS/Packet/Out
+  chart_type: line
+  priority: 60012
+  shape: counters
+  dimensions:
+  - id: apbsstxpackets
+    rate_signal: aruba_wireless_controller_apbsstxpackets
+  instances:
+    group: ap_stats_channel
+    chart_prefix: apbsstxpackets
+    family: Network/Wireless/AccessPoint/BSS/Packet/Out
+    labels:
+      ap_stats_channel: '{instance}'
+- id: snmp.device_prof_apBSSRxPackets
+  title: Total packets received by the ap on this BSSID
+  units: '{packet}/s'
+  family: Network/Wireless/AccessPoint/BSS/Packet/In
+  chart_type: line
+  priority: 60013
+  shape: counters
+  dimensions:
+  - id: apbssrxpackets
+    rate_signal: aruba_wireless_controller_apbssrxpackets
+  instances:
+    group: ap_stats_channel
+    chart_prefix: apbssrxpackets
+    family: Network/Wireless/AccessPoint/BSS/Packet/In
+    labels:
+      ap_stats_channel: '{instance}'
+- id: snmp.device_prof_apChannelBwRate
+  title: Bandwidth rate in Kbps of the apChannel
+  units: kbit/s
+  family: Network/Wireless/AccessPoint/Channel/Bandwidth
+  chart_type: line
+  priority: 60014
+  shape: counters
+  dimensions:
+  - id: apchannelbwrate
+    rate_signal: aruba_wireless_controller_apchannelbwrate
+  instances:
+    group: ap_stats_channel
+    chart_prefix: apchannelbwrate
+    family: Network/Wireless/AccessPoint/Channel/Bandwidth
+    labels:
+      ap_stats_channel: '{instance}'
+- id: snmp.device_prof_apBSSTxBytes
+  title: Total bytes transmitted by the ap on this BSSID
+  units: By/s
+  family: Network/Wireless/AccessPoint/BSS/Traffic/Out
+  chart_type: line
+  priority: 60015
+  shape: counters
+  dimensions:
+  - id: apbsstxbytes
+    rate_signal: aruba_wireless_controller_apbsstxbytes
+  instances:
+    group: ap_stats_channel
+    chart_prefix: apbsstxbytes
+    family: Network/Wireless/AccessPoint/BSS/Traffic/Out
+    labels:
+      ap_stats_channel: '{instance}'
+- id: snmp.device_prof_apBSSRxBytes
+  title: Total bytes received by the ap on this BSSID
+  units: By/s
+  family: Network/Wireless/AccessPoint/BSS/Traffic/In
+  chart_type: line
+  priority: 60016
+  shape: counters
+  dimensions:
+  - id: apbssrxbytes
+    rate_signal: aruba_wireless_controller_apbssrxbytes
+  instances:
+    group: ap_stats_channel
+    chart_prefix: apbssrxbytes
+    family: Network/Wireless/AccessPoint/BSS/Traffic/In
+    labels:
+      ap_stats_channel: '{instance}'
+- id: snmp.device_prof_apBSSBwRate
+  title: Bandwidth rate in Kbps of the ap on this BSSID
+  units: kbit/s
+  family: Network/Wireless/AccessPoint/BSS/Bandwidth
+  chart_type: line
+  priority: 60017
+  shape: counters
+  dimensions:
+  - id: apbssbwrate
+    rate_signal: aruba_wireless_controller_apbssbwrate
+  instances:
+    group: ap_stats_channel
+    chart_prefix: apbssbwrate
+    family: Network/Wireless/AccessPoint/BSS/Bandwidth
+    labels:
+      ap_stats_channel: '{instance}'
+- id: snmp.device_prof_apBSSFrameRetryRate
+  title: Frame retry rate on this BSSID
+  units: '%'
+  family: Network/Wireless/AccessPoint/BSS/Frame/Retry
+  chart_type: line
+  priority: 60018
+  shape: independent
+  dimensions:
+  - id: apbssframeretryrate
+    signal: aruba_wireless_controller_apbssframeretryrate
+  instances:
+    group: ap_stats_channel
+    chart_prefix: apbssframeretryrate
+    family: Network/Wireless/AccessPoint/BSS/Frame/Retry
+    labels:
+      ap_stats_channel: '{instance}'
+- id: snmp.device_prof_apBSSFrameLowSpeedRate
+  title: Frame low speed rate on this BSSID
+  units: '%'
+  family: Network/Wireless/AccessPoint/BSS/Frame/LowSpeed
+  chart_type: line
+  priority: 60019
+  shape: independent
+  dimensions:
+  - id: apbssframelowspeedrate
+    signal: aruba_wireless_controller_apbssframelowspeedrate
+  instances:
+    group: ap_stats_channel
+    chart_prefix: apbssframelowspeedrate
+    family: Network/Wireless/AccessPoint/BSS/Frame/LowSpeed
+    labels:
+      ap_stats_channel: '{instance}'
+- id: snmp.device_prof_apBSSFrameNonUnicastRate
+  title: Frame non unicast packet rate on this BSSID
+  units: '%'
+  family: Network/Wireless/AccessPoint/BSS/Frame/NonUnicast
+  chart_type: line
+  priority: 60020
+  shape: independent
+  dimensions:
+  - id: apbssframenonunicastrate
+    signal: aruba_wireless_controller_apbssframenonunicastrate
+  instances:
+    group: ap_stats_channel
+    chart_prefix: apbssframenonunicastrate
+    family: Network/Wireless/AccessPoint/BSS/Frame/NonUnicast
+    labels:
+      ap_stats_channel: '{instance}'
+- id: snmp.device_prof_apBSSFrameFragmentationRate
+  title: Frame fragmentation rate on this BSSID
+  units: '%'
+  family: Network/Wireless/AccessPoint/BSS/Frame/Fragmentation
+  chart_type: line
+  priority: 60021
+  shape: independent
+  dimensions:
+  - id: apbssframefragmentationrate
+    signal: aruba_wireless_controller_apbssframefragmentationrate
+  instances:
+    group: ap_stats_channel
+    chart_prefix: apbssframefragmentationrate
+    family: Network/Wireless/AccessPoint/BSS/Frame/Fragmentation
+    labels:
+      ap_stats_channel: '{instance}'
+- id: snmp.device_prof_apBSSFrameReceiveErrorRate
+  title: Frame receive error rate on this BSSID
+  units: '%'
+  family: Network/Wireless/AccessPoint/BSS/Frame/Error
+  chart_type: line
+  priority: 60022
+  shape: independent
+  dimensions:
+  - id: apbssframereceiveerrorrate
+    signal: aruba_wireless_controller_apbssframereceiveerrorrate
+  instances:
+    group: ap_stats_channel
+    chart_prefix: apbssframereceiveerrorrate
+    family: Network/Wireless/AccessPoint/BSS/Frame/Error
+    labels:
+      ap_stats_channel: '{instance}'
+- id: snmp.device_prof_wlsxNumOfUsers8021x
+  title: Number of 802.1x users
+  units: '{user}'
+  family: System/User/802.1x/Count
+  chart_type: line
+  priority: 60023
+  shape: independent
+  dimensions:
+  - id: wlsxnumofusers8021x
+    signal: aruba_wireless_controller_wlsxnumofusers8021x
+- id: snmp.device_prof_wlsxNumOfUsersVPN
+  title: Number of VPN users
+  units: '{user}'
+  family: System/User/VPN/Count
+  chart_type: line
+  priority: 60024
+  shape: independent
+  dimensions:
+  - id: wlsxnumofusersvpn
+    signal: aruba_wireless_controller_wlsxnumofusersvpn
+- id: snmp.device_prof_wlsxNumOfUsersCP
+  title: Number of Captive Portal users
+  units: '{user}'
+  family: System/User/CaptivePortal/Count
+  chart_type: line
+  priority: 60025
+  shape: independent
+  dimensions:
+  - id: wlsxnumofuserscp
+    signal: aruba_wireless_controller_wlsxnumofuserscp
+- id: snmp.device_prof_wlsxNumOfUsersMAC
+  title: Number of MAC users
+  units: '{user}'
+  family: System/User/MAC/Count
+  chart_type: line
+  priority: 60026
+  shape: independent
+  dimensions:
+  - id: wlsxnumofusersmac
+    signal: aruba_wireless_controller_wlsxnumofusersmac
+- id: snmp.device_prof_wlsxNumOfUsersStateful8021x
+  title: Number of stateful 802.1x users
+  units: '{user}'
+  family: System/User/Stateful802.1x/Count
+  chart_type: line
+  priority: 60027
+  shape: independent
+  dimensions:
+  - id: wlsxnumofusersstateful8021x
+    signal: aruba_wireless_controller_wlsxnumofusersstateful8021x
+- id: snmp.device_prof_haActiveAPs
+  title: Number of active APs
+  units: '{access_point}'
+  family: System/HighAvailability/AccessPoint/Active
+  chart_type: line
+  priority: 60028
+  shape: independent
+  dimensions:
+  - id: haactiveaps
+    signal: aruba_wireless_controller_haactiveaps
+- id: snmp.device_prof_haStandbyAPs
+  title: Number of standby APs
+  units: '{access_point}'
+  family: System/HighAvailability/AccessPoint/Standby
+  chart_type: line
+  priority: 60029
+  shape: independent
+  dimensions:
+  - id: hastandbyaps
+    signal: aruba_wireless_controller_hastandbyaps
+- id: snmp.device_prof_haTotalAPs
+  title: Total number of APs
+  units: '{access_point}'
+  family: System/HighAvailability/AccessPoint/Total
+  chart_type: line
+  priority: 60030
+  shape: independent
+  dimensions:
+  - id: hatotalaps
+    signal: aruba_wireless_controller_hatotalaps
+- id: snmp.device_prof_haActiveVapTunnels
+  title: Number of active per VAP GRE tunnels
+  units: '{tunnel}'
+  family: Network/HighAvailability/Tunnel/VAPGRE/Active
+  chart_type: line
+  priority: 60031
+  shape: independent
+  dimensions:
+  - id: haactivevaptunnels
+    signal: aruba_wireless_controller_haactivevaptunnels
+  instances:
+    group: ha_membership
+    chart_prefix: haactivevaptunnels
+    family: Network/HighAvailability/Tunnel/VAPGRE/Active
+    labels:
+      ha_membership: '{instance}'
+- id: snmp.device_prof_haStandbyVapTunnels
+  title: Number of standby per VAP GRE tunnels
+  units: '{tunnel}'
+  family: Network/HighAvailability/Tunnel/VAPGRE/Standby
+  chart_type: line
+  priority: 60032
+  shape: independent
+  dimensions:
+  - id: hastandbyvaptunnels
+    signal: aruba_wireless_controller_hastandbyvaptunnels
+  instances:
+    group: ha_membership
+    chart_prefix: hastandbyvaptunnels
+    family: Network/HighAvailability/Tunnel/VAPGRE/Standby
+    labels:
+      ha_membership: '{instance}'
+- id: snmp.device_prof_haTotalVapTunnels
+  title: Total number of per VAP GRE tunnels
+  units: '{tunnel}'
+  family: Network/HighAvailability/Tunnel/VAPGRE/Total
+  chart_type: line
+  priority: 60033
+  shape: independent
+  dimensions:
+  - id: hatotalvaptunnels
+    signal: aruba_wireless_controller_hatotalvaptunnels
+  instances:
+    group: ha_membership
+    chart_prefix: hatotalvaptunnels
+    family: Network/HighAvailability/Tunnel/VAPGRE/Total
+    labels:
+      ha_membership: '{instance}'
+- id: snmp.device_prof_haAPHbtTunnels
+  title: Number of AP hbt GRE tunnels
+  units: '{tunnel}'
+  family: Network/HighAvailability/Tunnel/APHBTGRE/Total
+  chart_type: line
+  priority: 60034
+  shape: independent
+  dimensions:
+  - id: haaphbttunnels
+    signal: aruba_wireless_controller_haaphbttunnels
+  instances:
+    group: ha_membership
+    chart_prefix: haaphbttunnels
+    family: Network/HighAvailability/Tunnel/APHBTGRE/Total
+    labels:
+      ha_membership: '{instance}'
+- id: snmp.device_prof_wlanStaTransmitRate
+  title: Transmit rate with which the station is associated with this system
+  units: bit/s
+  family: Network/Wireless/Station/Transmit
+  chart_type: area
+  priority: 60035
+  shape: counters
+  dimensions:
+  - id: wlanstatransmitrate
+    rate_signal: aruba_wireless_controller_wlanstatransmitrate
+  instances:
+    group: wlan_sta_phy_type
+    chart_prefix: wlanstatransmitrate
+    family: Network/Wireless/Station/Transmit
+    labels:
+      wlan_sta_phy_type: '{instance}'
+- id: snmp.device_prof_wlanStaRSSI
+  title: Signal to noise ratio for the station
+  units: dB
+  family: Network/Wireless/Station/Signal/RSSI
+  chart_type: line
+  priority: 60036
+  shape: independent
+  dimensions:
+  - id: wlanstarssi
+    signal: aruba_wireless_controller_wlanstarssi
+  instances:
+    group: wlan_sta_phy_type
+    chart_prefix: wlanstarssi
+    family: Network/Wireless/Station/Signal/RSSI
+    labels:
+      wlan_sta_phy_type: '{instance}'
+- id: snmp.device_prof_wlanStaUpTime
+  title: Time since the station associated to the current BSSID
+  units: cs
+  family: Network/Wireless/Station/Uptime
+  chart_type: line
+  priority: 60037
+  shape: independent
+  dimensions:
+  - id: wlanstauptime
+    signal: aruba_wireless_controller_wlanstauptime
+  instances:
+    group: wlan_sta_phy_type
+    chart_prefix: wlanstauptime
+    family: Network/Wireless/Station/Uptime
+    labels:
+      wlan_sta_phy_type: '{instance}'
+- id: snmp.device_prof_wlanStaTxBytes64
+  title: Number of bytes transmitted by this station, 64-bit value
+  units: By
+  family: Network/Wireless/Station/Traffic/Out
+  chart_type: line
+  priority: 60038
+  shape: independent
+  dimensions:
+  - id: wlanstatxbytes64
+    signal: aruba_wireless_controller_wlanstatxbytes64
+  instances:
+    group: wlan_sta_channel_num
+    chart_prefix: wlanstatxbytes64
+    family: Network/Wireless/Station/Traffic/Out
+    labels:
+      wlan_sta_channel_num: '{instance}'
+- id: snmp.device_prof_wlanStaRxBytes64
+  title: Number of bytes received by this station, 64-bit value
+  units: By
+  family: Network/Wireless/Station/Traffic/In
+  chart_type: line
+  priority: 60039
+  shape: independent
+  dimensions:
+  - id: wlanstarxbytes64
+    signal: aruba_wireless_controller_wlanstarxbytes64
+  instances:
+    group: wlan_sta_channel_num
+    chart_prefix: wlanstarxbytes64
+    family: Network/Wireless/Station/Traffic/In
+    labels:
+      wlan_sta_channel_num: '{instance}'
+- id: snmp.device_prof_lldpStatsRemTablesLastChangeTime
+  title: SNMP metric lldpStatsRemTablesLastChangeTime
+  units: '1'
+  family: lldpstatsremtableslastchangetime
+  chart_type: line
+  priority: 60040
+  shape: independent
+  dimensions:
+  - id: lldpstatsremtableslastchange
+    signal: aruba_wireless_controller_lldpstatsremtableslastchangetime
+- id: snmp.device_prof_lldpStatsRemTablesInserts
+  title: SNMP metric lldpStatsRemTablesInserts
+  units: '1'
+  family: lldpstatsremtablesinserts
+  chart_type: line
+  priority: 60041
+  shape: independent
+  dimensions:
+  - id: lldpstatsremtablesinserts
+    signal: aruba_wireless_controller_lldpstatsremtablesinserts
+- id: snmp.device_prof_lldpStatsRemTablesDeletes
+  title: SNMP metric lldpStatsRemTablesDeletes
+  units: '1'
+  family: lldpstatsremtablesdeletes
+  chart_type: line
+  priority: 60042
+  shape: independent
+  dimensions:
+  - id: lldpstatsremtablesdeletes
+    signal: aruba_wireless_controller_lldpstatsremtablesdeletes
+- id: snmp.device_prof_lldpStatsRemTablesDrops
+  title: SNMP metric lldpStatsRemTablesDrops
+  units: '1'
+  family: lldpstatsremtablesdrops
+  chart_type: line
+  priority: 60043
+  shape: independent
+  dimensions:
+  - id: lldpstatsremtablesdrops
+    signal: aruba_wireless_controller_lldpstatsremtablesdrops
+- id: snmp.device_prof_lldpStatsRemTablesAgeouts
+  title: SNMP metric lldpStatsRemTablesAgeouts
+  units: '1'
+  family: lldpstatsremtablesageouts
+  chart_type: line
+  priority: 60044
+  shape: independent
+  dimensions:
+  - id: lldpstatsremtablesageouts
+    signal: aruba_wireless_controller_lldpstatsremtablesageouts
+- id: snmp.device_prof_lldpStatsTxPortFramesTotal
+  title: SNMP metric lldpStatsTxPortFramesTotal
+  units: '1'
+  family: lldpstatstxporttable
+  chart_type: line
+  priority: 60045
+  shape: independent
+  dimensions:
+  - id: lldpstatstxportframestotal
+    signal: aruba_wireless_controller_lldpstatstxportframestotal
+  instances:
+    group: lldp_loc_port_num
+    chart_prefix: lldpstatstxportframestotal
+    family: lldpstatstxporttable
+    labels:
+      lldp_loc_port_num: '{instance}'
+- id: snmp.device_prof_lldpStatsRxPortFramesDiscardedTotal
+  title: SNMP metric lldpStatsRxPortFramesDiscardedTotal
+  units: '1'
+  family: lldpstatsrxporttable
+  chart_type: line
+  priority: 60046
+  shape: independent
+  dimensions:
+  - id: lldpstatsrxportframesdiscard
+    signal: aruba_wireless_controller_lldpstatsrxportframesdiscardedtotal
+  instances:
+    group: lldp_loc_port_num
+    chart_prefix: lldpstatsrxportframesdiscardedtotal
+    family: lldpstatsrxporttable
+    labels:
+      lldp_loc_port_num: '{instance}'
+- id: snmp.device_prof_lldpStatsRxPortFramesErrors
+  title: SNMP metric lldpStatsRxPortFramesErrors
+  units: '1'
+  family: lldpstatsrxporttable
+  chart_type: line
+  priority: 60047
+  shape: independent
+  dimensions:
+  - id: lldpstatsrxportframeserrors
+    signal: aruba_wireless_controller_lldpstatsrxportframeserrors
+  instances:
+    group: lldp_loc_port_num
+    chart_prefix: lldpstatsrxportframeserrors
+    family: lldpstatsrxporttable
+    labels:
+      lldp_loc_port_num: '{instance}'
+- id: snmp.device_prof_lldpStatsRxPortFramesTotal
+  title: SNMP metric lldpStatsRxPortFramesTotal
+  units: '1'
+  family: lldpstatsrxporttable
+  chart_type: line
+  priority: 60048
+  shape: independent
+  dimensions:
+  - id: lldpstatsrxportframestotal
+    signal: aruba_wireless_controller_lldpstatsrxportframestotal
+  instances:
+    group: lldp_loc_port_num
+    chart_prefix: lldpstatsrxportframestotal
+    family: lldpstatsrxporttable
+    labels:
+      lldp_loc_port_num: '{instance}'
+- id: snmp.device_prof_lldpStatsRxPortTLVsDiscardedTotal
+  title: SNMP metric lldpStatsRxPortTLVsDiscardedTotal
+  units: '1'
+  family: lldpstatsrxporttable
+  chart_type: line
+  priority: 60049
+  shape: independent
+  dimensions:
+  - id: lldpstatsrxporttlvsdiscarded
+    signal: aruba_wireless_controller_lldpstatsrxporttlvsdiscardedtotal
+  instances:
+    group: lldp_loc_port_num
+    chart_prefix: lldpstatsrxporttlvsdiscardedtotal
+    family: lldpstatsrxporttable
+    labels:
+      lldp_loc_port_num: '{instance}'
+- id: snmp.device_prof_lldpStatsRxPortTLVsUnrecognizedTotal
+  title: SNMP metric lldpStatsRxPortTLVsUnrecognizedTotal
+  units: '1'
+  family: lldpstatsrxporttable
+  chart_type: line
+  priority: 60050
+  shape: independent
+  dimensions:
+  - id: lldpstatsrxporttlvsunrecogni
+    signal: aruba_wireless_controller_lldpstatsrxporttlvsunrecognizedtotal
+  instances:
+    group: lldp_loc_port_num
+    chart_prefix: lldpstatsrxporttlvsunrecognizedtotal
+    family: lldpstatsrxporttable
+    labels:
+      lldp_loc_port_num: '{instance}'
+- id: snmp.device_prof_lldpStatsRxPortAgeoutsTotal
+  title: SNMP metric lldpStatsRxPortAgeoutsTotal
+  units: '1'
+  family: lldpstatsrxporttable
+  chart_type: line
+  priority: 60051
+  shape: independent
+  dimensions:
+  - id: lldpstatsrxportageoutstotal
+    signal: aruba_wireless_controller_lldpstatsrxportageoutstotal
+  instances:
+    group: lldp_loc_port_num
+    chart_prefix: lldpstatsrxportageoutstotal
+    family: lldpstatsrxporttable
+    labels:
+      lldp_loc_port_num: '{instance}'
+- id: snmp.device_prof_systemUptime
+  title: Time since the system was last rebooted or powered on.
+  units: s
+  family: System/Uptime
+  chart_type: line
+  priority: 60052
+  shape: independent
+  dimensions:
+  - id: systemuptime
+    signal: aruba_wireless_controller_systemuptime
+- id: snmp.device_prof_ifNumber
+  title: Number of network interfaces regardless of their current state present on this system
+  units: '{interface}'
+  family: Network/Interface/Count
+  chart_type: line
+  priority: 60053
+  shape: independent
+  dimensions:
+  - id: ifnumber
+    signal: aruba_wireless_controller_ifnumber
+- id: snmp.device_prof_ifAdminStatus
+  title: Current administrative state of the interface
+  units: '{status}'
+  family: Network/Interface/Status/Admin
+  chart_type: line
+  priority: 60054
+  shape: independent
+  dimensions:
+  - id: up
+    signal: if_admin_status
+  - id: down
+    signal: if_admin_status_down
+  - id: testing
+    signal: if_admin_status_testing
+  instances:
+    group: interface
+    chart_prefix: ifadminstatus
+    family: Network/Interface/Status/Admin
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifOperStatus
+  title: Current operational state of the interface
+  units: '{status}'
+  family: Network/Interface/Status/Operational
+  chart_type: line
+  priority: 60055
+  shape: independent
+  dimensions:
+  - id: up
+    signal: if_oper_status
+  - id: down
+    signal: if_oper_status_down
+  - id: testing
+    signal: if_oper_status_testing
+  - id: unknown
+    signal: if_oper_status_unknown
+  - id: dormant
+    signal: if_oper_status_dormant
+  - id: notpresent
+    signal: if_oper_status_notpresent
+  - id: lowerlayerdown
+    signal: if_oper_status_lowerlayerdown
+  instances:
+    group: interface
+    chart_prefix: ifoperstatus
+    family: Network/Interface/Status/Operational
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifHighSpeed
+  title: Estimate of the interface's current bandwidth
+  units: bit/s
+  family: Network/Interface/Speed
+  chart_type: area
+  priority: 60056
+  shape: counters
+  dimensions:
+  - id: ifhighspeed
+    rate_signal: if_speed
+  instances:
+    group: interface
+    chart_prefix: ifhighspeed
+    family: Network/Interface/Speed
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifTotalTraffic
+  title: Total traffic across all interfaces
+  units: bit/s
+  family: Network/Total/Traffic
+  chart_type: area
+  priority: 60057
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_octets_rate
+  - id: out
+    rate_signal: if_out_octets_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalPacketsUcast
+  title: Total unicast packets across all interfaces
+  units: '{packet}/s'
+  family: Network/Total/Packet/Unicast
+  chart_type: line
+  priority: 60058
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_ucast_rate
+  - id: out
+    rate_signal: if_out_ucast_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalPacketsMulticast
+  title: Total multicast packets across all interfaces
+  units: '{packet}/s'
+  family: Network/Total/Packet/Multicast
+  chart_type: line
+  priority: 60059
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_mcast_rate
+  - id: out
+    rate_signal: aruba_wireless_controller_ifhcoutmulticastpkts
+    multiplier: -1
+- id: snmp.device_prof_ifTotalPacketsBroadcast
+  title: Total broadcast packets across all interfaces
+  units: '{packet}/s'
+  family: Network/Total/Packet/Broadcast
+  chart_type: line
+  priority: 60060
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_bcast_rate
+  - id: out
+    rate_signal: aruba_wireless_controller_ifhcoutbroadcastpkts
+    multiplier: -1
+- id: snmp.device_prof_ifTotalErrors
+  title: Total packets with errors across all interfaces
+  units: '{error}/s'
+  family: Network/Total/Error
+  chart_type: line
+  priority: 60061
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_errors_rate
+  - id: out
+    rate_signal: if_out_errors_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalDiscards
+  title: Total packets discarded across all interfaces
+  units: '{discard}/s'
+  family: Network/Total/Discard
+  chart_type: line
+  priority: 60062
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_discards_rate
+  - id: out
+    rate_signal: if_out_discards_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalOperStatus
+  title: Total count of interfaces by operational status
+  units: '{status}'
+  family: Network/Total/Interface/Status
+  chart_type: line
+  priority: 60063
+  shape: independent
+  dimensions:
+  - id: up
+    signal: aruba_wireless_controller_iftotaloperstatus
+  - id: down
+    signal: aruba_wireless_controller_iftotaloperstatus_down
+  - id: testing
+    signal: aruba_wireless_controller_iftotaloperstatus_testing
+  - id: unknown
+    signal: aruba_wireless_controller_iftotaloperstatus_unknown
+  - id: dormant
+    signal: aruba_wireless_controller_iftotaloperstatus_dormant
+  - id: notpresent
+    signal: aruba_wireless_controller_iftotaloperstatus_notpresent
+  - id: lowerlayerdown
+    signal: aruba_wireless_controller_iftotaloperstatus_lowerlayerdown
+- id: snmp.device_prof_ifTraffic
+  title: Traffic
+  units: bit/s
+  family: Network/Interface/Traffic/Total
+  chart_type: area
+  priority: 60064
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_octets_rate
+  - id: out
+    rate_signal: if_out_octets_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: iftraffic
+    family: Network/Interface/Traffic/Total
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifPacketsUcast
+  title: Unicast packets
+  units: '{packet}/s'
+  family: Network/Interface/Packet/Unicast
+  chart_type: line
+  priority: 60065
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_ucast_rate
+  - id: out
+    rate_signal: if_out_ucast_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifpacketsucast
+    family: Network/Interface/Packet/Unicast
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifPacketsMulticast
+  title: Multicast packets
+  units: '{packet}/s'
+  family: Network/Interface/Packet/Multicast
+  chart_type: line
+  priority: 60066
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_mcast_rate
+  - id: out
+    rate_signal: aruba_wireless_controller_ifhcoutmulticastpkts
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifpacketsmulticast
+    family: Network/Interface/Packet/Multicast
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifPacketsBroadcast
+  title: Broadcast packets
+  units: '{packet}/s'
+  family: Network/Interface/Packet/Broadcast
+  chart_type: line
+  priority: 60067
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_bcast_rate
+  - id: out
+    rate_signal: aruba_wireless_controller_ifhcoutbroadcastpkts
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifpacketsbroadcast
+    family: Network/Interface/Packet/Broadcast
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifErrors
+  title: Packets with errors
+  units: '{error}/s'
+  family: Network/Interface/Error/Total
+  chart_type: line
+  priority: 60068
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_errors_rate
+  - id: out
+    rate_signal: if_out_errors_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: iferrors
+    family: Network/Interface/Error/Total
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifDiscards
+  title: Packets discarded
+  units: '{discard}/s'
+  family: Network/Interface/Discard
+  chart_type: line
+  priority: 60069
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_discards_rate
+  - id: out
+    rate_signal: if_out_discards_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifdiscards
+    family: Network/Interface/Discard
+    labels:
+      interface: '{instance}'

@@ -1,0 +1,3276 @@
+version: 1
+name: fortinet_fortigate
+description: Fortinet Network device, as Netdata's SNMP collector reports it. Generated from go.d/snmp.profiles/default/fortinet-fortigate.yaml
+  with its `extends` chain resolved. Contexts, units, families and metric names are the device's own; values are a plausible
+  fiction.
+signals:
+  fortinet_fortigate_fgvpntunnelupcount:
+    base: 18.0
+    min: 0.0
+    max: 65536.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  device_cpu_usage:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgprocessorpktrxcount:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgprocessorpkttxcount:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgprocessorpktdroppedcount:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+  fortinet_fortigate_fgprocessorusage:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgprocessorsysusage:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgprocessoruserusage:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgprocessorusage5sec:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgsysmemusage:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgsysmemcapacity:
+    base: 4294967296.0
+    min: 4294967296.0
+    max: 4294967296.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  fortinet_fortigate_fgsyslowmemusage:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgsyslowmemcapacity:
+    base: 4294967296.0
+    min: 4294967296.0
+    max: 4294967296.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  fortinet_fortigate_fgsysdiskusage:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgsysdiskcapacity:
+    base: 4294967296.0
+    min: 4294967296.0
+    max: 4294967296.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  fortinet_fortigate_fgvdentopmode:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  fortinet_fortigate_fgvdentopmode_transparent:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  fortinet_fortigate_fgvdenthastate:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  fortinet_fortigate_fgvdenthastate_backup:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  fortinet_fortigate_fgvdenthastate_standalone:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  fortinet_fortigate_fgvdentcpuusage:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgvdentmemusage:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgvdentsescount:
+    base: 180.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgvdentsesrate:
+    base: 24.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgvdnumber:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgvdmaxvdoms:
+    base: 120.0
+    min: 120.0
+    max: 120.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  fortinet_fortigate_fgsyssescount:
+    base: 180.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgsyssesrate1:
+    base: 24.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgsysses6count:
+    base: 180.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgsysses6rate1:
+    base: 24.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgsyssesrate10:
+    base: 24.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgsyssesrate30:
+    base: 24.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgsyssesrate60:
+    base: 24.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgsysses6rate10:
+    base: 24.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgsysses6rate30:
+    base: 24.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgsysses6rate60:
+    base: 24.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgaphttpconnections:
+    base: 240.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgaphttpmaxconnections:
+    base: 240.0
+    min: 240.0
+    max: 240.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  fortinet_fortigate_fgfwpolpktcount:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgfwpolbytecount:
+    base: 3100000.0
+    min: 0.0
+    max: 1250000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgfwpol6pktcount:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgfwpol6bytecount:
+    base: 3100000.0
+    min: 0.0
+    max: 1250000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_systemuptime:
+    base: 86400.0
+    min: 0.0
+    max: 315360000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_ifnumber:
+    base: 26.0
+    min: 26.0
+    max: 26.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_admin_status:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_admin_status_down:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_admin_status_testing:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_down:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_testing:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_dormant:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_notpresent:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_oper_status_lowerlayerdown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_speed:
+    from_attr: if_speed_mbps
+    base: 1000.0
+    min: 0.0
+    max: 400000.0
+  fortinet_fortigate_fgvpntunentinoctets:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgvpntunentoutoctets:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgvpntunentstatus_down:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  fortinet_fortigate_fgvpntunentstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  fortinet_fortigate_fgvpntunentlifesecs:
+    base: 86400.0
+    min: 0.0
+    max: 315360000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgvpntunentlifebytes:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgvpnsslstate_disabled:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  fortinet_fortigate_fgvpnsslstate:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  fortinet_fortigate_fgvpnsslstatsloginusers:
+    base: 34.0
+    min: 0.0
+    max: 100000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgvpnsslstatsmaxusers:
+    base: 34.0
+    min: 34.0
+    max: 34.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  fortinet_fortigate_fgvpnsslstatsactivewebsessions:
+    base: 180.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgvpnsslstatsmaxwebsessions:
+    base: 180.0
+    min: 180.0
+    max: 180.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  fortinet_fortigate_fgvpnsslstatsactivetunnels:
+    base: 18.0
+    min: 0.0
+    max: 65536.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgvpnsslstatsmaxtunnels:
+    base: 18.0
+    min: 18.0
+    max: 18.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  fortinet_fortigate_fghwsensorentvalue:
+    base: 12.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fghwsensorentalarmstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  fortinet_fortigate_fghwsensorentalarmstatus_alarm:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  fortinet_fortigate_fghasystemmode:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  fortinet_fortigate_fghasystemmode_activeactive:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  fortinet_fortigate_fghasystemmode_activepassive:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  fortinet_fortigate_fghastatscpuusage:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fghastatsmemusage:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fghastatsnetusage:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fghastatssescount:
+    base: 180.0
+    min: 0.0
+    max: 5000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fghastatspktcount:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fghastatsbytecount:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fghastatsidscount:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+  fortinet_fortigate_fghastatsavcount:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+  fortinet_fortigate_fghastatssyncstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  fortinet_fortigate_fghastatssyncstatus_in_sync:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  fortinet_fortigate_fgvwlhealthchecklinkstate:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  fortinet_fortigate_fgvwlhealthchecklinkstate_dead:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  fortinet_fortigate_fgvwlhealthchecklinklatency:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgvwlhealthchecklinkjitter:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgvwlhealthchecklinkpacketsend:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgvwlhealthchecklinkpacketrecv:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgvwlhealthchecklinkpacketloss:
+    base: 0.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+  fortinet_fortigate_fglinkmonitorstate:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  fortinet_fortigate_fglinkmonitorstate_dead:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  fortinet_fortigate_fglinkmonitorlatency:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fglinkmonitorjitter:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fglinkmonitorpacketsend:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fglinkmonitorpacketrecv:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fglinkmonitorpacketloss:
+    base: 0.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+  fortinet_fortigate_fgwcinfowtpmanaged:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgwcinfowtpcapacity:
+    base: 120.0
+    min: 120.0
+    max: 120.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  fortinet_fortigate_fgwcinfowtpsessions:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgwcinfostationcount:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgwcinfostationcapacity:
+    base: 120.0
+    min: 120.0
+    max: 120.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  fortinet_fortigate_fgwcwtpsessionconnectionstate_other:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  fortinet_fortigate_fgwcwtpsessionconnectionstate_offline:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  fortinet_fortigate_fgwcwtpsessionconnectionstate:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  fortinet_fortigate_fgwcwtpsessionconnectionstate_downloadingimage:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  fortinet_fortigate_fgwcwtpsessionconnectionstate_connectedimage:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  fortinet_fortigate_fgwcwtpsessionconnectionstate_other2:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  fortinet_fortigate_fgwcwtpsessionwtpuptime:
+    base: 86400.0
+    min: 0.0
+    max: 315360000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgwcwtpsessionwtpstationcount:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgwcwtpsessionwtpbyterxcount:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgwcwtpsessionwtpbytetxcount:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgwcwtpsessionwtpcpuusage:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgwcwtpsessionwtpmemoryusage:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgwcwtpsessionwtpmemorycapacity:
+    base: 4294967296.0
+    min: 4294967296.0
+    max: 4294967296.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  if_in_octets_rate:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_out_octets_rate:
+    base: 24800000.0
+    min: 0.0
+    max: 10000000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_ucast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_out_ucast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_mcast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_ifhcoutmulticastpkts:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_bcast_rate:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_ifhcoutbroadcastpkts:
+    base: 2800.0
+    min: 0.0
+    max: 15000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  if_in_errors_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  if_out_errors_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  if_in_discards_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  if_out_discards_rate:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+  fortinet_fortigate_iftotaloperstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  fortinet_fortigate_iftotaloperstatus_down:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  fortinet_fortigate_iftotaloperstatus_testing:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  fortinet_fortigate_iftotaloperstatus_unknown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  fortinet_fortigate_iftotaloperstatus_dormant:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  fortinet_fortigate_iftotaloperstatus_notpresent:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  fortinet_fortigate_iftotaloperstatus_lowerlayerdown:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  fortinet_fortigate_fgipsintrusionsdetected:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+  fortinet_fortigate_fgipsintrusionsblocked:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+  fortinet_fortigate_fgipscritsevdetections:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+  fortinet_fortigate_fgipshighsevdetections:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+  fortinet_fortigate_fgipsmedsevdetections:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+  fortinet_fortigate_fgipslowsevdetections:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+  fortinet_fortigate_fgipsinfosevdetections:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+  fortinet_fortigate_fgipssignaturedetections:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+  fortinet_fortigate_fgipsanomalydetections:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+  fortinet_fortigate_fgavvirusdetected:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgavvirusblocked:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgavhttpvirusdetected:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgavsmtpvirusdetected:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgavpop3virusdetected:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgavimapvirusdetected:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgavftpvirusdetected:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgavhttpvirusblocked:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgavsmtpvirusblocked:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgavpop3virusblocked:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgavimapvirusblocked:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgavftpvirusblocked:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgwfhttpblocked:
+    base: 24.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgwfhttpsblocked:
+    base: 24.0
+    min: 0.0
+    max: 500000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgwfhttpurlblocked:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgwfhttpsurlblocked:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgwfactivexblocked:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgwfcookieblocked:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  fortinet_fortigate_fgwfappletblocked:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: snmp.device_prof_fgVpnTunnelUpCount
+  title: Total number of active IPSec VPN tunnels
+  units: '{tunnel}'
+  family: Network/VPN/IPSec/Tunnel/Active
+  chart_type: line
+  priority: 60000
+  shape: independent
+  dimensions:
+  - id: fgvpntunnelupcount
+    signal: fortinet_fortigate_fgvpntunnelupcount
+- id: snmp.device_prof_cpu_usage
+  title: The current CPU utilization
+  units: '%'
+  family: System/CPU/Usage
+  chart_type: line
+  priority: 60001
+  shape: independent
+  dimensions:
+  - id: cpu_usage
+    signal: device_cpu_usage
+- id: snmp.device_prof_fgProcessorPktRxCount
+  title: Number of packets received by this processor
+  units: '{packet}/s'
+  family: System/Processor/Packet/In
+  chart_type: line
+  priority: 60002
+  shape: counters
+  dimensions:
+  - id: fgprocessorpktrxcount
+    rate_signal: fortinet_fortigate_fgprocessorpktrxcount
+  instances:
+    group: processor_index
+    chart_prefix: fgprocessorpktrxcount
+    family: System/Processor/Packet/In
+    labels:
+      processor_index: '{instance}'
+- id: snmp.device_prof_fgProcessorPktTxCount
+  title: Number of packets transmitted by this processor
+  units: '{packet}/s'
+  family: System/Processor/Packet/Out
+  chart_type: line
+  priority: 60003
+  shape: counters
+  dimensions:
+  - id: fgprocessorpkttxcount
+    rate_signal: fortinet_fortigate_fgprocessorpkttxcount
+  instances:
+    group: processor_index
+    chart_prefix: fgprocessorpkttxcount
+    family: System/Processor/Packet/Out
+    labels:
+      processor_index: '{instance}'
+- id: snmp.device_prof_fgProcessorPktDroppedCount
+  title: Number of packets dropped by this processor
+  units: '{drop}/s'
+  family: System/Processor/Packet/Dropped
+  chart_type: line
+  priority: 60004
+  shape: counters
+  dimensions:
+  - id: fgprocessorpktdroppedcount
+    rate_signal: fortinet_fortigate_fgprocessorpktdroppedcount
+  instances:
+    group: processor_index
+    chart_prefix: fgprocessorpktdroppedcount
+    family: System/Processor/Packet/Dropped
+    labels:
+      processor_index: '{instance}'
+- id: snmp.device_prof_fgProcessorUsage
+  title: Processor CPU usage averaged over last minute
+  units: '%'
+  family: System/Processor/Usage/Total
+  chart_type: line
+  priority: 60005
+  shape: independent
+  dimensions:
+  - id: fgprocessorusage
+    signal: fortinet_fortigate_fgprocessorusage
+  instances:
+    group: processor_index
+    chart_prefix: fgprocessorusage
+    family: System/Processor/Usage/Total
+    labels:
+      processor_index: '{instance}'
+- id: snmp.device_prof_fgProcessorSysUsage
+  title: Processor CPU system space usage averaged over last minute
+  units: '%'
+  family: System/Processor/Usage/System
+  chart_type: line
+  priority: 60006
+  shape: independent
+  dimensions:
+  - id: fgprocessorsysusage
+    signal: fortinet_fortigate_fgprocessorsysusage
+  instances:
+    group: processor_index
+    chart_prefix: fgprocessorsysusage
+    family: System/Processor/Usage/System
+    labels:
+      processor_index: '{instance}'
+- id: snmp.device_prof_fgProcessorUserUsage
+  title: Processor CPU user space usage averaged over last minute
+  units: '%'
+  family: System/Processor/Usage/User
+  chart_type: line
+  priority: 60007
+  shape: independent
+  dimensions:
+  - id: fgprocessoruserusage
+    signal: fortinet_fortigate_fgprocessoruserusage
+  instances:
+    group: processor_index
+    chart_prefix: fgprocessoruserusage
+    family: System/Processor/Usage/User
+    labels:
+      processor_index: '{instance}'
+- id: snmp.device_prof_fgProcessorUsage5sec
+  title: Processor CPU usage 5-second average
+  units: '%'
+  family: System/Processor/Usage/5sec
+  chart_type: line
+  priority: 60008
+  shape: independent
+  dimensions:
+  - id: fgprocessorusage5sec
+    signal: fortinet_fortigate_fgprocessorusage5sec
+  instances:
+    group: processor_index
+    chart_prefix: fgprocessorusage5sec
+    family: System/Processor/Usage/5sec
+    labels:
+      processor_index: '{instance}'
+- id: snmp.device_prof_fgSysMemUsage
+  title: Current memory utilization
+  units: '%'
+  family: System/Memory/Usage
+  chart_type: line
+  priority: 60009
+  shape: independent
+  dimensions:
+  - id: fgsysmemusage
+    signal: fortinet_fortigate_fgsysmemusage
+- id: snmp.device_prof_fgSysMemCapacity
+  title: Total physical memory installed
+  units: By
+  family: System/Memory/Total
+  chart_type: line
+  priority: 60010
+  shape: independent
+  dimensions:
+  - id: fgsysmemcapacity
+    signal: fortinet_fortigate_fgsysmemcapacity
+- id: snmp.device_prof_fgSysLowMemUsage
+  title: Current low memory utilization
+  units: '%'
+  family: System/Memory/LowMem/Usage
+  chart_type: line
+  priority: 60011
+  shape: independent
+  dimensions:
+  - id: fgsyslowmemusage
+    signal: fortinet_fortigate_fgsyslowmemusage
+- id: snmp.device_prof_fgSysLowMemCapacity
+  title: Total low memory capacity
+  units: By
+  family: System/Memory/LowMem/Total
+  chart_type: line
+  priority: 60012
+  shape: independent
+  dimensions:
+  - id: fgsyslowmemcapacity
+    signal: fortinet_fortigate_fgsyslowmemcapacity
+- id: snmp.device_prof_fgSysDiskUsage
+  title: Current hard disk usage
+  units: By
+  family: System/Disk/Space/Used
+  chart_type: line
+  priority: 60013
+  shape: independent
+  dimensions:
+  - id: fgsysdiskusage
+    signal: fortinet_fortigate_fgsysdiskusage
+- id: snmp.device_prof_fgSysDiskCapacity
+  title: Total hard disk capacity
+  units: By
+  family: System/Disk/Space/Total
+  chart_type: line
+  priority: 60014
+  shape: independent
+  dimensions:
+  - id: fgsysdiskcapacity
+    signal: fortinet_fortigate_fgsysdiskcapacity
+- id: snmp.device_prof_fgVdEntOpMode
+  title: Operation mode of the virtual domain
+  units: '{status}'
+  family: Security/VirtualDomain/Status/OperationMode
+  chart_type: line
+  priority: 60015
+  shape: independent
+  dimensions:
+  - id: nat
+    signal: fortinet_fortigate_fgvdentopmode
+  - id: transparent
+    signal: fortinet_fortigate_fgvdentopmode_transparent
+  instances:
+    group: virtualdomain_index
+    chart_prefix: fgvdentopmode
+    family: Security/VirtualDomain/Status/OperationMode
+    labels:
+      virtualdomain_index: '{instance}'
+- id: snmp.device_prof_fgVdEntHaState
+  title: HA cluster member state of the virtual domain
+  units: '{status}'
+  family: Security/VirtualDomain/Status/HighAvailability
+  chart_type: line
+  priority: 60016
+  shape: independent
+  dimensions:
+  - id: master
+    signal: fortinet_fortigate_fgvdenthastate
+  - id: backup
+    signal: fortinet_fortigate_fgvdenthastate_backup
+  - id: standalone
+    signal: fortinet_fortigate_fgvdenthastate_standalone
+  instances:
+    group: virtualdomain_index
+    chart_prefix: fgvdenthastate
+    family: Security/VirtualDomain/Status/HighAvailability
+    labels:
+      virtualdomain_index: '{instance}'
+- id: snmp.device_prof_fgVdEntCpuUsage
+  title: CPU usage of the virtual domain
+  units: '%'
+  family: Security/VirtualDomain/CPU/Usage
+  chart_type: line
+  priority: 60017
+  shape: independent
+  dimensions:
+  - id: fgvdentcpuusage
+    signal: fortinet_fortigate_fgvdentcpuusage
+  instances:
+    group: virtualdomain_index
+    chart_prefix: fgvdentcpuusage
+    family: Security/VirtualDomain/CPU/Usage
+    labels:
+      virtualdomain_index: '{instance}'
+- id: snmp.device_prof_fgVdEntMemUsage
+  title: Memory usage of the virtual domain
+  units: '%'
+  family: Security/VirtualDomain/Memory/Usage
+  chart_type: line
+  priority: 60018
+  shape: independent
+  dimensions:
+  - id: fgvdentmemusage
+    signal: fortinet_fortigate_fgvdentmemusage
+  instances:
+    group: virtualdomain_index
+    chart_prefix: fgvdentmemusage
+    family: Security/VirtualDomain/Memory/Usage
+    labels:
+      virtualdomain_index: '{instance}'
+- id: snmp.device_prof_fgVdEntSesCount
+  title: Number of active sessions on the virtual domain
+  units: '{session}'
+  family: Security/VirtualDomain/Session/Active
+  chart_type: line
+  priority: 60019
+  shape: independent
+  dimensions:
+  - id: fgvdentsescount
+    signal: fortinet_fortigate_fgvdentsescount
+  instances:
+    group: virtualdomain_index
+    chart_prefix: fgvdentsescount
+    family: Security/VirtualDomain/Session/Active
+    labels:
+      virtualdomain_index: '{instance}'
+- id: snmp.device_prof_fgVdEntSesRate
+  title: Session setup rate on the virtual domain
+  units: '{session}/s'
+  family: Security/VirtualDomain/Session/Rate
+  chart_type: line
+  priority: 60020
+  shape: counters
+  dimensions:
+  - id: fgvdentsesrate
+    rate_signal: fortinet_fortigate_fgvdentsesrate
+  instances:
+    group: virtualdomain_index
+    chart_prefix: fgvdentsesrate
+    family: Security/VirtualDomain/Session/Rate
+    labels:
+      virtualdomain_index: '{instance}'
+- id: snmp.device_prof_fgVdNumber
+  title: Number of virtual domains in vdTable
+  units: '{domain}'
+  family: Security/VirtualDomain/Active
+  chart_type: line
+  priority: 60021
+  shape: independent
+  dimensions:
+  - id: fgvdnumber
+    signal: fortinet_fortigate_fgvdnumber
+- id: snmp.device_prof_fgVdMaxVdoms
+  title: Maximum number of virtual domains allowed on the device
+  units: '{domain}'
+  family: Security/VirtualDomain/Maximum
+  chart_type: line
+  priority: 60022
+  shape: independent
+  dimensions:
+  - id: fgvdmaxvdoms
+    signal: fortinet_fortigate_fgvdmaxvdoms
+- id: snmp.device_prof_fgSysSesCount
+  title: Number of active sessions on the device
+  units: '{session}'
+  family: Security/Session/Active/Count
+  chart_type: line
+  priority: 60023
+  shape: independent
+  dimensions:
+  - id: fgsyssescount
+    signal: fortinet_fortigate_fgsyssescount
+- id: snmp.device_prof_fgSysSesRate1
+  title: Average session setup rate over the past minute
+  units: '{session}/s'
+  family: Security/Session/Rate/Average
+  chart_type: line
+  priority: 60024
+  shape: counters
+  dimensions:
+  - id: fgsyssesrate1
+    rate_signal: fortinet_fortigate_fgsyssesrate1
+- id: snmp.device_prof_fgSysSes6Count
+  title: Number of active IPv6 sessions on the device
+  units: '{session}'
+  family: Security/Session/IPv6/Active/Count
+  chart_type: line
+  priority: 60025
+  shape: independent
+  dimensions:
+  - id: fgsysses6count
+    signal: fortinet_fortigate_fgsysses6count
+- id: snmp.device_prof_fgSysSes6Rate1
+  title: Average IPv6 session setup rate over the past minute
+  units: '{session}/s'
+  family: Security/Session/IPv6/Rate/Average
+  chart_type: line
+  priority: 60026
+  shape: counters
+  dimensions:
+  - id: fgsysses6rate1
+    rate_signal: fortinet_fortigate_fgsysses6rate1
+- id: snmp.device_prof_fgSysSesRate10
+  title: Average session setup rate over the past 10 minutes
+  units: '{session}/s'
+  family: Security/Session/Rate/10min
+  chart_type: line
+  priority: 60027
+  shape: counters
+  dimensions:
+  - id: fgsyssesrate10
+    rate_signal: fortinet_fortigate_fgsyssesrate10
+- id: snmp.device_prof_fgSysSesRate30
+  title: Average session setup rate over the past 30 minutes
+  units: '{session}/s'
+  family: Security/Session/Rate/30min
+  chart_type: line
+  priority: 60028
+  shape: counters
+  dimensions:
+  - id: fgsyssesrate30
+    rate_signal: fortinet_fortigate_fgsyssesrate30
+- id: snmp.device_prof_fgSysSesRate60
+  title: Average session setup rate over the past 60 minutes
+  units: '{session}/s'
+  family: Security/Session/Rate/60min
+  chart_type: line
+  priority: 60029
+  shape: counters
+  dimensions:
+  - id: fgsyssesrate60
+    rate_signal: fortinet_fortigate_fgsyssesrate60
+- id: snmp.device_prof_fgSysSes6Rate10
+  title: Average IPv6 session setup rate over the past 10 minutes
+  units: '{session}/s'
+  family: Security/Session/IPv6/Rate/10min
+  chart_type: line
+  priority: 60030
+  shape: counters
+  dimensions:
+  - id: fgsysses6rate10
+    rate_signal: fortinet_fortigate_fgsysses6rate10
+- id: snmp.device_prof_fgSysSes6Rate30
+  title: Average IPv6 session setup rate over the past 30 minutes
+  units: '{session}/s'
+  family: Security/Session/IPv6/Rate/30min
+  chart_type: line
+  priority: 60031
+  shape: counters
+  dimensions:
+  - id: fgsysses6rate30
+    rate_signal: fortinet_fortigate_fgsysses6rate30
+- id: snmp.device_prof_fgSysSes6Rate60
+  title: Average IPv6 session setup rate over the past 60 minutes
+  units: '{session}/s'
+  family: Security/Session/IPv6/Rate/60min
+  chart_type: line
+  priority: 60032
+  shape: counters
+  dimensions:
+  - id: fgsysses6rate60
+    rate_signal: fortinet_fortigate_fgsysses6rate60
+- id: snmp.device_prof_fgApHTTPConnections
+  title: Current number of HTTP proxy connections
+  units: '{connection}'
+  family: Security/Proxy/HTTP/Connection/Active
+  chart_type: line
+  priority: 60033
+  shape: independent
+  dimensions:
+  - id: fgaphttpconnections
+    signal: fortinet_fortigate_fgaphttpconnections
+- id: snmp.device_prof_fgApHTTPMaxConnections
+  title: Maximum number of connections supported by HTTP proxy
+  units: '{connection}'
+  family: Security/Proxy/HTTP/Connection/Maximum
+  chart_type: line
+  priority: 60034
+  shape: independent
+  dimensions:
+  - id: fgaphttpmaxconnections
+    signal: fortinet_fortigate_fgaphttpmaxconnections
+- id: snmp.device_prof_fgFwPolPktCount
+  title: Number of packets matched to firewall policy
+  units: '{packet}/s'
+  family: Security/Firewall/Policy/Packet/Count
+  chart_type: line
+  priority: 60035
+  shape: counters
+  dimensions:
+  - id: fgfwpolpktcount
+    rate_signal: fortinet_fortigate_fgfwpolpktcount
+  instances:
+    group: virtualdomain_index
+    chart_prefix: fgfwpolpktcount
+    family: Security/Firewall/Policy/Packet/Count
+    labels:
+      virtualdomain_index: '{instance}'
+- id: snmp.device_prof_fgFwPolByteCount
+  title: Number of bytes in packets matching firewall policy
+  units: By/s
+  family: Security/Firewall/Policy/Throughput/Total
+  chart_type: line
+  priority: 60036
+  shape: counters
+  dimensions:
+  - id: fgfwpolbytecount
+    rate_signal: fortinet_fortigate_fgfwpolbytecount
+  instances:
+    group: virtualdomain_index
+    chart_prefix: fgfwpolbytecount
+    family: Security/Firewall/Policy/Throughput/Total
+    labels:
+      virtualdomain_index: '{instance}'
+- id: snmp.device_prof_fgFwPol6PktCount
+  title: Number of packets matched to firewall policy6
+  units: '{packet}/s'
+  family: Security/Firewall/Policy6/Packet/Count
+  chart_type: line
+  priority: 60037
+  shape: counters
+  dimensions:
+  - id: fgfwpol6pktcount
+    rate_signal: fortinet_fortigate_fgfwpol6pktcount
+  instances:
+    group: virtualdomain_index
+    chart_prefix: fgfwpol6pktcount
+    family: Security/Firewall/Policy6/Packet/Count
+    labels:
+      virtualdomain_index: '{instance}'
+- id: snmp.device_prof_fgFwPol6ByteCount
+  title: Number of bytes in packets matching firewall policy6
+  units: By/s
+  family: Security/Firewall/Policy6/Throughput/Total
+  chart_type: line
+  priority: 60038
+  shape: counters
+  dimensions:
+  - id: fgfwpol6bytecount
+    rate_signal: fortinet_fortigate_fgfwpol6bytecount
+  instances:
+    group: virtualdomain_index
+    chart_prefix: fgfwpol6bytecount
+    family: Security/Firewall/Policy6/Throughput/Total
+    labels:
+      virtualdomain_index: '{instance}'
+- id: snmp.device_prof_systemUptime
+  title: Time since the system was last rebooted or powered on.
+  units: s
+  family: System/Uptime
+  chart_type: line
+  priority: 60039
+  shape: independent
+  dimensions:
+  - id: systemuptime
+    signal: fortinet_fortigate_systemuptime
+- id: snmp.device_prof_ifNumber
+  title: Number of network interfaces regardless of their current state present on this system
+  units: '{interface}'
+  family: Network/Interface/Count
+  chart_type: line
+  priority: 60040
+  shape: independent
+  dimensions:
+  - id: ifnumber
+    signal: fortinet_fortigate_ifnumber
+- id: snmp.device_prof_ifAdminStatus
+  title: Current administrative state of the interface
+  units: '{status}'
+  family: Network/Interface/Status/Admin
+  chart_type: line
+  priority: 60041
+  shape: independent
+  dimensions:
+  - id: up
+    signal: if_admin_status
+  - id: down
+    signal: if_admin_status_down
+  - id: testing
+    signal: if_admin_status_testing
+  instances:
+    group: interface
+    chart_prefix: ifadminstatus
+    family: Network/Interface/Status/Admin
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifOperStatus
+  title: Current operational state of the interface
+  units: '{status}'
+  family: Network/Interface/Status/Operational
+  chart_type: line
+  priority: 60042
+  shape: independent
+  dimensions:
+  - id: up
+    signal: if_oper_status
+  - id: down
+    signal: if_oper_status_down
+  - id: testing
+    signal: if_oper_status_testing
+  - id: unknown
+    signal: if_oper_status_unknown
+  - id: dormant
+    signal: if_oper_status_dormant
+  - id: notpresent
+    signal: if_oper_status_notpresent
+  - id: lowerlayerdown
+    signal: if_oper_status_lowerlayerdown
+  instances:
+    group: interface
+    chart_prefix: ifoperstatus
+    family: Network/Interface/Status/Operational
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifHighSpeed
+  title: Estimate of the interface's current bandwidth
+  units: bit/s
+  family: Network/Interface/Speed
+  chart_type: area
+  priority: 60043
+  shape: counters
+  dimensions:
+  - id: ifhighspeed
+    rate_signal: if_speed
+  instances:
+    group: interface
+    chart_prefix: ifhighspeed
+    family: Network/Interface/Speed
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_fgVpnTunEntInOctets
+  title: Number of bytes received on tunnel
+  units: bit/s
+  family: Network/VPN/IPSec/Phase2/Tunnel/Traffic/In
+  chart_type: area
+  priority: 60044
+  shape: counters
+  dimensions:
+  - id: fgvpntunentinoctets
+    rate_signal: fortinet_fortigate_fgvpntunentinoctets
+  instances:
+    group: vpn_tunnel_name
+    chart_prefix: fgvpntunentinoctets
+    family: Network/VPN/IPSec/Phase2/Tunnel/Traffic/In
+    labels:
+      vpn_tunnel_name: '{instance}'
+- id: snmp.device_prof_fgVpnTunEntOutOctets
+  title: Number of bytes sent out on tunnel
+  units: bit/s
+  family: Network/VPN/IPSec/Phase2/Tunnel/Traffic/Out
+  chart_type: area
+  priority: 60045
+  shape: counters
+  dimensions:
+  - id: fgvpntunentoutoctets
+    rate_signal: fortinet_fortigate_fgvpntunentoutoctets
+  instances:
+    group: vpn_tunnel_name
+    chart_prefix: fgvpntunentoutoctets
+    family: Network/VPN/IPSec/Phase2/Tunnel/Traffic/Out
+    labels:
+      vpn_tunnel_name: '{instance}'
+- id: snmp.device_prof_fgVpnTunEntStatus
+  title: Current status of tunnel (up or down)
+  units: '{status}'
+  family: Network/VPN/IPSec/Phase2/Tunnel/Status
+  chart_type: line
+  priority: 60046
+  shape: independent
+  dimensions:
+  - id: down
+    signal: fortinet_fortigate_fgvpntunentstatus_down
+  - id: up
+    signal: fortinet_fortigate_fgvpntunentstatus
+  instances:
+    group: vpn_tunnel_name
+    chart_prefix: fgvpntunentstatus
+    family: Network/VPN/IPSec/Phase2/Tunnel/Status
+    labels:
+      vpn_tunnel_name: '{instance}'
+- id: snmp.device_prof_fgVpnTunEntLifeSecs
+  title: Remaining lifetime of this tunnel in seconds
+  units: s
+  family: Network/VPN/IPSec/Phase2/Tunnel/Lifetime
+  chart_type: line
+  priority: 60047
+  shape: independent
+  dimensions:
+  - id: fgvpntunentlifesecs
+    signal: fortinet_fortigate_fgvpntunentlifesecs
+  instances:
+    group: vpn_tunnel_name
+    chart_prefix: fgvpntunentlifesecs
+    family: Network/VPN/IPSec/Phase2/Tunnel/Lifetime
+    labels:
+      vpn_tunnel_name: '{instance}'
+- id: snmp.device_prof_fgVpnTunEntLifeBytes
+  title: Remaining lifetime of this tunnel in bytes
+  units: By
+  family: Network/VPN/IPSec/Phase2/Tunnel/Lifetime/Bytes
+  chart_type: line
+  priority: 60048
+  shape: independent
+  dimensions:
+  - id: fgvpntunentlifebytes
+    signal: fortinet_fortigate_fgvpntunentlifebytes
+  instances:
+    group: vpn_tunnel_name
+    chart_prefix: fgvpntunentlifebytes
+    family: Network/VPN/IPSec/Phase2/Tunnel/Lifetime/Bytes
+    labels:
+      vpn_tunnel_name: '{instance}'
+- id: snmp.device_prof_fgVpnSslState
+  title: Whether SSL VPN is enabled on this VDOM
+  units: '{status}'
+  family: Network/VPN/RemoteAccess/Status
+  chart_type: line
+  priority: 60049
+  shape: independent
+  dimensions:
+  - id: disabled
+    signal: fortinet_fortigate_fgvpnsslstate_disabled
+  - id: enabled
+    signal: fortinet_fortigate_fgvpnsslstate
+  instances:
+    group: vdom_index
+    chart_prefix: fgvpnsslstate
+    family: Network/VPN/RemoteAccess/Status
+    labels:
+      vdom_index: '{instance}'
+- id: snmp.device_prof_fgVpnSslStatsLoginUsers
+  title: Number of current logged-in SSL VPN users
+  units: '{user}'
+  family: Network/VPN/RemoteAccess/User/Active
+  chart_type: line
+  priority: 60050
+  shape: independent
+  dimensions:
+  - id: fgvpnsslstatsloginusers
+    signal: fortinet_fortigate_fgvpnsslstatsloginusers
+  instances:
+    group: vdom_index
+    chart_prefix: fgvpnsslstatsloginusers
+    family: Network/VPN/RemoteAccess/User/Active
+    labels:
+      vdom_index: '{instance}'
+- id: snmp.device_prof_fgVpnSslStatsMaxUsers
+  title: Maximum number of SSL VPN users allowed
+  units: '{user}'
+  family: Network/VPN/RemoteAccess/User/Maximum
+  chart_type: line
+  priority: 60051
+  shape: independent
+  dimensions:
+  - id: fgvpnsslstatsmaxusers
+    signal: fortinet_fortigate_fgvpnsslstatsmaxusers
+  instances:
+    group: vdom_index
+    chart_prefix: fgvpnsslstatsmaxusers
+    family: Network/VPN/RemoteAccess/User/Maximum
+    labels:
+      vdom_index: '{instance}'
+- id: snmp.device_prof_fgVpnSslStatsActiveWebSessions
+  title: Number of active SSL VPN web sessions
+  units: '{session}'
+  family: Network/VPN/RemoteAccess/Session/Web/Active
+  chart_type: line
+  priority: 60052
+  shape: independent
+  dimensions:
+  - id: fgvpnsslstatsactivewebsessio
+    signal: fortinet_fortigate_fgvpnsslstatsactivewebsessions
+  instances:
+    group: vdom_index
+    chart_prefix: fgvpnsslstatsactivewebsessions
+    family: Network/VPN/RemoteAccess/Session/Web/Active
+    labels:
+      vdom_index: '{instance}'
+- id: snmp.device_prof_fgVpnSslStatsMaxWebSessions
+  title: Maximum number of SSL VPN web sessions allowed
+  units: '{session}'
+  family: Network/VPN/RemoteAccess/Session/Web/Maximum
+  chart_type: line
+  priority: 60053
+  shape: independent
+  dimensions:
+  - id: fgvpnsslstatsmaxwebsessions
+    signal: fortinet_fortigate_fgvpnsslstatsmaxwebsessions
+  instances:
+    group: vdom_index
+    chart_prefix: fgvpnsslstatsmaxwebsessions
+    family: Network/VPN/RemoteAccess/Session/Web/Maximum
+    labels:
+      vdom_index: '{instance}'
+- id: snmp.device_prof_fgVpnSslStatsActiveTunnels
+  title: Number of active SSL VPN tunnels
+  units: '{tunnel}'
+  family: Network/VPN/RemoteAccess/Session/Tunnel/Active
+  chart_type: line
+  priority: 60054
+  shape: independent
+  dimensions:
+  - id: fgvpnsslstatsactivetunnels
+    signal: fortinet_fortigate_fgvpnsslstatsactivetunnels
+  instances:
+    group: vdom_index
+    chart_prefix: fgvpnsslstatsactivetunnels
+    family: Network/VPN/RemoteAccess/Session/Tunnel/Active
+    labels:
+      vdom_index: '{instance}'
+- id: snmp.device_prof_fgVpnSslStatsMaxTunnels
+  title: Maximum number of SSL VPN tunnels allowed
+  units: '{tunnel}'
+  family: Network/VPN/RemoteAccess/Session/Tunnel/Maximum
+  chart_type: line
+  priority: 60055
+  shape: independent
+  dimensions:
+  - id: fgvpnsslstatsmaxtunnels
+    signal: fortinet_fortigate_fgvpnsslstatsmaxtunnels
+  instances:
+    group: vdom_index
+    chart_prefix: fgvpnsslstatsmaxtunnels
+    family: Network/VPN/RemoteAccess/Session/Tunnel/Maximum
+    labels:
+      vdom_index: '{instance}'
+- id: snmp.device_prof_fgHwSensorEntValue
+  title: Hardware sensor reading
+  units: '1'
+  family: Hardware/Sensor
+  chart_type: line
+  priority: 60056
+  shape: independent
+  dimensions:
+  - id: fghwsensorentvalue
+    signal: fortinet_fortigate_fghwsensorentvalue
+  instances:
+    group: sensor_index
+    chart_prefix: fghwsensorentvalue
+    family: Hardware/Sensor
+    labels:
+      sensor_index: '{instance}'
+- id: snmp.device_prof_fgHwSensorEntAlarmStatus
+  title: Hardware sensor alarm status
+  units: '{status}'
+  family: Hardware/Sensor/Status
+  chart_type: line
+  priority: 60057
+  shape: independent
+  dimensions:
+  - id: ok
+    signal: fortinet_fortigate_fghwsensorentalarmstatus
+  - id: alarm
+    signal: fortinet_fortigate_fghwsensorentalarmstatus_alarm
+  instances:
+    group: sensor_index
+    chart_prefix: fghwsensorentalarmstatus
+    family: Hardware/Sensor/Status
+    labels:
+      sensor_index: '{instance}'
+- id: snmp.device_prof_fgHaSystemMode
+  title: HA system operating mode
+  units: '{status}'
+  family: System/HA/Cluster/Mode
+  chart_type: line
+  priority: 60058
+  shape: independent
+  dimensions:
+  - id: standalone
+    signal: fortinet_fortigate_fghasystemmode
+  - id: activeactive
+    signal: fortinet_fortigate_fghasystemmode_activeactive
+  - id: activepassive
+    signal: fortinet_fortigate_fghasystemmode_activepassive
+- id: snmp.device_prof_fgHaStatsCpuUsage
+  title: CPU usage of the HA cluster member
+  units: '%'
+  family: System/HA/Node/CPU/Usage
+  chart_type: line
+  priority: 60059
+  shape: independent
+  dimensions:
+  - id: fghastatscpuusage
+    signal: fortinet_fortigate_fghastatscpuusage
+  instances:
+    group: ha_node_index
+    chart_prefix: fghastatscpuusage
+    family: System/HA/Node/CPU/Usage
+    labels:
+      ha_node_index: '{instance}'
+- id: snmp.device_prof_fgHaStatsMemUsage
+  title: Memory usage of the HA cluster member
+  units: '%'
+  family: System/HA/Node/Memory/Usage
+  chart_type: line
+  priority: 60060
+  shape: independent
+  dimensions:
+  - id: fghastatsmemusage
+    signal: fortinet_fortigate_fghastatsmemusage
+  instances:
+    group: ha_node_index
+    chart_prefix: fghastatsmemusage
+    family: System/HA/Node/Memory/Usage
+    labels:
+      ha_node_index: '{instance}'
+- id: snmp.device_prof_fgHaStatsNetUsage
+  title: Network bandwidth usage of the HA cluster member
+  units: bit/s
+  family: System/HA/Node/Network/Bandwidth
+  chart_type: area
+  priority: 60061
+  shape: counters
+  dimensions:
+  - id: fghastatsnetusage
+    rate_signal: fortinet_fortigate_fghastatsnetusage
+  instances:
+    group: ha_node_index
+    chart_prefix: fghastatsnetusage
+    family: System/HA/Node/Network/Bandwidth
+    labels:
+      ha_node_index: '{instance}'
+- id: snmp.device_prof_fgHaStatsSesCount
+  title: Active session count on the HA cluster member
+  units: '{session}'
+  family: System/HA/Node/Session/Count
+  chart_type: line
+  priority: 60062
+  shape: independent
+  dimensions:
+  - id: fghastatssescount
+    signal: fortinet_fortigate_fghastatssescount
+  instances:
+    group: ha_node_index
+    chart_prefix: fghastatssescount
+    family: System/HA/Node/Session/Count
+    labels:
+      ha_node_index: '{instance}'
+- id: snmp.device_prof_fgHaStatsPktCount
+  title: Packets processed by the HA cluster member
+  units: '{packet}/s'
+  family: System/HA/Node/Traffic/Packets
+  chart_type: line
+  priority: 60063
+  shape: counters
+  dimensions:
+  - id: fghastatspktcount
+    rate_signal: fortinet_fortigate_fghastatspktcount
+  instances:
+    group: ha_node_index
+    chart_prefix: fghastatspktcount
+    family: System/HA/Node/Traffic/Packets
+    labels:
+      ha_node_index: '{instance}'
+- id: snmp.device_prof_fgHaStatsByteCount
+  title: Network bandwidth processed by the HA cluster member
+  units: bit/s
+  family: System/HA/Node/Traffic/Bandwidth
+  chart_type: area
+  priority: 60064
+  shape: counters
+  dimensions:
+  - id: fghastatsbytecount
+    rate_signal: fortinet_fortigate_fghastatsbytecount
+  instances:
+    group: ha_node_index
+    chart_prefix: fghastatsbytecount
+    family: System/HA/Node/Traffic/Bandwidth
+    labels:
+      ha_node_index: '{instance}'
+- id: snmp.device_prof_fgHaStatsIdsCount
+  title: IPS events detected by the HA cluster member
+  units: '{event}/s'
+  family: System/HA/Node/Security/IPS
+  chart_type: line
+  priority: 60065
+  shape: counters
+  dimensions:
+  - id: fghastatsidscount
+    rate_signal: fortinet_fortigate_fghastatsidscount
+  instances:
+    group: ha_node_index
+    chart_prefix: fghastatsidscount
+    family: System/HA/Node/Security/IPS
+    labels:
+      ha_node_index: '{instance}'
+- id: snmp.device_prof_fgHaStatsAvCount
+  title: Antivirus events detected by the HA cluster member
+  units: '{event}/s'
+  family: System/HA/Node/Security/Antivirus
+  chart_type: line
+  priority: 60066
+  shape: counters
+  dimensions:
+  - id: fghastatsavcount
+    rate_signal: fortinet_fortigate_fghastatsavcount
+  instances:
+    group: ha_node_index
+    chart_prefix: fghastatsavcount
+    family: System/HA/Node/Security/Antivirus
+    labels:
+      ha_node_index: '{instance}'
+- id: snmp.device_prof_fgHaStatsSyncStatus
+  title: Configuration sync status of the HA cluster member
+  units: '{status}'
+  family: System/HA/Node/Sync/Status
+  chart_type: line
+  priority: 60067
+  shape: independent
+  dimensions:
+  - id: out_of_sync
+    signal: fortinet_fortigate_fghastatssyncstatus
+  - id: in_sync
+    signal: fortinet_fortigate_fghastatssyncstatus_in_sync
+  instances:
+    group: ha_node_index
+    chart_prefix: fghastatssyncstatus
+    family: System/HA/Node/Sync/Status
+    labels:
+      ha_node_index: '{instance}'
+- id: snmp.device_prof_fgVWLHealthCheckLinkState
+  title: SD-WAN health-check link state
+  units: '{status}'
+  family: Network/SD-WAN/Link/Status
+  chart_type: line
+  priority: 60068
+  shape: independent
+  dimensions:
+  - id: alive
+    signal: fortinet_fortigate_fgvwlhealthchecklinkstate
+  - id: dead
+    signal: fortinet_fortigate_fgvwlhealthchecklinkstate_dead
+  instances:
+    group: sdwan_healthcheck
+    chart_prefix: fgvwlhealthchecklinkstate
+    family: Network/SD-WAN/Link/Status
+    labels:
+      sdwan_healthcheck: '{instance}'
+- id: snmp.device_prof_fgVWLHealthCheckLinkLatency
+  title: Average latency of SD-WAN health-check link within last 30 probes
+  units: ms
+  family: Network/SD-WAN/Link/Latency
+  chart_type: line
+  priority: 60069
+  shape: independent
+  dimensions:
+  - id: fgvwlhealthchecklinklatency
+    signal: fortinet_fortigate_fgvwlhealthchecklinklatency
+  instances:
+    group: sdwan_healthcheck
+    chart_prefix: fgvwlhealthchecklinklatency
+    family: Network/SD-WAN/Link/Latency
+    labels:
+      sdwan_healthcheck: '{instance}'
+- id: snmp.device_prof_fgVWLHealthCheckLinkJitter
+  title: Average jitter of SD-WAN health-check link within last 30 probes
+  units: ms
+  family: Network/SD-WAN/Link/Jitter
+  chart_type: line
+  priority: 60070
+  shape: independent
+  dimensions:
+  - id: fgvwlhealthchecklinkjitter
+    signal: fortinet_fortigate_fgvwlhealthchecklinkjitter
+  instances:
+    group: sdwan_healthcheck
+    chart_prefix: fgvwlhealthchecklinkjitter
+    family: Network/SD-WAN/Link/Jitter
+    labels:
+      sdwan_healthcheck: '{instance}'
+- id: snmp.device_prof_fgVWLHealthCheckLinkPacketSend
+  title: Packets sent per second by SD-WAN health-check on this link
+  units: '{packet}/s'
+  family: Network/SD-WAN/Link/Packets/Sent
+  chart_type: line
+  priority: 60071
+  shape: counters
+  dimensions:
+  - id: fgvwlhealthchecklinkpacketse
+    rate_signal: fortinet_fortigate_fgvwlhealthchecklinkpacketsend
+  instances:
+    group: sdwan_healthcheck
+    chart_prefix: fgvwlhealthchecklinkpacketsend
+    family: Network/SD-WAN/Link/Packets/Sent
+    labels:
+      sdwan_healthcheck: '{instance}'
+- id: snmp.device_prof_fgVWLHealthCheckLinkPacketRecv
+  title: Packets received per second by SD-WAN health-check on this link
+  units: '{packet}/s'
+  family: Network/SD-WAN/Link/Packets/Received
+  chart_type: line
+  priority: 60072
+  shape: counters
+  dimensions:
+  - id: fgvwlhealthchecklinkpacketre
+    rate_signal: fortinet_fortigate_fgvwlhealthchecklinkpacketrecv
+  instances:
+    group: sdwan_healthcheck
+    chart_prefix: fgvwlhealthchecklinkpacketrecv
+    family: Network/SD-WAN/Link/Packets/Received
+    labels:
+      sdwan_healthcheck: '{instance}'
+- id: snmp.device_prof_fgVWLHealthCheckLinkPacketLoss
+  title: Packet loss percentage of SD-WAN health-check link within last 30 probes
+  units: '%'
+  family: Network/SD-WAN/Link/PacketLoss
+  chart_type: line
+  priority: 60073
+  shape: independent
+  dimensions:
+  - id: fgvwlhealthchecklinkpacketlo
+    signal: fortinet_fortigate_fgvwlhealthchecklinkpacketloss
+  instances:
+    group: sdwan_healthcheck
+    chart_prefix: fgvwlhealthchecklinkpacketloss
+    family: Network/SD-WAN/Link/PacketLoss
+    labels:
+      sdwan_healthcheck: '{instance}'
+- id: snmp.device_prof_fgLinkMonitorState
+  title: Link monitor gateway probe state
+  units: '{status}'
+  family: Network/LinkMonitor/Status
+  chart_type: line
+  priority: 60074
+  shape: independent
+  dimensions:
+  - id: alive
+    signal: fortinet_fortigate_fglinkmonitorstate
+  - id: dead
+    signal: fortinet_fortigate_fglinkmonitorstate_dead
+  instances:
+    group: link_monitor
+    chart_prefix: fglinkmonitorstate
+    family: Network/LinkMonitor/Status
+    labels:
+      link_monitor: '{instance}'
+- id: snmp.device_prof_fgLinkMonitorLatency
+  title: Average latency of link monitor probe
+  units: ms
+  family: Network/LinkMonitor/Latency
+  chart_type: line
+  priority: 60075
+  shape: independent
+  dimensions:
+  - id: fglinkmonitorlatency
+    signal: fortinet_fortigate_fglinkmonitorlatency
+  instances:
+    group: link_monitor
+    chart_prefix: fglinkmonitorlatency
+    family: Network/LinkMonitor/Latency
+    labels:
+      link_monitor: '{instance}'
+- id: snmp.device_prof_fgLinkMonitorJitter
+  title: Average jitter of link monitor probe
+  units: ms
+  family: Network/LinkMonitor/Jitter
+  chart_type: line
+  priority: 60076
+  shape: independent
+  dimensions:
+  - id: fglinkmonitorjitter
+    signal: fortinet_fortigate_fglinkmonitorjitter
+  instances:
+    group: link_monitor
+    chart_prefix: fglinkmonitorjitter
+    family: Network/LinkMonitor/Jitter
+    labels:
+      link_monitor: '{instance}'
+- id: snmp.device_prof_fgLinkMonitorPacketSend
+  title: Packets sent by link monitor probe
+  units: '{packet}/s'
+  family: Network/LinkMonitor/Packets/Sent
+  chart_type: line
+  priority: 60077
+  shape: counters
+  dimensions:
+  - id: fglinkmonitorpacketsend
+    rate_signal: fortinet_fortigate_fglinkmonitorpacketsend
+  instances:
+    group: link_monitor
+    chart_prefix: fglinkmonitorpacketsend
+    family: Network/LinkMonitor/Packets/Sent
+    labels:
+      link_monitor: '{instance}'
+- id: snmp.device_prof_fgLinkMonitorPacketRecv
+  title: Packets received by link monitor probe
+  units: '{packet}/s'
+  family: Network/LinkMonitor/Packets/Received
+  chart_type: line
+  priority: 60078
+  shape: counters
+  dimensions:
+  - id: fglinkmonitorpacketrecv
+    rate_signal: fortinet_fortigate_fglinkmonitorpacketrecv
+  instances:
+    group: link_monitor
+    chart_prefix: fglinkmonitorpacketrecv
+    family: Network/LinkMonitor/Packets/Received
+    labels:
+      link_monitor: '{instance}'
+- id: snmp.device_prof_fgLinkMonitorPacketLoss
+  title: Packet loss percentage of link monitor probe
+  units: '%'
+  family: Network/LinkMonitor/PacketLoss
+  chart_type: line
+  priority: 60079
+  shape: independent
+  dimensions:
+  - id: fglinkmonitorpacketloss
+    signal: fortinet_fortigate_fglinkmonitorpacketloss
+  instances:
+    group: link_monitor
+    chart_prefix: fglinkmonitorpacketloss
+    family: Network/LinkMonitor/PacketLoss
+    labels:
+      link_monitor: '{instance}'
+- id: snmp.device_prof_fgWcInfoWtpManaged
+  title: Number of wireless access points managed by this controller
+  units: '{ap}'
+  family: Network/Wireless/Controller/AccessPoints/Managed
+  chart_type: line
+  priority: 60080
+  shape: independent
+  dimensions:
+  - id: fgwcinfowtpmanaged
+    signal: fortinet_fortigate_fgwcinfowtpmanaged
+- id: snmp.device_prof_fgWcInfoWtpCapacity
+  title: Maximum number of wireless access points this controller can manage
+  units: '{ap}'
+  family: Network/Wireless/Controller/AccessPoints/Capacity
+  chart_type: line
+  priority: 60081
+  shape: independent
+  dimensions:
+  - id: fgwcinfowtpcapacity
+    signal: fortinet_fortigate_fgwcinfowtpcapacity
+- id: snmp.device_prof_fgWcInfoWtpSessions
+  title: Number of wireless access points currently connecting to this controller
+  units: '{ap}'
+  family: Network/Wireless/Controller/AccessPoints/Connecting
+  chart_type: line
+  priority: 60082
+  shape: independent
+  dimensions:
+  - id: fgwcinfowtpsessions
+    signal: fortinet_fortigate_fgwcinfowtpsessions
+- id: snmp.device_prof_fgWcInfoStationCount
+  title: Number of wireless client stations currently connected
+  units: '{station}'
+  family: Network/Wireless/Controller/Stations/Active
+  chart_type: line
+  priority: 60083
+  shape: independent
+  dimensions:
+  - id: fgwcinfostationcount
+    signal: fortinet_fortigate_fgwcinfostationcount
+- id: snmp.device_prof_fgWcInfoStationCapacity
+  title: Maximum number of wireless client stations supported
+  units: '{station}'
+  family: Network/Wireless/Controller/Stations/Capacity
+  chart_type: line
+  priority: 60084
+  shape: independent
+  dimensions:
+  - id: fgwcinfostationcapacity
+    signal: fortinet_fortigate_fgwcinfostationcapacity
+- id: snmp.device_prof_fgWcWtpSessionConnectionState
+  title: Wireless access point connection state to controller
+  units: '{status}'
+  family: Network/Wireless/AccessPoint/Status/Connection
+  chart_type: line
+  priority: 60085
+  shape: independent
+  dimensions:
+  - id: other
+    signal: fortinet_fortigate_fgwcwtpsessionconnectionstate_other
+  - id: offline
+    signal: fortinet_fortigate_fgwcwtpsessionconnectionstate_offline
+  - id: online
+    signal: fortinet_fortigate_fgwcwtpsessionconnectionstate
+  - id: downloadingimage
+    signal: fortinet_fortigate_fgwcwtpsessionconnectionstate_downloadingimage
+  - id: connectedimage
+    signal: fortinet_fortigate_fgwcwtpsessionconnectionstate_connectedimage
+  - id: other2
+    signal: fortinet_fortigate_fgwcwtpsessionconnectionstate_other2
+  instances:
+    group: wtp_id
+    chart_prefix: fgwcwtpsessionconnectionstate
+    family: Network/Wireless/AccessPoint/Status/Connection
+    labels:
+      wtp_id: '{instance}'
+- id: snmp.device_prof_fgWcWtpSessionWtpUpTime
+  title: Time since the wireless access point last booted
+  units: s
+  family: Network/Wireless/AccessPoint/Uptime
+  chart_type: line
+  priority: 60086
+  shape: independent
+  dimensions:
+  - id: fgwcwtpsessionwtpuptime
+    signal: fortinet_fortigate_fgwcwtpsessionwtpuptime
+  instances:
+    group: wtp_id
+    chart_prefix: fgwcwtpsessionwtpuptime
+    family: Network/Wireless/AccessPoint/Uptime
+    labels:
+      wtp_id: '{instance}'
+- id: snmp.device_prof_fgWcWtpSessionWtpStationCount
+  title: Number of client stations currently connected to this access point
+  units: '{station}'
+  family: Network/Wireless/AccessPoint/Clients/Active
+  chart_type: line
+  priority: 60087
+  shape: independent
+  dimensions:
+  - id: fgwcwtpsessionwtpstationcoun
+    signal: fortinet_fortigate_fgwcwtpsessionwtpstationcount
+  instances:
+    group: wtp_id
+    chart_prefix: fgwcwtpsessionwtpstationcount
+    family: Network/Wireless/AccessPoint/Clients/Active
+    labels:
+      wtp_id: '{instance}'
+- id: snmp.device_prof_fgWcWtpSessionWtpByteRxCount
+  title: Traffic received by this wireless access point
+  units: bit/s
+  family: Network/Wireless/AccessPoint/Traffic/In
+  chart_type: area
+  priority: 60088
+  shape: counters
+  dimensions:
+  - id: fgwcwtpsessionwtpbyterxcount
+    rate_signal: fortinet_fortigate_fgwcwtpsessionwtpbyterxcount
+  instances:
+    group: wtp_id
+    chart_prefix: fgwcwtpsessionwtpbyterxcount
+    family: Network/Wireless/AccessPoint/Traffic/In
+    labels:
+      wtp_id: '{instance}'
+- id: snmp.device_prof_fgWcWtpSessionWtpByteTxCount
+  title: Traffic transmitted by this wireless access point
+  units: bit/s
+  family: Network/Wireless/AccessPoint/Traffic/Out
+  chart_type: area
+  priority: 60089
+  shape: counters
+  dimensions:
+  - id: fgwcwtpsessionwtpbytetxcount
+    rate_signal: fortinet_fortigate_fgwcwtpsessionwtpbytetxcount
+  instances:
+    group: wtp_id
+    chart_prefix: fgwcwtpsessionwtpbytetxcount
+    family: Network/Wireless/AccessPoint/Traffic/Out
+    labels:
+      wtp_id: '{instance}'
+- id: snmp.device_prof_fgWcWtpSessionWtpCpuUsage
+  title: Current CPU usage of the wireless access point
+  units: '%'
+  family: Network/Wireless/AccessPoint/CPU/Usage
+  chart_type: line
+  priority: 60090
+  shape: independent
+  dimensions:
+  - id: fgwcwtpsessionwtpcpuusage
+    signal: fortinet_fortigate_fgwcwtpsessionwtpcpuusage
+  instances:
+    group: wtp_id
+    chart_prefix: fgwcwtpsessionwtpcpuusage
+    family: Network/Wireless/AccessPoint/CPU/Usage
+    labels:
+      wtp_id: '{instance}'
+- id: snmp.device_prof_fgWcWtpSessionWtpMemoryUsage
+  title: Current memory usage of the wireless access point
+  units: '%'
+  family: Network/Wireless/AccessPoint/Memory/Usage
+  chart_type: line
+  priority: 60091
+  shape: independent
+  dimensions:
+  - id: fgwcwtpsessionwtpmemoryusage
+    signal: fortinet_fortigate_fgwcwtpsessionwtpmemoryusage
+  instances:
+    group: wtp_id
+    chart_prefix: fgwcwtpsessionwtpmemoryusage
+    family: Network/Wireless/AccessPoint/Memory/Usage
+    labels:
+      wtp_id: '{instance}'
+- id: snmp.device_prof_fgWcWtpSessionWtpMemoryCapacity
+  title: Total physical memory installed on the wireless access point
+  units: By
+  family: Network/Wireless/AccessPoint/Memory/Total
+  chart_type: line
+  priority: 60092
+  shape: independent
+  dimensions:
+  - id: fgwcwtpsessionwtpmemorycapac
+    signal: fortinet_fortigate_fgwcwtpsessionwtpmemorycapacity
+  instances:
+    group: wtp_id
+    chart_prefix: fgwcwtpsessionwtpmemorycapacity
+    family: Network/Wireless/AccessPoint/Memory/Total
+    labels:
+      wtp_id: '{instance}'
+- id: snmp.device_prof_fgSysSesRateTrend
+  title: Session setup rate trend (IPv4)
+  units: '{session}/s'
+  family: Security/Session/Rate/Trend
+  chart_type: line
+  priority: 60093
+  shape: counters
+  dimensions:
+  - id: 1m
+    rate_signal: fortinet_fortigate_fgsyssesrate1
+  - id: 10m
+    rate_signal: fortinet_fortigate_fgsyssesrate10
+  - id: 30m
+    rate_signal: fortinet_fortigate_fgsyssesrate30
+  - id: 60m
+    rate_signal: fortinet_fortigate_fgsyssesrate60
+- id: snmp.device_prof_fgSysSes6RateTrend
+  title: Session setup rate trend (IPv6)
+  units: '{session}/s'
+  family: Security/Session/IPv6/Rate/Trend
+  chart_type: line
+  priority: 60094
+  shape: counters
+  dimensions:
+  - id: 1m
+    rate_signal: fortinet_fortigate_fgsysses6rate1
+  - id: 10m
+    rate_signal: fortinet_fortigate_fgsysses6rate10
+  - id: 30m
+    rate_signal: fortinet_fortigate_fgsysses6rate30
+  - id: 60m
+    rate_signal: fortinet_fortigate_fgsysses6rate60
+- id: snmp.device_prof_fgProcessorUsageBreakdown
+  title: Processor CPU usage breakdown by user and system space
+  units: '%'
+  family: System/Processor/Usage/Breakdown
+  chart_type: line
+  priority: 60095
+  shape: independent
+  dimensions:
+  - id: user
+    signal: fortinet_fortigate_fgprocessoruserusage
+  - id: system
+    signal: fortinet_fortigate_fgprocessorsysusage
+  instances:
+    group: processor_index
+    chart_prefix: fgprocessorusagebreakdown
+    family: System/Processor/Usage/Breakdown
+    labels:
+      processor_index: '{instance}'
+- id: snmp.device_prof_ifTotalTraffic
+  title: Total traffic across all interfaces
+  units: bit/s
+  family: Network/Total/Traffic
+  chart_type: area
+  priority: 60096
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_octets_rate
+  - id: out
+    rate_signal: if_out_octets_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalPacketsUcast
+  title: Total unicast packets across all interfaces
+  units: '{packet}/s'
+  family: Network/Total/Packet/Unicast
+  chart_type: line
+  priority: 60097
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_ucast_rate
+  - id: out
+    rate_signal: if_out_ucast_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalPacketsMulticast
+  title: Total multicast packets across all interfaces
+  units: '{packet}/s'
+  family: Network/Total/Packet/Multicast
+  chart_type: line
+  priority: 60098
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_mcast_rate
+  - id: out
+    rate_signal: fortinet_fortigate_ifhcoutmulticastpkts
+    multiplier: -1
+- id: snmp.device_prof_ifTotalPacketsBroadcast
+  title: Total broadcast packets across all interfaces
+  units: '{packet}/s'
+  family: Network/Total/Packet/Broadcast
+  chart_type: line
+  priority: 60099
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_bcast_rate
+  - id: out
+    rate_signal: fortinet_fortigate_ifhcoutbroadcastpkts
+    multiplier: -1
+- id: snmp.device_prof_ifTotalErrors
+  title: Total packets with errors across all interfaces
+  units: '{error}/s'
+  family: Network/Total/Error
+  chart_type: line
+  priority: 60100
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_errors_rate
+  - id: out
+    rate_signal: if_out_errors_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalDiscards
+  title: Total packets discarded across all interfaces
+  units: '{discard}/s'
+  family: Network/Total/Discard
+  chart_type: line
+  priority: 60101
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_discards_rate
+  - id: out
+    rate_signal: if_out_discards_rate
+    multiplier: -1
+- id: snmp.device_prof_ifTotalOperStatus
+  title: Total count of interfaces by operational status
+  units: '{status}'
+  family: Network/Total/Interface/Status
+  chart_type: line
+  priority: 60102
+  shape: independent
+  dimensions:
+  - id: up
+    signal: fortinet_fortigate_iftotaloperstatus
+  - id: down
+    signal: fortinet_fortigate_iftotaloperstatus_down
+  - id: testing
+    signal: fortinet_fortigate_iftotaloperstatus_testing
+  - id: unknown
+    signal: fortinet_fortigate_iftotaloperstatus_unknown
+  - id: dormant
+    signal: fortinet_fortigate_iftotaloperstatus_dormant
+  - id: notpresent
+    signal: fortinet_fortigate_iftotaloperstatus_notpresent
+  - id: lowerlayerdown
+    signal: fortinet_fortigate_iftotaloperstatus_lowerlayerdown
+- id: snmp.device_prof_ifTraffic
+  title: Traffic
+  units: bit/s
+  family: Network/Interface/Traffic/Total
+  chart_type: area
+  priority: 60103
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_octets_rate
+  - id: out
+    rate_signal: if_out_octets_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: iftraffic
+    family: Network/Interface/Traffic/Total
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifPacketsUcast
+  title: Unicast packets
+  units: '{packet}/s'
+  family: Network/Interface/Packet/Unicast
+  chart_type: line
+  priority: 60104
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_ucast_rate
+  - id: out
+    rate_signal: if_out_ucast_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifpacketsucast
+    family: Network/Interface/Packet/Unicast
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifPacketsMulticast
+  title: Multicast packets
+  units: '{packet}/s'
+  family: Network/Interface/Packet/Multicast
+  chart_type: line
+  priority: 60105
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_mcast_rate
+  - id: out
+    rate_signal: fortinet_fortigate_ifhcoutmulticastpkts
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifpacketsmulticast
+    family: Network/Interface/Packet/Multicast
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifPacketsBroadcast
+  title: Broadcast packets
+  units: '{packet}/s'
+  family: Network/Interface/Packet/Broadcast
+  chart_type: line
+  priority: 60106
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_bcast_rate
+  - id: out
+    rate_signal: fortinet_fortigate_ifhcoutbroadcastpkts
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifpacketsbroadcast
+    family: Network/Interface/Packet/Broadcast
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifErrors
+  title: Packets with errors
+  units: '{error}/s'
+  family: Network/Interface/Error/Total
+  chart_type: line
+  priority: 60107
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_errors_rate
+  - id: out
+    rate_signal: if_out_errors_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: iferrors
+    family: Network/Interface/Error/Total
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_ifDiscards
+  title: Packets discarded
+  units: '{discard}/s'
+  family: Network/Interface/Discard
+  chart_type: line
+  priority: 60108
+  shape: counters
+  dimensions:
+  - id: in
+    rate_signal: if_in_discards_rate
+  - id: out
+    rate_signal: if_out_discards_rate
+    multiplier: -1
+  instances:
+    group: interface
+    chart_prefix: ifdiscards
+    family: Network/Interface/Discard
+    labels:
+      interface: '{instance}'
+- id: snmp.device_prof_fgIpsIntrusions
+  title: IPS intrusions detected and blocked
+  units: '{event}/s'
+  family: Security/IPS/Events
+  chart_type: line
+  priority: 60109
+  shape: counters
+  dimensions:
+  - id: detected
+    rate_signal: fortinet_fortigate_fgipsintrusionsdetected
+  - id: blocked
+    rate_signal: fortinet_fortigate_fgipsintrusionsblocked
+  instances:
+    group: vdom_index
+    chart_prefix: fgipsintrusions
+    family: Security/IPS/Events
+    labels:
+      vdom_index: '{instance}'
+- id: snmp.device_prof_fgIpsSeverity
+  title: IPS intrusion detections by severity
+  units: '{event}/s'
+  family: Security/IPS/Severity
+  chart_type: line
+  priority: 60110
+  shape: counters
+  dimensions:
+  - id: critical
+    rate_signal: fortinet_fortigate_fgipscritsevdetections
+  - id: high
+    rate_signal: fortinet_fortigate_fgipshighsevdetections
+  - id: medium
+    rate_signal: fortinet_fortigate_fgipsmedsevdetections
+  - id: low
+    rate_signal: fortinet_fortigate_fgipslowsevdetections
+  - id: info
+    rate_signal: fortinet_fortigate_fgipsinfosevdetections
+  instances:
+    group: vdom_index
+    chart_prefix: fgipsseverity
+    family: Security/IPS/Severity
+    labels:
+      vdom_index: '{instance}'
+- id: snmp.device_prof_fgIpsMethod
+  title: IPS intrusion detections by method
+  units: '{event}/s'
+  family: Security/IPS/Method
+  chart_type: line
+  priority: 60111
+  shape: counters
+  dimensions:
+  - id: signature
+    rate_signal: fortinet_fortigate_fgipssignaturedetections
+  - id: anomaly
+    rate_signal: fortinet_fortigate_fgipsanomalydetections
+  instances:
+    group: vdom_index
+    chart_prefix: fgipsmethod
+    family: Security/IPS/Method
+    labels:
+      vdom_index: '{instance}'
+- id: snmp.device_prof_fgAvVirusEvents
+  title: Antivirus virus events detected and blocked
+  units: '{virus}/s'
+  family: Security/Antivirus/Events
+  chart_type: line
+  priority: 60112
+  shape: counters
+  dimensions:
+  - id: detected
+    rate_signal: fortinet_fortigate_fgavvirusdetected
+  - id: blocked
+    rate_signal: fortinet_fortigate_fgavvirusblocked
+  instances:
+    group: vdom_index
+    chart_prefix: fgavvirusevents
+    family: Security/Antivirus/Events
+    labels:
+      vdom_index: '{instance}'
+- id: snmp.device_prof_fgAvVirusDetectedByProtocol
+  title: Antivirus virus detections by protocol
+  units: '{virus}/s'
+  family: Security/Antivirus/Detected/Protocol
+  chart_type: line
+  priority: 60113
+  shape: counters
+  dimensions:
+  - id: http
+    rate_signal: fortinet_fortigate_fgavhttpvirusdetected
+  - id: smtp
+    rate_signal: fortinet_fortigate_fgavsmtpvirusdetected
+  - id: pop3
+    rate_signal: fortinet_fortigate_fgavpop3virusdetected
+  - id: imap
+    rate_signal: fortinet_fortigate_fgavimapvirusdetected
+  - id: ftp
+    rate_signal: fortinet_fortigate_fgavftpvirusdetected
+  instances:
+    group: vdom_index
+    chart_prefix: fgavvirusdetectedbyprotocol
+    family: Security/Antivirus/Detected/Protocol
+    labels:
+      vdom_index: '{instance}'
+- id: snmp.device_prof_fgAvVirusBlockedByProtocol
+  title: Antivirus virus blocks by protocol
+  units: '{virus}/s'
+  family: Security/Antivirus/Blocked/Protocol
+  chart_type: line
+  priority: 60114
+  shape: counters
+  dimensions:
+  - id: http
+    rate_signal: fortinet_fortigate_fgavhttpvirusblocked
+  - id: smtp
+    rate_signal: fortinet_fortigate_fgavsmtpvirusblocked
+  - id: pop3
+    rate_signal: fortinet_fortigate_fgavpop3virusblocked
+  - id: imap
+    rate_signal: fortinet_fortigate_fgavimapvirusblocked
+  - id: ftp
+    rate_signal: fortinet_fortigate_fgavftpvirusblocked
+  instances:
+    group: vdom_index
+    chart_prefix: fgavvirusblockedbyprotocol
+    family: Security/Antivirus/Blocked/Protocol
+    labels:
+      vdom_index: '{instance}'
+- id: snmp.device_prof_fgWfSessionBlocked
+  title: Web filter sessions blocked by protocol
+  units: '{session}/s'
+  family: Security/Webfilter/Session/Blocked
+  chart_type: line
+  priority: 60115
+  shape: counters
+  dimensions:
+  - id: http
+    rate_signal: fortinet_fortigate_fgwfhttpblocked
+  - id: https
+    rate_signal: fortinet_fortigate_fgwfhttpsblocked
+  instances:
+    group: vdom_index
+    chart_prefix: fgwfsessionblocked
+    family: Security/Webfilter/Session/Blocked
+    labels:
+      vdom_index: '{instance}'
+- id: snmp.device_prof_fgWfURLBlocked
+  title: Web filter URLs blocked by protocol
+  units: '{url}/s'
+  family: Security/Webfilter/URL/Blocked
+  chart_type: line
+  priority: 60116
+  shape: counters
+  dimensions:
+  - id: http
+    rate_signal: fortinet_fortigate_fgwfhttpurlblocked
+  - id: https
+    rate_signal: fortinet_fortigate_fgwfhttpsurlblocked
+  instances:
+    group: vdom_index
+    chart_prefix: fgwfurlblocked
+    family: Security/Webfilter/URL/Blocked
+    labels:
+      vdom_index: '{instance}'
+- id: snmp.device_prof_fgWfContentBlocked
+  title: Web filter content blocks by type
+  units: '{block}/s'
+  family: Security/Webfilter/Content/Blocked
+  chart_type: line
+  priority: 60117
+  shape: counters
+  dimensions:
+  - id: activex
+    rate_signal: fortinet_fortigate_fgwfactivexblocked
+  - id: cookie
+    rate_signal: fortinet_fortigate_fgwfcookieblocked
+  - id: applet
+    rate_signal: fortinet_fortigate_fgwfappletblocked
+  instances:
+    group: vdom_index
+    chart_prefix: fgwfcontentblocked
+    family: Security/Webfilter/Content/Blocked
+    labels:
+      vdom_index: '{instance}'

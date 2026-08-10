@@ -1,0 +1,170 @@
+version: 1
+name: avaya
+description: Avaya Network device, as Netdata's SNMP collector reports it. Generated from go.d/snmp.profiles/default/avaya.yaml
+  with its `extends` chain resolved. Contexts, units, families and metric names are the device's own; values are a plausible
+  fiction.
+signals:
+  avaya_systemuptime:
+    base: 86400.0
+    min: 0.0
+    max: 315360000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  device_cpu_usage:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  avaya_genmemutilizationphyram:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  avaya_genmemutilizationpercentused:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  avaya_genmemutilizationtotalram:
+    base: 4294967296.0
+    min: 4294967296.0
+    max: 4294967296.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  avaya_genmemutilizationdynallocmemused:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  avaya_genmemutilizationdynallocmemavailable:
+    base: 4294967296.0
+    min: 0.0
+    max: 137438953472.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: snmp.device_prof_systemUptime
+  title: Time since the system was last rebooted or powered on.
+  units: s
+  family: System/Uptime
+  chart_type: line
+  priority: 60000
+  shape: independent
+  dimensions:
+  - id: systemuptime
+    signal: avaya_systemuptime
+- id: snmp.device_prof_cpu_usage
+  title: The current CPU utilization
+  units: '%'
+  family: System/CPU/Usage
+  chart_type: line
+  priority: 60001
+  shape: independent
+  dimensions:
+  - id: cpu_usage
+    signal: device_cpu_usage
+  instances:
+    group: cpu_index
+    chart_prefix: cpu_usage
+    family: System/CPU/Usage
+    labels:
+      cpu_index: '{instance}'
+- id: snmp.device_prof_genMemUtilizationPhyRam
+  title: The total size of the physical RAM
+  units: By
+  family: System/Memory/Module/Total
+  chart_type: line
+  priority: 60002
+  shape: independent
+  dimensions:
+  - id: genmemutilizationphyram
+    signal: avaya_genmemutilizationphyram
+  instances:
+    group: mem_module_index
+    chart_prefix: genmemutilizationphyram
+    family: System/Memory/Module/Total
+    labels:
+      mem_module_index: '{instance}'
+- id: snmp.device_prof_genMemUtilizationPercentUsed
+  title: The percentage of memory used
+  units: '%'
+  family: System/Memory/Module/Used
+  chart_type: line
+  priority: 60003
+  shape: independent
+  dimensions:
+  - id: genmemutilizationpercentused
+    signal: avaya_genmemutilizationpercentused
+  instances:
+    group: mem_module_index
+    chart_prefix: genmemutilizationpercentused
+    family: System/Memory/Module/Used
+    labels:
+      mem_module_index: '{instance}'
+- id: snmp.device_prof_genMemUtilizationTotalRAM
+  title: The total size of the RAM
+  units: By
+  family: System/Memory/Ram/Total
+  chart_type: line
+  priority: 60004
+  shape: independent
+  dimensions:
+  - id: genmemutilizationtotalram
+    signal: avaya_genmemutilizationtotalram
+- id: snmp.device_prof_genMemUtilizationDynAllocMemUsed
+  title: The dynamically allocated memory has been used
+  units: By
+  family: System/Memory/Allocated/Used
+  chart_type: line
+  priority: 60005
+  shape: independent
+  dimensions:
+  - id: genmemutilizationdynallocmem
+    signal: avaya_genmemutilizationdynallocmemused
+- id: snmp.device_prof_genMemUtilizationDynAllocMemAvailable
+  title: The available dynamically allocated memory
+  units: By
+  family: System/Memory/Allocated/Available
+  chart_type: line
+  priority: 60006
+  shape: independent
+  dimensions:
+  - id: genmemutilizationdynallocmem
+    signal: avaya_genmemutilizationdynallocmemavailable

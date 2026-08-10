@@ -1,0 +1,2394 @@
+version: 1
+name: chatsworth_pdu
+description: Chatsworth PDU, as Netdata's SNMP collector reports it. Generated from go.d/snmp.profiles/default/chatsworth-pdu.yaml
+  with its `extends` chain resolved. Contexts, units, families and metric names are the device's own; values are a plausible
+  fiction.
+signals:
+  chatsworth_pdu_pdurole_secondary:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  chatsworth_pdu_pdurole:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  chatsworth_pdu_outofservice:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  chatsworth_pdu_outofservice_out_of_service:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  chatsworth_pdu_temperatureprobe1:
+    base: 106.0
+    min: 0.0
+    max: 250.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_temperatureprobe2:
+    base: 106.0
+    min: 0.0
+    max: 250.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_humidityprobe1:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_humidityprobe2:
+    base: 35.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_line1curr:
+    base: 3.2
+    min: 0.0
+    max: 200.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_line2curr:
+    base: 3.2
+    min: 0.0
+    max: 200.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_line3curr:
+    base: 3.2
+    min: 0.0
+    max: 200.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_currentxy1:
+    base: 3.2
+    min: 0.0
+    max: 200.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_currentyz1:
+    base: 3.2
+    min: 0.0
+    max: 200.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_currentzx1:
+    base: 3.2
+    min: 0.0
+    max: 200.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_currentxy2:
+    base: 3.2
+    min: 0.0
+    max: 200.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_currentyz2:
+    base: 3.2
+    min: 0.0
+    max: 200.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_currentzx2:
+    base: 3.2
+    min: 0.0
+    max: 200.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_voltagexy1:
+    base: 12.0
+    min: 0.0
+    max: 480.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_voltageyz1:
+    base: 12.0
+    min: 0.0
+    max: 480.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_voltagezx1:
+    base: 12.0
+    min: 0.0
+    max: 480.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_voltagexy2:
+    base: 12.0
+    min: 0.0
+    max: 480.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_voltageyz2:
+    base: 12.0
+    min: 0.0
+    max: 480.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_voltagezx2:
+    base: 12.0
+    min: 0.0
+    max: 480.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_powerxy1:
+    base: 145.0
+    min: 0.0
+    max: 4000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_poweryz1:
+    base: 145.0
+    min: 0.0
+    max: 4000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_powerzx1:
+    base: 145.0
+    min: 0.0
+    max: 4000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_powerxy2:
+    base: 145.0
+    min: 0.0
+    max: 4000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_poweryz2:
+    base: 145.0
+    min: 0.0
+    max: 4000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_powerzx2:
+    base: 145.0
+    min: 0.0
+    max: 4000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_energyxy1s:
+    base: 14.5
+    min: 0.0
+    max: 400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_energyyz1s:
+    base: 14.5
+    min: 0.0
+    max: 400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_energyzx1s:
+    base: 14.5
+    min: 0.0
+    max: 400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_energyxy2s:
+    base: 14.5
+    min: 0.0
+    max: 400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_energyyz2s:
+    base: 14.5
+    min: 0.0
+    max: 400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_energyzx2s:
+    base: 14.5
+    min: 0.0
+    max: 400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_outlet1current:
+    base: 3.2
+    min: 0.0
+    max: 200.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_outlet2current:
+    base: 3.2
+    min: 0.0
+    max: 200.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_outlet3current:
+    base: 3.2
+    min: 0.0
+    max: 200.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_outlet4current:
+    base: 3.2
+    min: 0.0
+    max: 200.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_outlet5current:
+    base: 3.2
+    min: 0.0
+    max: 200.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_outlet6current:
+    base: 3.2
+    min: 0.0
+    max: 200.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_outlet7current:
+    base: 3.2
+    min: 0.0
+    max: 200.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_outlet8current:
+    base: 3.2
+    min: 0.0
+    max: 200.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_outlet9current:
+    base: 3.2
+    min: 0.0
+    max: 200.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_outlet10current:
+    base: 3.2
+    min: 0.0
+    max: 200.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_outlet11current:
+    base: 3.2
+    min: 0.0
+    max: 200.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_outlet12current:
+    base: 3.2
+    min: 0.0
+    max: 200.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_outlet13current:
+    base: 3.2
+    min: 0.0
+    max: 200.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_outlet14current:
+    base: 3.2
+    min: 0.0
+    max: 200.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_outlet15current:
+    base: 3.2
+    min: 0.0
+    max: 200.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_outlet16current:
+    base: 3.2
+    min: 0.0
+    max: 200.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_outlet17current:
+    base: 3.2
+    min: 0.0
+    max: 200.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_outlet18current:
+    base: 3.2
+    min: 0.0
+    max: 200.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_outlet19current:
+    base: 3.2
+    min: 0.0
+    max: 200.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_outlet20current:
+    base: 3.2
+    min: 0.0
+    max: 200.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_outlet21current:
+    base: 3.2
+    min: 0.0
+    max: 200.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_outlet22current:
+    base: 3.2
+    min: 0.0
+    max: 200.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_outlet23current:
+    base: 3.2
+    min: 0.0
+    max: 200.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_outlet24current:
+    base: 3.2
+    min: 0.0
+    max: 200.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_receptacleenergyoutlet1s:
+    base: 14.5
+    min: 0.0
+    max: 400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_receptacleenergyoutlet2s:
+    base: 14.5
+    min: 0.0
+    max: 400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_receptacleenergyoutlet3s:
+    base: 14.5
+    min: 0.0
+    max: 400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_receptacleenergyoutlet4s:
+    base: 14.5
+    min: 0.0
+    max: 400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_receptacleenergyoutlet5s:
+    base: 14.5
+    min: 0.0
+    max: 400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_receptacleenergyoutlet6s:
+    base: 14.5
+    min: 0.0
+    max: 400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_receptacleenergyoutlet7s:
+    base: 14.5
+    min: 0.0
+    max: 400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_receptacleenergyoutlet8s:
+    base: 14.5
+    min: 0.0
+    max: 400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_receptacleenergyoutlet9s:
+    base: 14.5
+    min: 0.0
+    max: 400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_receptacleenergyoutlet10s:
+    base: 14.5
+    min: 0.0
+    max: 400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_receptacleenergyoutlet11s:
+    base: 14.5
+    min: 0.0
+    max: 400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_receptacleenergyoutlet12s:
+    base: 14.5
+    min: 0.0
+    max: 400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_receptacleenergyoutlet13s:
+    base: 14.5
+    min: 0.0
+    max: 400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_receptacleenergyoutlet14s:
+    base: 14.5
+    min: 0.0
+    max: 400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_receptacleenergyoutlet15s:
+    base: 14.5
+    min: 0.0
+    max: 400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_receptacleenergyoutlet16s:
+    base: 14.5
+    min: 0.0
+    max: 400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_receptacleenergyoutlet17s:
+    base: 14.5
+    min: 0.0
+    max: 400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_receptacleenergyoutlet18s:
+    base: 14.5
+    min: 0.0
+    max: 400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_receptacleenergyoutlet19s:
+    base: 14.5
+    min: 0.0
+    max: 400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_receptacleenergyoutlet20s:
+    base: 14.5
+    min: 0.0
+    max: 400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_receptacleenergyoutlet21s:
+    base: 14.5
+    min: 0.0
+    max: 400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_receptacleenergyoutlet22s:
+    base: 14.5
+    min: 0.0
+    max: 400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_receptacleenergyoutlet23s:
+    base: 14.5
+    min: 0.0
+    max: 400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_receptacleenergyoutlet24s:
+    base: 14.5
+    min: 0.0
+    max: 400.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_cpipdunumberbranches:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_cpipdunumberoutlets:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_cpipduoutofservice:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  chatsworth_pdu_cpipduoutofservice_out_of_service:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  chatsworth_pdu_cpipduupgrade_false:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  chatsworth_pdu_cpipduupgrade:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  chatsworth_pdu_cpipduchainrole:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  chatsworth_pdu_cpipduchainrole_secondary:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  chatsworth_pdu_cpipdutotalpower:
+    base: 168.0
+    min: 168.0
+    max: 168.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  chatsworth_pdu_cpipdueasstatus_inactive:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  chatsworth_pdu_cpipdueasstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  chatsworth_pdu_cpipdueasstatus_error:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  chatsworth_pdu_cpipdudoorstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  chatsworth_pdu_cpipdudoorstatus_open:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  chatsworth_pdu_cpipdulockstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  chatsworth_pdu_cpipdulockstatus_open:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  chatsworth_pdu_cpipdusensorvalue:
+    base: 12.0
+    min: 0.0
+    max: 1000000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_cpipdulinecurrent:
+    base: 3.2
+    min: 0.0
+    max: 200.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_cpipdubranchcurrent:
+    base: 3.2
+    min: 0.0
+    max: 200.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_cpipdubranchmaxcurrent:
+    base: 3.2
+    min: 3.2
+    max: 3.2
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  chatsworth_pdu_cpipdubranchvoltage:
+    base: 12.0
+    min: 0.0
+    max: 480.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_cpipdubranchpower:
+    base: 168.0
+    min: 0.0
+    max: 5000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_cpipdubranchstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  chatsworth_pdu_cpipdubranchstatus_warning:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  chatsworth_pdu_cpipdubranchstatus_alarm:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  chatsworth_pdu_cpipdubranchenergy:
+    base: 12.0
+    min: 0.0
+    max: 480.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_cpipduoutletcurrent:
+    base: 3.2
+    min: 0.0
+    max: 200.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_cpipduoutletvoltage:
+    base: 12.0
+    min: 0.0
+    max: 480.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_cpipduoutletpower:
+    base: 168.0
+    min: 0.0
+    max: 5000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_cpipduoutletstatus:
+    base: 1.0
+    min: 1.0
+    max: 1.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  chatsworth_pdu_cpipduoutletstatus_warning:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  chatsworth_pdu_cpipduoutletstatus_alarm:
+    base: 0.0
+    min: 0.0
+    max: 0.0
+    min_is_floor: true
+    max_is_ceiling: true
+    ignore_weight: true
+  chatsworth_pdu_cpipduoutletenergy:
+    base: 145.0
+    min: 0.0
+    max: 4000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+  chatsworth_pdu_systemuptime:
+    base: 86400.0
+    min: 0.0
+    max: 315360000.0
+    seasonality:
+      daily_amplitude: 0.45
+      peak_hour: 14.0
+      weekend_factor: 0.55
+    noise:
+      kind: gauss
+      sigma: 0.16
+contexts:
+- id: snmp.device_prof_pduRole
+  title: PDU role
+  units: '{status}'
+  family: Hardware/PDU/Role/Status
+  chart_type: line
+  priority: 60000
+  shape: independent
+  dimensions:
+  - id: secondary
+    signal: chatsworth_pdu_pdurole_secondary
+  - id: primary
+    signal: chatsworth_pdu_pdurole
+- id: snmp.device_prof_outOfService
+  title: PDU operation status
+  units: '{status}'
+  family: Hardware/PDU/Service/Status
+  chart_type: line
+  priority: 60001
+  shape: independent
+  dimensions:
+  - id: normal_operation
+    signal: chatsworth_pdu_outofservice
+  - id: out_of_service
+    signal: chatsworth_pdu_outofservice_out_of_service
+- id: snmp.device_prof_temperatureProbe1
+  title: Probe 1 temperature
+  units: degF
+  family: Hardware/Sensor/Temperature/Probe1/Value
+  chart_type: line
+  priority: 60002
+  shape: independent
+  dimensions:
+  - id: temperatureprobe1
+    signal: chatsworth_pdu_temperatureprobe1
+- id: snmp.device_prof_temperatureProbe2
+  title: Probe 2 temperature
+  units: degF
+  family: Hardware/Sensor/Temperature/Probe2/Value
+  chart_type: line
+  priority: 60003
+  shape: independent
+  dimensions:
+  - id: temperatureprobe2
+    signal: chatsworth_pdu_temperatureprobe2
+- id: snmp.device_prof_humidityProbe1
+  title: Probe 1 humidity
+  units: '%'
+  family: Hardware/Sensor/Humidity/Probe1/Value
+  chart_type: line
+  priority: 60004
+  shape: independent
+  dimensions:
+  - id: humidityprobe1
+    signal: chatsworth_pdu_humidityprobe1
+- id: snmp.device_prof_humidityProbe2
+  title: Probe 1 humidity
+  units: '%'
+  family: Hardware/Sensor/Humidity/Probe2/Value
+  chart_type: line
+  priority: 60005
+  shape: independent
+  dimensions:
+  - id: humidityprobe2
+    signal: chatsworth_pdu_humidityprobe2
+- id: snmp.device_prof_line1curr
+  title: Line 1 current draw
+  units: A
+  family: PowerFlow/Line/1/Current/Value
+  chart_type: line
+  priority: 60006
+  shape: independent
+  dimensions:
+  - id: line1curr
+    signal: chatsworth_pdu_line1curr
+- id: snmp.device_prof_line2curr
+  title: Line 2 current draw
+  units: A
+  family: PowerFlow/Line/2/Current/Value
+  chart_type: line
+  priority: 60007
+  shape: independent
+  dimensions:
+  - id: line2curr
+    signal: chatsworth_pdu_line2curr
+- id: snmp.device_prof_line3curr
+  title: Line 3 current draw
+  units: A
+  family: PowerFlow/Line/3/Current/Value
+  chart_type: line
+  priority: 60008
+  shape: independent
+  dimensions:
+  - id: line3curr
+    signal: chatsworth_pdu_line3curr
+- id: snmp.device_prof_currentxy1
+  title: XY1 current draw
+  units: A
+  family: PowerFlow/Branch/XY1/Current/Value
+  chart_type: line
+  priority: 60009
+  shape: independent
+  dimensions:
+  - id: currentxy1
+    signal: chatsworth_pdu_currentxy1
+- id: snmp.device_prof_currentyz1
+  title: YZ1 current draw
+  units: A
+  family: PowerFlow/Branch/YZ1/Current/Value
+  chart_type: line
+  priority: 60010
+  shape: independent
+  dimensions:
+  - id: currentyz1
+    signal: chatsworth_pdu_currentyz1
+- id: snmp.device_prof_currentzx1
+  title: ZX1 current draw
+  units: A
+  family: PowerFlow/Branch/ZX1/Current/Value
+  chart_type: line
+  priority: 60011
+  shape: independent
+  dimensions:
+  - id: currentzx1
+    signal: chatsworth_pdu_currentzx1
+- id: snmp.device_prof_currentxy2
+  title: XY2 current draw
+  units: A
+  family: PowerFlow/Branch/XY2/Current/Value
+  chart_type: line
+  priority: 60012
+  shape: independent
+  dimensions:
+  - id: currentxy2
+    signal: chatsworth_pdu_currentxy2
+- id: snmp.device_prof_currentyz2
+  title: YZ2 current draw
+  units: A
+  family: PowerFlow/Branch/YZ2/Current/Value
+  chart_type: line
+  priority: 60013
+  shape: independent
+  dimensions:
+  - id: currentyz2
+    signal: chatsworth_pdu_currentyz2
+- id: snmp.device_prof_currentzx2
+  title: ZX2 current draw
+  units: A
+  family: PowerFlow/Branch/ZX2/Current/Value
+  chart_type: line
+  priority: 60014
+  shape: independent
+  dimensions:
+  - id: currentzx2
+    signal: chatsworth_pdu_currentzx2
+- id: snmp.device_prof_voltagexy1
+  title: XY1 voltage in volts
+  units: V
+  family: PowerFlow/Branch/XY1/Voltage/Value
+  chart_type: line
+  priority: 60015
+  shape: independent
+  dimensions:
+  - id: voltagexy1
+    signal: chatsworth_pdu_voltagexy1
+- id: snmp.device_prof_voltageyz1
+  title: YZ1 voltage in volts
+  units: V
+  family: PowerFlow/Branch/YZ1/Voltage/Value
+  chart_type: line
+  priority: 60016
+  shape: independent
+  dimensions:
+  - id: voltageyz1
+    signal: chatsworth_pdu_voltageyz1
+- id: snmp.device_prof_voltagezx1
+  title: ZX1 voltage in volts
+  units: V
+  family: PowerFlow/Branch/ZX1/Voltage/Value
+  chart_type: line
+  priority: 60017
+  shape: independent
+  dimensions:
+  - id: voltagezx1
+    signal: chatsworth_pdu_voltagezx1
+- id: snmp.device_prof_voltagexy2
+  title: XY2 voltage in volts
+  units: V
+  family: PowerFlow/Branch/XY2/Voltage/Value
+  chart_type: line
+  priority: 60018
+  shape: independent
+  dimensions:
+  - id: voltagexy2
+    signal: chatsworth_pdu_voltagexy2
+- id: snmp.device_prof_voltageyz2
+  title: YZ2 voltage in volts
+  units: V
+  family: PowerFlow/Branch/YZ2/Voltage/Value
+  chart_type: line
+  priority: 60019
+  shape: independent
+  dimensions:
+  - id: voltageyz2
+    signal: chatsworth_pdu_voltageyz2
+- id: snmp.device_prof_voltagezx2
+  title: ZX2 voltage in volts
+  units: V
+  family: PowerFlow/Branch/ZX2/Voltage/Value
+  chart_type: line
+  priority: 60020
+  shape: independent
+  dimensions:
+  - id: voltagezx2
+    signal: chatsworth_pdu_voltagezx2
+- id: snmp.device_prof_powerxy1
+  title: XY1 power consumption in Watts
+  units: W
+  family: PowerFlow/Branch/XY1/Active
+  chart_type: line
+  priority: 60021
+  shape: independent
+  dimensions:
+  - id: powerxy1
+    signal: chatsworth_pdu_powerxy1
+- id: snmp.device_prof_poweryz1
+  title: YZ1 power consumption in Watts
+  units: W
+  family: PowerFlow/Branch/YZ1/Active
+  chart_type: line
+  priority: 60022
+  shape: independent
+  dimensions:
+  - id: poweryz1
+    signal: chatsworth_pdu_poweryz1
+- id: snmp.device_prof_powerzx1
+  title: ZX1 power consumption in Watts
+  units: W
+  family: PowerFlow/Branch/ZX1/Active
+  chart_type: line
+  priority: 60023
+  shape: independent
+  dimensions:
+  - id: powerzx1
+    signal: chatsworth_pdu_powerzx1
+- id: snmp.device_prof_powerxy2
+  title: XY2 power consumption in Watts
+  units: W
+  family: PowerFlow/Branch/XY2/Active
+  chart_type: line
+  priority: 60024
+  shape: independent
+  dimensions:
+  - id: powerxy2
+    signal: chatsworth_pdu_powerxy2
+- id: snmp.device_prof_poweryz2
+  title: YZ2 power consumption in Watts
+  units: W
+  family: PowerFlow/Branch/YZ2/Active
+  chart_type: line
+  priority: 60025
+  shape: independent
+  dimensions:
+  - id: poweryz2
+    signal: chatsworth_pdu_poweryz2
+- id: snmp.device_prof_powerzx2
+  title: ZX2 power consumption in Watts
+  units: W
+  family: PowerFlow/Branch/ZX2/Active
+  chart_type: line
+  priority: 60026
+  shape: independent
+  dimensions:
+  - id: powerzx2
+    signal: chatsworth_pdu_powerzx2
+- id: snmp.device_prof_energyxy1s
+  title: XY1 branch energy accumulated
+  units: daW
+  family: PowerFlow/Branch/XY1/Energy/Total
+  chart_type: line
+  priority: 60027
+  shape: independent
+  dimensions:
+  - id: energyxy1s
+    signal: chatsworth_pdu_energyxy1s
+- id: snmp.device_prof_energyyz1s
+  title: YZ1 branch energy accumulated
+  units: daW
+  family: PowerFlow/Branch/YZ1/Energy/Total
+  chart_type: line
+  priority: 60028
+  shape: independent
+  dimensions:
+  - id: energyyz1s
+    signal: chatsworth_pdu_energyyz1s
+- id: snmp.device_prof_energyzx1s
+  title: ZX1 branch energy accumulated
+  units: daW
+  family: PowerFlow/Branch/ZX1/Energy/Total
+  chart_type: line
+  priority: 60029
+  shape: independent
+  dimensions:
+  - id: energyzx1s
+    signal: chatsworth_pdu_energyzx1s
+- id: snmp.device_prof_energyxy2s
+  title: XY2 branch energy accumulated
+  units: daW
+  family: PowerFlow/Branch/XY2/Energy/Total
+  chart_type: line
+  priority: 60030
+  shape: independent
+  dimensions:
+  - id: energyxy2s
+    signal: chatsworth_pdu_energyxy2s
+- id: snmp.device_prof_energyyz2s
+  title: YZ2 branch energy accumulated
+  units: daW
+  family: PowerFlow/Branch/YZ2/Energy/Total
+  chart_type: line
+  priority: 60031
+  shape: independent
+  dimensions:
+  - id: energyyz2s
+    signal: chatsworth_pdu_energyyz2s
+- id: snmp.device_prof_energyzx2s
+  title: ZX2 branch energy accumulated
+  units: daW
+  family: PowerFlow/Branch/ZX2/Energy/Total
+  chart_type: line
+  priority: 60032
+  shape: independent
+  dimensions:
+  - id: energyzx2s
+    signal: chatsworth_pdu_energyzx2s
+- id: snmp.device_prof_outlet1Current
+  title: Outlet1 current draw
+  units: A
+  family: PowerFlow/Outlet/1/Current/Value
+  chart_type: line
+  priority: 60033
+  shape: independent
+  dimensions:
+  - id: outlet1current
+    signal: chatsworth_pdu_outlet1current
+- id: snmp.device_prof_outlet2Current
+  title: Outlet2 current draw
+  units: A
+  family: PowerFlow/Outlet/2/Current/Value
+  chart_type: line
+  priority: 60034
+  shape: independent
+  dimensions:
+  - id: outlet2current
+    signal: chatsworth_pdu_outlet2current
+- id: snmp.device_prof_outlet3Current
+  title: Outlet3 current draw
+  units: A
+  family: PowerFlow/Outlet/3/Current/Value
+  chart_type: line
+  priority: 60035
+  shape: independent
+  dimensions:
+  - id: outlet3current
+    signal: chatsworth_pdu_outlet3current
+- id: snmp.device_prof_outlet4Current
+  title: Outlet4 current draw
+  units: A
+  family: PowerFlow/Outlet/4/Current/Value
+  chart_type: line
+  priority: 60036
+  shape: independent
+  dimensions:
+  - id: outlet4current
+    signal: chatsworth_pdu_outlet4current
+- id: snmp.device_prof_outlet5Current
+  title: Outlet5 current draw
+  units: A
+  family: PowerFlow/Outlet/5/Current/Value
+  chart_type: line
+  priority: 60037
+  shape: independent
+  dimensions:
+  - id: outlet5current
+    signal: chatsworth_pdu_outlet5current
+- id: snmp.device_prof_outlet6Current
+  title: Outlet6 current draw
+  units: A
+  family: PowerFlow/Outlet/6/Current/Value
+  chart_type: line
+  priority: 60038
+  shape: independent
+  dimensions:
+  - id: outlet6current
+    signal: chatsworth_pdu_outlet6current
+- id: snmp.device_prof_outlet7Current
+  title: Outlet7 current draw
+  units: A
+  family: PowerFlow/Outlet/7/Current/Value
+  chart_type: line
+  priority: 60039
+  shape: independent
+  dimensions:
+  - id: outlet7current
+    signal: chatsworth_pdu_outlet7current
+- id: snmp.device_prof_outlet8Current
+  title: Outlet8 current draw
+  units: A
+  family: PowerFlow/Outlet/8/Current/Value
+  chart_type: line
+  priority: 60040
+  shape: independent
+  dimensions:
+  - id: outlet8current
+    signal: chatsworth_pdu_outlet8current
+- id: snmp.device_prof_outlet9Current
+  title: Outlet9 current draw
+  units: A
+  family: PowerFlow/Outlet/9/Current/Value
+  chart_type: line
+  priority: 60041
+  shape: independent
+  dimensions:
+  - id: outlet9current
+    signal: chatsworth_pdu_outlet9current
+- id: snmp.device_prof_outlet10Current
+  title: Outlet10 current draw
+  units: A
+  family: PowerFlow/Outlet/10/Current/Value
+  chart_type: line
+  priority: 60042
+  shape: independent
+  dimensions:
+  - id: outlet10current
+    signal: chatsworth_pdu_outlet10current
+- id: snmp.device_prof_outlet11Current
+  title: Outlet11 current draw
+  units: A
+  family: PowerFlow/Outlet/11/Current/Value
+  chart_type: line
+  priority: 60043
+  shape: independent
+  dimensions:
+  - id: outlet11current
+    signal: chatsworth_pdu_outlet11current
+- id: snmp.device_prof_outlet12Current
+  title: Outlet12 current draw
+  units: A
+  family: PowerFlow/Outlet/12/Current/Value
+  chart_type: line
+  priority: 60044
+  shape: independent
+  dimensions:
+  - id: outlet12current
+    signal: chatsworth_pdu_outlet12current
+- id: snmp.device_prof_outlet13Current
+  title: Outlet13 current draw
+  units: A
+  family: PowerFlow/Outlet/13/Current/Value
+  chart_type: line
+  priority: 60045
+  shape: independent
+  dimensions:
+  - id: outlet13current
+    signal: chatsworth_pdu_outlet13current
+- id: snmp.device_prof_outlet14Current
+  title: Outlet14 current draw
+  units: A
+  family: PowerFlow/Outlet/14/Current/Value
+  chart_type: line
+  priority: 60046
+  shape: independent
+  dimensions:
+  - id: outlet14current
+    signal: chatsworth_pdu_outlet14current
+- id: snmp.device_prof_outlet15Current
+  title: Outlet15 current draw
+  units: A
+  family: PowerFlow/Outlet/15/Current/Value
+  chart_type: line
+  priority: 60047
+  shape: independent
+  dimensions:
+  - id: outlet15current
+    signal: chatsworth_pdu_outlet15current
+- id: snmp.device_prof_outlet16Current
+  title: Outlet16 current draw
+  units: A
+  family: PowerFlow/Outlet/16/Current/Value
+  chart_type: line
+  priority: 60048
+  shape: independent
+  dimensions:
+  - id: outlet16current
+    signal: chatsworth_pdu_outlet16current
+- id: snmp.device_prof_outlet17Current
+  title: Outlet17 current draw
+  units: A
+  family: PowerFlow/Outlet/17/Current/Value
+  chart_type: line
+  priority: 60049
+  shape: independent
+  dimensions:
+  - id: outlet17current
+    signal: chatsworth_pdu_outlet17current
+- id: snmp.device_prof_outlet18Current
+  title: Outlet18 current draw
+  units: A
+  family: PowerFlow/Outlet/18/Current/Value
+  chart_type: line
+  priority: 60050
+  shape: independent
+  dimensions:
+  - id: outlet18current
+    signal: chatsworth_pdu_outlet18current
+- id: snmp.device_prof_outlet19Current
+  title: Outlet19 current draw
+  units: A
+  family: PowerFlow/Outlet/19/Current/Value
+  chart_type: line
+  priority: 60051
+  shape: independent
+  dimensions:
+  - id: outlet19current
+    signal: chatsworth_pdu_outlet19current
+- id: snmp.device_prof_outlet20Current
+  title: Outlet20 current draw
+  units: A
+  family: PowerFlow/Outlet/20/Current/Value
+  chart_type: line
+  priority: 60052
+  shape: independent
+  dimensions:
+  - id: outlet20current
+    signal: chatsworth_pdu_outlet20current
+- id: snmp.device_prof_outlet21Current
+  title: Outlet21 current draw
+  units: A
+  family: PowerFlow/Outlet/21/Current/Value
+  chart_type: line
+  priority: 60053
+  shape: independent
+  dimensions:
+  - id: outlet21current
+    signal: chatsworth_pdu_outlet21current
+- id: snmp.device_prof_outlet22Current
+  title: Outlet22 current draw
+  units: A
+  family: PowerFlow/Outlet/22/Current/Value
+  chart_type: line
+  priority: 60054
+  shape: independent
+  dimensions:
+  - id: outlet22current
+    signal: chatsworth_pdu_outlet22current
+- id: snmp.device_prof_outlet23Current
+  title: Outlet23 current draw
+  units: A
+  family: PowerFlow/Outlet/23/Current/Value
+  chart_type: line
+  priority: 60055
+  shape: independent
+  dimensions:
+  - id: outlet23current
+    signal: chatsworth_pdu_outlet23current
+- id: snmp.device_prof_outlet24Current
+  title: Outlet24 current draw
+  units: A
+  family: PowerFlow/Outlet/24/Current/Value
+  chart_type: line
+  priority: 60056
+  shape: independent
+  dimensions:
+  - id: outlet24current
+    signal: chatsworth_pdu_outlet24current
+- id: snmp.device_prof_receptacleEnergyoutlet1s
+  title: Outlet1 receptacle energy accumulated
+  units: daW
+  family: PowerFlow/Outlet/1/Energy/Total
+  chart_type: line
+  priority: 60057
+  shape: independent
+  dimensions:
+  - id: receptacleenergyoutlet1s
+    signal: chatsworth_pdu_receptacleenergyoutlet1s
+- id: snmp.device_prof_receptacleEnergyoutlet2s
+  title: Outlet2 receptacle energy accumulated
+  units: daW
+  family: PowerFlow/Outlet/2/Energy/Total
+  chart_type: line
+  priority: 60058
+  shape: independent
+  dimensions:
+  - id: receptacleenergyoutlet2s
+    signal: chatsworth_pdu_receptacleenergyoutlet2s
+- id: snmp.device_prof_receptacleEnergyoutlet3s
+  title: Outlet3 receptacle energy accumulated
+  units: daW
+  family: PowerFlow/Outlet/3/Energy/Total
+  chart_type: line
+  priority: 60059
+  shape: independent
+  dimensions:
+  - id: receptacleenergyoutlet3s
+    signal: chatsworth_pdu_receptacleenergyoutlet3s
+- id: snmp.device_prof_receptacleEnergyoutlet4s
+  title: Outlet4 receptacle energy accumulated
+  units: daW
+  family: PowerFlow/Outlet/4/Energy/Total
+  chart_type: line
+  priority: 60060
+  shape: independent
+  dimensions:
+  - id: receptacleenergyoutlet4s
+    signal: chatsworth_pdu_receptacleenergyoutlet4s
+- id: snmp.device_prof_receptacleEnergyoutlet5s
+  title: Outlet5 receptacle energy accumulated
+  units: daW
+  family: PowerFlow/Outlet/5/Energy/Total
+  chart_type: line
+  priority: 60061
+  shape: independent
+  dimensions:
+  - id: receptacleenergyoutlet5s
+    signal: chatsworth_pdu_receptacleenergyoutlet5s
+- id: snmp.device_prof_receptacleEnergyoutlet6s
+  title: Outlet6 receptacle energy accumulated
+  units: daW
+  family: PowerFlow/Outlet/6/Energy/Total
+  chart_type: line
+  priority: 60062
+  shape: independent
+  dimensions:
+  - id: receptacleenergyoutlet6s
+    signal: chatsworth_pdu_receptacleenergyoutlet6s
+- id: snmp.device_prof_receptacleEnergyoutlet7s
+  title: Outlet7 receptacle energy accumulated
+  units: daW
+  family: PowerFlow/Outlet/7/Energy/Total
+  chart_type: line
+  priority: 60063
+  shape: independent
+  dimensions:
+  - id: receptacleenergyoutlet7s
+    signal: chatsworth_pdu_receptacleenergyoutlet7s
+- id: snmp.device_prof_receptacleEnergyoutlet8s
+  title: Outlet8 receptacle energy accumulated
+  units: daW
+  family: PowerFlow/Outlet/8/Energy/Total
+  chart_type: line
+  priority: 60064
+  shape: independent
+  dimensions:
+  - id: receptacleenergyoutlet8s
+    signal: chatsworth_pdu_receptacleenergyoutlet8s
+- id: snmp.device_prof_receptacleEnergyoutlet9s
+  title: Outlet9 receptacle energy accumulated
+  units: daW
+  family: PowerFlow/Outlet/9/Energy/Total
+  chart_type: line
+  priority: 60065
+  shape: independent
+  dimensions:
+  - id: receptacleenergyoutlet9s
+    signal: chatsworth_pdu_receptacleenergyoutlet9s
+- id: snmp.device_prof_receptacleEnergyoutlet10s
+  title: Outlet10 receptacle energy accumulated
+  units: daW
+  family: PowerFlow/Outlet/10/Energy/Total
+  chart_type: line
+  priority: 60066
+  shape: independent
+  dimensions:
+  - id: receptacleenergyoutlet10s
+    signal: chatsworth_pdu_receptacleenergyoutlet10s
+- id: snmp.device_prof_receptacleEnergyoutlet11s
+  title: Outlet11 receptacle energy accumulated
+  units: daW
+  family: PowerFlow/Outlet/11/Energy/Total
+  chart_type: line
+  priority: 60067
+  shape: independent
+  dimensions:
+  - id: receptacleenergyoutlet11s
+    signal: chatsworth_pdu_receptacleenergyoutlet11s
+- id: snmp.device_prof_receptacleEnergyoutlet12s
+  title: Outlet12 receptacle energy accumulated
+  units: daW
+  family: PowerFlow/Outlet/12/Energy/Total
+  chart_type: line
+  priority: 60068
+  shape: independent
+  dimensions:
+  - id: receptacleenergyoutlet12s
+    signal: chatsworth_pdu_receptacleenergyoutlet12s
+- id: snmp.device_prof_receptacleEnergyoutlet13s
+  title: Outlet13 receptacle energy accumulated
+  units: daW
+  family: PowerFlow/Outlet/13/Energy/Total
+  chart_type: line
+  priority: 60069
+  shape: independent
+  dimensions:
+  - id: receptacleenergyoutlet13s
+    signal: chatsworth_pdu_receptacleenergyoutlet13s
+- id: snmp.device_prof_receptacleEnergyoutlet14s
+  title: Outlet14 receptacle energy accumulated
+  units: daW
+  family: PowerFlow/Outlet/14/Energy/Total
+  chart_type: line
+  priority: 60070
+  shape: independent
+  dimensions:
+  - id: receptacleenergyoutlet14s
+    signal: chatsworth_pdu_receptacleenergyoutlet14s
+- id: snmp.device_prof_receptacleEnergyoutlet15s
+  title: Outlet15 receptacle energy accumulated
+  units: daW
+  family: PowerFlow/Outlet/15/Energy/Total
+  chart_type: line
+  priority: 60071
+  shape: independent
+  dimensions:
+  - id: receptacleenergyoutlet15s
+    signal: chatsworth_pdu_receptacleenergyoutlet15s
+- id: snmp.device_prof_receptacleEnergyoutlet16s
+  title: Outlet16 receptacle energy accumulated
+  units: daW
+  family: PowerFlow/Outlet/16/Energy/Total
+  chart_type: line
+  priority: 60072
+  shape: independent
+  dimensions:
+  - id: receptacleenergyoutlet16s
+    signal: chatsworth_pdu_receptacleenergyoutlet16s
+- id: snmp.device_prof_receptacleEnergyoutlet17s
+  title: Outlet17 receptacle energy accumulated
+  units: daW
+  family: PowerFlow/Outlet/17/Energy/Total
+  chart_type: line
+  priority: 60073
+  shape: independent
+  dimensions:
+  - id: receptacleenergyoutlet17s
+    signal: chatsworth_pdu_receptacleenergyoutlet17s
+- id: snmp.device_prof_receptacleEnergyoutlet18s
+  title: Outlet18 receptacle energy accumulated
+  units: daW
+  family: PowerFlow/Outlet/18/Energy/Total
+  chart_type: line
+  priority: 60074
+  shape: independent
+  dimensions:
+  - id: receptacleenergyoutlet18s
+    signal: chatsworth_pdu_receptacleenergyoutlet18s
+- id: snmp.device_prof_receptacleEnergyoutlet19s
+  title: Outlet19 receptacle energy accumulated
+  units: daW
+  family: PowerFlow/Outlet/19/Energy/Total
+  chart_type: line
+  priority: 60075
+  shape: independent
+  dimensions:
+  - id: receptacleenergyoutlet19s
+    signal: chatsworth_pdu_receptacleenergyoutlet19s
+- id: snmp.device_prof_receptacleEnergyoutlet20s
+  title: Outlet20 receptacle energy accumulated
+  units: daW
+  family: PowerFlow/Outlet/20/Energy/Total
+  chart_type: line
+  priority: 60076
+  shape: independent
+  dimensions:
+  - id: receptacleenergyoutlet20s
+    signal: chatsworth_pdu_receptacleenergyoutlet20s
+- id: snmp.device_prof_receptacleEnergyoutlet21s
+  title: Outlet21 receptacle energy accumulated
+  units: daW
+  family: PowerFlow/Outlet/21/Energy/Total
+  chart_type: line
+  priority: 60077
+  shape: independent
+  dimensions:
+  - id: receptacleenergyoutlet21s
+    signal: chatsworth_pdu_receptacleenergyoutlet21s
+- id: snmp.device_prof_receptacleEnergyoutlet22s
+  title: Outlet22 receptacle energy accumulated
+  units: daW
+  family: PowerFlow/Outlet/22/Energy/Total
+  chart_type: line
+  priority: 60078
+  shape: independent
+  dimensions:
+  - id: receptacleenergyoutlet22s
+    signal: chatsworth_pdu_receptacleenergyoutlet22s
+- id: snmp.device_prof_receptacleEnergyoutlet23s
+  title: Outlet23 receptacle energy accumulated
+  units: daW
+  family: PowerFlow/Outlet/23/Energy/Total
+  chart_type: line
+  priority: 60079
+  shape: independent
+  dimensions:
+  - id: receptacleenergyoutlet23s
+    signal: chatsworth_pdu_receptacleenergyoutlet23s
+- id: snmp.device_prof_receptacleEnergyoutlet24s
+  title: Outlet24 receptacle energy accumulated
+  units: daW
+  family: PowerFlow/Outlet/24/Energy/Total
+  chart_type: line
+  priority: 60080
+  shape: independent
+  dimensions:
+  - id: receptacleenergyoutlet24s
+    signal: chatsworth_pdu_receptacleenergyoutlet24s
+- id: snmp.device_prof_cpiPduNumberBranches
+  title: Number of branches in the PDU
+  units: '{branch}'
+  family: Hardware/PDU/Branch/Count
+  chart_type: line
+  priority: 60081
+  shape: independent
+  dimensions:
+  - id: cpipdunumberbranches
+    signal: chatsworth_pdu_cpipdunumberbranches
+  instances:
+    group: pdu_macaddress
+    chart_prefix: cpipdunumberbranches
+    family: Hardware/PDU/Branch/Count
+    labels:
+      pdu_macaddress: '{instance}'
+- id: snmp.device_prof_cpiPduNumberOutlets
+  title: Number of outlets in the PDU
+  units: '{outlet}'
+  family: Hardware/PDU/Outlet/Count
+  chart_type: line
+  priority: 60082
+  shape: independent
+  dimensions:
+  - id: cpipdunumberoutlets
+    signal: chatsworth_pdu_cpipdunumberoutlets
+  instances:
+    group: pdu_macaddress
+    chart_prefix: cpipdunumberoutlets
+    family: Hardware/PDU/Outlet/Count
+    labels:
+      pdu_macaddress: '{instance}'
+- id: snmp.device_prof_cpiPduOutOfService
+  title: Whether the PDU is in service
+  units: '{status}'
+  family: Hardware/PDU/Service/Status
+  chart_type: line
+  priority: 60083
+  shape: independent
+  dimensions:
+  - id: in_service
+    signal: chatsworth_pdu_cpipduoutofservice
+  - id: out_of_service
+    signal: chatsworth_pdu_cpipduoutofservice_out_of_service
+  instances:
+    group: pdu_macaddress
+    chart_prefix: cpipduoutofservice
+    family: Hardware/PDU/Service/Status
+    labels:
+      pdu_macaddress: '{instance}'
+- id: snmp.device_prof_cpiPduUpgrade
+  title: Indicator if the PDU firmware is being upgraded
+  units: '{status}'
+  family: System/Firmware/Upgrade/Status
+  chart_type: line
+  priority: 60084
+  shape: independent
+  dimensions:
+  - id: 'false'
+    signal: chatsworth_pdu_cpipduupgrade_false
+  - id: 'true'
+    signal: chatsworth_pdu_cpipduupgrade
+  instances:
+    group: pdu_macaddress
+    chart_prefix: cpipduupgrade
+    family: System/Firmware/Upgrade/Status
+    labels:
+      pdu_macaddress: '{instance}'
+- id: snmp.device_prof_cpiPduChainRole
+  title: Role of the PDU in a daisy chain
+  units: '{status}'
+  family: Hardware/PDU/Chain/Role/Status
+  chart_type: line
+  priority: 60085
+  shape: independent
+  dimensions:
+  - id: primary
+    signal: chatsworth_pdu_cpipduchainrole
+  - id: secondary
+    signal: chatsworth_pdu_cpipduchainrole_secondary
+  instances:
+    group: pdu_macaddress
+    chart_prefix: cpipduchainrole
+    family: Hardware/PDU/Chain/Role/Status
+    labels:
+      pdu_macaddress: '{instance}'
+- id: snmp.device_prof_cpiPduTotalPower
+  title: Power for the entire PDU
+  units: VA
+  family: PowerFlow/PDU/Total
+  chart_type: line
+  priority: 60086
+  shape: independent
+  dimensions:
+  - id: cpipdutotalpower
+    signal: chatsworth_pdu_cpipdutotalpower
+  instances:
+    group: pdu_macaddress
+    chart_prefix: cpipdutotalpower
+    family: PowerFlow/PDU/Total
+    labels:
+      pdu_macaddress: '{instance}'
+- id: snmp.device_prof_cpiPduEasStatus
+  title: Status of the Electronic Access Control system
+  units: '{status}'
+  family: Hardware/Lock/AccessControl/Status
+  chart_type: line
+  priority: 60087
+  shape: independent
+  dimensions:
+  - id: inactive
+    signal: chatsworth_pdu_cpipdueasstatus_inactive
+  - id: ready
+    signal: chatsworth_pdu_cpipdueasstatus
+  - id: error
+    signal: chatsworth_pdu_cpipdueasstatus_error
+  instances:
+    group: lock_id
+    chart_prefix: cpipdueasstatus
+    family: Hardware/Lock/AccessControl/Status
+    labels:
+      lock_id: '{instance}'
+- id: snmp.device_prof_cpiPduDoorStatus
+  title: Door sensor status, closed or open
+  units: '{status}'
+  family: Hardware/Lock/Door/Status
+  chart_type: line
+  priority: 60088
+  shape: independent
+  dimensions:
+  - id: closed
+    signal: chatsworth_pdu_cpipdudoorstatus
+  - id: open
+    signal: chatsworth_pdu_cpipdudoorstatus_open
+  instances:
+    group: lock_id
+    chart_prefix: cpipdudoorstatus
+    family: Hardware/Lock/Door/Status
+    labels:
+      lock_id: '{instance}'
+- id: snmp.device_prof_cpiPduLockStatus
+  title: Lock status, closed or open
+  units: '{status}'
+  family: Hardware/Lock/Status
+  chart_type: line
+  priority: 60089
+  shape: independent
+  dimensions:
+  - id: closed
+    signal: chatsworth_pdu_cpipdulockstatus
+  - id: open
+    signal: chatsworth_pdu_cpipdulockstatus_open
+  instances:
+    group: lock_id
+    chart_prefix: cpipdulockstatus
+    family: Hardware/Lock/Status
+    labels:
+      lock_id: '{instance}'
+- id: snmp.device_prof_cpiPduSensorValue
+  title: SNMP metric cpiPduSensorValue
+  units: '1'
+  family: cpipdusensortable
+  chart_type: line
+  priority: 60090
+  shape: independent
+  dimensions:
+  - id: cpipdusensorvalue
+    signal: chatsworth_pdu_cpipdusensorvalue
+  instances:
+    group: sensor_index
+    chart_prefix: cpipdusensorvalue
+    family: cpipdusensortable
+    labels:
+      sensor_index: '{instance}'
+- id: snmp.device_prof_cpiPduLineCurrent
+  title: Current draw of the line on the PDU
+  units: A
+  family: PowerFlow/Line/Current/Value
+  chart_type: line
+  priority: 60091
+  shape: independent
+  dimensions:
+  - id: cpipdulinecurrent
+    signal: chatsworth_pdu_cpipdulinecurrent
+  instances:
+    group: line_id
+    chart_prefix: cpipdulinecurrent
+    family: PowerFlow/Line/Current/Value
+    labels:
+      line_id: '{instance}'
+- id: snmp.device_prof_cpiPduBranchCurrent
+  title: Current draw of the branch on the PDU
+  units: A
+  family: PowerFlow/Branch/Current/Value
+  chart_type: line
+  priority: 60092
+  shape: independent
+  dimensions:
+  - id: cpipdubranchcurrent
+    signal: chatsworth_pdu_cpipdubranchcurrent
+  instances:
+    group: branch_id
+    chart_prefix: cpipdubranchcurrent
+    family: PowerFlow/Branch/Current/Value
+    labels:
+      branch_id: '{instance}'
+- id: snmp.device_prof_cpiPduBranchMaxCurrent
+  title: Maximum current draw of the branch on the PDU
+  units: A
+  family: PowerFlow/Branch/Current/Maximum
+  chart_type: line
+  priority: 60093
+  shape: independent
+  dimensions:
+  - id: cpipdubranchmaxcurrent
+    signal: chatsworth_pdu_cpipdubranchmaxcurrent
+  instances:
+    group: branch_id
+    chart_prefix: cpipdubranchmaxcurrent
+    family: PowerFlow/Branch/Current/Maximum
+    labels:
+      branch_id: '{instance}'
+- id: snmp.device_prof_cpiPduBranchVoltage
+  title: Voltage in volts of the branch on the PDU
+  units: V
+  family: PowerFlow/Branch/Voltage/Value
+  chart_type: line
+  priority: 60094
+  shape: independent
+  dimensions:
+  - id: cpipdubranchvoltage
+    signal: chatsworth_pdu_cpipdubranchvoltage
+  instances:
+    group: branch_id
+    chart_prefix: cpipdubranchvoltage
+    family: PowerFlow/Branch/Voltage/Value
+    labels:
+      branch_id: '{instance}'
+- id: snmp.device_prof_cpiPduBranchPower
+  title: Power in volt-amps for the branch
+  units: VA
+  family: PowerFlow/Branch/Apparent
+  chart_type: line
+  priority: 60095
+  shape: independent
+  dimensions:
+  - id: cpipdubranchpower
+    signal: chatsworth_pdu_cpipdubranchpower
+  instances:
+    group: branch_id
+    chart_prefix: cpipdubranchpower
+    family: PowerFlow/Branch/Apparent
+    labels:
+      branch_id: '{instance}'
+- id: snmp.device_prof_cpiPduBranchStatus
+  title: Alarm status of the branch
+  units: '{status}'
+  family: Hardware/Branch/Alarm/Status
+  chart_type: line
+  priority: 60096
+  shape: independent
+  dimensions:
+  - id: noalarm
+    signal: chatsworth_pdu_cpipdubranchstatus
+  - id: warning
+    signal: chatsworth_pdu_cpipdubranchstatus_warning
+  - id: alarm
+    signal: chatsworth_pdu_cpipdubranchstatus_alarm
+  instances:
+    group: branch_id
+    chart_prefix: cpipdubranchstatus
+    family: Hardware/Branch/Alarm/Status
+    labels:
+      branch_id: '{instance}'
+- id: snmp.device_prof_cpiPduBranchEnergy
+  title: Branch energy accumulated in decaVA-secs, divide by 360 to obtain VA-hr
+  units: V
+  family: PowerFlow/Branch/Energy/Total
+  chart_type: line
+  priority: 60097
+  shape: independent
+  dimensions:
+  - id: cpipdubranchenergy
+    signal: chatsworth_pdu_cpipdubranchenergy
+  instances:
+    group: branch_id
+    chart_prefix: cpipdubranchenergy
+    family: PowerFlow/Branch/Energy/Total
+    labels:
+      branch_id: '{instance}'
+- id: snmp.device_prof_cpiPduOutletCurrent
+  title: Current draw in amp of the outlet on the PDU
+  units: A
+  family: PowerFlow/Outlet/Current/Value
+  chart_type: line
+  priority: 60098
+  shape: independent
+  dimensions:
+  - id: cpipduoutletcurrent
+    signal: chatsworth_pdu_cpipduoutletcurrent
+  instances:
+    group: outlet_id
+    chart_prefix: cpipduoutletcurrent
+    family: PowerFlow/Outlet/Current/Value
+    labels:
+      outlet_id: '{instance}'
+- id: snmp.device_prof_cpiPduOutletVoltage
+  title: Voltage in volts of the outlet on the PDU
+  units: V
+  family: PowerFlow/Outlet/Voltage/Value
+  chart_type: line
+  priority: 60099
+  shape: independent
+  dimensions:
+  - id: cpipduoutletvoltage
+    signal: chatsworth_pdu_cpipduoutletvoltage
+  instances:
+    group: outlet_id
+    chart_prefix: cpipduoutletvoltage
+    family: PowerFlow/Outlet/Voltage/Value
+    labels:
+      outlet_id: '{instance}'
+- id: snmp.device_prof_cpiPduOutletPower
+  title: Power in Volt-Amps of the outlet on the PDU
+  units: VA
+  family: PowerFlow/Outlet/Apparent
+  chart_type: line
+  priority: 60100
+  shape: independent
+  dimensions:
+  - id: cpipduoutletpower
+    signal: chatsworth_pdu_cpipduoutletpower
+  instances:
+    group: outlet_id
+    chart_prefix: cpipduoutletpower
+    family: PowerFlow/Outlet/Apparent
+    labels:
+      outlet_id: '{instance}'
+- id: snmp.device_prof_cpiPduOutletStatus
+  title: Alarm status of the outlet
+  units: '{status}'
+  family: Hardware/Outlet/Alarm/Status
+  chart_type: line
+  priority: 60101
+  shape: independent
+  dimensions:
+  - id: noalarm
+    signal: chatsworth_pdu_cpipduoutletstatus
+  - id: warning
+    signal: chatsworth_pdu_cpipduoutletstatus_warning
+  - id: alarm
+    signal: chatsworth_pdu_cpipduoutletstatus_alarm
+  instances:
+    group: outlet_id
+    chart_prefix: cpipduoutletstatus
+    family: Hardware/Outlet/Alarm/Status
+    labels:
+      outlet_id: '{instance}'
+- id: snmp.device_prof_cpiPduOutletEnergy
+  title: Outlet energy accumulated in decaWatt-secs, divide by 360 to obtain Watt-hr
+  units: W
+  family: PowerFlow/Outlet/Energy/Total
+  chart_type: line
+  priority: 60102
+  shape: independent
+  dimensions:
+  - id: cpipduoutletenergy
+    signal: chatsworth_pdu_cpipduoutletenergy
+  instances:
+    group: outlet_id
+    chart_prefix: cpipduoutletenergy
+    family: PowerFlow/Outlet/Energy/Total
+    labels:
+      outlet_id: '{instance}'
+- id: snmp.device_prof_systemUptime
+  title: Time since the system was last rebooted or powered on.
+  units: s
+  family: System/Uptime
+  chart_type: line
+  priority: 60103
+  shape: independent
+  dimensions:
+  - id: systemuptime
+    signal: chatsworth_pdu_systemuptime
