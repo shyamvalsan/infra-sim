@@ -99,9 +99,11 @@ sudo /usr/libexec/netdata/plugins.d/otel-plugin logs \
 
 Two traps found the hard way:
 
-- **Traces are build-dependent.** The stable image refuses them outright; newer
-  builds accept and store them; nothing can display them. Confirm which you have
-  before concluding a bug.
+- **Traces are build-dependent.** Simulations run `netdata/netdata:latest`
+  (nightly), which accepts and stores them; `stable` refuses them outright and
+  keeps OTLP logs in a different layout. Nothing can display them on any build.
+  Confirm which image the container was built from before concluding a bug:
+  `docker exec infra-sim-<sim> netdata -v`.
 - **A shared health flag lies.** Logs and traces fail independently. Reporting
   them together showed "export failed" forever on stable while logs were landing
   perfectly — check each signal separately.

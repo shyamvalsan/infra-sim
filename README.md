@@ -120,9 +120,9 @@ with the simulation; neither is a second command to remember.
 
 **Traces.** The application tier emits OpenTelemetry spans — a request, the
 queries it made, how long each took — with durations taken from the same latency
-the charts draw. Worth knowing before you plan a demo around them: no Netdata
-build can *display* traces yet, and only newer builds store them at all. They are
-sent so the pipeline is right the day that changes.
+the charts draw. Simulations run Netdata's nightly image, which accepts and stores
+them. Worth knowing before you plan a demo around them: no Netdata build can
+*display* traces yet. They are sent so the pipeline is right the day that changes.
 
 **Location.** Fleets can be placed on the map, per site, so a multi-region estate
 looks like one.

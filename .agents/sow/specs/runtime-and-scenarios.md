@@ -186,12 +186,14 @@ node as one stream per service. `host.name` survives as a resource attribute and
 is queryable - a filter, not a log source. That is why journald still runs: the two
 transports answer different questions.
 
-**Traces depend on the agent build**, verified against both:
+**Traces depend on the agent build**, verified against both. A simulation's image
+is pinned to nightly (`docker/Dockerfile`: `ARG NETDATA_TAG=latest`) for exactly
+this reason:
 
-| build | traces |
-|---|---|
-| `netdata/netdata:stable` (v2.10.4) | no `traces:` section in `otel.yaml`; refused |
-| v2.10.0-nightly and later | accepted, stored under `otel/v2/traces` |
+| build | OTLP logs | traces |
+|---|---|---|
+| `netdata/netdata:latest` (nightly, **what simulations run**) | WAL/SFST under `otel/v2/logs` | accepted, stored under `otel/v2/traces` |
+| `netdata/netdata:stable` (v2.10.4) | journal files under `otel/v1` | no `traces:` section in `otel.yaml`; refused |
 
 No build can *display* them: trace ingestion is a proof scaffold
 (src/crates/otel-ingestor/src/trace_service.rs) and no traces function is

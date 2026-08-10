@@ -331,11 +331,15 @@ logs.
 ./scripts/sim-docker.sh telemetry <name> status   # both signals, honestly
 ```
 
-OpenTelemetry support differs by agent build, so check rather than assume. The
-stable image refuses traces (no `traces:` section in its `otel.yaml`) while newer
-builds store them, and **no** build can display them. OTLP logs are keyed by
-`(service.namespace, service.name)` and never by host, so they can never be a
-per-node log source - that is what journald is for.
+**Simulations run netdata's nightly image** (`netdata/netdata:latest`), not stable.
+This is load-bearing, not a preference: stable's OpenTelemetry receiver refuses
+traces outright (no `traces:` section in its `otel.yaml`) and stores OTLP logs in
+an older journal layout. Pinning to stable silently removed a signal the simulator
+emits. Check the build before concluding an OTEL bug; no build can *display* traces
+yet, whatever it accepts.
+
+OTLP logs are keyed by `(service.namespace, service.name)` and never by host, so
+they can never be a per-node log source - that is what journald is for.
 
 ### Project-specific overrides
 

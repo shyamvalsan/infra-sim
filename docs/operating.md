@@ -329,27 +329,30 @@ What lands where, and why it is not per node:
   per service. The simulated host survives as the `host.name` resource attribute,
   which is queryable in the `otel-logs` function — a filter, not a log source.
   Per-node log sources are what journald is for, which is why both run.
-- Traces depend on the agent build. Netdata's stable image has no `traces:`
-  section in its `otel.yaml` and rejects them; newer builds accept and store them.
-  **No build can display them yet.** The emitter reports which happened and stops
-  retrying a receiver that will never take them, rather than failing every second
-  for the life of the simulation.
+- Traces depend on the agent build, which is why the image is pinned to nightly.
+  `netdata/netdata:latest` (nightly) accepts and stores spans under
+  `otel/v2/traces`; `netdata/netdata:stable` has no `traces:` section in its
+  `otel.yaml` and rejects them outright, and stores OTLP logs in an older
+  journal-based layout. **No build can display traces yet.** The emitter reports
+  which happened and stops retrying a receiver that will never take them, rather
+  than failing every second for the life of the simulation.
 
-Reading OTLP logs without Cloud SSO, from inside a container:
+Reading OTLP logs without Cloud SSO — the `otel-logs` function returns 412
+without it. On the nightly image the store is a WAL/SFST layout with an offline
+inspector:
+
+```bash
+docker exec infra-sim-<name> sh -c '/usr/libexec/netdata/plugins.d/otel-plugin logs \
+  --wal-dir /var/log/netdata/otel/v2/logs/wal \
+  --sfst-dir /var/log/netdata/otel/v2/logs/index \
+  --name <sim>-storefront --namespace <sim>'
+```
+
+On a stable-based image it is journal files instead:
 
 ```bash
 docker exec infra-sim-<name> sh -c \
   'journalctl --file=/var/log/netdata/otel/v1/*/*.journal -o json --no-pager -n 5'
-```
-
-On a newer agent the store is a WAL/SFST layout instead, read with the plugin's
-own offline inspector:
-
-```bash
-sudo /usr/libexec/netdata/plugins.d/otel-plugin logs \
-  --wal-dir /var/log/netdata/otel/v2/logs/wal \
-  --sfst-dir /var/log/netdata/otel/v2/logs/index \
-  --name <sim>-storefront --namespace <sim>
 ```
 
 ## Prometheus exporters

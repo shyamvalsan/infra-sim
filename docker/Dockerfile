@@ -5,7 +5,12 @@
 #
 # The plugin is baked in rather than mounted so an image tag identifies exactly
 # what a demo ran. Rebuild after changing the plugin.
-ARG NETDATA_TAG=stable
+# `latest` is netdata's nightly channel, and nightly is what simulations run.
+# This is not a preference: the stable image's OpenTelemetry receiver has no
+# `traces:` section in its otel.yaml and refuses spans outright, and it stores
+# OTLP logs in an older journal-based layout. Nightly accepts traces and uses the
+# WAL/SFST store. Pinning to stable silently removed a signal the simulator emits.
+ARG NETDATA_TAG=latest
 FROM netdata/netdata:${NETDATA_TAG}
 
 # systemd-journal-remote is what lets a simulated node own its log source.

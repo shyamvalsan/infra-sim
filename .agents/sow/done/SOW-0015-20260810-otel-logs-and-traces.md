@@ -4,10 +4,9 @@
 
 Status: completed
 
-Sub-state: Delivered and validated on a live containerised agent. Logs and OTLP
-start with the simulation; OTLP application logs land with the simulated host
-attached; traces are confirmed accepted on a newer build and correctly refused on
-stable, reported rather than retried forever.
+Sub-state: Delivered and validated on a live containerised nightly agent. Reopened
+once on 2026-08-10 because the image was pinned to stable, which refuses traces;
+repaired and revalidated. See the regression section at the end of this file.
 
 ## Requirements
 
@@ -433,3 +432,79 @@ Append regression entries here only after this SOW was completed or closed and
 later testing or use found broken behavior. Use a dated
 `## Regression - YYYY-MM-DD` heading at the end of the file. Never prepend
 regression content above the original SOW narrative.
+
+## Regression - 2026-08-10
+
+### What broke
+
+The simulation image was pinned to `netdata/netdata:stable`. This SOW then
+concluded, validated and documented that "the deployment target refuses traces",
+and shipped an emitter that correctly gave up on them after 30 attempts.
+
+The user then said: "for simulation we always use latest nightly btw..". Nightly
+accepts traces. So the delivered default removed a signal the simulator emits, and
+every artifact in this SOW described that loss as a property of Netdata rather than
+a consequence of our own image pin.
+
+The `--otlp` code was right. The target was wrong.
+
+### Evidence
+
+- `docker/Dockerfile:8` was `ARG NETDATA_TAG=stable`; `scripts/sim-docker.sh:73`
+  defaulted `tag=stable`.
+- `netdata/netdata:latest` is `netdata v2.10.0-1044-nightly`, with
+  `base_dir: /var/log/netdata/otel/v2` and traces throughout its `otel.yaml`.
+  `netdata/netdata:nightly` does not exist; `latest` is the nightly channel.
+- `netdata/netdata:stable` is `v2.10.4`, with `logs.journal_dir:
+  /var/log/netdata/otel/v1` and no `traces:` section at all.
+
+### Why the previous validation missed it
+
+The gate probed the shipped image and the live agent, noticed they disagreed, and
+recorded the disagreement as a fact about Netdata builds - without asking which one
+a simulation is supposed to run. The host agent was nightly and the container was
+stable, and both observations were reported as correct rather than as a
+contradiction to resolve.
+
+The lesson generalises: probing two environments and finding them different is not
+a finding until you know which one is the target.
+
+### Repair
+
+- `docker/Dockerfile`: `ARG NETDATA_TAG=latest`, with the reason stated in the file
+  so it is not "tidied" back to stable.
+- `scripts/sim-docker.sh`: `cmd_build` defaults to `latest`; `--netdata-tag` still
+  overrides for anyone testing against stable.
+- Corrected `README.md`, `docs/operating.md`,
+  `.agents/sow/specs/runtime-and-scenarios.md`, `AGENTS.md`, the
+  `project-live-validation` skill, and two code comments that described stable as
+  though it were the target.
+- The give-up message now names the likely cause - an image built from stable -
+  instead of implying no agent accepts traces.
+
+### Validation
+
+Rebuilt on `netdata/netdata:latest` and created a fresh simulation with no second
+command:
+
+- `create` reported `logs : 5 journal file(s)` and `otel : traces accepted again`.
+- Inside the container after ~70s: `224K /var/log/netdata/otel/v2/logs` and
+  `168K /var/log/netdata/otel/v2/traces` - both signals landing.
+- OTLP records read back through the plugin's own inspector inside the container:
+  50 records across `sim-web-01`, `sim-web-02` and `sim-lb-01`, carrying
+  `resource.attributes.host.name`, `infra_sim_role: web` and `simulated: true`.
+- Bodies show the full range the generator is meant to produce, with span-derived
+  latencies from 23ms to 296ms: `POST /cart 200 in 148ms`,
+  `GET /search failed after 110ms: db.timeout`, `GET / 200 in 27ms`.
+- `cargo test` 213 passed, `cargo clippy --all-targets -- -D warnings` clean,
+  `cargo fmt --check` clean.
+- Simulation torn down; no containers or state directories left.
+
+### Artifact updates
+
+- Specs: the build table in `runtime-and-scenarios.md` now marks nightly as what
+  simulations run and adds the OTLP log layout per build.
+- `AGENTS.md`: nightly is load-bearing, with the reason.
+- Runtime project skill: how to check which image a container was built from.
+- End-user docs: `README.md` and `docs/operating.md` corrected.
+- No follow-up SOW needed; nothing was deferred by this repair.

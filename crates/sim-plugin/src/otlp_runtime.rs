@@ -24,11 +24,14 @@
 //! the `otel-logs` function - it is a filter, not a log source. Per-node log
 //! sources are the journald writer's job, and both run.
 //!
-//! Traces are accepted and stored, and **nothing can display them yet**: trace
-//! ingestion is a proof scaffold (src/crates/otel-ingestor/src/trace_service.rs)
-//! and no traces function is registered anywhere in the agent. They are sent so
-//! the pipeline is exercised and correct on the day a viewer ships. Do not build
-//! a demo beat on them.
+//! Traces are accepted and stored by the nightly image simulations run, and
+//! **nothing can display them yet**: trace ingestion is a proof scaffold
+//! (src/crates/otel-ingestor/src/trace_service.rs) and no traces function is
+//! registered anywhere in the agent. They are sent so the pipeline is exercised
+//! and correct on the day a viewer ships. Do not build a demo beat on them.
+//!
+//! `netdata/netdata:stable` refuses them outright, which is why the simulation
+//! image is pinned to nightly.
 
 use std::collections::BTreeMap;
 use std::time::{Duration, SystemTime, UNIX_EPOCH};
@@ -253,9 +256,9 @@ impl Signal {
                     self.given_up = true;
                     eprintln!(
                         "infra-sim otlp: giving up on {} after {GIVE_UP_AFTER} failures. This \
-                         agent build does not accept it - Netdata's stable image has no `traces:` \
-                         section in its otel.yaml, and only newer builds store traces. Logs are \
-                         unaffected.",
+                         agent build does not accept it. Simulations are meant to run netdata's \
+                         nightly image; `stable` refuses traces outright. Check with `netdata -v` \
+                         inside the container. The other signals are unaffected.",
                         self.name
                     );
                 }

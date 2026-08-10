@@ -70,7 +70,8 @@ require_image() {
 
 # --- build -----------------------------------------------------------------
 cmd_build() {
-  local tag=stable
+  # netdata's nightly channel. See docker/Dockerfile for why this is not stable.
+  local tag=latest
   while [ $# -gt 0 ]; do
     case "$1" in
       --netdata-tag) tag="$2"; shift 2 ;;
