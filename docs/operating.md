@@ -117,8 +117,8 @@ JSON-parse failure names the model that actually replied. Override with
   --describe "3 web servers behind an nginx load balancer, a postgres primary" \
   --nodes 50 --name customer-a --environment environments/customer-a.yaml
 
-# check it before trusting it
-./target/release/infra-sim --environment environments/customer-a.yaml --lint 72
+# check it before trusting it - 2h is what create runs, and catches the same defects
+./target/release/infra-sim --environment environments/customer-a.yaml --lint 2
 
 # install
 sudo cp target/release/infra-sim /etc/netdata/custom-plugins.d/infra-sim.plugin
@@ -413,8 +413,11 @@ cargo clippy --all-targets -- -D warnings
 cargo fmt --check
 
 # fidelity lint: simulates N hours and checks for clamped signals, impossible
-# units, broken conservation, stuck values and unresolvable scenario targets
-./target/release/infra-sim --environment environments/web-stack.yaml --lint 72
+# units, broken conservation, stuck values and unresolvable scenario targets.
+# Nodes are linted one per core. 2h is the create default; the semantic checks
+# always cover a fixed 2h window, so a larger N only adds warm-up before them,
+# which is worth it while developing a spec and not while installing a fleet.
+./target/release/infra-sim --environment environments/web-stack.yaml --lint 2
 ```
 
 Changes to a generator, scenario or the runtime are validated against a live

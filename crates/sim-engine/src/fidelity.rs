@@ -70,10 +70,22 @@ fn unit_ceiling(units: &str) -> Option<f64> {
 }
 
 /// Run the semantic checks over `ticks` generated samples per node.
+///
+/// Nodes are checked concurrently and their violations concatenated in node
+/// order, so the report is identical to a sequential run.
 pub fn check(engines: &mut [NodeEngine], ticks: i64, start: i64, interval: i64) -> Vec<Violation> {
+    crate::parallel::map_engines(engines, |engine| check_node(engine, ticks, start, interval))
+        .into_iter()
+        .flatten()
+        .collect()
+}
+
+/// The semantic checks for one node. Owns its own violation list so nodes share
+/// nothing while they run.
+fn check_node(engine: &mut NodeEngine, ticks: i64, start: i64, interval: i64) -> Vec<Violation> {
     let mut out = Vec::new();
 
-    for engine in engines.iter_mut() {
+    {
         let node = engine.profile().hostname.clone();
         let spec: GeneratorSpec = engine.spec().clone();
         let plan: Vec<(String, usize)> = engine
@@ -117,7 +129,11 @@ pub fn check(engines: &mut [NodeEngine], ticks: i64, start: i64, interval: i64) 
         //   * a declared constant - a signal whose min equals its max, or one
         //     sourced from an attribute, was authored as a fixed value: a
         //     configured max_connections, a link's negotiated duplex, a port's
-        //     rated speed.
+        //     rated speed;
+        //   * a value resting on a declared physical floor - `min_is_floor` is
+        //     the spec author stating that sitting there is a fact, which is why
+        //     the pinned-signal check already ignores it too. A 0.01-weight app
+        //     group really does run exactly one process, for as long as it runs.
         //
         // What is left is a dimension pinned at a non-zero value it was not
         // declared to hold, which is how every "/" mount came to report 100%
@@ -136,7 +152,7 @@ pub fn check(engines: &mut [NodeEngine], ticks: i64, start: i64, interval: i64) 
                 if value == 0 {
                     continue;
                 }
-                if idx.is_some_and(|i| dimension_is_constant(&spec, i, dim)) {
+                if idx.is_some_and(|i| dimension_is_constant(&spec, i, dim, value)) {
                     continue;
                 }
                 out.push(Violation {
@@ -159,8 +175,16 @@ fn chart_index_by_id(plan: &[(String, usize)], chart_id: &str) -> Option<usize> 
     plan.iter().find(|(id, _)| id == chart_id).map(|(_, i)| *i)
 }
 
-/// Whether a dimension's driving signal was authored as a fixed value.
-fn dimension_is_constant(spec: &GeneratorSpec, context_index: usize, dim: &str) -> bool {
+/// Whether a dimension's driving signal was authored as a fixed value, or is
+/// resting on a value the spec declared it may legitimately rest on.
+///
+/// `flat_value` is the emitted integer the dimension held for the whole run.
+fn dimension_is_constant(
+    spec: &GeneratorSpec,
+    context_index: usize,
+    dim: &str,
+    flat_value: i64,
+) -> bool {
     let Some(ctx) = spec.contexts.get(context_index) else {
         return false;
     };
@@ -183,7 +207,15 @@ fn dimension_is_constant(spec: &GeneratorSpec, context_index: usize, dim: &str) 
         // from the node or instance attribute verbatim, with no seasonality,
         // noise or bounds. A port's rated speed does not vary and must not be
         // reported as a stuck signal.
-        .is_some_and(|s| s.min == s.max || s.from_attr.is_some())
+        //
+        // A declared physical floor counts only while the dimension is actually
+        // sitting *on* it. Anywhere else, `min_is_floor` grants no exemption -
+        // otherwise one annotation would silence every stuck value on the signal.
+        .is_some_and(|s| {
+            s.min == s.max
+                || s.from_attr.is_some()
+                || (s.min_is_floor && flat_value == s.min.round() as i64)
+        })
 }
 
 /// Index of the context behind a chart id.

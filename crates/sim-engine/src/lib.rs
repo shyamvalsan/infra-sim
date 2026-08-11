@@ -28,6 +28,7 @@ pub mod fidelity;
 pub mod llm;
 pub mod logs;
 pub mod otel;
+pub mod parallel;
 pub mod reskin;
 pub mod rng;
 pub mod scenario_runtime;
@@ -389,7 +390,17 @@ impl NodeEngine {
             // clamped away by a bound written for the healthy baseline.
             signal.max * weight * scenario.max(1.0) + perturb.additive.max(0.0)
         };
-        let min = signal.min * weight;
+        // A declared physical floor does not scale with weight. `min_is_floor`
+        // means "resting here is a fact about the instance" - one process, one
+        // thread - and a fact is not diluted by how little flows through the
+        // instance, for the same reason `ignore_weight` exists. Scaling it gave a
+        // 0.01-weight app group a floor of 0.01 process, which rounded to zero:
+        // the Processes tab showed a daemon holding memory with no processes.
+        let min = if signal.min_is_floor {
+            signal.min
+        } else {
+            signal.min * weight
+        };
 
         // Clamping is recorded only where the bound is a safety rail. Sitting
         // at a physical floor (zero errors on a quiet link) is realistic; being

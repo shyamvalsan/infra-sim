@@ -145,7 +145,7 @@ log. Only one environment carrying a given set of GUIDs may be claimed at a time
   --describe "3 web servers behind an nginx load balancer, a postgres primary and 2 redis caches" \
   --name acme --environment environments/acme.yaml
 
-./target/release/infra-sim --environment environments/acme.yaml --lint 72
+./target/release/infra-sim --environment environments/acme.yaml --lint 2
 sudo ./scripts/sim-docker.sh create acme environments/acme.yaml
 ```
 

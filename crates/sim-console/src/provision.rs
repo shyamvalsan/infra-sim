@@ -1175,12 +1175,48 @@ fn lint(binary: &Path, env_path: &Path, hours: u32) -> Result<String, String> {
     if !out.status.success() {
         // Refusing here is the whole point: an environment that fails the lint
         // has an artifact an SRE would notice on a chart.
+        let stderr = String::from_utf8_lossy(&out.stderr).to_string();
         return Err(format!(
             "fidelity lint failed, so nothing was installed:\n{}",
-            tail(&stdout, 24)
+            failure_report(&stdout, &stderr)
         ));
     }
     Ok(tail(&stdout, 12))
+}
+
+/// The part of a lint report an operator needs when the lint fails.
+///
+/// This used to be the last 24 lines of stdout, which at fleet scale is nothing
+/// but `PASS`. The lint prints its violations *first* and one `PASS` line per
+/// node afterwards, so a 25-node fleet pushed the reason off the top and a create
+/// that refused to install could not say why. The summary line compounded it: the
+/// plugin writes that to stderr, which was never captured at all.
+///
+/// So: drop the `PASS` wallpaper, keep everything else, and put the summary back.
+fn failure_report(stdout: &str, stderr: &str) -> String {
+    // Bounded anyway. A fleet where every node fails should not paste hundreds of
+    // lines into a console, and the first failures are the informative ones.
+    const MAX: usize = 40;
+
+    let mut lines: Vec<String> = stdout
+        .lines()
+        .map(str::trim_end)
+        .filter(|l| !l.trim().is_empty() && !l.trim_start().starts_with("PASS "))
+        .map(str::to_string)
+        .collect();
+    if lines.len() > MAX {
+        let dropped = lines.len() - MAX;
+        lines.truncate(MAX);
+        lines.push(format!("... and {dropped} more line(s)"));
+    }
+    if let Some(summary) = stderr
+        .lines()
+        .rev()
+        .find(|l| l.contains("fidelity problem"))
+    {
+        lines.push(summary.trim().to_string());
+    }
+    lines.join("\n")
 }
 
 fn tail(s: &str, n: usize) -> String {
@@ -1790,6 +1826,38 @@ mod tests {
         assert_eq!(sanitise("Acme Corp"), "acme-corp");
         assert_eq!(sanitise("  ACME//Retail "), "acme-retail");
         assert_eq!(sanitise("!!!"), "");
+    }
+
+    #[test]
+    fn a_lint_failure_survives_a_wall_of_passing_nodes() {
+        // Reproduces the shape that hid a real failure: violations first, then one
+        // PASS per node, with the summary on stderr.
+        let mut stdout = String::from(
+            "infra-sim lint: 2h simulated, 7200 samples per node\n\n  \
+             semantic checks: 1 violation(s)\n    perfectly flat (1 distinct):\n      \
+             node-03 app_mem.cron: dimension 'rss' held 2\n\n",
+        );
+        for i in 0..40 {
+            stdout.push_str(&format!("  PASS  node-{i:02}\n"));
+        }
+        let stderr = "infra-sim: env loaded\ninfra-sim: 1 fidelity problem(s): signals clamped\n";
+
+        let report = failure_report(&stdout, stderr);
+        assert!(report.contains("perfectly flat"), "{report}");
+        assert!(report.contains("app_mem.cron"), "{report}");
+        assert!(report.contains("1 fidelity problem(s)"), "{report}");
+        assert!(!report.contains("PASS"), "{report}");
+    }
+
+    #[test]
+    fn a_failure_report_stays_bounded() {
+        let mut stdout = String::new();
+        for i in 0..200 {
+            stdout.push_str(&format!("      node-{i:03} chart.x: broken\n"));
+        }
+        let report = failure_report(&stdout, "");
+        assert!(report.lines().count() <= 41, "{}", report.lines().count());
+        assert!(report.contains("more line(s)"), "{report}");
     }
 
     #[tokio::test]

@@ -230,13 +230,13 @@ pub fn evaluate(input: &Inputs<'_>) -> Board {
             "Fidelity lint clean",
             Status::Fail,
             "signals are clamped against their bounds".into(),
-            "Run: infra-sim --environment <env> --lint 72",
+            "Run: infra-sim --environment <env> --lint 2",
         ),
         None => Check::new(
             "Fidelity lint clean",
             Status::Manual,
             "not run in this session".into(),
-            "Run: infra-sim --environment <env> --lint 72",
+            "Run: infra-sim --environment <env> --lint 2",
         ),
     });
 

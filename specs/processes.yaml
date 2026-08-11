@@ -24,22 +24,28 @@ signals:
   # --- CPU -------------------------------------------------------------------
   # Weighted per instance by the environment, so a database's postgres group
   # dominates its node while its backup agent barely registers.
+  #
+  # Held in hundredths of a percent, with `divisor: 100` on every dimension that
+  # reads them. Emitted values are integers, so a percentage carried at whole-unit
+  # resolution collapses on a lightly-weighted instance: 3.1% at weight 0.01 is
+  # 0.031, which rounds to a flat zero and renders as a daemon using no CPU at
+  # all. The divisor is where display units belong.
   proc_cpu_user:
-    base: 3.1
+    base: 310.0
     min: 0.0
-    max: 100.0
+    max: 10000.0
     seasonality: { daily_amplitude: 0.6, peak_hour: 14.0, weekend_factor: 0.45 }
     noise: { kind: gauss, sigma: 0.3 }
   proc_cpu_system:
-    base: 1.2
+    base: 120.0
     min: 0.0
-    max: 100.0
+    max: 10000.0
     seasonality: { daily_amplitude: 0.55, peak_hour: 14.0, weekend_factor: 0.45 }
     noise: { kind: gauss, sigma: 0.35 }
   proc_cpu_guest:
     base: 0.0
     min: 0.0
-    max: 100.0
+    max: 10000.0
   proc_ctx_voluntary:
     base: 420.0
     min: 0.0
@@ -53,30 +59,35 @@ signals:
     noise: { kind: gauss, sigma: 0.4 }
 
   # --- memory ----------------------------------------------------------------
-  proc_mem_rss_mib:
-    base: 210.0
+  # Held in KiB, with `divisor: 1024` on every dimension that reads them, so the
+  # charts still say MiB. Carried in MiB, a 0.01-weight app group's RSS was 2.1,
+  # emitted as a constant 2 with a 2% walk that could never cross a rounding
+  # boundary - the stuck signal that failed a 25-node create. KiB gives the same
+  # walk 1024x the room.
+  proc_mem_rss_kib:
+    base: 215040.0
     min: 0.0
-    max: 4000000.0
+    max: 4096000000.0
     noise: { kind: walk, sigma: 0.02, reversion: 0.04 }
-  proc_mem_private_mib:
-    base: 168.0
+  proc_mem_private_kib:
+    base: 172032.0
     min: 0.0
-    max: 4000000.0
+    max: 4096000000.0
     noise: { kind: walk, sigma: 0.02, reversion: 0.04 }
-  proc_mem_estimated_mib:
-    base: 195.0
+  proc_mem_estimated_kib:
+    base: 199680.0
     min: 0.0
-    max: 4000000.0
+    max: 4096000000.0
     noise: { kind: walk, sigma: 0.02, reversion: 0.04 }
-  proc_vmem_mib:
-    base: 980.0
+  proc_vmem_kib:
+    base: 1003520.0
     min: 0.0
-    max: 16000000.0
+    max: 16384000000.0
     noise: { kind: walk, sigma: 0.015, reversion: 0.03 }
-  proc_swap_mib:
+  proc_swap_kib:
     base: 0.0
     min: 0.0
-    max: 1000000.0
+    max: 1024000000.0
   proc_pgfault_minor:
     base: 240.0
     min: 0.0
@@ -115,14 +126,23 @@ signals:
     noise: { kind: gauss, sigma: 0.4 }
 
   # --- counts ----------------------------------------------------------------
+  # Counts cannot take a divisor - 0.48 of a process is not a display unit - so
+  # they carry a physical floor instead. `min_is_floor` is weight-independent: an
+  # app group that exists runs at least one process in at least one thread,
+  # however little of the node's load flows through it. Without the floor, a
+  # 0.01-weight group emitted zero processes while reporting memory and file
+  # descriptors, which is the kind of self-contradiction an SRE spots on the
+  # Processes tab immediately.
   proc_processes:
     base: 48.0
-    min: 0.0
+    min: 1.0
+    min_is_floor: true
     max: 100000.0
     noise: { kind: walk, sigma: 0.12, reversion: 0.2 }
   proc_threads:
     base: 260.0
-    min: 0.0
+    min: 1.0
+    min_is_floor: true
     max: 500000.0
     noise: { kind: walk, sigma: 0.12, reversion: 0.15 }
   proc_fds_files:
@@ -150,10 +170,12 @@ signals:
     min: 0.0
     max: 100000.0
     noise: { kind: walk, sigma: 0.14, reversion: 0.22 }
+  # Hundredths of a percent, as with the CPU signals, and read with
+  # `divisor: 100`. The ceiling is still 100% of the limit.
   proc_fds_limit_pct:
-    base: 3.4
+    base: 340.0
     min: 0.0
-    max: 100.0
+    max: 10000.0
     max_is_ceiling: true
     noise: { kind: walk, sigma: 0.05, reversion: 0.15 }
 
@@ -178,8 +200,8 @@ contexts:
     instances: { group: app, chart_prefix: app_cpu, family: "{instance}", labels: { app_group: "{instance}" } }
     shape: independent
     dimensions:
-      - { id: user,   signal: proc_cpu_user }
-      - { id: system, signal: proc_cpu_system }
+      - { id: user,   signal: proc_cpu_user,   divisor: 100 }
+      - { id: system, signal: proc_cpu_system, divisor: 100 }
 
   - id: app.cpu_context_switches
     title: Apps CPU context switches
@@ -202,7 +224,7 @@ contexts:
     instances: { group: app, chart_prefix: app_mem, family: "{instance}", labels: { app_group: "{instance}" } }
     shape: independent
     dimensions:
-      - { id: rss, signal: proc_mem_rss_mib }
+      - { id: rss, signal: proc_mem_rss_kib, divisor: 1024 }
 
   - id: app.mem_private_usage
     title: Apps private memory
@@ -213,7 +235,7 @@ contexts:
     instances: { group: app, chart_prefix: app_mem_private, family: "{instance}", labels: { app_group: "{instance}" } }
     shape: independent
     dimensions:
-      - { id: mem, signal: proc_mem_private_mib }
+      - { id: mem, signal: proc_mem_private_kib, divisor: 1024 }
 
   - id: app.vmem_usage
     title: Apps virtual memory
@@ -224,7 +246,7 @@ contexts:
     instances: { group: app, chart_prefix: app_vmem, family: "{instance}", labels: { app_group: "{instance}" } }
     shape: independent
     dimensions:
-      - { id: vmem, signal: proc_vmem_mib }
+      - { id: vmem, signal: proc_vmem_kib, divisor: 1024 }
 
   - id: app.mem_page_faults
     title: Apps page faults
@@ -307,7 +329,7 @@ contexts:
     instances: { group: app, chart_prefix: app_fds_limit, family: "{instance}", labels: { app_group: "{instance}" } }
     shape: independent
     dimensions:
-      - { id: limit, signal: proc_fds_limit_pct }
+      - { id: limit, signal: proc_fds_limit_pct, divisor: 100 }
 
   - id: app.uptime
     title: Apps uptime
@@ -330,8 +352,8 @@ contexts:
     instances: { group: user, chart_prefix: user_cpu, family: "{instance}", labels: { user: "{instance}" } }
     shape: independent
     dimensions:
-      - { id: user,   signal: proc_cpu_user }
-      - { id: system, signal: proc_cpu_system }
+      - { id: user,   signal: proc_cpu_user,   divisor: 100 }
+      - { id: system, signal: proc_cpu_system, divisor: 100 }
 
   - id: user.mem_usage
     title: Users memory RSS
@@ -342,7 +364,7 @@ contexts:
     instances: { group: user, chart_prefix: user_mem, family: "{instance}", labels: { user: "{instance}" } }
     shape: independent
     dimensions:
-      - { id: rss, signal: proc_mem_rss_mib }
+      - { id: rss, signal: proc_mem_rss_kib, divisor: 1024 }
 
   - id: user.disk_logical_io
     title: Users logical disk I/O
@@ -402,8 +424,8 @@ contexts:
     instances: { group: usergroup, chart_prefix: usergroup_cpu, family: "{instance}", labels: { user_group: "{instance}" } }
     shape: independent
     dimensions:
-      - { id: user,   signal: proc_cpu_user }
-      - { id: system, signal: proc_cpu_system }
+      - { id: user,   signal: proc_cpu_user,   divisor: 100 }
+      - { id: system, signal: proc_cpu_system, divisor: 100 }
 
   - id: usergroup.mem_usage
     title: User groups memory RSS
@@ -414,7 +436,7 @@ contexts:
     instances: { group: usergroup, chart_prefix: usergroup_mem, family: "{instance}", labels: { user_group: "{instance}" } }
     shape: independent
     dimensions:
-      - { id: rss, signal: proc_mem_rss_mib }
+      - { id: rss, signal: proc_mem_rss_kib, divisor: 1024 }
 
   - id: usergroup.processes
     title: User groups processes

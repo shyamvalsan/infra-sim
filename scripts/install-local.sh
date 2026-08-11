@@ -53,9 +53,13 @@ echo -e >&2 "${GREEN}==>${NC} Building release binary"
 run cargo build --release --manifest-path "${REPO_ROOT}/Cargo.toml"
 
 # Fail before touching the agent if the specs would emit clamped, flattened
-# metrics. 72h matches the ML warm-up window the demo runbook requires.
-echo -e >&2 "${GREEN}==>${NC} Running fidelity lint (72 simulated hours)"
-run "${BINARY}" --environment "${ENVIRONMENT}" --lint 72
+# metrics. Two hours is what the console's create path runs, and it catches the
+# same defects: the semantic checks always cover a fixed two-hour window whatever
+# this number says, so a longer run only adds warm-up before them. Longer runs are
+# for developing a generator spec, not for installing a fleet.
+LINT_HOURS="${LINT_HOURS:-2}"
+echo -e >&2 "${GREEN}==>${NC} Running fidelity lint (${LINT_HOURS} simulated hours)"
+run "${BINARY}" --environment "${ENVIRONMENT}" --lint "${LINT_HOURS}"
 
 echo -e >&2 "${GREEN}==>${NC} Installing to ${INSTALL_DIR}"
 run sudo mkdir -p "${INSTALL_DIR}/specs" "${PLUGIN_DIR}"

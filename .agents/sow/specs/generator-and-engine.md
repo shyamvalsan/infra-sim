@@ -113,9 +113,39 @@ Two layers, both offline (`--lint HOURS`):
 The second layer exists because the first is structurally blind to a bound that
 is itself wrong: the 101.5% utilisation passed the pinned check cleanly.
 
+**Cost and shape.** `HOURS` sizes the warm-up only; the semantic checks always
+cover a fixed 2h window afterwards, so total work is
+`nodes x (HOURS x 3600 + 7200)` ticks and there is a per-node floor no smaller
+`HOURS` can remove. `create` runs 2h. Nodes are linted one per core
+(`sim-engine/src/parallel.rs`) — a static chunk split, results reassembled in node
+order so output is diffable against a sequential run. 25 nodes went from 115s on
+one core to 29s.
+
 **The lint does not run scenarios.** A generated environment can pass the lint
 and still saturate under a hero scenario — this is how `--describe` shipped
 mounts sized so `disk-fill` clamped them at 100%.
+
+**Emitted values are integers, so resolution is a fidelity concern.** A signal's
+base is multiplied by its instance weight before rounding
+(`sim-engine/src/lib.rs`), and the persona tables generate weights as low as 0.01.
+A quantity carried at whole-unit resolution therefore collapses on a
+lightly-weighted instance: 210 MiB at weight 0.01 emitted a constant `2`, and
+3.1% emitted `0`. The fix is a finer unit of account plus a per-dimension
+`divisor`, which keeps display units unchanged — memory in KiB with
+`divisor: 1024`, percentages in hundredths with `divisor: 100`.
+
+Counts cannot take a divisor, so they carry `min_is_floor` instead. A declared
+physical floor is **weight-independent** — one process is one process however
+little load flows through the group — and a dimension resting exactly on such a
+floor is treated as a declared constant by both layers, the same exemption
+`min == max` already had.
+
+### What the lint cannot see
+
+`PerfectlyFlat` skips flat **zeros**, because a healthy host genuinely reports
+zero OOM kills. That makes the worst quantization failures invisible to it: an
+app group emitting `0` processes and `0%` CPU while reporting memory passed every
+check. Only a live agent — or reading the emitted protocol — surfaces that class.
 
 ## Known gaps
 

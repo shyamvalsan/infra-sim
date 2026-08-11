@@ -30,8 +30,10 @@ source as `netdata/netdata @ <commit>` with repository-relative paths.
 ```bash
 cargo test && cargo clippy --all-targets -- -D warnings && cargo fmt --check
 
-# offline fidelity, no agent needed
-./target/release/infra-sim --environment environments/<env>.yaml --lint 72
+# offline fidelity, no agent needed. 2h is what create runs; the semantic checks
+# always cover a fixed 2h window, so a bigger number only adds warm-up before
+# them. Nodes are linted one per core (`sim-engine/src/parallel.rs`).
+./target/release/infra-sim --environment environments/<env>.yaml --lint 2
 
 # install; the agent rescans every 60s, no restart
 ./scripts/install-local.sh
@@ -53,6 +55,16 @@ Cap local runs at **5 vnodes**. Larger fleets run on a separate machine.
   physically meaningful.** A disk utilisation of 101.5% passed it. The semantic
   checks in `sim-engine/src/fidelity.rs` exist for that class; extend them
   rather than relying on someone noticing.
+- **It cannot see a flat zero,** by design — a healthy host really does report
+  zero OOM kills. So the worst rounding failures are invisible to it: an app
+  group at `weight: 0.01` emitted `0` processes and `0%` CPU while reporting
+  memory, and every check passed. Read the emitted protocol when you change
+  anything that scales a value:
+  `timeout 8 ./target/release/infra-sim --environment <env> 1 | grep -A 3 '^BEGIN <chart>$'`.
+- **Whether a defect trips it is a seed lottery.** The stuck `app_mem.cron` RSS
+  that failed a 25-node create was present on all 25 nodes; 24 of them happened
+  to cross a rounding boundary inside the window. Never conclude from one clean
+  environment that a class of defect is absent - lint several, or read the values.
 - **An alert can catch what the lint cannot.** That 101.5% surfaced through the
   health engine, not a chart.
 

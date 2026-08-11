@@ -1027,7 +1027,7 @@ fn do_describe(
     }
     println!("\nwritten to {}", output.display());
     println!(
-        "Review it, then: infra-sim --environment {} --lint 72",
+        "Review it, then: infra-sim --environment {} --lint 2",
         output.display()
     );
     Ok(())
@@ -1240,11 +1240,15 @@ fn lint(engines: &mut [NodeEngine], hours: i64, update_every: i64) -> Result<(),
     let ticks = (hours * 3600) / update_every.max(1);
     let interval = update_every as f64;
 
-    for engine in engines.iter_mut() {
+    // Warm-up runs one node per core. Sequentially this was the whole cost of
+    // `create` at fleet scale: 25 nodes took 115s of a single core, against an
+    // operator expectation of a simulation that comes up in a minute or two.
+    // Nodes share no mutable state, so this changes timing and nothing else.
+    sim_engine::parallel::map_engines(&mut *engines, |engine| {
         for i in 0..ticks {
             engine.tick(&ScenarioSet::default(), start + i * update_every, interval);
         }
-    }
+    });
 
     // Semantic checks over the emitted samples. These catch what the
     // pinned-signal check structurally cannot: a bound that is itself wrong,
