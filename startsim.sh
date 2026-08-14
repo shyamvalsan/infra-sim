@@ -56,7 +56,7 @@ BUILDER_IMAGE="infra-sim-builder:local"
 # How to invoke docker. Replaced by preflight when only the invoking user's
 # rootless daemon answers.
 DOCKER="docker"
-BIND="127.0.0.1:8080"
+BIND="127.0.0.1:19995"
 REPO=""
 REBUILD=no
 BUILD=yes
@@ -69,7 +69,7 @@ usage: startsim.sh [options]
   --repo PATH      use this checkout instead of the working directory
   --environment P  environment.yaml the console should drive (default: the host
                    install; pass a simulation's own to get its scenarios)
-  --bind HOST:PORT console listen address (default 127.0.0.1:8080)
+  --bind HOST:PORT console listen address (default 127.0.0.1:19995)
   --rebuild        rebuild the binaries even if they are already present
   --no-build       skip the build; fail if binaries are missing
   --help           this text

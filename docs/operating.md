@@ -57,7 +57,7 @@ so it does not appear in the Space as a stray machine reporting container CPU.
 
 ```bash
 sudo ./startsim.sh
-# http://127.0.0.1:8080
+# http://127.0.0.1:19995
 ```
 
 `startsim` is the supported entry point: it checks Docker, its daemon, python3 and

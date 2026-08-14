@@ -34,7 +34,11 @@ use agent::Agent;
 const UI: &str = include_str!("ui.html");
 
 const DEFAULT_ENVIRONMENT: &str = "/etc/netdata/infra-sim/environment.yaml";
-const DEFAULT_BIND: &str = "127.0.0.1:8080";
+// Deliberately in netdata's port neighbourhood rather than the crowded 8080:
+// an operator's machine usually has something on 8080 already, and a
+// simulation's own agent is reachable just below this (sim-docker.sh
+// allocates 19900-19990), so the console sits next to what it manages.
+const DEFAULT_BIND: &str = "127.0.0.1:19995";
 const DEFAULT_AGENT: &str = "127.0.0.1:19999";
 
 struct AppState {

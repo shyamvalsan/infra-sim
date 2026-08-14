@@ -19,7 +19,7 @@ or, on a machine with nothing checked out:
 curl -fsSL https://raw.githubusercontent.com/shyamvalsan/infra-sim/main/startsim.sh | sudo bash
 ```
 
-Open <http://127.0.0.1:8080>. The first run takes a couple of minutes to compile;
+Open <http://127.0.0.1:19995>. The first run takes a couple of minutes to compile;
 after that it starts in seconds. Missing dependencies stop it with the fix, and it
 installs nothing.
 

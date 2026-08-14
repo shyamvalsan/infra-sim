@@ -121,13 +121,13 @@ It checks what it needs — Docker, its daemon, python3, root — and **installs
 nothing**: anything missing stops the script with the command to fix it. The first
 run compiles the dependency tree and takes a couple of minutes; later runs reuse
 the binaries unless you pass `--rebuild`. `--bind HOST:PORT` moves the console off
-`127.0.0.1:8080`.
+`127.0.0.1:19995`.
 
 Developing on it instead? `cargo build --release` still works and `startsim` will
 use what it finds. Note that `Cargo.toml` declares `rust-version = "1.85"` but the
 lockfile needs **1.88** or newer.
 
-Open <http://127.0.0.1:8080>. Then:
+Open <http://127.0.0.1:19995>. Then:
 
 1. **Describe the fleet** in plain English, or skip it and build it from the
    picker — counts, roles, and which software runs on each tier.
