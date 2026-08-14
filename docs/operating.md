@@ -255,6 +255,26 @@ agents beside it barely register. Metric names, units and dimensions follow
 `apps.plugin`'s own metadata: `app.*` by `app_group`, `user.*` by `user`,
 `usergroup.*` by `user_group`.
 
+The roster is chosen by **role**, not by the software a node actually runs. A
+MongoDB or Oracle node therefore reports the database role's postgres roster.
+Worth knowing before you open the per-application charts on a node whose engine
+is not Postgres.
+
+Those rosters reach down to weight 0.01, and emitted values are integers, so
+these signals carry a finer unit of account than they display: memory in KiB with
+`divisor: 1024`, percentages in hundredths with `divisor: 100`. Without that, a
+0.01-weight group's memory rounded to a constant and its CPU rounded to zero.
+Counts cannot take a divisor, so `proc_processes` and `proc_threads` carry
+`min_is_floor` instead - a floor is weight-independent, because a group that
+exists runs at least one process however little load flows through it.
+
+**Upgrading a fleet across that change.** A simulation created before
+2026-08-11 stored process-memory points in whole MiB. The divisor changes the
+emitted integer, and Netdata does not rewrite stored tier data when a
+`DIMENSION` divisor changes, so historical points on those charts can render
+1024x smaller than the live ones. Recreate such a fleet rather than upgrading it
+in place; a fleet created after that date is unaffected.
+
 ## Scenarios
 
 A scenario is a timeline of effects over generator signals plus a ground-truth
