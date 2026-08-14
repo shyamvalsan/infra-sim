@@ -4,17 +4,32 @@ Zero to a running simulated fleet with a live incident. `README.md` is what
 Infra-Sim is and why; `docs/operating.md` is the full reference; this is the
 shortest path that works.
 
-Needs Rust (stable) and Docker. A Netdata agent on this machine is optional —
-each simulation runs its own.
+Needs Docker and root. A Netdata agent on this machine is optional — each
+simulation runs its own. No Rust toolchain: `startsim` builds in a container.
 
-## 1. Build
+## 1. Start
 
 ```bash
-cargo build --release
-sudo ./target/release/infra-sim-console --repo "$PWD"
+sudo ./startsim.sh
 ```
 
-Open <http://127.0.0.1:8080>.
+or, on a machine with nothing checked out:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/shyamvalsan/infra-sim/main/startsim.sh | sudo bash
+```
+
+Open <http://127.0.0.1:8080>. The first run takes a couple of minutes to compile;
+after that it starts in seconds. Missing dependencies stop it with the fix, and it
+installs nothing.
+
+`startsim` stops there: creating a fleet, claiming it and tearing it down are
+yours to do in the console. If simulations already exist it lists them and prints
+the flag to drive one, because the Run tab's scenarios come from `--environment`:
+
+```bash
+sudo ./startsim.sh --environment /var/lib/infra-sim/<name>/environment.yaml
+```
 
 To have a model read a free-form description, put a key in a gitignored `.env`
 beside the repo — `sudo` strips the environment, so this is the reliable place:

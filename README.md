@@ -98,16 +98,34 @@ correlation genuinely discoverable rather than decorative.
 
 ## Getting started
 
-You need **Rust** (stable) and **Docker**. Root is needed for the console, which
-writes under `/etc/netdata`. A Netdata agent on this machine is optional — each
-simulation runs its own inside its container.
+You need **Docker**, and root — the console writes under `/etc/netdata` and drives
+Docker. A Netdata agent on this machine is optional: each simulation runs its own
+inside its container. No Rust toolchain is needed; `startsim` builds the binaries
+in a container, because Docker is required anyway.
+
+On a machine with nothing but Docker:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/shyamvalsan/infra-sim/main/startsim.sh | sudo bash
+```
+
+Or from a clone:
 
 ```bash
 git clone https://github.com/shyamvalsan/infra-sim
 cd infra-sim
-cargo build --release
-sudo ./target/release/infra-sim-console --repo "$PWD"
+sudo ./startsim.sh
 ```
+
+It checks what it needs — Docker, its daemon, python3, root — and **installs
+nothing**: anything missing stops the script with the command to fix it. The first
+run compiles the dependency tree and takes a couple of minutes; later runs reuse
+the binaries unless you pass `--rebuild`. `--bind HOST:PORT` moves the console off
+`127.0.0.1:8080`.
+
+Developing on it instead? `cargo build --release` still works and `startsim` will
+use what it finds. Note that `Cargo.toml` declares `rust-version = "1.85"` but the
+lockfile needs **1.88** or newer.
 
 Open <http://127.0.0.1:8080>. Then:
 

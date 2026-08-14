@@ -2,11 +2,10 @@
 
 ## Status
 
-Status: in-progress
+Status: completed
 
-Sub-state: All four chunks implemented; offline validation complete and green.
-Blocked on the user choosing a live-agent validation path, which the project
-validation gate requires before close.
+Sub-state: All four chunks delivered and validated, including live-agent evidence
+from a running 15-host containerised simulation with 69h of history.
 
 ## Requirements
 
@@ -522,12 +521,44 @@ Tests or equivalent validation:
 
 Real-use evidence:
 
-- Pending live agent - see Open Items. Offline real-use evidence is the emitted
-  protocol read above, which is what the agent parses.
+**Live agent, 2026-08-13.** Better evidence than the planned fresh 5-node install:
+an operator-created containerised simulation (`infra-sim-default`, netdata
+`v2.10.0-1044-nightly`, 15 hosts) had been running for ~36h at the time of
+checking, with **69.2h of stored history** on `default-db-01`. It was created after
+this SOW's spec change landed in the working tree - `/var/lib/infra-sim/default/`
+is dated 2026-08-11 22:28 local, matching the container's `Created`
+2026-08-11T19:28:34Z - so it has been generating and storing data through the fixed
+spec the whole time.
+
+Queried through the agent's own API, not from the generator:
+
+- `app_cpu.cron` -> user `0.0342857`, `0.0339679`, `0.0371429` %; system
+  `0.0128571`, `0.0127222`, `0.0128571` %. Moving, sub-1% resolution, rendered in
+  percent. Previously a flat `0`.
+- `app_mem.cron` -> `2.1216796`, `2.2176758`, `2.1969728`, `2.0271484`,
+  `2.1608398`, `2.1161621` MiB. Moving, sub-MiB resolution, chart units still MiB.
+  Previously a constant `2`.
+- `app_processes.cron` -> `1` across every sample: the declared physical floor,
+  served through the agent. Previously a flat `0`.
+- `app_mem.postgres` -> `221.84`, `219.78`, `217.90` MiB and `app_cpu.postgres` ->
+  `3.24`, `3.20`, `3.65` % user. Full-weight instances unchanged in display terms
+  against bases of 210 MiB and 3.1%.
+- Health engine on the same node: 52 alarm instances, 6 WARNING, 32 CLEAR. The 14
+  UNDEFINED are `disk_fill_rate`/`disk_inode_rate` predictions, which are undefined
+  on a disk that is not filling and behave the same on real hosts.
+
+**History discontinuity: does not apply, and could not be tested here.** The risk
+recorded in the gate was that a fleet created *before* the divisor change would
+render stored process-memory points 1024x smaller. No such fleet exists on this
+machine - the only running simulation postdates the change - so the concern is
+closed as not-applicable rather than as verified. It remains real for any fleet
+elsewhere that predates the change; recorded under Followup.
 
 Reviewer findings:
 
-- Pending.
+- No external reviewer was run; the user did not request one. Adversarial checking
+  came from the probe-first rule instead: every claim above is an agent API
+  response, not a generator assertion.
 
 Same-failure scan:
 
@@ -588,32 +619,71 @@ End-user/operator skills update:
 
 Lessons:
 
-- Pending final write-up.
+- **A flag can exist, be documented, and still not work.** `min_is_floor` was in
+  the schema with a doc comment naming this exact case ("processes running, where 1
+  is a fact about the system"), and it was silently defeated by `signal.min *
+  weight` in another file. Finding the flag is not evidence the behaviour exists;
+  the emitted value is.
+- **Integer emission makes resolution a fidelity property, not an implementation
+  detail.** Any signal whose base times its smallest instance weight lands in
+  single digits will quantize. The spec had already been patched once for this
+  class - calibrated to weight 0.02, while the persona table emits 0.01. Fixing the
+  instance is not fixing the class.
+- **The lint's blind spots are where the worst artifacts live.** `PerfectlyFlat`
+  skips flat zeros by design, so the version of this bug that emitted `0` processes
+  and `0%` CPU passed every check, while the milder version that emitted `2`
+  failed. The louder symptom was the smaller defect.
+- **Parallelism paid less than the core count suggests.** 16 cores bought 3.9x, not
+  ~10x, because per-tick allocation churn dominates. Worth knowing before anyone
+  promises linear scaling at larger fleet sizes.
+- **Truncation is a correctness bug in diagnostics.** `tail(&stdout, 24)` was
+  reasonable when fleets were small and became actively misleading at 25 nodes: it
+  reported a refusal with the reason removed.
 
 Follow-up mapping:
 
-- Pending.
-
-## Open Items
-
-1. **Live-agent validation** - required by the project validation gate for any
-   generator/engine/runtime change. Needs a user decision on path, because both
-   options write state to the operator's machine. Current machine state checked:
-   local agent is `v2.10.0-1053-nightly` with one host (`laptop`),
-   `/etc/netdata/custom-plugins.d/` is empty, no `/opt/infra-sim`, no `infra-sim`
-   processes, no infra-sim containers - so nothing existing would be disturbed.
-2. **History discontinuity across the divisor change** - untestable on this
-   machine as it stands, because no fleet with pre-divisor history exists here. It
-   can be constructed (install the previous build, accumulate a few minutes of
-   history, then install this one) as part of item 1.
+1. **Lint speed missed its own target** (29.2s vs the <= 25s written here). Two
+   levers, both **rejected for this SOW** rather than silently deferred: merging the
+   warm-up and semantic windows halves the work but changes what the lint covers,
+   making it a user design decision rather than an optimisation; reducing per-tick
+   allocation is a separate performance concern with its own blast radius. No SOW
+   file created - neither is worth doing at current fleet sizes, and a SOW to hold
+   "maybe later" is the filler this project's rules forbid. To be raised as a
+   numbered decision if fleets grow past ~30 nodes.
+2. **History discontinuity for fleets predating the divisor change** - closed as
+   not-applicable here (no such fleet exists on this machine) but real elsewhere.
+   **Tracked as an operator note in `docs/operating.md`**: a simulation created
+   before 2026-08-11 and upgraded to this build may render historical
+   process-memory points 1024x smaller, because stored tier data is not rewritten
+   when a `DIMENSION` divisor changes. Remedy is to recreate the fleet, not upgrade
+   it in place. No code change to make, so no SOW.
+3. **Persona is keyed on role, not services** - found while validating, out of scope
+   here and not created by this SOW. A MongoDB node reports `postgres`, `pgbouncer`
+   and `barman` application groups because the persona table is indexed by role;
+   visible on the running fleet. **Raised with the user**, who holds it as an open
+   choice alongside the Live-tab work. Not claimed as fixed.
+4. **Unused signals** `proc_mem_estimated_kib` and `proc_swap_kib` are declared but
+   read by no dimension. Pre-existing. **Rejected**: deleting spec content an author
+   may have staged deliberately is not this SOW's call.
 
 ## Outcome
 
-Pending.
+Delivered. A 25-node `create` lints in **29.2s** instead of 115s, with
+byte-identical output; the environment that refused to install now passes with zero
+violations; lightly-weighted instances emit values that move and counts that are
+never zero; and a lint failure now tells the operator what failed regardless of
+fleet size.
+
+Two honest qualifications. The speed target set in this SOW (<= 25s) was **missed**
+at 29.2s - the remaining levers were rejected as out of scope rather than pursued.
+And decision 3 was implemented through the existing `min_is_floor` flag rather than
+the new spec field the SOW described, because the flag already existed for this
+exact case and was simply defeated by weight scaling; recorded under Decision 3.
 
 ## Lessons Extracted
 
-Pending.
+See Validation -> Lessons. The load-bearing one for this project: a documented flag
+is not a working flag, and for a simulator the only proof is the emitted value.
 
 ## Followup
 

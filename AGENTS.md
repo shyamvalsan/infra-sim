@@ -281,6 +281,9 @@ Rust toolchain is user-local (`~/.cargo/bin`). Shells must source `$HOME/.cargo/
 # build
 cargo build --release
 
+# build without a Rust toolchain, and start the console (the operator entry point)
+sudo ./startsim.sh
+
 # test
 cargo test
 

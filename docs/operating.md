@@ -56,10 +56,38 @@ so it does not appear in the Space as a stray machine reporting container CPU.
 ## Console
 
 ```bash
-cargo build --release
-sudo ./target/release/infra-sim-console --repo "$PWD"
+sudo ./startsim.sh
 # http://127.0.0.1:8080
 ```
+
+`startsim` is the supported entry point: it checks Docker, its daemon, python3 and
+root, installs nothing, and builds both binaries inside a container so no Rust
+toolchain is needed. `--rebuild` forces a rebuild, `--bind HOST:PORT` moves the
+listener, `--no-build` uses whatever is already in `target/release`. On a bare
+machine, `curl -fsSL <raw>/startsim.sh | sudo bash` clones into
+`/var/lib/../opt/infra-sim-src` (override with `INFRA_SIM_SRC`) and does the same.
+
+Running it by hand is still fine, and is what you want when developing:
+
+```bash
+cargo build --release
+sudo ./target/release/infra-sim-console --repo "$PWD"
+```
+
+**Which simulation the console drives.** It adopts a running container for metrics
+and for the control file it writes, but its scenario list comes from
+`--environment`'s parent directory, which defaults to the host install under
+`/etc/netdata/infra-sim`. Point it at a containerised simulation or the Run tab
+has no scenarios to offer:
+
+```bash
+sudo ./target/release/infra-sim-console --repo "$PWD" \
+  --environment /var/lib/infra-sim/<name>/environment.yaml
+```
+
+`startsim` forwards `--environment`, and lists the simulations it can see so you
+know what to pass. It does not choose one: starting the UI is its job, and creating,
+claiming and tearing down fleets are decisions made in the console.
 
 Two tabs.
 
