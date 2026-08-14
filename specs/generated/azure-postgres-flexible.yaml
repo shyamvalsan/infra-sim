@@ -1,0 +1,1257 @@
+version: 1
+name: azure-postgres-flexible
+description: 'Azure PostgreSQL Flexible Server as reported through Netdata''s azure_monitor collector,
+  generated from its service profile (Microsoft.DBforPostgreSQL/flexibleServers) so the contexts, units,
+  families and dimension names match a real deployment. Charts are per-resource instances, as the collector
+  emits them: resources are labels on one node, never separate nodes. Signals move independently rather
+  than being causally coupled - see scripts/sync-profile-collectors.py.'
+signals:
+  postgres_flexible_cpu_average:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_memory_average:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_availability_maximum:
+    base: 1.0
+    min: 0.0
+    max: 1.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_iops_total:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_iops_read:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_iops_write:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_disk_throughput_read:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_disk_throughput_write:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_disk_saturation_bandwidth:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_disk_saturation_iops:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_disk_queue_depth_average:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_buffer_cache_hits:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_buffer_cache_reads:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_active_connections_average:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_connection_rate_succeeded:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_connection_rate_failed:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_transactions_committed:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_transactions_rolled_back:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_transaction_rate_total:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_transaction_rate_xact_total:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_deadlocks_total:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_tuple_reads_returned:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_tuple_reads_fetched:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_tuple_writes_inserted:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_tuple_writes_updated:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_tuple_writes_deleted:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_temp_files_total:
+    base: 22.0
+    min: 0.0
+    max: 500000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_temp_bytes_total:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_long_running_query:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_long_running_transaction:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_xid_usage_max_used:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_xid_usage_oldest_xmin:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_xmin_age_maximum:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_network_in:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_network_out:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_storage_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_storage_free:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_storage_utilization_average:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_wal_storage_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_database_size_average:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_backup_storage_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_replication_lag_time_average:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_replication_lag_bytes_physical:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_replication_lag_bytes_logical:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_sessions_by_state_maximum:
+    base: 64.0
+    min: 0.0
+    max: 100000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_sessions_by_wait_event_type_maximum:
+    base: 64.0
+    min: 0.0
+    max: 100000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_autovacuum_operations_vacuum:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_autovacuum_operations_autovacuum:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_autovacuum_operations_analyze:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_autovacuum_operations_autoanalyze:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_autovacuum_table_coverage_vacuumed:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_autovacuum_table_coverage_autovacuumed:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_autovacuum_table_coverage_analyzed:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_autovacuum_table_coverage_autoanalyzed:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_autovacuum_table_coverage_total:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_tuple_liveness_live:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_tuple_liveness_dead:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_tuple_liveness_modified_since_analyze:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_bloat_maximum:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_backend_count_maximum:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_pgbouncer_client_connections_active:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_pgbouncer_client_connections_waiting:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_pgbouncer_server_connections_active:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_pgbouncer_server_connections_idle:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_pgbouncer_pool_count_pools:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_pgbouncer_pooled_connections_pooled_connections:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_cpu_credits_consumed:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_cpu_credits_remaining:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_postmaster_cpu_average:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_max_connections_maximum:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  postgres_flexible_tcp_connection_backlog_maximum:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+contexts:
+- id: azure_monitor.postgres_flexible.cpu
+  title: Azure PostgreSQL Flexible Server CPU Utilization
+  units: percentage
+  family: Utilization
+  chart_type: line
+  priority: 90010
+  instances:
+    group: azure_postgres_flexible
+    chart_prefix: postgres_flexible_cpu
+    family: Utilization
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: postgres_flexible_cpu_average
+- id: azure_monitor.postgres_flexible.memory
+  title: Azure PostgreSQL Flexible Server Memory Utilization
+  units: percentage
+  family: Utilization
+  chart_type: line
+  priority: 90020
+  instances:
+    group: azure_postgres_flexible
+    chart_prefix: postgres_flexible_memory
+    family: Utilization
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: postgres_flexible_memory_average
+- id: azure_monitor.postgres_flexible.availability
+  title: Azure PostgreSQL Flexible Server Database Alive
+  units: state
+  family: Availability
+  chart_type: line
+  priority: 90030
+  instances:
+    group: azure_postgres_flexible
+    chart_prefix: postgres_flexible_availability
+    family: Availability
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: maximum
+    signal: postgres_flexible_availability_maximum
+- id: azure_monitor.postgres_flexible.iops
+  title: Azure PostgreSQL Flexible Server IOPS
+  units: operations/s
+  family: IO
+  chart_type: line
+  priority: 90040
+  instances:
+    group: azure_postgres_flexible
+    chart_prefix: postgres_flexible_iops
+    family: IO
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: total
+    signal: postgres_flexible_iops_total
+  - id: read
+    signal: postgres_flexible_iops_read
+  - id: write
+    signal: postgres_flexible_iops_write
+- id: azure_monitor.postgres_flexible.disk_throughput
+  title: Azure PostgreSQL Flexible Server Disk Throughput
+  units: bytes/s
+  family: IO
+  chart_type: line
+  priority: 90050
+  instances:
+    group: azure_postgres_flexible
+    chart_prefix: postgres_flexible_disk_throughput
+    family: IO
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: read
+    signal: postgres_flexible_disk_throughput_read
+  - id: write
+    signal: postgres_flexible_disk_throughput_write
+- id: azure_monitor.postgres_flexible.disk_saturation
+  title: Azure PostgreSQL Flexible Server Disk Saturation
+  units: percentage
+  family: IO
+  chart_type: line
+  priority: 90060
+  instances:
+    group: azure_postgres_flexible
+    chart_prefix: postgres_flexible_disk_saturation
+    family: IO
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: bandwidth
+    signal: postgres_flexible_disk_saturation_bandwidth
+  - id: iops
+    signal: postgres_flexible_disk_saturation_iops
+- id: azure_monitor.postgres_flexible.disk_queue_depth
+  title: Azure PostgreSQL Flexible Server Disk Queue Depth
+  units: operations
+  family: IO
+  chart_type: line
+  priority: 90070
+  instances:
+    group: azure_postgres_flexible
+    chart_prefix: postgres_flexible_disk_queue_depth
+    family: IO
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: postgres_flexible_disk_queue_depth_average
+- id: azure_monitor.postgres_flexible.buffer_cache
+  title: Azure PostgreSQL Flexible Server Buffer Cache
+  units: blocks/s
+  family: Performance
+  chart_type: line
+  priority: 90080
+  instances:
+    group: azure_postgres_flexible
+    chart_prefix: postgres_flexible_buffer_cache
+    family: Performance
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: hits
+    signal: postgres_flexible_buffer_cache_hits
+  - id: reads
+    signal: postgres_flexible_buffer_cache_reads
+- id: azure_monitor.postgres_flexible.active_connections
+  title: Azure PostgreSQL Flexible Server Active Connections
+  units: connections
+  family: Connections
+  chart_type: line
+  priority: 90090
+  instances:
+    group: azure_postgres_flexible
+    chart_prefix: postgres_flexible_active_connections
+    family: Connections
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: postgres_flexible_active_connections_average
+- id: azure_monitor.postgres_flexible.connection_rate
+  title: Azure PostgreSQL Flexible Server Connection Rate
+  units: connections/s
+  family: Connections
+  chart_type: line
+  priority: 90100
+  instances:
+    group: azure_postgres_flexible
+    chart_prefix: postgres_flexible_connection_rate
+    family: Connections
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: succeeded
+    signal: postgres_flexible_connection_rate_succeeded
+  - id: failed
+    signal: postgres_flexible_connection_rate_failed
+- id: azure_monitor.postgres_flexible.transactions
+  title: Azure PostgreSQL Flexible Server Transactions
+  units: transactions/s
+  family: Throughput
+  chart_type: line
+  priority: 90110
+  instances:
+    group: azure_postgres_flexible
+    chart_prefix: postgres_flexible_transactions
+    family: Throughput
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: committed
+    signal: postgres_flexible_transactions_committed
+  - id: rolled_back
+    signal: postgres_flexible_transactions_rolled_back
+- id: azure_monitor.postgres_flexible.transaction_rate
+  title: Azure PostgreSQL Flexible Server Transaction Rate
+  units: transactions/s
+  family: Throughput
+  chart_type: line
+  priority: 90120
+  instances:
+    group: azure_postgres_flexible
+    chart_prefix: postgres_flexible_transaction_rate
+    family: Throughput
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: total
+    signal: postgres_flexible_transaction_rate_total
+  - id: xact_total
+    signal: postgres_flexible_transaction_rate_xact_total
+- id: azure_monitor.postgres_flexible.deadlocks
+  title: Azure PostgreSQL Flexible Server Deadlocks
+  units: deadlocks/s
+  family: Contention
+  chart_type: line
+  priority: 90130
+  instances:
+    group: azure_postgres_flexible
+    chart_prefix: postgres_flexible_deadlocks
+    family: Contention
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: total
+    signal: postgres_flexible_deadlocks_total
+- id: azure_monitor.postgres_flexible.tuple_reads
+  title: Azure PostgreSQL Flexible Server Tuple Reads
+  units: tuples/s
+  family: Throughput
+  chart_type: line
+  priority: 90140
+  instances:
+    group: azure_postgres_flexible
+    chart_prefix: postgres_flexible_tuple_reads
+    family: Throughput
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: returned
+    signal: postgres_flexible_tuple_reads_returned
+  - id: fetched
+    signal: postgres_flexible_tuple_reads_fetched
+- id: azure_monitor.postgres_flexible.tuple_writes
+  title: Azure PostgreSQL Flexible Server Tuple Writes
+  units: tuples/s
+  family: Throughput
+  chart_type: line
+  priority: 90150
+  instances:
+    group: azure_postgres_flexible
+    chart_prefix: postgres_flexible_tuple_writes
+    family: Throughput
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: inserted
+    signal: postgres_flexible_tuple_writes_inserted
+  - id: updated
+    signal: postgres_flexible_tuple_writes_updated
+  - id: deleted
+    signal: postgres_flexible_tuple_writes_deleted
+- id: azure_monitor.postgres_flexible.temp_files
+  title: Azure PostgreSQL Flexible Server Temp Files Created
+  units: files/s
+  family: Performance
+  chart_type: line
+  priority: 90160
+  instances:
+    group: azure_postgres_flexible
+    chart_prefix: postgres_flexible_temp_files
+    family: Performance
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: total
+    signal: postgres_flexible_temp_files_total
+- id: azure_monitor.postgres_flexible.temp_bytes
+  title: Azure PostgreSQL Flexible Server Temp Bytes Written
+  units: bytes/s
+  family: Performance
+  chart_type: line
+  priority: 90170
+  instances:
+    group: azure_postgres_flexible
+    chart_prefix: postgres_flexible_temp_bytes
+    family: Performance
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: total
+    signal: postgres_flexible_temp_bytes_total
+- id: azure_monitor.postgres_flexible.long_running
+  title: Azure PostgreSQL Flexible Server Long Running Operations
+  units: seconds
+  family: Activity
+  chart_type: line
+  priority: 90180
+  instances:
+    group: azure_postgres_flexible
+    chart_prefix: postgres_flexible_long_running
+    family: Activity
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: query
+    signal: postgres_flexible_long_running_query
+  - id: transaction
+    signal: postgres_flexible_long_running_transaction
+- id: azure_monitor.postgres_flexible.xid_usage
+  title: Azure PostgreSQL Flexible Server Transaction ID Usage
+  units: transactions
+  family: Safety
+  chart_type: line
+  priority: 90190
+  instances:
+    group: azure_postgres_flexible
+    chart_prefix: postgres_flexible_xid_usage
+    family: Safety
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: max_used
+    signal: postgres_flexible_xid_usage_max_used
+  - id: oldest_xmin
+    signal: postgres_flexible_xid_usage_oldest_xmin
+- id: azure_monitor.postgres_flexible.xmin_age
+  title: Azure PostgreSQL Flexible Server Backend XID Age
+  units: transactions
+  family: Safety
+  chart_type: line
+  priority: 90200
+  instances:
+    group: azure_postgres_flexible
+    chart_prefix: postgres_flexible_xmin_age
+    family: Safety
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: maximum
+    signal: postgres_flexible_xmin_age_maximum
+- id: azure_monitor.postgres_flexible.network
+  title: Azure PostgreSQL Flexible Server Network Traffic
+  units: bytes/s
+  family: Network
+  chart_type: line
+  priority: 90210
+  instances:
+    group: azure_postgres_flexible
+    chart_prefix: postgres_flexible_network
+    family: Network
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: in
+    signal: postgres_flexible_network_in
+  - id: out
+    signal: postgres_flexible_network_out
+- id: azure_monitor.postgres_flexible.storage
+  title: Azure PostgreSQL Flexible Server Storage
+  units: bytes
+  family: Capacity
+  chart_type: line
+  priority: 90220
+  instances:
+    group: azure_postgres_flexible
+    chart_prefix: postgres_flexible_storage
+    family: Capacity
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: used
+    signal: postgres_flexible_storage_used
+  - id: free
+    signal: postgres_flexible_storage_free
+- id: azure_monitor.postgres_flexible.storage_utilization
+  title: Azure PostgreSQL Flexible Server Storage Utilization
+  units: percentage
+  family: Capacity
+  chart_type: line
+  priority: 90230
+  instances:
+    group: azure_postgres_flexible
+    chart_prefix: postgres_flexible_storage_utilization
+    family: Capacity
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: postgres_flexible_storage_utilization_average
+- id: azure_monitor.postgres_flexible.wal_storage
+  title: Azure PostgreSQL Flexible Server WAL Storage
+  units: bytes
+  family: Capacity
+  chart_type: line
+  priority: 90240
+  instances:
+    group: azure_postgres_flexible
+    chart_prefix: postgres_flexible_wal_storage
+    family: Capacity
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: used
+    signal: postgres_flexible_wal_storage_used
+- id: azure_monitor.postgres_flexible.database_size
+  title: Azure PostgreSQL Flexible Server Database Size
+  units: bytes
+  family: Capacity
+  chart_type: line
+  priority: 90250
+  instances:
+    group: azure_postgres_flexible
+    chart_prefix: postgres_flexible_database_size
+    family: Capacity
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: postgres_flexible_database_size_average
+- id: azure_monitor.postgres_flexible.backup_storage
+  title: Azure PostgreSQL Flexible Server Backup Storage
+  units: bytes
+  family: Capacity
+  chart_type: line
+  priority: 90260
+  instances:
+    group: azure_postgres_flexible
+    chart_prefix: postgres_flexible_backup_storage
+    family: Capacity
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: used
+    signal: postgres_flexible_backup_storage_used
+- id: azure_monitor.postgres_flexible.replication_lag_time
+  title: Azure PostgreSQL Flexible Server Replication Lag
+  units: seconds
+  family: Replication
+  chart_type: line
+  priority: 90270
+  instances:
+    group: azure_postgres_flexible
+    chart_prefix: postgres_flexible_replication_lag_time
+    family: Replication
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: postgres_flexible_replication_lag_time_average
+- id: azure_monitor.postgres_flexible.replication_lag_bytes
+  title: Azure PostgreSQL Flexible Server Replication Lag Bytes
+  units: bytes
+  family: Replication
+  chart_type: line
+  priority: 90280
+  instances:
+    group: azure_postgres_flexible
+    chart_prefix: postgres_flexible_replication_lag_bytes
+    family: Replication
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: physical
+    signal: postgres_flexible_replication_lag_bytes_physical
+  - id: logical
+    signal: postgres_flexible_replication_lag_bytes_logical
+- id: azure_monitor.postgres_flexible.sessions_by_state
+  title: Azure PostgreSQL Flexible Server Sessions by State
+  units: sessions
+  family: Activity
+  chart_type: line
+  priority: 90290
+  instances:
+    group: azure_postgres_flexible
+    chart_prefix: postgres_flexible_sessions_by_state
+    family: Activity
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: maximum
+    signal: postgres_flexible_sessions_by_state_maximum
+- id: azure_monitor.postgres_flexible.sessions_by_wait_event_type
+  title: Azure PostgreSQL Flexible Server Sessions by Wait Event Type
+  units: sessions
+  family: Activity
+  chart_type: line
+  priority: 90300
+  instances:
+    group: azure_postgres_flexible
+    chart_prefix: postgres_flexible_sessions_by_wait_event_type
+    family: Activity
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: maximum
+    signal: postgres_flexible_sessions_by_wait_event_type_maximum
+- id: azure_monitor.postgres_flexible.autovacuum_operations
+  title: Azure PostgreSQL Flexible Server Autovacuum Operations
+  units: operations
+  family: Autovacuum
+  chart_type: line
+  priority: 90310
+  instances:
+    group: azure_postgres_flexible
+    chart_prefix: postgres_flexible_autovacuum_operations
+    family: Autovacuum
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: vacuum
+    signal: postgres_flexible_autovacuum_operations_vacuum
+  - id: autovacuum
+    signal: postgres_flexible_autovacuum_operations_autovacuum
+  - id: analyze
+    signal: postgres_flexible_autovacuum_operations_analyze
+  - id: autoanalyze
+    signal: postgres_flexible_autovacuum_operations_autoanalyze
+- id: azure_monitor.postgres_flexible.autovacuum_table_coverage
+  title: Azure PostgreSQL Flexible Server Autovacuum Table Coverage
+  units: tables
+  family: Autovacuum
+  chart_type: line
+  priority: 90320
+  instances:
+    group: azure_postgres_flexible
+    chart_prefix: postgres_flexible_autovacuum_table_coverage
+    family: Autovacuum
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: vacuumed
+    signal: postgres_flexible_autovacuum_table_coverage_vacuumed
+  - id: autovacuumed
+    signal: postgres_flexible_autovacuum_table_coverage_autovacuumed
+  - id: analyzed
+    signal: postgres_flexible_autovacuum_table_coverage_analyzed
+  - id: autoanalyzed
+    signal: postgres_flexible_autovacuum_table_coverage_autoanalyzed
+  - id: total
+    signal: postgres_flexible_autovacuum_table_coverage_total
+- id: azure_monitor.postgres_flexible.tuple_liveness
+  title: Azure PostgreSQL Flexible Server Tuple Liveness
+  units: tuples
+  family: Autovacuum
+  chart_type: line
+  priority: 90330
+  instances:
+    group: azure_postgres_flexible
+    chart_prefix: postgres_flexible_tuple_liveness
+    family: Autovacuum
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: live
+    signal: postgres_flexible_tuple_liveness_live
+  - id: dead
+    signal: postgres_flexible_tuple_liveness_dead
+  - id: modified_since_analyze
+    signal: postgres_flexible_tuple_liveness_modified_since_analyze
+- id: azure_monitor.postgres_flexible.bloat
+  title: Azure PostgreSQL Flexible Server Table Bloat
+  units: percentage
+  family: Autovacuum
+  chart_type: line
+  priority: 90340
+  instances:
+    group: azure_postgres_flexible
+    chart_prefix: postgres_flexible_bloat
+    family: Autovacuum
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: maximum
+    signal: postgres_flexible_bloat_maximum
+- id: azure_monitor.postgres_flexible.backend_count
+  title: Azure PostgreSQL Flexible Server Backend Count
+  units: connections
+  family: Connections
+  chart_type: line
+  priority: 90350
+  instances:
+    group: azure_postgres_flexible
+    chart_prefix: postgres_flexible_backend_count
+    family: Connections
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: maximum
+    signal: postgres_flexible_backend_count_maximum
+- id: azure_monitor.postgres_flexible.pgbouncer_client_connections
+  title: Azure PostgreSQL Flexible Server PgBouncer Client Connections
+  units: connections
+  family: PgBouncer
+  chart_type: line
+  priority: 90360
+  instances:
+    group: azure_postgres_flexible
+    chart_prefix: postgres_flexible_pgbouncer_client_connections
+    family: PgBouncer
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: active
+    signal: postgres_flexible_pgbouncer_client_connections_active
+  - id: waiting
+    signal: postgres_flexible_pgbouncer_client_connections_waiting
+- id: azure_monitor.postgres_flexible.pgbouncer_server_connections
+  title: Azure PostgreSQL Flexible Server PgBouncer Server Connections
+  units: connections
+  family: PgBouncer
+  chart_type: line
+  priority: 90370
+  instances:
+    group: azure_postgres_flexible
+    chart_prefix: postgres_flexible_pgbouncer_server_connections
+    family: PgBouncer
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: active
+    signal: postgres_flexible_pgbouncer_server_connections_active
+  - id: idle
+    signal: postgres_flexible_pgbouncer_server_connections_idle
+- id: azure_monitor.postgres_flexible.pgbouncer_pool_count
+  title: Azure PostgreSQL Flexible Server PgBouncer Pool Count
+  units: pools
+  family: PgBouncer
+  chart_type: line
+  priority: 90380
+  instances:
+    group: azure_postgres_flexible
+    chart_prefix: postgres_flexible_pgbouncer_pool_count
+    family: PgBouncer
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: pools
+    signal: postgres_flexible_pgbouncer_pool_count_pools
+- id: azure_monitor.postgres_flexible.pgbouncer_pooled_connections
+  title: Azure PostgreSQL Flexible Server PgBouncer Pooled Connections
+  units: connections
+  family: PgBouncer
+  chart_type: line
+  priority: 90390
+  instances:
+    group: azure_postgres_flexible
+    chart_prefix: postgres_flexible_pgbouncer_pooled_connections
+    family: PgBouncer
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: pooled_connections
+    signal: postgres_flexible_pgbouncer_pooled_connections_pooled_connections
+- id: azure_monitor.postgres_flexible.cpu_credits
+  title: Azure PostgreSQL Flexible Server CPU Credits
+  units: credits
+  family: Saturation
+  chart_type: line
+  priority: 90400
+  instances:
+    group: azure_postgres_flexible
+    chart_prefix: postgres_flexible_cpu_credits
+    family: Saturation
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: consumed
+    signal: postgres_flexible_cpu_credits_consumed
+  - id: remaining
+    signal: postgres_flexible_cpu_credits_remaining
+- id: azure_monitor.postgres_flexible.postmaster_cpu
+  title: Azure PostgreSQL Flexible Server Postmaster CPU Usage
+  units: percentage
+  family: Saturation
+  chart_type: line
+  priority: 90410
+  instances:
+    group: azure_postgres_flexible
+    chart_prefix: postgres_flexible_postmaster_cpu
+    family: Saturation
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: postgres_flexible_postmaster_cpu_average
+- id: azure_monitor.postgres_flexible.max_connections
+  title: Azure PostgreSQL Flexible Server Max Connections
+  units: connections
+  family: Connections
+  chart_type: line
+  priority: 90420
+  instances:
+    group: azure_postgres_flexible
+    chart_prefix: postgres_flexible_max_connections
+    family: Connections
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: maximum
+    signal: postgres_flexible_max_connections_maximum
+- id: azure_monitor.postgres_flexible.tcp_connection_backlog
+  title: Azure PostgreSQL Flexible Server TCP Connection Backlog
+  units: connections
+  family: Connections
+  chart_type: line
+  priority: 90430
+  instances:
+    group: azure_postgres_flexible
+    chart_prefix: postgres_flexible_tcp_connection_backlog
+    family: Connections
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: maximum
+    signal: postgres_flexible_tcp_connection_backlog_maximum

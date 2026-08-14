@@ -1,0 +1,210 @@
+version: 1
+name: azure-express-route-circuit
+description: 'Azure ExpressRoute Circuit as reported through Netdata''s azure_monitor collector, generated
+  from its service profile (Microsoft.Network/expressRouteCircuits) so the contexts, units, families and
+  dimension names match a real deployment. Charts are per-resource instances, as the collector emits them:
+  resources are labels on one node, never separate nodes. Signals move independently rather than being
+  causally coupled - see scripts/sync-profile-collectors.py.'
+signals:
+  express_route_circuit_arp_availability_average:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  express_route_circuit_bgp_availability_average:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  express_route_circuit_throughput_in:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  express_route_circuit_throughput_out:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  express_route_circuit_bandwidth_utilization_ingress:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  express_route_circuit_bandwidth_utilization_egress:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  express_route_circuit_qos_dropped_bits_in:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  express_route_circuit_qos_dropped_bits_out:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  express_route_circuit_fastpath_routes_maximum:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  express_route_circuit_global_reach_throughput_in:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  express_route_circuit_global_reach_throughput_out:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+contexts:
+- id: azure_monitor.express_route_circuit.arp_availability
+  title: Azure ExpressRoute Circuit ARP Availability
+  units: percentage
+  family: Availability
+  chart_type: line
+  priority: 90010
+  instances:
+    group: azure_express_route_circuit
+    chart_prefix: express_route_circuit_arp_availability
+    family: Availability
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: express_route_circuit_arp_availability_average
+- id: azure_monitor.express_route_circuit.bgp_availability
+  title: Azure ExpressRoute Circuit BGP Availability
+  units: percentage
+  family: Availability
+  chart_type: line
+  priority: 90020
+  instances:
+    group: azure_express_route_circuit
+    chart_prefix: express_route_circuit_bgp_availability
+    family: Availability
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: express_route_circuit_bgp_availability_average
+- id: azure_monitor.express_route_circuit.throughput
+  title: Azure ExpressRoute Circuit Throughput
+  units: bits/s
+  family: Traffic
+  chart_type: line
+  priority: 90030
+  instances:
+    group: azure_express_route_circuit
+    chart_prefix: express_route_circuit_throughput
+    family: Traffic
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: in
+    signal: express_route_circuit_throughput_in
+  - id: out
+    signal: express_route_circuit_throughput_out
+- id: azure_monitor.express_route_circuit.bandwidth_utilization
+  title: Azure ExpressRoute Circuit Bandwidth Utilization
+  units: percentage
+  family: Traffic
+  chart_type: line
+  priority: 90040
+  instances:
+    group: azure_express_route_circuit
+    chart_prefix: express_route_circuit_bandwidth_utilization
+    family: Traffic
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: ingress
+    signal: express_route_circuit_bandwidth_utilization_ingress
+  - id: egress
+    signal: express_route_circuit_bandwidth_utilization_egress
+- id: azure_monitor.express_route_circuit.qos_dropped_bits
+  title: Azure ExpressRoute Circuit QoS Dropped Bits
+  units: bits/s
+  family: QoS
+  chart_type: line
+  priority: 90050
+  instances:
+    group: azure_express_route_circuit
+    chart_prefix: express_route_circuit_qos_dropped_bits
+    family: QoS
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: in
+    signal: express_route_circuit_qos_dropped_bits_in
+  - id: out
+    signal: express_route_circuit_qos_dropped_bits_out
+- id: azure_monitor.express_route_circuit.fastpath_routes
+  title: Azure ExpressRoute Circuit FastPath Routes
+  units: routes
+  family: FastPath
+  chart_type: line
+  priority: 90060
+  instances:
+    group: azure_express_route_circuit
+    chart_prefix: express_route_circuit_fastpath_routes
+    family: FastPath
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: maximum
+    signal: express_route_circuit_fastpath_routes_maximum
+- id: azure_monitor.express_route_circuit.global_reach_throughput
+  title: Azure ExpressRoute Circuit GlobalReach Throughput
+  units: bits/s
+  family: GlobalReach
+  chart_type: line
+  priority: 90070
+  instances:
+    group: azure_express_route_circuit
+    chart_prefix: express_route_circuit_global_reach_throughput
+    family: GlobalReach
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: in
+    signal: express_route_circuit_global_reach_throughput_in
+  - id: out
+    signal: express_route_circuit_global_reach_throughput_out

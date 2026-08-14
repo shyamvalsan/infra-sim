@@ -1,0 +1,163 @@
+version: 1
+name: aws-s3-requests
+description: 'AWS S3 Request Metrics as reported through Netdata''s cloudwatch collector, generated from
+  its service profile (AWS/S3) so the contexts, units, families and dimension names match a real deployment.
+  Charts are per-resource instances, as the collector emits them: resources are labels on one node, never
+  separate nodes. Signals move independently rather than being causally coupled - see scripts/sync-profile-collectors.py.'
+signals:
+  s3_requests_requests_all:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  s3_requests_requests_get:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  s3_requests_requests_put:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  s3_requests_requests_delete:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  s3_requests_requests_head:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  s3_requests_request_errors_4xx:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  s3_requests_request_errors_5xx:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  s3_requests_request_latency_first_byte:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  s3_requests_request_latency_total:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  s3_requests_request_traffic_downloaded:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  s3_requests_request_traffic_uploaded:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+contexts:
+- id: cloudwatch.s3_requests.requests
+  title: S3 Requests
+  units: requests/s
+  family: Requests
+  chart_type: line
+  priority: 90010
+  instances:
+    group: aws_s3_requests
+    chart_prefix: s3_requests_requests
+    family: Requests
+    labels:
+      bucket_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: all
+    signal: s3_requests_requests_all
+  - id: get
+    signal: s3_requests_requests_get
+  - id: put
+    signal: s3_requests_requests_put
+  - id: delete
+    signal: s3_requests_requests_delete
+  - id: head
+    signal: s3_requests_requests_head
+- id: cloudwatch.s3_requests.request_errors
+  title: S3 Request Errors
+  units: errors/s
+  family: Errors
+  chart_type: line
+  priority: 90020
+  instances:
+    group: aws_s3_requests
+    chart_prefix: s3_requests_request_errors
+    family: Errors
+    labels:
+      bucket_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: 4xx
+    signal: s3_requests_request_errors_4xx
+  - id: 5xx
+    signal: s3_requests_request_errors_5xx
+- id: cloudwatch.s3_requests.request_latency
+  title: S3 Request Latency
+  units: milliseconds
+  family: Latency
+  chart_type: line
+  priority: 90030
+  instances:
+    group: aws_s3_requests
+    chart_prefix: s3_requests_request_latency
+    family: Latency
+    labels:
+      bucket_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: first_byte
+    signal: s3_requests_request_latency_first_byte
+  - id: total
+    signal: s3_requests_request_latency_total
+- id: cloudwatch.s3_requests.request_traffic
+  title: S3 Request Data Transfer
+  units: bytes/s
+  family: Traffic
+  chart_type: line
+  priority: 90040
+  instances:
+    group: aws_s3_requests
+    chart_prefix: s3_requests_request_traffic
+    family: Traffic
+    labels:
+      bucket_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: downloaded
+    signal: s3_requests_request_traffic_downloaded
+  - id: uploaded
+    signal: s3_requests_request_traffic_uploaded

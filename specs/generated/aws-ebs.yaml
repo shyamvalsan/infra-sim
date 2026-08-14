@@ -1,0 +1,142 @@
+version: 1
+name: aws-ebs
+description: 'Amazon EBS as reported through Netdata''s cloudwatch collector, generated from its service
+  profile (AWS/EBS) so the contexts, units, families and dimension names match a real deployment. Charts
+  are per-resource instances, as the collector emits them: resources are labels on one node, never separate
+  nodes. Signals move independently rather than being causally coupled - see scripts/sync-profile-collectors.py.'
+signals:
+  ebs_throughput_read:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  ebs_throughput_write:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  ebs_iops_read:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  ebs_iops_write:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  ebs_queue_length_queued:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  ebs_idle_time_idle:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  ebs_burst_balance_balance:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+contexts:
+- id: cloudwatch.ebs.throughput
+  title: EBS Volume Throughput
+  units: bytes/s
+  family: Throughput
+  chart_type: line
+  priority: 90010
+  instances:
+    group: aws_ebs
+    chart_prefix: ebs_throughput
+    family: Throughput
+    labels:
+      volume_id: '{instance}'
+  shape: independent
+  dimensions:
+  - id: read
+    signal: ebs_throughput_read
+  - id: write
+    signal: ebs_throughput_write
+- id: cloudwatch.ebs.iops
+  title: EBS Volume IOPS
+  units: ops/s
+  family: Throughput
+  chart_type: line
+  priority: 90020
+  instances:
+    group: aws_ebs
+    chart_prefix: ebs_iops
+    family: Throughput
+    labels:
+      volume_id: '{instance}'
+  shape: independent
+  dimensions:
+  - id: read
+    signal: ebs_iops_read
+  - id: write
+    signal: ebs_iops_write
+- id: cloudwatch.ebs.queue_length
+  title: EBS Volume Queue Length
+  units: operations
+  family: Queue
+  chart_type: line
+  priority: 90030
+  instances:
+    group: aws_ebs
+    chart_prefix: ebs_queue_length
+    family: Queue
+    labels:
+      volume_id: '{instance}'
+  shape: independent
+  dimensions:
+  - id: queued
+    signal: ebs_queue_length_queued
+- id: cloudwatch.ebs.idle_time
+  title: EBS Volume Idle Time
+  units: seconds
+  family: Activity
+  chart_type: line
+  priority: 90040
+  instances:
+    group: aws_ebs
+    chart_prefix: ebs_idle_time
+    family: Activity
+    labels:
+      volume_id: '{instance}'
+  shape: independent
+  dimensions:
+  - id: idle
+    signal: ebs_idle_time_idle
+- id: cloudwatch.ebs.burst_balance
+  title: EBS Volume Burst Balance
+  units: percentage
+  family: Credits
+  chart_type: line
+  priority: 90050
+  instances:
+    group: aws_ebs
+    chart_prefix: ebs_burst_balance
+    family: Credits
+    labels:
+      volume_id: '{instance}'
+  shape: independent
+  dimensions:
+  - id: balance
+    signal: ebs_burst_balance_balance

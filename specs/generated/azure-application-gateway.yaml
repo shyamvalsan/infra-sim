@@ -1,776 +1,605 @@
 version: 1
 name: azure-application-gateway
-description: Azure Application Gateway metrics, generated from Netdata's own collector metadata so the
-  contexts, units and dimension names match what a real Azure Application Gateway node reports. Signals
-  are independent and plausible rather than causally coupled - see scripts/sync-integrations.py.
+description: 'Azure Application Gateway as reported through Netdata''s azure_monitor collector, generated
+  from its service profile (Microsoft.Network/applicationGateways) so the contexts, units, families and
+  dimension names match a real deployment. Charts are per-resource instances, as the collector emits them:
+  resources are labels on one node, never separate nodes. Signals move independently rather than being
+  causally coupled - see scripts/sync-profile-collectors.py.'
 signals:
-  azure_application_gateway_application_gateway_throughput_average:
+  application_gateway_throughput_average:
     base: 2400000.0
     min: 0.0
     max: 5000000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_application_gateway_application_gateway_traffic_volume_received:
+      sigma: 0.18
+  application_gateway_traffic_volume_received:
     base: 2400000.0
     min: 0.0
     max: 5000000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_application_gateway_application_gateway_traffic_volume_sent:
+      sigma: 0.18
+  application_gateway_traffic_volume_sent:
     base: 2400000.0
     min: 0.0
     max: 5000000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_application_gateway_application_gateway_requests_total:
+      sigma: 0.18
+  application_gateway_requests_total:
     base: 1100.0
     min: 0.0
     max: 5000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_application_gateway_application_gateway_requests_failed:
+      sigma: 0.18
+  application_gateway_requests_failed:
     base: 0.0
     min: 0.0
     max: 5000000.0
-  azure_application_gateway_application_gateway_response_status_gateway:
+    noise:
+      kind: gauss
+      sigma: 0.18
+  application_gateway_response_status_gateway:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_application_gateway_application_gateway_response_status_backend:
+      sigma: 0.18
+  application_gateway_response_status_backend:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_application_gateway_application_gateway_backend_health_healthy:
+      sigma: 0.18
+  application_gateway_backend_health_healthy:
     base: 120.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_application_gateway_application_gateway_backend_health_unhealthy:
+      sigma: 0.18
+  application_gateway_backend_health_unhealthy:
     base: 120.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_application_gateway_application_gateway_backend_request_load_per_healthy_host:
+      sigma: 0.18
+  application_gateway_backend_request_load_per_healthy_host:
     base: 120.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_application_gateway_application_gateway_backend_latency_connect:
+      sigma: 0.18
+  application_gateway_backend_latency_connect:
     base: 24.0
     min: 0.0
     max: 600000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_application_gateway_application_gateway_backend_latency_first_byte:
+      sigma: 0.18
+  application_gateway_backend_latency_first_byte:
     base: 24.0
     min: 0.0
     max: 600000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_application_gateway_application_gateway_backend_latency_last_byte:
+      sigma: 0.18
+  application_gateway_backend_latency_last_byte:
     base: 24.0
     min: 0.0
     max: 600000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_application_gateway_application_gateway_client_latency_total_time:
+      sigma: 0.18
+  application_gateway_client_latency_total_time:
     base: 24.0
     min: 0.0
     max: 600000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_application_gateway_application_gateway_client_latency_client_rtt:
+      sigma: 0.18
+  application_gateway_client_latency_client_rtt:
     base: 24.0
     min: 0.0
     max: 600000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_application_gateway_application_gateway_current_connections_current:
+      sigma: 0.18
+  application_gateway_current_connections_current:
     base: 180.0
     min: 0.0
     max: 200000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_application_gateway_application_gateway_new_connections_average:
+      sigma: 0.18
+  application_gateway_new_connections_average:
     base: 45.0
     min: 0.0
     max: 500000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_application_gateway_application_gateway_websocket_connections_active:
+      sigma: 0.18
+  application_gateway_websocket_connections_active:
     base: 180.0
     min: 0.0
     max: 200000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_application_gateway_application_gateway_websocket_close_codes_total:
+      sigma: 0.18
+  application_gateway_websocket_close_codes_total:
     base: 45.0
     min: 0.0
     max: 500000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_application_gateway_application_gateway_capacity_capacity:
+      sigma: 0.18
+  application_gateway_capacity_capacity:
     base: 120.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_application_gateway_application_gateway_capacity_compute:
+      sigma: 0.18
+  application_gateway_capacity_compute:
     base: 120.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_application_gateway_application_gateway_capacity_billed:
+      sigma: 0.18
+  application_gateway_capacity_billed:
     base: 120.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_application_gateway_application_gateway_capacity_fixed_billed:
+      sigma: 0.18
+  application_gateway_capacity_fixed_billed:
     base: 120.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_application_gateway_application_gateway_cpu_average:
+      sigma: 0.18
+  application_gateway_cpu_average:
     base: 34.0
     min: 0.0
     max: 100.0
     max_is_ceiling: true
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_application_gateway_application_gateway_tls_connections_total:
+      sigma: 0.18
+  application_gateway_tls_connections_total:
     base: 45.0
     min: 0.0
     max: 500000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_application_gateway_application_gateway_waf_requests_total:
+      sigma: 0.18
+  application_gateway_waf_requests_total:
     base: 1100.0
     min: 0.0
     max: 5000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_application_gateway_application_gateway_waf_requests_blocked:
+      sigma: 0.18
+  application_gateway_waf_requests_blocked:
     base: 1100.0
     min: 0.0
     max: 5000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_application_gateway_application_gateway_waf_requests_matched:
+      sigma: 0.18
+  application_gateway_waf_requests_matched:
     base: 1100.0
     min: 0.0
     max: 5000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_application_gateway_application_gateway_waf_rule_matches_managed:
+      sigma: 0.18
+  application_gateway_waf_rule_matches_managed:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_application_gateway_application_gateway_waf_rule_matches_custom:
+      sigma: 0.18
+  application_gateway_waf_rule_matches_custom:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_application_gateway_application_gateway_waf_rule_matches_bot:
+      sigma: 0.18
+  application_gateway_waf_rule_matches_bot:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_application_gateway_application_gateway_waf_challenges_captcha:
+      sigma: 0.18
+  application_gateway_waf_challenges_captcha:
     base: 1100.0
     min: 0.0
     max: 5000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_application_gateway_application_gateway_waf_challenges_js_challenge:
+      sigma: 0.18
+  application_gateway_waf_challenges_js_challenge:
     base: 1100.0
     min: 0.0
     max: 5000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_application_gateway_application_gateway_waf_penalty_box_size:
+      sigma: 0.18
+  application_gateway_waf_penalty_box_size:
     base: 120.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_application_gateway_application_gateway_waf_penalty_box_hits_total:
+      sigma: 0.18
+  application_gateway_waf_penalty_box_hits_total:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
+      sigma: 0.18
 contexts:
 - id: azure_monitor.application_gateway.throughput
   title: Azure Application Gateway Throughput
   units: bytes/s
-  family: application
+  family: Traffic
   chart_type: line
-  priority: 60001
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90010
+  instances:
+    group: azure_application_gateway
+    chart_prefix: application_gateway_throughput
+    family: Traffic
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: average
-    rate_signal: azure_application_gateway_application_gateway_throughput_average
+    signal: application_gateway_throughput_average
 - id: azure_monitor.application_gateway.traffic_volume
   title: Azure Application Gateway Traffic Volume
   units: bytes/s
-  family: application
+  family: Traffic
   chart_type: line
-  priority: 60002
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90020
+  instances:
+    group: azure_application_gateway
+    chart_prefix: application_gateway_traffic_volume
+    family: Traffic
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: received
-    rate_signal: azure_application_gateway_application_gateway_traffic_volume_received
+    signal: application_gateway_traffic_volume_received
   - id: sent
-    rate_signal: azure_application_gateway_application_gateway_traffic_volume_sent
+    signal: application_gateway_traffic_volume_sent
 - id: azure_monitor.application_gateway.requests
   title: Azure Application Gateway Requests
   units: requests/s
-  family: application
+  family: Traffic
   chart_type: line
-  priority: 60003
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90030
+  instances:
+    group: azure_application_gateway
+    chart_prefix: application_gateway_requests
+    family: Traffic
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: total
-    rate_signal: azure_application_gateway_application_gateway_requests_total
+    signal: application_gateway_requests_total
   - id: failed
-    rate_signal: azure_application_gateway_application_gateway_requests_failed
+    signal: application_gateway_requests_failed
 - id: azure_monitor.application_gateway.response_status
   title: Azure Application Gateway Response Status
   units: responses/s
-  family: application
+  family: Traffic
   chart_type: line
-  priority: 60004
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90040
+  instances:
+    group: azure_application_gateway
+    chart_prefix: application_gateway_response_status
+    family: Traffic
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: gateway
-    rate_signal: azure_application_gateway_application_gateway_response_status_gateway
+    signal: application_gateway_response_status_gateway
   - id: backend
-    rate_signal: azure_application_gateway_application_gateway_response_status_backend
+    signal: application_gateway_response_status_backend
 - id: azure_monitor.application_gateway.backend_health
   title: Azure Application Gateway Backend Health
   units: hosts
-  family: application
+  family: Backend
   chart_type: line
-  priority: 60005
+  priority: 90050
+  instances:
+    group: azure_application_gateway
+    chart_prefix: application_gateway_backend_health
+    family: Backend
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: healthy
-    signal: azure_application_gateway_application_gateway_backend_health_healthy
+    signal: application_gateway_backend_health_healthy
   - id: unhealthy
-    signal: azure_application_gateway_application_gateway_backend_health_unhealthy
+    signal: application_gateway_backend_health_unhealthy
 - id: azure_monitor.application_gateway.backend_request_load
   title: Azure Application Gateway Backend Request Load
   units: requests
-  family: application
+  family: Backend
   chart_type: line
-  priority: 60006
+  priority: 90060
+  instances:
+    group: azure_application_gateway
+    chart_prefix: application_gateway_backend_request_load
+    family: Backend
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: per_healthy_host
-    signal: azure_application_gateway_application_gateway_backend_request_load_per_healthy_host
+    signal: application_gateway_backend_request_load_per_healthy_host
 - id: azure_monitor.application_gateway.backend_latency
   title: Azure Application Gateway Backend Latency
   units: milliseconds
-  family: application
+  family: Backend
   chart_type: line
-  priority: 60007
+  priority: 90070
+  instances:
+    group: azure_application_gateway
+    chart_prefix: application_gateway_backend_latency
+    family: Backend
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: connect
-    signal: azure_application_gateway_application_gateway_backend_latency_connect
+    signal: application_gateway_backend_latency_connect
   - id: first_byte
-    signal: azure_application_gateway_application_gateway_backend_latency_first_byte
+    signal: application_gateway_backend_latency_first_byte
   - id: last_byte
-    signal: azure_application_gateway_application_gateway_backend_latency_last_byte
+    signal: application_gateway_backend_latency_last_byte
 - id: azure_monitor.application_gateway.client_latency
   title: Azure Application Gateway Client Latency
   units: milliseconds
-  family: application
+  family: Latency
   chart_type: line
-  priority: 60008
+  priority: 90080
+  instances:
+    group: azure_application_gateway
+    chart_prefix: application_gateway_client_latency
+    family: Latency
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: total_time
-    signal: azure_application_gateway_application_gateway_client_latency_total_time
+    signal: application_gateway_client_latency_total_time
   - id: client_rtt
-    signal: azure_application_gateway_application_gateway_client_latency_client_rtt
+    signal: application_gateway_client_latency_client_rtt
 - id: azure_monitor.application_gateway.current_connections
   title: Azure Application Gateway Current Connections
   units: connections
-  family: application
+  family: Connections
   chart_type: line
-  priority: 60009
+  priority: 90090
+  instances:
+    group: azure_application_gateway
+    chart_prefix: application_gateway_current_connections
+    family: Connections
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: current
-    signal: azure_application_gateway_application_gateway_current_connections_current
+    signal: application_gateway_current_connections_current
 - id: azure_monitor.application_gateway.new_connections
   title: Azure Application Gateway New Connections
   units: connections/s
-  family: application
+  family: Connections
   chart_type: line
-  priority: 60010
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90100
+  instances:
+    group: azure_application_gateway
+    chart_prefix: application_gateway_new_connections
+    family: Connections
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: average
-    rate_signal: azure_application_gateway_application_gateway_new_connections_average
+    signal: application_gateway_new_connections_average
 - id: azure_monitor.application_gateway.websocket_connections
   title: Azure Application Gateway WebSocket Connections
   units: connections
-  family: application
+  family: Connections
   chart_type: line
-  priority: 60011
+  priority: 90110
+  instances:
+    group: azure_application_gateway
+    chart_prefix: application_gateway_websocket_connections
+    family: Connections
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: active
-    signal: azure_application_gateway_application_gateway_websocket_connections_active
+    signal: application_gateway_websocket_connections_active
 - id: azure_monitor.application_gateway.websocket_close_codes
   title: Azure Application Gateway WebSocket Close Codes
   units: connections/s
-  family: application
+  family: Connections
   chart_type: line
-  priority: 60012
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90120
+  instances:
+    group: azure_application_gateway
+    chart_prefix: application_gateway_websocket_close_codes
+    family: Connections
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: total
-    rate_signal: azure_application_gateway_application_gateway_websocket_close_codes_total
+    signal: application_gateway_websocket_close_codes_total
 - id: azure_monitor.application_gateway.capacity
   title: Azure Application Gateway Capacity
   units: units
-  family: application
+  family: Capacity
   chart_type: line
-  priority: 60013
+  priority: 90130
+  instances:
+    group: azure_application_gateway
+    chart_prefix: application_gateway_capacity
+    family: Capacity
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: capacity
-    signal: azure_application_gateway_application_gateway_capacity_capacity
+    signal: application_gateway_capacity_capacity
   - id: compute
-    signal: azure_application_gateway_application_gateway_capacity_compute
+    signal: application_gateway_capacity_compute
   - id: billed
-    signal: azure_application_gateway_application_gateway_capacity_billed
+    signal: application_gateway_capacity_billed
   - id: fixed_billed
-    signal: azure_application_gateway_application_gateway_capacity_fixed_billed
+    signal: application_gateway_capacity_fixed_billed
 - id: azure_monitor.application_gateway.cpu
   title: Azure Application Gateway CPU Utilization
   units: percentage
-  family: application
+  family: Capacity
   chart_type: line
-  priority: 60014
+  priority: 90140
+  instances:
+    group: azure_application_gateway
+    chart_prefix: application_gateway_cpu
+    family: Capacity
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: average
-    signal: azure_application_gateway_application_gateway_cpu_average
+    signal: application_gateway_cpu_average
 - id: azure_monitor.application_gateway.tls_connections
   title: Azure Application Gateway TLS Connections
   units: connections/s
-  family: application
+  family: Security
   chart_type: line
-  priority: 60015
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90150
+  instances:
+    group: azure_application_gateway
+    chart_prefix: application_gateway_tls_connections
+    family: Security
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: total
-    rate_signal: azure_application_gateway_application_gateway_tls_connections_total
+    signal: application_gateway_tls_connections_total
 - id: azure_monitor.application_gateway.waf_requests
   title: Azure Application Gateway WAF Requests
   units: requests/s
-  family: application
+  family: WAF
   chart_type: line
-  priority: 60016
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90160
+  instances:
+    group: azure_application_gateway
+    chart_prefix: application_gateway_waf_requests
+    family: WAF
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: total
-    rate_signal: azure_application_gateway_application_gateway_waf_requests_total
+    signal: application_gateway_waf_requests_total
   - id: blocked
-    rate_signal: azure_application_gateway_application_gateway_waf_requests_blocked
+    signal: application_gateway_waf_requests_blocked
   - id: matched
-    rate_signal: azure_application_gateway_application_gateway_waf_requests_matched
+    signal: application_gateway_waf_requests_matched
 - id: azure_monitor.application_gateway.waf_rule_matches
   title: Azure Application Gateway WAF Rule Matches
   units: matches/s
-  family: application
+  family: WAF
   chart_type: line
-  priority: 60017
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90170
+  instances:
+    group: azure_application_gateway
+    chart_prefix: application_gateway_waf_rule_matches
+    family: WAF
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: managed
-    rate_signal: azure_application_gateway_application_gateway_waf_rule_matches_managed
+    signal: application_gateway_waf_rule_matches_managed
   - id: custom
-    rate_signal: azure_application_gateway_application_gateway_waf_rule_matches_custom
+    signal: application_gateway_waf_rule_matches_custom
   - id: bot
-    rate_signal: azure_application_gateway_application_gateway_waf_rule_matches_bot
+    signal: application_gateway_waf_rule_matches_bot
 - id: azure_monitor.application_gateway.waf_challenges
   title: Azure Application Gateway WAF Challenges
   units: requests/s
-  family: application
+  family: WAF
   chart_type: line
-  priority: 60018
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90180
+  instances:
+    group: azure_application_gateway
+    chart_prefix: application_gateway_waf_challenges
+    family: WAF
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: captcha
-    rate_signal: azure_application_gateway_application_gateway_waf_challenges_captcha
+    signal: application_gateway_waf_challenges_captcha
   - id: js_challenge
-    rate_signal: azure_application_gateway_application_gateway_waf_challenges_js_challenge
+    signal: application_gateway_waf_challenges_js_challenge
 - id: azure_monitor.application_gateway.waf_penalty_box
   title: Azure Application Gateway WAF Penalty Box
   units: IPs
-  family: application
+  family: WAF
   chart_type: line
-  priority: 60019
+  priority: 90190
+  instances:
+    group: azure_application_gateway
+    chart_prefix: application_gateway_waf_penalty_box
+    family: WAF
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: size
-    signal: azure_application_gateway_application_gateway_waf_penalty_box_size
+    signal: application_gateway_waf_penalty_box_size
 - id: azure_monitor.application_gateway.waf_penalty_box_hits
   title: Azure Application Gateway WAF Penalty Box Hits
   units: hits/s
-  family: application
+  family: WAF
   chart_type: line
-  priority: 60020
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90200
+  instances:
+    group: azure_application_gateway
+    chart_prefix: application_gateway_waf_penalty_box_hits
+    family: WAF
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: total
-    rate_signal: azure_application_gateway_application_gateway_waf_penalty_box_hits_total
+    signal: application_gateway_waf_penalty_box_hits_total

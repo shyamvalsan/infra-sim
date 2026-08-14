@@ -1,0 +1,156 @@
+version: 1
+name: aws-privatelink-endpoint-subnet
+description: 'AWS PrivateLink Endpoint by Subnet as reported through Netdata''s cloudwatch collector,
+  generated from its service profile (AWS/PrivateLinkEndpoints) so the contexts, units, families and dimension
+  names match a real deployment. Charts are per-resource instances, as the collector emits them: resources
+  are labels on one node, never separate nodes. Signals move independently rather than being causally
+  coupled - see scripts/sync-profile-collectors.py.'
+signals:
+  privatelink_endpoint_subnet_active_connections_active:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  privatelink_endpoint_subnet_average_processed_bytes_average:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  privatelink_endpoint_subnet_processed_bytes_processed:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  privatelink_endpoint_subnet_average_new_connections_average:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  privatelink_endpoint_subnet_new_connections_new:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  privatelink_endpoint_subnet_packet_problems_dropped:
+    base: 0.0
+    min: 0.0
+    max: 20000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  privatelink_endpoint_subnet_packet_problems_reset_received:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+contexts:
+- id: cloudwatch.privatelink_endpoint_subnet.active_connections
+  title: PrivateLink Active Connections
+  units: connections
+  family: Connections
+  chart_type: line
+  priority: 90010
+  instances:
+    group: aws_privatelink_endpoint_subnet
+    chart_prefix: privatelink_endpoint_subnet_active_connections
+    family: Connections
+    labels:
+      endpoint_type: '{instance}'
+  shape: independent
+  dimensions:
+  - id: active
+    signal: privatelink_endpoint_subnet_active_connections_active
+- id: cloudwatch.privatelink_endpoint_subnet.average_processed_bytes
+  title: PrivateLink Average Processed Bytes
+  units: bytes
+  family: Traffic
+  chart_type: line
+  priority: 90020
+  instances:
+    group: aws_privatelink_endpoint_subnet
+    chart_prefix: privatelink_endpoint_subnet_average_processed_bytes
+    family: Traffic
+    labels:
+      endpoint_type: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: privatelink_endpoint_subnet_average_processed_bytes_average
+- id: cloudwatch.privatelink_endpoint_subnet.processed_bytes
+  title: PrivateLink Processed Bytes
+  units: bytes/s
+  family: Traffic
+  chart_type: line
+  priority: 90030
+  instances:
+    group: aws_privatelink_endpoint_subnet
+    chart_prefix: privatelink_endpoint_subnet_processed_bytes
+    family: Traffic
+    labels:
+      endpoint_type: '{instance}'
+  shape: independent
+  dimensions:
+  - id: processed
+    signal: privatelink_endpoint_subnet_processed_bytes_processed
+- id: cloudwatch.privatelink_endpoint_subnet.average_new_connections
+  title: PrivateLink Average New Connections
+  units: connections
+  family: Connections
+  chart_type: line
+  priority: 90040
+  instances:
+    group: aws_privatelink_endpoint_subnet
+    chart_prefix: privatelink_endpoint_subnet_average_new_connections
+    family: Connections
+    labels:
+      endpoint_type: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: privatelink_endpoint_subnet_average_new_connections_average
+- id: cloudwatch.privatelink_endpoint_subnet.new_connections
+  title: PrivateLink New Connections
+  units: connections/s
+  family: Connections
+  chart_type: line
+  priority: 90050
+  instances:
+    group: aws_privatelink_endpoint_subnet
+    chart_prefix: privatelink_endpoint_subnet_new_connections
+    family: Connections
+    labels:
+      endpoint_type: '{instance}'
+  shape: independent
+  dimensions:
+  - id: new
+    signal: privatelink_endpoint_subnet_new_connections_new
+- id: cloudwatch.privatelink_endpoint_subnet.packet_problems
+  title: PrivateLink Packet Problems
+  units: packets/s
+  family: Packets
+  chart_type: line
+  priority: 90060
+  instances:
+    group: aws_privatelink_endpoint_subnet
+    chart_prefix: privatelink_endpoint_subnet_packet_problems
+    family: Packets
+    labels:
+      endpoint_type: '{instance}'
+  shape: independent
+  dimensions:
+  - id: dropped
+    signal: privatelink_endpoint_subnet_packet_problems_dropped
+  - id: reset_received
+    signal: privatelink_endpoint_subnet_packet_problems_reset_received

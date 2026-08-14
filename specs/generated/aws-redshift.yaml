@@ -1,0 +1,207 @@
+version: 1
+name: aws-redshift
+description: 'Amazon Redshift as reported through Netdata''s cloudwatch collector, generated from its
+  service profile (AWS/Redshift) so the contexts, units, families and dimension names match a real deployment.
+  Charts are per-resource instances, as the collector emits them: resources are labels on one node, never
+  separate nodes. Signals move independently rather than being causally coupled - see scripts/sync-profile-collectors.py.'
+signals:
+  redshift_health_healthy:
+    base: 1.0
+    min: 0.0
+    max: 1.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  redshift_health_maintenance:
+    base: 1.0
+    min: 0.0
+    max: 1.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  redshift_cpu_cpu:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  redshift_disk_space_used_used:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  redshift_connections_connections:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  redshift_iops_read:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  redshift_iops_write:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  redshift_throughput_read:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  redshift_throughput_write:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  redshift_network_received:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  redshift_network_transmitted:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+contexts:
+- id: cloudwatch.redshift.health
+  title: Redshift Health
+  units: status
+  family: Health
+  chart_type: line
+  priority: 90010
+  instances:
+    group: aws_redshift
+    chart_prefix: redshift_health
+    family: Health
+    labels:
+      cluster_identifier: '{instance}'
+  shape: independent
+  dimensions:
+  - id: healthy
+    signal: redshift_health_healthy
+  - id: maintenance
+    signal: redshift_health_maintenance
+- id: cloudwatch.redshift.cpu
+  title: Redshift CPU Utilization
+  units: percentage
+  family: CPU
+  chart_type: line
+  priority: 90020
+  instances:
+    group: aws_redshift
+    chart_prefix: redshift_cpu
+    family: CPU
+    labels:
+      cluster_identifier: '{instance}'
+  shape: independent
+  dimensions:
+  - id: cpu
+    signal: redshift_cpu_cpu
+- id: cloudwatch.redshift.disk_space_used
+  title: Redshift Disk Space Used
+  units: percentage
+  family: Storage
+  chart_type: line
+  priority: 90030
+  instances:
+    group: aws_redshift
+    chart_prefix: redshift_disk_space_used
+    family: Storage
+    labels:
+      cluster_identifier: '{instance}'
+  shape: independent
+  dimensions:
+  - id: used
+    signal: redshift_disk_space_used_used
+- id: cloudwatch.redshift.connections
+  title: Redshift Database Connections
+  units: connections
+  family: Connections
+  chart_type: line
+  priority: 90040
+  instances:
+    group: aws_redshift
+    chart_prefix: redshift_connections
+    family: Connections
+    labels:
+      cluster_identifier: '{instance}'
+  shape: independent
+  dimensions:
+  - id: connections
+    signal: redshift_connections_connections
+- id: cloudwatch.redshift.iops
+  title: Redshift Disk IOPS
+  units: ops/s
+  family: Throughput
+  chart_type: line
+  priority: 90050
+  instances:
+    group: aws_redshift
+    chart_prefix: redshift_iops
+    family: Throughput
+    labels:
+      cluster_identifier: '{instance}'
+  shape: independent
+  dimensions:
+  - id: read
+    signal: redshift_iops_read
+  - id: write
+    signal: redshift_iops_write
+- id: cloudwatch.redshift.throughput
+  title: Redshift Disk Throughput
+  units: bytes/s
+  family: Throughput
+  chart_type: line
+  priority: 90060
+  instances:
+    group: aws_redshift
+    chart_prefix: redshift_throughput
+    family: Throughput
+    labels:
+      cluster_identifier: '{instance}'
+  shape: independent
+  dimensions:
+  - id: read
+    signal: redshift_throughput_read
+  - id: write
+    signal: redshift_throughput_write
+- id: cloudwatch.redshift.network
+  title: Redshift Network Throughput
+  units: bytes/s
+  family: Network
+  chart_type: line
+  priority: 90070
+  instances:
+    group: aws_redshift
+    chart_prefix: redshift_network
+    family: Network
+    labels:
+      cluster_identifier: '{instance}'
+  shape: independent
+  dimensions:
+  - id: received
+    signal: redshift_network_received
+  - id: transmitted
+    signal: redshift_network_transmitted

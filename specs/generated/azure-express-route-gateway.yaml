@@ -1,0 +1,249 @@
+version: 1
+name: azure-express-route-gateway
+description: 'Azure ExpressRoute Gateway as reported through Netdata''s azure_monitor collector, generated
+  from its service profile (Microsoft.Network/expressRouteGateways) so the contexts, units, families and
+  dimension names match a real deployment. Charts are per-resource instances, as the collector emits them:
+  resources are labels on one node, never separate nodes. Signals move independently rather than being
+  causally coupled - see scripts/sync-profile-collectors.py.'
+signals:
+  express_route_gateway_connection_throughput_in:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  express_route_gateway_connection_throughput_out:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  express_route_gateway_gateway_throughput_average:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  express_route_gateway_cpu_utilization_average:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  express_route_gateway_packets_average:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  express_route_gateway_active_flows_average:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  express_route_gateway_routes_advertised_maximum:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  express_route_gateway_routes_learned_maximum:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  express_route_gateway_route_changes_total:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  express_route_gateway_max_flows_creation_rate_maximum:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  express_route_gateway_vm_count_maximum:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+contexts:
+- id: azure_monitor.express_route_gateway.connection_throughput
+  title: Azure ExpressRoute Gateway Connection Throughput
+  units: bits/s
+  family: Traffic
+  chart_type: line
+  priority: 90010
+  instances:
+    group: azure_express_route_gateway
+    chart_prefix: express_route_gateway_connection_throughput
+    family: Traffic
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: in
+    signal: express_route_gateway_connection_throughput_in
+  - id: out
+    signal: express_route_gateway_connection_throughput_out
+- id: azure_monitor.express_route_gateway.gateway_throughput
+  title: Azure ExpressRoute Gateway Throughput
+  units: bits/s
+  family: Performance
+  chart_type: line
+  priority: 90020
+  instances:
+    group: azure_express_route_gateway
+    chart_prefix: express_route_gateway_gateway_throughput
+    family: Performance
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: express_route_gateway_gateway_throughput_average
+- id: azure_monitor.express_route_gateway.cpu_utilization
+  title: Azure ExpressRoute Gateway CPU Utilization
+  units: percentage
+  family: Performance
+  chart_type: line
+  priority: 90030
+  instances:
+    group: azure_express_route_gateway
+    chart_prefix: express_route_gateway_cpu_utilization
+    family: Performance
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: express_route_gateway_cpu_utilization_average
+- id: azure_monitor.express_route_gateway.packets
+  title: Azure ExpressRoute Gateway Packets
+  units: packets/s
+  family: Performance
+  chart_type: line
+  priority: 90040
+  instances:
+    group: azure_express_route_gateway
+    chart_prefix: express_route_gateway_packets
+    family: Performance
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: express_route_gateway_packets_average
+- id: azure_monitor.express_route_gateway.active_flows
+  title: Azure ExpressRoute Gateway Active Flows
+  units: flows
+  family: Scalability
+  chart_type: line
+  priority: 90050
+  instances:
+    group: azure_express_route_gateway
+    chart_prefix: express_route_gateway_active_flows
+    family: Scalability
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: express_route_gateway_active_flows_average
+- id: azure_monitor.express_route_gateway.routes_advertised
+  title: Azure ExpressRoute Gateway Routes Advertised to Peer
+  units: routes
+  family: Scalability
+  chart_type: line
+  priority: 90060
+  instances:
+    group: azure_express_route_gateway
+    chart_prefix: express_route_gateway_routes_advertised
+    family: Scalability
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: maximum
+    signal: express_route_gateway_routes_advertised_maximum
+- id: azure_monitor.express_route_gateway.routes_learned
+  title: Azure ExpressRoute Gateway Routes Learned from Peer
+  units: routes
+  family: Scalability
+  chart_type: line
+  priority: 90070
+  instances:
+    group: azure_express_route_gateway
+    chart_prefix: express_route_gateway_routes_learned
+    family: Scalability
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: maximum
+    signal: express_route_gateway_routes_learned_maximum
+- id: azure_monitor.express_route_gateway.route_changes
+  title: Azure ExpressRoute Gateway Route Changes
+  units: changes/s
+  family: Scalability
+  chart_type: line
+  priority: 90080
+  instances:
+    group: azure_express_route_gateway
+    chart_prefix: express_route_gateway_route_changes
+    family: Scalability
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: total
+    signal: express_route_gateway_route_changes_total
+- id: azure_monitor.express_route_gateway.max_flows_creation_rate
+  title: Azure ExpressRoute Gateway Max Flow Creation Rate
+  units: flows/s
+  family: Scalability
+  chart_type: line
+  priority: 90090
+  instances:
+    group: azure_express_route_gateway
+    chart_prefix: express_route_gateway_max_flows_creation_rate
+    family: Scalability
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: maximum
+    signal: express_route_gateway_max_flows_creation_rate_maximum
+- id: azure_monitor.express_route_gateway.vm_count
+  title: Azure ExpressRoute Gateway VMs in VNet
+  units: VMs
+  family: Scalability
+  chart_type: line
+  priority: 90100
+  instances:
+    group: azure_express_route_gateway
+    chart_prefix: express_route_gateway_vm_count
+    family: Scalability
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: maximum
+    signal: express_route_gateway_vm_count_maximum

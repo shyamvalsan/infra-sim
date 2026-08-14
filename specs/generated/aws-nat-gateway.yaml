@@ -1,0 +1,168 @@
+version: 1
+name: aws-nat-gateway
+description: 'AWS NAT Gateway as reported through Netdata''s cloudwatch collector, generated from its
+  service profile (AWS/NATGateway) so the contexts, units, families and dimension names match a real deployment.
+  Charts are per-resource instances, as the collector emits them: resources are labels on one node, never
+  separate nodes. Signals move independently rather than being causally coupled - see scripts/sync-profile-collectors.py.'
+signals:
+  nat_gateway_bytes_in_from_source:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  nat_gateway_bytes_out_to_destination:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  nat_gateway_bytes_in_from_destination:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  nat_gateway_bytes_out_to_source:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  nat_gateway_active_connections_active:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  nat_gateway_connection_rate_attempted:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  nat_gateway_connection_rate_established:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  nat_gateway_errors_port_allocation:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  nat_gateway_errors_packets_dropped:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  nat_gateway_idle_timeouts_idle_timeout:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+contexts:
+- id: cloudwatch.nat_gateway.bytes
+  title: NAT Gateway Traffic
+  units: bytes/s
+  family: Traffic
+  chart_type: line
+  priority: 90010
+  instances:
+    group: aws_nat_gateway
+    chart_prefix: nat_gateway_bytes
+    family: Traffic
+    labels:
+      nat_gateway_id: '{instance}'
+  shape: independent
+  dimensions:
+  - id: in_from_source
+    signal: nat_gateway_bytes_in_from_source
+  - id: out_to_destination
+    signal: nat_gateway_bytes_out_to_destination
+  - id: in_from_destination
+    signal: nat_gateway_bytes_in_from_destination
+  - id: out_to_source
+    signal: nat_gateway_bytes_out_to_source
+- id: cloudwatch.nat_gateway.active_connections
+  title: NAT Gateway Active Connections
+  units: connections
+  family: Connections
+  chart_type: line
+  priority: 90020
+  instances:
+    group: aws_nat_gateway
+    chart_prefix: nat_gateway_active_connections
+    family: Connections
+    labels:
+      nat_gateway_id: '{instance}'
+  shape: independent
+  dimensions:
+  - id: active
+    signal: nat_gateway_active_connections_active
+- id: cloudwatch.nat_gateway.connection_rate
+  title: NAT Gateway Connection Rate
+  units: connections/s
+  family: Connections
+  chart_type: line
+  priority: 90030
+  instances:
+    group: aws_nat_gateway
+    chart_prefix: nat_gateway_connection_rate
+    family: Connections
+    labels:
+      nat_gateway_id: '{instance}'
+  shape: independent
+  dimensions:
+  - id: attempted
+    signal: nat_gateway_connection_rate_attempted
+  - id: established
+    signal: nat_gateway_connection_rate_established
+- id: cloudwatch.nat_gateway.errors
+  title: NAT Gateway Errors
+  units: errors/s
+  family: Errors
+  chart_type: line
+  priority: 90040
+  instances:
+    group: aws_nat_gateway
+    chart_prefix: nat_gateway_errors
+    family: Errors
+    labels:
+      nat_gateway_id: '{instance}'
+  shape: independent
+  dimensions:
+  - id: port_allocation
+    signal: nat_gateway_errors_port_allocation
+  - id: packets_dropped
+    signal: nat_gateway_errors_packets_dropped
+- id: cloudwatch.nat_gateway.idle_timeouts
+  title: NAT Gateway Idle Timeouts
+  units: events/s
+  family: Connections
+  chart_type: line
+  priority: 90050
+  instances:
+    group: aws_nat_gateway
+    chart_prefix: nat_gateway_idle_timeouts
+    family: Connections
+    labels:
+      nat_gateway_id: '{instance}'
+  shape: independent
+  dimensions:
+  - id: idle_timeout
+    signal: nat_gateway_idle_timeouts_idle_timeout

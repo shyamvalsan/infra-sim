@@ -1,0 +1,31 @@
+version: 1
+name: aws-ebs-stalled-io
+description: 'Amazon EBS Stalled I/O as reported through Netdata''s cloudwatch collector, generated from
+  its service profile (AWS/EBS) so the contexts, units, families and dimension names match a real deployment.
+  Charts are per-resource instances, as the collector emits them: resources are labels on one node, never
+  separate nodes. Signals move independently rather than being causally coupled - see scripts/sync-profile-collectors.py.'
+signals:
+  ebs_stalled_io_stalled_io_check_stalled:
+    base: 1.0
+    min: 0.0
+    max: 1.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+contexts:
+- id: cloudwatch.ebs_stalled_io.stalled_io_check
+  title: EBS Volume Stalled I/O Check
+  units: status
+  family: Health
+  chart_type: line
+  priority: 90010
+  instances:
+    group: aws_ebs_stalled_io
+    chart_prefix: ebs_stalled_io_stalled_io_check
+    family: Health
+    labels:
+      volume_id: '{instance}'
+  shape: independent
+  dimensions:
+  - id: stalled
+    signal: ebs_stalled_io_stalled_io_check_stalled

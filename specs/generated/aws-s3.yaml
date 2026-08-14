@@ -1,0 +1,54 @@
+version: 1
+name: aws-s3
+description: 'AWS S3 as reported through Netdata''s cloudwatch collector, generated from its service profile
+  (AWS/S3) so the contexts, units, families and dimension names match a real deployment. Charts are per-resource
+  instances, as the collector emits them: resources are labels on one node, never separate nodes. Signals
+  move independently rather than being causally coupled - see scripts/sync-profile-collectors.py.'
+signals:
+  s3_bucket_size_size:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  s3_number_of_objects_objects:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+contexts:
+- id: cloudwatch.s3.bucket_size
+  title: S3 Bucket Size
+  units: bytes
+  family: Storage
+  chart_type: line
+  priority: 90010
+  instances:
+    group: aws_s3
+    chart_prefix: s3_bucket_size
+    family: Storage
+    labels:
+      bucket_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: size
+    signal: s3_bucket_size_size
+- id: cloudwatch.s3.number_of_objects
+  title: S3 Number of Objects
+  units: objects
+  family: Storage
+  chart_type: line
+  priority: 90020
+  instances:
+    group: aws_s3
+    chart_prefix: s3_number_of_objects
+    family: Storage
+    labels:
+      bucket_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: objects
+    signal: s3_number_of_objects_objects

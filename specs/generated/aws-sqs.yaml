@@ -1,0 +1,159 @@
+version: 1
+name: aws-sqs
+description: 'AWS SQS as reported through Netdata''s cloudwatch collector, generated from its service
+  profile (AWS/SQS) so the contexts, units, families and dimension names match a real deployment. Charts
+  are per-resource instances, as the collector emits them: resources are labels on one node, never separate
+  nodes. Signals move independently rather than being causally coupled - see scripts/sync-profile-collectors.py.'
+signals:
+  sqs_message_throughput_sent:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  sqs_message_throughput_received:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  sqs_message_throughput_deleted:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  sqs_empty_receives_empty:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  sqs_queue_depth_visible:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  sqs_queue_depth_not_visible:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  sqs_queue_depth_delayed:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  sqs_oldest_message_age_age:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  sqs_message_size_size:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+contexts:
+- id: cloudwatch.sqs.message_throughput
+  title: SQS Message Throughput
+  units: messages/s
+  family: Messages
+  chart_type: line
+  priority: 90010
+  instances:
+    group: aws_sqs
+    chart_prefix: sqs_message_throughput
+    family: Messages
+    labels:
+      queue_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: sent
+    signal: sqs_message_throughput_sent
+  - id: received
+    signal: sqs_message_throughput_received
+  - id: deleted
+    signal: sqs_message_throughput_deleted
+- id: cloudwatch.sqs.empty_receives
+  title: SQS Empty Receives
+  units: receives/s
+  family: Messages
+  chart_type: line
+  priority: 90020
+  instances:
+    group: aws_sqs
+    chart_prefix: sqs_empty_receives
+    family: Messages
+    labels:
+      queue_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: empty
+    signal: sqs_empty_receives_empty
+- id: cloudwatch.sqs.queue_depth
+  title: SQS Queue Depth
+  units: messages
+  family: Queue
+  chart_type: line
+  priority: 90030
+  instances:
+    group: aws_sqs
+    chart_prefix: sqs_queue_depth
+    family: Queue
+    labels:
+      queue_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: visible
+    signal: sqs_queue_depth_visible
+  - id: not_visible
+    signal: sqs_queue_depth_not_visible
+  - id: delayed
+    signal: sqs_queue_depth_delayed
+- id: cloudwatch.sqs.oldest_message_age
+  title: SQS Age of Oldest Message
+  units: seconds
+  family: Queue
+  chart_type: line
+  priority: 90040
+  instances:
+    group: aws_sqs
+    chart_prefix: sqs_oldest_message_age
+    family: Queue
+    labels:
+      queue_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: age
+    signal: sqs_oldest_message_age_age
+- id: cloudwatch.sqs.message_size
+  title: SQS Sent Message Size
+  units: bytes
+  family: Messages
+  chart_type: line
+  priority: 90050
+  instances:
+    group: aws_sqs
+    chart_prefix: sqs_message_size
+    family: Messages
+    labels:
+      queue_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: size
+    signal: sqs_message_size_size

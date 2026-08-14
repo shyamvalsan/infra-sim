@@ -1,0 +1,109 @@
+version: 1
+name: aws-auto-scaling
+description: 'AWS Auto Scaling as reported through Netdata''s cloudwatch collector, generated from its
+  service profile (AWS/AutoScaling) so the contexts, units, families and dimension names match a real
+  deployment. Charts are per-resource instances, as the collector emits them: resources are labels on
+  one node, never separate nodes. Signals move independently rather than being causally coupled - see
+  scripts/sync-profile-collectors.py.'
+signals:
+  auto_scaling_sizing_min:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  auto_scaling_sizing_max:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  auto_scaling_sizing_desired:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  auto_scaling_sizing_total:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  auto_scaling_instances_in_service:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  auto_scaling_instances_pending:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  auto_scaling_instances_standby:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  auto_scaling_instances_terminating:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+contexts:
+- id: cloudwatch.auto_scaling.sizing
+  title: Auto Scaling Group Sizing
+  units: instances
+  family: Capacity
+  chart_type: line
+  priority: 90010
+  instances:
+    group: aws_auto_scaling
+    chart_prefix: auto_scaling_sizing
+    family: Capacity
+    labels:
+      auto_scaling_group_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: min
+    signal: auto_scaling_sizing_min
+  - id: max
+    signal: auto_scaling_sizing_max
+  - id: desired
+    signal: auto_scaling_sizing_desired
+  - id: total
+    signal: auto_scaling_sizing_total
+- id: cloudwatch.auto_scaling.instances
+  title: Auto Scaling Group Instances by State
+  units: instances
+  family: Instances
+  chart_type: line
+  priority: 90020
+  instances:
+    group: aws_auto_scaling
+    chart_prefix: auto_scaling_instances
+    family: Instances
+    labels:
+      auto_scaling_group_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: in_service
+    signal: auto_scaling_instances_in_service
+  - id: pending
+    signal: auto_scaling_instances_pending
+  - id: standby
+    signal: auto_scaling_instances_standby
+  - id: terminating
+    signal: auto_scaling_instances_terminating

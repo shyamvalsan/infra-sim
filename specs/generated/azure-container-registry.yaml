@@ -1,178 +1,142 @@
 version: 1
 name: azure-container-registry
-description: Azure Container Registry metrics, generated from Netdata's own collector metadata so the
-  contexts, units and dimension names match what a real Azure Container Registry node reports. Signals
-  are independent and plausible rather than causally coupled - see scripts/sync-integrations.py.
+description: 'Azure Container Registry as reported through Netdata''s azure_monitor collector, generated
+  from its service profile (Microsoft.ContainerRegistry/registries) so the contexts, units, families and
+  dimension names match a real deployment. Charts are per-resource instances, as the collector emits them:
+  resources are labels on one node, never separate nodes. Signals move independently rather than being
+  causally coupled - see scripts/sync-profile-collectors.py.'
 signals:
-  azure_container_registry_container_registry_storage_used_used:
+  container_registry_storage_used_used:
     base: 620000000.0
     min: 0.0
     max: 900000000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_container_registry_container_registry_pull_count_successful:
+      sigma: 0.18
+  container_registry_pull_count_successful:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_container_registry_container_registry_pull_count_total:
+      sigma: 0.18
+  container_registry_pull_count_total:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_container_registry_container_registry_push_count_successful:
+      sigma: 0.18
+  container_registry_push_count_successful:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_container_registry_container_registry_push_count_total:
+      sigma: 0.18
+  container_registry_push_count_total:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_container_registry_container_registry_agentpool_cpu_time_cpu_time:
+      sigma: 0.18
+  container_registry_agentpool_cpu_time_cpu_time:
     base: 0.9
     min: 0.0
     max: 86400.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_container_registry_container_registry_run_duration_duration:
+      sigma: 0.18
+  container_registry_run_duration_duration:
     base: 24.0
     min: 0.0
     max: 600000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
+      sigma: 0.18
 contexts:
 - id: azure_monitor.container_registry.storage_used
   title: Azure Container Registry Storage Used
   units: bytes
-  family: container
+  family: Storage
   chart_type: line
-  priority: 60001
+  priority: 90010
+  instances:
+    group: azure_container_registry
+    chart_prefix: container_registry_storage_used
+    family: Storage
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: used
-    signal: azure_container_registry_container_registry_storage_used_used
+    signal: container_registry_storage_used_used
 - id: azure_monitor.container_registry.pull_count
   title: Azure Container Registry Image Pulls
   units: pulls/s
-  family: container
+  family: Operations
   chart_type: line
-  priority: 60002
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90020
+  instances:
+    group: azure_container_registry
+    chart_prefix: container_registry_pull_count
+    family: Operations
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: successful
-    rate_signal: azure_container_registry_container_registry_pull_count_successful
+    signal: container_registry_pull_count_successful
   - id: total
-    rate_signal: azure_container_registry_container_registry_pull_count_total
+    signal: container_registry_pull_count_total
 - id: azure_monitor.container_registry.push_count
   title: Azure Container Registry Image Pushes
   units: pushes/s
-  family: container
+  family: Operations
   chart_type: line
-  priority: 60003
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90030
+  instances:
+    group: azure_container_registry
+    chart_prefix: container_registry_push_count
+    family: Operations
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: successful
-    rate_signal: azure_container_registry_container_registry_push_count_successful
+    signal: container_registry_push_count_successful
   - id: total
-    rate_signal: azure_container_registry_container_registry_push_count_total
+    signal: container_registry_push_count_total
 - id: azure_monitor.container_registry.agentpool_cpu_time
   title: Azure Container Registry AgentPool CPU Time
   units: seconds/s
-  family: container
+  family: Tasks
   chart_type: line
-  priority: 60004
+  priority: 90040
+  instances:
+    group: azure_container_registry
+    chart_prefix: container_registry_agentpool_cpu_time
+    family: Tasks
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: cpu_time
-    signal: azure_container_registry_container_registry_agentpool_cpu_time_cpu_time
+    signal: container_registry_agentpool_cpu_time_cpu_time
 - id: azure_monitor.container_registry.run_duration
   title: Azure Container Registry Task Run Duration
   units: milliseconds/s
-  family: container
+  family: Tasks
   chart_type: line
-  priority: 60005
+  priority: 90050
+  instances:
+    group: azure_container_registry
+    chart_prefix: container_registry_run_duration
+    family: Tasks
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: duration
-    signal: azure_container_registry_container_registry_run_duration_duration
+    signal: container_registry_run_duration_duration

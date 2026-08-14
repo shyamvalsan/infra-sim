@@ -1,0 +1,170 @@
+version: 1
+name: aws-privatelink-service-az
+description: 'AWS PrivateLink Service by Availability Zone as reported through Netdata''s cloudwatch collector,
+  generated from its service profile (AWS/PrivateLinkServices) so the contexts, units, families and dimension
+  names match a real deployment. Charts are per-resource instances, as the collector emits them: resources
+  are labels on one node, never separate nodes. Signals move independently rather than being causally
+  coupled - see scripts/sync-profile-collectors.py.'
+signals:
+  privatelink_service_az_active_connections_active:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  privatelink_service_az_average_processed_bytes_average:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  privatelink_service_az_processed_bytes_processed:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  privatelink_service_az_average_new_connections_average:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  privatelink_service_az_new_connections_new:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  privatelink_service_az_average_reset_packets_sent_average:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  privatelink_service_az_reset_packets_sent_reset_sent:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+contexts:
+- id: cloudwatch.privatelink_service_az.active_connections
+  title: PrivateLink Service Active Connections
+  units: connections
+  family: Connections
+  chart_type: line
+  priority: 90010
+  instances:
+    group: aws_privatelink_service_az
+    chart_prefix: privatelink_service_az_active_connections
+    family: Connections
+    labels:
+      availability_zone: '{instance}'
+  shape: independent
+  dimensions:
+  - id: active
+    signal: privatelink_service_az_active_connections_active
+- id: cloudwatch.privatelink_service_az.average_processed_bytes
+  title: PrivateLink Service Average Processed Bytes
+  units: bytes
+  family: Traffic
+  chart_type: line
+  priority: 90020
+  instances:
+    group: aws_privatelink_service_az
+    chart_prefix: privatelink_service_az_average_processed_bytes
+    family: Traffic
+    labels:
+      availability_zone: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: privatelink_service_az_average_processed_bytes_average
+- id: cloudwatch.privatelink_service_az.processed_bytes
+  title: PrivateLink Service Processed Bytes
+  units: bytes/s
+  family: Traffic
+  chart_type: line
+  priority: 90030
+  instances:
+    group: aws_privatelink_service_az
+    chart_prefix: privatelink_service_az_processed_bytes
+    family: Traffic
+    labels:
+      availability_zone: '{instance}'
+  shape: independent
+  dimensions:
+  - id: processed
+    signal: privatelink_service_az_processed_bytes_processed
+- id: cloudwatch.privatelink_service_az.average_new_connections
+  title: PrivateLink Service Average New Connections
+  units: connections
+  family: Connections
+  chart_type: line
+  priority: 90040
+  instances:
+    group: aws_privatelink_service_az
+    chart_prefix: privatelink_service_az_average_new_connections
+    family: Connections
+    labels:
+      availability_zone: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: privatelink_service_az_average_new_connections_average
+- id: cloudwatch.privatelink_service_az.new_connections
+  title: PrivateLink Service New Connections
+  units: connections/s
+  family: Connections
+  chart_type: line
+  priority: 90050
+  instances:
+    group: aws_privatelink_service_az
+    chart_prefix: privatelink_service_az_new_connections
+    family: Connections
+    labels:
+      availability_zone: '{instance}'
+  shape: independent
+  dimensions:
+  - id: new
+    signal: privatelink_service_az_new_connections_new
+- id: cloudwatch.privatelink_service_az.average_reset_packets_sent
+  title: PrivateLink Service Average Reset Packets Sent
+  units: packets
+  family: Packets
+  chart_type: line
+  priority: 90060
+  instances:
+    group: aws_privatelink_service_az
+    chart_prefix: privatelink_service_az_average_reset_packets_sent
+    family: Packets
+    labels:
+      availability_zone: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: privatelink_service_az_average_reset_packets_sent_average
+- id: cloudwatch.privatelink_service_az.reset_packets_sent
+  title: PrivateLink Service Reset Packets Sent
+  units: packets/s
+  family: Packets
+  chart_type: line
+  priority: 90070
+  instances:
+    group: aws_privatelink_service_az
+    chart_prefix: privatelink_service_az_reset_packets_sent
+    family: Packets
+    labels:
+      availability_zone: '{instance}'
+  shape: independent
+  dimensions:
+  - id: reset_sent
+    signal: privatelink_service_az_reset_packets_sent_reset_sent

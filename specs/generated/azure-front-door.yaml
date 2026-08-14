@@ -1,463 +1,361 @@
 version: 1
 name: azure-front-door
-description: Azure Front Door metrics, generated from Netdata's own collector metadata so the contexts,
-  units and dimension names match what a real Azure Front Door node reports. Signals are independent and
-  plausible rather than causally coupled - see scripts/sync-integrations.py.
+description: 'Azure Front Door as reported through Netdata''s azure_monitor collector, generated from
+  its service profile (Microsoft.Cdn/profiles) so the contexts, units, families and dimension names match
+  a real deployment. Charts are per-resource instances, as the collector emits them: resources are labels
+  on one node, never separate nodes. Signals move independently rather than being causally coupled - see
+  scripts/sync-profile-collectors.py.'
 signals:
-  azure_front_door_front_door_latency_total:
+  front_door_latency_total:
     base: 24.0
     min: 0.0
     max: 600000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_front_door_front_door_latency_origin:
+      sigma: 0.18
+  front_door_latency_origin:
     base: 24.0
     min: 0.0
     max: 600000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_front_door_front_door_origin_health_health:
+      sigma: 0.18
+  front_door_origin_health_health:
     base: 34.0
     min: 0.0
     max: 100.0
     max_is_ceiling: true
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_front_door_front_door_byte_hit_ratio_hit_ratio:
+      sigma: 0.18
+  front_door_byte_hit_ratio_hit_ratio:
     base: 34.0
     min: 0.0
     max: 100.0
     max_is_ceiling: true
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_front_door_front_door_error_rate_4xx:
-    base: 34.0
+      sigma: 0.18
+  front_door_error_rate_4xx:
+    base: 0.0
     min: 0.0
     max: 100.0
     max_is_ceiling: true
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_front_door_front_door_error_rate_5xx:
-    base: 34.0
+      sigma: 0.18
+  front_door_error_rate_5xx:
+    base: 0.0
     min: 0.0
     max: 100.0
     max_is_ceiling: true
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_front_door_front_door_requests_client:
+      sigma: 0.18
+  front_door_requests_client:
     base: 1100.0
     min: 0.0
     max: 5000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_front_door_front_door_requests_origin:
+      sigma: 0.18
+  front_door_requests_origin:
     base: 1100.0
     min: 0.0
     max: 5000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_front_door_front_door_data_transfer_request:
+      sigma: 0.18
+  front_door_data_transfer_request:
     base: 2400000.0
     min: 0.0
     max: 5000000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_front_door_front_door_data_transfer_response:
+      sigma: 0.18
+  front_door_data_transfer_response:
     base: 2400000.0
     min: 0.0
     max: 5000000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_front_door_front_door_origin_shield_requests_to_shield:
+      sigma: 0.18
+  front_door_origin_shield_requests_to_shield:
     base: 1100.0
     min: 0.0
     max: 5000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_front_door_front_door_origin_shield_requests_to_origin:
+      sigma: 0.18
+  front_door_origin_shield_requests_to_origin:
     base: 1100.0
     min: 0.0
     max: 5000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_front_door_front_door_origin_shield_requests_rate_limited:
+      sigma: 0.18
+  front_door_origin_shield_requests_rate_limited:
     base: 1100.0
     min: 0.0
     max: 5000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_front_door_front_door_origin_shield_data_transfer_request:
+      sigma: 0.18
+  front_door_origin_shield_data_transfer_request:
     base: 2400000.0
     min: 0.0
     max: 5000000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_front_door_front_door_waf_requests_total:
+      sigma: 0.18
+  front_door_waf_requests_total:
     base: 1100.0
     min: 0.0
     max: 5000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_front_door_front_door_waf_challenges_captcha:
+      sigma: 0.18
+  front_door_waf_challenges_captcha:
     base: 1100.0
     min: 0.0
     max: 5000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_front_door_front_door_waf_challenges_js_challenge:
+      sigma: 0.18
+  front_door_waf_challenges_js_challenge:
     base: 1100.0
     min: 0.0
     max: 5000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_front_door_front_door_websocket_connections_requested:
+      sigma: 0.18
+  front_door_websocket_connections_requested:
     base: 45.0
     min: 0.0
     max: 500000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_front_door_front_door_websocket_connections_active:
+      sigma: 0.18
+  front_door_websocket_connections_active:
     base: 45.0
     min: 0.0
     max: 500000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_front_door_front_door_websocket_duration_average:
+      sigma: 0.18
+  front_door_websocket_duration_average:
     base: 24.0
     min: 0.0
     max: 600000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
+      sigma: 0.18
 contexts:
 - id: azure_monitor.front_door.latency
   title: Azure Front Door Latency
   units: milliseconds
-  family: front
+  family: Latency
   chart_type: line
-  priority: 60001
+  priority: 90010
+  instances:
+    group: azure_front_door
+    chart_prefix: front_door_latency
+    family: Latency
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: total
-    signal: azure_front_door_front_door_latency_total
+    signal: front_door_latency_total
   - id: origin
-    signal: azure_front_door_front_door_latency_origin
+    signal: front_door_latency_origin
 - id: azure_monitor.front_door.origin_health
   title: Azure Front Door Origin Health
   units: percentage
-  family: front
+  family: Origin Health
   chart_type: line
-  priority: 60002
+  priority: 90020
+  instances:
+    group: azure_front_door
+    chart_prefix: front_door_origin_health
+    family: Origin Health
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: health
-    signal: azure_front_door_front_door_origin_health_health
+    signal: front_door_origin_health_health
 - id: azure_monitor.front_door.byte_hit_ratio
   title: Azure Front Door Byte Hit Ratio
   units: percentage
-  family: front
+  family: Cache
   chart_type: line
-  priority: 60003
+  priority: 90030
+  instances:
+    group: azure_front_door
+    chart_prefix: front_door_byte_hit_ratio
+    family: Cache
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: hit_ratio
-    signal: azure_front_door_front_door_byte_hit_ratio_hit_ratio
+    signal: front_door_byte_hit_ratio_hit_ratio
 - id: azure_monitor.front_door.error_rate
   title: Azure Front Door Error Rate
   units: percentage
-  family: front
+  family: Errors
   chart_type: line
-  priority: 60004
+  priority: 90040
+  instances:
+    group: azure_front_door
+    chart_prefix: front_door_error_rate
+    family: Errors
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: 4xx
-    signal: azure_front_door_front_door_error_rate_4xx
+    signal: front_door_error_rate_4xx
   - id: 5xx
-    signal: azure_front_door_front_door_error_rate_5xx
+    signal: front_door_error_rate_5xx
 - id: azure_monitor.front_door.requests
   title: Azure Front Door Requests
   units: requests/s
-  family: front
+  family: Traffic
   chart_type: line
-  priority: 60005
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90050
+  instances:
+    group: azure_front_door
+    chart_prefix: front_door_requests
+    family: Traffic
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: client
-    rate_signal: azure_front_door_front_door_requests_client
+    signal: front_door_requests_client
   - id: origin
-    rate_signal: azure_front_door_front_door_requests_origin
+    signal: front_door_requests_origin
 - id: azure_monitor.front_door.data_transfer
   title: Azure Front Door Data Transfer
   units: bytes/s
-  family: front
+  family: Traffic
   chart_type: line
-  priority: 60006
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90060
+  instances:
+    group: azure_front_door
+    chart_prefix: front_door_data_transfer
+    family: Traffic
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: request
-    rate_signal: azure_front_door_front_door_data_transfer_request
+    signal: front_door_data_transfer_request
   - id: response
-    rate_signal: azure_front_door_front_door_data_transfer_response
+    signal: front_door_data_transfer_response
 - id: azure_monitor.front_door.origin_shield_requests
   title: Azure Front Door Origin Shield Requests
   units: requests/s
-  family: front
+  family: Origin Shield
   chart_type: line
-  priority: 60007
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90070
+  instances:
+    group: azure_front_door
+    chart_prefix: front_door_origin_shield_requests
+    family: Origin Shield
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: to_shield
-    rate_signal: azure_front_door_front_door_origin_shield_requests_to_shield
+    signal: front_door_origin_shield_requests_to_shield
   - id: to_origin
-    rate_signal: azure_front_door_front_door_origin_shield_requests_to_origin
+    signal: front_door_origin_shield_requests_to_origin
   - id: rate_limited
-    rate_signal: azure_front_door_front_door_origin_shield_requests_rate_limited
+    signal: front_door_origin_shield_requests_rate_limited
 - id: azure_monitor.front_door.origin_shield_data_transfer
   title: Azure Front Door Origin Shield Data Transfer
   units: bytes/s
-  family: front
+  family: Origin Shield
   chart_type: line
-  priority: 60008
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90080
+  instances:
+    group: azure_front_door
+    chart_prefix: front_door_origin_shield_data_transfer
+    family: Origin Shield
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: request
-    rate_signal: azure_front_door_front_door_origin_shield_data_transfer_request
+    signal: front_door_origin_shield_data_transfer_request
 - id: azure_monitor.front_door.waf_requests
   title: Azure Front Door WAF Requests
   units: requests/s
-  family: front
+  family: WAF
   chart_type: line
-  priority: 60009
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90090
+  instances:
+    group: azure_front_door
+    chart_prefix: front_door_waf_requests
+    family: WAF
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: total
-    rate_signal: azure_front_door_front_door_waf_requests_total
+    signal: front_door_waf_requests_total
 - id: azure_monitor.front_door.waf_challenges
   title: Azure Front Door WAF Challenges
   units: requests/s
-  family: front
+  family: WAF
   chart_type: line
-  priority: 60010
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90100
+  instances:
+    group: azure_front_door
+    chart_prefix: front_door_waf_challenges
+    family: WAF
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: captcha
-    rate_signal: azure_front_door_front_door_waf_challenges_captcha
+    signal: front_door_waf_challenges_captcha
   - id: js_challenge
-    rate_signal: azure_front_door_front_door_waf_challenges_js_challenge
+    signal: front_door_waf_challenges_js_challenge
 - id: azure_monitor.front_door.websocket_connections
   title: Azure Front Door WebSocket Connections
   units: connections/s
-  family: front
+  family: WebSocket
   chart_type: line
-  priority: 60011
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90110
+  instances:
+    group: azure_front_door
+    chart_prefix: front_door_websocket_connections
+    family: WebSocket
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: requested
-    rate_signal: azure_front_door_front_door_websocket_connections_requested
+    signal: front_door_websocket_connections_requested
   - id: active
-    rate_signal: azure_front_door_front_door_websocket_connections_active
+    signal: front_door_websocket_connections_active
 - id: azure_monitor.front_door.websocket_duration
   title: Azure Front Door WebSocket Connection Duration
   units: milliseconds
-  family: front
+  family: WebSocket
   chart_type: line
-  priority: 60012
+  priority: 90120
+  instances:
+    group: azure_front_door
+    chart_prefix: front_door_websocket_duration
+    family: WebSocket
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: average
-    signal: azure_front_door_front_door_websocket_duration_average
+    signal: front_door_websocket_duration_average

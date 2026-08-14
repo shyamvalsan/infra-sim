@@ -1,182 +1,148 @@
 version: 1
 name: azure-nat-gateway
-description: Azure NAT Gateway metrics, generated from Netdata's own collector metadata so the contexts,
-  units and dimension names match what a real Azure NAT Gateway node reports. Signals are independent
-  and plausible rather than causally coupled - see scripts/sync-integrations.py.
+description: 'Azure NAT Gateway as reported through Netdata''s azure_monitor collector, generated from
+  its service profile (Microsoft.Network/natGateways) so the contexts, units, families and dimension names
+  match a real deployment. Charts are per-resource instances, as the collector emits them: resources are
+  labels on one node, never separate nodes. Signals move independently rather than being causally coupled
+  - see scripts/sync-profile-collectors.py.'
 signals:
-  azure_nat_gateway_nat_gateway_datapath_availability_average:
+  nat_gateway_datapath_availability_average:
     base: 34.0
     min: 0.0
     max: 100.0
     max_is_ceiling: true
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_nat_gateway_nat_gateway_byte_throughput_total:
+      sigma: 0.18
+  nat_gateway_byte_throughput_total:
     base: 2400000.0
     min: 0.0
     max: 5000000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_nat_gateway_nat_gateway_packet_throughput_total:
+      sigma: 0.18
+  nat_gateway_packet_throughput_total:
     base: 9800.0
     min: 0.0
     max: 20000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_nat_gateway_nat_gateway_dropped_packets_total:
-    base: 9800.0
+      sigma: 0.18
+  nat_gateway_dropped_packets_total:
+    base: 0.0
     min: 0.0
     max: 20000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_nat_gateway_nat_gateway_snat_connections_total:
-    base: 45.0
+      sigma: 0.18
+  nat_gateway_snat_connections_total:
+    base: 180.0
     min: 0.0
-    max: 500000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
+    max: 200000.0
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_nat_gateway_nat_gateway_total_connections_total:
-    base: 45.0
+      sigma: 0.18
+  nat_gateway_total_connections_total:
+    base: 180.0
     min: 0.0
-    max: 500000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
+    max: 200000.0
     noise:
       kind: gauss
-      sigma: 0.16
+      sigma: 0.18
 contexts:
 - id: azure_monitor.nat_gateway.datapath_availability
   title: Azure NAT Gateway Datapath Availability
   units: percentage
-  family: nat
+  family: Availability
   chart_type: line
-  priority: 60001
+  priority: 90010
+  instances:
+    group: azure_nat_gateway
+    chart_prefix: nat_gateway_datapath_availability
+    family: Availability
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: average
-    signal: azure_nat_gateway_nat_gateway_datapath_availability_average
+    signal: nat_gateway_datapath_availability_average
 - id: azure_monitor.nat_gateway.byte_throughput
   title: Azure NAT Gateway Byte Throughput
   units: bytes/s
-  family: nat
+  family: Throughput
   chart_type: line
-  priority: 60002
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90020
+  instances:
+    group: azure_nat_gateway
+    chart_prefix: nat_gateway_byte_throughput
+    family: Throughput
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: total
-    rate_signal: azure_nat_gateway_nat_gateway_byte_throughput_total
+    signal: nat_gateway_byte_throughput_total
 - id: azure_monitor.nat_gateway.packet_throughput
   title: Azure NAT Gateway Packet Throughput
   units: packets/s
-  family: nat
+  family: Throughput
   chart_type: line
-  priority: 60003
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90030
+  instances:
+    group: azure_nat_gateway
+    chart_prefix: nat_gateway_packet_throughput
+    family: Throughput
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: total
-    rate_signal: azure_nat_gateway_nat_gateway_packet_throughput_total
+    signal: nat_gateway_packet_throughput_total
 - id: azure_monitor.nat_gateway.dropped_packets
   title: Azure NAT Gateway Dropped Packets
   units: packets/s
-  family: nat
+  family: Errors
   chart_type: line
-  priority: 60004
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90040
+  instances:
+    group: azure_nat_gateway
+    chart_prefix: nat_gateway_dropped_packets
+    family: Errors
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: total
-    rate_signal: azure_nat_gateway_nat_gateway_dropped_packets_total
+    signal: nat_gateway_dropped_packets_total
 - id: azure_monitor.nat_gateway.snat_connections
   title: Azure NAT Gateway SNAT Connections
-  units: connections/s
-  family: nat
+  units: connections
+  family: Connections
   chart_type: line
-  priority: 60005
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90050
+  instances:
+    group: azure_nat_gateway
+    chart_prefix: nat_gateway_snat_connections
+    family: Connections
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: total
-    rate_signal: azure_nat_gateway_nat_gateway_snat_connections_total
+    signal: nat_gateway_snat_connections_total
 - id: azure_monitor.nat_gateway.total_connections
   title: Azure NAT Gateway Total SNAT Connections
-  units: connections/s
-  family: nat
+  units: connections
+  family: Connections
   chart_type: line
-  priority: 60006
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90060
+  instances:
+    group: azure_nat_gateway
+    chart_prefix: nat_gateway_total_connections
+    family: Connections
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: total
-    rate_signal: azure_nat_gateway_nat_gateway_total_connections_total
+    signal: nat_gateway_total_connections_total

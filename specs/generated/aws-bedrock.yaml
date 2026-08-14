@@ -1,0 +1,136 @@
+version: 1
+name: aws-bedrock
+description: 'Amazon Bedrock as reported through Netdata''s cloudwatch collector, generated from its service
+  profile (AWS/Bedrock) so the contexts, units, families and dimension names match a real deployment.
+  Charts are per-resource instances, as the collector emits them: resources are labels on one node, never
+  separate nodes. Signals move independently rather than being causally coupled - see scripts/sync-profile-collectors.py.'
+signals:
+  bedrock_invocations_invocations:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  bedrock_errors_client:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  bedrock_errors_server:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  bedrock_errors_throttled:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  bedrock_tokens_input:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  bedrock_tokens_output:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  bedrock_latency_invocation:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  bedrock_latency_time_to_first_token:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+contexts:
+- id: cloudwatch.bedrock.invocations
+  title: Bedrock Invocations
+  units: invocations/s
+  family: Invocations
+  chart_type: line
+  priority: 90010
+  instances:
+    group: aws_bedrock
+    chart_prefix: bedrock_invocations
+    family: Invocations
+    labels:
+      model_id: '{instance}'
+  shape: independent
+  dimensions:
+  - id: invocations
+    signal: bedrock_invocations_invocations
+- id: cloudwatch.bedrock.errors
+  title: Bedrock Invocation Errors
+  units: errors/s
+  family: Errors
+  chart_type: line
+  priority: 90020
+  instances:
+    group: aws_bedrock
+    chart_prefix: bedrock_errors
+    family: Errors
+    labels:
+      model_id: '{instance}'
+  shape: independent
+  dimensions:
+  - id: client
+    signal: bedrock_errors_client
+  - id: server
+    signal: bedrock_errors_server
+  - id: throttled
+    signal: bedrock_errors_throttled
+- id: cloudwatch.bedrock.tokens
+  title: Bedrock Token Throughput
+  units: tokens/s
+  family: Tokens
+  chart_type: line
+  priority: 90030
+  instances:
+    group: aws_bedrock
+    chart_prefix: bedrock_tokens
+    family: Tokens
+    labels:
+      model_id: '{instance}'
+  shape: independent
+  dimensions:
+  - id: input
+    signal: bedrock_tokens_input
+  - id: output
+    signal: bedrock_tokens_output
+- id: cloudwatch.bedrock.latency
+  title: Bedrock Invocation Latency
+  units: milliseconds
+  family: Latency
+  chart_type: line
+  priority: 90040
+  instances:
+    group: aws_bedrock
+    chart_prefix: bedrock_latency
+    family: Latency
+    labels:
+      model_id: '{instance}'
+  shape: independent
+  dimensions:
+  - id: invocation
+    signal: bedrock_latency_invocation
+  - id: time_to_first_token
+    signal: bedrock_latency_time_to_first_token

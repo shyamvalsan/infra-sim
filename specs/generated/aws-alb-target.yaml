@@ -1,0 +1,160 @@
+version: 1
+name: aws-alb-target
+description: 'AWS ALB Target Groups as reported through Netdata''s cloudwatch collector, generated from
+  its service profile (AWS/ApplicationELB) so the contexts, units, families and dimension names match
+  a real deployment. Charts are per-resource instances, as the collector emits them: resources are labels
+  on one node, never separate nodes. Signals move independently rather than being causally coupled - see
+  scripts/sync-profile-collectors.py.'
+signals:
+  alb_target_host_count_healthy:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  alb_target_host_count_unhealthy:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  alb_target_request_count_per_target_requests:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  alb_target_target_response_time_response_time:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  alb_target_target_response_codes_2xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  alb_target_target_response_codes_3xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  alb_target_target_response_codes_4xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  alb_target_target_response_codes_5xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  alb_target_target_connection_errors_errors:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+contexts:
+- id: cloudwatch.alb_target.host_count
+  title: ALB Target Group Host Count
+  units: hosts
+  family: Hosts
+  chart_type: line
+  priority: 90010
+  instances:
+    group: aws_alb_target
+    chart_prefix: alb_target_host_count
+    family: Hosts
+    labels:
+      load_balancer: '{instance}'
+  shape: independent
+  dimensions:
+  - id: healthy
+    signal: alb_target_host_count_healthy
+  - id: unhealthy
+    signal: alb_target_host_count_unhealthy
+- id: cloudwatch.alb_target.request_count_per_target
+  title: ALB Requests Per Target
+  units: requests/s
+  family: Requests
+  chart_type: line
+  priority: 90020
+  instances:
+    group: aws_alb_target
+    chart_prefix: alb_target_request_count_per_target
+    family: Requests
+    labels:
+      load_balancer: '{instance}'
+  shape: independent
+  dimensions:
+  - id: requests
+    signal: alb_target_request_count_per_target_requests
+- id: cloudwatch.alb_target.target_response_time
+  title: ALB Target Group Response Time
+  units: seconds
+  family: Latency
+  chart_type: line
+  priority: 90030
+  instances:
+    group: aws_alb_target
+    chart_prefix: alb_target_target_response_time
+    family: Latency
+    labels:
+      load_balancer: '{instance}'
+  shape: independent
+  dimensions:
+  - id: response_time
+    signal: alb_target_target_response_time_response_time
+- id: cloudwatch.alb_target.target_response_codes
+  title: ALB Target Group Response Codes
+  units: responses/s
+  family: Responses
+  chart_type: line
+  priority: 90040
+  instances:
+    group: aws_alb_target
+    chart_prefix: alb_target_target_response_codes
+    family: Responses
+    labels:
+      load_balancer: '{instance}'
+  shape: independent
+  dimensions:
+  - id: 2xx
+    signal: alb_target_target_response_codes_2xx
+  - id: 3xx
+    signal: alb_target_target_response_codes_3xx
+  - id: 4xx
+    signal: alb_target_target_response_codes_4xx
+  - id: 5xx
+    signal: alb_target_target_response_codes_5xx
+- id: cloudwatch.alb_target.target_connection_errors
+  title: ALB Target Connection Errors
+  units: errors/s
+  family: Errors
+  chart_type: line
+  priority: 90050
+  instances:
+    group: aws_alb_target
+    chart_prefix: alb_target_target_connection_errors
+    family: Errors
+    labels:
+      load_balancer: '{instance}'
+  shape: independent
+  dimensions:
+  - id: errors
+    signal: alb_target_target_connection_errors_errors

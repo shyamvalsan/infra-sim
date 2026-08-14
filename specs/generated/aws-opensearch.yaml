@@ -1,0 +1,288 @@
+version: 1
+name: aws-opensearch
+description: 'Amazon OpenSearch Service as reported through Netdata''s cloudwatch collector, generated
+  from its service profile (AWS/ES) so the contexts, units, families and dimension names match a real
+  deployment. Charts are per-resource instances, as the collector emits them: resources are labels on
+  one node, never separate nodes. Signals move independently rather than being causally coupled - see
+  scripts/sync-profile-collectors.py.'
+signals:
+  opensearch_cluster_status_green:
+    base: 1.0
+    min: 0.0
+    max: 1.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  opensearch_cluster_status_yellow:
+    base: 1.0
+    min: 0.0
+    max: 1.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  opensearch_cluster_status_red:
+    base: 1.0
+    min: 0.0
+    max: 1.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  opensearch_index_writes_blocked_blocked:
+    base: 1.0
+    min: 0.0
+    max: 1.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  opensearch_nodes_nodes:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  opensearch_cpu_cpu:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  opensearch_cpu_maximum:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  opensearch_jvm_memory_pressure_pressure:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  opensearch_free_storage_space_free:
+    base: 620.0
+    min: 0.0
+    max: 900000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  opensearch_operation_rate_search:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  opensearch_operation_rate_indexing:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  opensearch_latency_search:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  opensearch_latency_indexing:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  opensearch_old_gen_jvm_memory_pressure_pressure:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  opensearch_automated_snapshot_failure_failure:
+    base: 0.0
+    min: 0.0
+    max: 1.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+contexts:
+- id: cloudwatch.opensearch.cluster_status
+  title: OpenSearch Cluster Status
+  units: status
+  family: Health
+  chart_type: line
+  priority: 90010
+  instances:
+    group: aws_opensearch
+    chart_prefix: opensearch_cluster_status
+    family: Health
+    labels:
+      client_id: '{instance}'
+  shape: independent
+  dimensions:
+  - id: green
+    signal: opensearch_cluster_status_green
+  - id: yellow
+    signal: opensearch_cluster_status_yellow
+  - id: red
+    signal: opensearch_cluster_status_red
+- id: cloudwatch.opensearch.index_writes_blocked
+  title: OpenSearch Cluster Index Writes Blocked
+  units: status
+  family: Health
+  chart_type: line
+  priority: 90020
+  instances:
+    group: aws_opensearch
+    chart_prefix: opensearch_index_writes_blocked
+    family: Health
+    labels:
+      client_id: '{instance}'
+  shape: independent
+  dimensions:
+  - id: blocked
+    signal: opensearch_index_writes_blocked_blocked
+- id: cloudwatch.opensearch.nodes
+  title: OpenSearch Nodes
+  units: nodes
+  family: Nodes
+  chart_type: line
+  priority: 90030
+  instances:
+    group: aws_opensearch
+    chart_prefix: opensearch_nodes
+    family: Nodes
+    labels:
+      client_id: '{instance}'
+  shape: independent
+  dimensions:
+  - id: nodes
+    signal: opensearch_nodes_nodes
+- id: cloudwatch.opensearch.cpu
+  title: OpenSearch CPU Utilization
+  units: percentage
+  family: CPU
+  chart_type: line
+  priority: 90040
+  instances:
+    group: aws_opensearch
+    chart_prefix: opensearch_cpu
+    family: CPU
+    labels:
+      client_id: '{instance}'
+  shape: independent
+  dimensions:
+  - id: cpu
+    signal: opensearch_cpu_cpu
+  - id: maximum
+    signal: opensearch_cpu_maximum
+- id: cloudwatch.opensearch.jvm_memory_pressure
+  title: OpenSearch JVM Memory Pressure
+  units: percentage
+  family: JVM
+  chart_type: line
+  priority: 90050
+  instances:
+    group: aws_opensearch
+    chart_prefix: opensearch_jvm_memory_pressure
+    family: JVM
+    labels:
+      client_id: '{instance}'
+  shape: independent
+  dimensions:
+  - id: pressure
+    signal: opensearch_jvm_memory_pressure_pressure
+- id: cloudwatch.opensearch.free_storage_space
+  title: OpenSearch Free Storage Space
+  units: MiB
+  family: Storage
+  chart_type: line
+  priority: 90060
+  instances:
+    group: aws_opensearch
+    chart_prefix: opensearch_free_storage_space
+    family: Storage
+    labels:
+      client_id: '{instance}'
+  shape: independent
+  dimensions:
+  - id: free
+    signal: opensearch_free_storage_space_free
+- id: cloudwatch.opensearch.operation_rate
+  title: OpenSearch Search and Indexing Rate
+  units: operations/min
+  family: Operations
+  chart_type: line
+  priority: 90070
+  instances:
+    group: aws_opensearch
+    chart_prefix: opensearch_operation_rate
+    family: Operations
+    labels:
+      client_id: '{instance}'
+  shape: independent
+  dimensions:
+  - id: search
+    signal: opensearch_operation_rate_search
+  - id: indexing
+    signal: opensearch_operation_rate_indexing
+- id: cloudwatch.opensearch.latency
+  title: OpenSearch Search and Indexing Latency
+  units: milliseconds
+  family: Latency
+  chart_type: line
+  priority: 90080
+  instances:
+    group: aws_opensearch
+    chart_prefix: opensearch_latency
+    family: Latency
+    labels:
+      client_id: '{instance}'
+  shape: independent
+  dimensions:
+  - id: search
+    signal: opensearch_latency_search
+  - id: indexing
+    signal: opensearch_latency_indexing
+- id: cloudwatch.opensearch.old_gen_jvm_memory_pressure
+  title: OpenSearch Old-Gen JVM Memory Pressure
+  units: percentage
+  family: JVM
+  chart_type: line
+  priority: 90090
+  instances:
+    group: aws_opensearch
+    chart_prefix: opensearch_old_gen_jvm_memory_pressure
+    family: JVM
+    labels:
+      client_id: '{instance}'
+  shape: independent
+  dimensions:
+  - id: pressure
+    signal: opensearch_old_gen_jvm_memory_pressure_pressure
+- id: cloudwatch.opensearch.automated_snapshot_failure
+  title: OpenSearch Automated Snapshot Failure
+  units: status
+  family: Health
+  chart_type: line
+  priority: 90100
+  instances:
+    group: aws_opensearch
+    chart_prefix: opensearch_automated_snapshot_failure
+    family: Health
+    labels:
+      client_id: '{instance}'
+  shape: independent
+  dimensions:
+  - id: failure
+    signal: opensearch_automated_snapshot_failure_failure

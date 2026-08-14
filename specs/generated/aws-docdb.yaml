@@ -1,0 +1,244 @@
+version: 1
+name: aws-docdb
+description: 'Amazon DocumentDB as reported through Netdata''s cloudwatch collector, generated from its
+  service profile (AWS/DocDB) so the contexts, units, families and dimension names match a real deployment.
+  Charts are per-resource instances, as the collector emits them: resources are labels on one node, never
+  separate nodes. Signals move independently rather than being causally coupled - see scripts/sync-profile-collectors.py.'
+signals:
+  docdb_cpu_cpu:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  docdb_freeable_memory_freeable:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  docdb_connections_connections:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  docdb_buffer_cache_hit_ratio_hit_ratio:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  docdb_iops_read:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  docdb_iops_write:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  docdb_latency_read:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  docdb_latency_write:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  docdb_throughput_read:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  docdb_throughput_write:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  docdb_replica_lag_lag:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  docdb_cursors_timed_out_timed_out:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+contexts:
+- id: cloudwatch.docdb.cpu
+  title: DocumentDB CPU Utilization
+  units: percentage
+  family: CPU
+  chart_type: line
+  priority: 90010
+  instances:
+    group: aws_docdb
+    chart_prefix: docdb_cpu
+    family: CPU
+    labels:
+      db_instance_identifier: '{instance}'
+  shape: independent
+  dimensions:
+  - id: cpu
+    signal: docdb_cpu_cpu
+- id: cloudwatch.docdb.freeable_memory
+  title: DocumentDB Freeable Memory
+  units: bytes
+  family: Memory
+  chart_type: line
+  priority: 90020
+  instances:
+    group: aws_docdb
+    chart_prefix: docdb_freeable_memory
+    family: Memory
+    labels:
+      db_instance_identifier: '{instance}'
+  shape: independent
+  dimensions:
+  - id: freeable
+    signal: docdb_freeable_memory_freeable
+- id: cloudwatch.docdb.connections
+  title: DocumentDB Connections
+  units: connections
+  family: Connections
+  chart_type: line
+  priority: 90030
+  instances:
+    group: aws_docdb
+    chart_prefix: docdb_connections
+    family: Connections
+    labels:
+      db_instance_identifier: '{instance}'
+  shape: independent
+  dimensions:
+  - id: connections
+    signal: docdb_connections_connections
+- id: cloudwatch.docdb.buffer_cache_hit_ratio
+  title: DocumentDB Buffer Cache Hit Ratio
+  units: percentage
+  family: Cache
+  chart_type: line
+  priority: 90040
+  instances:
+    group: aws_docdb
+    chart_prefix: docdb_buffer_cache_hit_ratio
+    family: Cache
+    labels:
+      db_instance_identifier: '{instance}'
+  shape: independent
+  dimensions:
+  - id: hit_ratio
+    signal: docdb_buffer_cache_hit_ratio_hit_ratio
+- id: cloudwatch.docdb.iops
+  title: DocumentDB Disk IOPS
+  units: ops/s
+  family: Throughput
+  chart_type: line
+  priority: 90050
+  instances:
+    group: aws_docdb
+    chart_prefix: docdb_iops
+    family: Throughput
+    labels:
+      db_instance_identifier: '{instance}'
+  shape: independent
+  dimensions:
+  - id: read
+    signal: docdb_iops_read
+  - id: write
+    signal: docdb_iops_write
+- id: cloudwatch.docdb.latency
+  title: DocumentDB Disk Latency
+  units: milliseconds
+  family: Latency
+  chart_type: line
+  priority: 90060
+  instances:
+    group: aws_docdb
+    chart_prefix: docdb_latency
+    family: Latency
+    labels:
+      db_instance_identifier: '{instance}'
+  shape: independent
+  dimensions:
+  - id: read
+    signal: docdb_latency_read
+  - id: write
+    signal: docdb_latency_write
+- id: cloudwatch.docdb.throughput
+  title: DocumentDB Disk Throughput
+  units: bytes/s
+  family: Throughput
+  chart_type: line
+  priority: 90070
+  instances:
+    group: aws_docdb
+    chart_prefix: docdb_throughput
+    family: Throughput
+    labels:
+      db_instance_identifier: '{instance}'
+  shape: independent
+  dimensions:
+  - id: read
+    signal: docdb_throughput_read
+  - id: write
+    signal: docdb_throughput_write
+- id: cloudwatch.docdb.replica_lag
+  title: DocumentDB Replica Lag
+  units: milliseconds
+  family: Replication
+  chart_type: line
+  priority: 90080
+  instances:
+    group: aws_docdb
+    chart_prefix: docdb_replica_lag
+    family: Replication
+    labels:
+      db_instance_identifier: '{instance}'
+  shape: independent
+  dimensions:
+  - id: lag
+    signal: docdb_replica_lag_lag
+- id: cloudwatch.docdb.cursors_timed_out
+  title: DocumentDB Cursors Timed Out
+  units: cursors/s
+  family: Cursors
+  chart_type: line
+  priority: 90090
+  instances:
+    group: aws_docdb
+    chart_prefix: docdb_cursors_timed_out
+    family: Cursors
+    labels:
+      db_instance_identifier: '{instance}'
+  shape: independent
+  dimensions:
+  - id: timed_out
+    signal: docdb_cursors_timed_out_timed_out

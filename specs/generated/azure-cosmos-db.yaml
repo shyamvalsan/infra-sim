@@ -1,0 +1,564 @@
+version: 1
+name: azure-cosmos-db
+description: 'Azure Cosmos DB Account as reported through Netdata''s azure_monitor collector, generated
+  from its service profile (Microsoft.DocumentDB/databaseAccounts) so the contexts, units, families and
+  dimension names match a real deployment. Charts are per-resource instances, as the collector emits them:
+  resources are labels on one node, never separate nodes. Signals move independently rather than being
+  causally coupled - see scripts/sync-profile-collectors.py.'
+signals:
+  cosmos_db_total_requests_count:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  cosmos_db_request_units_total:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  cosmos_db_normalized_ru_consumption_maximum:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  cosmos_db_server_side_latency_direct:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  cosmos_db_server_side_latency_gateway:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  cosmos_db_replication_latency_average:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  cosmos_db_storage_data:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  cosmos_db_storage_index:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  cosmos_db_storage_quota:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  cosmos_db_document_count_average:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  cosmos_db_partition_size_maximum:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  cosmos_db_partition_count_maximum:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  cosmos_db_provisioned_throughput_provisioned:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  cosmos_db_provisioned_throughput_autoscale_max:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  cosmos_db_provisioned_throughput_autoscaled:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  cosmos_db_partition_throughput_maximum:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  cosmos_db_availability_average:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  cosmos_db_metadata_requests_count:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  cosmos_db_api_requests_mongo:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  cosmos_db_api_requests_cassandra:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  cosmos_db_api_requests_gremlin:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  cosmos_db_api_request_charges_mongo:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  cosmos_db_api_request_charges_cassandra:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  cosmos_db_api_request_charges_gremlin:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  cosmos_db_cassandra_connections_total:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  cosmos_db_dedicated_gateway_cpu_average:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  cosmos_db_dedicated_gateway_memory_average:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  cosmos_db_dedicated_gateway_requests_count:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  cosmos_db_integrated_cache_hit_rate_item:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  cosmos_db_integrated_cache_hit_rate_query:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+contexts:
+- id: azure_monitor.cosmos_db.total_requests
+  title: Azure Cosmos DB Total Requests
+  units: requests/s
+  family: Throughput
+  chart_type: line
+  priority: 90010
+  instances:
+    group: azure_cosmos_db
+    chart_prefix: cosmos_db_total_requests
+    family: Throughput
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: count
+    signal: cosmos_db_total_requests_count
+- id: azure_monitor.cosmos_db.request_units
+  title: Azure Cosmos DB Request Units Consumed
+  units: RU/s
+  family: Throughput
+  chart_type: line
+  priority: 90020
+  instances:
+    group: azure_cosmos_db
+    chart_prefix: cosmos_db_request_units
+    family: Throughput
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: total
+    signal: cosmos_db_request_units_total
+- id: azure_monitor.cosmos_db.normalized_ru_consumption
+  title: Azure Cosmos DB Normalized RU Consumption
+  units: percentage
+  family: Utilization
+  chart_type: line
+  priority: 90030
+  instances:
+    group: azure_cosmos_db
+    chart_prefix: cosmos_db_normalized_ru_consumption
+    family: Utilization
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: maximum
+    signal: cosmos_db_normalized_ru_consumption_maximum
+- id: azure_monitor.cosmos_db.server_side_latency
+  title: Azure Cosmos DB Server-Side Latency
+  units: milliseconds
+  family: Latency
+  chart_type: line
+  priority: 90040
+  instances:
+    group: azure_cosmos_db
+    chart_prefix: cosmos_db_server_side_latency
+    family: Latency
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: direct
+    signal: cosmos_db_server_side_latency_direct
+  - id: gateway
+    signal: cosmos_db_server_side_latency_gateway
+- id: azure_monitor.cosmos_db.replication_latency
+  title: Azure Cosmos DB Replication Latency
+  units: milliseconds
+  family: Latency
+  chart_type: line
+  priority: 90050
+  instances:
+    group: azure_cosmos_db
+    chart_prefix: cosmos_db_replication_latency
+    family: Latency
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: cosmos_db_replication_latency_average
+- id: azure_monitor.cosmos_db.storage
+  title: Azure Cosmos DB Storage
+  units: bytes
+  family: Capacity
+  chart_type: line
+  priority: 90060
+  instances:
+    group: azure_cosmos_db
+    chart_prefix: cosmos_db_storage
+    family: Capacity
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: data
+    signal: cosmos_db_storage_data
+  - id: index
+    signal: cosmos_db_storage_index
+  - id: quota
+    signal: cosmos_db_storage_quota
+- id: azure_monitor.cosmos_db.document_count
+  title: Azure Cosmos DB Document Count
+  units: documents
+  family: Capacity
+  chart_type: line
+  priority: 90070
+  instances:
+    group: azure_cosmos_db
+    chart_prefix: cosmos_db_document_count
+    family: Capacity
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: cosmos_db_document_count_average
+- id: azure_monitor.cosmos_db.partition_size
+  title: Azure Cosmos DB Physical Partition Size
+  units: bytes
+  family: Capacity
+  chart_type: line
+  priority: 90080
+  instances:
+    group: azure_cosmos_db
+    chart_prefix: cosmos_db_partition_size
+    family: Capacity
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: maximum
+    signal: cosmos_db_partition_size_maximum
+- id: azure_monitor.cosmos_db.partition_count
+  title: Azure Cosmos DB Physical Partition Count
+  units: partitions
+  family: Capacity
+  chart_type: line
+  priority: 90090
+  instances:
+    group: azure_cosmos_db
+    chart_prefix: cosmos_db_partition_count
+    family: Capacity
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: maximum
+    signal: cosmos_db_partition_count_maximum
+- id: azure_monitor.cosmos_db.provisioned_throughput
+  title: Azure Cosmos DB Provisioned Throughput
+  units: RU/s
+  family: Throughput
+  chart_type: line
+  priority: 90100
+  instances:
+    group: azure_cosmos_db
+    chart_prefix: cosmos_db_provisioned_throughput
+    family: Throughput
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: provisioned
+    signal: cosmos_db_provisioned_throughput_provisioned
+  - id: autoscale_max
+    signal: cosmos_db_provisioned_throughput_autoscale_max
+  - id: autoscaled
+    signal: cosmos_db_provisioned_throughput_autoscaled
+- id: azure_monitor.cosmos_db.partition_throughput
+  title: Azure Cosmos DB Physical Partition Throughput
+  units: RU/s
+  family: Throughput
+  chart_type: line
+  priority: 90110
+  instances:
+    group: azure_cosmos_db
+    chart_prefix: cosmos_db_partition_throughput
+    family: Throughput
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: maximum
+    signal: cosmos_db_partition_throughput_maximum
+- id: azure_monitor.cosmos_db.availability
+  title: Azure Cosmos DB Service Availability
+  units: percentage
+  family: Availability
+  chart_type: line
+  priority: 90120
+  instances:
+    group: azure_cosmos_db
+    chart_prefix: cosmos_db_availability
+    family: Availability
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: cosmos_db_availability_average
+- id: azure_monitor.cosmos_db.metadata_requests
+  title: Azure Cosmos DB Metadata Requests
+  units: requests/s
+  family: Throughput
+  chart_type: line
+  priority: 90130
+  instances:
+    group: azure_cosmos_db
+    chart_prefix: cosmos_db_metadata_requests
+    family: Throughput
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: count
+    signal: cosmos_db_metadata_requests_count
+- id: azure_monitor.cosmos_db.api_requests
+  title: Azure Cosmos DB API Requests
+  units: requests/s
+  family: API
+  chart_type: line
+  priority: 90140
+  instances:
+    group: azure_cosmos_db
+    chart_prefix: cosmos_db_api_requests
+    family: API
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: mongo
+    signal: cosmos_db_api_requests_mongo
+  - id: cassandra
+    signal: cosmos_db_api_requests_cassandra
+  - id: gremlin
+    signal: cosmos_db_api_requests_gremlin
+- id: azure_monitor.cosmos_db.api_request_charges
+  title: Azure Cosmos DB API Request Charges
+  units: RU/s
+  family: API
+  chart_type: line
+  priority: 90150
+  instances:
+    group: azure_cosmos_db
+    chart_prefix: cosmos_db_api_request_charges
+    family: API
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: mongo
+    signal: cosmos_db_api_request_charges_mongo
+  - id: cassandra
+    signal: cosmos_db_api_request_charges_cassandra
+  - id: gremlin
+    signal: cosmos_db_api_request_charges_gremlin
+- id: azure_monitor.cosmos_db.cassandra_connections
+  title: Azure Cosmos DB Cassandra Connection Closures
+  units: connections/s
+  family: API
+  chart_type: line
+  priority: 90160
+  instances:
+    group: azure_cosmos_db
+    chart_prefix: cosmos_db_cassandra_connections
+    family: API
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: total
+    signal: cosmos_db_cassandra_connections_total
+- id: azure_monitor.cosmos_db.dedicated_gateway_cpu
+  title: Azure Cosmos DB Dedicated Gateway CPU Usage
+  units: percentage
+  family: Dedicated Gateway
+  chart_type: line
+  priority: 90170
+  instances:
+    group: azure_cosmos_db
+    chart_prefix: cosmos_db_dedicated_gateway_cpu
+    family: Dedicated Gateway
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: cosmos_db_dedicated_gateway_cpu_average
+- id: azure_monitor.cosmos_db.dedicated_gateway_memory
+  title: Azure Cosmos DB Dedicated Gateway Memory Usage
+  units: bytes
+  family: Dedicated Gateway
+  chart_type: line
+  priority: 90180
+  instances:
+    group: azure_cosmos_db
+    chart_prefix: cosmos_db_dedicated_gateway_memory
+    family: Dedicated Gateway
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: cosmos_db_dedicated_gateway_memory_average
+- id: azure_monitor.cosmos_db.dedicated_gateway_requests
+  title: Azure Cosmos DB Dedicated Gateway Requests
+  units: requests/s
+  family: Dedicated Gateway
+  chart_type: line
+  priority: 90190
+  instances:
+    group: azure_cosmos_db
+    chart_prefix: cosmos_db_dedicated_gateway_requests
+    family: Dedicated Gateway
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: count
+    signal: cosmos_db_dedicated_gateway_requests_count
+- id: azure_monitor.cosmos_db.integrated_cache_hit_rate
+  title: Azure Cosmos DB Integrated Cache Hit Rate
+  units: percentage
+  family: Integrated Cache
+  chart_type: line
+  priority: 90200
+  instances:
+    group: azure_cosmos_db
+    chart_prefix: cosmos_db_integrated_cache_hit_rate
+    family: Integrated Cache
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: item
+    signal: cosmos_db_integrated_cache_hit_rate_item
+  - id: query
+    signal: cosmos_db_integrated_cache_hit_rate_query

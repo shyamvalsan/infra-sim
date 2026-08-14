@@ -1,138 +1,112 @@
 version: 1
 name: azure-key-vault
-description: Azure Key Vault metrics, generated from Netdata's own collector metadata so the contexts,
-  units and dimension names match what a real Azure Key Vault node reports. Signals are independent and
-  plausible rather than causally coupled - see scripts/sync-integrations.py.
+description: 'Azure Key Vault as reported through Netdata''s azure_monitor collector, generated from its
+  service profile (Microsoft.KeyVault/vaults) so the contexts, units, families and dimension names match
+  a real deployment. Charts are per-resource instances, as the collector emits them: resources are labels
+  on one node, never separate nodes. Signals move independently rather than being causally coupled - see
+  scripts/sync-profile-collectors.py.'
 signals:
-  azure_key_vault_key_vault_availability_average:
+  key_vault_availability_average:
     base: 34.0
     min: 0.0
     max: 100.0
     max_is_ceiling: true
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_key_vault_key_vault_api_latency_average:
+      sigma: 0.18
+  key_vault_api_latency_average:
     base: 24.0
     min: 0.0
     max: 600000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_key_vault_key_vault_saturation_average:
+      sigma: 0.18
+  key_vault_saturation_average:
     base: 34.0
     min: 0.0
     max: 100.0
     max_is_ceiling: true
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_key_vault_key_vault_api_activity_hits:
+      sigma: 0.18
+  key_vault_api_activity_hits:
     base: 1450.0
     min: 0.0
     max: 5000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_key_vault_key_vault_api_activity_results:
+      sigma: 0.18
+  key_vault_api_activity_results:
     base: 1450.0
     min: 0.0
     max: 5000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
+      sigma: 0.18
 contexts:
 - id: azure_monitor.key_vault.availability
   title: Azure Key Vault Availability
   units: percentage
-  family: key
+  family: Availability
   chart_type: line
-  priority: 60001
+  priority: 90010
+  instances:
+    group: azure_key_vault
+    chart_prefix: key_vault_availability
+    family: Availability
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: average
-    signal: azure_key_vault_key_vault_availability_average
+    signal: key_vault_availability_average
 - id: azure_monitor.key_vault.api_latency
   title: Azure Key Vault API Latency
   units: milliseconds
-  family: key
+  family: Performance
   chart_type: line
-  priority: 60002
+  priority: 90020
+  instances:
+    group: azure_key_vault
+    chart_prefix: key_vault_api_latency
+    family: Performance
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: average
-    signal: azure_key_vault_key_vault_api_latency_average
+    signal: key_vault_api_latency_average
 - id: azure_monitor.key_vault.saturation
   title: Azure Key Vault Saturation
   units: percentage
-  family: key
+  family: Capacity
   chart_type: line
-  priority: 60003
+  priority: 90030
+  instances:
+    group: azure_key_vault
+    chart_prefix: key_vault_saturation
+    family: Capacity
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: average
-    signal: azure_key_vault_key_vault_saturation_average
+    signal: key_vault_saturation_average
 - id: azure_monitor.key_vault.api_activity
   title: Azure Key Vault API Activity
   units: operations/s
-  family: key
+  family: Operations
   chart_type: line
-  priority: 60004
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90040
+  instances:
+    group: azure_key_vault
+    chart_prefix: key_vault_api_activity
+    family: Operations
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: hits
-    rate_signal: azure_key_vault_key_vault_api_activity_hits
+    signal: key_vault_api_activity_hits
   - id: results
-    rate_signal: azure_key_vault_key_vault_api_activity_results
+    signal: key_vault_api_activity_results

@@ -1,0 +1,287 @@
+version: 1
+name: aws-eks
+description: 'Amazon EKS as reported through Netdata''s cloudwatch collector, generated from its service
+  profile (AWS/EKS) so the contexts, units, families and dimension names match a real deployment. Charts
+  are per-resource instances, as the collector emits them: resources are labels on one node, never separate
+  nodes. Signals move independently rather than being causally coupled - see scripts/sync-profile-collectors.py.'
+signals:
+  eks_apiserver_requests_requests:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  eks_apiserver_request_errors_4xx:
+    base: 0.0
+    min: 0.0
+    max: 5000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  eks_apiserver_request_errors_5xx:
+    base: 0.0
+    min: 0.0
+    max: 5000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  eks_apiserver_latency_get:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  eks_apiserver_latency_list:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  eks_apiserver_inflight_read_only:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  eks_apiserver_inflight_mutating:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  eks_etcd_db_size_in_use:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  eks_scheduler_pending_pods_pending:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  eks_scheduler_attempts_scheduled:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  eks_scheduler_attempts_unschedulable:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  eks_scheduler_attempts_error:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  eks_apiserver_throttling_throttled_429:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  eks_scheduler_pending_by_queue_active:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  eks_scheduler_pending_by_queue_backoff:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  eks_scheduler_pending_by_queue_unschedulable:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  eks_scheduler_pending_by_queue_gated:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+contexts:
+- id: cloudwatch.eks.apiserver_requests
+  title: EKS API Server Request Rate
+  units: requests/s
+  family: API Server
+  chart_type: line
+  priority: 90010
+  instances:
+    group: aws_eks
+    chart_prefix: eks_apiserver_requests
+    family: API Server
+    labels:
+      cluster_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: requests
+    signal: eks_apiserver_requests_requests
+- id: cloudwatch.eks.apiserver_request_errors
+  title: EKS API Server Request Errors
+  units: requests/s
+  family: API Server
+  chart_type: line
+  priority: 90020
+  instances:
+    group: aws_eks
+    chart_prefix: eks_apiserver_request_errors
+    family: API Server
+    labels:
+      cluster_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: 4xx
+    signal: eks_apiserver_request_errors_4xx
+  - id: 5xx
+    signal: eks_apiserver_request_errors_5xx
+- id: cloudwatch.eks.apiserver_latency
+  title: EKS API Server Request Latency (p99)
+  units: seconds
+  family: API Server
+  chart_type: line
+  priority: 90030
+  instances:
+    group: aws_eks
+    chart_prefix: eks_apiserver_latency
+    family: API Server
+    labels:
+      cluster_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: get
+    signal: eks_apiserver_latency_get
+  - id: list
+    signal: eks_apiserver_latency_list
+- id: cloudwatch.eks.apiserver_inflight
+  title: EKS API Server In-Flight Requests
+  units: requests
+  family: API Server
+  chart_type: line
+  priority: 90040
+  instances:
+    group: aws_eks
+    chart_prefix: eks_apiserver_inflight
+    family: API Server
+    labels:
+      cluster_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: read_only
+    signal: eks_apiserver_inflight_read_only
+  - id: mutating
+    signal: eks_apiserver_inflight_mutating
+- id: cloudwatch.eks.etcd_db_size
+  title: EKS etcd Database Size In Use
+  units: bytes
+  family: etcd
+  chart_type: line
+  priority: 90050
+  instances:
+    group: aws_eks
+    chart_prefix: eks_etcd_db_size
+    family: etcd
+    labels:
+      cluster_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: in_use
+    signal: eks_etcd_db_size_in_use
+- id: cloudwatch.eks.scheduler_pending_pods
+  title: EKS Scheduler Pending Pods
+  units: pods
+  family: Scheduler
+  chart_type: line
+  priority: 90060
+  instances:
+    group: aws_eks
+    chart_prefix: eks_scheduler_pending_pods
+    family: Scheduler
+    labels:
+      cluster_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: pending
+    signal: eks_scheduler_pending_pods_pending
+- id: cloudwatch.eks.scheduler_attempts
+  title: EKS Scheduler Attempts
+  units: attempts/s
+  family: Scheduler
+  chart_type: line
+  priority: 90070
+  instances:
+    group: aws_eks
+    chart_prefix: eks_scheduler_attempts
+    family: Scheduler
+    labels:
+      cluster_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: scheduled
+    signal: eks_scheduler_attempts_scheduled
+  - id: unschedulable
+    signal: eks_scheduler_attempts_unschedulable
+  - id: error
+    signal: eks_scheduler_attempts_error
+- id: cloudwatch.eks.apiserver_throttling
+  title: EKS API Server Priority-and-Fairness Throttling
+  units: requests/s
+  family: API Server
+  chart_type: line
+  priority: 90080
+  instances:
+    group: aws_eks
+    chart_prefix: eks_apiserver_throttling
+    family: API Server
+    labels:
+      cluster_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: throttled_429
+    signal: eks_apiserver_throttling_throttled_429
+- id: cloudwatch.eks.scheduler_pending_by_queue
+  title: EKS Scheduler Pending Pods by Queue
+  units: pods
+  family: Scheduler
+  chart_type: line
+  priority: 90090
+  instances:
+    group: aws_eks
+    chart_prefix: eks_scheduler_pending_by_queue
+    family: Scheduler
+    labels:
+      cluster_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: active
+    signal: eks_scheduler_pending_by_queue_active
+  - id: backoff
+    signal: eks_scheduler_pending_by_queue_backoff
+  - id: unschedulable
+    signal: eks_scheduler_pending_by_queue_unschedulable
+  - id: gated
+    signal: eks_scheduler_pending_by_queue_gated

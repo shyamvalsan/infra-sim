@@ -1,0 +1,175 @@
+version: 1
+name: azure-storage-accounts
+description: 'Azure Storage Account as reported through Netdata''s azure_monitor collector, generated
+  from its service profile (Microsoft.Storage/storageAccounts) so the contexts, units, families and dimension
+  names match a real deployment. Charts are per-resource instances, as the collector emits them: resources
+  are labels on one node, never separate nodes. Signals move independently rather than being causally
+  coupled - see scripts/sync-profile-collectors.py.'
+signals:
+  storage_accounts_availability_average:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  storage_accounts_transactions_total:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  storage_accounts_throughput_ingress:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  storage_accounts_throughput_egress:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  storage_accounts_e2e_latency_average:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  storage_accounts_e2e_latency_maximum:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  storage_accounts_server_latency_average:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  storage_accounts_server_latency_maximum:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  storage_accounts_used_capacity_average:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+contexts:
+- id: azure_monitor.storage_accounts.availability
+  title: Azure Storage Account Availability
+  units: percentage
+  family: Availability
+  chart_type: line
+  priority: 90010
+  instances:
+    group: azure_storage_accounts
+    chart_prefix: storage_accounts_availability
+    family: Availability
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: storage_accounts_availability_average
+- id: azure_monitor.storage_accounts.transactions
+  title: Azure Storage Account Transactions
+  units: transactions/s
+  family: Throughput
+  chart_type: line
+  priority: 90020
+  instances:
+    group: azure_storage_accounts
+    chart_prefix: storage_accounts_transactions
+    family: Throughput
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: total
+    signal: storage_accounts_transactions_total
+- id: azure_monitor.storage_accounts.throughput
+  title: Azure Storage Account Throughput
+  units: bytes/s
+  family: Throughput
+  chart_type: line
+  priority: 90030
+  instances:
+    group: azure_storage_accounts
+    chart_prefix: storage_accounts_throughput
+    family: Throughput
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: ingress
+    signal: storage_accounts_throughput_ingress
+  - id: egress
+    signal: storage_accounts_throughput_egress
+- id: azure_monitor.storage_accounts.e2e_latency
+  title: Azure Storage Account End-to-End Latency
+  units: milliseconds
+  family: Latency
+  chart_type: line
+  priority: 90040
+  instances:
+    group: azure_storage_accounts
+    chart_prefix: storage_accounts_e2e_latency
+    family: Latency
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: storage_accounts_e2e_latency_average
+  - id: maximum
+    signal: storage_accounts_e2e_latency_maximum
+- id: azure_monitor.storage_accounts.server_latency
+  title: Azure Storage Account Server Latency
+  units: milliseconds
+  family: Latency
+  chart_type: line
+  priority: 90050
+  instances:
+    group: azure_storage_accounts
+    chart_prefix: storage_accounts_server_latency
+    family: Latency
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: storage_accounts_server_latency_average
+  - id: maximum
+    signal: storage_accounts_server_latency_maximum
+- id: azure_monitor.storage_accounts.used_capacity
+  title: Azure Storage Account Used Capacity
+  units: bytes
+  family: Capacity
+  chart_type: line
+  priority: 90060
+  instances:
+    group: azure_storage_accounts
+    chart_prefix: storage_accounts_used_capacity
+    family: Capacity
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: storage_accounts_used_capacity_average

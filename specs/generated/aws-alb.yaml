@@ -1,0 +1,247 @@
+version: 1
+name: aws-alb
+description: 'AWS Application Load Balancer as reported through Netdata''s cloudwatch collector, generated
+  from its service profile (AWS/ApplicationELB) so the contexts, units, families and dimension names match
+  a real deployment. Charts are per-resource instances, as the collector emits them: resources are labels
+  on one node, never separate nodes. Signals move independently rather than being causally coupled - see
+  scripts/sync-profile-collectors.py.'
+signals:
+  alb_request_count_requests:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  alb_target_response_codes_2xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  alb_target_response_codes_3xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  alb_target_response_codes_4xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  alb_target_response_codes_5xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  alb_elb_response_codes_3xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  alb_elb_response_codes_4xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  alb_elb_response_codes_5xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  alb_connection_rate_new:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  alb_connection_rate_rejected:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  alb_active_connections_active:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  alb_processed_bytes_processed:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  alb_target_response_time_response_time:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  alb_consumed_lcus_lcus:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+contexts:
+- id: cloudwatch.alb.request_count
+  title: ALB Request Count
+  units: requests/s
+  family: Requests
+  chart_type: line
+  priority: 90010
+  instances:
+    group: aws_alb
+    chart_prefix: alb_request_count
+    family: Requests
+    labels:
+      load_balancer: '{instance}'
+  shape: independent
+  dimensions:
+  - id: requests
+    signal: alb_request_count_requests
+- id: cloudwatch.alb.target_response_codes
+  title: ALB Target Response Codes
+  units: responses/s
+  family: Responses
+  chart_type: line
+  priority: 90020
+  instances:
+    group: aws_alb
+    chart_prefix: alb_target_response_codes
+    family: Responses
+    labels:
+      load_balancer: '{instance}'
+  shape: independent
+  dimensions:
+  - id: 2xx
+    signal: alb_target_response_codes_2xx
+  - id: 3xx
+    signal: alb_target_response_codes_3xx
+  - id: 4xx
+    signal: alb_target_response_codes_4xx
+  - id: 5xx
+    signal: alb_target_response_codes_5xx
+- id: cloudwatch.alb.elb_response_codes
+  title: ALB Load Balancer Response Codes
+  units: responses/s
+  family: Responses
+  chart_type: line
+  priority: 90030
+  instances:
+    group: aws_alb
+    chart_prefix: alb_elb_response_codes
+    family: Responses
+    labels:
+      load_balancer: '{instance}'
+  shape: independent
+  dimensions:
+  - id: 3xx
+    signal: alb_elb_response_codes_3xx
+  - id: 4xx
+    signal: alb_elb_response_codes_4xx
+  - id: 5xx
+    signal: alb_elb_response_codes_5xx
+- id: cloudwatch.alb.connection_rate
+  title: ALB Connection Rate
+  units: connections/s
+  family: Connections
+  chart_type: line
+  priority: 90040
+  instances:
+    group: aws_alb
+    chart_prefix: alb_connection_rate
+    family: Connections
+    labels:
+      load_balancer: '{instance}'
+  shape: independent
+  dimensions:
+  - id: new
+    signal: alb_connection_rate_new
+  - id: rejected
+    signal: alb_connection_rate_rejected
+- id: cloudwatch.alb.active_connections
+  title: ALB Active Connections
+  units: connections
+  family: Connections
+  chart_type: line
+  priority: 90050
+  instances:
+    group: aws_alb
+    chart_prefix: alb_active_connections
+    family: Connections
+    labels:
+      load_balancer: '{instance}'
+  shape: independent
+  dimensions:
+  - id: active
+    signal: alb_active_connections_active
+- id: cloudwatch.alb.processed_bytes
+  title: ALB Processed Traffic
+  units: bytes/s
+  family: Traffic
+  chart_type: line
+  priority: 90060
+  instances:
+    group: aws_alb
+    chart_prefix: alb_processed_bytes
+    family: Traffic
+    labels:
+      load_balancer: '{instance}'
+  shape: independent
+  dimensions:
+  - id: processed
+    signal: alb_processed_bytes_processed
+- id: cloudwatch.alb.target_response_time
+  title: ALB Target Response Time
+  units: seconds
+  family: Latency
+  chart_type: line
+  priority: 90070
+  instances:
+    group: aws_alb
+    chart_prefix: alb_target_response_time
+    family: Latency
+    labels:
+      load_balancer: '{instance}'
+  shape: independent
+  dimensions:
+  - id: response_time
+    signal: alb_target_response_time_response_time
+- id: cloudwatch.alb.consumed_lcus
+  title: ALB Consumed LCUs
+  units: LCU
+  family: Capacity
+  chart_type: line
+  priority: 90080
+  instances:
+    group: aws_alb
+    chart_prefix: alb_consumed_lcus
+    family: Capacity
+    labels:
+      load_balancer: '{instance}'
+  shape: independent
+  dimensions:
+  - id: lcus
+    signal: alb_consumed_lcus_lcus

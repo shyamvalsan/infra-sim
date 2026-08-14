@@ -1,0 +1,160 @@
+version: 1
+name: aws-efs
+description: 'Amazon EFS as reported through Netdata''s cloudwatch collector, generated from its service
+  profile (AWS/EFS) so the contexts, units, families and dimension names match a real deployment. Charts
+  are per-resource instances, as the collector emits them: resources are labels on one node, never separate
+  nodes. Signals move independently rather than being causally coupled - see scripts/sync-profile-collectors.py.'
+signals:
+  efs_io_throughput_total:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  efs_io_throughput_read:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  efs_io_throughput_write:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  efs_io_throughput_metadata:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  efs_metered_throughput_metered:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  efs_metered_throughput_permitted:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  efs_io_limit_io_limit:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  efs_burst_credit_balance:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  efs_client_connections_connections:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+contexts:
+- id: cloudwatch.efs.io_throughput
+  title: EFS I/O Throughput
+  units: bytes/s
+  family: Throughput
+  chart_type: line
+  priority: 90010
+  instances:
+    group: aws_efs
+    chart_prefix: efs_io_throughput
+    family: Throughput
+    labels:
+      file_system_id: '{instance}'
+  shape: independent
+  dimensions:
+  - id: total
+    signal: efs_io_throughput_total
+  - id: read
+    signal: efs_io_throughput_read
+  - id: write
+    signal: efs_io_throughput_write
+  - id: metadata
+    signal: efs_io_throughput_metadata
+- id: cloudwatch.efs.metered_throughput
+  title: EFS Metered vs Permitted Throughput
+  units: bytes/s
+  family: Throughput
+  chart_type: line
+  priority: 90020
+  instances:
+    group: aws_efs
+    chart_prefix: efs_metered_throughput
+    family: Throughput
+    labels:
+      file_system_id: '{instance}'
+  shape: independent
+  dimensions:
+  - id: metered
+    signal: efs_metered_throughput_metered
+  - id: permitted
+    signal: efs_metered_throughput_permitted
+- id: cloudwatch.efs.io_limit
+  title: EFS Percent I/O Limit
+  units: percentage
+  family: Limits
+  chart_type: line
+  priority: 90030
+  instances:
+    group: aws_efs
+    chart_prefix: efs_io_limit
+    family: Limits
+    labels:
+      file_system_id: '{instance}'
+  shape: independent
+  dimensions:
+  - id: io_limit
+    signal: efs_io_limit_io_limit
+- id: cloudwatch.efs.burst_credit
+  title: EFS Burst Credit Balance
+  units: bytes
+  family: Credits
+  chart_type: line
+  priority: 90040
+  instances:
+    group: aws_efs
+    chart_prefix: efs_burst_credit
+    family: Credits
+    labels:
+      file_system_id: '{instance}'
+  shape: independent
+  dimensions:
+  - id: balance
+    signal: efs_burst_credit_balance
+- id: cloudwatch.efs.client_connections
+  title: EFS Client Connections
+  units: connections
+  family: Connections
+  chart_type: line
+  priority: 90050
+  instances:
+    group: aws_efs
+    chart_prefix: efs_client_connections
+    family: Connections
+    labels:
+      file_system_id: '{instance}'
+  shape: independent
+  dimensions:
+  - id: connections
+    signal: efs_client_connections_connections

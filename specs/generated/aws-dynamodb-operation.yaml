@@ -1,0 +1,101 @@
+version: 1
+name: aws-dynamodb-operation
+description: 'AWS DynamoDB Operations as reported through Netdata''s cloudwatch collector, generated from
+  its service profile (AWS/DynamoDB) so the contexts, units, families and dimension names match a real
+  deployment. Charts are per-resource instances, as the collector emits them: resources are labels on
+  one node, never separate nodes. Signals move independently rather than being causally coupled - see
+  scripts/sync-profile-collectors.py.'
+signals:
+  dynamodb_operation_successful_request_latency_latency:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  dynamodb_operation_system_errors_system_errors:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  dynamodb_operation_throttled_requests_throttled:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  dynamodb_operation_returned_item_count_returned:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+contexts:
+- id: cloudwatch.dynamodb_operation.successful_request_latency
+  title: DynamoDB Successful Request Latency
+  units: milliseconds
+  family: Latency
+  chart_type: line
+  priority: 90010
+  instances:
+    group: aws_dynamodb_operation
+    chart_prefix: dynamodb_operation_successful_request_latency
+    family: Latency
+    labels:
+      table_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: latency
+    signal: dynamodb_operation_successful_request_latency_latency
+- id: cloudwatch.dynamodb_operation.system_errors
+  title: DynamoDB System Errors
+  units: errors/s
+  family: Errors
+  chart_type: line
+  priority: 90020
+  instances:
+    group: aws_dynamodb_operation
+    chart_prefix: dynamodb_operation_system_errors
+    family: Errors
+    labels:
+      table_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: system_errors
+    signal: dynamodb_operation_system_errors_system_errors
+- id: cloudwatch.dynamodb_operation.throttled_requests
+  title: DynamoDB Throttled Requests
+  units: requests/s
+  family: Throttling
+  chart_type: line
+  priority: 90030
+  instances:
+    group: aws_dynamodb_operation
+    chart_prefix: dynamodb_operation_throttled_requests
+    family: Throttling
+    labels:
+      table_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: throttled
+    signal: dynamodb_operation_throttled_requests_throttled
+- id: cloudwatch.dynamodb_operation.returned_item_count
+  title: DynamoDB Returned Items
+  units: items/s
+  family: Items
+  chart_type: line
+  priority: 90040
+  instances:
+    group: aws_dynamodb_operation
+    chart_prefix: dynamodb_operation_returned_item_count
+    family: Items
+    labels:
+      table_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: returned
+    signal: dynamodb_operation_returned_item_count_returned

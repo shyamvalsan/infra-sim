@@ -1,0 +1,104 @@
+version: 1
+name: aws-dynamodb
+description: 'AWS DynamoDB as reported through Netdata''s cloudwatch collector, generated from its service
+  profile (AWS/DynamoDB) so the contexts, units, families and dimension names match a real deployment.
+  Charts are per-resource instances, as the collector emits them: resources are labels on one node, never
+  separate nodes. Signals move independently rather than being causally coupled - see scripts/sync-profile-collectors.py.'
+signals:
+  dynamodb_consumed_capacity_read:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  dynamodb_consumed_capacity_write:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  dynamodb_provisioned_capacity_read:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  dynamodb_provisioned_capacity_write:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  dynamodb_throttle_events_read:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  dynamodb_throttle_events_write:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+contexts:
+- id: cloudwatch.dynamodb.consumed_capacity
+  title: DynamoDB Consumed Capacity
+  units: units/s
+  family: Capacity
+  chart_type: line
+  priority: 90010
+  instances:
+    group: aws_dynamodb
+    chart_prefix: dynamodb_consumed_capacity
+    family: Capacity
+    labels:
+      table_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: read
+    signal: dynamodb_consumed_capacity_read
+  - id: write
+    signal: dynamodb_consumed_capacity_write
+- id: cloudwatch.dynamodb.provisioned_capacity
+  title: DynamoDB Provisioned Capacity
+  units: units
+  family: Capacity
+  chart_type: line
+  priority: 90020
+  instances:
+    group: aws_dynamodb
+    chart_prefix: dynamodb_provisioned_capacity
+    family: Capacity
+    labels:
+      table_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: read
+    signal: dynamodb_provisioned_capacity_read
+  - id: write
+    signal: dynamodb_provisioned_capacity_write
+- id: cloudwatch.dynamodb.throttle_events
+  title: DynamoDB Throttle Events
+  units: events/s
+  family: Throttling
+  chart_type: line
+  priority: 90030
+  instances:
+    group: aws_dynamodb
+    chart_prefix: dynamodb_throttle_events
+    family: Throttling
+    labels:
+      table_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: read
+    signal: dynamodb_throttle_events_read
+  - id: write
+    signal: dynamodb_throttle_events_write

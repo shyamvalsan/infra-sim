@@ -1,0 +1,113 @@
+version: 1
+name: aws-step-functions
+description: 'AWS Step Functions as reported through Netdata''s cloudwatch collector, generated from its
+  service profile (AWS/States) so the contexts, units, families and dimension names match a real deployment.
+  Charts are per-resource instances, as the collector emits them: resources are labels on one node, never
+  separate nodes. Signals move independently rather than being causally coupled - see scripts/sync-profile-collectors.py.'
+signals:
+  step_functions_executions_started:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  step_functions_executions_succeeded:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  step_functions_executions_failed:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  step_functions_executions_aborted:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  step_functions_executions_timed_out:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  step_functions_execution_throttled_throttled:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  step_functions_execution_time_execution_time:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+contexts:
+- id: cloudwatch.step_functions.executions
+  title: Step Functions Executions
+  units: executions/s
+  family: Executions
+  chart_type: line
+  priority: 90010
+  instances:
+    group: aws_step_functions
+    chart_prefix: step_functions_executions
+    family: Executions
+    labels:
+      state_machine_arn: '{instance}'
+  shape: independent
+  dimensions:
+  - id: started
+    signal: step_functions_executions_started
+  - id: succeeded
+    signal: step_functions_executions_succeeded
+  - id: failed
+    signal: step_functions_executions_failed
+  - id: aborted
+    signal: step_functions_executions_aborted
+  - id: timed_out
+    signal: step_functions_executions_timed_out
+- id: cloudwatch.step_functions.execution_throttled
+  title: Step Functions Throttled Events
+  units: events/s
+  family: Throttling
+  chart_type: line
+  priority: 90020
+  instances:
+    group: aws_step_functions
+    chart_prefix: step_functions_execution_throttled
+    family: Throttling
+    labels:
+      state_machine_arn: '{instance}'
+  shape: independent
+  dimensions:
+  - id: throttled
+    signal: step_functions_execution_throttled_throttled
+- id: cloudwatch.step_functions.execution_time
+  title: Step Functions Execution Time
+  units: milliseconds
+  family: Duration
+  chart_type: line
+  priority: 90030
+  instances:
+    group: aws_step_functions
+    chart_prefix: step_functions_execution_time
+    family: Duration
+    labels:
+      state_machine_arn: '{instance}'
+  shape: independent
+  dimensions:
+  - id: execution_time
+    signal: step_functions_execution_time_execution_time

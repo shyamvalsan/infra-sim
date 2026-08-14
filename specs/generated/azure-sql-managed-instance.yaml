@@ -1,193 +1,153 @@
 version: 1
 name: azure-sql-managed-instance
-description: Azure SQL Managed Instance metrics, generated from Netdata's own collector metadata so the
-  contexts, units and dimension names match what a real Azure SQL Managed Instance node reports. Signals
-  are independent and plausible rather than causally coupled - see scripts/sync-integrations.py.
+description: 'Azure SQL Managed Instance as reported through Netdata''s azure_monitor collector, generated
+  from its service profile (Microsoft.Sql/managedInstances) so the contexts, units, families and dimension
+  names match a real deployment. Charts are per-resource instances, as the collector emits them: resources
+  are labels on one node, never separate nodes. Signals move independently rather than being causally
+  coupled - see scripts/sync-profile-collectors.py.'
 signals:
-  azure_sql_managed_instance_sql_managed_instance_cpu_average:
+  sql_managed_instance_cpu_average:
     base: 34.0
     min: 0.0
     max: 100.0
     max_is_ceiling: true
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_sql_managed_instance_sql_managed_instance_cpu_maximum:
+      sigma: 0.18
+  sql_managed_instance_cpu_maximum:
     base: 34.0
     min: 0.0
     max: 100.0
     max_is_ceiling: true
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_sql_managed_instance_sql_managed_instance_io_throughput_read:
+      sigma: 0.18
+  sql_managed_instance_io_throughput_read:
     base: 2400000.0
     min: 0.0
     max: 5000000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_sql_managed_instance_sql_managed_instance_io_throughput_written:
+      sigma: 0.18
+  sql_managed_instance_io_throughput_written:
     base: 2400000.0
     min: 0.0
     max: 5000000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_sql_managed_instance_sql_managed_instance_io_requests_average:
+      sigma: 0.18
+  sql_managed_instance_io_requests_average:
     base: 1100.0
     min: 0.0
     max: 5000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_sql_managed_instance_sql_managed_instance_storage_reserved:
+      sigma: 0.18
+  sql_managed_instance_storage_reserved:
     base: 620.0
     min: 0.0
     max: 900000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_sql_managed_instance_sql_managed_instance_storage_used:
+      sigma: 0.18
+  sql_managed_instance_storage_used:
     base: 620.0
     min: 0.0
     max: 900000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_sql_managed_instance_sql_managed_instance_virtual_core_count_average:
+      sigma: 0.18
+  sql_managed_instance_virtual_core_count_average:
     base: 120.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
+      sigma: 0.18
 contexts:
 - id: azure_monitor.sql_managed_instance.cpu
   title: Azure SQL Managed Instance CPU Utilization
   units: percentage
-  family: sql
+  family: Utilization
   chart_type: line
-  priority: 60001
+  priority: 90010
+  instances:
+    group: azure_sql_managed_instance
+    chart_prefix: sql_managed_instance_cpu
+    family: Utilization
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: average
-    signal: azure_sql_managed_instance_sql_managed_instance_cpu_average
+    signal: sql_managed_instance_cpu_average
   - id: maximum
-    signal: azure_sql_managed_instance_sql_managed_instance_cpu_maximum
+    signal: sql_managed_instance_cpu_maximum
 - id: azure_monitor.sql_managed_instance.io_throughput
   title: Azure SQL Managed Instance I/O Throughput
   units: bytes/s
-  family: sql
+  family: IO
   chart_type: line
-  priority: 60002
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90020
+  instances:
+    group: azure_sql_managed_instance
+    chart_prefix: sql_managed_instance_io_throughput
+    family: IO
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: read
-    rate_signal: azure_sql_managed_instance_sql_managed_instance_io_throughput_read
+    signal: sql_managed_instance_io_throughput_read
   - id: written
-    rate_signal: azure_sql_managed_instance_sql_managed_instance_io_throughput_written
+    signal: sql_managed_instance_io_throughput_written
 - id: azure_monitor.sql_managed_instance.io_requests
   title: Azure SQL Managed Instance I/O Requests
   units: requests/s
-  family: sql
+  family: IO
   chart_type: line
-  priority: 60003
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90030
+  instances:
+    group: azure_sql_managed_instance
+    chart_prefix: sql_managed_instance_io_requests
+    family: IO
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: average
-    rate_signal: azure_sql_managed_instance_sql_managed_instance_io_requests_average
+    signal: sql_managed_instance_io_requests_average
 - id: azure_monitor.sql_managed_instance.storage
   title: Azure SQL Managed Instance Storage
   units: MiB
-  family: sql
+  family: Capacity
   chart_type: line
-  priority: 60004
+  priority: 90040
+  instances:
+    group: azure_sql_managed_instance
+    chart_prefix: sql_managed_instance_storage
+    family: Capacity
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: reserved
-    signal: azure_sql_managed_instance_sql_managed_instance_storage_reserved
+    signal: sql_managed_instance_storage_reserved
   - id: used
-    signal: azure_sql_managed_instance_sql_managed_instance_storage_used
+    signal: sql_managed_instance_storage_used
 - id: azure_monitor.sql_managed_instance.virtual_core_count
   title: Azure SQL Managed Instance Virtual Core Count
   units: cores
-  family: sql
+  family: Capacity
   chart_type: line
-  priority: 60005
+  priority: 90050
+  instances:
+    group: azure_sql_managed_instance
+    chart_prefix: sql_managed_instance_virtual_core_count
+    family: Capacity
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: average
-    signal: azure_sql_managed_instance_sql_managed_instance_virtual_core_count_average
+    signal: sql_managed_instance_virtual_core_count_average

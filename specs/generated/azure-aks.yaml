@@ -1,0 +1,691 @@
+version: 1
+name: azure-aks
+description: 'Azure Kubernetes Service Cluster as reported through Netdata''s azure_monitor collector,
+  generated from its service profile (Microsoft.ContainerService/managedClusters) so the contexts, units,
+  families and dimension names match a real deployment. Charts are per-resource instances, as the collector
+  emits them: resources are labels on one node, never separate nodes. Signals move independently rather
+  than being causally coupled - see scripts/sync-profile-collectors.py.'
+signals:
+  aks_apiserver_cpu_average:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  aks_apiserver_cpu_maximum:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  aks_apiserver_memory_average:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  aks_apiserver_memory_maximum:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  aks_apiserver_inflight_requests_average:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  aks_etcd_cpu_average:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  aks_etcd_cpu_maximum:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  aks_etcd_memory_average:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  aks_etcd_memory_maximum:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  aks_etcd_database_average:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  aks_etcd_database_maximum:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  aks_pod_status_phase_average:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  aks_pod_status_ready_average:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  aks_allocatable_cpu_average:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  aks_allocatable_memory_average:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  aks_node_conditions_average:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  aks_autoscaler_health_safe_to_autoscale:
+    base: 1.0
+    min: 0.0
+    max: 1.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  aks_autoscaler_health_cooldown:
+    base: 1.0
+    min: 0.0
+    max: 1.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  aks_autoscaler_unschedulable_pods_average:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  aks_autoscaler_unneeded_nodes_average:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  aks_node_cpu_millicores_average:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  aks_node_cpu_millicores_maximum:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  aks_node_cpu_percentage_average:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  aks_node_cpu_percentage_maximum:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  aks_node_memory_working_set_average:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  aks_node_memory_working_set_maximum:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  aks_node_memory_working_set_percentage_average:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  aks_node_memory_working_set_percentage_maximum:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  aks_node_memory_rss_average:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  aks_node_memory_rss_maximum:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  aks_node_memory_rss_percentage_average:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  aks_node_memory_rss_percentage_maximum:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  aks_node_disk_usage_average:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  aks_node_disk_usage_maximum:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  aks_node_disk_percentage_average:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  aks_node_disk_percentage_maximum:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  aks_node_network_in:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  aks_node_network_out:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+contexts:
+- id: azure_monitor.aks.apiserver_cpu
+  title: AKS API Server CPU Utilization
+  units: percentage
+  family: API Server
+  chart_type: line
+  priority: 90010
+  instances:
+    group: azure_aks
+    chart_prefix: aks_apiserver_cpu
+    family: API Server
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: aks_apiserver_cpu_average
+  - id: maximum
+    signal: aks_apiserver_cpu_maximum
+- id: azure_monitor.aks.apiserver_memory
+  title: AKS API Server Memory Utilization
+  units: percentage
+  family: API Server
+  chart_type: line
+  priority: 90020
+  instances:
+    group: azure_aks
+    chart_prefix: aks_apiserver_memory
+    family: API Server
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: aks_apiserver_memory_average
+  - id: maximum
+    signal: aks_apiserver_memory_maximum
+- id: azure_monitor.aks.apiserver_inflight_requests
+  title: AKS API Server Inflight Requests
+  units: requests
+  family: API Server
+  chart_type: line
+  priority: 90030
+  instances:
+    group: azure_aks
+    chart_prefix: aks_apiserver_inflight_requests
+    family: API Server
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: aks_apiserver_inflight_requests_average
+- id: azure_monitor.aks.etcd_cpu
+  title: AKS etcd CPU Utilization
+  units: percentage
+  family: Control Plane
+  chart_type: line
+  priority: 90040
+  instances:
+    group: azure_aks
+    chart_prefix: aks_etcd_cpu
+    family: Control Plane
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: aks_etcd_cpu_average
+  - id: maximum
+    signal: aks_etcd_cpu_maximum
+- id: azure_monitor.aks.etcd_memory
+  title: AKS etcd Memory Utilization
+  units: percentage
+  family: Control Plane
+  chart_type: line
+  priority: 90050
+  instances:
+    group: azure_aks
+    chart_prefix: aks_etcd_memory
+    family: Control Plane
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: aks_etcd_memory_average
+  - id: maximum
+    signal: aks_etcd_memory_maximum
+- id: azure_monitor.aks.etcd_database
+  title: AKS etcd Database Utilization
+  units: percentage
+  family: Control Plane
+  chart_type: line
+  priority: 90060
+  instances:
+    group: azure_aks
+    chart_prefix: aks_etcd_database
+    family: Control Plane
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: aks_etcd_database_average
+  - id: maximum
+    signal: aks_etcd_database_maximum
+- id: azure_monitor.aks.pod_status_phase
+  title: AKS Pods by Phase
+  units: pods
+  family: Pods
+  chart_type: line
+  priority: 90070
+  instances:
+    group: azure_aks
+    chart_prefix: aks_pod_status_phase
+    family: Pods
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: aks_pod_status_phase_average
+- id: azure_monitor.aks.pod_status_ready
+  title: AKS Pods in Ready State
+  units: pods
+  family: Pods
+  chart_type: line
+  priority: 90080
+  instances:
+    group: azure_aks
+    chart_prefix: aks_pod_status_ready
+    family: Pods
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: aks_pod_status_ready_average
+- id: azure_monitor.aks.allocatable_cpu
+  title: AKS Allocatable CPU Cores
+  units: cores
+  family: Capacity
+  chart_type: line
+  priority: 90090
+  instances:
+    group: azure_aks
+    chart_prefix: aks_allocatable_cpu
+    family: Capacity
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: aks_allocatable_cpu_average
+- id: azure_monitor.aks.allocatable_memory
+  title: AKS Allocatable Memory
+  units: bytes
+  family: Capacity
+  chart_type: line
+  priority: 90100
+  instances:
+    group: azure_aks
+    chart_prefix: aks_allocatable_memory
+    family: Capacity
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: aks_allocatable_memory_average
+- id: azure_monitor.aks.node_conditions
+  title: AKS Node Conditions
+  units: nodes
+  family: Capacity
+  chart_type: line
+  priority: 90110
+  instances:
+    group: azure_aks
+    chart_prefix: aks_node_conditions
+    family: Capacity
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: aks_node_conditions_average
+- id: azure_monitor.aks.autoscaler_health
+  title: AKS Cluster Autoscaler Health
+  units: state
+  family: Autoscaler
+  chart_type: line
+  priority: 90120
+  instances:
+    group: azure_aks
+    chart_prefix: aks_autoscaler_health
+    family: Autoscaler
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: safe_to_autoscale
+    signal: aks_autoscaler_health_safe_to_autoscale
+  - id: cooldown
+    signal: aks_autoscaler_health_cooldown
+- id: azure_monitor.aks.autoscaler_unschedulable_pods
+  title: AKS Autoscaler Unschedulable Pods
+  units: pods
+  family: Autoscaler
+  chart_type: line
+  priority: 90130
+  instances:
+    group: azure_aks
+    chart_prefix: aks_autoscaler_unschedulable_pods
+    family: Autoscaler
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: aks_autoscaler_unschedulable_pods_average
+- id: azure_monitor.aks.autoscaler_unneeded_nodes
+  title: AKS Autoscaler Unneeded Nodes
+  units: nodes
+  family: Autoscaler
+  chart_type: line
+  priority: 90140
+  instances:
+    group: azure_aks
+    chart_prefix: aks_autoscaler_unneeded_nodes
+    family: Autoscaler
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: aks_autoscaler_unneeded_nodes_average
+- id: azure_monitor.aks.node_cpu_millicores
+  title: AKS Node CPU Usage
+  units: millicores
+  family: Nodes
+  chart_type: line
+  priority: 90150
+  instances:
+    group: azure_aks
+    chart_prefix: aks_node_cpu_millicores
+    family: Nodes
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: aks_node_cpu_millicores_average
+  - id: maximum
+    signal: aks_node_cpu_millicores_maximum
+- id: azure_monitor.aks.node_cpu_percentage
+  title: AKS Node CPU Percentage
+  units: percentage
+  family: Nodes
+  chart_type: line
+  priority: 90160
+  instances:
+    group: azure_aks
+    chart_prefix: aks_node_cpu_percentage
+    family: Nodes
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: aks_node_cpu_percentage_average
+  - id: maximum
+    signal: aks_node_cpu_percentage_maximum
+- id: azure_monitor.aks.node_memory_working_set
+  title: AKS Node Memory Working Set
+  units: bytes
+  family: Nodes
+  chart_type: line
+  priority: 90170
+  instances:
+    group: azure_aks
+    chart_prefix: aks_node_memory_working_set
+    family: Nodes
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: aks_node_memory_working_set_average
+  - id: maximum
+    signal: aks_node_memory_working_set_maximum
+- id: azure_monitor.aks.node_memory_working_set_percentage
+  title: AKS Node Memory Working Set Percentage
+  units: percentage
+  family: Nodes
+  chart_type: line
+  priority: 90180
+  instances:
+    group: azure_aks
+    chart_prefix: aks_node_memory_working_set_percentage
+    family: Nodes
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: aks_node_memory_working_set_percentage_average
+  - id: maximum
+    signal: aks_node_memory_working_set_percentage_maximum
+- id: azure_monitor.aks.node_memory_rss
+  title: AKS Node Memory RSS
+  units: bytes
+  family: Nodes
+  chart_type: line
+  priority: 90190
+  instances:
+    group: azure_aks
+    chart_prefix: aks_node_memory_rss
+    family: Nodes
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: aks_node_memory_rss_average
+  - id: maximum
+    signal: aks_node_memory_rss_maximum
+- id: azure_monitor.aks.node_memory_rss_percentage
+  title: AKS Node Memory RSS Percentage
+  units: percentage
+  family: Nodes
+  chart_type: line
+  priority: 90200
+  instances:
+    group: azure_aks
+    chart_prefix: aks_node_memory_rss_percentage
+    family: Nodes
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: aks_node_memory_rss_percentage_average
+  - id: maximum
+    signal: aks_node_memory_rss_percentage_maximum
+- id: azure_monitor.aks.node_disk_usage
+  title: AKS Node Disk Usage
+  units: bytes
+  family: Nodes
+  chart_type: line
+  priority: 90210
+  instances:
+    group: azure_aks
+    chart_prefix: aks_node_disk_usage
+    family: Nodes
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: aks_node_disk_usage_average
+  - id: maximum
+    signal: aks_node_disk_usage_maximum
+- id: azure_monitor.aks.node_disk_percentage
+  title: AKS Node Disk Usage Percentage
+  units: percentage
+  family: Nodes
+  chart_type: line
+  priority: 90220
+  instances:
+    group: azure_aks
+    chart_prefix: aks_node_disk_percentage
+    family: Nodes
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: aks_node_disk_percentage_average
+  - id: maximum
+    signal: aks_node_disk_percentage_maximum
+- id: azure_monitor.aks.node_network
+  title: AKS Node Network Traffic
+  units: bytes
+  family: Network
+  chart_type: line
+  priority: 90230
+  instances:
+    group: azure_aks
+    chart_prefix: aks_node_network
+    family: Network
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: in
+    signal: aks_node_network_in
+  - id: out
+    signal: aks_node_network_out

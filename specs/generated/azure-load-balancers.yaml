@@ -1,0 +1,205 @@
+version: 1
+name: azure-load-balancers
+description: 'Azure Load Balancer as reported through Netdata''s azure_monitor collector, generated from
+  its service profile (Microsoft.Network/loadBalancers) so the contexts, units, families and dimension
+  names match a real deployment. Charts are per-resource instances, as the collector emits them: resources
+  are labels on one node, never separate nodes. Signals move independently rather than being causally
+  coupled - see scripts/sync-profile-collectors.py.'
+signals:
+  load_balancers_vip_availability_average:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  load_balancers_dip_availability_average:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  load_balancers_global_backend_availability_average:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  load_balancers_byte_throughput_total:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  load_balancers_packet_throughput_total:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  load_balancers_syn_count_total:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  load_balancers_snat_connections_total:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  load_balancers_snat_ports_allocated:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  load_balancers_snat_ports_used:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+contexts:
+- id: azure_monitor.load_balancers.vip_availability
+  title: Azure Load Balancer Data Path Availability
+  units: percentage
+  family: Availability
+  chart_type: line
+  priority: 90010
+  instances:
+    group: azure_load_balancers
+    chart_prefix: load_balancers_vip_availability
+    family: Availability
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: load_balancers_vip_availability_average
+- id: azure_monitor.load_balancers.dip_availability
+  title: Azure Load Balancer Health Probe Status
+  units: percentage
+  family: Availability
+  chart_type: line
+  priority: 90020
+  instances:
+    group: azure_load_balancers
+    chart_prefix: load_balancers_dip_availability
+    family: Availability
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: load_balancers_dip_availability_average
+- id: azure_monitor.load_balancers.global_backend_availability
+  title: Azure Load Balancer Global Backend Availability
+  units: percentage
+  family: Availability
+  chart_type: line
+  priority: 90030
+  instances:
+    group: azure_load_balancers
+    chart_prefix: load_balancers_global_backend_availability
+    family: Availability
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: load_balancers_global_backend_availability_average
+- id: azure_monitor.load_balancers.byte_throughput
+  title: Azure Load Balancer Byte Throughput
+  units: bytes/s
+  family: Throughput
+  chart_type: line
+  priority: 90040
+  instances:
+    group: azure_load_balancers
+    chart_prefix: load_balancers_byte_throughput
+    family: Throughput
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: total
+    signal: load_balancers_byte_throughput_total
+- id: azure_monitor.load_balancers.packet_throughput
+  title: Azure Load Balancer Packet Throughput
+  units: packets/s
+  family: Throughput
+  chart_type: line
+  priority: 90050
+  instances:
+    group: azure_load_balancers
+    chart_prefix: load_balancers_packet_throughput
+    family: Throughput
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: total
+    signal: load_balancers_packet_throughput_total
+- id: azure_monitor.load_balancers.syn_count
+  title: Azure Load Balancer SYN Packets
+  units: packets/s
+  family: Throughput
+  chart_type: line
+  priority: 90060
+  instances:
+    group: azure_load_balancers
+    chart_prefix: load_balancers_syn_count
+    family: Throughput
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: total
+    signal: load_balancers_syn_count_total
+- id: azure_monitor.load_balancers.snat_connections
+  title: Azure Load Balancer SNAT Connections
+  units: connections/s
+  family: SNAT
+  chart_type: line
+  priority: 90070
+  instances:
+    group: azure_load_balancers
+    chart_prefix: load_balancers_snat_connections
+    family: SNAT
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: total
+    signal: load_balancers_snat_connections_total
+- id: azure_monitor.load_balancers.snat_ports
+  title: Azure Load Balancer SNAT Port Usage
+  units: ports
+  family: SNAT
+  chart_type: line
+  priority: 90080
+  instances:
+    group: azure_load_balancers
+    chart_prefix: load_balancers_snat_ports
+    family: SNAT
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: allocated
+    signal: load_balancers_snat_ports_allocated
+  - id: used
+    signal: load_balancers_snat_ports_used
