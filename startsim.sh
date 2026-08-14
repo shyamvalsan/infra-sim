@@ -75,6 +75,8 @@ usage: startsim.sh [options]
   --help           this text
 
 environment:
+  INFRA_SIM_STATE_DIR  where simulations keep their state
+                       (default /var/lib/infra-sim)
   INFRA_SIM_SRC        where to clone when not run from a checkout
                        (default /opt/infra-sim-src)
   INFRA_SIM_REPO_URL   clone source
@@ -116,33 +118,34 @@ install_hint() {
 preflight() {
   local failed=no
 
-  # Platform first, because nothing else matters if this one fails.
+  # Platform decides *how* the console runs, not whether.
   #
-  # The binaries are built in an Alpine container and are therefore Linux ELF,
-  # and the console is exec'd on the *host*. On macOS that combination burned
-  # several minutes on a Docker build and then died at the final exec with
-  # "exec format error" - a real report from a real attempt. Everything else here
-  # is Linux-shaped too: /etc/netdata, /var/lib/infra-sim, and correlated logs
-  # needing systemd-journal-remote. So this is a genuine requirement, not an
-  # untested assumption, and the honest thing is to say so in the first second
-  # rather than after the build.
-  local kernel
-  kernel="$(uname -s 2>/dev/null || echo unknown)"
-  if [ "$kernel" != "Linux" ]; then
-    echo -e >&2 "${RED}[error]${NC} startsim needs a Linux host; this is '${kernel}'."
-    echo -e >&2 "        Not a missing dependency - the binaries are built as Linux ELF and run on"
-    echo -e >&2 "        the host, and the runtime writes /etc/netdata and /var/lib/infra-sim."
-    echo -e >&2 "        Docker Desktop is not enough: the containers would run, the console cannot."
-    echo -e >&2 "        Use a Linux machine or VM (Multipass, UTM, or any Linux server):"
-    echo -e >&2 "          ${YELLOW}multipass launch --name sim --cpus 4 --memory 8G --disk 40G${NC}"
-    echo -e >&2 "          ${YELLOW}multipass shell sim${NC}"
-    echo -e >&2 "        then clone there and run this again."
-    die "unsupported host platform - nothing was installed or changed."
-  fi
+  # The binaries are built in an Alpine container and are therefore Linux ELF. On
+  # Linux they exec on the host. On macOS the host cannot exec them - which cost a
+  # real attempt several minutes of build before dying at the final exec - so the
+  # console runs in a container instead and drives the host's Docker through the
+  # mounted socket. Same binary, different delivery.
+  KERNEL="$(uname -s 2>/dev/null || echo unknown)"
+  case "$KERNEL" in
+    Linux) CONSOLE_MODE=host ;;
+    Darwin)
+      CONSOLE_MODE=container
+      MACOS_EXPERIMENTAL=yes
+      ;;
+    *)
+      echo -e >&2 "${RED}[error]${NC} startsim supports Linux and macOS; this is '${KERNEL}'."
+      echo -e >&2 "        The console needs either a Linux host or a Docker that runs Linux"
+      echo -e >&2 "        containers. Use a Linux machine or VM."
+      die "unsupported host platform - nothing was installed or changed."
+      ;;
+  esac
 
   # Root: the console writes under /etc/netdata and drives docker. Checked first
   # because it is the one thing the operator cannot fix from inside the script.
-  if [ "$(id -u)" -ne 0 ]; then
+  # Root, on Linux only. In container mode the console writes nothing on the host
+  # except the state directory, and Docker Desktop is reached as the ordinary user -
+  # asking for sudo there would break the socket it needs.
+  if [ "$CONSOLE_MODE" = host ] && [ "$(id -u)" -ne 0 ]; then
     echo -e >&2 "${RED}[error]${NC} startsim must run as root - the console writes under /etc/netdata and drives docker."
     echo -e >&2 "        try: ${YELLOW}sudo $0 ${ORIGINAL_ARGS}${NC}"
     failed=yes
@@ -269,7 +272,7 @@ build_binaries() {
   # leave a developer unable to rebuild with cargo afterwards - the same reason
   # provision.rs inherits ownership for files it generates.
   local owner
-  owner="$(stat -c '%u:%g' "$REPO" 2>/dev/null || echo "")"
+  owner="$(stat -c '%u:%g' "$REPO" 2>/dev/null || stat -f '%u:%g' "$REPO" 2>/dev/null || echo "")"
   if [ -n "$owner" ] && [ "$owner" != "0:0" ]; then
     run chown "$owner" "$plugin" "$console"
     run chown "$owner" "$REPO/target" "$REPO/target/release" 2>/dev/null || true
@@ -299,7 +302,14 @@ build_binaries
 # tearing it down are the operator's decisions, made in the console - so this
 # reports what it found and does not choose. Pass --environment yourself (or
 # `startsim --environment ...`, which is forwarded) to drive a specific one.
-STATE_DIR="${INFRA_SIM_STATE:-/var/lib/infra-sim}"
+# /var/lib is not shared with Docker Desktop by default, and is not where a Mac
+# keeps user state. $HOME is shared, so simulations live there instead.
+if [ "${KERNEL:-Linux}" = Darwin ]; then
+  STATE_DIR="${INFRA_SIM_STATE_DIR:-$HOME/.infra-sim}"
+else
+  STATE_DIR="${INFRA_SIM_STATE_DIR:-/var/lib/infra-sim}"
+fi
+export INFRA_SIM_STATE_DIR="$STATE_DIR"
 
 report_simulations() {
   [ -d "$STATE_DIR" ] || return 0
@@ -326,4 +336,51 @@ echo -e >&2 "${GRAY}    Open it, describe a fleet, and create it. Ctrl-C here st
 echo -e >&2 "${GRAY}    simulations keep running in their own containers until you tear them down.${NC}"
 
 cd "$REPO"
-exec "$REPO/target/release/infra-sim-console" --repo "$REPO" --bind "$BIND" "${ENV_ARGS[@]+"${ENV_ARGS[@]}"}"
+
+if [ "$CONSOLE_MODE" = host ]; then
+  exec "$REPO/target/release/infra-sim-console" --repo "$REPO" --bind "$BIND" "${ENV_ARGS[@]+"${ENV_ARGS[@]}"}"
+fi
+
+# Container mode. The repo and the state directory are mounted at identical paths,
+# because sim-docker.sh hands `-v <path>:...` to the daemon and the daemon resolves
+# it against the host - mount them elsewhere and every simulation would bind an
+# empty directory.
+if [ "${MACOS_EXPERIMENTAL:-no}" = yes ]; then
+  warn "macOS support is EXPERIMENTAL and not yet verified on a Mac."
+  warn "What works: the UI runs, in a container, driving your Docker through its socket."
+  warn "Known gap: the console reaches an adopted simulation at 127.0.0.1, which from"
+  warn "  inside a container is the container itself - so the node table and scenario"
+  warn "  controls for a running simulation will be empty. Creating a fleet should work;"
+  warn "  watching it from here does not yet. Tracked in SOW-0018."
+  warn "For a fully working setup today, run this on Linux or in a Linux VM."
+fi
+
+info "packaging the console for a non-Linux host"
+run mkdir -p "$STATE_DIR"
+CONSOLE_IMAGE="infra-sim-console:local"
+# The builder first, unconditionally: the console image copies its binary from
+# there, because `target/release` may hold a glibc or Mach-O build that cannot run
+# in the image. Cached after the first run.
+run $DOCKER build -f "$REPO/docker/builder.Dockerfile" -t "$BUILDER_IMAGE" "$REPO"
+run $DOCKER build -f "$REPO/docker/console.Dockerfile" -t "$CONSOLE_IMAGE" "$REPO"
+
+# Inside the container the console must listen on all interfaces, or the published
+# port reaches nothing; the publish itself keeps it on the host's loopback.
+port="${BIND##*:}"
+host="${BIND%:*}"
+[ "$host" = "$BIND" ] && host=127.0.0.1
+
+info "starting the console on http://${host}:${port}"
+# `-t` only when there is a terminal: piped from curl there is none, and docker
+# refuses with "the input device is not a TTY".
+TTY_FLAGS="-i"
+[ -t 0 ] && TTY_FLAGS="-it"
+# shellcheck disable=SC2086
+exec $DOCKER run --rm $TTY_FLAGS \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -v "$REPO":"$REPO" \
+  -v "$STATE_DIR":"$STATE_DIR" \
+  -e INFRA_SIM_STATE_DIR="$STATE_DIR" \
+  -p "${host}:${port}:${port}" \
+  -w "$REPO" \
+  "$CONSOLE_IMAGE" --repo "$REPO" --bind "0.0.0.0:${port}" "${ENV_ARGS[@]+"${ENV_ARGS[@]}"}"

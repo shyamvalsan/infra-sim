@@ -127,7 +127,7 @@ cmd_create() {
   local dir="$STATE_DIR/$name"
   run mkdir -p "$dir/specs/generated" "$dir/scenarios" "$dir/journal"
   run cp "$env_file" "$dir/environment.yaml"
-  sed -i 's|generator: \.\./specs/|generator: specs/|; s|specs: \.\./specs|specs: specs|; s|scenarios: \.\./scenarios|scenarios: scenarios|' "$dir/environment.yaml"
+  sed -i.bak 's|generator: \.\./specs/|generator: specs/|; s|specs: \.\./specs|specs: specs|; s|scenarios: \.\./scenarios|scenarios: scenarios|' "$dir/environment.yaml" && rm -f "$dir/environment.yaml.bak"
   run cp -r "$REPO/specs/." "$dir/specs/"
   run cp -r "$REPO/scenarios/." "$dir/scenarios/"
   # The container's own agent is labelled with the fleet's own coordinates, so
@@ -139,9 +139,9 @@ cmd_create() {
   lon="$(awk '/^site:/{f=1;next} f&&/^  longitude:/{print $2;exit} f&&/^[^ ]/{exit}' "$dir/environment.yaml")"
   sed "s|__SIM_NAME__|$name|g" "$REPO/docker/netdata.conf.template" > "$dir/netdata.conf"
   if [ -n "$lat" ] && [ -n "$lon" ]; then
-    sed -i "s|__SIM_LATITUDE__|$lat|; s|__SIM_LONGITUDE__|$lon|" "$dir/netdata.conf"
+    sed -i.bak "s|__SIM_LATITUDE__|$lat|; s|__SIM_LONGITUDE__|$lon|" "$dir/netdata.conf" && rm -f "$dir/netdata.conf.bak"
   else
-    sed -i '/__SIM_LATITUDE__/d; /__SIM_LONGITUDE__/d' "$dir/netdata.conf"
+    sed -i.bak '/__SIM_LATITUDE__/d; /__SIM_LONGITUDE__/d' "$dir/netdata.conf" && rm -f "$dir/netdata.conf.bak"
   fi
   # An empty control file so a scenario can be triggered without creating it.
   [ -f "$dir/control.yaml" ] || echo "active: []" > "$dir/control.yaml"
