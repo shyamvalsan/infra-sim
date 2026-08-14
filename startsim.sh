@@ -116,6 +116,30 @@ install_hint() {
 preflight() {
   local failed=no
 
+  # Platform first, because nothing else matters if this one fails.
+  #
+  # The binaries are built in an Alpine container and are therefore Linux ELF,
+  # and the console is exec'd on the *host*. On macOS that combination burned
+  # several minutes on a Docker build and then died at the final exec with
+  # "exec format error" - a real report from a real attempt. Everything else here
+  # is Linux-shaped too: /etc/netdata, /var/lib/infra-sim, and correlated logs
+  # needing systemd-journal-remote. So this is a genuine requirement, not an
+  # untested assumption, and the honest thing is to say so in the first second
+  # rather than after the build.
+  local kernel
+  kernel="$(uname -s 2>/dev/null || echo unknown)"
+  if [ "$kernel" != "Linux" ]; then
+    echo -e >&2 "${RED}[error]${NC} startsim needs a Linux host; this is '${kernel}'."
+    echo -e >&2 "        Not a missing dependency - the binaries are built as Linux ELF and run on"
+    echo -e >&2 "        the host, and the runtime writes /etc/netdata and /var/lib/infra-sim."
+    echo -e >&2 "        Docker Desktop is not enough: the containers would run, the console cannot."
+    echo -e >&2 "        Use a Linux machine or VM (Multipass, UTM, or any Linux server):"
+    echo -e >&2 "          ${YELLOW}multipass launch --name sim --cpus 4 --memory 8G --disk 40G${NC}"
+    echo -e >&2 "          ${YELLOW}multipass shell sim${NC}"
+    echo -e >&2 "        then clone there and run this again."
+    die "unsupported host platform - nothing was installed or changed."
+  fi
+
   # Root: the console writes under /etc/netdata and drives docker. Checked first
   # because it is the one thing the operator cannot fix from inside the script.
   if [ "$(id -u)" -ne 0 ]; then

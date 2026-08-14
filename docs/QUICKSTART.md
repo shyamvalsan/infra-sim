@@ -4,8 +4,10 @@ Zero to a running simulated fleet with a live incident. `README.md` is what
 Infra-Sim is and why; `docs/operating.md` is the full reference; this is the
 shortest path that works.
 
-Needs Docker and root. A Netdata agent on this machine is optional — each
-simulation runs its own. No Rust toolchain: `startsim` builds in a container.
+Needs a **Linux host**, Docker and root. A Netdata agent on this machine is
+optional — each simulation runs its own. No Rust toolchain: `startsim` builds in a
+container. macOS and Windows cannot run the console, only the simulation
+containers; use a Linux VM.
 
 ## 1. Start
 

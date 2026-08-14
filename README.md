@@ -98,10 +98,16 @@ correlation genuinely discoverable rather than decorative.
 
 ## Getting started
 
-You need **Docker**, and root — the console writes under `/etc/netdata` and drives
-Docker. A Netdata agent on this machine is optional: each simulation runs its own
-inside its container. No Rust toolchain is needed; `startsim` builds the binaries
-in a container, because Docker is required anyway.
+You need a **Linux host**, **Docker**, and root — the console writes under
+`/etc/netdata` and drives Docker. A Netdata agent on this machine is optional: each
+simulation runs its own inside its container. No Rust toolchain is needed;
+`startsim` builds the binaries in a container, because Docker is required anyway.
+
+Linux is a hard requirement, not a preference: the binaries are built as Linux ELF
+and run on the host, and the runtime writes `/etc/netdata` and `/var/lib/infra-sim`.
+On macOS or Windows, Docker Desktop will happily run the simulation containers but
+the console itself cannot run — use a VM (Multipass, UTM, or any Linux server).
+`startsim` checks this first and refuses immediately rather than after a build.
 
 On a machine with nothing but Docker:
 
