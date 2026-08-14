@@ -1,0 +1,1449 @@
+version: 1
+name: multi-db-stack
+description: >-
+  Generated from a text description.
+
+seed: 346992111388158786
+update_every: 1
+# Minor, auto-resolving incidents on a deterministic schedule, so the
+# alert log and anomaly history have texture before a live session.
+warmup_incidents: true
+generator: ../specs/linux-system.yaml
+specs: ../specs
+scenarios: ../scenarios
+
+# Where this fleet is. The container's own agent is labelled
+# from here, so no node in the Space is left unplaced.
+site:
+  latitude: 34.900000
+  longitude: 56.180000
+
+# GUIDs are derived from the environment name and hostname, so
+# regenerating this file reproduces the same node identities rather
+# than orphaning the history of a fleet that is already running.
+nodes:
+
+  - hostname: multi-db-stack-oracle-db-01
+    guid: 5be32eb6-b744-4c9c-9e9a-de8e3101973f
+    role: db
+    services: [oracle-db, processes]
+    utc_offset_secs: 0
+    attrs:
+      cores: 16
+      ram_total_kb: 67108864
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+        - { name: nvme1n1, weight: 0.35 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/var/lib/pgsql", weight: 0.9612, attrs: { disk_total_kb: 1572864000, inodes_total: 6553600 } }
+        - { name: "/var/log", weight: 0.1107, attrs: { disk_total_kb: 52428800, inodes_total: 6553600 } }
+      app:
+        - { name: postgres, weight: 1 }
+        - { name: pgbouncer, weight: 0.12 }
+        - { name: barman, weight: 0.05 }
+        - { name: systemd, weight: 0.06 }
+        - { name: sshd, weight: 0.03 }
+        - { name: netdata, weight: 0.09 }
+        - { name: cron, weight: 0.01 }
+      user:
+        - { name: postgres, weight: 1 }
+        - { name: root, weight: 0.12 }
+        - { name: netdata, weight: 0.09 }
+        - { name: sshd, weight: 0.02 }
+      usergroup:
+        - { name: postgres, weight: 1 }
+        - { name: root, weight: 0.12 }
+        - { name: netdata, weight: 0.09 }
+      net:
+        - { name: eth0, weight: 1.0 }
+        - { name: eth1, weight: 0.45 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "16"
+      _system_ram_total: "67108864"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: r5.4xlarge
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: db
+      infra_sim_env: production
+      latitude: 34.895789
+      longitude: 56.177104
+
+  - hostname: multi-db-stack-oracle-db-02
+    guid: bbe32eb7-61e4-4c9c-9e9a-d98e31018a16
+    role: db
+    services: [oracle-db, processes]
+    utc_offset_secs: 0
+    attrs:
+      cores: 16
+      ram_total_kb: 67108864
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+        - { name: nvme1n1, weight: 0.35 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/var/lib/pgsql", weight: 0.9612, attrs: { disk_total_kb: 1572864000, inodes_total: 6553600 } }
+        - { name: "/var/log", weight: 0.1107, attrs: { disk_total_kb: 52428800, inodes_total: 6553600 } }
+      app:
+        - { name: postgres, weight: 1 }
+        - { name: pgbouncer, weight: 0.12 }
+        - { name: barman, weight: 0.05 }
+        - { name: systemd, weight: 0.06 }
+        - { name: sshd, weight: 0.03 }
+        - { name: netdata, weight: 0.09 }
+        - { name: cron, weight: 0.01 }
+      user:
+        - { name: postgres, weight: 1 }
+        - { name: root, weight: 0.12 }
+        - { name: netdata, weight: 0.09 }
+        - { name: sshd, weight: 0.02 }
+      usergroup:
+        - { name: postgres, weight: 1 }
+        - { name: root, weight: 0.12 }
+        - { name: netdata, weight: 0.09 }
+      net:
+        - { name: eth0, weight: 1.0 }
+        - { name: eth1, weight: 0.45 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "16"
+      _system_ram_total: "67108864"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: r5.4xlarge
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: db
+      infra_sim_env: production
+      latitude: 34.897834
+      longitude: 56.185007
+
+  - hostname: multi-db-stack-oracle-db-03
+    guid: 9be32eb7-2b84-4c9c-9e9a-d88e310188c5
+    role: db
+    services: [oracle-db, processes]
+    utc_offset_secs: 0
+    attrs:
+      cores: 16
+      ram_total_kb: 67108864
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+        - { name: nvme1n1, weight: 0.35 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/var/lib/pgsql", weight: 0.9612, attrs: { disk_total_kb: 1572864000, inodes_total: 6553600 } }
+        - { name: "/var/log", weight: 0.1107, attrs: { disk_total_kb: 52428800, inodes_total: 6553600 } }
+      app:
+        - { name: postgres, weight: 1 }
+        - { name: pgbouncer, weight: 0.12 }
+        - { name: barman, weight: 0.05 }
+        - { name: systemd, weight: 0.06 }
+        - { name: sshd, weight: 0.03 }
+        - { name: netdata, weight: 0.09 }
+        - { name: cron, weight: 0.01 }
+      user:
+        - { name: postgres, weight: 1 }
+        - { name: root, weight: 0.12 }
+        - { name: netdata, weight: 0.09 }
+        - { name: sshd, weight: 0.02 }
+      usergroup:
+        - { name: postgres, weight: 1 }
+        - { name: root, weight: 0.12 }
+        - { name: netdata, weight: 0.09 }
+      net:
+        - { name: eth0, weight: 1.0 }
+        - { name: eth1, weight: 0.45 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "16"
+      _system_ram_total: "67108864"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: r5.4xlarge
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: db
+      infra_sim_env: production
+      latitude: 34.903762
+      longitude: 56.178743
+
+  - hostname: multi-db-stack-oracle-db-04
+    guid: fbe32eb9-a724-4c93-9e9a-db8e31018fbc
+    role: db
+    services: [oracle-db, processes]
+    utc_offset_secs: 0
+    attrs:
+      cores: 16
+      ram_total_kb: 67108864
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+        - { name: nvme1n1, weight: 0.35 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/var/lib/pgsql", weight: 0.9612, attrs: { disk_total_kb: 1572864000, inodes_total: 6553600 } }
+        - { name: "/var/log", weight: 0.1107, attrs: { disk_total_kb: 52428800, inodes_total: 6553600 } }
+      app:
+        - { name: postgres, weight: 1 }
+        - { name: pgbouncer, weight: 0.12 }
+        - { name: barman, weight: 0.05 }
+        - { name: systemd, weight: 0.06 }
+        - { name: sshd, weight: 0.03 }
+        - { name: netdata, weight: 0.09 }
+        - { name: cron, weight: 0.01 }
+      user:
+        - { name: postgres, weight: 1 }
+        - { name: root, weight: 0.12 }
+        - { name: netdata, weight: 0.09 }
+        - { name: sshd, weight: 0.02 }
+      usergroup:
+        - { name: postgres, weight: 1 }
+        - { name: root, weight: 0.12 }
+        - { name: netdata, weight: 0.09 }
+      net:
+        - { name: eth0, weight: 1.0 }
+        - { name: eth1, weight: 0.45 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "16"
+      _system_ram_total: "67108864"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: r5.4xlarge
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: db
+      infra_sim_env: production
+      latitude: 34.895950
+      longitude: 56.178781
+
+  - hostname: multi-db-stack-oracle-db-05
+    guid: dbe32eb9-91c4-4c93-9e9a-da8e31018c63
+    role: db
+    services: [oracle-db, processes]
+    utc_offset_secs: 0
+    attrs:
+      cores: 16
+      ram_total_kb: 67108864
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+        - { name: nvme1n1, weight: 0.35 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/var/lib/pgsql", weight: 0.9612, attrs: { disk_total_kb: 1572864000, inodes_total: 6553600 } }
+        - { name: "/var/log", weight: 0.1107, attrs: { disk_total_kb: 52428800, inodes_total: 6553600 } }
+      app:
+        - { name: postgres, weight: 1 }
+        - { name: pgbouncer, weight: 0.12 }
+        - { name: barman, weight: 0.05 }
+        - { name: systemd, weight: 0.06 }
+        - { name: sshd, weight: 0.03 }
+        - { name: netdata, weight: 0.09 }
+        - { name: cron, weight: 0.01 }
+      user:
+        - { name: postgres, weight: 1 }
+        - { name: root, weight: 0.12 }
+        - { name: netdata, weight: 0.09 }
+        - { name: sshd, weight: 0.02 }
+      usergroup:
+        - { name: postgres, weight: 1 }
+        - { name: root, weight: 0.12 }
+        - { name: netdata, weight: 0.09 }
+      net:
+        - { name: eth0, weight: 1.0 }
+        - { name: eth1, weight: 0.45 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "16"
+      _system_ram_total: "67108864"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: r5.4xlarge
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: db
+      infra_sim_env: production
+      latitude: 34.900996
+      longitude: 56.182703
+
+  - hostname: multi-db-stack-oracle-db-06
+    guid: 3be32eb6-5a64-4c9c-9e9a-a58e3101835a
+    role: db
+    services: [oracle-db, processes]
+    utc_offset_secs: 0
+    attrs:
+      cores: 16
+      ram_total_kb: 67108864
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+        - { name: nvme1n1, weight: 0.35 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/var/lib/pgsql", weight: 0.9612, attrs: { disk_total_kb: 1572864000, inodes_total: 6553600 } }
+        - { name: "/var/log", weight: 0.1107, attrs: { disk_total_kb: 52428800, inodes_total: 6553600 } }
+      app:
+        - { name: postgres, weight: 1 }
+        - { name: pgbouncer, weight: 0.12 }
+        - { name: barman, weight: 0.05 }
+        - { name: systemd, weight: 0.06 }
+        - { name: sshd, weight: 0.03 }
+        - { name: netdata, weight: 0.09 }
+        - { name: cron, weight: 0.01 }
+      user:
+        - { name: postgres, weight: 1 }
+        - { name: root, weight: 0.12 }
+        - { name: netdata, weight: 0.09 }
+        - { name: sshd, weight: 0.02 }
+      usergroup:
+        - { name: postgres, weight: 1 }
+        - { name: root, weight: 0.12 }
+        - { name: netdata, weight: 0.09 }
+      net:
+        - { name: eth0, weight: 1.0 }
+        - { name: eth1, weight: 0.45 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "16"
+      _system_ram_total: "67108864"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: r5.4xlarge
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: db
+      infra_sim_env: production
+      latitude: 34.896535
+      longitude: 56.178070
+
+  - hostname: multi-db-stack-oracle-db-07
+    guid: 1be32eb6-0404-4c9c-9e9a-a48e31018109
+    role: db
+    services: [oracle-db, processes]
+    utc_offset_secs: 0
+    attrs:
+      cores: 16
+      ram_total_kb: 67108864
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+        - { name: nvme1n1, weight: 0.35 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/var/lib/pgsql", weight: 0.9612, attrs: { disk_total_kb: 1572864000, inodes_total: 6553600 } }
+        - { name: "/var/log", weight: 0.1107, attrs: { disk_total_kb: 52428800, inodes_total: 6553600 } }
+      app:
+        - { name: postgres, weight: 1 }
+        - { name: pgbouncer, weight: 0.12 }
+        - { name: barman, weight: 0.05 }
+        - { name: systemd, weight: 0.06 }
+        - { name: sshd, weight: 0.03 }
+        - { name: netdata, weight: 0.09 }
+        - { name: cron, weight: 0.01 }
+      user:
+        - { name: postgres, weight: 1 }
+        - { name: root, weight: 0.12 }
+        - { name: netdata, weight: 0.09 }
+        - { name: sshd, weight: 0.02 }
+      usergroup:
+        - { name: postgres, weight: 1 }
+        - { name: root, weight: 0.12 }
+        - { name: netdata, weight: 0.09 }
+      net:
+        - { name: eth0, weight: 1.0 }
+        - { name: eth1, weight: 0.45 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "16"
+      _system_ram_total: "67108864"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: r5.4xlarge
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: db
+      infra_sim_env: production
+      latitude: 34.897398
+      longitude: 56.174656
+
+  - hostname: multi-db-stack-ibm-db2-01
+    guid: 06154c2d-5844-4b68-9f42-9daeadc39fb7
+    role: db
+    services: [ibm-db2, processes]
+    utc_offset_secs: 0
+    attrs:
+      cores: 16
+      ram_total_kb: 67108864
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+        - { name: nvme1n1, weight: 0.35 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/var/lib/pgsql", weight: 0.9612, attrs: { disk_total_kb: 1572864000, inodes_total: 6553600 } }
+        - { name: "/var/log", weight: 0.1107, attrs: { disk_total_kb: 52428800, inodes_total: 6553600 } }
+      app:
+        - { name: postgres, weight: 1 }
+        - { name: pgbouncer, weight: 0.12 }
+        - { name: barman, weight: 0.05 }
+        - { name: systemd, weight: 0.06 }
+        - { name: sshd, weight: 0.03 }
+        - { name: netdata, weight: 0.09 }
+        - { name: cron, weight: 0.01 }
+      user:
+        - { name: postgres, weight: 1 }
+        - { name: root, weight: 0.12 }
+        - { name: netdata, weight: 0.09 }
+        - { name: sshd, weight: 0.02 }
+      usergroup:
+        - { name: postgres, weight: 1 }
+        - { name: root, weight: 0.12 }
+        - { name: netdata, weight: 0.09 }
+      net:
+        - { name: eth0, weight: 1.0 }
+        - { name: eth1, weight: 0.45 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "16"
+      _system_ram_total: "67108864"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: r5.4xlarge
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: db
+      infra_sim_env: production
+      latitude: 34.898111
+      longitude: 56.183415
+
+  - hostname: multi-db-stack-ibm-db2-02
+    guid: 66154c2d-02e4-4b68-9f42-98aeadc392ae
+    role: db
+    services: [ibm-db2, processes]
+    utc_offset_secs: 0
+    attrs:
+      cores: 16
+      ram_total_kb: 67108864
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+        - { name: nvme1n1, weight: 0.35 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/var/lib/pgsql", weight: 0.9612, attrs: { disk_total_kb: 1572864000, inodes_total: 6553600 } }
+        - { name: "/var/log", weight: 0.1107, attrs: { disk_total_kb: 52428800, inodes_total: 6553600 } }
+      app:
+        - { name: postgres, weight: 1 }
+        - { name: pgbouncer, weight: 0.12 }
+        - { name: barman, weight: 0.05 }
+        - { name: systemd, weight: 0.06 }
+        - { name: sshd, weight: 0.03 }
+        - { name: netdata, weight: 0.09 }
+        - { name: cron, weight: 0.01 }
+      user:
+        - { name: postgres, weight: 1 }
+        - { name: root, weight: 0.12 }
+        - { name: netdata, weight: 0.09 }
+        - { name: sshd, weight: 0.02 }
+      usergroup:
+        - { name: postgres, weight: 1 }
+        - { name: root, weight: 0.12 }
+        - { name: netdata, weight: 0.09 }
+      net:
+        - { name: eth0, weight: 1.0 }
+        - { name: eth1, weight: 0.45 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "16"
+      _system_ram_total: "67108864"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: r5.4xlarge
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: db
+      infra_sim_env: production
+      latitude: 34.901415
+      longitude: 56.178946
+
+  - hostname: multi-db-stack-ibm-db2-03
+    guid: 46154c2d-cc84-4b68-9f42-9faeadc3935d
+    role: db
+    services: [ibm-db2, processes]
+    utc_offset_secs: 0
+    attrs:
+      cores: 16
+      ram_total_kb: 67108864
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+        - { name: nvme1n1, weight: 0.35 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/var/lib/pgsql", weight: 0.9612, attrs: { disk_total_kb: 1572864000, inodes_total: 6553600 } }
+        - { name: "/var/log", weight: 0.1107, attrs: { disk_total_kb: 52428800, inodes_total: 6553600 } }
+      app:
+        - { name: postgres, weight: 1 }
+        - { name: pgbouncer, weight: 0.12 }
+        - { name: barman, weight: 0.05 }
+        - { name: systemd, weight: 0.06 }
+        - { name: sshd, weight: 0.03 }
+        - { name: netdata, weight: 0.09 }
+        - { name: cron, weight: 0.01 }
+      user:
+        - { name: postgres, weight: 1 }
+        - { name: root, weight: 0.12 }
+        - { name: netdata, weight: 0.09 }
+        - { name: sshd, weight: 0.02 }
+      usergroup:
+        - { name: postgres, weight: 1 }
+        - { name: root, weight: 0.12 }
+        - { name: netdata, weight: 0.09 }
+      net:
+        - { name: eth0, weight: 1.0 }
+        - { name: eth1, weight: 0.45 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "16"
+      _system_ram_total: "67108864"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: r5.4xlarge
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: db
+      infra_sim_env: production
+      latitude: 34.901922
+      longitude: 56.177088
+
+  - hostname: multi-db-stack-ibm-db2-04
+    guid: a6154c2c-4824-4b6f-9f42-9aaeadc39634
+    role: db
+    services: [ibm-db2, processes]
+    utc_offset_secs: 0
+    attrs:
+      cores: 16
+      ram_total_kb: 67108864
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+        - { name: nvme1n1, weight: 0.35 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/var/lib/pgsql", weight: 0.9612, attrs: { disk_total_kb: 1572864000, inodes_total: 6553600 } }
+        - { name: "/var/log", weight: 0.1107, attrs: { disk_total_kb: 52428800, inodes_total: 6553600 } }
+      app:
+        - { name: postgres, weight: 1 }
+        - { name: pgbouncer, weight: 0.12 }
+        - { name: barman, weight: 0.05 }
+        - { name: systemd, weight: 0.06 }
+        - { name: sshd, weight: 0.03 }
+        - { name: netdata, weight: 0.09 }
+        - { name: cron, weight: 0.01 }
+      user:
+        - { name: postgres, weight: 1 }
+        - { name: root, weight: 0.12 }
+        - { name: netdata, weight: 0.09 }
+        - { name: sshd, weight: 0.02 }
+      usergroup:
+        - { name: postgres, weight: 1 }
+        - { name: root, weight: 0.12 }
+        - { name: netdata, weight: 0.09 }
+      net:
+        - { name: eth0, weight: 1.0 }
+        - { name: eth1, weight: 0.45 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "16"
+      _system_ram_total: "67108864"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: r5.4xlarge
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: db
+      infra_sim_env: production
+      latitude: 34.900273
+      longitude: 56.175534
+
+  - hostname: multi-db-stack-ibm-db2-05
+    guid: 86154c2c-32c4-4b6f-9f42-99aeadc394fb
+    role: db
+    services: [ibm-db2, processes]
+    utc_offset_secs: 0
+    attrs:
+      cores: 16
+      ram_total_kb: 67108864
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+        - { name: nvme1n1, weight: 0.35 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/var/lib/pgsql", weight: 0.9612, attrs: { disk_total_kb: 1572864000, inodes_total: 6553600 } }
+        - { name: "/var/log", weight: 0.1107, attrs: { disk_total_kb: 52428800, inodes_total: 6553600 } }
+      app:
+        - { name: postgres, weight: 1 }
+        - { name: pgbouncer, weight: 0.12 }
+        - { name: barman, weight: 0.05 }
+        - { name: systemd, weight: 0.06 }
+        - { name: sshd, weight: 0.03 }
+        - { name: netdata, weight: 0.09 }
+        - { name: cron, weight: 0.01 }
+      user:
+        - { name: postgres, weight: 1 }
+        - { name: root, weight: 0.12 }
+        - { name: netdata, weight: 0.09 }
+        - { name: sshd, weight: 0.02 }
+      usergroup:
+        - { name: postgres, weight: 1 }
+        - { name: root, weight: 0.12 }
+        - { name: netdata, weight: 0.09 }
+      net:
+        - { name: eth0, weight: 1.0 }
+        - { name: eth1, weight: 0.45 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "16"
+      _system_ram_total: "67108864"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: r5.4xlarge
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: db
+      infra_sim_env: production
+      latitude: 34.897080
+      longitude: 56.175568
+
+  - hostname: multi-db-stack-ibm-db2-06
+    guid: e6154c2c-fb64-4b6f-9f43-64aeadc38bd2
+    role: db
+    services: [ibm-db2, processes]
+    utc_offset_secs: 0
+    attrs:
+      cores: 16
+      ram_total_kb: 67108864
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+        - { name: nvme1n1, weight: 0.35 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/var/lib/pgsql", weight: 0.9612, attrs: { disk_total_kb: 1572864000, inodes_total: 6553600 } }
+        - { name: "/var/log", weight: 0.1107, attrs: { disk_total_kb: 52428800, inodes_total: 6553600 } }
+      app:
+        - { name: postgres, weight: 1 }
+        - { name: pgbouncer, weight: 0.12 }
+        - { name: barman, weight: 0.05 }
+        - { name: systemd, weight: 0.06 }
+        - { name: sshd, weight: 0.03 }
+        - { name: netdata, weight: 0.09 }
+        - { name: cron, weight: 0.01 }
+      user:
+        - { name: postgres, weight: 1 }
+        - { name: root, weight: 0.12 }
+        - { name: netdata, weight: 0.09 }
+        - { name: sshd, weight: 0.02 }
+      usergroup:
+        - { name: postgres, weight: 1 }
+        - { name: root, weight: 0.12 }
+        - { name: netdata, weight: 0.09 }
+      net:
+        - { name: eth0, weight: 1.0 }
+        - { name: eth1, weight: 0.45 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "16"
+      _system_ram_total: "67108864"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: r5.4xlarge
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: db
+      infra_sim_env: production
+      latitude: 34.899922
+      longitude: 56.184069
+
+  - hostname: multi-db-stack-mongodb-01
+    guid: 8373b608-0fa8-4d09-928c-9fdb46379ee8
+    role: db
+    services: [mongodb, processes]
+    utc_offset_secs: 0
+    attrs:
+      cores: 16
+      ram_total_kb: 67108864
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+        - { name: nvme1n1, weight: 0.35 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/var/lib/pgsql", weight: 0.9612, attrs: { disk_total_kb: 1572864000, inodes_total: 6553600 } }
+        - { name: "/var/log", weight: 0.1107, attrs: { disk_total_kb: 52428800, inodes_total: 6553600 } }
+      app:
+        - { name: postgres, weight: 1 }
+        - { name: pgbouncer, weight: 0.12 }
+        - { name: barman, weight: 0.05 }
+        - { name: systemd, weight: 0.06 }
+        - { name: sshd, weight: 0.03 }
+        - { name: netdata, weight: 0.09 }
+        - { name: cron, weight: 0.01 }
+      user:
+        - { name: postgres, weight: 1 }
+        - { name: root, weight: 0.12 }
+        - { name: netdata, weight: 0.09 }
+        - { name: sshd, weight: 0.02 }
+      usergroup:
+        - { name: postgres, weight: 1 }
+        - { name: root, weight: 0.12 }
+        - { name: netdata, weight: 0.09 }
+      net:
+        - { name: eth0, weight: 1.0 }
+        - { name: eth1, weight: 0.45 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "16"
+      _system_ram_total: "67108864"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: r5.4xlarge
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: db
+      infra_sim_env: production
+      latitude: 34.903759
+      longitude: 56.177247
+
+  - hostname: multi-db-stack-mongodb-02
+    guid: 2373b609-6c88-4d0a-928c-98db46379025
+    role: db
+    services: [mongodb, processes]
+    utc_offset_secs: 0
+    attrs:
+      cores: 16
+      ram_total_kb: 67108864
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+        - { name: nvme1n1, weight: 0.35 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/var/lib/pgsql", weight: 0.9612, attrs: { disk_total_kb: 1572864000, inodes_total: 6553600 } }
+        - { name: "/var/log", weight: 0.1107, attrs: { disk_total_kb: 52428800, inodes_total: 6553600 } }
+      app:
+        - { name: postgres, weight: 1 }
+        - { name: pgbouncer, weight: 0.12 }
+        - { name: barman, weight: 0.05 }
+        - { name: systemd, weight: 0.06 }
+        - { name: sshd, weight: 0.03 }
+        - { name: netdata, weight: 0.09 }
+        - { name: cron, weight: 0.01 }
+      user:
+        - { name: postgres, weight: 1 }
+        - { name: root, weight: 0.12 }
+        - { name: netdata, weight: 0.09 }
+        - { name: sshd, weight: 0.02 }
+      usergroup:
+        - { name: postgres, weight: 1 }
+        - { name: root, weight: 0.12 }
+        - { name: netdata, weight: 0.09 }
+      net:
+        - { name: eth0, weight: 1.0 }
+        - { name: eth1, weight: 0.45 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "16"
+      _system_ram_total: "67108864"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: r5.4xlarge
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: db
+      infra_sim_env: production
+      latitude: 34.904354
+      longitude: 56.176452
+
+  - hostname: multi-db-stack-mongodb-03
+    guid: c373b608-a2e8-4d09-928c-99db46379276
+    role: db
+    services: [mongodb, processes]
+    utc_offset_secs: 0
+    attrs:
+      cores: 16
+      ram_total_kb: 67108864
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+        - { name: nvme1n1, weight: 0.35 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/var/lib/pgsql", weight: 0.9612, attrs: { disk_total_kb: 1572864000, inodes_total: 6553600 } }
+        - { name: "/var/log", weight: 0.1107, attrs: { disk_total_kb: 52428800, inodes_total: 6553600 } }
+      app:
+        - { name: postgres, weight: 1 }
+        - { name: pgbouncer, weight: 0.12 }
+        - { name: barman, weight: 0.05 }
+        - { name: systemd, weight: 0.06 }
+        - { name: sshd, weight: 0.03 }
+        - { name: netdata, weight: 0.09 }
+        - { name: cron, weight: 0.01 }
+      user:
+        - { name: postgres, weight: 1 }
+        - { name: root, weight: 0.12 }
+        - { name: netdata, weight: 0.09 }
+        - { name: sshd, weight: 0.02 }
+      usergroup:
+        - { name: postgres, weight: 1 }
+        - { name: root, weight: 0.12 }
+        - { name: netdata, weight: 0.09 }
+      net:
+        - { name: eth0, weight: 1.0 }
+        - { name: eth1, weight: 0.45 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "16"
+      _system_ram_total: "67108864"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: r5.4xlarge
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: db
+      infra_sim_env: production
+      latitude: 34.899066
+      longitude: 56.180858
+
+  - hostname: multi-db-stack-mongodb-04
+    guid: 6373b60b-d2c8-4d09-928c-9adb463795c3
+    role: db
+    services: [mongodb, processes]
+    utc_offset_secs: 0
+    attrs:
+      cores: 16
+      ram_total_kb: 67108864
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+        - { name: nvme1n1, weight: 0.35 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/var/lib/pgsql", weight: 0.9612, attrs: { disk_total_kb: 1572864000, inodes_total: 6553600 } }
+        - { name: "/var/log", weight: 0.1107, attrs: { disk_total_kb: 52428800, inodes_total: 6553600 } }
+      app:
+        - { name: postgres, weight: 1 }
+        - { name: pgbouncer, weight: 0.12 }
+        - { name: barman, weight: 0.05 }
+        - { name: systemd, weight: 0.06 }
+        - { name: sshd, weight: 0.03 }
+        - { name: netdata, weight: 0.09 }
+        - { name: cron, weight: 0.01 }
+      user:
+        - { name: postgres, weight: 1 }
+        - { name: root, weight: 0.12 }
+        - { name: netdata, weight: 0.09 }
+        - { name: sshd, weight: 0.02 }
+      usergroup:
+        - { name: postgres, weight: 1 }
+        - { name: root, weight: 0.12 }
+        - { name: netdata, weight: 0.09 }
+      net:
+        - { name: eth0, weight: 1.0 }
+        - { name: eth1, weight: 0.45 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "16"
+      _system_ram_total: "67108864"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: r5.4xlarge
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: db
+      infra_sim_env: production
+      latitude: 34.902502
+      longitude: 56.185464
+
+  - hostname: multi-db-stack-mongodb-05
+    guid: 0373b60b-e828-4d09-928c-9bdb4637971c
+    role: db
+    services: [mongodb, processes]
+    utc_offset_secs: 0
+    attrs:
+      cores: 16
+      ram_total_kb: 67108864
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+        - { name: nvme1n1, weight: 0.35 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/var/lib/pgsql", weight: 0.9612, attrs: { disk_total_kb: 1572864000, inodes_total: 6553600 } }
+        - { name: "/var/log", weight: 0.1107, attrs: { disk_total_kb: 52428800, inodes_total: 6553600 } }
+      app:
+        - { name: postgres, weight: 1 }
+        - { name: pgbouncer, weight: 0.12 }
+        - { name: barman, weight: 0.05 }
+        - { name: systemd, weight: 0.06 }
+        - { name: sshd, weight: 0.03 }
+        - { name: netdata, weight: 0.09 }
+        - { name: cron, weight: 0.01 }
+      user:
+        - { name: postgres, weight: 1 }
+        - { name: root, weight: 0.12 }
+        - { name: netdata, weight: 0.09 }
+        - { name: sshd, weight: 0.02 }
+      usergroup:
+        - { name: postgres, weight: 1 }
+        - { name: root, weight: 0.12 }
+        - { name: netdata, weight: 0.09 }
+      net:
+        - { name: eth0, weight: 1.0 }
+        - { name: eth1, weight: 0.45 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "16"
+      _system_ram_total: "67108864"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: r5.4xlarge
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: db
+      infra_sim_env: production
+      latitude: 34.904458
+      longitude: 56.175689
+
+  - hostname: multi-db-stack-mongodb-06
+    guid: a373b608-4508-4d09-928d-64db46378969
+    role: db
+    services: [mongodb, processes]
+    utc_offset_secs: 0
+    attrs:
+      cores: 16
+      ram_total_kb: 67108864
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+        - { name: nvme1n1, weight: 0.35 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/var/lib/pgsql", weight: 0.9612, attrs: { disk_total_kb: 1572864000, inodes_total: 6553600 } }
+        - { name: "/var/log", weight: 0.1107, attrs: { disk_total_kb: 52428800, inodes_total: 6553600 } }
+      app:
+        - { name: postgres, weight: 1 }
+        - { name: pgbouncer, weight: 0.12 }
+        - { name: barman, weight: 0.05 }
+        - { name: systemd, weight: 0.06 }
+        - { name: sshd, weight: 0.03 }
+        - { name: netdata, weight: 0.09 }
+        - { name: cron, weight: 0.01 }
+      user:
+        - { name: postgres, weight: 1 }
+        - { name: root, weight: 0.12 }
+        - { name: netdata, weight: 0.09 }
+        - { name: sshd, weight: 0.02 }
+      usergroup:
+        - { name: postgres, weight: 1 }
+        - { name: root, weight: 0.12 }
+        - { name: netdata, weight: 0.09 }
+      net:
+        - { name: eth0, weight: 1.0 }
+        - { name: eth1, weight: 0.45 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "16"
+      _system_ram_total: "67108864"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: r5.4xlarge
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: db
+      infra_sim_env: production
+      latitude: 34.901834
+      longitude: 56.179493
+
+  - hostname: multi-db-stack-db-01
+    guid: ab99daed-79fc-4c35-b48d-a42364f4c0d8
+    role: db
+    services: [postgres, processes]
+    utc_offset_secs: 0
+    attrs:
+      cores: 16
+      ram_total_kb: 67108864
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+        - { name: nvme1n1, weight: 0.35 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/var/lib/pgsql", weight: 0.9612, attrs: { disk_total_kb: 1572864000, inodes_total: 6553600 } }
+        - { name: "/var/log", weight: 0.1107, attrs: { disk_total_kb: 52428800, inodes_total: 6553600 } }
+      app:
+        - { name: postgres, weight: 1 }
+        - { name: pgbouncer, weight: 0.12 }
+        - { name: barman, weight: 0.05 }
+        - { name: systemd, weight: 0.06 }
+        - { name: sshd, weight: 0.03 }
+        - { name: netdata, weight: 0.09 }
+        - { name: cron, weight: 0.01 }
+      user:
+        - { name: postgres, weight: 1 }
+        - { name: root, weight: 0.12 }
+        - { name: netdata, weight: 0.09 }
+        - { name: sshd, weight: 0.02 }
+      usergroup:
+        - { name: postgres, weight: 1 }
+        - { name: root, weight: 0.12 }
+        - { name: netdata, weight: 0.09 }
+      net:
+        - { name: eth0, weight: 1.0 }
+        - { name: eth1, weight: 0.45 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "16"
+      _system_ram_total: "67108864"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: r5.4xlarge
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: db
+      infra_sim_env: production
+      latitude: 34.902217
+      longitude: 56.177292
+
+  - hostname: multi-db-stack-db-02
+    guid: 4b99daec-8f5c-4c35-b48d-a52364f4c215
+    role: db
+    services: [postgres, processes]
+    utc_offset_secs: 0
+    attrs:
+      cores: 16
+      ram_total_kb: 67108864
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+        - { name: nvme1n1, weight: 0.35 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/var/lib/pgsql", weight: 0.9612, attrs: { disk_total_kb: 1572864000, inodes_total: 6553600 } }
+        - { name: "/var/log", weight: 0.1107, attrs: { disk_total_kb: 52428800, inodes_total: 6553600 } }
+      app:
+        - { name: postgres, weight: 1 }
+        - { name: pgbouncer, weight: 0.12 }
+        - { name: barman, weight: 0.05 }
+        - { name: systemd, weight: 0.06 }
+        - { name: sshd, weight: 0.03 }
+        - { name: netdata, weight: 0.09 }
+        - { name: cron, weight: 0.01 }
+      user:
+        - { name: postgres, weight: 1 }
+        - { name: root, weight: 0.12 }
+        - { name: netdata, weight: 0.09 }
+        - { name: sshd, weight: 0.02 }
+      usergroup:
+        - { name: postgres, weight: 1 }
+        - { name: root, weight: 0.12 }
+        - { name: netdata, weight: 0.09 }
+      net:
+        - { name: eth0, weight: 1.0 }
+        - { name: eth1, weight: 0.45 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "16"
+      _system_ram_total: "67108864"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: r5.4xlarge
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: db
+      infra_sim_env: production
+      latitude: 34.902565
+      longitude: 56.176019
+
+  - hostname: multi-db-stack-db-03
+    guid: 6b99daec-c6bc-4c35-b48d-a62364f4c466
+    role: db
+    services: [postgres, processes]
+    utc_offset_secs: 0
+    attrs:
+      cores: 16
+      ram_total_kb: 67108864
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+        - { name: nvme1n1, weight: 0.35 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/var/lib/pgsql", weight: 0.9612, attrs: { disk_total_kb: 1572864000, inodes_total: 6553600 } }
+        - { name: "/var/log", weight: 0.1107, attrs: { disk_total_kb: 52428800, inodes_total: 6553600 } }
+      app:
+        - { name: postgres, weight: 1 }
+        - { name: pgbouncer, weight: 0.12 }
+        - { name: barman, weight: 0.05 }
+        - { name: systemd, weight: 0.06 }
+        - { name: sshd, weight: 0.03 }
+        - { name: netdata, weight: 0.09 }
+        - { name: cron, weight: 0.01 }
+      user:
+        - { name: postgres, weight: 1 }
+        - { name: root, weight: 0.12 }
+        - { name: netdata, weight: 0.09 }
+        - { name: sshd, weight: 0.02 }
+      usergroup:
+        - { name: postgres, weight: 1 }
+        - { name: root, weight: 0.12 }
+        - { name: netdata, weight: 0.09 }
+      net:
+        - { name: eth0, weight: 1.0 }
+        - { name: eth1, weight: 0.45 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "16"
+      _system_ram_total: "67108864"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: r5.4xlarge
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: db
+      infra_sim_env: production
+      latitude: 34.899343
+      longitude: 56.176807
+
+  - hostname: multi-db-stack-db-04
+    guid: 0b99daec-1c1c-4c35-b48d-a72364f4c7b3
+    role: db
+    services: [postgres, processes]
+    utc_offset_secs: 0
+    attrs:
+      cores: 16
+      ram_total_kb: 67108864
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+        - { name: nvme1n1, weight: 0.35 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/var/lib/pgsql", weight: 0.9612, attrs: { disk_total_kb: 1572864000, inodes_total: 6553600 } }
+        - { name: "/var/log", weight: 0.1107, attrs: { disk_total_kb: 52428800, inodes_total: 6553600 } }
+      app:
+        - { name: postgres, weight: 1 }
+        - { name: pgbouncer, weight: 0.12 }
+        - { name: barman, weight: 0.05 }
+        - { name: systemd, weight: 0.06 }
+        - { name: sshd, weight: 0.03 }
+        - { name: netdata, weight: 0.09 }
+        - { name: cron, weight: 0.01 }
+      user:
+        - { name: postgres, weight: 1 }
+        - { name: root, weight: 0.12 }
+        - { name: netdata, weight: 0.09 }
+        - { name: sshd, weight: 0.02 }
+      usergroup:
+        - { name: postgres, weight: 1 }
+        - { name: root, weight: 0.12 }
+        - { name: netdata, weight: 0.09 }
+      net:
+        - { name: eth0, weight: 1.0 }
+        - { name: eth1, weight: 0.45 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "16"
+      _system_ram_total: "67108864"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: r5.4xlarge
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: db
+      infra_sim_env: production
+      latitude: 34.898161
+      longitude: 56.178949
+
+  - hostname: multi-db-stack-db-05
+    guid: 2b99daec-527c-4c35-b48d-a02364f4b90c
+    role: db
+    services: [postgres, processes]
+    utc_offset_secs: 0
+    attrs:
+      cores: 16
+      ram_total_kb: 67108864
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+        - { name: nvme1n1, weight: 0.35 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/var/lib/pgsql", weight: 0.9612, attrs: { disk_total_kb: 1572864000, inodes_total: 6553600 } }
+        - { name: "/var/log", weight: 0.1107, attrs: { disk_total_kb: 52428800, inodes_total: 6553600 } }
+      app:
+        - { name: postgres, weight: 1 }
+        - { name: pgbouncer, weight: 0.12 }
+        - { name: barman, weight: 0.05 }
+        - { name: systemd, weight: 0.06 }
+        - { name: sshd, weight: 0.03 }
+        - { name: netdata, weight: 0.09 }
+        - { name: cron, weight: 0.01 }
+      user:
+        - { name: postgres, weight: 1 }
+        - { name: root, weight: 0.12 }
+        - { name: netdata, weight: 0.09 }
+        - { name: sshd, weight: 0.02 }
+      usergroup:
+        - { name: postgres, weight: 1 }
+        - { name: root, weight: 0.12 }
+        - { name: netdata, weight: 0.09 }
+      net:
+        - { name: eth0, weight: 1.0 }
+        - { name: eth1, weight: 0.45 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "16"
+      _system_ram_total: "67108864"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: r5.4xlarge
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: db
+      infra_sim_env: production
+      latitude: 34.900690
+      longitude: 56.182427
+
+  - hostname: multi-db-stack-db-06
+    guid: cb99daec-69dc-4c34-b48d-a12364f4bb59
+    role: db
+    services: [postgres, processes]
+    utc_offset_secs: 0
+    attrs:
+      cores: 16
+      ram_total_kb: 67108864
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+        - { name: nvme1n1, weight: 0.35 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/var/lib/pgsql", weight: 0.9612, attrs: { disk_total_kb: 1572864000, inodes_total: 6553600 } }
+        - { name: "/var/log", weight: 0.1107, attrs: { disk_total_kb: 52428800, inodes_total: 6553600 } }
+      app:
+        - { name: postgres, weight: 1 }
+        - { name: pgbouncer, weight: 0.12 }
+        - { name: barman, weight: 0.05 }
+        - { name: systemd, weight: 0.06 }
+        - { name: sshd, weight: 0.03 }
+        - { name: netdata, weight: 0.09 }
+        - { name: cron, weight: 0.01 }
+      user:
+        - { name: postgres, weight: 1 }
+        - { name: root, weight: 0.12 }
+        - { name: netdata, weight: 0.09 }
+        - { name: sshd, weight: 0.02 }
+      usergroup:
+        - { name: postgres, weight: 1 }
+        - { name: root, weight: 0.12 }
+        - { name: netdata, weight: 0.09 }
+      net:
+        - { name: eth0, weight: 1.0 }
+        - { name: eth1, weight: 0.45 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "16"
+      _system_ram_total: "67108864"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: r5.4xlarge
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: db
+      infra_sim_env: production
+      latitude: 34.901715
+      longitude: 56.178564

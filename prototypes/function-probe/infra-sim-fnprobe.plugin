@@ -1,0 +1,156 @@
+#!/usr/bin/env python3
+"""
+Infra-Sim function-disambiguation probe.
+
+Answers one question before any Live-tab design is committed:
+
+  Q. When two vnodes each register a function with the SAME name, does the
+     FUNCTION call the agent sends to the plugin identify which host was asked?
+
+Source reading says no - src/plugins.d/pluginsd_functions.c:42-49 formats the
+call as `FUNCTION <transaction> <timeout> "<name>" "<access>" "<source>"` with no
+host field, and registration binds to the scope host
+(pluginsd_functions.c:337 -> pluginsd_internals.h:19-26). This probe proves or
+disproves that empirically, per the project's probe-first rule.
+
+Design:
+  * two vnodes, both registering "fnprobe-shared" (identical name)
+  * vnode A additionally registers "fnprobe-only-a" (unique name)
+  * every byte read from stdin is appended to LOG with a timestamp
+  * any FUNCTION call is answered with a minimal valid table naming which vnode
+    the plugin *guessed*, so the UI shows what the plugin knew
+
+Throwaway. Not the runtime. Fidelity is out of scope; only the transport is.
+"""
+
+import json
+import os
+import sys
+import threading
+import time
+
+LOG = "/tmp/infra-sim-fnprobe.log"
+
+VNODES = [
+    {
+        "guid": "f7a1c204-9d3e-4b16-8c25-1ea70b53d901",
+        "hostname": "sim-fnprobe-a",
+        "funcs": ["fnprobe-shared", "fnprobe-only-a"],
+    },
+    {
+        "guid": "c48b6e13-2f57-4a89-9d31-6bc94f27e502",
+        "hostname": "sim-fnprobe-b",
+        "funcs": ["fnprobe-shared"],
+    },
+]
+
+# One writer for stdout. A FUNCTION_RESULT interleaved into a chart's
+# BEGIN/SET/END would corrupt the metric stream - the same hazard the real
+# implementation will face.
+WLOCK = threading.Lock()
+
+
+def out(line):
+    with WLOCK:
+        sys.stdout.write(line + "\n")
+        sys.stdout.flush()
+
+
+def log(msg):
+    with open(LOG, "a") as fh:
+        fh.write("%s %s\n" % (time.strftime("%H:%M:%S"), msg))
+
+
+def declare():
+    for vn in VNODES:
+        out("HOST_DEFINE %s %s" % (vn["guid"], vn["hostname"]))
+        out("HOST_LABEL simulated 'true'")
+        out("HOST_LABEL infra_sim_env 'fnprobe'")
+        out("HOST_LABEL _install_type 'infra-sim'")
+        out("HOST_DEFINE_END")
+
+        out("HOST %s" % vn["guid"])
+        # A chart, so the node is not empty and the dashboard renders.
+        out("CHART fnprobe.beat '' 'Probe heartbeat' 'events/s' probe "
+            "fnprobe.beat line 100 1 '' 'infra-sim-fnprobe.plugin' 'probe'")
+        out("DIMENSION beat '' absolute 1 1 ''")
+
+        # FUNCTION GLOBAL <name> <timeout> "<help>" "<tags>" "<access>" <prio> <ver>
+        # GLOBAL = host-scoped rather than chart-scoped.
+        for fn in vn["funcs"]:
+            out("FUNCTION GLOBAL \"%s\" 10 \"probe: which host am I?\" "
+                "\"top\" \"signed-in\" 5 1" % fn)
+            log("declared %s on %s (%s)" % (fn, vn["hostname"], vn["guid"]))
+
+
+def table(fn_name, note):
+    return {
+        "status": 200,
+        "type": "table",
+        "has_history": False,
+        "help": "function disambiguation probe",
+        "columns": {
+            "function": {"index": 0, "name": "Function", "type": "string",
+                         "unique_key": True},
+            "known_host": {"index": 1, "name": "Host the plugin could infer",
+                           "type": "string"},
+        },
+        "data": [[fn_name, note]],
+    }
+
+
+def reader():
+    """Read the agent's calls. Never let stdin go undrained."""
+    for raw in sys.stdin:
+        line = raw.rstrip("\n")
+        if not line:
+            continue
+        log("STDIN: %s" % line)
+
+        parts = line.split(" ", 2)
+        if parts[0] != "FUNCTION":
+            continue
+
+        transaction = parts[1]
+        # Everything after the timeout, quoted: "<name>" "<access>" "<source>"
+        rest = parts[2] if len(parts) > 2 else ""
+        log("  parsed transaction=%s rest=%s" % (transaction, rest))
+
+        fields = [f for f in rest.split('"') if f.strip()]
+        name = fields[1].strip() if len(fields) > 1 else "(unknown)"
+
+        if name == "fnprobe-only-a":
+            note = "unique name -> host is unambiguous (sim-fnprobe-a)"
+        else:
+            note = ("shared name -> NO host in the call line; "
+                    "plugin cannot tell A from B")
+
+        body = json.dumps(table(name, note))
+        with WLOCK:
+            sys.stdout.write("FUNCTION_RESULT_BEGIN %s 200 application/json %d\n"
+                             % (transaction, int(time.time()) + 1))
+            sys.stdout.write(body + "\n")
+            sys.stdout.write("FUNCTION_RESULT_END\n")
+            sys.stdout.flush()
+        log("  replied to %s for '%s'" % (transaction, name))
+
+
+def main():
+    log("=== probe start pid=%d ===" % os.getpid())
+    declare()
+
+    threading.Thread(target=reader, daemon=True).start()
+
+    beat = 0
+    while True:
+        beat += 1
+        for vn in VNODES:
+            out("HOST %s" % vn["guid"])
+            out("BEGIN fnprobe.beat")
+            out("SET beat = %d" % (beat % 7))
+            out("END")
+        time.sleep(1)
+
+
+if __name__ == "__main__":
+    main()

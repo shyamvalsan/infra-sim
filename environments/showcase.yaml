@@ -1,0 +1,1667 @@
+version: 1
+name: showcase
+description: >-
+  Generated from a text description.
+
+seed: 14868318152960835536
+update_every: 1
+# Minor, auto-resolving incidents on a deterministic schedule, so the
+# alert log and anomaly history have texture before a live session.
+warmup_incidents: true
+generator: ../specs/linux-system.yaml
+specs: ../specs
+scenarios: ../scenarios
+
+# GUIDs are derived from the environment name and hostname, so
+# regenerating this file reproduces the same node identities rather
+# than orphaning the history of a fleet that is already running.
+nodes:
+
+  - hostname: showcase-haproxy-01
+    guid: 31d6b064-e7f7-4660-8496-ad35d2f0b81c
+    role: lb
+    services: [haproxy, processes]
+    utc_offset_secs: 0
+    attrs:
+      cores: 4
+      ram_total_kb: 4194304
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: sda, weight: 1.0 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/boot", weight: 0.0022, attrs: { disk_total_kb: 1048576, inodes_total: 6553600 } }
+      app:
+        - { name: haproxy, weight: 0.7 }
+        - { name: keepalived, weight: 0.05 }
+        - { name: systemd, weight: 0.06 }
+        - { name: sshd, weight: 0.03 }
+        - { name: netdata, weight: 0.09 }
+      user:
+        - { name: haproxy, weight: 0.7 }
+        - { name: root, weight: 0.16 }
+        - { name: netdata, weight: 0.09 }
+      usergroup:
+        - { name: haproxy, weight: 0.7 }
+        - { name: root, weight: 0.16 }
+        - { name: netdata, weight: 0.09 }
+      net:
+        - { name: eth0, weight: 1.0 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "4"
+      _system_ram_total: "4194304"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: c5.xlarge
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: lb
+      infra_sim_env: production
+
+  - hostname: showcase-haproxy-02
+    guid: d1d6b064-9057-4661-8496-ae35d2f0c525
+    role: lb
+    services: [haproxy, processes]
+    utc_offset_secs: 0
+    attrs:
+      cores: 4
+      ram_total_kb: 4194304
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: sda, weight: 1.0 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/boot", weight: 0.0022, attrs: { disk_total_kb: 1048576, inodes_total: 6553600 } }
+      app:
+        - { name: haproxy, weight: 0.7 }
+        - { name: keepalived, weight: 0.05 }
+        - { name: systemd, weight: 0.06 }
+        - { name: sshd, weight: 0.03 }
+        - { name: netdata, weight: 0.09 }
+      user:
+        - { name: haproxy, weight: 0.7 }
+        - { name: root, weight: 0.16 }
+        - { name: netdata, weight: 0.09 }
+      usergroup:
+        - { name: haproxy, weight: 0.7 }
+        - { name: root, weight: 0.16 }
+        - { name: netdata, weight: 0.09 }
+      net:
+        - { name: eth0, weight: 1.0 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "4"
+      _system_ram_total: "4194304"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: c5.xlarge
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: lb
+      infra_sim_env: production
+
+  - hostname: showcase-haproxy-03
+    guid: f1d6b064-5a37-4661-8496-af35d2f0bb76
+    role: lb
+    services: [haproxy, processes]
+    utc_offset_secs: 0
+    attrs:
+      cores: 4
+      ram_total_kb: 4194304
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: sda, weight: 1.0 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/boot", weight: 0.0022, attrs: { disk_total_kb: 1048576, inodes_total: 6553600 } }
+      app:
+        - { name: haproxy, weight: 0.7 }
+        - { name: keepalived, weight: 0.05 }
+        - { name: systemd, weight: 0.06 }
+        - { name: sshd, weight: 0.03 }
+        - { name: netdata, weight: 0.09 }
+      user:
+        - { name: haproxy, weight: 0.7 }
+        - { name: root, weight: 0.16 }
+        - { name: netdata, weight: 0.09 }
+      usergroup:
+        - { name: haproxy, weight: 0.7 }
+        - { name: root, weight: 0.16 }
+        - { name: netdata, weight: 0.09 }
+      net:
+        - { name: eth0, weight: 1.0 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "4"
+      _system_ram_total: "4194304"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: c5.xlarge
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: lb
+      infra_sim_env: production
+
+  - hostname: showcase-web-01
+    guid: 46b9fc67-17ce-4669-80e2-15a00d20ee01
+    role: web
+    services: [nginx, processes]
+    utc_offset_secs: 0
+    attrs:
+      cores: 8
+      ram_total_kb: 16777216
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/boot", weight: 0.0022, attrs: { disk_total_kb: 1048576, inodes_total: 6553600 } }
+      app:
+        - { name: nginx, weight: 0.55 }
+        - { name: php-fpm, weight: 0.8 }
+        - { name: node, weight: 0.35 }
+        - { name: systemd, weight: 0.06 }
+        - { name: sshd, weight: 0.03 }
+        - { name: netdata, weight: 0.09 }
+        - { name: filebeat, weight: 0.07 }
+      user:
+        - { name: www-data, weight: 1 }
+        - { name: root, weight: 0.14 }
+        - { name: netdata, weight: 0.09 }
+        - { name: deploy, weight: 0.04 }
+      usergroup:
+        - { name: www-data, weight: 1 }
+        - { name: root, weight: 0.14 }
+        - { name: netdata, weight: 0.09 }
+      net:
+        - { name: eth0, weight: 1.0 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "8"
+      _system_ram_total: "16777216"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: m5.2xlarge
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: web
+      infra_sim_env: production
+
+  - hostname: showcase-web-02
+    guid: a6b9fc67-6d6e-4669-80e2-10a00d20e1f8
+    role: web
+    services: [nginx, processes]
+    utc_offset_secs: 0
+    attrs:
+      cores: 8
+      ram_total_kb: 16777216
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/boot", weight: 0.0022, attrs: { disk_total_kb: 1048576, inodes_total: 6553600 } }
+      app:
+        - { name: nginx, weight: 0.55 }
+        - { name: php-fpm, weight: 0.8 }
+        - { name: node, weight: 0.35 }
+        - { name: systemd, weight: 0.06 }
+        - { name: sshd, weight: 0.03 }
+        - { name: netdata, weight: 0.09 }
+        - { name: filebeat, weight: 0.07 }
+      user:
+        - { name: www-data, weight: 1 }
+        - { name: root, weight: 0.14 }
+        - { name: netdata, weight: 0.09 }
+        - { name: deploy, weight: 0.04 }
+      usergroup:
+        - { name: www-data, weight: 1 }
+        - { name: root, weight: 0.14 }
+        - { name: netdata, weight: 0.09 }
+      net:
+        - { name: eth0, weight: 1.0 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "8"
+      _system_ram_total: "16777216"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: m5.2xlarge
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: web
+      infra_sim_env: production
+
+  - hostname: showcase-web-03
+    guid: 86b9fc67-a48e-4669-80e2-13a00d20e3af
+    role: web
+    services: [nginx, processes]
+    utc_offset_secs: 0
+    attrs:
+      cores: 8
+      ram_total_kb: 16777216
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/boot", weight: 0.0022, attrs: { disk_total_kb: 1048576, inodes_total: 6553600 } }
+      app:
+        - { name: nginx, weight: 0.55 }
+        - { name: php-fpm, weight: 0.8 }
+        - { name: node, weight: 0.35 }
+        - { name: systemd, weight: 0.06 }
+        - { name: sshd, weight: 0.03 }
+        - { name: netdata, weight: 0.09 }
+        - { name: filebeat, weight: 0.07 }
+      user:
+        - { name: www-data, weight: 1 }
+        - { name: root, weight: 0.14 }
+        - { name: netdata, weight: 0.09 }
+        - { name: deploy, weight: 0.04 }
+      usergroup:
+        - { name: www-data, weight: 1 }
+        - { name: root, weight: 0.14 }
+        - { name: netdata, weight: 0.09 }
+      net:
+        - { name: eth0, weight: 1.0 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "8"
+      _system_ram_total: "16777216"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: m5.2xlarge
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: web
+      infra_sim_env: production
+
+  - hostname: showcase-web-04
+    guid: e6b9fc67-fa2e-4669-80e2-16a00d20eb2e
+    role: web
+    services: [nginx, processes]
+    utc_offset_secs: 0
+    attrs:
+      cores: 8
+      ram_total_kb: 16777216
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/boot", weight: 0.0022, attrs: { disk_total_kb: 1048576, inodes_total: 6553600 } }
+      app:
+        - { name: nginx, weight: 0.55 }
+        - { name: php-fpm, weight: 0.8 }
+        - { name: node, weight: 0.35 }
+        - { name: systemd, weight: 0.06 }
+        - { name: sshd, weight: 0.03 }
+        - { name: netdata, weight: 0.09 }
+        - { name: filebeat, weight: 0.07 }
+      user:
+        - { name: www-data, weight: 1 }
+        - { name: root, weight: 0.14 }
+        - { name: netdata, weight: 0.09 }
+        - { name: deploy, weight: 0.04 }
+      usergroup:
+        - { name: www-data, weight: 1 }
+        - { name: root, weight: 0.14 }
+        - { name: netdata, weight: 0.09 }
+      net:
+        - { name: eth0, weight: 1.0 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "8"
+      _system_ram_total: "16777216"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: m5.2xlarge
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: web
+      infra_sim_env: production
+
+  - hostname: showcase-web-05
+    guid: c6b9fc64-304e-4669-80e2-09a00d20f5dd
+    role: web
+    services: [nginx, processes]
+    utc_offset_secs: 0
+    attrs:
+      cores: 8
+      ram_total_kb: 16777216
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/boot", weight: 0.0022, attrs: { disk_total_kb: 1048576, inodes_total: 6553600 } }
+      app:
+        - { name: nginx, weight: 0.55 }
+        - { name: php-fpm, weight: 0.8 }
+        - { name: node, weight: 0.35 }
+        - { name: systemd, weight: 0.06 }
+        - { name: sshd, weight: 0.03 }
+        - { name: netdata, weight: 0.09 }
+        - { name: filebeat, weight: 0.07 }
+      user:
+        - { name: www-data, weight: 1 }
+        - { name: root, weight: 0.14 }
+        - { name: netdata, weight: 0.09 }
+        - { name: deploy, weight: 0.04 }
+      usergroup:
+        - { name: www-data, weight: 1 }
+        - { name: root, weight: 0.14 }
+        - { name: netdata, weight: 0.09 }
+      net:
+        - { name: eth0, weight: 1.0 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "8"
+      _system_ram_total: "16777216"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: m5.2xlarge
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: web
+      infra_sim_env: production
+
+  - hostname: showcase-web-06
+    guid: 26b9fc64-07ee-4668-80e2-14a00d20e8b4
+    role: web
+    services: [nginx, processes]
+    utc_offset_secs: 0
+    attrs:
+      cores: 8
+      ram_total_kb: 16777216
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/boot", weight: 0.0022, attrs: { disk_total_kb: 1048576, inodes_total: 6553600 } }
+      app:
+        - { name: nginx, weight: 0.55 }
+        - { name: php-fpm, weight: 0.8 }
+        - { name: node, weight: 0.35 }
+        - { name: systemd, weight: 0.06 }
+        - { name: sshd, weight: 0.03 }
+        - { name: netdata, weight: 0.09 }
+        - { name: filebeat, weight: 0.07 }
+      user:
+        - { name: www-data, weight: 1 }
+        - { name: root, weight: 0.14 }
+        - { name: netdata, weight: 0.09 }
+        - { name: deploy, weight: 0.04 }
+      usergroup:
+        - { name: www-data, weight: 1 }
+        - { name: root, weight: 0.14 }
+        - { name: netdata, weight: 0.09 }
+      net:
+        - { name: eth0, weight: 1.0 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "8"
+      _system_ram_total: "16777216"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: m5.2xlarge
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: web
+      infra_sim_env: production
+
+  - hostname: showcase-tomcat-01
+    guid: b7eb478f-9d42-4073-9031-51bd3b91f6eb
+    role: web
+    services: [tomcat, processes]
+    utc_offset_secs: 0
+    attrs:
+      cores: 8
+      ram_total_kb: 16777216
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/boot", weight: 0.0022, attrs: { disk_total_kb: 1048576, inodes_total: 6553600 } }
+      app:
+        - { name: nginx, weight: 0.55 }
+        - { name: php-fpm, weight: 0.8 }
+        - { name: node, weight: 0.35 }
+        - { name: systemd, weight: 0.06 }
+        - { name: sshd, weight: 0.03 }
+        - { name: netdata, weight: 0.09 }
+        - { name: filebeat, weight: 0.07 }
+      user:
+        - { name: www-data, weight: 1 }
+        - { name: root, weight: 0.14 }
+        - { name: netdata, weight: 0.09 }
+        - { name: deploy, weight: 0.04 }
+      usergroup:
+        - { name: www-data, weight: 1 }
+        - { name: root, weight: 0.14 }
+        - { name: netdata, weight: 0.09 }
+      net:
+        - { name: eth0, weight: 1.0 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "8"
+      _system_ram_total: "16777216"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: m5.2xlarge
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: web
+      infra_sim_env: production
+
+  - hostname: showcase-tomcat-02
+    guid: 97eb478f-d4e2-4073-9031-50bd3b91f09e
+    role: web
+    services: [tomcat, processes]
+    utc_offset_secs: 0
+    attrs:
+      cores: 8
+      ram_total_kb: 16777216
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/boot", weight: 0.0022, attrs: { disk_total_kb: 1048576, inodes_total: 6553600 } }
+      app:
+        - { name: nginx, weight: 0.55 }
+        - { name: php-fpm, weight: 0.8 }
+        - { name: node, weight: 0.35 }
+        - { name: systemd, weight: 0.06 }
+        - { name: sshd, weight: 0.03 }
+        - { name: netdata, weight: 0.09 }
+        - { name: filebeat, weight: 0.07 }
+      user:
+        - { name: www-data, weight: 1 }
+        - { name: root, weight: 0.14 }
+        - { name: netdata, weight: 0.09 }
+        - { name: deploy, weight: 0.04 }
+      usergroup:
+        - { name: www-data, weight: 1 }
+        - { name: root, weight: 0.14 }
+        - { name: netdata, weight: 0.09 }
+      net:
+        - { name: eth0, weight: 1.0 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "8"
+      _system_ram_total: "16777216"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: m5.2xlarge
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: web
+      infra_sim_env: production
+
+  - hostname: showcase-tomcat-03
+    guid: f7eb478c-2a02-4073-9031-53bd3b91f14d
+    role: web
+    services: [tomcat, processes]
+    utc_offset_secs: 0
+    attrs:
+      cores: 8
+      ram_total_kb: 16777216
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/boot", weight: 0.0022, attrs: { disk_total_kb: 1048576, inodes_total: 6553600 } }
+      app:
+        - { name: nginx, weight: 0.55 }
+        - { name: php-fpm, weight: 0.8 }
+        - { name: node, weight: 0.35 }
+        - { name: systemd, weight: 0.06 }
+        - { name: sshd, weight: 0.03 }
+        - { name: netdata, weight: 0.09 }
+        - { name: filebeat, weight: 0.07 }
+      user:
+        - { name: www-data, weight: 1 }
+        - { name: root, weight: 0.14 }
+        - { name: netdata, weight: 0.09 }
+        - { name: deploy, weight: 0.04 }
+      usergroup:
+        - { name: www-data, weight: 1 }
+        - { name: root, weight: 0.14 }
+        - { name: netdata, weight: 0.09 }
+      net:
+        - { name: eth0, weight: 1.0 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "8"
+      _system_ram_total: "16777216"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: m5.2xlarge
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: web
+      infra_sim_env: production
+
+  - hostname: showcase-tomcat-04
+    guid: d7eb478e-aea2-4070-9031-5abd3b91ed68
+    role: web
+    services: [tomcat, processes]
+    utc_offset_secs: 0
+    attrs:
+      cores: 8
+      ram_total_kb: 16777216
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/boot", weight: 0.0022, attrs: { disk_total_kb: 1048576, inodes_total: 6553600 } }
+      app:
+        - { name: nginx, weight: 0.55 }
+        - { name: php-fpm, weight: 0.8 }
+        - { name: node, weight: 0.35 }
+        - { name: systemd, weight: 0.06 }
+        - { name: sshd, weight: 0.03 }
+        - { name: netdata, weight: 0.09 }
+        - { name: filebeat, weight: 0.07 }
+      user:
+        - { name: www-data, weight: 1 }
+        - { name: root, weight: 0.14 }
+        - { name: netdata, weight: 0.09 }
+        - { name: deploy, weight: 0.04 }
+      usergroup:
+        - { name: www-data, weight: 1 }
+        - { name: root, weight: 0.14 }
+        - { name: netdata, weight: 0.09 }
+      net:
+        - { name: eth0, weight: 1.0 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "8"
+      _system_ram_total: "16777216"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: m5.2xlarge
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: web
+      infra_sim_env: production
+
+  - hostname: showcase-db-01
+    guid: 47356d8f-aa92-4d03-a8c3-a228e558b825
+    role: db
+    services: [postgres, processes]
+    utc_offset_secs: 0
+    attrs:
+      cores: 16
+      ram_total_kb: 67108864
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+        - { name: nvme1n1, weight: 0.35 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/var/lib/pgsql", weight: 0.9612, attrs: { disk_total_kb: 1572864000, inodes_total: 6553600 } }
+        - { name: "/var/log", weight: 0.1107, attrs: { disk_total_kb: 52428800, inodes_total: 6553600 } }
+      app:
+        - { name: postgres, weight: 1 }
+        - { name: pgbouncer, weight: 0.12 }
+        - { name: barman, weight: 0.05 }
+        - { name: systemd, weight: 0.06 }
+        - { name: sshd, weight: 0.03 }
+        - { name: netdata, weight: 0.09 }
+        - { name: cron, weight: 0.01 }
+      user:
+        - { name: postgres, weight: 1 }
+        - { name: root, weight: 0.12 }
+        - { name: netdata, weight: 0.09 }
+        - { name: sshd, weight: 0.02 }
+      usergroup:
+        - { name: postgres, weight: 1 }
+        - { name: root, weight: 0.12 }
+        - { name: netdata, weight: 0.09 }
+      net:
+        - { name: eth0, weight: 1.0 }
+        - { name: eth1, weight: 0.45 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "16"
+      _system_ram_total: "67108864"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: r5.4xlarge
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: db
+      infra_sim_env: production
+
+  - hostname: showcase-db-02
+    guid: 27356d8e-c7b2-4d03-a8c3-a128e558b31c
+    role: db
+    services: [postgres, processes]
+    utc_offset_secs: 0
+    attrs:
+      cores: 16
+      ram_total_kb: 67108864
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+        - { name: nvme1n1, weight: 0.35 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/var/lib/pgsql", weight: 0.9612, attrs: { disk_total_kb: 1572864000, inodes_total: 6553600 } }
+        - { name: "/var/log", weight: 0.1107, attrs: { disk_total_kb: 52428800, inodes_total: 6553600 } }
+      app:
+        - { name: postgres, weight: 1 }
+        - { name: pgbouncer, weight: 0.12 }
+        - { name: barman, weight: 0.05 }
+        - { name: systemd, weight: 0.06 }
+        - { name: sshd, weight: 0.03 }
+        - { name: netdata, weight: 0.09 }
+        - { name: cron, weight: 0.01 }
+      user:
+        - { name: postgres, weight: 1 }
+        - { name: root, weight: 0.12 }
+        - { name: netdata, weight: 0.09 }
+        - { name: sshd, weight: 0.02 }
+      usergroup:
+        - { name: postgres, weight: 1 }
+        - { name: root, weight: 0.12 }
+        - { name: netdata, weight: 0.09 }
+      net:
+        - { name: eth0, weight: 1.0 }
+        - { name: eth1, weight: 0.45 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "16"
+      _system_ram_total: "67108864"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: r5.4xlarge
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: db
+      infra_sim_env: production
+
+  - hostname: showcase-db-03
+    guid: 07356d8f-1dd2-4d03-a8c3-a028e558bdc3
+    role: db
+    services: [postgres, processes]
+    utc_offset_secs: 0
+    attrs:
+      cores: 16
+      ram_total_kb: 67108864
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+        - { name: nvme1n1, weight: 0.35 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/var/lib/pgsql", weight: 0.9612, attrs: { disk_total_kb: 1572864000, inodes_total: 6553600 } }
+        - { name: "/var/log", weight: 0.1107, attrs: { disk_total_kb: 52428800, inodes_total: 6553600 } }
+      app:
+        - { name: postgres, weight: 1 }
+        - { name: pgbouncer, weight: 0.12 }
+        - { name: barman, weight: 0.05 }
+        - { name: systemd, weight: 0.06 }
+        - { name: sshd, weight: 0.03 }
+        - { name: netdata, weight: 0.09 }
+        - { name: cron, weight: 0.01 }
+      user:
+        - { name: postgres, weight: 1 }
+        - { name: root, weight: 0.12 }
+        - { name: netdata, weight: 0.09 }
+        - { name: sshd, weight: 0.02 }
+      usergroup:
+        - { name: postgres, weight: 1 }
+        - { name: root, weight: 0.12 }
+        - { name: netdata, weight: 0.09 }
+      net:
+        - { name: eth0, weight: 1.0 }
+        - { name: eth1, weight: 0.45 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "16"
+      _system_ram_total: "67108864"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: r5.4xlarge
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: db
+      infra_sim_env: production
+
+  - hostname: showcase-db-04
+    guid: e7356d8c-0df2-4d03-a8c3-af28e558b0ba
+    role: db
+    services: [postgres, processes]
+    utc_offset_secs: 0
+    attrs:
+      cores: 16
+      ram_total_kb: 67108864
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+        - { name: nvme1n1, weight: 0.35 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/var/lib/pgsql", weight: 0.9612, attrs: { disk_total_kb: 1572864000, inodes_total: 6553600 } }
+        - { name: "/var/log", weight: 0.1107, attrs: { disk_total_kb: 52428800, inodes_total: 6553600 } }
+      app:
+        - { name: postgres, weight: 1 }
+        - { name: pgbouncer, weight: 0.12 }
+        - { name: barman, weight: 0.05 }
+        - { name: systemd, weight: 0.06 }
+        - { name: sshd, weight: 0.03 }
+        - { name: netdata, weight: 0.09 }
+        - { name: cron, weight: 0.01 }
+      user:
+        - { name: postgres, weight: 1 }
+        - { name: root, weight: 0.12 }
+        - { name: netdata, weight: 0.09 }
+        - { name: sshd, weight: 0.02 }
+      usergroup:
+        - { name: postgres, weight: 1 }
+        - { name: root, weight: 0.12 }
+        - { name: netdata, weight: 0.09 }
+      net:
+        - { name: eth0, weight: 1.0 }
+        - { name: eth1, weight: 0.45 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "16"
+      _system_ram_total: "67108864"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: r5.4xlarge
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: db
+      infra_sim_env: production
+
+  - hostname: showcase-mongodb-01
+    guid: 064c9f2c-13ce-4ff1-a6f5-38a858d34569
+    role: db
+    services: [mongodb, processes]
+    utc_offset_secs: 0
+    attrs:
+      cores: 16
+      ram_total_kb: 67108864
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+        - { name: nvme1n1, weight: 0.35 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/var/lib/pgsql", weight: 0.9612, attrs: { disk_total_kb: 1572864000, inodes_total: 6553600 } }
+        - { name: "/var/log", weight: 0.1107, attrs: { disk_total_kb: 52428800, inodes_total: 6553600 } }
+      app:
+        - { name: postgres, weight: 1 }
+        - { name: pgbouncer, weight: 0.12 }
+        - { name: barman, weight: 0.05 }
+        - { name: systemd, weight: 0.06 }
+        - { name: sshd, weight: 0.03 }
+        - { name: netdata, weight: 0.09 }
+        - { name: cron, weight: 0.01 }
+      user:
+        - { name: postgres, weight: 1 }
+        - { name: root, weight: 0.12 }
+        - { name: netdata, weight: 0.09 }
+        - { name: sshd, weight: 0.02 }
+      usergroup:
+        - { name: postgres, weight: 1 }
+        - { name: root, weight: 0.12 }
+        - { name: netdata, weight: 0.09 }
+      net:
+        - { name: eth0, weight: 1.0 }
+        - { name: eth1, weight: 0.45 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "16"
+      _system_ram_total: "67108864"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: r5.4xlarge
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: db
+      infra_sim_env: production
+
+  - hostname: showcase-mongodb-02
+    guid: 664c9f2c-696e-4ff1-a6f5-07a858d33840
+    role: db
+    services: [mongodb, processes]
+    utc_offset_secs: 0
+    attrs:
+      cores: 16
+      ram_total_kb: 67108864
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+        - { name: nvme1n1, weight: 0.35 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/var/lib/pgsql", weight: 0.9612, attrs: { disk_total_kb: 1572864000, inodes_total: 6553600 } }
+        - { name: "/var/log", weight: 0.1107, attrs: { disk_total_kb: 52428800, inodes_total: 6553600 } }
+      app:
+        - { name: postgres, weight: 1 }
+        - { name: pgbouncer, weight: 0.12 }
+        - { name: barman, weight: 0.05 }
+        - { name: systemd, weight: 0.06 }
+        - { name: sshd, weight: 0.03 }
+        - { name: netdata, weight: 0.09 }
+        - { name: cron, weight: 0.01 }
+      user:
+        - { name: postgres, weight: 1 }
+        - { name: root, weight: 0.12 }
+        - { name: netdata, weight: 0.09 }
+        - { name: sshd, weight: 0.02 }
+      usergroup:
+        - { name: postgres, weight: 1 }
+        - { name: root, weight: 0.12 }
+        - { name: netdata, weight: 0.09 }
+      net:
+        - { name: eth0, weight: 1.0 }
+        - { name: eth1, weight: 0.45 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "16"
+      _system_ram_total: "67108864"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: r5.4xlarge
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: db
+      infra_sim_env: production
+
+  - hostname: showcase-cache-01
+    guid: 31d9f5e9-2a49-4bbb-81c2-c9eb29b3bc7d
+    role: cache
+    services: [redis, processes]
+    utc_offset_secs: 0
+    attrs:
+      cores: 8
+      ram_total_kb: 16777216
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: sda, weight: 1.0 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/boot", weight: 0.0022, attrs: { disk_total_kb: 1048576, inodes_total: 6553600 } }
+      app:
+        - { name: redis, weight: 0.8 }
+        - { name: systemd, weight: 0.06 }
+        - { name: sshd, weight: 0.03 }
+        - { name: netdata, weight: 0.09 }
+      user:
+        - { name: redis, weight: 0.8 }
+        - { name: root, weight: 0.14 }
+        - { name: netdata, weight: 0.09 }
+      usergroup:
+        - { name: redis, weight: 0.8 }
+        - { name: root, weight: 0.14 }
+        - { name: netdata, weight: 0.09 }
+      net:
+        - { name: eth0, weight: 1.0 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "8"
+      _system_ram_total: "16777216"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: r5.large
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: cache
+      infra_sim_env: production
+
+  - hostname: showcase-cache-02
+    guid: 11d9f5e9-61e9-4bbb-81c2-d4eb29b3b754
+    role: cache
+    services: [redis, processes]
+    utc_offset_secs: 0
+    attrs:
+      cores: 8
+      ram_total_kb: 16777216
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: sda, weight: 1.0 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/boot", weight: 0.0022, attrs: { disk_total_kb: 1048576, inodes_total: 6553600 } }
+      app:
+        - { name: redis, weight: 0.8 }
+        - { name: systemd, weight: 0.06 }
+        - { name: sshd, weight: 0.03 }
+        - { name: netdata, weight: 0.09 }
+      user:
+        - { name: redis, weight: 0.8 }
+        - { name: root, weight: 0.14 }
+        - { name: netdata, weight: 0.09 }
+      usergroup:
+        - { name: redis, weight: 0.8 }
+        - { name: root, weight: 0.14 }
+        - { name: netdata, weight: 0.09 }
+      net:
+        - { name: eth0, weight: 1.0 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "8"
+      _system_ram_total: "16777216"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: r5.large
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: cache
+      infra_sim_env: production
+
+  - hostname: showcase-cache-03
+    guid: 71d9f5e9-b709-4bbb-81c2-d7eb29b3b11b
+    role: cache
+    services: [redis, processes]
+    utc_offset_secs: 0
+    attrs:
+      cores: 8
+      ram_total_kb: 16777216
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: sda, weight: 1.0 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/boot", weight: 0.0022, attrs: { disk_total_kb: 1048576, inodes_total: 6553600 } }
+      app:
+        - { name: redis, weight: 0.8 }
+        - { name: systemd, weight: 0.06 }
+        - { name: sshd, weight: 0.03 }
+        - { name: netdata, weight: 0.09 }
+      user:
+        - { name: redis, weight: 0.8 }
+        - { name: root, weight: 0.14 }
+        - { name: netdata, weight: 0.09 }
+      usergroup:
+        - { name: redis, weight: 0.8 }
+        - { name: root, weight: 0.14 }
+        - { name: netdata, weight: 0.09 }
+      net:
+        - { name: eth0, weight: 1.0 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "8"
+      _system_ram_total: "16777216"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: r5.large
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: cache
+      infra_sim_env: production
+
+  - hostname: showcase-elasticsearch-01
+    guid: f3be7155-343e-4fdb-a3bd-318829ef7f1a
+    role: web
+    services: [elasticsearch, processes]
+    utc_offset_secs: 0
+    attrs:
+      cores: 8
+      ram_total_kb: 16777216
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/boot", weight: 0.0022, attrs: { disk_total_kb: 1048576, inodes_total: 6553600 } }
+      app:
+        - { name: nginx, weight: 0.55 }
+        - { name: php-fpm, weight: 0.8 }
+        - { name: node, weight: 0.35 }
+        - { name: systemd, weight: 0.06 }
+        - { name: sshd, weight: 0.03 }
+        - { name: netdata, weight: 0.09 }
+        - { name: filebeat, weight: 0.07 }
+      user:
+        - { name: www-data, weight: 1 }
+        - { name: root, weight: 0.14 }
+        - { name: netdata, weight: 0.09 }
+        - { name: deploy, weight: 0.04 }
+      usergroup:
+        - { name: www-data, weight: 1 }
+        - { name: root, weight: 0.14 }
+        - { name: netdata, weight: 0.09 }
+      net:
+        - { name: eth0, weight: 1.0 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "8"
+      _system_ram_total: "16777216"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: m5.2xlarge
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: web
+      infra_sim_env: production
+
+  - hostname: showcase-elasticsearch-02
+    guid: 13be7155-971e-4fda-a3bd-3e8829ef7d57
+    role: web
+    services: [elasticsearch, processes]
+    utc_offset_secs: 0
+    attrs:
+      cores: 8
+      ram_total_kb: 16777216
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/boot", weight: 0.0022, attrs: { disk_total_kb: 1048576, inodes_total: 6553600 } }
+      app:
+        - { name: nginx, weight: 0.55 }
+        - { name: php-fpm, weight: 0.8 }
+        - { name: node, weight: 0.35 }
+        - { name: systemd, weight: 0.06 }
+        - { name: sshd, weight: 0.03 }
+        - { name: netdata, weight: 0.09 }
+        - { name: filebeat, weight: 0.07 }
+      user:
+        - { name: www-data, weight: 1 }
+        - { name: root, weight: 0.14 }
+        - { name: netdata, weight: 0.09 }
+        - { name: deploy, weight: 0.04 }
+      usergroup:
+        - { name: www-data, weight: 1 }
+        - { name: root, weight: 0.14 }
+        - { name: netdata, weight: 0.09 }
+      net:
+        - { name: eth0, weight: 1.0 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "8"
+      _system_ram_total: "16777216"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: m5.2xlarge
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: web
+      infra_sim_env: production
+
+  - hostname: showcase-rabbitmq-01
+    guid: 3b031b0f-fc87-4de7-acf0-b453589d5c85
+    role: web
+    services: [rabbitmq, processes]
+    utc_offset_secs: 0
+    attrs:
+      cores: 8
+      ram_total_kb: 16777216
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/boot", weight: 0.0022, attrs: { disk_total_kb: 1048576, inodes_total: 6553600 } }
+      app:
+        - { name: nginx, weight: 0.55 }
+        - { name: php-fpm, weight: 0.8 }
+        - { name: node, weight: 0.35 }
+        - { name: systemd, weight: 0.06 }
+        - { name: sshd, weight: 0.03 }
+        - { name: netdata, weight: 0.09 }
+        - { name: filebeat, weight: 0.07 }
+      user:
+        - { name: www-data, weight: 1 }
+        - { name: root, weight: 0.14 }
+        - { name: netdata, weight: 0.09 }
+        - { name: deploy, weight: 0.04 }
+      usergroup:
+        - { name: www-data, weight: 1 }
+        - { name: root, weight: 0.14 }
+        - { name: netdata, weight: 0.09 }
+      net:
+        - { name: eth0, weight: 1.0 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "8"
+      _system_ram_total: "16777216"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: m5.2xlarge
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: web
+      infra_sim_env: production
+
+  - hostname: showcase-rabbitmq-02
+    guid: 9b031b0f-19a7-4de4-acf0-b353589d567c
+    role: web
+    services: [rabbitmq, processes]
+    utc_offset_secs: 0
+    attrs:
+      cores: 8
+      ram_total_kb: 16777216
+      swap_total_kb: 4194304
+    instances:
+      disk:
+        - { name: nvme0n1, weight: 1.0 }
+      mount:
+        - { name: "/", weight: 0.2214, attrs: { disk_total_kb: 104857600, inodes_total: 6553600 } }
+        - { name: "/boot", weight: 0.0022, attrs: { disk_total_kb: 1048576, inodes_total: 6553600 } }
+      app:
+        - { name: nginx, weight: 0.55 }
+        - { name: php-fpm, weight: 0.8 }
+        - { name: node, weight: 0.35 }
+        - { name: systemd, weight: 0.06 }
+        - { name: sshd, weight: 0.03 }
+        - { name: netdata, weight: 0.09 }
+        - { name: filebeat, weight: 0.07 }
+      user:
+        - { name: www-data, weight: 1 }
+        - { name: root, weight: 0.14 }
+        - { name: netdata, weight: 0.09 }
+        - { name: deploy, weight: 0.04 }
+      usergroup:
+        - { name: www-data, weight: 1 }
+        - { name: root, weight: 0.14 }
+        - { name: netdata, weight: 0.09 }
+      net:
+        - { name: eth0, weight: 1.0 }
+    labels:
+      _os_name: Ubuntu
+      _os_version: 24.04.1 LTS
+      _kernel_version: 6.8.0-51-generic
+      _architecture: x86_64
+      _system_cores: "8"
+      _system_ram_total: "16777216"
+      _virtualization: kvm
+      _virt_detection: systemd-detect-virt
+      _container: none
+      _container_detection: none
+      _cloud_provider_type: aws
+      _cloud_instance_type: m5.2xlarge
+      _cloud_instance_region: us-east-1
+      _install_type: infra-sim
+      infra_sim_role: web
+      infra_sim_env: production
+
+  - hostname: showcase-sw-01
+    guid: 3519e37e-b919-4de7-97bb-5e6aa27ae3a9
+    role: network-device
+    generator: ../specs/network-device.yaml
+    services: []
+    utc_offset_secs: 0
+    attrs: {}
+    instances:
+      interface:
+        - { name: "GigabitEthernet1/0/1", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/2", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/3", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/4", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/5", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/6", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/7", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/8", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/9", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/10", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/11", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/12", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/13", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/14", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/15", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/16", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/17", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/18", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/19", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/20", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/21", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/22", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/23", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/24", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "TenGigabitEthernet1/1/1", weight: 4, attrs: { if_speed_mbps: 10000 } }
+        - { name: "TenGigabitEthernet1/1/2", weight: 3.2, attrs: { if_speed_mbps: 10000 } }
+      cpu_index:
+        - { name: "1", weight: 1 }
+        - { name: "2", weight: 0.85 }
+      mem_pool_index:
+        - { name: "Processor", weight: 1 }
+        - { name: "IO", weight: 0.4 }
+      temp_index:
+        - { name: "Inlet", weight: 1 }
+        - { name: "Outlet", weight: 1.12 }
+        - { name: "Supervisor", weight: 1.2 }
+      sensor_index:
+        - { name: "Inlet", weight: 1 }
+        - { name: "Hotspot", weight: 1.15 }
+      power_supply_index:
+        - { name: "PSU1", weight: 1 }
+        - { name: "PSU2", weight: 1 }
+      fan_status_index:
+        - { name: "Fan1", weight: 1 }
+        - { name: "Fan2", weight: 1 }
+        - { name: "Fan3", weight: 1 }
+        - { name: "Fan4", weight: 1 }
+      fru_index:
+        - { name: "1", weight: 1 }
+        - { name: "2", weight: 1 }
+      storage_index:
+        - { name: "Flash", weight: 1 }
+        - { name: "NVRAM", weight: 0.2 }
+      voltage_index:
+        - { name: "12V", weight: 1 }
+        - { name: "3V3", weight: 0.275 }
+      chassis_switch_id:
+        - { name: "1", weight: 1 }
+    labels:
+      _install_type: infra-sim
+      device_vendor: sim-networks
+      device_model: SIM-2960X-24
+      device_type: switch
+      infra_sim_role: network-device
+      infra_sim_env: production
+
+  - hostname: showcase-sw-02
+    guid: 9519e301-d639-4de4-97bb-5d6aa27ae680
+    role: network-device
+    generator: ../specs/network-device.yaml
+    services: []
+    utc_offset_secs: 0
+    attrs: {}
+    instances:
+      interface:
+        - { name: "GigabitEthernet1/0/1", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/2", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/3", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/4", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/5", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/6", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/7", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/8", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/9", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/10", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/11", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/12", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/13", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/14", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/15", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/16", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/17", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/18", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/19", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/20", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/21", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/22", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/23", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/24", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "TenGigabitEthernet1/1/1", weight: 4, attrs: { if_speed_mbps: 10000 } }
+        - { name: "TenGigabitEthernet1/1/2", weight: 3.2, attrs: { if_speed_mbps: 10000 } }
+      cpu_index:
+        - { name: "1", weight: 1 }
+        - { name: "2", weight: 0.85 }
+      mem_pool_index:
+        - { name: "Processor", weight: 1 }
+        - { name: "IO", weight: 0.4 }
+      temp_index:
+        - { name: "Inlet", weight: 1 }
+        - { name: "Outlet", weight: 1.12 }
+        - { name: "Supervisor", weight: 1.2 }
+      sensor_index:
+        - { name: "Inlet", weight: 1 }
+        - { name: "Hotspot", weight: 1.15 }
+      power_supply_index:
+        - { name: "PSU1", weight: 1 }
+        - { name: "PSU2", weight: 1 }
+      fan_status_index:
+        - { name: "Fan1", weight: 1 }
+        - { name: "Fan2", weight: 1 }
+        - { name: "Fan3", weight: 1 }
+        - { name: "Fan4", weight: 1 }
+      fru_index:
+        - { name: "1", weight: 1 }
+        - { name: "2", weight: 1 }
+      storage_index:
+        - { name: "Flash", weight: 1 }
+        - { name: "NVRAM", weight: 0.2 }
+      voltage_index:
+        - { name: "12V", weight: 1 }
+        - { name: "3V3", weight: 0.275 }
+      chassis_switch_id:
+        - { name: "1", weight: 1 }
+    labels:
+      _install_type: infra-sim
+      device_vendor: sim-networks
+      device_model: SIM-2960X-24
+      device_type: switch
+      infra_sim_role: network-device
+      infra_sim_env: production
+
+  - hostname: showcase-sw-03
+    guid: f519e37e-2c59-4de4-97bb-5c6aa27ae737
+    role: network-device
+    generator: ../specs/network-device.yaml
+    services: []
+    utc_offset_secs: 0
+    attrs: {}
+    instances:
+      interface:
+        - { name: "GigabitEthernet1/0/1", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/2", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/3", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/4", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/5", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/6", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/7", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/8", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/9", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/10", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/11", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/12", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/13", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/14", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/15", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/16", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/17", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/18", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/19", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/20", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/21", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/22", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/23", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/24", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "TenGigabitEthernet1/1/1", weight: 4, attrs: { if_speed_mbps: 10000 } }
+        - { name: "TenGigabitEthernet1/1/2", weight: 3.2, attrs: { if_speed_mbps: 10000 } }
+      cpu_index:
+        - { name: "1", weight: 1 }
+        - { name: "2", weight: 0.85 }
+      mem_pool_index:
+        - { name: "Processor", weight: 1 }
+        - { name: "IO", weight: 0.4 }
+      temp_index:
+        - { name: "Inlet", weight: 1 }
+        - { name: "Outlet", weight: 1.12 }
+        - { name: "Supervisor", weight: 1.2 }
+      sensor_index:
+        - { name: "Inlet", weight: 1 }
+        - { name: "Hotspot", weight: 1.15 }
+      power_supply_index:
+        - { name: "PSU1", weight: 1 }
+        - { name: "PSU2", weight: 1 }
+      fan_status_index:
+        - { name: "Fan1", weight: 1 }
+        - { name: "Fan2", weight: 1 }
+        - { name: "Fan3", weight: 1 }
+        - { name: "Fan4", weight: 1 }
+      fru_index:
+        - { name: "1", weight: 1 }
+        - { name: "2", weight: 1 }
+      storage_index:
+        - { name: "Flash", weight: 1 }
+        - { name: "NVRAM", weight: 0.2 }
+      voltage_index:
+        - { name: "12V", weight: 1 }
+        - { name: "3V3", weight: 0.275 }
+      chassis_switch_id:
+        - { name: "1", weight: 1 }
+    labels:
+      _install_type: infra-sim
+      device_vendor: sim-networks
+      device_model: SIM-2960X-24
+      device_type: switch
+      infra_sim_role: network-device
+      infra_sim_env: production
+
+  - hostname: showcase-sw-04
+    guid: 5519e301-4979-4de4-97bb-536aa27ae8b6
+    role: network-device
+    generator: ../specs/network-device.yaml
+    services: []
+    utc_offset_secs: 0
+    attrs: {}
+    instances:
+      interface:
+        - { name: "GigabitEthernet1/0/1", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/2", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/3", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/4", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/5", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/6", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/7", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/8", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/9", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/10", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/11", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/12", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/13", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/14", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/15", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/16", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/17", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/18", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/19", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/20", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/21", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/22", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/23", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "GigabitEthernet1/0/24", weight: 0.35, attrs: { if_speed_mbps: 1000 } }
+        - { name: "TenGigabitEthernet1/1/1", weight: 4, attrs: { if_speed_mbps: 10000 } }
+        - { name: "TenGigabitEthernet1/1/2", weight: 3.2, attrs: { if_speed_mbps: 10000 } }
+      cpu_index:
+        - { name: "1", weight: 1 }
+        - { name: "2", weight: 0.85 }
+      mem_pool_index:
+        - { name: "Processor", weight: 1 }
+        - { name: "IO", weight: 0.4 }
+      temp_index:
+        - { name: "Inlet", weight: 1 }
+        - { name: "Outlet", weight: 1.12 }
+        - { name: "Supervisor", weight: 1.2 }
+      sensor_index:
+        - { name: "Inlet", weight: 1 }
+        - { name: "Hotspot", weight: 1.15 }
+      power_supply_index:
+        - { name: "PSU1", weight: 1 }
+        - { name: "PSU2", weight: 1 }
+      fan_status_index:
+        - { name: "Fan1", weight: 1 }
+        - { name: "Fan2", weight: 1 }
+        - { name: "Fan3", weight: 1 }
+        - { name: "Fan4", weight: 1 }
+      fru_index:
+        - { name: "1", weight: 1 }
+        - { name: "2", weight: 1 }
+      storage_index:
+        - { name: "Flash", weight: 1 }
+        - { name: "NVRAM", weight: 0.2 }
+      voltage_index:
+        - { name: "12V", weight: 1 }
+        - { name: "3V3", weight: 0.275 }
+      chassis_switch_id:
+        - { name: "1", weight: 1 }
+    labels:
+      _install_type: infra-sim
+      device_vendor: sim-networks
+      device_model: SIM-2960X-24
+      device_type: switch
+      infra_sim_role: network-device
+      infra_sim_env: production
