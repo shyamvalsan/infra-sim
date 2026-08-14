@@ -1206,6 +1206,14 @@ pub fn render(reading: &Reading, name: &str, seed: u64, prefix: &str) -> String 
             if group.role == "edge-gateway" {
                 lines.push("        - { name: wwan0, weight: 0.12 }".into());
             }
+            for service in &group.services {
+                if let Some((inv_group, members)) = profile_instances(service, &hostname) {
+                    lines.push(format!("      {inv_group}:"));
+                    for (n, w) in members {
+                        lines.push(format!("        - {{ name: \"{n}\", weight: {w} }}"));
+                    }
+                }
+            }
             if matches!(group.role.as_str(), "k8s-control-plane" | "k8s-worker") {
                 lines.push("      container:".into());
                 for c in ["app-api", "sidecar-proxy", "log-shipper"] {
@@ -1213,9 +1221,11 @@ pub fn render(reading: &Reading, name: &str, seed: u64, prefix: &str) -> String 
                 }
             }
             lines.push("    labels:".into());
-            lines.push("      _os_name: Ubuntu".into());
-            lines.push("      _os_version: 24.04.1 LTS".into());
-            lines.push("      _kernel_version: 6.8.0-51-generic".into());
+            let (os_name, os_version, kernel) =
+                OPERATING_SYSTEMS[pick(&hostname, 1, OPERATING_SYSTEMS.len())];
+            lines.push(format!("      _os_name: {os_name}"));
+            lines.push(format!("      _os_version: {os_version}"));
+            lines.push(format!("      _kernel_version: {kernel}"));
             lines.push("      _architecture: x86_64".into());
             lines.push(format!("      _system_cores: \"{cores}\""));
             lines.push(format!("      _system_ram_total: \"{ram_kb}\""));
@@ -1225,7 +1235,10 @@ pub fn render(reading: &Reading, name: &str, seed: u64, prefix: &str) -> String 
             lines.push("      _container_detection: none".into());
             lines.push("      _cloud_provider_type: aws".into());
             lines.push(format!("      _cloud_instance_type: {itype}"));
-            lines.push("      _cloud_instance_region: us-east-1".into());
+            lines.push(format!(
+                "      _cloud_instance_region: {}",
+                REGIONS[pick(&hostname, 2, REGIONS.len())]
+            ));
             lines.push("      _install_type: infra-sim".into());
             lines.push(format!("      infra_sim_role: {}", group.role));
             lines.push("      infra_sim_env: production".into());
@@ -1234,6 +1247,130 @@ pub fn render(reading: &Reading, name: &str, seed: u64, prefix: &str) -> String 
     }
 
     lines.join("\n") + "\n"
+}
+
+/// A stable per-node index into a table.
+///
+/// Keyed on the hostname so a node keeps its operating system across
+/// regenerations, for the same reason GUIDs are derived rather than random: a
+/// fleet whose nodes swap distro every time the description is re-read is not a
+/// fleet anyone can demo twice.
+fn pick(hostname: &str, salt: u64, len: usize) -> usize {
+    if len == 0 {
+        return 0;
+    }
+    let mut h = 0xcbf2_9ce4_8422_2325u64 ^ salt;
+    for b in hostname.as_bytes() {
+        h ^= u64::from(*b);
+        h = h.wrapping_mul(0x0000_0100_0000_01b3);
+    }
+    (h % len as u64) as usize
+}
+
+/// Operating systems a fleet actually runs, as `(name, version, kernel)`.
+///
+/// A hundred nodes reporting a byte-identical `_os_version` is one of the
+/// cheapest tells there is - the node list gives it away before any chart does.
+/// Real estates are mostly one distro with a minority of others and a spread of
+/// kernel revisions, because nodes are patched in waves rather than at once.
+/// Weighted by repetition: Ubuntu LTS dominates, the rest trail.
+const OPERATING_SYSTEMS: &[(&str, &str, &str)] = &[
+    ("Ubuntu", "24.04.1 LTS", "6.8.0-51-generic"),
+    ("Ubuntu", "24.04.1 LTS", "6.8.0-48-generic"),
+    ("Ubuntu", "24.04.2 LTS", "6.8.0-53-generic"),
+    ("Ubuntu", "22.04.5 LTS", "5.15.0-126-generic"),
+    ("Ubuntu", "22.04.4 LTS", "5.15.0-119-generic"),
+    ("Debian GNU/Linux", "12", "6.1.0-28-amd64"),
+    ("Debian GNU/Linux", "12", "6.1.0-26-amd64"),
+    ("Rocky Linux", "9.4", "5.14.0-427.el9.x86_64"),
+    ("Rocky Linux", "9.5", "5.14.0-503.el9.x86_64"),
+    ("Amazon Linux", "2023", "6.1.112-122.189.amzn2023.x86_64"),
+];
+
+/// Regions a fleet is spread across. A single-region estate is plausible; every
+/// node in `us-east-1` with nodes visibly placed on three continents is not.
+const REGIONS: &[&str] = &[
+    "us-east-1",
+    "us-east-1",
+    "us-west-2",
+    "eu-west-1",
+    "eu-central-1",
+    "ap-southeast-1",
+];
+
+/// Synthetic resource inventories for a profile-derived service.
+///
+/// A profile-based collector emits one chart instance per AWS or Azure resource,
+/// keyed by labels rather than by node, so the environment has to say which
+/// resources exist. Without this a node carrying `aws-ec2` declares the context
+/// and renders nothing, which is worse than not claiming EC2 at all.
+///
+/// Names are obviously synthetic on purpose: `i-0sim...`, `sim-*`. A committed
+/// environment must never look like it names someone's real estate.
+fn profile_instances(service: &str, hostname: &str) -> Option<(String, Vec<(String, f64)>)> {
+    let (prefix, rest) = service.split_once('-')?;
+    if !matches!(prefix, "aws" | "azure" | "prom") {
+        return None;
+    }
+    // `aws-api-gateway` -> `aws_api_gateway`, matching the instance group
+    // `scripts/sync-profile-collectors.py` writes into the generated spec.
+    let group = format!("{prefix}_{}", rest.replace('-', "_"));
+
+    // Two or three resources per service: enough that the charts are visibly
+    // per-resource, few enough that ten services on one node stay readable.
+    let names: Vec<String> = match rest {
+        "ec2" => {
+            let a = pick(hostname, 11, 0x1000);
+            vec![
+                format!("i-0sim{:04x}a1b2c3d4e5", a),
+                format!("i-0sim{:04x}7a8b9c0d1e", a + 1),
+                format!("i-0sim{:04x}4d5e6f7081", a + 2),
+            ]
+        }
+        "lambda" => ["order-intake", "image-resize", "webhook-fanout"]
+            .iter()
+            .map(|n| format!("sim-{n}"))
+            .collect(),
+        "ecs" => ["fargate-checkout", "fargate-search"]
+            .iter()
+            .map(|n| format!("sim-{n}"))
+            .collect(),
+        "rds" => ["orders-primary", "orders-replica"]
+            .iter()
+            .map(|n| format!("sim-{n}"))
+            .collect(),
+        "s3" => ["media-assets", "audit-logs"]
+            .iter()
+            .map(|n| format!("sim-{n}"))
+            .collect(),
+        "sqs" => ["order-events", "dlq-orders"]
+            .iter()
+            .map(|n| format!("sim-{n}"))
+            .collect(),
+        "dynamodb" => ["carts", "idempotency"]
+            .iter()
+            .map(|n| format!("sim-{n}"))
+            .collect(),
+        "elasticache" => vec!["sim-session-cache".to_string()],
+        "alb" | "nlb" | "elb" => vec![format!("sim-public-{rest}")],
+        "api-gateway" => vec!["sim-public-api".to_string()],
+        // Any other profile - and there are 85 of them - still gets resources, so
+        // a spec is never declared with nothing behind it.
+        other => {
+            let base = other.replace('_', "-");
+            vec![format!("sim-{base}-01"), format!("sim-{base}-02")]
+        }
+    };
+
+    let weights = [1.0, 0.6, 0.35];
+    Some((
+        group,
+        names
+            .into_iter()
+            .enumerate()
+            .map(|(i, n)| (n, weights[i.min(weights.len() - 1)]))
+            .collect(),
+    ))
 }
 
 /// Deterministic UUID from a name pair.
