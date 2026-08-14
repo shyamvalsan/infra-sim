@@ -4,8 +4,10 @@
 
 Status: open
 
-Sub-state: Container mode delivered and working as far as it can be verified on
-Linux. One identified blocker remains, needing a Rust change and a user decision.
+Sub-state: Container mode delivered. Decision 1 (option A) implemented and merged,
+then proved insufficient by testing - simulation dashboards are loopback-bound, so no
+agent-host string can reach them from a container. Decision 1 re-opened with the
+constraint recorded.
 
 ## Requirements
 
@@ -175,15 +177,35 @@ Open decisions:
 
 **Decision 1 - how the console reaches an adopted simulation when containerised.**
 
-- **A. An environment override** (`INFRA_SIM_AGENT_HOST`), defaulting to
-  `127.0.0.1`, set to `host.docker.internal` in container mode. Smallest change,
-  Linux untouched, uses the convention already there. *Recommended, long-term-best.*
-- B. Detect containerisation in the console and switch automatically. No
-  configuration, but magic, and wrong the moment someone runs the container on
-  Linux with `--network host`.
-- C. Publish simulation ports on `0.0.0.0` and reach them by the host's LAN address.
-  Works, and exposes every simulation dashboard to the network - a downgrade in
-  posture for a demo tool that currently binds loopback only.
+The user chose **A** (`INFRA_SIM_AGENT_HOST` override, set to
+`host.docker.internal`). It is **implemented and merged**, and testing then showed
+that it is **necessary but not sufficient**. Recorded rather than quietly reworked.
+
+Measured on Linux with container mode forced: the override applies correctly -
+`agent_url` became `http://host.docker.internal:19989` - and the node table stayed
+empty. The reason:
+
+- `scripts/sim-docker.sh:168` publishes a simulation as
+  `-p "127.0.0.1:$port:19999"`, i.e. bound to the **host's loopback only**.
+- `host.docker.internal` resolves to the host's *gateway* address, measured here as
+  `172.17.0.1`.
+- A service bound to `127.0.0.1` is not reachable on the gateway address. No agent
+  host string can fix that, because the port is not listening where any container can
+  see it.
+
+So decision 1 needs re-deciding with that constraint visible:
+
+- **A'. Put the console container on the simulation's Docker network and reach it by
+  container name on port 19999.** No host publishing is involved at all, so nothing
+  new is exposed and loopback binding stays as it is. The console already knows the
+  container name (`Active.name` -> `infra-sim-<name>`). Needs the agent host to become
+  the container name, and the console container joined to that network.
+  *Recommended, long-term-best.*
+- B'. Publish simulation dashboards on `0.0.0.0` instead of `127.0.0.1`. Two-character
+  change, and it puts every simulated fleet's dashboard on the local network - a
+  posture downgrade for a tool that deliberately binds loopback today.
+- C'. Run the console container with `--network host`. Works on Linux, and Docker
+  Desktop's host networking is not equivalent - which is the one platform this is for.
 
 **Decision 2 - does teardown of a simulation created on a Mac need anything extra?**
 Unknown until tested; raised so it is not discovered by an operator mid-demo.

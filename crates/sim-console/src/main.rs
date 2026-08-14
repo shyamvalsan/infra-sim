@@ -749,12 +749,30 @@ fn parse_args() -> Result<Args, String> {
 /// The agent the console should be talking to, and where that simulation's
 /// files live: the active container's if there is one, otherwise the host's.
 ///
+/// The host a simulation's published dashboard is reachable on.
+///
+/// A simulation publishes its agent on the *host's* loopback, so `127.0.0.1` is
+/// right whenever the console runs on that host. It is wrong when the console is
+/// itself containerised - as it is on macOS, where the host cannot exec a Linux
+/// binary - because there `127.0.0.1` is the container. The symptom was a node
+/// table and a scenario list that were simply empty.
+///
+/// Defaults to today's behaviour, so Linux is untouched, and `startsim` sets it to
+/// `host.docker.internal` when it runs the console in a container.
+fn agent_host() -> String {
+    std::env::var("INFRA_SIM_AGENT_HOST")
+        .ok()
+        .map(|v| v.trim().to_string())
+        .filter(|v| !v.is_empty())
+        .unwrap_or_else(|| "127.0.0.1".to_string())
+}
+
 /// A simulation now runs in its own container with its own agent, so the target
 /// is chosen per request rather than fixed at start-up.
 fn target(app: &AppState) -> (Agent, PathBuf, PathBuf) {
     if let Some(a) = app.active.lock().ok().and_then(|g| g.clone()) {
         return (
-            Agent::new("127.0.0.1", a.port),
+            Agent::new(agent_host(), a.port),
             a.env_path(),
             a.control_path(),
         );

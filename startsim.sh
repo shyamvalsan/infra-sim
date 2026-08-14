@@ -353,11 +353,10 @@ fi
 if [ "${MACOS_EXPERIMENTAL:-no}" = yes ]; then
   warn "macOS support is EXPERIMENTAL and not yet verified on a Mac."
   warn "What works: the UI runs, in a container, driving your Docker through its socket."
-  warn "Known gap: the console reaches an adopted simulation at 127.0.0.1, which from"
-  warn "  inside a container is the container itself - so the node table and scenario"
-  warn "  controls for a running simulation will be empty. Creating a fleet should work;"
-  warn "  watching it from here does not yet. Tracked in SOW-0018."
-  warn "For a fully working setup today, run this on Linux or in a Linux VM."
+  warn "It reaches your simulations through host.docker.internal, which is verified on"
+  warn "  Linux but not on Docker Desktop. If the node table is empty, that is why -"
+  warn "  please report it. Tracked in SOW-0018."
+  warn "For a setup that is fully exercised today, run this on Linux or in a Linux VM."
 fi
 
 # Resolve the daemon socket, rather than assuming /var/run/docker.sock: Docker
@@ -402,6 +401,8 @@ exec $DOCKER run --rm $TTY_FLAGS \
   -v "$REPO":"$REPO" \
   -v "$STATE_DIR":"$STATE_DIR" \
   -e INFRA_SIM_STATE_DIR="$STATE_DIR" \
+  --add-host=host.docker.internal:host-gateway \
+  -e INFRA_SIM_AGENT_HOST=host.docker.internal \
   -p "${host}:${port}:${port}" \
   -w "$REPO" \
   "$CONSOLE_IMAGE" --repo "$REPO" --bind "0.0.0.0:${port}" "${ENV_ARGS[@]+"${ENV_ARGS[@]}"}"
