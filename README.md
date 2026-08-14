@@ -124,14 +124,21 @@ curl -fsSL https://raw.githubusercontent.com/shyamvalsan/infra-sim/main/startsim
 ```
 
 macOS is **experimental and not yet working**: the UI comes up, but a running
-simulation's node table and scenario controls are still empty. Until that is fixed,
-use Linux — or a Linux VM on your Mac:
+simulation's node table and scenario controls are still empty.
+
+So on a Mac, use the VM route, which is the ordinary Linux path and is fully
+exercised. One command, once Multipass is installed:
 
 ```bash
-brew install --cask multipass
-multipass launch --name sim --cpus 4 --memory 8G --disk 40G
-multipass shell sim      # then install Docker, clone, and sudo ./startsim.sh
+brew install --cask multipass          # once
+./startsim-vm.sh                       # creates the VM, provisions it, starts the console
 ```
+
+It launches an Ubuntu VM, installs Docker and git *inside it*, clones, starts the
+console, and prints the URL to open. Your Mac is not modified — Multipass has to be
+there already, and the script installs nothing on the host. `--cpus`, `--memory` and
+`--disk` size the VM; 160 simulated nodes is not a 2G job. `multipass stop infra-sim`
+when you are done, `multipass delete --purge infra-sim` to reclaim the space.
 
 Or from a clone:
 

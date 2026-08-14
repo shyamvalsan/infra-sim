@@ -57,28 +57,42 @@ so it does not appear in the Space as a stray machine reporting container CPU.
 
 Two routes, and they are not equal.
 
-**A Linux VM, which works.** This is the recommended route today: inside the VM
-everything is the ordinary Linux path, fully exercised.
+**A Linux VM, which works.** The recommended route: inside the VM everything is the
+ordinary Linux path, fully exercised. `startsim-vm.sh` does the whole thing.
 
 ```bash
-brew install --cask multipass
+brew install --cask multipass          # once; the script installs nothing itself
+./startsim-vm.sh
+```
+
+It launches the VM if it does not exist, reuses and starts it if it does, installs
+`docker.io` and `git` inside it, clones or fast-forwards the checkout, then runs
+`startsim.sh --bind 0.0.0.0:19995` in the foreground and prints the URL. `--name`,
+`--cpus`, `--memory`, `--disk`, `--port` and `--recreate` are the knobs.
+
+The host/VM split is deliberate: your Mac is never modified, and the VM is
+provisioned freely, because provisioning a machine we just created is the point of
+creating it.
+
+`0.0.0.0` rather than loopback, because you reach it from macOS rather than from
+inside the VM - which does mean the console sits on the VM's interface rather than
+loopback only. Simulation dashboards appear on the same address on their own ports.
+
+A stopped VM is reused rather than rebuilt: it holds a fleet's history, and GUIDs are
+identity, so recreating one orphans whatever was running in it. `--recreate` when you
+actually want that.
+
+By hand, if you would rather see each step:
+
+```bash
 multipass launch --name infra-sim --cpus 4 --memory 8G --disk 40G
 multipass shell infra-sim
-```
-
-Then, inside the VM:
-
-```bash
+# inside:
 sudo apt-get update && sudo apt-get install -y docker.io git
-sudo usermod -aG docker "$USER" && newgrp docker
 git clone https://github.com/shyamvalsan/infra-sim && cd infra-sim
 sudo ./startsim.sh --bind 0.0.0.0:19995
+multipass info infra-sim     # for the address
 ```
-
-`0.0.0.0` rather than the default loopback, because you reach it from macOS rather
-than from inside the VM. Get the address with `multipass info infra-sim` and open
-`http://<that address>:19995`. Simulation dashboards are on the same address, on
-their own ports.
 
 Note what this costs: the VM's CPU and RAM are committed while it runs, the
 simulations live inside it rather than on your Mac's Docker, and the console is
