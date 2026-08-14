@@ -1,0 +1,72 @@
+version: 1
+name: aws-vpn
+description: 'AWS Site-to-Site VPN as reported through Netdata''s cloudwatch collector, generated from
+  its service profile (AWS/VPN) so the contexts, units, families and dimension names match a real deployment.
+  Charts are per-resource instances, as the collector emits them: resources are labels on one node, never
+  separate nodes. Signals move independently rather than being causally coupled - see scripts/sync-profile-collectors.py.'
+signals:
+  vpn_traffic_received:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  vpn_traffic_sent:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  vpn_tunnel_state_up:
+    base: 1.0
+    min: 0.0
+    max: 1.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  vpn_tunnel_state_minimum:
+    base: 1.0
+    min: 0.0
+    max: 1.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+contexts:
+- id: cloudwatch.vpn.traffic
+  title: Site-to-Site VPN Traffic
+  units: bytes/s
+  family: Traffic
+  chart_type: line
+  priority: 90010
+  instances:
+    group: aws_vpn
+    chart_prefix: vpn_traffic
+    family: Traffic
+    labels:
+      vpn_id: '{instance}'
+  shape: independent
+  dimensions:
+  - id: received
+    signal: vpn_traffic_received
+  - id: sent
+    signal: vpn_traffic_sent
+- id: cloudwatch.vpn.tunnel_state
+  title: Site-to-Site VPN Tunnel State
+  units: status
+  family: Status
+  chart_type: line
+  priority: 90020
+  instances:
+    group: aws_vpn
+    chart_prefix: vpn_tunnel_state
+    family: Status
+    labels:
+      vpn_id: '{instance}'
+  shape: independent
+  dimensions:
+  - id: up
+    signal: vpn_tunnel_state_up
+  - id: minimum
+    signal: vpn_tunnel_state_minimum

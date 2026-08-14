@@ -1,0 +1,160 @@
+version: 1
+name: aws-ec2
+description: 'AWS EC2 as reported through Netdata''s cloudwatch collector, generated from its service
+  profile (AWS/EC2) so the contexts, units, families and dimension names match a real deployment. Charts
+  are per-resource instances, as the collector emits them: resources are labels on one node, never separate
+  nodes. Signals move independently rather than being causally coupled - see scripts/sync-profile-collectors.py.'
+signals:
+  ec2_cpu_utilization_average:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  ec2_network_traffic_in:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  ec2_network_traffic_out:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  ec2_disk_ops_read:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  ec2_disk_ops_write:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  ec2_status_check_failed_failed:
+    base: 0.0
+    min: 0.0
+    max: 1.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  ec2_status_check_failed_attached_ebs:
+    base: 0.0
+    min: 0.0
+    max: 1.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  ec2_status_check_failed_detail_instance:
+    base: 0.0
+    min: 0.0
+    max: 1.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  ec2_status_check_failed_detail_system:
+    base: 0.0
+    min: 0.0
+    max: 1.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+contexts:
+- id: cloudwatch.ec2.cpu_utilization
+  title: EC2 CPU Utilization
+  units: percentage
+  family: CPU
+  chart_type: line
+  priority: 90010
+  instances:
+    group: aws_ec2
+    chart_prefix: ec2_cpu_utilization
+    family: CPU
+    labels:
+      instance_id: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: ec2_cpu_utilization_average
+- id: cloudwatch.ec2.network_traffic
+  title: EC2 Network Traffic
+  units: bytes/s
+  family: Network
+  chart_type: line
+  priority: 90020
+  instances:
+    group: aws_ec2
+    chart_prefix: ec2_network_traffic
+    family: Network
+    labels:
+      instance_id: '{instance}'
+  shape: independent
+  dimensions:
+  - id: in
+    signal: ec2_network_traffic_in
+  - id: out
+    signal: ec2_network_traffic_out
+- id: cloudwatch.ec2.disk_ops
+  title: EC2 Disk Operations
+  units: ops/s
+  family: Disk
+  chart_type: line
+  priority: 90030
+  instances:
+    group: aws_ec2
+    chart_prefix: ec2_disk_ops
+    family: Disk
+    labels:
+      instance_id: '{instance}'
+  shape: independent
+  dimensions:
+  - id: read
+    signal: ec2_disk_ops_read
+  - id: write
+    signal: ec2_disk_ops_write
+- id: cloudwatch.ec2.status_check_failed
+  title: EC2 Status Check Failures
+  units: status
+  family: Status
+  chart_type: line
+  priority: 90040
+  instances:
+    group: aws_ec2
+    chart_prefix: ec2_status_check_failed
+    family: Status
+    labels:
+      instance_id: '{instance}'
+  shape: independent
+  dimensions:
+  - id: failed
+    signal: ec2_status_check_failed_failed
+  - id: attached_ebs
+    signal: ec2_status_check_failed_attached_ebs
+- id: cloudwatch.ec2.status_check_failed_detail
+  title: EC2 Status Check Failures by Type
+  units: status
+  family: Status
+  chart_type: line
+  priority: 90050
+  instances:
+    group: aws_ec2
+    chart_prefix: ec2_status_check_failed_detail
+    family: Status
+    labels:
+      instance_id: '{instance}'
+  shape: independent
+  dimensions:
+  - id: instance
+    signal: ec2_status_check_failed_detail_instance
+  - id: system
+    signal: ec2_status_check_failed_detail_system

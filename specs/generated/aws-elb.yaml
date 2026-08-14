@@ -1,0 +1,214 @@
+version: 1
+name: aws-elb
+description: 'AWS ELB (Classic) as reported through Netdata''s cloudwatch collector, generated from its
+  service profile (AWS/ELB) so the contexts, units, families and dimension names match a real deployment.
+  Charts are per-resource instances, as the collector emits them: resources are labels on one node, never
+  separate nodes. Signals move independently rather than being causally coupled - see scripts/sync-profile-collectors.py.'
+signals:
+  elb_request_count_requests:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  elb_backend_response_codes_2xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  elb_backend_response_codes_3xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  elb_backend_response_codes_4xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  elb_backend_response_codes_5xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  elb_elb_response_codes_4xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  elb_elb_response_codes_5xx:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  elb_backend_connection_errors_errors:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  elb_latency_latency:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  elb_host_count_healthy:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  elb_host_count_unhealthy:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  elb_spillover_count_spillover:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+contexts:
+- id: cloudwatch.elb.request_count
+  title: ELB Request Count
+  units: requests/s
+  family: Requests
+  chart_type: line
+  priority: 90010
+  instances:
+    group: aws_elb
+    chart_prefix: elb_request_count
+    family: Requests
+    labels:
+      load_balancer_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: requests
+    signal: elb_request_count_requests
+- id: cloudwatch.elb.backend_response_codes
+  title: ELB Backend Response Codes
+  units: responses/s
+  family: Responses
+  chart_type: line
+  priority: 90020
+  instances:
+    group: aws_elb
+    chart_prefix: elb_backend_response_codes
+    family: Responses
+    labels:
+      load_balancer_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: 2xx
+    signal: elb_backend_response_codes_2xx
+  - id: 3xx
+    signal: elb_backend_response_codes_3xx
+  - id: 4xx
+    signal: elb_backend_response_codes_4xx
+  - id: 5xx
+    signal: elb_backend_response_codes_5xx
+- id: cloudwatch.elb.elb_response_codes
+  title: ELB Load Balancer Response Codes
+  units: responses/s
+  family: Responses
+  chart_type: line
+  priority: 90030
+  instances:
+    group: aws_elb
+    chart_prefix: elb_elb_response_codes
+    family: Responses
+    labels:
+      load_balancer_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: 4xx
+    signal: elb_elb_response_codes_4xx
+  - id: 5xx
+    signal: elb_elb_response_codes_5xx
+- id: cloudwatch.elb.backend_connection_errors
+  title: ELB Backend Connection Errors
+  units: errors/s
+  family: Errors
+  chart_type: line
+  priority: 90040
+  instances:
+    group: aws_elb
+    chart_prefix: elb_backend_connection_errors
+    family: Errors
+    labels:
+      load_balancer_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: errors
+    signal: elb_backend_connection_errors_errors
+- id: cloudwatch.elb.latency
+  title: ELB Latency
+  units: seconds
+  family: Latency
+  chart_type: line
+  priority: 90050
+  instances:
+    group: aws_elb
+    chart_prefix: elb_latency
+    family: Latency
+    labels:
+      load_balancer_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: latency
+    signal: elb_latency_latency
+- id: cloudwatch.elb.host_count
+  title: ELB Host Count
+  units: hosts
+  family: Hosts
+  chart_type: line
+  priority: 90060
+  instances:
+    group: aws_elb
+    chart_prefix: elb_host_count
+    family: Hosts
+    labels:
+      load_balancer_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: healthy
+    signal: elb_host_count_healthy
+  - id: unhealthy
+    signal: elb_host_count_unhealthy
+- id: cloudwatch.elb.spillover_count
+  title: ELB Spillover Count
+  units: events/s
+  family: Queue
+  chart_type: line
+  priority: 90070
+  instances:
+    group: aws_elb
+    chart_prefix: elb_spillover_count
+    family: Queue
+    labels:
+      load_balancer_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: spillover
+    signal: elb_spillover_count_spillover

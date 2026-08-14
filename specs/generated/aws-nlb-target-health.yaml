@@ -1,0 +1,32 @@
+version: 1
+name: aws-nlb-target-health
+description: 'AWS NLB Target Health as reported through Netdata''s cloudwatch collector, generated from
+  its service profile (AWS/NetworkELB) so the contexts, units, families and dimension names match a real
+  deployment. Charts are per-resource instances, as the collector emits them: resources are labels on
+  one node, never separate nodes. Signals move independently rather than being causally coupled - see
+  scripts/sync-profile-collectors.py.'
+signals:
+  nlb_target_health_unhealthy_hosts_unhealthy:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+contexts:
+- id: cloudwatch.nlb_target_health.unhealthy_hosts
+  title: NLB Target Group Unhealthy Hosts
+  units: hosts
+  family: Hosts
+  chart_type: line
+  priority: 90010
+  instances:
+    group: aws_nlb_target_health
+    chart_prefix: nlb_target_health_unhealthy_hosts
+    family: Hosts
+    labels:
+      load_balancer: '{instance}'
+  shape: independent
+  dimensions:
+  - id: unhealthy
+    signal: nlb_target_health_unhealthy_hosts_unhealthy

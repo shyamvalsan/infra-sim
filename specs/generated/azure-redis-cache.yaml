@@ -1,0 +1,878 @@
+version: 1
+name: azure-redis-cache
+description: 'Azure Cache for Redis as reported through Netdata''s azure_monitor collector, generated
+  from its service profile (Microsoft.Cache/redis) so the contexts, units, families and dimension names
+  match a real deployment. Charts are per-resource instances, as the collector emits them: resources are
+  labels on one node, never separate nodes. Signals move independently rather than being causally coupled
+  - see scripts/sync-profile-collectors.py.'
+signals:
+  redis_cache_cache_hits_hits:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  redis_cache_cache_hits_misses:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  redis_cache_throughput_read:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  redis_cache_throughput_write:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  redis_cache_server_load_maximum:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  redis_cache_cpu_maximum:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  redis_cache_memory_usage_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  redis_cache_memory_usage_rss:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  redis_cache_memory_utilization_maximum:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  redis_cache_clients_maximum:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  redis_cache_operations_maximum:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  redis_cache_commands_total:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  redis_cache_command_types_get:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  redis_cache_command_types_set:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  redis_cache_latency_average:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  redis_cache_key_events_evicted:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  redis_cache_key_events_expired:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  redis_cache_total_keys_maximum:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  redis_cache_errors_maximum:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  redis_cache_miss_rate_miss_rate:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  redis_cache_latency_p99_p99:
+    base: 850.0
+    min: 0.0
+    max: 60000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  redis_cache_connection_rate_created:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  redis_cache_connection_rate_closed:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  redis_cache_aad_clients_maximum:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  redis_cache_instance_cache_hits_hits:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  redis_cache_instance_cache_hits_misses:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  redis_cache_instance_throughput_read:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  redis_cache_instance_throughput_write:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  redis_cache_instance_server_load_server_load:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  redis_cache_instance_server_load_cpu:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  redis_cache_instance_memory_usage_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  redis_cache_instance_memory_usage_rss:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  redis_cache_instance_memory_utilization_maximum:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  redis_cache_instance_clients_maximum:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  redis_cache_instance_operations_maximum:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  redis_cache_instance_commands_total:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  redis_cache_instance_commands_get:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  redis_cache_instance_commands_set:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  redis_cache_instance_total_keys_maximum:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  redis_cache_instance_key_events_evicted:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  redis_cache_instance_key_events_expired:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  redis_cache_geo_replication_lag_average:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  redis_cache_geo_replication_sync_offset_average:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  redis_cache_geo_replication_sync_events_started:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  redis_cache_geo_replication_sync_events_finished:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  redis_cache_geo_replication_health_average:
+    base: 1.0
+    min: 0.0
+    max: 1.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+contexts:
+- id: azure_monitor.redis_cache.cache_hits
+  title: Azure Cache for Redis Hit Rate
+  units: operations/s
+  family: Cache
+  chart_type: line
+  priority: 90010
+  instances:
+    group: azure_redis_cache
+    chart_prefix: redis_cache_cache_hits
+    family: Cache
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: hits
+    signal: redis_cache_cache_hits_hits
+  - id: misses
+    signal: redis_cache_cache_hits_misses
+- id: azure_monitor.redis_cache.throughput
+  title: Azure Cache for Redis Throughput
+  units: bytes/s
+  family: Cache
+  chart_type: line
+  priority: 90020
+  instances:
+    group: azure_redis_cache
+    chart_prefix: redis_cache_throughput
+    family: Cache
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: read
+    signal: redis_cache_throughput_read
+  - id: write
+    signal: redis_cache_throughput_write
+- id: azure_monitor.redis_cache.server_load
+  title: Azure Cache for Redis Server Load
+  units: percentage
+  family: Server
+  chart_type: line
+  priority: 90030
+  instances:
+    group: azure_redis_cache
+    chart_prefix: redis_cache_server_load
+    family: Server
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: maximum
+    signal: redis_cache_server_load_maximum
+- id: azure_monitor.redis_cache.cpu
+  title: Azure Cache for Redis CPU Utilization
+  units: percentage
+  family: Server
+  chart_type: line
+  priority: 90040
+  instances:
+    group: azure_redis_cache
+    chart_prefix: redis_cache_cpu
+    family: Server
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: maximum
+    signal: redis_cache_cpu_maximum
+- id: azure_monitor.redis_cache.memory_usage
+  title: Azure Cache for Redis Memory Usage
+  units: bytes
+  family: Memory
+  chart_type: line
+  priority: 90050
+  instances:
+    group: azure_redis_cache
+    chart_prefix: redis_cache_memory_usage
+    family: Memory
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: used
+    signal: redis_cache_memory_usage_used
+  - id: rss
+    signal: redis_cache_memory_usage_rss
+- id: azure_monitor.redis_cache.memory_utilization
+  title: Azure Cache for Redis Memory Utilization
+  units: percentage
+  family: Memory
+  chart_type: line
+  priority: 90060
+  instances:
+    group: azure_redis_cache
+    chart_prefix: redis_cache_memory_utilization
+    family: Memory
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: maximum
+    signal: redis_cache_memory_utilization_maximum
+- id: azure_monitor.redis_cache.clients
+  title: Azure Cache for Redis Connected Clients
+  units: clients
+  family: Clients
+  chart_type: line
+  priority: 90070
+  instances:
+    group: azure_redis_cache
+    chart_prefix: redis_cache_clients
+    family: Clients
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: maximum
+    signal: redis_cache_clients_maximum
+- id: azure_monitor.redis_cache.operations
+  title: Azure Cache for Redis Operations
+  units: operations/s
+  family: Operations
+  chart_type: line
+  priority: 90080
+  instances:
+    group: azure_redis_cache
+    chart_prefix: redis_cache_operations
+    family: Operations
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: maximum
+    signal: redis_cache_operations_maximum
+- id: azure_monitor.redis_cache.commands
+  title: Azure Cache for Redis Commands Processed
+  units: commands/s
+  family: Operations
+  chart_type: line
+  priority: 90090
+  instances:
+    group: azure_redis_cache
+    chart_prefix: redis_cache_commands
+    family: Operations
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: total
+    signal: redis_cache_commands_total
+- id: azure_monitor.redis_cache.command_types
+  title: Azure Cache for Redis Command Types
+  units: commands/s
+  family: Operations
+  chart_type: line
+  priority: 90100
+  instances:
+    group: azure_redis_cache
+    chart_prefix: redis_cache_command_types
+    family: Operations
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: get
+    signal: redis_cache_command_types_get
+  - id: set
+    signal: redis_cache_command_types_set
+- id: azure_monitor.redis_cache.latency
+  title: Azure Cache for Redis Latency
+  units: microseconds
+  family: Latency
+  chart_type: line
+  priority: 90110
+  instances:
+    group: azure_redis_cache
+    chart_prefix: redis_cache_latency
+    family: Latency
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: redis_cache_latency_average
+- id: azure_monitor.redis_cache.key_events
+  title: Azure Cache for Redis Key Events
+  units: keys/s
+  family: Keys
+  chart_type: line
+  priority: 90120
+  instances:
+    group: azure_redis_cache
+    chart_prefix: redis_cache_key_events
+    family: Keys
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: evicted
+    signal: redis_cache_key_events_evicted
+  - id: expired
+    signal: redis_cache_key_events_expired
+- id: azure_monitor.redis_cache.total_keys
+  title: Azure Cache for Redis Total Keys
+  units: keys
+  family: Keys
+  chart_type: line
+  priority: 90130
+  instances:
+    group: azure_redis_cache
+    chart_prefix: redis_cache_total_keys
+    family: Keys
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: maximum
+    signal: redis_cache_total_keys_maximum
+- id: azure_monitor.redis_cache.errors
+  title: Azure Cache for Redis Errors
+  units: errors
+  family: Errors
+  chart_type: line
+  priority: 90140
+  instances:
+    group: azure_redis_cache
+    chart_prefix: redis_cache_errors
+    family: Errors
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: maximum
+    signal: redis_cache_errors_maximum
+- id: azure_monitor.redis_cache.miss_rate
+  title: Azure Cache for Redis Miss Rate
+  units: percentage
+  family: Cache
+  chart_type: line
+  priority: 90150
+  instances:
+    group: azure_redis_cache
+    chart_prefix: redis_cache_miss_rate
+    family: Cache
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: miss_rate
+    signal: redis_cache_miss_rate_miss_rate
+- id: azure_monitor.redis_cache.latency_p99
+  title: Azure Cache for Redis P99 Latency
+  units: microseconds
+  family: Latency
+  chart_type: line
+  priority: 90160
+  instances:
+    group: azure_redis_cache
+    chart_prefix: redis_cache_latency_p99
+    family: Latency
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: p99
+    signal: redis_cache_latency_p99_p99
+- id: azure_monitor.redis_cache.connection_rate
+  title: Azure Cache for Redis Connection Rate
+  units: connections/s
+  family: Clients
+  chart_type: line
+  priority: 90170
+  instances:
+    group: azure_redis_cache
+    chart_prefix: redis_cache_connection_rate
+    family: Clients
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: created
+    signal: redis_cache_connection_rate_created
+  - id: closed
+    signal: redis_cache_connection_rate_closed
+- id: azure_monitor.redis_cache.aad_clients
+  title: Azure Cache for Redis Entra Token Clients
+  units: clients
+  family: Clients
+  chart_type: line
+  priority: 90180
+  instances:
+    group: azure_redis_cache
+    chart_prefix: redis_cache_aad_clients
+    family: Clients
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: maximum
+    signal: redis_cache_aad_clients_maximum
+- id: azure_monitor.redis_cache.instance_cache_hits
+  title: Azure Cache for Redis Instance Hit Rate
+  units: operations/s
+  family: Instance Cache
+  chart_type: line
+  priority: 90190
+  instances:
+    group: azure_redis_cache
+    chart_prefix: redis_cache_instance_cache_hits
+    family: Instance Cache
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: hits
+    signal: redis_cache_instance_cache_hits_hits
+  - id: misses
+    signal: redis_cache_instance_cache_hits_misses
+- id: azure_monitor.redis_cache.instance_throughput
+  title: Azure Cache for Redis Instance Throughput
+  units: bytes/s
+  family: Instance Cache
+  chart_type: line
+  priority: 90200
+  instances:
+    group: azure_redis_cache
+    chart_prefix: redis_cache_instance_throughput
+    family: Instance Cache
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: read
+    signal: redis_cache_instance_throughput_read
+  - id: write
+    signal: redis_cache_instance_throughput_write
+- id: azure_monitor.redis_cache.instance_server_load
+  title: Azure Cache for Redis Instance Server Load
+  units: percentage
+  family: Instance Server
+  chart_type: line
+  priority: 90210
+  instances:
+    group: azure_redis_cache
+    chart_prefix: redis_cache_instance_server_load
+    family: Instance Server
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: server_load
+    signal: redis_cache_instance_server_load_server_load
+  - id: cpu
+    signal: redis_cache_instance_server_load_cpu
+- id: azure_monitor.redis_cache.instance_memory_usage
+  title: Azure Cache for Redis Instance Memory Usage
+  units: bytes
+  family: Instance Memory
+  chart_type: line
+  priority: 90220
+  instances:
+    group: azure_redis_cache
+    chart_prefix: redis_cache_instance_memory_usage
+    family: Instance Memory
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: used
+    signal: redis_cache_instance_memory_usage_used
+  - id: rss
+    signal: redis_cache_instance_memory_usage_rss
+- id: azure_monitor.redis_cache.instance_memory_utilization
+  title: Azure Cache for Redis Instance Memory Utilization
+  units: percentage
+  family: Instance Memory
+  chart_type: line
+  priority: 90230
+  instances:
+    group: azure_redis_cache
+    chart_prefix: redis_cache_instance_memory_utilization
+    family: Instance Memory
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: maximum
+    signal: redis_cache_instance_memory_utilization_maximum
+- id: azure_monitor.redis_cache.instance_clients
+  title: Azure Cache for Redis Instance Connected Clients
+  units: clients
+  family: Instance Clients
+  chart_type: line
+  priority: 90240
+  instances:
+    group: azure_redis_cache
+    chart_prefix: redis_cache_instance_clients
+    family: Instance Clients
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: maximum
+    signal: redis_cache_instance_clients_maximum
+- id: azure_monitor.redis_cache.instance_operations
+  title: Azure Cache for Redis Instance Operations
+  units: operations/s
+  family: Instance Operations
+  chart_type: line
+  priority: 90250
+  instances:
+    group: azure_redis_cache
+    chart_prefix: redis_cache_instance_operations
+    family: Instance Operations
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: maximum
+    signal: redis_cache_instance_operations_maximum
+- id: azure_monitor.redis_cache.instance_commands
+  title: Azure Cache for Redis Instance Commands Processed
+  units: commands/s
+  family: Instance Operations
+  chart_type: line
+  priority: 90260
+  instances:
+    group: azure_redis_cache
+    chart_prefix: redis_cache_instance_commands
+    family: Instance Operations
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: total
+    signal: redis_cache_instance_commands_total
+  - id: get
+    signal: redis_cache_instance_commands_get
+  - id: set
+    signal: redis_cache_instance_commands_set
+- id: azure_monitor.redis_cache.instance_total_keys
+  title: Azure Cache for Redis Instance Total Keys
+  units: keys
+  family: Instance Keys
+  chart_type: line
+  priority: 90270
+  instances:
+    group: azure_redis_cache
+    chart_prefix: redis_cache_instance_total_keys
+    family: Instance Keys
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: maximum
+    signal: redis_cache_instance_total_keys_maximum
+- id: azure_monitor.redis_cache.instance_key_events
+  title: Azure Cache for Redis Instance Key Events
+  units: keys/s
+  family: Instance Keys
+  chart_type: line
+  priority: 90280
+  instances:
+    group: azure_redis_cache
+    chart_prefix: redis_cache_instance_key_events
+    family: Instance Keys
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: evicted
+    signal: redis_cache_instance_key_events_evicted
+  - id: expired
+    signal: redis_cache_instance_key_events_expired
+- id: azure_monitor.redis_cache.geo_replication_lag
+  title: Azure Cache for Redis Geo-Replication Connectivity Lag
+  units: seconds
+  family: Geo-Replication
+  chart_type: line
+  priority: 90290
+  instances:
+    group: azure_redis_cache
+    chart_prefix: redis_cache_geo_replication_lag
+    family: Geo-Replication
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: redis_cache_geo_replication_lag_average
+- id: azure_monitor.redis_cache.geo_replication_sync_offset
+  title: Azure Cache for Redis Geo-Replication Data Sync Offset
+  units: bytes
+  family: Geo-Replication
+  chart_type: line
+  priority: 90300
+  instances:
+    group: azure_redis_cache
+    chart_prefix: redis_cache_geo_replication_sync_offset
+    family: Geo-Replication
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: redis_cache_geo_replication_sync_offset_average
+- id: azure_monitor.redis_cache.geo_replication_sync_events
+  title: Azure Cache for Redis Geo-Replication Sync Events
+  units: events/s
+  family: Geo-Replication
+  chart_type: line
+  priority: 90310
+  instances:
+    group: azure_redis_cache
+    chart_prefix: redis_cache_geo_replication_sync_events
+    family: Geo-Replication
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: started
+    signal: redis_cache_geo_replication_sync_events_started
+  - id: finished
+    signal: redis_cache_geo_replication_sync_events_finished
+- id: azure_monitor.redis_cache.geo_replication_health
+  title: Azure Cache for Redis Geo-Replication Health
+  units: status
+  family: Geo-Replication
+  chart_type: line
+  priority: 90320
+  instances:
+    group: azure_redis_cache
+    chart_prefix: redis_cache_geo_replication_health
+    family: Geo-Replication
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: redis_cache_geo_replication_health_average

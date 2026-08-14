@@ -1,0 +1,192 @@
+version: 1
+name: azure-event-grid
+description: 'Azure Event Grid Topic as reported through Netdata''s azure_monitor collector, generated
+  from its service profile (Microsoft.EventGrid/topics) so the contexts, units, families and dimension
+  names match a real deployment. Charts are per-resource instances, as the collector emits them: resources
+  are labels on one node, never separate nodes. Signals move independently rather than being causally
+  coupled - see scripts/sync-profile-collectors.py.'
+signals:
+  event_grid_publish_rate_success:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  event_grid_publish_rate_failed:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  event_grid_publish_latency_latency:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  event_grid_routing_matched:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  event_grid_routing_unmatched:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  event_grid_advanced_filter_evaluations_evaluations:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  event_grid_delivery_delivered:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  event_grid_delivery_failed:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  event_grid_delivery_dropped:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  event_grid_delivery_dead_lettered:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  event_grid_destination_processing_duration_average:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+contexts:
+- id: azure_monitor.event_grid.publish_rate
+  title: Azure Event Grid Publish Rate
+  units: events/s
+  family: Publishing
+  chart_type: line
+  priority: 90010
+  instances:
+    group: azure_event_grid
+    chart_prefix: event_grid_publish_rate
+    family: Publishing
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: success
+    signal: event_grid_publish_rate_success
+  - id: failed
+    signal: event_grid_publish_rate_failed
+- id: azure_monitor.event_grid.publish_latency
+  title: Azure Event Grid Publish Latency
+  units: milliseconds
+  family: Publishing
+  chart_type: line
+  priority: 90020
+  instances:
+    group: azure_event_grid
+    chart_prefix: event_grid_publish_latency
+    family: Publishing
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: latency
+    signal: event_grid_publish_latency_latency
+- id: azure_monitor.event_grid.routing
+  title: Azure Event Grid Event Routing
+  units: events/s
+  family: Routing
+  chart_type: line
+  priority: 90030
+  instances:
+    group: azure_event_grid
+    chart_prefix: event_grid_routing
+    family: Routing
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: matched
+    signal: event_grid_routing_matched
+  - id: unmatched
+    signal: event_grid_routing_unmatched
+- id: azure_monitor.event_grid.advanced_filter_evaluations
+  title: Azure Event Grid Advanced Filter Evaluations
+  units: evaluations/s
+  family: Routing
+  chart_type: line
+  priority: 90040
+  instances:
+    group: azure_event_grid
+    chart_prefix: event_grid_advanced_filter_evaluations
+    family: Routing
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: evaluations
+    signal: event_grid_advanced_filter_evaluations_evaluations
+- id: azure_monitor.event_grid.delivery
+  title: Azure Event Grid Event Delivery
+  units: events/s
+  family: Delivery
+  chart_type: line
+  priority: 90050
+  instances:
+    group: azure_event_grid
+    chart_prefix: event_grid_delivery
+    family: Delivery
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: delivered
+    signal: event_grid_delivery_delivered
+  - id: failed
+    signal: event_grid_delivery_failed
+  - id: dropped
+    signal: event_grid_delivery_dropped
+  - id: dead_lettered
+    signal: event_grid_delivery_dead_lettered
+- id: azure_monitor.event_grid.destination_processing_duration
+  title: Azure Event Grid Destination Processing Duration
+  units: milliseconds
+  family: Performance
+  chart_type: line
+  priority: 90060
+  instances:
+    group: azure_event_grid
+    chart_prefix: event_grid_destination_processing_duration
+    family: Performance
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: event_grid_destination_processing_duration_average

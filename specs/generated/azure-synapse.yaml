@@ -1,0 +1,478 @@
+version: 1
+name: azure-synapse
+description: 'Azure Synapse Analytics Workspace as reported through Netdata''s azure_monitor collector,
+  generated from its service profile (Microsoft.Synapse/workspaces) so the contexts, units, families and
+  dimension names match a real deployment. Charts are per-resource instances, as the collector emits them:
+  resources are labels on one node, never separate nodes. Signals move independently rather than being
+  causally coupled - see scripts/sync-profile-collectors.py.'
+signals:
+  synapse_builtin_sql_pool_data_processed_processed:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  synapse_builtin_sql_pool_login_attempts_login_attempts:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  synapse_builtin_sql_pool_requests_requests:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  synapse_activity_runs_ended:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  synapse_pipeline_runs_ended:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  synapse_trigger_runs_ended:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  synapse_link_connection_events_events:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  synapse_link_table_events_events:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  synapse_link_processed_rows_changed_rows:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  synapse_link_data_volume_processed:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  synapse_link_processing_latency_average:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  synapse_streaming_event_flow_in:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  synapse_streaming_event_flow_out:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  synapse_streaming_input_throughput_received:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  synapse_streaming_input_sources_received:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  synapse_streaming_event_timing_late:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  synapse_streaming_event_timing_early:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  synapse_streaming_event_timing_out_of_order:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  synapse_streaming_event_timing_backlogged:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  synapse_streaming_watermark_delay_delay:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  synapse_streaming_errors_runtime:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  synapse_streaming_errors_data_conversion:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  synapse_streaming_errors_deserialization:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  synapse_streaming_resource_utilization_utilization:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+contexts:
+- id: azure_monitor.synapse.builtin_sql_pool_data_processed
+  title: Azure Synapse Built-in SQL Pool Data Processed
+  units: bytes/s
+  family: Built-in SQL Pool
+  chart_type: line
+  priority: 90010
+  instances:
+    group: azure_synapse
+    chart_prefix: synapse_builtin_sql_pool_data_processed
+    family: Built-in SQL Pool
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: processed
+    signal: synapse_builtin_sql_pool_data_processed_processed
+- id: azure_monitor.synapse.builtin_sql_pool_login_attempts
+  title: Azure Synapse Built-in SQL Pool Login Attempts
+  units: attempts/s
+  family: Built-in SQL Pool
+  chart_type: line
+  priority: 90020
+  instances:
+    group: azure_synapse
+    chart_prefix: synapse_builtin_sql_pool_login_attempts
+    family: Built-in SQL Pool
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: login_attempts
+    signal: synapse_builtin_sql_pool_login_attempts_login_attempts
+- id: azure_monitor.synapse.builtin_sql_pool_requests
+  title: Azure Synapse Built-in SQL Pool Requests Ended
+  units: requests/s
+  family: Built-in SQL Pool
+  chart_type: line
+  priority: 90030
+  instances:
+    group: azure_synapse
+    chart_prefix: synapse_builtin_sql_pool_requests
+    family: Built-in SQL Pool
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: requests
+    signal: synapse_builtin_sql_pool_requests_requests
+- id: azure_monitor.synapse.activity_runs
+  title: Azure Synapse Activity Runs
+  units: runs/s
+  family: Integration
+  chart_type: line
+  priority: 90040
+  instances:
+    group: azure_synapse
+    chart_prefix: synapse_activity_runs
+    family: Integration
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: ended
+    signal: synapse_activity_runs_ended
+- id: azure_monitor.synapse.pipeline_runs
+  title: Azure Synapse Pipeline Runs
+  units: runs/s
+  family: Integration
+  chart_type: line
+  priority: 90050
+  instances:
+    group: azure_synapse
+    chart_prefix: synapse_pipeline_runs
+    family: Integration
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: ended
+    signal: synapse_pipeline_runs_ended
+- id: azure_monitor.synapse.trigger_runs
+  title: Azure Synapse Trigger Runs
+  units: runs/s
+  family: Integration
+  chart_type: line
+  priority: 90060
+  instances:
+    group: azure_synapse
+    chart_prefix: synapse_trigger_runs
+    family: Integration
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: ended
+    signal: synapse_trigger_runs_ended
+- id: azure_monitor.synapse.link_connection_events
+  title: Azure Synapse Link Connection Events
+  units: events/s
+  family: Link
+  chart_type: line
+  priority: 90070
+  instances:
+    group: azure_synapse
+    chart_prefix: synapse_link_connection_events
+    family: Link
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: events
+    signal: synapse_link_connection_events_events
+- id: azure_monitor.synapse.link_table_events
+  title: Azure Synapse Link Table Events
+  units: events/s
+  family: Link
+  chart_type: line
+  priority: 90080
+  instances:
+    group: azure_synapse
+    chart_prefix: synapse_link_table_events
+    family: Link
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: events
+    signal: synapse_link_table_events_events
+- id: azure_monitor.synapse.link_processed_rows
+  title: Azure Synapse Link Processed Changed Rows
+  units: rows/s
+  family: Link
+  chart_type: line
+  priority: 90090
+  instances:
+    group: azure_synapse
+    chart_prefix: synapse_link_processed_rows
+    family: Link
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: changed_rows
+    signal: synapse_link_processed_rows_changed_rows
+- id: azure_monitor.synapse.link_data_volume
+  title: Azure Synapse Link Processed Data Volume
+  units: bytes/s
+  family: Link
+  chart_type: line
+  priority: 90100
+  instances:
+    group: azure_synapse
+    chart_prefix: synapse_link_data_volume
+    family: Link
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: processed
+    signal: synapse_link_data_volume_processed
+- id: azure_monitor.synapse.link_processing_latency
+  title: Azure Synapse Link Processing Latency
+  units: seconds
+  family: Link
+  chart_type: line
+  priority: 90110
+  instances:
+    group: azure_synapse
+    chart_prefix: synapse_link_processing_latency
+    family: Link
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: synapse_link_processing_latency_average
+- id: azure_monitor.synapse.streaming_event_flow
+  title: Azure Synapse Streaming Event Flow
+  units: events/s
+  family: Streaming Job
+  chart_type: line
+  priority: 90120
+  instances:
+    group: azure_synapse
+    chart_prefix: synapse_streaming_event_flow
+    family: Streaming Job
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: in
+    signal: synapse_streaming_event_flow_in
+  - id: out
+    signal: synapse_streaming_event_flow_out
+- id: azure_monitor.synapse.streaming_input_throughput
+  title: Azure Synapse Streaming Input Data Throughput
+  units: bytes/s
+  family: Streaming Job
+  chart_type: line
+  priority: 90130
+  instances:
+    group: azure_synapse
+    chart_prefix: synapse_streaming_input_throughput
+    family: Streaming Job
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: received
+    signal: synapse_streaming_input_throughput_received
+- id: azure_monitor.synapse.streaming_input_sources
+  title: Azure Synapse Streaming Input Sources Received
+  units: sources/s
+  family: Streaming Job
+  chart_type: line
+  priority: 90140
+  instances:
+    group: azure_synapse
+    chart_prefix: synapse_streaming_input_sources
+    family: Streaming Job
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: received
+    signal: synapse_streaming_input_sources_received
+- id: azure_monitor.synapse.streaming_event_timing
+  title: Azure Synapse Streaming Event Timing Issues
+  units: events/s
+  family: Streaming Job
+  chart_type: line
+  priority: 90150
+  instances:
+    group: azure_synapse
+    chart_prefix: synapse_streaming_event_timing
+    family: Streaming Job
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: late
+    signal: synapse_streaming_event_timing_late
+  - id: early
+    signal: synapse_streaming_event_timing_early
+  - id: out_of_order
+    signal: synapse_streaming_event_timing_out_of_order
+  - id: backlogged
+    signal: synapse_streaming_event_timing_backlogged
+- id: azure_monitor.synapse.streaming_watermark_delay
+  title: Azure Synapse Streaming Watermark Delay
+  units: seconds
+  family: Streaming Job
+  chart_type: line
+  priority: 90160
+  instances:
+    group: azure_synapse
+    chart_prefix: synapse_streaming_watermark_delay
+    family: Streaming Job
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: delay
+    signal: synapse_streaming_watermark_delay_delay
+- id: azure_monitor.synapse.streaming_errors
+  title: Azure Synapse Streaming Errors
+  units: errors/s
+  family: Streaming Job
+  chart_type: line
+  priority: 90170
+  instances:
+    group: azure_synapse
+    chart_prefix: synapse_streaming_errors
+    family: Streaming Job
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: runtime
+    signal: synapse_streaming_errors_runtime
+  - id: data_conversion
+    signal: synapse_streaming_errors_data_conversion
+  - id: deserialization
+    signal: synapse_streaming_errors_deserialization
+- id: azure_monitor.synapse.streaming_resource_utilization
+  title: Azure Synapse Streaming Resource Utilization
+  units: percentage
+  family: Streaming Job
+  chart_type: line
+  priority: 90180
+  instances:
+    group: azure_synapse
+    chart_prefix: synapse_streaming_resource_utilization
+    family: Streaming Job
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: utilization
+    signal: synapse_streaming_resource_utilization_utilization

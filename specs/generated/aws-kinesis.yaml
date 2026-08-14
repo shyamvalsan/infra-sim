@@ -1,0 +1,201 @@
+version: 1
+name: aws-kinesis
+description: 'Amazon Kinesis Data Streams as reported through Netdata''s cloudwatch collector, generated
+  from its service profile (AWS/Kinesis) so the contexts, units, families and dimension names match a
+  real deployment. Charts are per-resource instances, as the collector emits them: resources are labels
+  on one node, never separate nodes. Signals move independently rather than being causally coupled - see
+  scripts/sync-profile-collectors.py.'
+signals:
+  kinesis_throughput_incoming:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  kinesis_throughput_outgoing:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  kinesis_records_incoming:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  kinesis_records_outgoing:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  kinesis_iterator_age_iterator_age:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  kinesis_latency_get_records:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  kinesis_latency_put_record:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  kinesis_latency_put_records:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  kinesis_throughput_exceeded_read:
+    base: 90.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  kinesis_throughput_exceeded_write:
+    base: 90.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  kinesis_put_errors_failed:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  kinesis_put_errors_throttled:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+contexts:
+- id: cloudwatch.kinesis.throughput
+  title: Kinesis Data Throughput
+  units: bytes/s
+  family: Throughput
+  chart_type: line
+  priority: 90010
+  instances:
+    group: aws_kinesis
+    chart_prefix: kinesis_throughput
+    family: Throughput
+    labels:
+      stream_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: incoming
+    signal: kinesis_throughput_incoming
+  - id: outgoing
+    signal: kinesis_throughput_outgoing
+- id: cloudwatch.kinesis.records
+  title: Kinesis Records
+  units: records/s
+  family: Records
+  chart_type: line
+  priority: 90020
+  instances:
+    group: aws_kinesis
+    chart_prefix: kinesis_records
+    family: Records
+    labels:
+      stream_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: incoming
+    signal: kinesis_records_incoming
+  - id: outgoing
+    signal: kinesis_records_outgoing
+- id: cloudwatch.kinesis.iterator_age
+  title: Kinesis GetRecords Iterator Age
+  units: milliseconds
+  family: Consumers
+  chart_type: line
+  priority: 90030
+  instances:
+    group: aws_kinesis
+    chart_prefix: kinesis_iterator_age
+    family: Consumers
+    labels:
+      stream_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: iterator_age
+    signal: kinesis_iterator_age_iterator_age
+- id: cloudwatch.kinesis.latency
+  title: Kinesis Operation Latency
+  units: milliseconds
+  family: Latency
+  chart_type: line
+  priority: 90040
+  instances:
+    group: aws_kinesis
+    chart_prefix: kinesis_latency
+    family: Latency
+    labels:
+      stream_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: get_records
+    signal: kinesis_latency_get_records
+  - id: put_record
+    signal: kinesis_latency_put_record
+  - id: put_records
+    signal: kinesis_latency_put_records
+- id: cloudwatch.kinesis.throughput_exceeded
+  title: Kinesis Throughput Exceeded
+  units: events
+  family: Throttling
+  chart_type: line
+  priority: 90050
+  instances:
+    group: aws_kinesis
+    chart_prefix: kinesis_throughput_exceeded
+    family: Throttling
+    labels:
+      stream_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: read
+    signal: kinesis_throughput_exceeded_read
+  - id: write
+    signal: kinesis_throughput_exceeded_write
+- id: cloudwatch.kinesis.put_errors
+  title: Kinesis PutRecords Rejected
+  units: records/s
+  family: Errors
+  chart_type: line
+  priority: 90060
+  instances:
+    group: aws_kinesis
+    chart_prefix: kinesis_put_errors
+    family: Errors
+    labels:
+      stream_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: failed
+    signal: kinesis_put_errors_failed
+  - id: throttled
+    signal: kinesis_put_errors_throttled

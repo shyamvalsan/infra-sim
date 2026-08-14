@@ -1,0 +1,525 @@
+version: 1
+name: azure-logic-apps
+description: 'Azure Logic Apps Workflow as reported through Netdata''s azure_monitor collector, generated
+  from its service profile (Microsoft.Logic/workflows) so the contexts, units, families and dimension
+  names match a real deployment. Charts are per-resource instances, as the collector emits them: resources
+  are labels on one node, never separate nodes. Signals move independently rather than being causally
+  coupled - see scripts/sync-profile-collectors.py.'
+signals:
+  logic_apps_run_lifecycle_started:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  logic_apps_run_lifecycle_completed:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  logic_apps_run_lifecycle_succeeded:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  logic_apps_run_lifecycle_failed:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  logic_apps_run_lifecycle_cancelled:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  logic_apps_run_latency_all:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  logic_apps_run_latency_success:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  logic_apps_run_failure_rate_failure_rate:
+    base: 0.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  logic_apps_run_throttling_during_run:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  logic_apps_run_throttling_at_start:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  logic_apps_action_lifecycle_started:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  logic_apps_action_lifecycle_completed:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  logic_apps_action_lifecycle_succeeded:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  logic_apps_action_lifecycle_failed:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  logic_apps_action_lifecycle_skipped:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  logic_apps_action_latency_all:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  logic_apps_action_latency_success:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  logic_apps_action_throttling_total:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  logic_apps_trigger_lifecycle_started:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  logic_apps_trigger_lifecycle_completed:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  logic_apps_trigger_lifecycle_succeeded:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  logic_apps_trigger_lifecycle_fired:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  logic_apps_trigger_lifecycle_failed:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  logic_apps_trigger_lifecycle_skipped:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  logic_apps_trigger_latency_all:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  logic_apps_trigger_latency_fire:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  logic_apps_trigger_latency_success:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  logic_apps_trigger_throttling_total:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  logic_apps_billable_executions_total:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  logic_apps_billable_executions_actions:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  logic_apps_billable_executions_triggers:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  logic_apps_billing_by_type_native:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  logic_apps_billing_by_type_standard_connector:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  logic_apps_billing_by_type_storage:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  logic_apps_agent_loop_executions:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  logic_apps_agent_completion_overflow:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  logic_apps_agent_prompt_overflow:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+contexts:
+- id: azure_monitor.logic_apps.run_lifecycle
+  title: Azure Logic Apps Run Lifecycle
+  units: runs/s
+  family: Runs
+  chart_type: line
+  priority: 90010
+  instances:
+    group: azure_logic_apps
+    chart_prefix: logic_apps_run_lifecycle
+    family: Runs
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: started
+    signal: logic_apps_run_lifecycle_started
+  - id: completed
+    signal: logic_apps_run_lifecycle_completed
+  - id: succeeded
+    signal: logic_apps_run_lifecycle_succeeded
+  - id: failed
+    signal: logic_apps_run_lifecycle_failed
+  - id: cancelled
+    signal: logic_apps_run_lifecycle_cancelled
+- id: azure_monitor.logic_apps.run_latency
+  title: Azure Logic Apps Run Latency
+  units: seconds
+  family: Runs
+  chart_type: line
+  priority: 90020
+  instances:
+    group: azure_logic_apps
+    chart_prefix: logic_apps_run_latency
+    family: Runs
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: all
+    signal: logic_apps_run_latency_all
+  - id: success
+    signal: logic_apps_run_latency_success
+- id: azure_monitor.logic_apps.run_failure_rate
+  title: Azure Logic Apps Run Failure Rate
+  units: percentage
+  family: Runs
+  chart_type: line
+  priority: 90030
+  instances:
+    group: azure_logic_apps
+    chart_prefix: logic_apps_run_failure_rate
+    family: Runs
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: failure_rate
+    signal: logic_apps_run_failure_rate_failure_rate
+- id: azure_monitor.logic_apps.run_throttling
+  title: Azure Logic Apps Run Throttling
+  units: events/s
+  family: Runs
+  chart_type: line
+  priority: 90040
+  instances:
+    group: azure_logic_apps
+    chart_prefix: logic_apps_run_throttling
+    family: Runs
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: during_run
+    signal: logic_apps_run_throttling_during_run
+  - id: at_start
+    signal: logic_apps_run_throttling_at_start
+- id: azure_monitor.logic_apps.action_lifecycle
+  title: Azure Logic Apps Action Lifecycle
+  units: actions/s
+  family: Actions
+  chart_type: line
+  priority: 90050
+  instances:
+    group: azure_logic_apps
+    chart_prefix: logic_apps_action_lifecycle
+    family: Actions
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: started
+    signal: logic_apps_action_lifecycle_started
+  - id: completed
+    signal: logic_apps_action_lifecycle_completed
+  - id: succeeded
+    signal: logic_apps_action_lifecycle_succeeded
+  - id: failed
+    signal: logic_apps_action_lifecycle_failed
+  - id: skipped
+    signal: logic_apps_action_lifecycle_skipped
+- id: azure_monitor.logic_apps.action_latency
+  title: Azure Logic Apps Action Latency
+  units: seconds
+  family: Actions
+  chart_type: line
+  priority: 90060
+  instances:
+    group: azure_logic_apps
+    chart_prefix: logic_apps_action_latency
+    family: Actions
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: all
+    signal: logic_apps_action_latency_all
+  - id: success
+    signal: logic_apps_action_latency_success
+- id: azure_monitor.logic_apps.action_throttling
+  title: Azure Logic Apps Action Throttling
+  units: events/s
+  family: Actions
+  chart_type: line
+  priority: 90070
+  instances:
+    group: azure_logic_apps
+    chart_prefix: logic_apps_action_throttling
+    family: Actions
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: total
+    signal: logic_apps_action_throttling_total
+- id: azure_monitor.logic_apps.trigger_lifecycle
+  title: Azure Logic Apps Trigger Lifecycle
+  units: triggers/s
+  family: Triggers
+  chart_type: line
+  priority: 90080
+  instances:
+    group: azure_logic_apps
+    chart_prefix: logic_apps_trigger_lifecycle
+    family: Triggers
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: started
+    signal: logic_apps_trigger_lifecycle_started
+  - id: completed
+    signal: logic_apps_trigger_lifecycle_completed
+  - id: succeeded
+    signal: logic_apps_trigger_lifecycle_succeeded
+  - id: fired
+    signal: logic_apps_trigger_lifecycle_fired
+  - id: failed
+    signal: logic_apps_trigger_lifecycle_failed
+  - id: skipped
+    signal: logic_apps_trigger_lifecycle_skipped
+- id: azure_monitor.logic_apps.trigger_latency
+  title: Azure Logic Apps Trigger Latency
+  units: seconds
+  family: Triggers
+  chart_type: line
+  priority: 90090
+  instances:
+    group: azure_logic_apps
+    chart_prefix: logic_apps_trigger_latency
+    family: Triggers
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: all
+    signal: logic_apps_trigger_latency_all
+  - id: fire
+    signal: logic_apps_trigger_latency_fire
+  - id: success
+    signal: logic_apps_trigger_latency_success
+- id: azure_monitor.logic_apps.trigger_throttling
+  title: Azure Logic Apps Trigger Throttling
+  units: events/s
+  family: Triggers
+  chart_type: line
+  priority: 90100
+  instances:
+    group: azure_logic_apps
+    chart_prefix: logic_apps_trigger_throttling
+    family: Triggers
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: total
+    signal: logic_apps_trigger_throttling_total
+- id: azure_monitor.logic_apps.billable_executions
+  title: Azure Logic Apps Billable Executions
+  units: executions/s
+  family: Billing
+  chart_type: line
+  priority: 90110
+  instances:
+    group: azure_logic_apps
+    chart_prefix: logic_apps_billable_executions
+    family: Billing
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: total
+    signal: logic_apps_billable_executions_total
+  - id: actions
+    signal: logic_apps_billable_executions_actions
+  - id: triggers
+    signal: logic_apps_billable_executions_triggers
+- id: azure_monitor.logic_apps.billing_by_type
+  title: Azure Logic Apps Billing by Type
+  units: operations/s
+  family: Billing
+  chart_type: line
+  priority: 90120
+  instances:
+    group: azure_logic_apps
+    chart_prefix: logic_apps_billing_by_type
+    family: Billing
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: native
+    signal: logic_apps_billing_by_type_native
+  - id: standard_connector
+    signal: logic_apps_billing_by_type_standard_connector
+  - id: storage
+    signal: logic_apps_billing_by_type_storage
+- id: azure_monitor.logic_apps.agent
+  title: Azure Logic Apps AI Agent Activity
+  units: events/s
+  family: Agent
+  chart_type: line
+  priority: 90130
+  instances:
+    group: azure_logic_apps
+    chart_prefix: logic_apps_agent
+    family: Agent
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: loop_executions
+    signal: logic_apps_agent_loop_executions
+  - id: completion_overflow
+    signal: logic_apps_agent_completion_overflow
+  - id: prompt_overflow
+    signal: logic_apps_agent_prompt_overflow

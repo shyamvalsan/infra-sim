@@ -1,0 +1,284 @@
+version: 1
+name: aws-msk
+description: 'Amazon MSK as reported through Netdata''s cloudwatch collector, generated from its service
+  profile (AWS/Kafka) so the contexts, units, families and dimension names match a real deployment. Charts
+  are per-resource instances, as the collector emits them: resources are labels on one node, never separate
+  nodes. Signals move independently rather than being causally coupled - see scripts/sync-profile-collectors.py.'
+signals:
+  msk_throughput_in:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  msk_throughput_out:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  msk_messages_in:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  msk_cpu_user:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  msk_cpu_system:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  msk_cpu_idle:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  msk_disk_used_data_logs:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  msk_disk_used_root:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  msk_memory_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  msk_memory_free:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  msk_heap_memory_after_gc_used:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  msk_partitions_total:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  msk_partitions_leaders:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  msk_partitions_under_replicated:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  msk_under_min_isr_under_min_isr:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  msk_connections_connections:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+contexts:
+- id: cloudwatch.msk.throughput
+  title: MSK Broker Throughput
+  units: bytes/s
+  family: Throughput
+  chart_type: line
+  priority: 90010
+  instances:
+    group: aws_msk
+    chart_prefix: msk_throughput
+    family: Throughput
+    labels:
+      cluster_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: in
+    signal: msk_throughput_in
+  - id: out
+    signal: msk_throughput_out
+- id: cloudwatch.msk.messages
+  title: MSK Broker Messages In
+  units: messages/s
+  family: Throughput
+  chart_type: line
+  priority: 90020
+  instances:
+    group: aws_msk
+    chart_prefix: msk_messages
+    family: Throughput
+    labels:
+      cluster_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: in
+    signal: msk_messages_in
+- id: cloudwatch.msk.cpu
+  title: MSK Broker CPU
+  units: percentage
+  family: CPU
+  chart_type: line
+  priority: 90030
+  instances:
+    group: aws_msk
+    chart_prefix: msk_cpu
+    family: CPU
+    labels:
+      cluster_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: user
+    signal: msk_cpu_user
+  - id: system
+    signal: msk_cpu_system
+  - id: idle
+    signal: msk_cpu_idle
+- id: cloudwatch.msk.disk_used
+  title: MSK Broker Disk Used
+  units: percentage
+  family: Disk
+  chart_type: line
+  priority: 90040
+  instances:
+    group: aws_msk
+    chart_prefix: msk_disk_used
+    family: Disk
+    labels:
+      cluster_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: data_logs
+    signal: msk_disk_used_data_logs
+  - id: root
+    signal: msk_disk_used_root
+- id: cloudwatch.msk.memory
+  title: MSK Broker Memory
+  units: bytes
+  family: Memory
+  chart_type: line
+  priority: 90050
+  instances:
+    group: aws_msk
+    chart_prefix: msk_memory
+    family: Memory
+    labels:
+      cluster_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: used
+    signal: msk_memory_used
+  - id: free
+    signal: msk_memory_free
+- id: cloudwatch.msk.heap_memory_after_gc
+  title: MSK Broker Heap Memory After GC
+  units: percentage
+  family: Memory
+  chart_type: line
+  priority: 90060
+  instances:
+    group: aws_msk
+    chart_prefix: msk_heap_memory_after_gc
+    family: Memory
+    labels:
+      cluster_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: used
+    signal: msk_heap_memory_after_gc_used
+- id: cloudwatch.msk.partitions
+  title: MSK Broker Partitions
+  units: partitions
+  family: Partitions
+  chart_type: line
+  priority: 90070
+  instances:
+    group: aws_msk
+    chart_prefix: msk_partitions
+    family: Partitions
+    labels:
+      cluster_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: total
+    signal: msk_partitions_total
+  - id: leaders
+    signal: msk_partitions_leaders
+  - id: under_replicated
+    signal: msk_partitions_under_replicated
+- id: cloudwatch.msk.under_min_isr
+  title: MSK Under-Min-ISR Partitions
+  units: partitions
+  family: Partitions
+  chart_type: line
+  priority: 90080
+  instances:
+    group: aws_msk
+    chart_prefix: msk_under_min_isr
+    family: Partitions
+    labels:
+      cluster_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: under_min_isr
+    signal: msk_under_min_isr_under_min_isr
+- id: cloudwatch.msk.connections
+  title: MSK Broker Connections
+  units: connections
+  family: Connections
+  chart_type: line
+  priority: 90090
+  instances:
+    group: aws_msk
+    chart_prefix: msk_connections
+    family: Connections
+    labels:
+      cluster_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: connections
+    signal: msk_connections_connections

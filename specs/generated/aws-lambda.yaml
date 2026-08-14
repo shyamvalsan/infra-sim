@@ -1,0 +1,104 @@
+version: 1
+name: aws-lambda
+description: 'AWS Lambda as reported through Netdata''s cloudwatch collector, generated from its service
+  profile (AWS/Lambda) so the contexts, units, families and dimension names match a real deployment. Charts
+  are per-resource instances, as the collector emits them: resources are labels on one node, never separate
+  nodes. Signals move independently rather than being causally coupled - see scripts/sync-profile-collectors.py.'
+signals:
+  lambda_invocations_invocations:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  lambda_errors_errors:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  lambda_errors_throttles:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  lambda_duration_average:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  lambda_duration_maximum:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  lambda_duration_p90:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+contexts:
+- id: cloudwatch.lambda.invocations
+  title: Lambda Invocations
+  units: invocations/s
+  family: Invocations
+  chart_type: line
+  priority: 90010
+  instances:
+    group: aws_lambda
+    chart_prefix: lambda_invocations
+    family: Invocations
+    labels:
+      function_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: invocations
+    signal: lambda_invocations_invocations
+- id: cloudwatch.lambda.errors
+  title: Lambda Errors and Throttles
+  units: events/s
+  family: Errors
+  chart_type: line
+  priority: 90020
+  instances:
+    group: aws_lambda
+    chart_prefix: lambda_errors
+    family: Errors
+    labels:
+      function_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: errors
+    signal: lambda_errors_errors
+  - id: throttles
+    signal: lambda_errors_throttles
+- id: cloudwatch.lambda.duration
+  title: Lambda Duration
+  units: milliseconds
+  family: Duration
+  chart_type: line
+  priority: 90030
+  instances:
+    group: aws_lambda
+    chart_prefix: lambda_duration
+    family: Duration
+    labels:
+      function_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: lambda_duration_average
+  - id: maximum
+    signal: lambda_duration_maximum
+  - id: p90
+    signal: lambda_duration_p90

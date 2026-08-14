@@ -1,0 +1,145 @@
+version: 1
+name: aws-eventbridge
+description: 'Amazon EventBridge as reported through Netdata''s cloudwatch collector, generated from its
+  service profile (AWS/Events) so the contexts, units, families and dimension names match a real deployment.
+  Charts are per-resource instances, as the collector emits them: resources are labels on one node, never
+  separate nodes. Signals move independently rather than being causally coupled - see scripts/sync-profile-collectors.py.'
+signals:
+  eventbridge_invocations_invocations:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  eventbridge_invocations_failed:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  eventbridge_rule_activity_matched_events:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  eventbridge_rule_activity_triggered_rules:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  eventbridge_latency_start:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  eventbridge_latency_success:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  eventbridge_latency_complete:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  eventbridge_dlq_sent_to_dlq:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  eventbridge_dlq_failed_to_dlq:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+contexts:
+- id: cloudwatch.eventbridge.invocations
+  title: EventBridge Target Invocations
+  units: invocations/s
+  family: Invocations
+  chart_type: line
+  priority: 90010
+  instances:
+    group: aws_eventbridge
+    chart_prefix: eventbridge_invocations
+    family: Invocations
+    labels:
+      rule_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: invocations
+    signal: eventbridge_invocations_invocations
+  - id: failed
+    signal: eventbridge_invocations_failed
+- id: cloudwatch.eventbridge.rule_activity
+  title: EventBridge Rule Activity
+  units: events/s
+  family: Rules
+  chart_type: line
+  priority: 90020
+  instances:
+    group: aws_eventbridge
+    chart_prefix: eventbridge_rule_activity
+    family: Rules
+    labels:
+      rule_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: matched_events
+    signal: eventbridge_rule_activity_matched_events
+  - id: triggered_rules
+    signal: eventbridge_rule_activity_triggered_rules
+- id: cloudwatch.eventbridge.latency
+  title: EventBridge Ingestion-to-Invocation Latency
+  units: milliseconds
+  family: Latency
+  chart_type: line
+  priority: 90030
+  instances:
+    group: aws_eventbridge
+    chart_prefix: eventbridge_latency
+    family: Latency
+    labels:
+      rule_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: start
+    signal: eventbridge_latency_start
+  - id: success
+    signal: eventbridge_latency_success
+  - id: complete
+    signal: eventbridge_latency_complete
+- id: cloudwatch.eventbridge.dlq
+  title: EventBridge Dead-Letter Invocations
+  units: invocations/s
+  family: Invocations
+  chart_type: line
+  priority: 90040
+  instances:
+    group: aws_eventbridge
+    chart_prefix: eventbridge_dlq
+    family: Invocations
+    labels:
+      rule_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: sent_to_dlq
+    signal: eventbridge_dlq_sent_to_dlq
+  - id: failed_to_dlq
+    signal: eventbridge_dlq_failed_to_dlq

@@ -1,0 +1,54 @@
+version: 1
+name: aws-msk-cluster
+description: 'Amazon MSK Cluster as reported through Netdata''s cloudwatch collector, generated from its
+  service profile (AWS/Kafka) so the contexts, units, families and dimension names match a real deployment.
+  Charts are per-resource instances, as the collector emits them: resources are labels on one node, never
+  separate nodes. Signals move independently rather than being causally coupled - see scripts/sync-profile-collectors.py.'
+signals:
+  msk_cluster_active_controllers_active:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  msk_cluster_offline_partitions_offline:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+contexts:
+- id: cloudwatch.msk_cluster.active_controllers
+  title: MSK Active Controller Count
+  units: controllers
+  family: Controllers
+  chart_type: line
+  priority: 90010
+  instances:
+    group: aws_msk_cluster
+    chart_prefix: msk_cluster_active_controllers
+    family: Controllers
+    labels:
+      cluster_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: active
+    signal: msk_cluster_active_controllers_active
+- id: cloudwatch.msk_cluster.offline_partitions
+  title: MSK Offline Partitions
+  units: partitions
+  family: Partitions
+  chart_type: line
+  priority: 90020
+  instances:
+    group: aws_msk_cluster
+    chart_prefix: msk_cluster_offline_partitions
+    family: Partitions
+    labels:
+      cluster_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: offline
+    signal: msk_cluster_offline_partitions_offline

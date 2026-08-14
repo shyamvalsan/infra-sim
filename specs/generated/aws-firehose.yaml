@@ -1,0 +1,165 @@
+version: 1
+name: aws-firehose
+description: 'Amazon Data Firehose as reported through Netdata''s cloudwatch collector, generated from
+  its service profile (AWS/Firehose) so the contexts, units, families and dimension names match a real
+  deployment. Charts are per-resource instances, as the collector emits them: resources are labels on
+  one node, never separate nodes. Signals move independently rather than being causally coupled - see
+  scripts/sync-profile-collectors.py.'
+signals:
+  firehose_records_incoming:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  firehose_records_delivered_s3:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  firehose_bytes_incoming:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  firehose_bytes_delivered_s3:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  firehose_put_requests_put_requests:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  firehose_throttled_records_throttled:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  firehose_s3_data_freshness_age:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  firehose_s3_delivery_success_success:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+contexts:
+- id: cloudwatch.firehose.records
+  title: Firehose Records
+  units: records/s
+  family: Records
+  chart_type: line
+  priority: 90010
+  instances:
+    group: aws_firehose
+    chart_prefix: firehose_records
+    family: Records
+    labels:
+      delivery_stream_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: incoming
+    signal: firehose_records_incoming
+  - id: delivered_s3
+    signal: firehose_records_delivered_s3
+- id: cloudwatch.firehose.bytes
+  title: Firehose Throughput
+  units: bytes/s
+  family: Throughput
+  chart_type: line
+  priority: 90020
+  instances:
+    group: aws_firehose
+    chart_prefix: firehose_bytes
+    family: Throughput
+    labels:
+      delivery_stream_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: incoming
+    signal: firehose_bytes_incoming
+  - id: delivered_s3
+    signal: firehose_bytes_delivered_s3
+- id: cloudwatch.firehose.put_requests
+  title: Firehose Put Requests
+  units: requests/s
+  family: Requests
+  chart_type: line
+  priority: 90030
+  instances:
+    group: aws_firehose
+    chart_prefix: firehose_put_requests
+    family: Requests
+    labels:
+      delivery_stream_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: put_requests
+    signal: firehose_put_requests_put_requests
+- id: cloudwatch.firehose.throttled_records
+  title: Firehose Throttled Records
+  units: records/s
+  family: Throttling
+  chart_type: line
+  priority: 90040
+  instances:
+    group: aws_firehose
+    chart_prefix: firehose_throttled_records
+    family: Throttling
+    labels:
+      delivery_stream_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: throttled
+    signal: firehose_throttled_records_throttled
+- id: cloudwatch.firehose.s3_data_freshness
+  title: Firehose S3 Delivery Freshness
+  units: seconds
+  family: Delivery
+  chart_type: line
+  priority: 90050
+  instances:
+    group: aws_firehose
+    chart_prefix: firehose_s3_data_freshness
+    family: Delivery
+    labels:
+      delivery_stream_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: age
+    signal: firehose_s3_data_freshness_age
+- id: cloudwatch.firehose.s3_delivery_success
+  title: Firehose S3 Delivery Success
+  units: ratio
+  family: Delivery
+  chart_type: line
+  priority: 90060
+  instances:
+    group: aws_firehose
+    chart_prefix: firehose_s3_delivery_success
+    family: Delivery
+    labels:
+      delivery_stream_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: success
+    signal: firehose_s3_delivery_success_success

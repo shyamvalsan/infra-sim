@@ -1,0 +1,32 @@
+version: 1
+name: aws-billing-service
+description: 'AWS Billing Estimated Charges by Service as reported through Netdata''s cloudwatch collector,
+  generated from its service profile (AWS/Billing) so the contexts, units, families and dimension names
+  match a real deployment. Charts are per-resource instances, as the collector emits them: resources are
+  labels on one node, never separate nodes. Signals move independently rather than being causally coupled
+  - see scripts/sync-profile-collectors.py.'
+signals:
+  billing_service_estimated_charges_estimated_charges:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+contexts:
+- id: cloudwatch.billing_service.estimated_charges
+  title: Latest AWS Estimated Charges by Service (Worldwide MTD)
+  units: USD
+  family: AWS Billing Estimated Charges by Service
+  chart_type: line
+  priority: 90010
+  instances:
+    group: aws_billing_service
+    chart_prefix: billing_service_estimated_charges
+    family: AWS Billing Estimated Charges by Service
+    labels:
+      service_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: estimated_charges
+    signal: billing_service_estimated_charges_estimated_charges

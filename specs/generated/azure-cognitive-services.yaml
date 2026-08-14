@@ -1,2949 +1,2261 @@
 version: 1
 name: azure-cognitive-services
-description: Azure Cognitive Services metrics, generated from Netdata's own collector metadata so the
-  contexts, units and dimension names match what a real Azure Cognitive Services node reports. Signals
-  are independent and plausible rather than causally coupled - see scripts/sync-integrations.py.
+description: 'Azure Cognitive Services as reported through Netdata''s azure_monitor collector, generated
+  from its service profile (Microsoft.CognitiveServices/accounts) so the contexts, units, families and
+  dimension names match a real deployment. Charts are per-resource instances, as the collector emits them:
+  resources are labels on one node, never separate nodes. Signals move independently rather than being
+  causally coupled - see scripts/sync-profile-collectors.py.'
 signals:
-  azure_cognitive_services_cognitive_services_availability_availability:
+  cognitive_services_availability_availability:
     base: 34.0
     min: 0.0
     max: 100.0
     max_is_ceiling: true
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_calls_total:
+      sigma: 0.18
+  cognitive_services_calls_total:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_calls_successful:
+      sigma: 0.18
+  cognitive_services_calls_successful:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_calls_blocked:
+      sigma: 0.18
+  cognitive_services_calls_blocked:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_calls_token:
+      sigma: 0.18
+  cognitive_services_calls_token:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_errors_total:
-    base: 0.4
+      sigma: 0.18
+  cognitive_services_errors_total:
+    base: 0.0
     min: 0.0
     max: 100000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_errors_client:
-    base: 0.4
+      sigma: 0.18
+  cognitive_services_errors_client:
+    base: 0.0
     min: 0.0
     max: 100000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_errors_server:
-    base: 0.4
+      sigma: 0.18
+  cognitive_services_errors_server:
+    base: 0.0
     min: 0.0
     max: 100000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_latency_average:
+      sigma: 0.18
+  cognitive_services_latency_average:
     base: 24.0
     min: 0.0
     max: 600000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_data_transfer_in:
+      sigma: 0.18
+  cognitive_services_data_transfer_in:
     base: 2400000.0
     min: 0.0
     max: 5000000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_data_transfer_out:
+      sigma: 0.18
+  cognitive_services_data_transfer_out:
     base: 2400000.0
     min: 0.0
     max: 5000000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_rate_limit_rate_limit:
+      sigma: 0.18
+  cognitive_services_rate_limit_rate_limit:
     base: 1100.0
     min: 0.0
     max: 5000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_openai_availability_availability:
+      sigma: 0.18
+  cognitive_services_openai_availability_availability:
     base: 34.0
     min: 0.0
     max: 100.0
     max_is_ceiling: true
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_openai_requests_requests:
+      sigma: 0.18
+  cognitive_services_openai_requests_requests:
     base: 1100.0
     min: 0.0
     max: 5000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_openai_latency_time_to_response:
+      sigma: 0.18
+  cognitive_services_openai_latency_time_to_response:
     base: 24.0
     min: 0.0
     max: 600000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_openai_latency_time_to_first_token:
+      sigma: 0.18
+  cognitive_services_openai_latency_time_to_first_token:
     base: 24.0
     min: 0.0
     max: 600000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_openai_latency_time_between_tokens:
+      sigma: 0.18
+  cognitive_services_openai_latency_time_between_tokens:
     base: 24.0
     min: 0.0
     max: 600000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_openai_latency_time_to_last_byte:
+      sigma: 0.18
+  cognitive_services_openai_latency_time_to_last_byte:
     base: 24.0
     min: 0.0
     max: 600000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_openai_generation_speed_tokens_per_second:
+      sigma: 0.18
+  cognitive_services_openai_generation_speed_tokens_per_second:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_openai_token_usage_total:
+      sigma: 0.18
+  cognitive_services_openai_token_usage_total:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_openai_token_usage_prompt:
+      sigma: 0.18
+  cognitive_services_openai_token_usage_prompt:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_openai_token_usage_generated:
+      sigma: 0.18
+  cognitive_services_openai_token_usage_generated:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_openai_token_usage_active:
+      sigma: 0.18
+  cognitive_services_openai_token_usage_active:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_openai_audio_tokens_prompt:
+      sigma: 0.18
+  cognitive_services_openai_audio_tokens_prompt:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_openai_audio_tokens_completion:
+      sigma: 0.18
+  cognitive_services_openai_audio_tokens_completion:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_openai_cache_match_rate_cache_match_rate:
+      sigma: 0.18
+  cognitive_services_openai_cache_match_rate_cache_match_rate:
     base: 34.0
     min: 0.0
     max: 100.0
     max_is_ceiling: true
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_openai_provisioned_utilization_utilization:
+      sigma: 0.18
+  cognitive_services_openai_provisioned_utilization_utilization:
     base: 34.0
     min: 0.0
     max: 100.0
     max_is_ceiling: true
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_openai_finetuning_training_hours:
+      sigma: 0.18
+  cognitive_services_openai_finetuning_training_hours:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_openai_realtime_usage_seconds_used:
+      sigma: 0.18
+  cognitive_services_openai_realtime_usage_seconds_used:
     base: 0.9
     min: 0.0
     max: 86400.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_model_availability_availability:
+      sigma: 0.18
+  cognitive_services_model_availability_availability:
     base: 34.0
     min: 0.0
     max: 100.0
     max_is_ceiling: true
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_model_requests_requests:
+      sigma: 0.18
+  cognitive_services_model_requests_requests:
     base: 1100.0
     min: 0.0
     max: 5000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_model_latency_time_to_response:
+      sigma: 0.18
+  cognitive_services_model_latency_time_to_response:
     base: 24.0
     min: 0.0
     max: 600000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_model_latency_time_to_first_token:
+      sigma: 0.18
+  cognitive_services_model_latency_time_to_first_token:
     base: 24.0
     min: 0.0
     max: 600000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_model_latency_time_between_tokens:
+      sigma: 0.18
+  cognitive_services_model_latency_time_between_tokens:
     base: 24.0
     min: 0.0
     max: 600000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_model_latency_time_to_last_byte:
+      sigma: 0.18
+  cognitive_services_model_latency_time_to_last_byte:
     base: 24.0
     min: 0.0
     max: 600000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_model_generation_speed_tokens_per_second:
+      sigma: 0.18
+  cognitive_services_model_generation_speed_tokens_per_second:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_model_token_usage_total:
+      sigma: 0.18
+  cognitive_services_model_token_usage_total:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_model_token_usage_input:
+      sigma: 0.18
+  cognitive_services_model_token_usage_input:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_model_token_usage_output:
+      sigma: 0.18
+  cognitive_services_model_token_usage_output:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_model_audio_tokens_input:
+      sigma: 0.18
+  cognitive_services_model_audio_tokens_input:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_model_audio_tokens_output:
+      sigma: 0.18
+  cognitive_services_model_audio_tokens_output:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_model_cache_tokens_cache_read:
+      sigma: 0.18
+  cognitive_services_model_cache_tokens_cache_read:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_model_cache_tokens_cache_write_1h:
+      sigma: 0.18
+  cognitive_services_model_cache_tokens_cache_write_1h:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_model_cache_tokens_cache_write_5m:
+      sigma: 0.18
+  cognitive_services_model_cache_tokens_cache_write_5m:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_model_provisioned_utilization_utilization:
+      sigma: 0.18
+  cognitive_services_model_provisioned_utilization_utilization:
     base: 34.0
     min: 0.0
     max: 100.0
     max_is_ceiling: true
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_model_pages_total:
+      sigma: 0.18
+  cognitive_services_model_pages_total:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_model_pages_annotated:
+      sigma: 0.18
+  cognitive_services_model_pages_annotated:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_model_generated_images_generated:
+      sigma: 0.18
+  cognitive_services_model_generated_images_generated:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_content_safety_requests_total:
+      sigma: 0.18
+  cognitive_services_content_safety_requests_total:
     base: 1100.0
     min: 0.0
     max: 5000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_content_safety_requests_harmful:
+      sigma: 0.18
+  cognitive_services_content_safety_requests_harmful:
     base: 1100.0
     min: 0.0
     max: 5000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_content_safety_requests_blocked:
+      sigma: 0.18
+  cognitive_services_content_safety_requests_blocked:
     base: 1100.0
     min: 0.0
     max: 5000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_content_safety_abusive_users_abusive_users:
+      sigma: 0.18
+  cognitive_services_content_safety_abusive_users_abusive_users:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_content_safety_system_events_events:
+      sigma: 0.18
+  cognitive_services_content_safety_system_events_events:
     base: 90.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_content_safety_moderation_text:
+      sigma: 0.18
+  cognitive_services_content_safety_moderation_text:
     base: 1100.0
     min: 0.0
     max: 5000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_content_safety_moderation_image:
+      sigma: 0.18
+  cognitive_services_content_safety_moderation_image:
     base: 1100.0
     min: 0.0
     max: 5000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_job_duration_average:
+      sigma: 0.18
+  cognitive_services_job_duration_average:
     base: 24.0
     min: 0.0
     max: 600000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_personalizer_actions_occurrences:
+      sigma: 0.18
+  cognitive_services_personalizer_actions_occurrences:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_personalizer_actions_per_event_average:
+      sigma: 0.18
+  cognitive_services_personalizer_actions_per_event_average:
     base: 120.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_personalizer_feature_occurrences_action:
+      sigma: 0.18
+  cognitive_services_personalizer_feature_occurrences_action:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_personalizer_feature_occurrences_context:
+      sigma: 0.18
+  cognitive_services_personalizer_feature_occurrences_context:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_personalizer_feature_occurrences_slot:
+      sigma: 0.18
+  cognitive_services_personalizer_feature_occurrences_slot:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_personalizer_feature_cardinality_action:
+      sigma: 0.18
+  cognitive_services_personalizer_feature_cardinality_action:
     base: 120.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_personalizer_feature_cardinality_context:
+      sigma: 0.18
+  cognitive_services_personalizer_feature_cardinality_context:
     base: 120.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_personalizer_feature_cardinality_slot:
+      sigma: 0.18
+  cognitive_services_personalizer_feature_cardinality_slot:
     base: 120.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_personalizer_features_per_event_action:
+      sigma: 0.18
+  cognitive_services_personalizer_features_per_event_action:
     base: 120.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_personalizer_features_per_event_context:
+      sigma: 0.18
+  cognitive_services_personalizer_features_per_event_context:
     base: 120.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_personalizer_features_per_event_slot:
+      sigma: 0.18
+  cognitive_services_personalizer_features_per_event_slot:
     base: 120.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_personalizer_namespaces_per_event_action:
+      sigma: 0.18
+  cognitive_services_personalizer_namespaces_per_event_action:
     base: 120.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_personalizer_namespaces_per_event_context:
+      sigma: 0.18
+  cognitive_services_personalizer_namespaces_per_event_context:
     base: 120.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_personalizer_namespaces_per_event_slot:
+      sigma: 0.18
+  cognitive_services_personalizer_namespaces_per_event_slot:
     base: 120.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_personalizer_rewards_average:
+      sigma: 0.18
+  cognitive_services_personalizer_rewards_average:
     base: 120.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_personalizer_rewards_slot:
+      sigma: 0.18
+  cognitive_services_personalizer_rewards_slot:
     base: 120.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_personalizer_estimator_rewards_online:
+      sigma: 0.18
+  cognitive_services_personalizer_estimator_rewards_online:
     base: 120.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_personalizer_estimator_rewards_baseline:
+      sigma: 0.18
+  cognitive_services_personalizer_estimator_rewards_baseline:
     base: 120.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_personalizer_estimator_rewards_baseline_random:
+      sigma: 0.18
+  cognitive_services_personalizer_estimator_rewards_baseline_random:
     base: 120.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_personalizer_estimator_slot_rewards_online:
+      sigma: 0.18
+  cognitive_services_personalizer_estimator_slot_rewards_online:
     base: 120.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_personalizer_estimator_slot_rewards_baseline:
+      sigma: 0.18
+  cognitive_services_personalizer_estimator_slot_rewards_baseline:
     base: 120.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_personalizer_estimator_slot_rewards_baseline_random:
+      sigma: 0.18
+  cognitive_services_personalizer_estimator_slot_rewards_baseline_random:
     base: 120.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_personalizer_slots_average:
+      sigma: 0.18
+  cognitive_services_personalizer_slots_average:
     base: 120.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_personalizer_slot_occurrences_occurrences:
+      sigma: 0.18
+  cognitive_services_personalizer_slot_occurrences_occurrences:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_personalizer_event_counts_online:
+      sigma: 0.18
+  cognitive_services_personalizer_event_counts_online:
     base: 260.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_personalizer_event_counts_baseline_random:
+      sigma: 0.18
+  cognitive_services_personalizer_event_counts_baseline_random:
     base: 260.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_personalizer_event_counts_user_baseline:
+      sigma: 0.18
+  cognitive_services_personalizer_event_counts_user_baseline:
     base: 260.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_personalizer_estimated_rewards_online:
+      sigma: 0.18
+  cognitive_services_personalizer_estimated_rewards_online:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_personalizer_estimated_rewards_baseline_random:
+      sigma: 0.18
+  cognitive_services_personalizer_estimated_rewards_baseline_random:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_personalizer_estimated_rewards_user_baseline:
+      sigma: 0.18
+  cognitive_services_personalizer_estimated_rewards_user_baseline:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_speech_transcription_realtime:
+      sigma: 0.18
+  cognitive_services_speech_transcription_realtime:
     base: 0.9
     min: 0.0
     max: 86400.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_speech_transcription_batch:
+      sigma: 0.18
+  cognitive_services_speech_transcription_batch:
     base: 0.9
     min: 0.0
     max: 86400.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_speech_transcription_batch_whisper:
+      sigma: 0.18
+  cognitive_services_speech_transcription_batch_whisper:
     base: 0.9
     min: 0.0
     max: 86400.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_speech_transcription_fast:
+      sigma: 0.18
+  cognitive_services_speech_transcription_fast:
     base: 0.9
     min: 0.0
     max: 86400.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_speech_transcription_fast_whisper:
+      sigma: 0.18
+  cognitive_services_speech_transcription_fast_whisper:
     base: 0.9
     min: 0.0
     max: 86400.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_speech_translation_translated:
+      sigma: 0.18
+  cognitive_services_speech_translation_translated:
     base: 0.9
     min: 0.0
     max: 86400.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_speech_synthesis_synthesized:
+      sigma: 0.18
+  cognitive_services_speech_synthesis_synthesized:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_speech_video_synthesis_synthesized:
+      sigma: 0.18
+  cognitive_services_speech_video_synthesis_synthesized:
     base: 0.9
     min: 0.0
     max: 86400.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_speech_avatar_hosting:
+      sigma: 0.18
+  cognitive_services_speech_avatar_hosting:
     base: 0.9
     min: 0.0
     max: 86400.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_speech_avatar_training:
+      sigma: 0.18
+  cognitive_services_speech_avatar_training:
     base: 0.9
     min: 0.0
     max: 86400.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_speech_speaker_recognition_transactions:
+      sigma: 0.18
+  cognitive_services_speech_speaker_recognition_transactions:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_speech_speaker_profiles_profiles:
+      sigma: 0.18
+  cognitive_services_speech_speaker_profiles_profiles:
     base: 22.0
     min: 0.0
     max: 500000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_speech_model_hosting_hosting:
+      sigma: 0.18
+  cognitive_services_speech_model_hosting_hosting:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_speech_voice_live_tokens_audio_input:
+      sigma: 0.18
+  cognitive_services_speech_voice_live_tokens_audio_input:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_speech_voice_live_tokens_audio_output:
+      sigma: 0.18
+  cognitive_services_speech_voice_live_tokens_audio_output:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_speech_voice_live_tokens_cached_audio_input:
+      sigma: 0.18
+  cognitive_services_speech_voice_live_tokens_cached_audio_input:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_speech_voice_live_tokens_text_input:
+      sigma: 0.18
+  cognitive_services_speech_voice_live_tokens_text_input:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_speech_voice_live_tokens_text_output:
+      sigma: 0.18
+  cognitive_services_speech_voice_live_tokens_text_output:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_speech_voice_live_tokens_cached_text_input:
+      sigma: 0.18
+  cognitive_services_speech_voice_live_tokens_cached_text_input:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_speech_voice_model_hosting:
+      sigma: 0.18
+  cognitive_services_speech_voice_model_hosting:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_speech_voice_training_training:
+      sigma: 0.18
+  cognitive_services_speech_voice_training_training:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_translator_text_standard:
+      sigma: 0.18
+  cognitive_services_translator_text_standard:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_translator_text_custom:
+      sigma: 0.18
+  cognitive_services_translator_text_custom:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_translator_text_trained:
+      sigma: 0.18
+  cognitive_services_translator_text_trained:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_translator_document_standard:
+      sigma: 0.18
+  cognitive_services_translator_document_standard:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_translator_document_custom:
+      sigma: 0.18
+  cognitive_services_translator_document_custom:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_translator_document_sync_standard:
+      sigma: 0.18
+  cognitive_services_translator_document_sync_standard:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_translator_document_sync_custom:
+      sigma: 0.18
+  cognitive_services_translator_document_sync_custom:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_translator_pro_app_seconds:
+      sigma: 0.18
+  cognitive_services_translator_pro_app_seconds:
     base: 0.9
     min: 0.0
     max: 86400.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_vision_transactions_computer_vision:
+      sigma: 0.18
+  cognitive_services_vision_transactions_computer_vision:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_vision_transactions_custom_vision:
+      sigma: 0.18
+  cognitive_services_vision_transactions_custom_vision:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_vision_training_training_time:
+      sigma: 0.18
+  cognitive_services_vision_training_training_time:
     base: 0.9
     min: 0.0
     max: 86400.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_vision_images_stored_stored:
+      sigma: 0.18
+  cognitive_services_vision_images_stored_stored:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_face_transactions_transactions:
+      sigma: 0.18
+  cognitive_services_face_transactions_transactions:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_face_images_trained_trained:
+      sigma: 0.18
+  cognitive_services_face_images_trained_trained:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_faces_stored_stored:
+      sigma: 0.18
+  cognitive_services_faces_stored_stored:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_luis_requests_speech:
+      sigma: 0.18
+  cognitive_services_luis_requests_speech:
     base: 1100.0
     min: 0.0
     max: 5000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_luis_requests_text:
+      sigma: 0.18
+  cognitive_services_luis_requests_text:
     base: 1100.0
     min: 0.0
     max: 5000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_text_processing_text:
+      sigma: 0.18
+  cognitive_services_text_processing_text:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_text_processing_health_text:
+      sigma: 0.18
+  cognitive_services_text_processing_health_text:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_text_processing_question_answering:
+      sigma: 0.18
+  cognitive_services_text_processing_question_answering:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_processed_characters_characters:
+      sigma: 0.18
+  cognitive_services_processed_characters_characters:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_processed_images_images:
+      sigma: 0.18
+  cognitive_services_processed_images_images:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_processed_pages_pages:
+      sigma: 0.18
+  cognitive_services_processed_pages_pages:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_carnegie_inference_inferences:
+      sigma: 0.18
+  cognitive_services_carnegie_inference_inferences:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_personalizer_events_total:
+      sigma: 0.18
+  cognitive_services_personalizer_events_total:
     base: 260.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_personalizer_events_learned:
+      sigma: 0.18
+  cognitive_services_personalizer_events_learned:
     base: 260.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_personalizer_events_non_activated:
+      sigma: 0.18
+  cognitive_services_personalizer_events_non_activated:
     base: 260.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_personalizer_reward_tracking_matched:
+      sigma: 0.18
+  cognitive_services_personalizer_reward_tracking_matched:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_cognitive_services_cognitive_services_personalizer_reward_tracking_observed:
+      sigma: 0.18
+  cognitive_services_personalizer_reward_tracking_observed:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
+      sigma: 0.18
 contexts:
 - id: azure_monitor.cognitive_services.availability
   title: Azure Cognitive Services Availability
   units: percentage
-  family: cognitive
+  family: Availability
   chart_type: line
-  priority: 60001
+  priority: 90010
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_availability
+    family: Availability
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: availability
-    signal: azure_cognitive_services_cognitive_services_availability_availability
+    signal: cognitive_services_availability_availability
 - id: azure_monitor.cognitive_services.calls
   title: Azure Cognitive Services Calls
   units: calls/s
-  family: cognitive
+  family: HTTP Requests
   chart_type: line
-  priority: 60002
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90020
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_calls
+    family: HTTP Requests
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: total
-    rate_signal: azure_cognitive_services_cognitive_services_calls_total
+    signal: cognitive_services_calls_total
   - id: successful
-    rate_signal: azure_cognitive_services_cognitive_services_calls_successful
+    signal: cognitive_services_calls_successful
   - id: blocked
-    rate_signal: azure_cognitive_services_cognitive_services_calls_blocked
+    signal: cognitive_services_calls_blocked
   - id: token
-    rate_signal: azure_cognitive_services_cognitive_services_calls_token
+    signal: cognitive_services_calls_token
 - id: azure_monitor.cognitive_services.errors
   title: Azure Cognitive Services Errors
   units: errors/s
-  family: cognitive
+  family: HTTP Requests
   chart_type: line
-  priority: 60003
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90030
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_errors
+    family: HTTP Requests
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: total
-    rate_signal: azure_cognitive_services_cognitive_services_errors_total
+    signal: cognitive_services_errors_total
   - id: client
-    rate_signal: azure_cognitive_services_cognitive_services_errors_client
+    signal: cognitive_services_errors_client
   - id: server
-    rate_signal: azure_cognitive_services_cognitive_services_errors_server
+    signal: cognitive_services_errors_server
 - id: azure_monitor.cognitive_services.latency
   title: Azure Cognitive Services Latency
   units: milliseconds
-  family: cognitive
+  family: Performance
   chart_type: line
-  priority: 60004
+  priority: 90040
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_latency
+    family: Performance
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: average
-    signal: azure_cognitive_services_cognitive_services_latency_average
+    signal: cognitive_services_latency_average
 - id: azure_monitor.cognitive_services.data_transfer
   title: Azure Cognitive Services Data Transfer
   units: bytes/s
-  family: cognitive
+  family: HTTP Requests
   chart_type: line
-  priority: 60005
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90050
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_data_transfer
+    family: HTTP Requests
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: in
-    rate_signal: azure_cognitive_services_cognitive_services_data_transfer_in
+    signal: cognitive_services_data_transfer_in
   - id: out
-    rate_signal: azure_cognitive_services_cognitive_services_data_transfer_out
+    signal: cognitive_services_data_transfer_out
 - id: azure_monitor.cognitive_services.rate_limit
   title: Azure Cognitive Services Rate Limit
   units: requests/s
-  family: cognitive
+  family: HTTP Requests
   chart_type: line
-  priority: 60006
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90060
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_rate_limit
+    family: HTTP Requests
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: rate_limit
-    rate_signal: azure_cognitive_services_cognitive_services_rate_limit_rate_limit
+    signal: cognitive_services_rate_limit_rate_limit
 - id: azure_monitor.cognitive_services.openai_availability
   title: Azure OpenAI Availability
   units: percentage
-  family: cognitive
+  family: Azure OpenAI
   chart_type: line
-  priority: 60007
+  priority: 90070
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_openai_availability
+    family: Azure OpenAI
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: availability
-    signal: azure_cognitive_services_cognitive_services_openai_availability_availability
+    signal: cognitive_services_openai_availability_availability
 - id: azure_monitor.cognitive_services.openai_requests
   title: Azure OpenAI Requests
   units: requests/s
-  family: cognitive
+  family: Azure OpenAI
   chart_type: line
-  priority: 60008
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90080
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_openai_requests
+    family: Azure OpenAI
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: requests
-    rate_signal: azure_cognitive_services_cognitive_services_openai_requests_requests
+    signal: cognitive_services_openai_requests_requests
 - id: azure_monitor.cognitive_services.openai_latency
   title: Azure OpenAI Latency
   units: milliseconds
-  family: cognitive
+  family: Azure OpenAI
   chart_type: line
-  priority: 60009
+  priority: 90090
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_openai_latency
+    family: Azure OpenAI
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: time_to_response
-    signal: azure_cognitive_services_cognitive_services_openai_latency_time_to_response
+    signal: cognitive_services_openai_latency_time_to_response
   - id: time_to_first_token
-    signal: azure_cognitive_services_cognitive_services_openai_latency_time_to_first_token
+    signal: cognitive_services_openai_latency_time_to_first_token
   - id: time_between_tokens
-    signal: azure_cognitive_services_cognitive_services_openai_latency_time_between_tokens
+    signal: cognitive_services_openai_latency_time_between_tokens
   - id: time_to_last_byte
-    signal: azure_cognitive_services_cognitive_services_openai_latency_time_to_last_byte
+    signal: cognitive_services_openai_latency_time_to_last_byte
 - id: azure_monitor.cognitive_services.openai_generation_speed
   title: Azure OpenAI Token Generation Speed
   units: tokens/s
-  family: cognitive
+  family: Azure OpenAI
   chart_type: line
-  priority: 60010
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90100
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_openai_generation_speed
+    family: Azure OpenAI
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: tokens_per_second
-    rate_signal: azure_cognitive_services_cognitive_services_openai_generation_speed_tokens_per_second
+    signal: cognitive_services_openai_generation_speed_tokens_per_second
 - id: azure_monitor.cognitive_services.openai_token_usage
   title: Azure OpenAI Token Usage
   units: tokens/s
-  family: cognitive
+  family: Azure OpenAI
   chart_type: line
-  priority: 60011
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90110
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_openai_token_usage
+    family: Azure OpenAI
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: total
-    rate_signal: azure_cognitive_services_cognitive_services_openai_token_usage_total
+    signal: cognitive_services_openai_token_usage_total
   - id: prompt
-    rate_signal: azure_cognitive_services_cognitive_services_openai_token_usage_prompt
+    signal: cognitive_services_openai_token_usage_prompt
   - id: generated
-    rate_signal: azure_cognitive_services_cognitive_services_openai_token_usage_generated
+    signal: cognitive_services_openai_token_usage_generated
   - id: active
-    rate_signal: azure_cognitive_services_cognitive_services_openai_token_usage_active
+    signal: cognitive_services_openai_token_usage_active
 - id: azure_monitor.cognitive_services.openai_audio_tokens
   title: Azure OpenAI Audio Tokens
   units: tokens/s
-  family: cognitive
+  family: Azure OpenAI
   chart_type: line
-  priority: 60012
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90120
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_openai_audio_tokens
+    family: Azure OpenAI
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: prompt
-    rate_signal: azure_cognitive_services_cognitive_services_openai_audio_tokens_prompt
+    signal: cognitive_services_openai_audio_tokens_prompt
   - id: completion
-    rate_signal: azure_cognitive_services_cognitive_services_openai_audio_tokens_completion
+    signal: cognitive_services_openai_audio_tokens_completion
 - id: azure_monitor.cognitive_services.openai_cache_match_rate
   title: Azure OpenAI Prompt Token Cache Match Rate
   units: percentage
-  family: cognitive
+  family: Azure OpenAI
   chart_type: line
-  priority: 60013
+  priority: 90130
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_openai_cache_match_rate
+    family: Azure OpenAI
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: cache_match_rate
-    signal: azure_cognitive_services_cognitive_services_openai_cache_match_rate_cache_match_rate
+    signal: cognitive_services_openai_cache_match_rate_cache_match_rate
 - id: azure_monitor.cognitive_services.openai_provisioned_utilization
   title: Azure OpenAI Provisioned-managed Utilization
   units: percentage
-  family: cognitive
+  family: Azure OpenAI
   chart_type: line
-  priority: 60014
+  priority: 90140
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_openai_provisioned_utilization
+    family: Azure OpenAI
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: utilization
-    signal: azure_cognitive_services_cognitive_services_openai_provisioned_utilization_utilization
+    signal: cognitive_services_openai_provisioned_utilization_utilization
 - id: azure_monitor.cognitive_services.openai_finetuning
   title: Azure OpenAI Fine-Tuning Training Hours
   units: hours/s
-  family: cognitive
+  family: Azure OpenAI
   chart_type: line
-  priority: 60015
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90150
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_openai_finetuning
+    family: Azure OpenAI
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: training_hours
-    rate_signal: azure_cognitive_services_cognitive_services_openai_finetuning_training_hours
+    signal: cognitive_services_openai_finetuning_training_hours
 - id: azure_monitor.cognitive_services.openai_realtime_usage
   title: Azure OpenAI Realtime API Usage
   units: seconds/s
-  family: cognitive
+  family: Azure OpenAI
   chart_type: line
-  priority: 60016
+  priority: 90160
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_openai_realtime_usage
+    family: Azure OpenAI
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: seconds_used
-    signal: azure_cognitive_services_cognitive_services_openai_realtime_usage_seconds_used
+    signal: cognitive_services_openai_realtime_usage_seconds_used
 - id: azure_monitor.cognitive_services.model_availability
   title: Azure Cognitive Services Model Availability
   units: percentage
-  family: cognitive
+  family: Models
   chart_type: line
-  priority: 60017
+  priority: 90170
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_model_availability
+    family: Models
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: availability
-    signal: azure_cognitive_services_cognitive_services_model_availability_availability
+    signal: cognitive_services_model_availability_availability
 - id: azure_monitor.cognitive_services.model_requests
   title: Azure Cognitive Services Model Requests
   units: requests/s
-  family: cognitive
+  family: Models
   chart_type: line
-  priority: 60018
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90180
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_model_requests
+    family: Models
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: requests
-    rate_signal: azure_cognitive_services_cognitive_services_model_requests_requests
+    signal: cognitive_services_model_requests_requests
 - id: azure_monitor.cognitive_services.model_latency
   title: Azure Cognitive Services Model Latency
   units: milliseconds
-  family: cognitive
+  family: Models
   chart_type: line
-  priority: 60019
+  priority: 90190
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_model_latency
+    family: Models
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: time_to_response
-    signal: azure_cognitive_services_cognitive_services_model_latency_time_to_response
+    signal: cognitive_services_model_latency_time_to_response
   - id: time_to_first_token
-    signal: azure_cognitive_services_cognitive_services_model_latency_time_to_first_token
+    signal: cognitive_services_model_latency_time_to_first_token
   - id: time_between_tokens
-    signal: azure_cognitive_services_cognitive_services_model_latency_time_between_tokens
+    signal: cognitive_services_model_latency_time_between_tokens
   - id: time_to_last_byte
-    signal: azure_cognitive_services_cognitive_services_model_latency_time_to_last_byte
+    signal: cognitive_services_model_latency_time_to_last_byte
 - id: azure_monitor.cognitive_services.model_generation_speed
   title: Azure Cognitive Services Model Token Generation Speed
   units: tokens/s
-  family: cognitive
+  family: Models
   chart_type: line
-  priority: 60020
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90200
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_model_generation_speed
+    family: Models
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: tokens_per_second
-    rate_signal: azure_cognitive_services_cognitive_services_model_generation_speed_tokens_per_second
+    signal: cognitive_services_model_generation_speed_tokens_per_second
 - id: azure_monitor.cognitive_services.model_token_usage
   title: Azure Cognitive Services Model Token Usage
   units: tokens/s
-  family: cognitive
+  family: Models
   chart_type: line
-  priority: 60021
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90210
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_model_token_usage
+    family: Models
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: total
-    rate_signal: azure_cognitive_services_cognitive_services_model_token_usage_total
+    signal: cognitive_services_model_token_usage_total
   - id: input
-    rate_signal: azure_cognitive_services_cognitive_services_model_token_usage_input
+    signal: cognitive_services_model_token_usage_input
   - id: output
-    rate_signal: azure_cognitive_services_cognitive_services_model_token_usage_output
+    signal: cognitive_services_model_token_usage_output
 - id: azure_monitor.cognitive_services.model_audio_tokens
   title: Azure Cognitive Services Model Audio Tokens
   units: tokens/s
-  family: cognitive
+  family: Models
   chart_type: line
-  priority: 60022
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90220
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_model_audio_tokens
+    family: Models
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: input
-    rate_signal: azure_cognitive_services_cognitive_services_model_audio_tokens_input
+    signal: cognitive_services_model_audio_tokens_input
   - id: output
-    rate_signal: azure_cognitive_services_cognitive_services_model_audio_tokens_output
+    signal: cognitive_services_model_audio_tokens_output
 - id: azure_monitor.cognitive_services.model_cache_tokens
   title: Azure Cognitive Services Model Cache Tokens
   units: tokens/s
-  family: cognitive
+  family: Models
   chart_type: line
-  priority: 60023
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90230
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_model_cache_tokens
+    family: Models
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: cache_read
-    rate_signal: azure_cognitive_services_cognitive_services_model_cache_tokens_cache_read
+    signal: cognitive_services_model_cache_tokens_cache_read
   - id: cache_write_1h
-    rate_signal: azure_cognitive_services_cognitive_services_model_cache_tokens_cache_write_1h
+    signal: cognitive_services_model_cache_tokens_cache_write_1h
   - id: cache_write_5m
-    rate_signal: azure_cognitive_services_cognitive_services_model_cache_tokens_cache_write_5m
+    signal: cognitive_services_model_cache_tokens_cache_write_5m
 - id: azure_monitor.cognitive_services.model_provisioned_utilization
   title: Azure Cognitive Services Model Provisioned Utilization
   units: percentage
-  family: cognitive
+  family: Models
   chart_type: line
-  priority: 60024
+  priority: 90240
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_model_provisioned_utilization
+    family: Models
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: utilization
-    signal: azure_cognitive_services_cognitive_services_model_provisioned_utilization_utilization
+    signal: cognitive_services_model_provisioned_utilization_utilization
 - id: azure_monitor.cognitive_services.model_pages
   title: Azure Cognitive Services Model Pages Processed
   units: pages/s
-  family: cognitive
+  family: Models
   chart_type: line
-  priority: 60025
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90250
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_model_pages
+    family: Models
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: total
-    rate_signal: azure_cognitive_services_cognitive_services_model_pages_total
+    signal: cognitive_services_model_pages_total
   - id: annotated
-    rate_signal: azure_cognitive_services_cognitive_services_model_pages_annotated
+    signal: cognitive_services_model_pages_annotated
 - id: azure_monitor.cognitive_services.model_generated_images
   title: Azure Cognitive Services Generated Images
   units: images/s
-  family: cognitive
+  family: Models
   chart_type: line
-  priority: 60026
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90260
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_model_generated_images
+    family: Models
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: generated
-    rate_signal: azure_cognitive_services_cognitive_services_model_generated_images_generated
+    signal: cognitive_services_model_generated_images_generated
 - id: azure_monitor.cognitive_services.content_safety_requests
   title: Azure Cognitive Services Content Safety Requests
   units: requests/s
-  family: cognitive
+  family: Content Safety
   chart_type: line
-  priority: 60027
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90270
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_content_safety_requests
+    family: Content Safety
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: total
-    rate_signal: azure_cognitive_services_cognitive_services_content_safety_requests_total
+    signal: cognitive_services_content_safety_requests_total
   - id: harmful
-    rate_signal: azure_cognitive_services_cognitive_services_content_safety_requests_harmful
+    signal: cognitive_services_content_safety_requests_harmful
   - id: blocked
-    rate_signal: azure_cognitive_services_cognitive_services_content_safety_requests_blocked
+    signal: cognitive_services_content_safety_requests_blocked
 - id: azure_monitor.cognitive_services.content_safety_abusive_users
   title: Azure Cognitive Services Potentially Abusive Users
   units: users/s
-  family: cognitive
+  family: Content Safety
   chart_type: line
-  priority: 60028
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90280
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_content_safety_abusive_users
+    family: Content Safety
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: abusive_users
-    rate_signal: azure_cognitive_services_cognitive_services_content_safety_abusive_users_abusive_users
+    signal: cognitive_services_content_safety_abusive_users_abusive_users
 - id: azure_monitor.cognitive_services.content_safety_system_events
   title: Azure Cognitive Services Safety System Events
   units: events
-  family: cognitive
+  family: Content Safety
   chart_type: line
-  priority: 60029
+  priority: 90290
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_content_safety_system_events
+    family: Content Safety
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: events
-    signal: azure_cognitive_services_cognitive_services_content_safety_system_events_events
+    signal: cognitive_services_content_safety_system_events_events
 - id: azure_monitor.cognitive_services.content_safety_moderation
   title: Azure Cognitive Services Content Moderation Calls
   units: requests/s
-  family: cognitive
+  family: Content Safety
   chart_type: line
-  priority: 60030
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90300
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_content_safety_moderation
+    family: Content Safety
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: text
-    rate_signal: azure_cognitive_services_cognitive_services_content_safety_moderation_text
+    signal: cognitive_services_content_safety_moderation_text
   - id: image
-    rate_signal: azure_cognitive_services_cognitive_services_content_safety_moderation_image
+    signal: cognitive_services_content_safety_moderation_image
 - id: azure_monitor.cognitive_services.job_duration
   title: Azure Cognitive Services Job Duration
   units: milliseconds
-  family: cognitive
+  family: Language
   chart_type: line
-  priority: 60031
+  priority: 90310
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_job_duration
+    family: Language
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: average
-    signal: azure_cognitive_services_cognitive_services_job_duration_average
+    signal: cognitive_services_job_duration_average
 - id: azure_monitor.cognitive_services.personalizer_actions
   title: Azure Cognitive Services Personalizer Action Occurrences
   units: occurrences/s
-  family: cognitive
+  family: Personalizer
   chart_type: line
-  priority: 60032
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90320
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_personalizer_actions
+    family: Personalizer
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: occurrences
-    rate_signal: azure_cognitive_services_cognitive_services_personalizer_actions_occurrences
+    signal: cognitive_services_personalizer_actions_occurrences
 - id: azure_monitor.cognitive_services.personalizer_actions_per_event
   title: Azure Cognitive Services Personalizer Actions Per Event
   units: actions
-  family: cognitive
+  family: Personalizer
   chart_type: line
-  priority: 60033
+  priority: 90330
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_personalizer_actions_per_event
+    family: Personalizer
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: average
-    signal: azure_cognitive_services_cognitive_services_personalizer_actions_per_event_average
+    signal: cognitive_services_personalizer_actions_per_event_average
 - id: azure_monitor.cognitive_services.personalizer_feature_occurrences
   title: Azure Cognitive Services Personalizer Feature Occurrences
   units: occurrences/s
-  family: cognitive
+  family: Personalizer
   chart_type: line
-  priority: 60034
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90340
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_personalizer_feature_occurrences
+    family: Personalizer
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: action
-    rate_signal: azure_cognitive_services_cognitive_services_personalizer_feature_occurrences_action
+    signal: cognitive_services_personalizer_feature_occurrences_action
   - id: context
-    rate_signal: azure_cognitive_services_cognitive_services_personalizer_feature_occurrences_context
+    signal: cognitive_services_personalizer_feature_occurrences_context
   - id: slot
-    rate_signal: azure_cognitive_services_cognitive_services_personalizer_feature_occurrences_slot
+    signal: cognitive_services_personalizer_feature_occurrences_slot
 - id: azure_monitor.cognitive_services.personalizer_feature_cardinality
   title: Azure Cognitive Services Personalizer Feature Cardinality
   units: features
-  family: cognitive
+  family: Personalizer
   chart_type: line
-  priority: 60035
+  priority: 90350
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_personalizer_feature_cardinality
+    family: Personalizer
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: action
-    signal: azure_cognitive_services_cognitive_services_personalizer_feature_cardinality_action
+    signal: cognitive_services_personalizer_feature_cardinality_action
   - id: context
-    signal: azure_cognitive_services_cognitive_services_personalizer_feature_cardinality_context
+    signal: cognitive_services_personalizer_feature_cardinality_context
   - id: slot
-    signal: azure_cognitive_services_cognitive_services_personalizer_feature_cardinality_slot
+    signal: cognitive_services_personalizer_feature_cardinality_slot
 - id: azure_monitor.cognitive_services.personalizer_features_per_event
   title: Azure Cognitive Services Personalizer Features Per Event
   units: features
-  family: cognitive
+  family: Personalizer
   chart_type: line
-  priority: 60036
+  priority: 90360
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_personalizer_features_per_event
+    family: Personalizer
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: action
-    signal: azure_cognitive_services_cognitive_services_personalizer_features_per_event_action
+    signal: cognitive_services_personalizer_features_per_event_action
   - id: context
-    signal: azure_cognitive_services_cognitive_services_personalizer_features_per_event_context
+    signal: cognitive_services_personalizer_features_per_event_context
   - id: slot
-    signal: azure_cognitive_services_cognitive_services_personalizer_features_per_event_slot
+    signal: cognitive_services_personalizer_features_per_event_slot
 - id: azure_monitor.cognitive_services.personalizer_namespaces_per_event
   title: Azure Cognitive Services Personalizer Namespaces Per Event
   units: namespaces
-  family: cognitive
+  family: Personalizer
   chart_type: line
-  priority: 60037
+  priority: 90370
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_personalizer_namespaces_per_event
+    family: Personalizer
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: action
-    signal: azure_cognitive_services_cognitive_services_personalizer_namespaces_per_event_action
+    signal: cognitive_services_personalizer_namespaces_per_event_action
   - id: context
-    signal: azure_cognitive_services_cognitive_services_personalizer_namespaces_per_event_context
+    signal: cognitive_services_personalizer_namespaces_per_event_context
   - id: slot
-    signal: azure_cognitive_services_cognitive_services_personalizer_namespaces_per_event_slot
+    signal: cognitive_services_personalizer_namespaces_per_event_slot
 - id: azure_monitor.cognitive_services.personalizer_rewards
   title: Azure Cognitive Services Personalizer Rewards
   units: reward
-  family: cognitive
+  family: Personalizer
   chart_type: line
-  priority: 60038
+  priority: 90380
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_personalizer_rewards
+    family: Personalizer
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: average
-    signal: azure_cognitive_services_cognitive_services_personalizer_rewards_average
+    signal: cognitive_services_personalizer_rewards_average
   - id: slot
-    signal: azure_cognitive_services_cognitive_services_personalizer_rewards_slot
+    signal: cognitive_services_personalizer_rewards_slot
 - id: azure_monitor.cognitive_services.personalizer_estimator_rewards
   title: Azure Cognitive Services Personalizer Estimator Rewards
   units: reward
-  family: cognitive
+  family: Personalizer
   chart_type: line
-  priority: 60039
+  priority: 90390
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_personalizer_estimator_rewards
+    family: Personalizer
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: online
-    signal: azure_cognitive_services_cognitive_services_personalizer_estimator_rewards_online
+    signal: cognitive_services_personalizer_estimator_rewards_online
   - id: baseline
-    signal: azure_cognitive_services_cognitive_services_personalizer_estimator_rewards_baseline
+    signal: cognitive_services_personalizer_estimator_rewards_baseline
   - id: baseline_random
-    signal: azure_cognitive_services_cognitive_services_personalizer_estimator_rewards_baseline_random
+    signal: cognitive_services_personalizer_estimator_rewards_baseline_random
 - id: azure_monitor.cognitive_services.personalizer_estimator_slot_rewards
   title: Azure Cognitive Services Personalizer Estimator Slot Rewards
   units: reward
-  family: cognitive
+  family: Personalizer
   chart_type: line
-  priority: 60040
+  priority: 90400
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_personalizer_estimator_slot_rewards
+    family: Personalizer
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: online
-    signal: azure_cognitive_services_cognitive_services_personalizer_estimator_slot_rewards_online
+    signal: cognitive_services_personalizer_estimator_slot_rewards_online
   - id: baseline
-    signal: azure_cognitive_services_cognitive_services_personalizer_estimator_slot_rewards_baseline
+    signal: cognitive_services_personalizer_estimator_slot_rewards_baseline
   - id: baseline_random
-    signal: azure_cognitive_services_cognitive_services_personalizer_estimator_slot_rewards_baseline_random
+    signal: cognitive_services_personalizer_estimator_slot_rewards_baseline_random
 - id: azure_monitor.cognitive_services.personalizer_slots
   title: Azure Cognitive Services Personalizer Slots
   units: slots
-  family: cognitive
+  family: Personalizer
   chart_type: line
-  priority: 60041
+  priority: 90410
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_personalizer_slots
+    family: Personalizer
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: average
-    signal: azure_cognitive_services_cognitive_services_personalizer_slots_average
+    signal: cognitive_services_personalizer_slots_average
 - id: azure_monitor.cognitive_services.personalizer_slot_occurrences
   title: Azure Cognitive Services Personalizer Slot Occurrences
   units: occurrences/s
-  family: cognitive
+  family: Personalizer
   chart_type: line
-  priority: 60042
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90420
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_personalizer_slot_occurrences
+    family: Personalizer
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: occurrences
-    rate_signal: azure_cognitive_services_cognitive_services_personalizer_slot_occurrences_occurrences
+    signal: cognitive_services_personalizer_slot_occurrences_occurrences
 - id: azure_monitor.cognitive_services.personalizer_event_counts
   title: Azure Cognitive Services Personalizer Event Counts
   units: events/s
-  family: cognitive
+  family: Personalizer
   chart_type: line
-  priority: 60043
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90430
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_personalizer_event_counts
+    family: Personalizer
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: online
-    rate_signal: azure_cognitive_services_cognitive_services_personalizer_event_counts_online
+    signal: cognitive_services_personalizer_event_counts_online
   - id: baseline_random
-    rate_signal: azure_cognitive_services_cognitive_services_personalizer_event_counts_baseline_random
+    signal: cognitive_services_personalizer_event_counts_baseline_random
   - id: user_baseline
-    rate_signal: azure_cognitive_services_cognitive_services_personalizer_event_counts_user_baseline
+    signal: cognitive_services_personalizer_event_counts_user_baseline
 - id: azure_monitor.cognitive_services.personalizer_estimated_rewards
   title: Azure Cognitive Services Personalizer Estimated Rewards
   units: reward/s
-  family: cognitive
+  family: Personalizer
   chart_type: line
-  priority: 60044
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90440
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_personalizer_estimated_rewards
+    family: Personalizer
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: online
-    rate_signal: azure_cognitive_services_cognitive_services_personalizer_estimated_rewards_online
+    signal: cognitive_services_personalizer_estimated_rewards_online
   - id: baseline_random
-    rate_signal: azure_cognitive_services_cognitive_services_personalizer_estimated_rewards_baseline_random
+    signal: cognitive_services_personalizer_estimated_rewards_baseline_random
   - id: user_baseline
-    rate_signal: azure_cognitive_services_cognitive_services_personalizer_estimated_rewards_user_baseline
+    signal: cognitive_services_personalizer_estimated_rewards_user_baseline
 - id: azure_monitor.cognitive_services.speech_transcription
   title: Azure Cognitive Services Speech Transcription
   units: seconds/s
-  family: cognitive
+  family: Speech Services
   chart_type: line
-  priority: 60045
+  priority: 90450
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_speech_transcription
+    family: Speech Services
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: realtime
-    signal: azure_cognitive_services_cognitive_services_speech_transcription_realtime
+    signal: cognitive_services_speech_transcription_realtime
   - id: batch
-    signal: azure_cognitive_services_cognitive_services_speech_transcription_batch
+    signal: cognitive_services_speech_transcription_batch
   - id: batch_whisper
-    signal: azure_cognitive_services_cognitive_services_speech_transcription_batch_whisper
+    signal: cognitive_services_speech_transcription_batch_whisper
   - id: fast
-    signal: azure_cognitive_services_cognitive_services_speech_transcription_fast
+    signal: cognitive_services_speech_transcription_fast
   - id: fast_whisper
-    signal: azure_cognitive_services_cognitive_services_speech_transcription_fast_whisper
+    signal: cognitive_services_speech_transcription_fast_whisper
 - id: azure_monitor.cognitive_services.speech_translation
   title: Azure Cognitive Services Speech Translation
   units: seconds/s
-  family: cognitive
+  family: Speech Services
   chart_type: line
-  priority: 60046
+  priority: 90460
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_speech_translation
+    family: Speech Services
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: translated
-    signal: azure_cognitive_services_cognitive_services_speech_translation_translated
+    signal: cognitive_services_speech_translation_translated
 - id: azure_monitor.cognitive_services.speech_synthesis
   title: Azure Cognitive Services Speech Synthesis
   units: characters/s
-  family: cognitive
+  family: Speech Services
   chart_type: line
-  priority: 60047
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90470
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_speech_synthesis
+    family: Speech Services
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: synthesized
-    rate_signal: azure_cognitive_services_cognitive_services_speech_synthesis_synthesized
+    signal: cognitive_services_speech_synthesis_synthesized
 - id: azure_monitor.cognitive_services.speech_video_synthesis
   title: Azure Cognitive Services Video Synthesis
   units: seconds/s
-  family: cognitive
+  family: Speech Services
   chart_type: line
-  priority: 60048
+  priority: 90480
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_speech_video_synthesis
+    family: Speech Services
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: synthesized
-    signal: azure_cognitive_services_cognitive_services_speech_video_synthesis_synthesized
+    signal: cognitive_services_speech_video_synthesis_synthesized
 - id: azure_monitor.cognitive_services.speech_avatar
   title: Azure Cognitive Services Avatar Usage
   units: seconds/s
-  family: cognitive
+  family: Speech Services
   chart_type: line
-  priority: 60049
+  priority: 90490
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_speech_avatar
+    family: Speech Services
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: hosting
-    signal: azure_cognitive_services_cognitive_services_speech_avatar_hosting
+    signal: cognitive_services_speech_avatar_hosting
   - id: training
-    signal: azure_cognitive_services_cognitive_services_speech_avatar_training
+    signal: cognitive_services_speech_avatar_training
 - id: azure_monitor.cognitive_services.speech_speaker_recognition
   title: Azure Cognitive Services Speaker Recognition
   units: transactions/s
-  family: cognitive
+  family: Speech Services
   chart_type: line
-  priority: 60050
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90500
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_speech_speaker_recognition
+    family: Speech Services
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: transactions
-    rate_signal: azure_cognitive_services_cognitive_services_speech_speaker_recognition_transactions
+    signal: cognitive_services_speech_speaker_recognition_transactions
 - id: azure_monitor.cognitive_services.speech_speaker_profiles
   title: Azure Cognitive Services Speaker Profiles
   units: profiles/s
-  family: cognitive
+  family: Speech Services
   chart_type: line
-  priority: 60051
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90510
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_speech_speaker_profiles
+    family: Speech Services
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: profiles
-    rate_signal: azure_cognitive_services_cognitive_services_speech_speaker_profiles_profiles
+    signal: cognitive_services_speech_speaker_profiles_profiles
 - id: azure_monitor.cognitive_services.speech_model_hosting
   title: Azure Cognitive Services Speech Model Hosting
   units: hours/s
-  family: cognitive
+  family: Speech Services
   chart_type: line
-  priority: 60052
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90520
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_speech_model_hosting
+    family: Speech Services
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: hosting
-    rate_signal: azure_cognitive_services_cognitive_services_speech_model_hosting_hosting
+    signal: cognitive_services_speech_model_hosting_hosting
 - id: azure_monitor.cognitive_services.speech_voice_live_tokens
   title: Azure Cognitive Services Voice Live Tokens
   units: tokens/s
-  family: cognitive
+  family: Speech Services
   chart_type: line
-  priority: 60053
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90530
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_speech_voice_live_tokens
+    family: Speech Services
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: audio_input
-    rate_signal: azure_cognitive_services_cognitive_services_speech_voice_live_tokens_audio_input
+    signal: cognitive_services_speech_voice_live_tokens_audio_input
   - id: audio_output
-    rate_signal: azure_cognitive_services_cognitive_services_speech_voice_live_tokens_audio_output
+    signal: cognitive_services_speech_voice_live_tokens_audio_output
   - id: cached_audio_input
-    rate_signal: azure_cognitive_services_cognitive_services_speech_voice_live_tokens_cached_audio_input
+    signal: cognitive_services_speech_voice_live_tokens_cached_audio_input
   - id: text_input
-    rate_signal: azure_cognitive_services_cognitive_services_speech_voice_live_tokens_text_input
+    signal: cognitive_services_speech_voice_live_tokens_text_input
   - id: text_output
-    rate_signal: azure_cognitive_services_cognitive_services_speech_voice_live_tokens_text_output
+    signal: cognitive_services_speech_voice_live_tokens_text_output
   - id: cached_text_input
-    rate_signal: azure_cognitive_services_cognitive_services_speech_voice_live_tokens_cached_text_input
+    signal: cognitive_services_speech_voice_live_tokens_cached_text_input
 - id: azure_monitor.cognitive_services.speech_voice_model
   title: Azure Cognitive Services Voice Model Usage
   units: hours/s
-  family: cognitive
+  family: Speech Services
   chart_type: line
-  priority: 60054
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90540
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_speech_voice_model
+    family: Speech Services
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: hosting
-    rate_signal: azure_cognitive_services_cognitive_services_speech_voice_model_hosting
+    signal: cognitive_services_speech_voice_model_hosting
 - id: azure_monitor.cognitive_services.speech_voice_training
   title: Azure Cognitive Services Voice Model Training
   units: minutes/s
-  family: cognitive
+  family: Speech Services
   chart_type: line
-  priority: 60055
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90550
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_speech_voice_training
+    family: Speech Services
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: training
-    rate_signal: azure_cognitive_services_cognitive_services_speech_voice_training_training
+    signal: cognitive_services_speech_voice_training_training
 - id: azure_monitor.cognitive_services.translator_text
   title: Azure Cognitive Services Translator Text Characters
   units: characters/s
-  family: cognitive
+  family: Translator
   chart_type: line
-  priority: 60056
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90560
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_translator_text
+    family: Translator
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: standard
-    rate_signal: azure_cognitive_services_cognitive_services_translator_text_standard
+    signal: cognitive_services_translator_text_standard
   - id: custom
-    rate_signal: azure_cognitive_services_cognitive_services_translator_text_custom
+    signal: cognitive_services_translator_text_custom
   - id: trained
-    rate_signal: azure_cognitive_services_cognitive_services_translator_text_trained
+    signal: cognitive_services_translator_text_trained
 - id: azure_monitor.cognitive_services.translator_document
   title: Azure Cognitive Services Translator Document Characters
   units: characters/s
-  family: cognitive
+  family: Translator
   chart_type: line
-  priority: 60057
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90570
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_translator_document
+    family: Translator
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: standard
-    rate_signal: azure_cognitive_services_cognitive_services_translator_document_standard
+    signal: cognitive_services_translator_document_standard
   - id: custom
-    rate_signal: azure_cognitive_services_cognitive_services_translator_document_custom
+    signal: cognitive_services_translator_document_custom
 - id: azure_monitor.cognitive_services.translator_document_sync
   title: Azure Cognitive Services Translator Document Sync Characters
   units: characters/s
-  family: cognitive
+  family: Translator
   chart_type: line
-  priority: 60058
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90580
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_translator_document_sync
+    family: Translator
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: standard
-    rate_signal: azure_cognitive_services_cognitive_services_translator_document_sync_standard
+    signal: cognitive_services_translator_document_sync_standard
   - id: custom
-    rate_signal: azure_cognitive_services_cognitive_services_translator_document_sync_custom
+    signal: cognitive_services_translator_document_sync_custom
 - id: azure_monitor.cognitive_services.translator_pro_app
   title: Azure Cognitive Services Translator Pro App Usage
   units: seconds/s
-  family: cognitive
+  family: Translator
   chart_type: line
-  priority: 60059
+  priority: 90590
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_translator_pro_app
+    family: Translator
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: seconds
-    signal: azure_cognitive_services_cognitive_services_translator_pro_app_seconds
+    signal: cognitive_services_translator_pro_app_seconds
 - id: azure_monitor.cognitive_services.vision_transactions
   title: Azure Cognitive Services Vision Transactions
   units: transactions/s
-  family: cognitive
+  family: Vision
   chart_type: line
-  priority: 60060
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90600
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_vision_transactions
+    family: Vision
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: computer_vision
-    rate_signal: azure_cognitive_services_cognitive_services_vision_transactions_computer_vision
+    signal: cognitive_services_vision_transactions_computer_vision
   - id: custom_vision
-    rate_signal: azure_cognitive_services_cognitive_services_vision_transactions_custom_vision
+    signal: cognitive_services_vision_transactions_custom_vision
 - id: azure_monitor.cognitive_services.vision_training
   title: Azure Cognitive Services Custom Vision Training
   units: seconds/s
-  family: cognitive
+  family: Vision
   chart_type: line
-  priority: 60061
+  priority: 90610
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_vision_training
+    family: Vision
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: training_time
-    signal: azure_cognitive_services_cognitive_services_vision_training_training_time
+    signal: cognitive_services_vision_training_training_time
 - id: azure_monitor.cognitive_services.vision_images_stored
   title: Azure Cognitive Services Images Stored
   units: images/s
-  family: cognitive
+  family: Vision
   chart_type: line
-  priority: 60062
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90620
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_vision_images_stored
+    family: Vision
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: stored
-    rate_signal: azure_cognitive_services_cognitive_services_vision_images_stored_stored
+    signal: cognitive_services_vision_images_stored_stored
 - id: azure_monitor.cognitive_services.face_transactions
   title: Azure Cognitive Services Face Transactions
   units: transactions/s
-  family: cognitive
+  family: Face
   chart_type: line
-  priority: 60063
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90630
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_face_transactions
+    family: Face
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: transactions
-    rate_signal: azure_cognitive_services_cognitive_services_face_transactions_transactions
+    signal: cognitive_services_face_transactions_transactions
 - id: azure_monitor.cognitive_services.face_images_trained
   title: Azure Cognitive Services Face Images Trained
   units: images/s
-  family: cognitive
+  family: Face
   chart_type: line
-  priority: 60064
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90640
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_face_images_trained
+    family: Face
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: trained
-    rate_signal: azure_cognitive_services_cognitive_services_face_images_trained_trained
+    signal: cognitive_services_face_images_trained_trained
 - id: azure_monitor.cognitive_services.faces_stored
   title: Azure Cognitive Services Faces Stored
   units: faces/s
-  family: cognitive
+  family: Face
   chart_type: line
-  priority: 60065
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90650
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_faces_stored
+    family: Face
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: stored
-    rate_signal: azure_cognitive_services_cognitive_services_faces_stored_stored
+    signal: cognitive_services_faces_stored_stored
 - id: azure_monitor.cognitive_services.luis_requests
   title: Azure Cognitive Services LUIS Requests
   units: requests/s
-  family: cognitive
+  family: LUIS
   chart_type: line
-  priority: 60066
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90660
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_luis_requests
+    family: LUIS
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: speech
-    rate_signal: azure_cognitive_services_cognitive_services_luis_requests_speech
+    signal: cognitive_services_luis_requests_speech
   - id: text
-    rate_signal: azure_cognitive_services_cognitive_services_luis_requests_text
+    signal: cognitive_services_luis_requests_text
 - id: azure_monitor.cognitive_services.text_processing
   title: Azure Cognitive Services Text Processing
   units: records/s
-  family: cognitive
+  family: Text Processing
   chart_type: line
-  priority: 60067
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90670
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_text_processing
+    family: Text Processing
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: text
-    rate_signal: azure_cognitive_services_cognitive_services_text_processing_text
+    signal: cognitive_services_text_processing_text
   - id: health_text
-    rate_signal: azure_cognitive_services_cognitive_services_text_processing_health_text
+    signal: cognitive_services_text_processing_health_text
   - id: question_answering
-    rate_signal: azure_cognitive_services_cognitive_services_text_processing_question_answering
+    signal: cognitive_services_text_processing_question_answering
 - id: azure_monitor.cognitive_services.processed_characters
   title: Azure Cognitive Services Processed Characters
   units: characters/s
-  family: cognitive
+  family: Text Processing
   chart_type: line
-  priority: 60068
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90680
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_processed_characters
+    family: Text Processing
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: characters
-    rate_signal: azure_cognitive_services_cognitive_services_processed_characters_characters
+    signal: cognitive_services_processed_characters_characters
 - id: azure_monitor.cognitive_services.processed_images
   title: Azure Cognitive Services Processed Images
   units: images/s
-  family: cognitive
+  family: Text Processing
   chart_type: line
-  priority: 60069
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90690
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_processed_images
+    family: Text Processing
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: images
-    rate_signal: azure_cognitive_services_cognitive_services_processed_images_images
+    signal: cognitive_services_processed_images_images
 - id: azure_monitor.cognitive_services.processed_pages
   title: Azure Cognitive Services Processed Pages
   units: pages/s
-  family: cognitive
+  family: Text Processing
   chart_type: line
-  priority: 60070
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90700
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_processed_pages
+    family: Text Processing
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: pages
-    rate_signal: azure_cognitive_services_cognitive_services_processed_pages_pages
+    signal: cognitive_services_processed_pages_pages
 - id: azure_monitor.cognitive_services.carnegie_inference
   title: Azure Cognitive Services Carnegie Inference
   units: inferences/s
-  family: cognitive
+  family: Content Safety
   chart_type: line
-  priority: 60071
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90710
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_carnegie_inference
+    family: Content Safety
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: inferences
-    rate_signal: azure_cognitive_services_cognitive_services_carnegie_inference_inferences
+    signal: cognitive_services_carnegie_inference_inferences
 - id: azure_monitor.cognitive_services.personalizer_events
   title: Azure Cognitive Services Personalizer Events
   units: events/s
-  family: cognitive
+  family: Personalizer
   chart_type: line
-  priority: 60072
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90720
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_personalizer_events
+    family: Personalizer
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: total
-    rate_signal: azure_cognitive_services_cognitive_services_personalizer_events_total
+    signal: cognitive_services_personalizer_events_total
   - id: learned
-    rate_signal: azure_cognitive_services_cognitive_services_personalizer_events_learned
+    signal: cognitive_services_personalizer_events_learned
   - id: non_activated
-    rate_signal: azure_cognitive_services_cognitive_services_personalizer_events_non_activated
+    signal: cognitive_services_personalizer_events_non_activated
 - id: azure_monitor.cognitive_services.personalizer_reward_tracking
   title: Azure Cognitive Services Personalizer Reward Tracking
   units: rewards/s
-  family: cognitive
+  family: Personalizer
   chart_type: line
-  priority: 60073
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90730
+  instances:
+    group: azure_cognitive_services
+    chart_prefix: cognitive_services_personalizer_reward_tracking
+    family: Personalizer
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: matched
-    rate_signal: azure_cognitive_services_cognitive_services_personalizer_reward_tracking_matched
+    signal: cognitive_services_personalizer_reward_tracking_matched
   - id: observed
-    rate_signal: azure_cognitive_services_cognitive_services_personalizer_reward_tracking_observed
+    signal: cognitive_services_personalizer_reward_tracking_observed

@@ -1,1915 +1,1536 @@
 version: 1
 name: azure-data-factory
-description: Azure Data Factory metrics, generated from Netdata's own collector metadata so the contexts,
-  units and dimension names match what a real Azure Data Factory node reports. Signals are independent
-  and plausible rather than causally coupled - see scripts/sync-integrations.py.
+description: 'Azure Data Factory as reported through Netdata''s azure_monitor collector, generated from
+  its service profile (Microsoft.DataFactory/factories) so the contexts, units, families and dimension
+  names match a real deployment. Charts are per-resource instances, as the collector emits them: resources
+  are labels on one node, never separate nodes. Signals move independently rather than being causally
+  coupled - see scripts/sync-profile-collectors.py.'
 signals:
-  azure_data_factory_data_factory_pipeline_runs_succeeded:
+  data_factory_pipeline_runs_succeeded:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_pipeline_runs_failed:
+      sigma: 0.18
+  data_factory_pipeline_runs_failed:
     base: 0.0
     min: 0.0
     max: 1000000.0
-  azure_data_factory_data_factory_pipeline_runs_cancelled:
+    noise:
+      kind: gauss
+      sigma: 0.18
+  data_factory_pipeline_runs_cancelled:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_pipeline_elapsed_time_elapsed_time:
+      sigma: 0.18
+  data_factory_pipeline_elapsed_time_elapsed_time:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_activity_runs_succeeded:
+      sigma: 0.18
+  data_factory_activity_runs_succeeded:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_activity_runs_failed:
+      sigma: 0.18
+  data_factory_activity_runs_failed:
     base: 0.0
     min: 0.0
     max: 1000000.0
-  azure_data_factory_data_factory_activity_runs_cancelled:
+    noise:
+      kind: gauss
+      sigma: 0.18
+  data_factory_activity_runs_cancelled:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_trigger_runs_succeeded:
+      sigma: 0.18
+  data_factory_trigger_runs_succeeded:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_trigger_runs_failed:
+      sigma: 0.18
+  data_factory_trigger_runs_failed:
     base: 0.0
     min: 0.0
     max: 1000000.0
-  azure_data_factory_data_factory_trigger_runs_cancelled:
+    noise:
+      kind: gauss
+      sigma: 0.18
+  data_factory_trigger_runs_cancelled:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_ssis_ir_starts_succeeded:
+      sigma: 0.18
+  data_factory_ssis_ir_starts_succeeded:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_ssis_ir_starts_failed:
+      sigma: 0.18
+  data_factory_ssis_ir_starts_failed:
     base: 0.0
     min: 0.0
     max: 1000000.0
-  azure_data_factory_data_factory_ssis_ir_starts_cancelled:
+    noise:
+      kind: gauss
+      sigma: 0.18
+  data_factory_ssis_ir_starts_cancelled:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_ssis_ir_stops_succeeded:
+      sigma: 0.18
+  data_factory_ssis_ir_stops_succeeded:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_ssis_ir_stops_stuck:
+      sigma: 0.18
+  data_factory_ssis_ir_stops_stuck:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_ssis_package_executions_succeeded:
+      sigma: 0.18
+  data_factory_ssis_package_executions_succeeded:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_ssis_package_executions_failed:
+      sigma: 0.18
+  data_factory_ssis_package_executions_failed:
     base: 0.0
     min: 0.0
     max: 1000000.0
-  azure_data_factory_data_factory_ssis_package_executions_cancelled:
+    noise:
+      kind: gauss
+      sigma: 0.18
+  data_factory_ssis_package_executions_cancelled:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_ir_cpu_average:
+      sigma: 0.18
+  data_factory_ir_cpu_average:
     base: 34.0
     min: 0.0
     max: 100.0
     max_is_ceiling: true
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_ir_memory_available:
+      sigma: 0.18
+  data_factory_ir_memory_available:
     base: 620000000.0
     min: 0.0
     max: 900000000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_ir_nodes_available:
+      sigma: 0.18
+  data_factory_ir_nodes_available:
     base: 120.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_ir_queue_queue_length:
+      sigma: 0.18
+  data_factory_ir_queue_queue_length:
     base: 120.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_ir_task_pickup_delay_average:
+      sigma: 0.18
+  data_factory_ir_task_pickup_delay_average:
     base: 0.9
     min: 0.0
     max: 86400.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_factory_size_current:
+      sigma: 0.18
+  data_factory_factory_size_current:
     base: 12.0
     min: 0.0
     max: 4096.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_factory_size_max_allowed:
+      sigma: 0.18
+  data_factory_factory_size_max_allowed:
     base: 12.0
     min: 0.0
     max: 4096.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_entity_count_current:
+      sigma: 0.18
+  data_factory_entity_count_current:
     base: 120.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_entity_count_max_allowed:
+      sigma: 0.18
+  data_factory_entity_count_max_allowed:
     base: 120.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_mvnet_ir_copy_capacity_utilization:
+      sigma: 0.18
+  data_factory_mvnet_ir_copy_capacity_utilization:
     base: 34.0
     min: 0.0
     max: 100.0
     max_is_ceiling: true
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_mvnet_ir_copy_capacity_available:
+      sigma: 0.18
+  data_factory_mvnet_ir_copy_capacity_available:
     base: 34.0
     min: 0.0
     max: 100.0
     max_is_ceiling: true
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_mvnet_ir_copy_queue_waiting:
+      sigma: 0.18
+  data_factory_mvnet_ir_copy_queue_waiting:
     base: 120.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_mvnet_ir_external_capacity_utilization:
+      sigma: 0.18
+  data_factory_mvnet_ir_external_capacity_utilization:
     base: 34.0
     min: 0.0
     max: 100.0
     max_is_ceiling: true
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_mvnet_ir_external_capacity_available:
+      sigma: 0.18
+  data_factory_mvnet_ir_external_capacity_available:
     base: 34.0
     min: 0.0
     max: 100.0
     max_is_ceiling: true
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_mvnet_ir_external_queue_waiting:
+      sigma: 0.18
+  data_factory_mvnet_ir_external_queue_waiting:
     base: 120.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_mvnet_ir_pipeline_capacity_utilization:
+      sigma: 0.18
+  data_factory_mvnet_ir_pipeline_capacity_utilization:
     base: 34.0
     min: 0.0
     max: 100.0
     max_is_ceiling: true
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_mvnet_ir_pipeline_capacity_available:
+      sigma: 0.18
+  data_factory_mvnet_ir_pipeline_capacity_available:
     base: 34.0
     min: 0.0
     max: 100.0
     max_is_ceiling: true
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_mvnet_ir_pipeline_queue_waiting:
+      sigma: 0.18
+  data_factory_mvnet_ir_pipeline_queue_waiting:
     base: 120.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_airflow_ir_cpu_percentage:
+      sigma: 0.18
+  data_factory_airflow_ir_cpu_percentage:
     base: 34.0
     min: 0.0
     max: 100.0
     max_is_ceiling: true
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_airflow_ir_cpu_usage_average:
+      sigma: 0.18
+  data_factory_airflow_ir_cpu_usage_average:
     base: 120.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_airflow_ir_memory_percentage:
+      sigma: 0.18
+  data_factory_airflow_ir_memory_percentage:
     base: 34.0
     min: 0.0
     max: 100.0
     max_is_ceiling: true
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_airflow_ir_memory_usage_average:
+      sigma: 0.18
+  data_factory_airflow_ir_memory_usage_average:
     base: 620000000.0
     min: 0.0
     max: 900000000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_airflow_ir_nodes_average:
+      sigma: 0.18
+  data_factory_airflow_ir_nodes_average:
     base: 120.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_airflow_ir_dag_collection_average:
+      sigma: 0.18
+  data_factory_airflow_ir_dag_collection_average:
     base: 24.0
     min: 0.0
     max: 600000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_airflow_ir_dag_bag_total:
+      sigma: 0.18
+  data_factory_airflow_ir_dag_bag_total:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_airflow_ir_dag_errors_callback_exceptions:
-    base: 0.4
+      sigma: 0.18
+  data_factory_airflow_ir_dag_errors_callback_exceptions:
+    base: 0.0
     min: 0.0
     max: 100000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_airflow_ir_dag_errors_file_refresh:
-    base: 0.4
+      sigma: 0.18
+  data_factory_airflow_ir_dag_errors_file_refresh:
+    base: 0.0
     min: 0.0
     max: 100000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_airflow_ir_dag_errors_import:
-    base: 0.4
+      sigma: 0.18
+  data_factory_airflow_ir_dag_errors_import:
+    base: 0.0
     min: 0.0
     max: 100000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_airflow_ir_dag_processing_duration_last_duration:
+      sigma: 0.18
+  data_factory_airflow_ir_dag_processing_duration_last_duration:
     base: 24.0
     min: 0.0
     max: 600000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_airflow_ir_dag_processing_lag_last_run_seconds_ago:
+      sigma: 0.18
+  data_factory_airflow_ir_dag_processing_lag_last_run_seconds_ago:
     base: 0.9
     min: 0.0
     max: 86400.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_airflow_ir_dag_processing_lag_processor_timeouts:
+      sigma: 0.18
+  data_factory_airflow_ir_dag_processing_lag_processor_timeouts:
     base: 0.0
     min: 0.0
     max: 86400.0
-  azure_data_factory_data_factory_airflow_ir_dag_processing_lag_total_parse_time:
+    noise:
+      kind: gauss
+      sigma: 0.18
+  data_factory_airflow_ir_dag_processing_lag_total_parse_time:
     base: 0.9
     min: 0.0
     max: 86400.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_airflow_ir_dag_processing_activity_manager_stalls:
+      sigma: 0.18
+  data_factory_airflow_ir_dag_processing_activity_manager_stalls:
     base: 260.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_airflow_ir_dag_processing_activity_processes:
+      sigma: 0.18
+  data_factory_airflow_ir_dag_processing_activity_processes:
     base: 260.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_airflow_ir_dag_run_duration_success:
+      sigma: 0.18
+  data_factory_airflow_ir_dag_run_duration_success:
     base: 24.0
     min: 0.0
     max: 600000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_airflow_ir_dag_run_duration_failed:
+      sigma: 0.18
+  data_factory_airflow_ir_dag_run_duration_failed:
     base: 0.0
     min: 0.0
     max: 600000.0
-  azure_data_factory_data_factory_airflow_ir_dag_run_scheduling_dependency_check:
+    noise:
+      kind: gauss
+      sigma: 0.18
+  data_factory_airflow_ir_dag_run_scheduling_dependency_check:
     base: 24.0
     min: 0.0
     max: 600000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_airflow_ir_dag_run_scheduling_first_task_delay:
+      sigma: 0.18
+  data_factory_airflow_ir_dag_run_scheduling_first_task_delay:
     base: 24.0
     min: 0.0
     max: 600000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_airflow_ir_dag_run_scheduling_schedule_delay:
+      sigma: 0.18
+  data_factory_airflow_ir_dag_run_scheduling_schedule_delay:
     base: 24.0
     min: 0.0
     max: 600000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_airflow_ir_executor_open_slots:
+      sigma: 0.18
+  data_factory_airflow_ir_executor_open_slots:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_airflow_ir_executor_queued_tasks:
+      sigma: 0.18
+  data_factory_airflow_ir_executor_queued_tasks:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_airflow_ir_executor_running_tasks:
+      sigma: 0.18
+  data_factory_airflow_ir_executor_running_tasks:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_airflow_ir_jobs_started:
+      sigma: 0.18
+  data_factory_airflow_ir_jobs_started:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_airflow_ir_jobs_ended:
+      sigma: 0.18
+  data_factory_airflow_ir_jobs_ended:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_airflow_ir_jobs_heartbeat_failures:
+      sigma: 0.18
+  data_factory_airflow_ir_jobs_heartbeat_failures:
     base: 0.0
     min: 0.0
     max: 1000000.0
-  azure_data_factory_data_factory_airflow_ir_operators_successes:
+    noise:
+      kind: gauss
+      sigma: 0.18
+  data_factory_airflow_ir_operators_successes:
     base: 1450.0
     min: 0.0
     max: 5000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_airflow_ir_operators_failures:
+      sigma: 0.18
+  data_factory_airflow_ir_operators_failures:
     base: 0.0
     min: 0.0
     max: 5000000.0
-  azure_data_factory_data_factory_airflow_ir_pool_slots_open:
+    noise:
+      kind: gauss
+      sigma: 0.18
+  data_factory_airflow_ir_pool_slots_open:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_airflow_ir_pool_slots_queued:
+      sigma: 0.18
+  data_factory_airflow_ir_pool_slots_queued:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_airflow_ir_pool_slots_running:
+      sigma: 0.18
+  data_factory_airflow_ir_pool_slots_running:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_airflow_ir_pool_starving_starving:
+      sigma: 0.18
+  data_factory_airflow_ir_pool_starving_starving:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_airflow_ir_scheduler_critical_section_duration:
+      sigma: 0.18
+  data_factory_airflow_ir_scheduler_critical_section_duration:
     base: 24.0
     min: 0.0
     max: 600000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_airflow_ir_scheduler_activity_critical_section_busy:
+      sigma: 0.18
+  data_factory_airflow_ir_scheduler_activity_critical_section_busy:
     base: 260.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_airflow_ir_scheduler_activity_heartbeats:
+      sigma: 0.18
+  data_factory_airflow_ir_scheduler_activity_heartbeats:
     base: 260.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_airflow_ir_scheduler_activity_failed_sla_emails:
+      sigma: 0.18
+  data_factory_airflow_ir_scheduler_activity_failed_sla_emails:
     base: 0.0
     min: 0.0
     max: 1000000.0
-  azure_data_factory_data_factory_airflow_ir_scheduler_orphaned_tasks_adopted:
+    noise:
+      kind: gauss
+      sigma: 0.18
+  data_factory_airflow_ir_scheduler_orphaned_tasks_adopted:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_airflow_ir_scheduler_orphaned_tasks_cleared:
+      sigma: 0.18
+  data_factory_airflow_ir_scheduler_orphaned_tasks_cleared:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_airflow_ir_scheduler_tasks_executable:
+      sigma: 0.18
+  data_factory_airflow_ir_scheduler_tasks_executable:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_airflow_ir_scheduler_tasks_running:
+      sigma: 0.18
+  data_factory_airflow_ir_scheduler_tasks_running:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_airflow_ir_scheduler_tasks_starving:
+      sigma: 0.18
+  data_factory_airflow_ir_scheduler_tasks_starving:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_airflow_ir_scheduler_tasks_killed_externally:
+      sigma: 0.18
+  data_factory_airflow_ir_scheduler_tasks_killed_externally:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_airflow_ir_task_instances_started:
+      sigma: 0.18
+  data_factory_airflow_ir_task_instances_started:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_airflow_ir_task_instances_succeeded:
+      sigma: 0.18
+  data_factory_airflow_ir_task_instances_succeeded:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_airflow_ir_task_instances_failed:
+      sigma: 0.18
+  data_factory_airflow_ir_task_instances_failed:
     base: 0.0
     min: 0.0
     max: 1000000.0
-  azure_data_factory_data_factory_airflow_ir_task_instances_finished:
+    noise:
+      kind: gauss
+      sigma: 0.18
+  data_factory_airflow_ir_task_instances_finished:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_airflow_ir_task_instances_previously_succeeded:
+      sigma: 0.18
+  data_factory_airflow_ir_task_instances_previously_succeeded:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_airflow_ir_task_instances_created_via_operator:
+      sigma: 0.18
+  data_factory_airflow_ir_task_instances_created_via_operator:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_airflow_ir_task_instance_duration_average:
+      sigma: 0.18
+  data_factory_airflow_ir_task_instance_duration_average:
     base: 24.0
     min: 0.0
     max: 600000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_airflow_ir_task_dag_changes_removed:
+      sigma: 0.18
+  data_factory_airflow_ir_task_dag_changes_removed:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_airflow_ir_task_dag_changes_restored:
+      sigma: 0.18
+  data_factory_airflow_ir_task_dag_changes_restored:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_airflow_ir_triggers_succeeded:
+      sigma: 0.18
+  data_factory_airflow_ir_triggers_succeeded:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_airflow_ir_triggers_failed:
+      sigma: 0.18
+  data_factory_airflow_ir_triggers_failed:
     base: 0.0
     min: 0.0
     max: 1000000.0
-  azure_data_factory_data_factory_airflow_ir_triggers_running:
+    noise:
+      kind: gauss
+      sigma: 0.18
+  data_factory_airflow_ir_triggers_running:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_airflow_ir_trigger_issues_blocked_main_thread:
+      sigma: 0.18
+  data_factory_airflow_ir_trigger_issues_blocked_main_thread:
     base: 260.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
-  azure_data_factory_data_factory_airflow_ir_trigger_issues_celery_timeout_errors:
+      sigma: 0.18
+  data_factory_airflow_ir_trigger_issues_celery_timeout_errors:
     base: 0.0
     min: 0.0
     max: 1000000.0
-  azure_data_factory_data_factory_airflow_ir_zombies_killed:
+    noise:
+      kind: gauss
+      sigma: 0.18
+  data_factory_airflow_ir_zombies_killed:
     base: 130.0
     min: 0.0
     max: 1000000.0
-    seasonality:
-      daily_amplitude: 0.45
-      peak_hour: 14.0
-      weekend_factor: 0.55
     noise:
       kind: gauss
-      sigma: 0.16
+      sigma: 0.18
 contexts:
 - id: azure_monitor.data_factory.pipeline_runs
   title: Azure Data Factory Pipeline Runs
   units: runs/s
-  family: data
+  family: Pipelines
   chart_type: line
-  priority: 60001
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90010
+  instances:
+    group: azure_data_factory
+    chart_prefix: data_factory_pipeline_runs
+    family: Pipelines
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: succeeded
-    rate_signal: azure_data_factory_data_factory_pipeline_runs_succeeded
+    signal: data_factory_pipeline_runs_succeeded
   - id: failed
-    rate_signal: azure_data_factory_data_factory_pipeline_runs_failed
+    signal: data_factory_pipeline_runs_failed
   - id: cancelled
-    rate_signal: azure_data_factory_data_factory_pipeline_runs_cancelled
+    signal: data_factory_pipeline_runs_cancelled
 - id: azure_monitor.data_factory.pipeline_elapsed_time
   title: Azure Data Factory Pipeline Elapsed Time Runs
   units: runs/s
-  family: data
+  family: Pipelines
   chart_type: line
-  priority: 60002
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90020
+  instances:
+    group: azure_data_factory
+    chart_prefix: data_factory_pipeline_elapsed_time
+    family: Pipelines
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: elapsed_time
-    rate_signal: azure_data_factory_data_factory_pipeline_elapsed_time_elapsed_time
+    signal: data_factory_pipeline_elapsed_time_elapsed_time
 - id: azure_monitor.data_factory.activity_runs
   title: Azure Data Factory Activity Runs
   units: runs/s
-  family: data
+  family: Activities
   chart_type: line
-  priority: 60003
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90030
+  instances:
+    group: azure_data_factory
+    chart_prefix: data_factory_activity_runs
+    family: Activities
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: succeeded
-    rate_signal: azure_data_factory_data_factory_activity_runs_succeeded
+    signal: data_factory_activity_runs_succeeded
   - id: failed
-    rate_signal: azure_data_factory_data_factory_activity_runs_failed
+    signal: data_factory_activity_runs_failed
   - id: cancelled
-    rate_signal: azure_data_factory_data_factory_activity_runs_cancelled
+    signal: data_factory_activity_runs_cancelled
 - id: azure_monitor.data_factory.trigger_runs
   title: Azure Data Factory Trigger Runs
   units: runs/s
-  family: data
+  family: Triggers
   chart_type: line
-  priority: 60004
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90040
+  instances:
+    group: azure_data_factory
+    chart_prefix: data_factory_trigger_runs
+    family: Triggers
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: succeeded
-    rate_signal: azure_data_factory_data_factory_trigger_runs_succeeded
+    signal: data_factory_trigger_runs_succeeded
   - id: failed
-    rate_signal: azure_data_factory_data_factory_trigger_runs_failed
+    signal: data_factory_trigger_runs_failed
   - id: cancelled
-    rate_signal: azure_data_factory_data_factory_trigger_runs_cancelled
+    signal: data_factory_trigger_runs_cancelled
 - id: azure_monitor.data_factory.ssis_ir_starts
   title: Azure Data Factory SSIS IR Start Operations
   units: runs/s
-  family: data
+  family: SSIS
   chart_type: line
-  priority: 60005
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90050
+  instances:
+    group: azure_data_factory
+    chart_prefix: data_factory_ssis_ir_starts
+    family: SSIS
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: succeeded
-    rate_signal: azure_data_factory_data_factory_ssis_ir_starts_succeeded
+    signal: data_factory_ssis_ir_starts_succeeded
   - id: failed
-    rate_signal: azure_data_factory_data_factory_ssis_ir_starts_failed
+    signal: data_factory_ssis_ir_starts_failed
   - id: cancelled
-    rate_signal: azure_data_factory_data_factory_ssis_ir_starts_cancelled
+    signal: data_factory_ssis_ir_starts_cancelled
 - id: azure_monitor.data_factory.ssis_ir_stops
   title: Azure Data Factory SSIS IR Stop Operations
   units: runs/s
-  family: data
+  family: SSIS
   chart_type: line
-  priority: 60006
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90060
+  instances:
+    group: azure_data_factory
+    chart_prefix: data_factory_ssis_ir_stops
+    family: SSIS
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: succeeded
-    rate_signal: azure_data_factory_data_factory_ssis_ir_stops_succeeded
+    signal: data_factory_ssis_ir_stops_succeeded
   - id: stuck
-    rate_signal: azure_data_factory_data_factory_ssis_ir_stops_stuck
+    signal: data_factory_ssis_ir_stops_stuck
 - id: azure_monitor.data_factory.ssis_package_executions
   title: Azure Data Factory SSIS Package Executions
   units: executions/s
-  family: data
+  family: SSIS
   chart_type: line
-  priority: 60007
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90070
+  instances:
+    group: azure_data_factory
+    chart_prefix: data_factory_ssis_package_executions
+    family: SSIS
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: succeeded
-    rate_signal: azure_data_factory_data_factory_ssis_package_executions_succeeded
+    signal: data_factory_ssis_package_executions_succeeded
   - id: failed
-    rate_signal: azure_data_factory_data_factory_ssis_package_executions_failed
+    signal: data_factory_ssis_package_executions_failed
   - id: cancelled
-    rate_signal: azure_data_factory_data_factory_ssis_package_executions_cancelled
+    signal: data_factory_ssis_package_executions_cancelled
 - id: azure_monitor.data_factory.ir_cpu
   title: Azure Data Factory Integration Runtime CPU
   units: percentage
-  family: data
+  family: Integration Runtime
   chart_type: line
-  priority: 60008
+  priority: 90080
+  instances:
+    group: azure_data_factory
+    chart_prefix: data_factory_ir_cpu
+    family: Integration Runtime
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: average
-    signal: azure_data_factory_data_factory_ir_cpu_average
+    signal: data_factory_ir_cpu_average
 - id: azure_monitor.data_factory.ir_memory
   title: Azure Data Factory Integration Runtime Available Memory
   units: bytes
-  family: data
+  family: Integration Runtime
   chart_type: line
-  priority: 60009
+  priority: 90090
+  instances:
+    group: azure_data_factory
+    chart_prefix: data_factory_ir_memory
+    family: Integration Runtime
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: available
-    signal: azure_data_factory_data_factory_ir_memory_available
+    signal: data_factory_ir_memory_available
 - id: azure_monitor.data_factory.ir_nodes
   title: Azure Data Factory Integration Runtime Available Nodes
   units: nodes
-  family: data
+  family: Integration Runtime
   chart_type: line
-  priority: 60010
+  priority: 90100
+  instances:
+    group: azure_data_factory
+    chart_prefix: data_factory_ir_nodes
+    family: Integration Runtime
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: available
-    signal: azure_data_factory_data_factory_ir_nodes_available
+    signal: data_factory_ir_nodes_available
 - id: azure_monitor.data_factory.ir_queue
   title: Azure Data Factory Integration Runtime Queue
   units: tasks
-  family: data
+  family: Integration Runtime
   chart_type: line
-  priority: 60011
+  priority: 90110
+  instances:
+    group: azure_data_factory
+    chart_prefix: data_factory_ir_queue
+    family: Integration Runtime
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: queue_length
-    signal: azure_data_factory_data_factory_ir_queue_queue_length
+    signal: data_factory_ir_queue_queue_length
 - id: azure_monitor.data_factory.ir_task_pickup_delay
   title: Azure Data Factory Integration Runtime Task Pickup Delay
   units: seconds
-  family: data
+  family: Integration Runtime
   chart_type: line
-  priority: 60012
+  priority: 90120
+  instances:
+    group: azure_data_factory
+    chart_prefix: data_factory_ir_task_pickup_delay
+    family: Integration Runtime
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: average
-    signal: azure_data_factory_data_factory_ir_task_pickup_delay_average
+    signal: data_factory_ir_task_pickup_delay_average
 - id: azure_monitor.data_factory.factory_size
   title: Azure Data Factory Factory Size
   units: GiB
-  family: data
+  family: Capacity
   chart_type: line
-  priority: 60013
+  priority: 90130
+  instances:
+    group: azure_data_factory
+    chart_prefix: data_factory_factory_size
+    family: Capacity
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: current
-    signal: azure_data_factory_data_factory_factory_size_current
+    signal: data_factory_factory_size_current
   - id: max_allowed
-    signal: azure_data_factory_data_factory_factory_size_max_allowed
+    signal: data_factory_factory_size_max_allowed
 - id: azure_monitor.data_factory.entity_count
   title: Azure Data Factory Entity Count
   units: entities
-  family: data
+  family: Capacity
   chart_type: line
-  priority: 60014
+  priority: 90140
+  instances:
+    group: azure_data_factory
+    chart_prefix: data_factory_entity_count
+    family: Capacity
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: current
-    signal: azure_data_factory_data_factory_entity_count_current
+    signal: data_factory_entity_count_current
   - id: max_allowed
-    signal: azure_data_factory_data_factory_entity_count_max_allowed
+    signal: data_factory_entity_count_max_allowed
 - id: azure_monitor.data_factory.mvnet_ir_copy_capacity
   title: Azure Data Factory MVNet IR Copy Capacity
   units: percentage
-  family: data
+  family: MVNet IR
   chart_type: line
-  priority: 60015
+  priority: 90150
+  instances:
+    group: azure_data_factory
+    chart_prefix: data_factory_mvnet_ir_copy_capacity
+    family: MVNet IR
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: utilization
-    signal: azure_data_factory_data_factory_mvnet_ir_copy_capacity_utilization
+    signal: data_factory_mvnet_ir_copy_capacity_utilization
   - id: available
-    signal: azure_data_factory_data_factory_mvnet_ir_copy_capacity_available
+    signal: data_factory_mvnet_ir_copy_capacity_available
 - id: azure_monitor.data_factory.mvnet_ir_copy_queue
   title: Azure Data Factory MVNet IR Copy Queue
   units: tasks
-  family: data
+  family: MVNet IR
   chart_type: line
-  priority: 60016
+  priority: 90160
+  instances:
+    group: azure_data_factory
+    chart_prefix: data_factory_mvnet_ir_copy_queue
+    family: MVNet IR
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: waiting
-    signal: azure_data_factory_data_factory_mvnet_ir_copy_queue_waiting
+    signal: data_factory_mvnet_ir_copy_queue_waiting
 - id: azure_monitor.data_factory.mvnet_ir_external_capacity
   title: Azure Data Factory MVNet IR External Capacity
   units: percentage
-  family: data
+  family: MVNet IR
   chart_type: line
-  priority: 60017
+  priority: 90170
+  instances:
+    group: azure_data_factory
+    chart_prefix: data_factory_mvnet_ir_external_capacity
+    family: MVNet IR
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: utilization
-    signal: azure_data_factory_data_factory_mvnet_ir_external_capacity_utilization
+    signal: data_factory_mvnet_ir_external_capacity_utilization
   - id: available
-    signal: azure_data_factory_data_factory_mvnet_ir_external_capacity_available
+    signal: data_factory_mvnet_ir_external_capacity_available
 - id: azure_monitor.data_factory.mvnet_ir_external_queue
   title: Azure Data Factory MVNet IR External Queue
   units: tasks
-  family: data
+  family: MVNet IR
   chart_type: line
-  priority: 60018
+  priority: 90180
+  instances:
+    group: azure_data_factory
+    chart_prefix: data_factory_mvnet_ir_external_queue
+    family: MVNet IR
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: waiting
-    signal: azure_data_factory_data_factory_mvnet_ir_external_queue_waiting
+    signal: data_factory_mvnet_ir_external_queue_waiting
 - id: azure_monitor.data_factory.mvnet_ir_pipeline_capacity
   title: Azure Data Factory MVNet IR Pipeline Capacity
   units: percentage
-  family: data
+  family: MVNet IR
   chart_type: line
-  priority: 60019
+  priority: 90190
+  instances:
+    group: azure_data_factory
+    chart_prefix: data_factory_mvnet_ir_pipeline_capacity
+    family: MVNet IR
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: utilization
-    signal: azure_data_factory_data_factory_mvnet_ir_pipeline_capacity_utilization
+    signal: data_factory_mvnet_ir_pipeline_capacity_utilization
   - id: available
-    signal: azure_data_factory_data_factory_mvnet_ir_pipeline_capacity_available
+    signal: data_factory_mvnet_ir_pipeline_capacity_available
 - id: azure_monitor.data_factory.mvnet_ir_pipeline_queue
   title: Azure Data Factory MVNet IR Pipeline Queue
   units: tasks
-  family: data
+  family: MVNet IR
   chart_type: line
-  priority: 60020
+  priority: 90200
+  instances:
+    group: azure_data_factory
+    chart_prefix: data_factory_mvnet_ir_pipeline_queue
+    family: MVNet IR
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: waiting
-    signal: azure_data_factory_data_factory_mvnet_ir_pipeline_queue_waiting
+    signal: data_factory_mvnet_ir_pipeline_queue_waiting
 - id: azure_monitor.data_factory.airflow_ir_cpu
   title: Azure Data Factory Airflow IR CPU
   units: percentage
-  family: data
+  family: Airflow IR
   chart_type: line
-  priority: 60021
+  priority: 90210
+  instances:
+    group: azure_data_factory
+    chart_prefix: data_factory_airflow_ir_cpu
+    family: Airflow IR
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: percentage
-    signal: azure_data_factory_data_factory_airflow_ir_cpu_percentage
+    signal: data_factory_airflow_ir_cpu_percentage
 - id: azure_monitor.data_factory.airflow_ir_cpu_usage
   title: Azure Data Factory Airflow IR CPU Usage
   units: millicores
-  family: data
+  family: Airflow IR
   chart_type: line
-  priority: 60022
+  priority: 90220
+  instances:
+    group: azure_data_factory
+    chart_prefix: data_factory_airflow_ir_cpu_usage
+    family: Airflow IR
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: average
-    signal: azure_data_factory_data_factory_airflow_ir_cpu_usage_average
+    signal: data_factory_airflow_ir_cpu_usage_average
 - id: azure_monitor.data_factory.airflow_ir_memory
   title: Azure Data Factory Airflow IR Memory
   units: percentage
-  family: data
+  family: Airflow IR
   chart_type: line
-  priority: 60023
+  priority: 90230
+  instances:
+    group: azure_data_factory
+    chart_prefix: data_factory_airflow_ir_memory
+    family: Airflow IR
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: percentage
-    signal: azure_data_factory_data_factory_airflow_ir_memory_percentage
+    signal: data_factory_airflow_ir_memory_percentage
 - id: azure_monitor.data_factory.airflow_ir_memory_usage
   title: Azure Data Factory Airflow IR Memory Usage
   units: bytes
-  family: data
+  family: Airflow IR
   chart_type: line
-  priority: 60024
+  priority: 90240
+  instances:
+    group: azure_data_factory
+    chart_prefix: data_factory_airflow_ir_memory_usage
+    family: Airflow IR
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: average
-    signal: azure_data_factory_data_factory_airflow_ir_memory_usage_average
+    signal: data_factory_airflow_ir_memory_usage_average
 - id: azure_monitor.data_factory.airflow_ir_nodes
   title: Azure Data Factory Airflow IR Node Count
   units: nodes
-  family: data
+  family: Airflow IR
   chart_type: line
-  priority: 60025
+  priority: 90250
+  instances:
+    group: azure_data_factory
+    chart_prefix: data_factory_airflow_ir_nodes
+    family: Airflow IR
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: average
-    signal: azure_data_factory_data_factory_airflow_ir_nodes_average
+    signal: data_factory_airflow_ir_nodes_average
 - id: azure_monitor.data_factory.airflow_ir_dag_collection
   title: Azure Data Factory Airflow IR DAG DB Collection Time
   units: milliseconds
-  family: data
+  family: Airflow DAG Processing
   chart_type: line
-  priority: 60026
+  priority: 90260
+  instances:
+    group: azure_data_factory
+    chart_prefix: data_factory_airflow_ir_dag_collection
+    family: Airflow DAG Processing
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: average
-    signal: azure_data_factory_data_factory_airflow_ir_dag_collection_average
+    signal: data_factory_airflow_ir_dag_collection_average
 - id: azure_monitor.data_factory.airflow_ir_dag_bag
   title: Azure Data Factory Airflow IR DAG Bag Size
   units: dags/s
-  family: data
+  family: Airflow DAG Processing
   chart_type: line
-  priority: 60027
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90270
+  instances:
+    group: azure_data_factory
+    chart_prefix: data_factory_airflow_ir_dag_bag
+    family: Airflow DAG Processing
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: total
-    rate_signal: azure_data_factory_data_factory_airflow_ir_dag_bag_total
+    signal: data_factory_airflow_ir_dag_bag_total
 - id: azure_monitor.data_factory.airflow_ir_dag_errors
   title: Azure Data Factory Airflow IR DAG Errors
   units: errors/s
-  family: data
+  family: Airflow DAG Processing
   chart_type: line
-  priority: 60028
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90280
+  instances:
+    group: azure_data_factory
+    chart_prefix: data_factory_airflow_ir_dag_errors
+    family: Airflow DAG Processing
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: callback_exceptions
-    rate_signal: azure_data_factory_data_factory_airflow_ir_dag_errors_callback_exceptions
+    signal: data_factory_airflow_ir_dag_errors_callback_exceptions
   - id: file_refresh
-    rate_signal: azure_data_factory_data_factory_airflow_ir_dag_errors_file_refresh
+    signal: data_factory_airflow_ir_dag_errors_file_refresh
   - id: import
-    rate_signal: azure_data_factory_data_factory_airflow_ir_dag_errors_import
+    signal: data_factory_airflow_ir_dag_errors_import
 - id: azure_monitor.data_factory.airflow_ir_dag_processing_duration
   title: Azure Data Factory Airflow IR DAG Processing Duration
   units: milliseconds
-  family: data
+  family: Airflow DAG Processing
   chart_type: line
-  priority: 60029
+  priority: 90290
+  instances:
+    group: azure_data_factory
+    chart_prefix: data_factory_airflow_ir_dag_processing_duration
+    family: Airflow DAG Processing
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: last_duration
-    signal: azure_data_factory_data_factory_airflow_ir_dag_processing_duration_last_duration
+    signal: data_factory_airflow_ir_dag_processing_duration_last_duration
 - id: azure_monitor.data_factory.airflow_ir_dag_processing_lag
   title: Azure Data Factory Airflow IR DAG Processing Lag
   units: seconds
-  family: data
+  family: Airflow DAG Processing
   chart_type: line
-  priority: 60030
+  priority: 90300
+  instances:
+    group: azure_data_factory
+    chart_prefix: data_factory_airflow_ir_dag_processing_lag
+    family: Airflow DAG Processing
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: last_run_seconds_ago
-    signal: azure_data_factory_data_factory_airflow_ir_dag_processing_lag_last_run_seconds_ago
+    signal: data_factory_airflow_ir_dag_processing_lag_last_run_seconds_ago
   - id: processor_timeouts
-    signal: azure_data_factory_data_factory_airflow_ir_dag_processing_lag_processor_timeouts
+    signal: data_factory_airflow_ir_dag_processing_lag_processor_timeouts
   - id: total_parse_time
-    signal: azure_data_factory_data_factory_airflow_ir_dag_processing_lag_total_parse_time
+    signal: data_factory_airflow_ir_dag_processing_lag_total_parse_time
 - id: azure_monitor.data_factory.airflow_ir_dag_processing_activity
   title: Azure Data Factory Airflow IR DAG Processing Activity
   units: events/s
-  family: data
+  family: Airflow DAG Processing
   chart_type: line
-  priority: 60031
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90310
+  instances:
+    group: azure_data_factory
+    chart_prefix: data_factory_airflow_ir_dag_processing_activity
+    family: Airflow DAG Processing
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: manager_stalls
-    rate_signal: azure_data_factory_data_factory_airflow_ir_dag_processing_activity_manager_stalls
+    signal: data_factory_airflow_ir_dag_processing_activity_manager_stalls
   - id: processes
-    rate_signal: azure_data_factory_data_factory_airflow_ir_dag_processing_activity_processes
+    signal: data_factory_airflow_ir_dag_processing_activity_processes
 - id: azure_monitor.data_factory.airflow_ir_dag_run_duration
   title: Azure Data Factory Airflow IR DAG Run Duration
   units: milliseconds
-  family: data
+  family: Airflow DAG Runs
   chart_type: line
-  priority: 60032
+  priority: 90320
+  instances:
+    group: azure_data_factory
+    chart_prefix: data_factory_airflow_ir_dag_run_duration
+    family: Airflow DAG Runs
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: success
-    signal: azure_data_factory_data_factory_airflow_ir_dag_run_duration_success
+    signal: data_factory_airflow_ir_dag_run_duration_success
   - id: failed
-    signal: azure_data_factory_data_factory_airflow_ir_dag_run_duration_failed
+    signal: data_factory_airflow_ir_dag_run_duration_failed
 - id: azure_monitor.data_factory.airflow_ir_dag_run_scheduling
   title: Azure Data Factory Airflow IR DAG Run Scheduling Delays
   units: milliseconds
-  family: data
+  family: Airflow DAG Runs
   chart_type: line
-  priority: 60033
+  priority: 90330
+  instances:
+    group: azure_data_factory
+    chart_prefix: data_factory_airflow_ir_dag_run_scheduling
+    family: Airflow DAG Runs
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: dependency_check
-    signal: azure_data_factory_data_factory_airflow_ir_dag_run_scheduling_dependency_check
+    signal: data_factory_airflow_ir_dag_run_scheduling_dependency_check
   - id: first_task_delay
-    signal: azure_data_factory_data_factory_airflow_ir_dag_run_scheduling_first_task_delay
+    signal: data_factory_airflow_ir_dag_run_scheduling_first_task_delay
   - id: schedule_delay
-    signal: azure_data_factory_data_factory_airflow_ir_dag_run_scheduling_schedule_delay
+    signal: data_factory_airflow_ir_dag_run_scheduling_schedule_delay
 - id: azure_monitor.data_factory.airflow_ir_executor
   title: Azure Data Factory Airflow IR Executor
   units: slots/s
-  family: data
+  family: Airflow Executor
   chart_type: line
-  priority: 60034
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90340
+  instances:
+    group: azure_data_factory
+    chart_prefix: data_factory_airflow_ir_executor
+    family: Airflow Executor
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: open_slots
-    rate_signal: azure_data_factory_data_factory_airflow_ir_executor_open_slots
+    signal: data_factory_airflow_ir_executor_open_slots
   - id: queued_tasks
-    rate_signal: azure_data_factory_data_factory_airflow_ir_executor_queued_tasks
+    signal: data_factory_airflow_ir_executor_queued_tasks
   - id: running_tasks
-    rate_signal: azure_data_factory_data_factory_airflow_ir_executor_running_tasks
+    signal: data_factory_airflow_ir_executor_running_tasks
 - id: azure_monitor.data_factory.airflow_ir_jobs
   title: Azure Data Factory Airflow IR Jobs
   units: jobs/s
-  family: data
+  family: Airflow Jobs
   chart_type: line
-  priority: 60035
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90350
+  instances:
+    group: azure_data_factory
+    chart_prefix: data_factory_airflow_ir_jobs
+    family: Airflow Jobs
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: started
-    rate_signal: azure_data_factory_data_factory_airflow_ir_jobs_started
+    signal: data_factory_airflow_ir_jobs_started
   - id: ended
-    rate_signal: azure_data_factory_data_factory_airflow_ir_jobs_ended
+    signal: data_factory_airflow_ir_jobs_ended
   - id: heartbeat_failures
-    rate_signal: azure_data_factory_data_factory_airflow_ir_jobs_heartbeat_failures
+    signal: data_factory_airflow_ir_jobs_heartbeat_failures
 - id: azure_monitor.data_factory.airflow_ir_operators
   title: Azure Data Factory Airflow IR Operators
   units: operations/s
-  family: data
+  family: Airflow Operators
   chart_type: line
-  priority: 60036
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90360
+  instances:
+    group: azure_data_factory
+    chart_prefix: data_factory_airflow_ir_operators
+    family: Airflow Operators
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: successes
-    rate_signal: azure_data_factory_data_factory_airflow_ir_operators_successes
+    signal: data_factory_airflow_ir_operators_successes
   - id: failures
-    rate_signal: azure_data_factory_data_factory_airflow_ir_operators_failures
+    signal: data_factory_airflow_ir_operators_failures
 - id: azure_monitor.data_factory.airflow_ir_pool_slots
   title: Azure Data Factory Airflow IR Pool Slots
   units: slots/s
-  family: data
+  family: Airflow Pools
   chart_type: line
-  priority: 60037
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90370
+  instances:
+    group: azure_data_factory
+    chart_prefix: data_factory_airflow_ir_pool_slots
+    family: Airflow Pools
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: open
-    rate_signal: azure_data_factory_data_factory_airflow_ir_pool_slots_open
+    signal: data_factory_airflow_ir_pool_slots_open
   - id: queued
-    rate_signal: azure_data_factory_data_factory_airflow_ir_pool_slots_queued
+    signal: data_factory_airflow_ir_pool_slots_queued
   - id: running
-    rate_signal: azure_data_factory_data_factory_airflow_ir_pool_slots_running
+    signal: data_factory_airflow_ir_pool_slots_running
 - id: azure_monitor.data_factory.airflow_ir_pool_starving
   title: Azure Data Factory Airflow IR Pool Starving Tasks
   units: tasks/s
-  family: data
+  family: Airflow Pools
   chart_type: line
-  priority: 60038
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90380
+  instances:
+    group: azure_data_factory
+    chart_prefix: data_factory_airflow_ir_pool_starving
+    family: Airflow Pools
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: starving
-    rate_signal: azure_data_factory_data_factory_airflow_ir_pool_starving_starving
+    signal: data_factory_airflow_ir_pool_starving_starving
 - id: azure_monitor.data_factory.airflow_ir_scheduler_critical_section
   title: Azure Data Factory Airflow IR Scheduler Critical Section
   units: milliseconds
-  family: data
+  family: Airflow Scheduler
   chart_type: line
-  priority: 60039
+  priority: 90390
+  instances:
+    group: azure_data_factory
+    chart_prefix: data_factory_airflow_ir_scheduler_critical_section
+    family: Airflow Scheduler
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: duration
-    signal: azure_data_factory_data_factory_airflow_ir_scheduler_critical_section_duration
+    signal: data_factory_airflow_ir_scheduler_critical_section_duration
 - id: azure_monitor.data_factory.airflow_ir_scheduler_activity
   title: Azure Data Factory Airflow IR Scheduler Activity
   units: events/s
-  family: data
+  family: Airflow Scheduler
   chart_type: line
-  priority: 60040
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90400
+  instances:
+    group: azure_data_factory
+    chart_prefix: data_factory_airflow_ir_scheduler_activity
+    family: Airflow Scheduler
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: critical_section_busy
-    rate_signal: azure_data_factory_data_factory_airflow_ir_scheduler_activity_critical_section_busy
+    signal: data_factory_airflow_ir_scheduler_activity_critical_section_busy
   - id: heartbeats
-    rate_signal: azure_data_factory_data_factory_airflow_ir_scheduler_activity_heartbeats
+    signal: data_factory_airflow_ir_scheduler_activity_heartbeats
   - id: failed_sla_emails
-    rate_signal: azure_data_factory_data_factory_airflow_ir_scheduler_activity_failed_sla_emails
+    signal: data_factory_airflow_ir_scheduler_activity_failed_sla_emails
 - id: azure_monitor.data_factory.airflow_ir_scheduler_orphaned_tasks
   title: Azure Data Factory Airflow IR Scheduler Orphaned Tasks
   units: tasks/s
-  family: data
+  family: Airflow Scheduler
   chart_type: line
-  priority: 60041
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90410
+  instances:
+    group: azure_data_factory
+    chart_prefix: data_factory_airflow_ir_scheduler_orphaned_tasks
+    family: Airflow Scheduler
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: adopted
-    rate_signal: azure_data_factory_data_factory_airflow_ir_scheduler_orphaned_tasks_adopted
+    signal: data_factory_airflow_ir_scheduler_orphaned_tasks_adopted
   - id: cleared
-    rate_signal: azure_data_factory_data_factory_airflow_ir_scheduler_orphaned_tasks_cleared
+    signal: data_factory_airflow_ir_scheduler_orphaned_tasks_cleared
 - id: azure_monitor.data_factory.airflow_ir_scheduler_tasks
   title: Azure Data Factory Airflow IR Scheduler Tasks
   units: tasks/s
-  family: data
+  family: Airflow Scheduler
   chart_type: line
-  priority: 60042
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90420
+  instances:
+    group: azure_data_factory
+    chart_prefix: data_factory_airflow_ir_scheduler_tasks
+    family: Airflow Scheduler
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: executable
-    rate_signal: azure_data_factory_data_factory_airflow_ir_scheduler_tasks_executable
+    signal: data_factory_airflow_ir_scheduler_tasks_executable
   - id: running
-    rate_signal: azure_data_factory_data_factory_airflow_ir_scheduler_tasks_running
+    signal: data_factory_airflow_ir_scheduler_tasks_running
   - id: starving
-    rate_signal: azure_data_factory_data_factory_airflow_ir_scheduler_tasks_starving
+    signal: data_factory_airflow_ir_scheduler_tasks_starving
   - id: killed_externally
-    rate_signal: azure_data_factory_data_factory_airflow_ir_scheduler_tasks_killed_externally
+    signal: data_factory_airflow_ir_scheduler_tasks_killed_externally
 - id: azure_monitor.data_factory.airflow_ir_task_instances
   title: Azure Data Factory Airflow IR Task Instances
   units: instances/s
-  family: data
+  family: Airflow Tasks
   chart_type: line
-  priority: 60043
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90430
+  instances:
+    group: azure_data_factory
+    chart_prefix: data_factory_airflow_ir_task_instances
+    family: Airflow Tasks
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: started
-    rate_signal: azure_data_factory_data_factory_airflow_ir_task_instances_started
+    signal: data_factory_airflow_ir_task_instances_started
   - id: succeeded
-    rate_signal: azure_data_factory_data_factory_airflow_ir_task_instances_succeeded
+    signal: data_factory_airflow_ir_task_instances_succeeded
   - id: failed
-    rate_signal: azure_data_factory_data_factory_airflow_ir_task_instances_failed
+    signal: data_factory_airflow_ir_task_instances_failed
   - id: finished
-    rate_signal: azure_data_factory_data_factory_airflow_ir_task_instances_finished
+    signal: data_factory_airflow_ir_task_instances_finished
   - id: previously_succeeded
-    rate_signal: azure_data_factory_data_factory_airflow_ir_task_instances_previously_succeeded
+    signal: data_factory_airflow_ir_task_instances_previously_succeeded
   - id: created_via_operator
-    rate_signal: azure_data_factory_data_factory_airflow_ir_task_instances_created_via_operator
+    signal: data_factory_airflow_ir_task_instances_created_via_operator
 - id: azure_monitor.data_factory.airflow_ir_task_instance_duration
   title: Azure Data Factory Airflow IR Task Instance Duration
   units: milliseconds
-  family: data
+  family: Airflow Tasks
   chart_type: line
-  priority: 60044
+  priority: 90440
+  instances:
+    group: azure_data_factory
+    chart_prefix: data_factory_airflow_ir_task_instance_duration
+    family: Airflow Tasks
+    labels:
+      resource_uid: '{instance}'
   shape: independent
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
   dimensions:
   - id: average
-    signal: azure_data_factory_data_factory_airflow_ir_task_instance_duration_average
+    signal: data_factory_airflow_ir_task_instance_duration_average
 - id: azure_monitor.data_factory.airflow_ir_task_dag_changes
   title: Azure Data Factory Airflow IR Task DAG Changes
   units: tasks/s
-  family: data
+  family: Airflow Tasks
   chart_type: line
-  priority: 60045
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90450
+  instances:
+    group: azure_data_factory
+    chart_prefix: data_factory_airflow_ir_task_dag_changes
+    family: Airflow Tasks
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: removed
-    rate_signal: azure_data_factory_data_factory_airflow_ir_task_dag_changes_removed
+    signal: data_factory_airflow_ir_task_dag_changes_removed
   - id: restored
-    rate_signal: azure_data_factory_data_factory_airflow_ir_task_dag_changes_restored
+    signal: data_factory_airflow_ir_task_dag_changes_restored
 - id: azure_monitor.data_factory.airflow_ir_triggers
   title: Azure Data Factory Airflow IR Triggers
   units: triggers/s
-  family: data
+  family: Airflow Triggers
   chart_type: line
-  priority: 60046
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90460
+  instances:
+    group: azure_data_factory
+    chart_prefix: data_factory_airflow_ir_triggers
+    family: Airflow Triggers
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: succeeded
-    rate_signal: azure_data_factory_data_factory_airflow_ir_triggers_succeeded
+    signal: data_factory_airflow_ir_triggers_succeeded
   - id: failed
-    rate_signal: azure_data_factory_data_factory_airflow_ir_triggers_failed
+    signal: data_factory_airflow_ir_triggers_failed
   - id: running
-    rate_signal: azure_data_factory_data_factory_airflow_ir_triggers_running
+    signal: data_factory_airflow_ir_triggers_running
 - id: azure_monitor.data_factory.airflow_ir_trigger_issues
   title: Azure Data Factory Airflow IR Trigger Issues
   units: events/s
-  family: data
+  family: Airflow Triggers
   chart_type: line
-  priority: 60047
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90470
+  instances:
+    group: azure_data_factory
+    chart_prefix: data_factory_airflow_ir_trigger_issues
+    family: Airflow Triggers
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: blocked_main_thread
-    rate_signal: azure_data_factory_data_factory_airflow_ir_trigger_issues_blocked_main_thread
+    signal: data_factory_airflow_ir_trigger_issues_blocked_main_thread
   - id: celery_timeout_errors
-    rate_signal: azure_data_factory_data_factory_airflow_ir_trigger_issues_celery_timeout_errors
+    signal: data_factory_airflow_ir_trigger_issues_celery_timeout_errors
 - id: azure_monitor.data_factory.airflow_ir_zombies
   title: Azure Data Factory Airflow IR Zombie Tasks Killed
   units: tasks/s
-  family: data
+  family: Airflow Triggers
   chart_type: line
-  priority: 60048
-  shape: counters
-  labels:
-    resource_name: sim-resource_name-1
-    resource_group: sim-resource_group-1
-    region: sim-region-1
-    resource_type: sim-resource_type-1
-    profile: sim-profile-1
-    subscription_id: sim-subscription_id-1
-    resource_uid: sim-resource_uid-1
+  priority: 90480
+  instances:
+    group: azure_data_factory
+    chart_prefix: data_factory_airflow_ir_zombies
+    family: Airflow Triggers
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
   dimensions:
   - id: killed
-    rate_signal: azure_data_factory_data_factory_airflow_ir_zombies_killed
+    signal: data_factory_airflow_ir_zombies_killed

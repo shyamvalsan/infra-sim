@@ -1,0 +1,1022 @@
+version: 1
+name: azure-machine-learning
+description: 'Azure Machine Learning Workspace as reported through Netdata''s azure_monitor collector,
+  generated from its service profile (Microsoft.MachineLearningServices/workspaces) so the contexts, units,
+  families and dimension names match a real deployment. Charts are per-resource instances, as the collector
+  emits them: resources are labels on one node, never separate nodes. Signals move independently rather
+  than being causally coupled - see scripts/sync-profile-collectors.py.'
+signals:
+  machine_learning_agent_events_agent_events:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  machine_learning_agent_events_thread_events:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  machine_learning_agent_messages_messages:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  machine_learning_agent_runs_runs:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  machine_learning_agent_tokens_tokens:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  machine_learning_agent_tool_calls_tool_calls:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  machine_learning_agent_indexed_files_indexed_files:
+    base: 22.0
+    min: 0.0
+    max: 500000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  machine_learning_model_deployments_started:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  machine_learning_model_deployments_succeeded:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  machine_learning_model_deployments_failed:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  machine_learning_model_registrations_succeeded:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  machine_learning_model_registrations_failed:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  machine_learning_cluster_cores_active:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  machine_learning_cluster_cores_idle:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  machine_learning_cluster_cores_leaving:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  machine_learning_cluster_cores_preempted:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  machine_learning_cluster_cores_unusable:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  machine_learning_total_cores_total:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  machine_learning_cluster_nodes_active:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  machine_learning_cluster_nodes_idle:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  machine_learning_cluster_nodes_leaving:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  machine_learning_cluster_nodes_preempted:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  machine_learning_cluster_nodes_unusable:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  machine_learning_total_nodes_total:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  machine_learning_quota_utilization_utilization:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  machine_learning_cpu_utilization_cluster_cpu:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  machine_learning_cpu_utilization_node_cpu:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  machine_learning_cpu_millicores_used:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  machine_learning_cpu_millicores_capacity:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  machine_learning_cpu_memory_utilization_utilization:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  machine_learning_cpu_memory_megabytes_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  machine_learning_cpu_memory_megabytes_capacity:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  machine_learning_gpu_utilization_cluster_gpu:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  machine_learning_gpu_utilization_node_gpu:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  machine_learning_gpu_milligpus_used:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  machine_learning_gpu_milligpus_capacity:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  machine_learning_gpu_memory_utilization_cluster_gpu_memory:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  machine_learning_gpu_memory_utilization_node_gpu_memory:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  machine_learning_gpu_memory_megabytes_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  machine_learning_gpu_memory_megabytes_capacity:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  machine_learning_gpu_energy_energy:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  machine_learning_disk_usage_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  machine_learning_disk_usage_available:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  machine_learning_disk_io_read:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  machine_learning_disk_io_write:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  machine_learning_network_traffic_in:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  machine_learning_network_traffic_out:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  machine_learning_infiniband_traffic_receive:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  machine_learning_infiniband_traffic_transmit:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  machine_learning_storage_api_calls_success:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  machine_learning_storage_api_calls_failure:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  machine_learning_run_lifecycle_not_started:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  machine_learning_run_lifecycle_starting:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  machine_learning_run_lifecycle_preparing:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  machine_learning_run_lifecycle_provisioning:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  machine_learning_run_lifecycle_queued:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  machine_learning_run_lifecycle_started:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  machine_learning_run_completion_completed:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  machine_learning_run_completion_failed:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  machine_learning_run_completion_finalizing:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  machine_learning_run_completion_cancelled:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  machine_learning_run_completion_cancel_requested:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  machine_learning_run_completion_not_responding:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  machine_learning_run_issues_errors:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  machine_learning_run_issues_warnings:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+contexts:
+- id: azure_monitor.machine_learning.agent_events
+  title: Azure Machine Learning Agent Events
+  units: events/s
+  family: Agents
+  chart_type: line
+  priority: 90010
+  instances:
+    group: azure_machine_learning
+    chart_prefix: machine_learning_agent_events
+    family: Agents
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: agent_events
+    signal: machine_learning_agent_events_agent_events
+  - id: thread_events
+    signal: machine_learning_agent_events_thread_events
+- id: azure_monitor.machine_learning.agent_messages
+  title: Azure Machine Learning Agent Messages
+  units: messages/s
+  family: Agents
+  chart_type: line
+  priority: 90020
+  instances:
+    group: azure_machine_learning
+    chart_prefix: machine_learning_agent_messages
+    family: Agents
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: messages
+    signal: machine_learning_agent_messages_messages
+- id: azure_monitor.machine_learning.agent_runs
+  title: Azure Machine Learning Agent Runs
+  units: runs/s
+  family: Agents
+  chart_type: line
+  priority: 90030
+  instances:
+    group: azure_machine_learning
+    chart_prefix: machine_learning_agent_runs
+    family: Agents
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: runs
+    signal: machine_learning_agent_runs_runs
+- id: azure_monitor.machine_learning.agent_tokens
+  title: Azure Machine Learning Agent Tokens
+  units: tokens/s
+  family: Agents
+  chart_type: line
+  priority: 90040
+  instances:
+    group: azure_machine_learning
+    chart_prefix: machine_learning_agent_tokens
+    family: Agents
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: tokens
+    signal: machine_learning_agent_tokens_tokens
+- id: azure_monitor.machine_learning.agent_tool_calls
+  title: Azure Machine Learning Agent Tool Calls
+  units: calls/s
+  family: Agents
+  chart_type: line
+  priority: 90050
+  instances:
+    group: azure_machine_learning
+    chart_prefix: machine_learning_agent_tool_calls
+    family: Agents
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: tool_calls
+    signal: machine_learning_agent_tool_calls_tool_calls
+- id: azure_monitor.machine_learning.agent_indexed_files
+  title: Azure Machine Learning Agent Indexed Files
+  units: files/s
+  family: Agents
+  chart_type: line
+  priority: 90060
+  instances:
+    group: azure_machine_learning
+    chart_prefix: machine_learning_agent_indexed_files
+    family: Agents
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: indexed_files
+    signal: machine_learning_agent_indexed_files_indexed_files
+- id: azure_monitor.machine_learning.model_deployments
+  title: Azure Machine Learning Model Deployments
+  units: deployments/s
+  family: Model
+  chart_type: line
+  priority: 90070
+  instances:
+    group: azure_machine_learning
+    chart_prefix: machine_learning_model_deployments
+    family: Model
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: started
+    signal: machine_learning_model_deployments_started
+  - id: succeeded
+    signal: machine_learning_model_deployments_succeeded
+  - id: failed
+    signal: machine_learning_model_deployments_failed
+- id: azure_monitor.machine_learning.model_registrations
+  title: Azure Machine Learning Model Registrations
+  units: registrations/s
+  family: Model
+  chart_type: line
+  priority: 90080
+  instances:
+    group: azure_machine_learning
+    chart_prefix: machine_learning_model_registrations
+    family: Model
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: succeeded
+    signal: machine_learning_model_registrations_succeeded
+  - id: failed
+    signal: machine_learning_model_registrations_failed
+- id: azure_monitor.machine_learning.cluster_cores
+  title: Azure Machine Learning Cluster Cores
+  units: cores
+  family: Quota
+  chart_type: stacked
+  priority: 90090
+  instances:
+    group: azure_machine_learning
+    chart_prefix: machine_learning_cluster_cores
+    family: Quota
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: active
+    signal: machine_learning_cluster_cores_active
+  - id: idle
+    signal: machine_learning_cluster_cores_idle
+  - id: leaving
+    signal: machine_learning_cluster_cores_leaving
+  - id: preempted
+    signal: machine_learning_cluster_cores_preempted
+  - id: unusable
+    signal: machine_learning_cluster_cores_unusable
+- id: azure_monitor.machine_learning.total_cores
+  title: Azure Machine Learning Total Cores
+  units: cores
+  family: Quota
+  chart_type: line
+  priority: 90100
+  instances:
+    group: azure_machine_learning
+    chart_prefix: machine_learning_total_cores
+    family: Quota
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: total
+    signal: machine_learning_total_cores_total
+- id: azure_monitor.machine_learning.cluster_nodes
+  title: Azure Machine Learning Cluster Nodes
+  units: nodes
+  family: Quota
+  chart_type: stacked
+  priority: 90110
+  instances:
+    group: azure_machine_learning
+    chart_prefix: machine_learning_cluster_nodes
+    family: Quota
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: active
+    signal: machine_learning_cluster_nodes_active
+  - id: idle
+    signal: machine_learning_cluster_nodes_idle
+  - id: leaving
+    signal: machine_learning_cluster_nodes_leaving
+  - id: preempted
+    signal: machine_learning_cluster_nodes_preempted
+  - id: unusable
+    signal: machine_learning_cluster_nodes_unusable
+- id: azure_monitor.machine_learning.total_nodes
+  title: Azure Machine Learning Total Nodes
+  units: nodes
+  family: Quota
+  chart_type: line
+  priority: 90120
+  instances:
+    group: azure_machine_learning
+    chart_prefix: machine_learning_total_nodes
+    family: Quota
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: total
+    signal: machine_learning_total_nodes_total
+- id: azure_monitor.machine_learning.quota_utilization
+  title: Azure Machine Learning Quota Utilization
+  units: percentage
+  family: Quota
+  chart_type: line
+  priority: 90130
+  instances:
+    group: azure_machine_learning
+    chart_prefix: machine_learning_quota_utilization
+    family: Quota
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: utilization
+    signal: machine_learning_quota_utilization_utilization
+- id: azure_monitor.machine_learning.cpu_utilization
+  title: Azure Machine Learning CPU Utilization
+  units: percentage
+  family: Compute
+  chart_type: line
+  priority: 90140
+  instances:
+    group: azure_machine_learning
+    chart_prefix: machine_learning_cpu_utilization
+    family: Compute
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: cluster_cpu
+    signal: machine_learning_cpu_utilization_cluster_cpu
+  - id: node_cpu
+    signal: machine_learning_cpu_utilization_node_cpu
+- id: azure_monitor.machine_learning.cpu_millicores
+  title: Azure Machine Learning CPU Millicores
+  units: millicores
+  family: Compute
+  chart_type: line
+  priority: 90150
+  instances:
+    group: azure_machine_learning
+    chart_prefix: machine_learning_cpu_millicores
+    family: Compute
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: used
+    signal: machine_learning_cpu_millicores_used
+  - id: capacity
+    signal: machine_learning_cpu_millicores_capacity
+- id: azure_monitor.machine_learning.cpu_memory_utilization
+  title: Azure Machine Learning CPU Memory Utilization
+  units: percentage
+  family: Compute
+  chart_type: line
+  priority: 90160
+  instances:
+    group: azure_machine_learning
+    chart_prefix: machine_learning_cpu_memory_utilization
+    family: Compute
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: utilization
+    signal: machine_learning_cpu_memory_utilization_utilization
+- id: azure_monitor.machine_learning.cpu_memory_megabytes
+  title: Azure Machine Learning CPU Memory
+  units: megabytes
+  family: Compute
+  chart_type: line
+  priority: 90170
+  instances:
+    group: azure_machine_learning
+    chart_prefix: machine_learning_cpu_memory_megabytes
+    family: Compute
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: used
+    signal: machine_learning_cpu_memory_megabytes_used
+  - id: capacity
+    signal: machine_learning_cpu_memory_megabytes_capacity
+- id: azure_monitor.machine_learning.gpu_utilization
+  title: Azure Machine Learning GPU Utilization
+  units: percentage
+  family: Compute
+  chart_type: line
+  priority: 90180
+  instances:
+    group: azure_machine_learning
+    chart_prefix: machine_learning_gpu_utilization
+    family: Compute
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: cluster_gpu
+    signal: machine_learning_gpu_utilization_cluster_gpu
+  - id: node_gpu
+    signal: machine_learning_gpu_utilization_node_gpu
+- id: azure_monitor.machine_learning.gpu_milligpus
+  title: Azure Machine Learning GPU MilliGPUs
+  units: milliGPUs
+  family: Compute
+  chart_type: line
+  priority: 90190
+  instances:
+    group: azure_machine_learning
+    chart_prefix: machine_learning_gpu_milligpus
+    family: Compute
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: used
+    signal: machine_learning_gpu_milligpus_used
+  - id: capacity
+    signal: machine_learning_gpu_milligpus_capacity
+- id: azure_monitor.machine_learning.gpu_memory_utilization
+  title: Azure Machine Learning GPU Memory Utilization
+  units: percentage
+  family: Compute
+  chart_type: line
+  priority: 90200
+  instances:
+    group: azure_machine_learning
+    chart_prefix: machine_learning_gpu_memory_utilization
+    family: Compute
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: cluster_gpu_memory
+    signal: machine_learning_gpu_memory_utilization_cluster_gpu_memory
+  - id: node_gpu_memory
+    signal: machine_learning_gpu_memory_utilization_node_gpu_memory
+- id: azure_monitor.machine_learning.gpu_memory_megabytes
+  title: Azure Machine Learning GPU Memory
+  units: megabytes
+  family: Compute
+  chart_type: line
+  priority: 90210
+  instances:
+    group: azure_machine_learning
+    chart_prefix: machine_learning_gpu_memory_megabytes
+    family: Compute
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: used
+    signal: machine_learning_gpu_memory_megabytes_used
+  - id: capacity
+    signal: machine_learning_gpu_memory_megabytes_capacity
+- id: azure_monitor.machine_learning.gpu_energy
+  title: Azure Machine Learning GPU Energy
+  units: joules/s
+  family: Compute
+  chart_type: line
+  priority: 90220
+  instances:
+    group: azure_machine_learning
+    chart_prefix: machine_learning_gpu_energy
+    family: Compute
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: energy
+    signal: machine_learning_gpu_energy_energy
+- id: azure_monitor.machine_learning.disk_usage
+  title: Azure Machine Learning Disk Usage
+  units: megabytes
+  family: Compute
+  chart_type: line
+  priority: 90230
+  instances:
+    group: azure_machine_learning
+    chart_prefix: machine_learning_disk_usage
+    family: Compute
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: used
+    signal: machine_learning_disk_usage_used
+  - id: available
+    signal: machine_learning_disk_usage_available
+- id: azure_monitor.machine_learning.disk_io
+  title: Azure Machine Learning Disk I/O
+  units: megabytes/s
+  family: Compute
+  chart_type: line
+  priority: 90240
+  instances:
+    group: azure_machine_learning
+    chart_prefix: machine_learning_disk_io
+    family: Compute
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: read
+    signal: machine_learning_disk_io_read
+  - id: write
+    signal: machine_learning_disk_io_write
+- id: azure_monitor.machine_learning.network_traffic
+  title: Azure Machine Learning Network Traffic
+  units: megabytes/s
+  family: Network
+  chart_type: line
+  priority: 90250
+  instances:
+    group: azure_machine_learning
+    chart_prefix: machine_learning_network_traffic
+    family: Network
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: in
+    signal: machine_learning_network_traffic_in
+  - id: out
+    signal: machine_learning_network_traffic_out
+- id: azure_monitor.machine_learning.infiniband_traffic
+  title: Azure Machine Learning InfiniBand Traffic
+  units: megabytes/s
+  family: Network
+  chart_type: line
+  priority: 90260
+  instances:
+    group: azure_machine_learning
+    chart_prefix: machine_learning_infiniband_traffic
+    family: Network
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: receive
+    signal: machine_learning_infiniband_traffic_receive
+  - id: transmit
+    signal: machine_learning_infiniband_traffic_transmit
+- id: azure_monitor.machine_learning.storage_api_calls
+  title: Azure Machine Learning Storage API Calls
+  units: calls/s
+  family: Compute
+  chart_type: line
+  priority: 90270
+  instances:
+    group: azure_machine_learning
+    chart_prefix: machine_learning_storage_api_calls
+    family: Compute
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: success
+    signal: machine_learning_storage_api_calls_success
+  - id: failure
+    signal: machine_learning_storage_api_calls_failure
+- id: azure_monitor.machine_learning.run_lifecycle
+  title: Azure Machine Learning Run Lifecycle
+  units: runs/s
+  family: Runs
+  chart_type: line
+  priority: 90280
+  instances:
+    group: azure_machine_learning
+    chart_prefix: machine_learning_run_lifecycle
+    family: Runs
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: not_started
+    signal: machine_learning_run_lifecycle_not_started
+  - id: starting
+    signal: machine_learning_run_lifecycle_starting
+  - id: preparing
+    signal: machine_learning_run_lifecycle_preparing
+  - id: provisioning
+    signal: machine_learning_run_lifecycle_provisioning
+  - id: queued
+    signal: machine_learning_run_lifecycle_queued
+  - id: started
+    signal: machine_learning_run_lifecycle_started
+- id: azure_monitor.machine_learning.run_completion
+  title: Azure Machine Learning Run Completion
+  units: runs/s
+  family: Runs
+  chart_type: line
+  priority: 90290
+  instances:
+    group: azure_machine_learning
+    chart_prefix: machine_learning_run_completion
+    family: Runs
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: completed
+    signal: machine_learning_run_completion_completed
+  - id: failed
+    signal: machine_learning_run_completion_failed
+  - id: finalizing
+    signal: machine_learning_run_completion_finalizing
+  - id: cancelled
+    signal: machine_learning_run_completion_cancelled
+  - id: cancel_requested
+    signal: machine_learning_run_completion_cancel_requested
+  - id: not_responding
+    signal: machine_learning_run_completion_not_responding
+- id: azure_monitor.machine_learning.run_issues
+  title: Azure Machine Learning Run Issues
+  units: events/s
+  family: Runs
+  chart_type: line
+  priority: 90300
+  instances:
+    group: azure_machine_learning
+    chart_prefix: machine_learning_run_issues
+    family: Runs
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: errors
+    signal: machine_learning_run_issues_errors
+  - id: warnings
+    signal: machine_learning_run_issues_warnings

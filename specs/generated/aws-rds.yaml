@@ -1,0 +1,355 @@
+version: 1
+name: aws-rds
+description: 'AWS RDS as reported through Netdata''s cloudwatch collector, generated from its service
+  profile (AWS/RDS) so the contexts, units, families and dimension names match a real deployment. Charts
+  are per-resource instances, as the collector emits them: resources are labels on one node, never separate
+  nodes. Signals move independently rather than being causally coupled - see scripts/sync-profile-collectors.py.'
+signals:
+  rds_cpu_utilization_average:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  rds_database_connections_connections:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  rds_freeable_memory_freeable:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  rds_free_storage_space_free:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  rds_disk_throughput_read:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  rds_disk_throughput_write:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  rds_disk_iops_read:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  rds_disk_iops_write:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  rds_disk_latency_read:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  rds_disk_latency_write:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  rds_replica_lag_lag:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  rds_maximum_used_transaction_ids_used:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  rds_ebs_balance_byte:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  rds_ebs_balance_io:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  rds_disk_queue_depth_queued:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  rds_network_throughput_received:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  rds_network_throughput_sent:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  rds_swap_usage_swap:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+contexts:
+- id: cloudwatch.rds.cpu_utilization
+  title: RDS CPU Utilization
+  units: percentage
+  family: CPU
+  chart_type: line
+  priority: 90010
+  instances:
+    group: aws_rds
+    chart_prefix: rds_cpu_utilization
+    family: CPU
+    labels:
+      db_instance_identifier: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: rds_cpu_utilization_average
+- id: cloudwatch.rds.database_connections
+  title: RDS Database Connections
+  units: connections
+  family: Connections
+  chart_type: line
+  priority: 90020
+  instances:
+    group: aws_rds
+    chart_prefix: rds_database_connections
+    family: Connections
+    labels:
+      db_instance_identifier: '{instance}'
+  shape: independent
+  dimensions:
+  - id: connections
+    signal: rds_database_connections_connections
+- id: cloudwatch.rds.freeable_memory
+  title: RDS Freeable Memory
+  units: bytes
+  family: Memory
+  chart_type: line
+  priority: 90030
+  instances:
+    group: aws_rds
+    chart_prefix: rds_freeable_memory
+    family: Memory
+    labels:
+      db_instance_identifier: '{instance}'
+  shape: independent
+  dimensions:
+  - id: freeable
+    signal: rds_freeable_memory_freeable
+- id: cloudwatch.rds.free_storage_space
+  title: RDS Free Storage Space
+  units: bytes
+  family: Storage
+  chart_type: line
+  priority: 90040
+  instances:
+    group: aws_rds
+    chart_prefix: rds_free_storage_space
+    family: Storage
+    labels:
+      db_instance_identifier: '{instance}'
+  shape: independent
+  dimensions:
+  - id: free
+    signal: rds_free_storage_space_free
+- id: cloudwatch.rds.disk_throughput
+  title: RDS Disk Throughput
+  units: bytes/s
+  family: Throughput
+  chart_type: line
+  priority: 90050
+  instances:
+    group: aws_rds
+    chart_prefix: rds_disk_throughput
+    family: Throughput
+    labels:
+      db_instance_identifier: '{instance}'
+  shape: independent
+  dimensions:
+  - id: read
+    signal: rds_disk_throughput_read
+  - id: write
+    signal: rds_disk_throughput_write
+- id: cloudwatch.rds.disk_iops
+  title: RDS Disk IOPS
+  units: ops/s
+  family: Throughput
+  chart_type: line
+  priority: 90060
+  instances:
+    group: aws_rds
+    chart_prefix: rds_disk_iops
+    family: Throughput
+    labels:
+      db_instance_identifier: '{instance}'
+  shape: independent
+  dimensions:
+  - id: read
+    signal: rds_disk_iops_read
+  - id: write
+    signal: rds_disk_iops_write
+- id: cloudwatch.rds.disk_latency
+  title: RDS Disk Latency
+  units: seconds
+  family: Latency
+  chart_type: line
+  priority: 90070
+  instances:
+    group: aws_rds
+    chart_prefix: rds_disk_latency
+    family: Latency
+    labels:
+      db_instance_identifier: '{instance}'
+  shape: independent
+  dimensions:
+  - id: read
+    signal: rds_disk_latency_read
+  - id: write
+    signal: rds_disk_latency_write
+- id: cloudwatch.rds.replica_lag
+  title: RDS Replica Lag
+  units: seconds
+  family: Replication
+  chart_type: line
+  priority: 90080
+  instances:
+    group: aws_rds
+    chart_prefix: rds_replica_lag
+    family: Replication
+    labels:
+      db_instance_identifier: '{instance}'
+  shape: independent
+  dimensions:
+  - id: lag
+    signal: rds_replica_lag_lag
+- id: cloudwatch.rds.maximum_used_transaction_ids
+  title: RDS Maximum Used Transaction IDs
+  units: transactions
+  family: Transactions
+  chart_type: line
+  priority: 90090
+  instances:
+    group: aws_rds
+    chart_prefix: rds_maximum_used_transaction_ids
+    family: Transactions
+    labels:
+      db_instance_identifier: '{instance}'
+  shape: independent
+  dimensions:
+  - id: used
+    signal: rds_maximum_used_transaction_ids_used
+- id: cloudwatch.rds.ebs_balance
+  title: RDS EBS Credit Balance
+  units: percentage
+  family: Credits
+  chart_type: line
+  priority: 90100
+  instances:
+    group: aws_rds
+    chart_prefix: rds_ebs_balance
+    family: Credits
+    labels:
+      db_instance_identifier: '{instance}'
+  shape: independent
+  dimensions:
+  - id: byte
+    signal: rds_ebs_balance_byte
+  - id: io
+    signal: rds_ebs_balance_io
+- id: cloudwatch.rds.disk_queue_depth
+  title: RDS Disk Queue Depth
+  units: operations
+  family: Disk
+  chart_type: line
+  priority: 90110
+  instances:
+    group: aws_rds
+    chart_prefix: rds_disk_queue_depth
+    family: Disk
+    labels:
+      db_instance_identifier: '{instance}'
+  shape: independent
+  dimensions:
+  - id: queued
+    signal: rds_disk_queue_depth_queued
+- id: cloudwatch.rds.network_throughput
+  title: RDS Network Throughput
+  units: bytes/s
+  family: Network
+  chart_type: line
+  priority: 90120
+  instances:
+    group: aws_rds
+    chart_prefix: rds_network_throughput
+    family: Network
+    labels:
+      db_instance_identifier: '{instance}'
+  shape: independent
+  dimensions:
+  - id: received
+    signal: rds_network_throughput_received
+  - id: sent
+    signal: rds_network_throughput_sent
+- id: cloudwatch.rds.swap_usage
+  title: RDS Swap Usage
+  units: bytes
+  family: Memory
+  chart_type: line
+  priority: 90130
+  instances:
+    group: aws_rds
+    chart_prefix: rds_swap_usage
+    family: Memory
+    labels:
+      db_instance_identifier: '{instance}'
+  shape: independent
+  dimensions:
+  - id: swap
+    signal: rds_swap_usage_swap

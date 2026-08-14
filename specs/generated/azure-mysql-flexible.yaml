@@ -1,0 +1,971 @@
+version: 1
+name: azure-mysql-flexible
+description: 'Azure MySQL Flexible Server as reported through Netdata''s azure_monitor collector, generated
+  from its service profile (Microsoft.DBforMySQL/flexibleServers) so the contexts, units, families and
+  dimension names match a real deployment. Charts are per-resource instances, as the collector emits them:
+  resources are labels on one node, never separate nodes. Signals move independently rather than being
+  causally coupled - see scripts/sync-profile-collectors.py.'
+signals:
+  mysql_flexible_cpu_average:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  mysql_flexible_memory_average:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  mysql_flexible_io_utilization_average:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  mysql_flexible_cpu_credits_consumed:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  mysql_flexible_cpu_credits_remaining:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  mysql_flexible_ha_status_io:
+    base: 1.0
+    min: 0.0
+    max: 1.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  mysql_flexible_ha_status_sql:
+    base: 1.0
+    min: 0.0
+    max: 1.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  mysql_flexible_replica_status_io:
+    base: 1.0
+    min: 0.0
+    max: 1.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  mysql_flexible_replica_status_sql:
+    base: 1.0
+    min: 0.0
+    max: 1.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  mysql_flexible_uptime_uptime:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  mysql_flexible_replication_lag_replica:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  mysql_flexible_replication_lag_ha:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  mysql_flexible_innodb_row_lock_time_average:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  mysql_flexible_innodb_row_lock_waits_total:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  mysql_flexible_aborted_connections_total:
+    base: 0.0
+    min: 0.0
+    max: 500000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  mysql_flexible_active_connections_average:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  mysql_flexible_total_connections_total:
+    base: 45.0
+    min: 0.0
+    max: 500000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  mysql_flexible_active_transactions_average:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  mysql_flexible_threads_running_maximum:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  mysql_flexible_queries_total:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  mysql_flexible_queries_slow:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  mysql_flexible_dml_statements_select:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  mysql_flexible_dml_statements_insert:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  mysql_flexible_dml_statements_update:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  mysql_flexible_dml_statements_delete:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  mysql_flexible_ddl_statements_create_table:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  mysql_flexible_ddl_statements_alter_table:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  mysql_flexible_ddl_statements_drop_table:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  mysql_flexible_ddl_statements_create_db:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  mysql_flexible_ddl_statements_drop_db:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  mysql_flexible_lock_deadlocks_total:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  mysql_flexible_lock_timeouts_total:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  mysql_flexible_innodb_buffer_pool_pages_data:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  mysql_flexible_innodb_buffer_pool_pages_dirty:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  mysql_flexible_innodb_buffer_pool_pages_free:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  mysql_flexible_innodb_buffer_pool_pages_flushed:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  mysql_flexible_innodb_buffer_pool_io_read_requests:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  mysql_flexible_innodb_buffer_pool_io_disk_reads:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  mysql_flexible_innodb_data_writes_total:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  mysql_flexible_sort_merge_passes_total:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  mysql_flexible_network_in:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  mysql_flexible_network_out:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  mysql_flexible_storage_io_total:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  mysql_flexible_storage_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  mysql_flexible_storage_limit:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  mysql_flexible_storage_utilization_average:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  mysql_flexible_storage_breakdown_data:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  mysql_flexible_storage_breakdown_ibdata1:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  mysql_flexible_storage_breakdown_binlog:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  mysql_flexible_storage_breakdown_others:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  mysql_flexible_backup_storage_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  mysql_flexible_serverlog_storage_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  mysql_flexible_serverlog_storage_limit:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  mysql_flexible_serverlog_storage_utilization_average:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  mysql_flexible_history_list_length_maximum:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+contexts:
+- id: azure_monitor.mysql_flexible.cpu
+  title: Azure MySQL Flexible Server CPU Utilization
+  units: percentage
+  family: Utilization
+  chart_type: line
+  priority: 90010
+  instances:
+    group: azure_mysql_flexible
+    chart_prefix: mysql_flexible_cpu
+    family: Utilization
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: mysql_flexible_cpu_average
+- id: azure_monitor.mysql_flexible.memory
+  title: Azure MySQL Flexible Server Memory Utilization
+  units: percentage
+  family: Utilization
+  chart_type: line
+  priority: 90020
+  instances:
+    group: azure_mysql_flexible
+    chart_prefix: mysql_flexible_memory
+    family: Utilization
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: mysql_flexible_memory_average
+- id: azure_monitor.mysql_flexible.io_utilization
+  title: Azure MySQL Flexible Server Storage I/O Utilization
+  units: percentage
+  family: Utilization
+  chart_type: line
+  priority: 90030
+  instances:
+    group: azure_mysql_flexible
+    chart_prefix: mysql_flexible_io_utilization
+    family: Utilization
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: mysql_flexible_io_utilization_average
+- id: azure_monitor.mysql_flexible.cpu_credits
+  title: Azure MySQL Flexible Server CPU Credits
+  units: credits
+  family: Utilization
+  chart_type: line
+  priority: 90040
+  instances:
+    group: azure_mysql_flexible
+    chart_prefix: mysql_flexible_cpu_credits
+    family: Utilization
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: consumed
+    signal: mysql_flexible_cpu_credits_consumed
+  - id: remaining
+    signal: mysql_flexible_cpu_credits_remaining
+- id: azure_monitor.mysql_flexible.ha_status
+  title: Azure MySQL Flexible Server HA Replication Status
+  units: status
+  family: Availability
+  chart_type: line
+  priority: 90050
+  instances:
+    group: azure_mysql_flexible
+    chart_prefix: mysql_flexible_ha_status
+    family: Availability
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: io
+    signal: mysql_flexible_ha_status_io
+  - id: sql
+    signal: mysql_flexible_ha_status_sql
+- id: azure_monitor.mysql_flexible.replica_status
+  title: Azure MySQL Flexible Server Replica Status
+  units: status
+  family: Availability
+  chart_type: line
+  priority: 90060
+  instances:
+    group: azure_mysql_flexible
+    chart_prefix: mysql_flexible_replica_status
+    family: Availability
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: io
+    signal: mysql_flexible_replica_status_io
+  - id: sql
+    signal: mysql_flexible_replica_status_sql
+- id: azure_monitor.mysql_flexible.uptime
+  title: Azure MySQL Flexible Server Uptime
+  units: seconds
+  family: Availability
+  chart_type: line
+  priority: 90070
+  instances:
+    group: azure_mysql_flexible
+    chart_prefix: mysql_flexible_uptime
+    family: Availability
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: uptime
+    signal: mysql_flexible_uptime_uptime
+- id: azure_monitor.mysql_flexible.replication_lag
+  title: Azure MySQL Flexible Server Replication Lag
+  units: seconds
+  family: Replication
+  chart_type: line
+  priority: 90080
+  instances:
+    group: azure_mysql_flexible
+    chart_prefix: mysql_flexible_replication_lag
+    family: Replication
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: replica
+    signal: mysql_flexible_replication_lag_replica
+  - id: ha
+    signal: mysql_flexible_replication_lag_ha
+- id: azure_monitor.mysql_flexible.innodb_row_lock_time
+  title: Azure MySQL Flexible Server InnoDB Row Lock Time
+  units: milliseconds
+  family: Contention
+  chart_type: line
+  priority: 90090
+  instances:
+    group: azure_mysql_flexible
+    chart_prefix: mysql_flexible_innodb_row_lock_time
+    family: Contention
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: mysql_flexible_innodb_row_lock_time_average
+- id: azure_monitor.mysql_flexible.innodb_row_lock_waits
+  title: Azure MySQL Flexible Server InnoDB Row Lock Waits
+  units: waits/s
+  family: Contention
+  chart_type: line
+  priority: 90100
+  instances:
+    group: azure_mysql_flexible
+    chart_prefix: mysql_flexible_innodb_row_lock_waits
+    family: Contention
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: total
+    signal: mysql_flexible_innodb_row_lock_waits_total
+- id: azure_monitor.mysql_flexible.aborted_connections
+  title: Azure MySQL Flexible Server Aborted Connections
+  units: connections/s
+  family: Errors
+  chart_type: line
+  priority: 90110
+  instances:
+    group: azure_mysql_flexible
+    chart_prefix: mysql_flexible_aborted_connections
+    family: Errors
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: total
+    signal: mysql_flexible_aborted_connections_total
+- id: azure_monitor.mysql_flexible.active_connections
+  title: Azure MySQL Flexible Server Active Connections
+  units: connections
+  family: Connections
+  chart_type: line
+  priority: 90120
+  instances:
+    group: azure_mysql_flexible
+    chart_prefix: mysql_flexible_active_connections
+    family: Connections
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: mysql_flexible_active_connections_average
+- id: azure_monitor.mysql_flexible.total_connections
+  title: Azure MySQL Flexible Server Total Connections
+  units: connections/s
+  family: Connections
+  chart_type: line
+  priority: 90130
+  instances:
+    group: azure_mysql_flexible
+    chart_prefix: mysql_flexible_total_connections
+    family: Connections
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: total
+    signal: mysql_flexible_total_connections_total
+- id: azure_monitor.mysql_flexible.active_transactions
+  title: Azure MySQL Flexible Server Active Transactions
+  units: transactions
+  family: Connections
+  chart_type: line
+  priority: 90140
+  instances:
+    group: azure_mysql_flexible
+    chart_prefix: mysql_flexible_active_transactions
+    family: Connections
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: mysql_flexible_active_transactions_average
+- id: azure_monitor.mysql_flexible.threads_running
+  title: Azure MySQL Flexible Server Threads Running
+  units: threads
+  family: Connections
+  chart_type: line
+  priority: 90150
+  instances:
+    group: azure_mysql_flexible
+    chart_prefix: mysql_flexible_threads_running
+    family: Connections
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: maximum
+    signal: mysql_flexible_threads_running_maximum
+- id: azure_monitor.mysql_flexible.queries
+  title: Azure MySQL Flexible Server Queries
+  units: queries/s
+  family: Throughput
+  chart_type: line
+  priority: 90160
+  instances:
+    group: azure_mysql_flexible
+    chart_prefix: mysql_flexible_queries
+    family: Throughput
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: total
+    signal: mysql_flexible_queries_total
+  - id: slow
+    signal: mysql_flexible_queries_slow
+- id: azure_monitor.mysql_flexible.dml_statements
+  title: Azure MySQL Flexible Server DML Statements
+  units: statements/s
+  family: Throughput
+  chart_type: line
+  priority: 90170
+  instances:
+    group: azure_mysql_flexible
+    chart_prefix: mysql_flexible_dml_statements
+    family: Throughput
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: select
+    signal: mysql_flexible_dml_statements_select
+  - id: insert
+    signal: mysql_flexible_dml_statements_insert
+  - id: update
+    signal: mysql_flexible_dml_statements_update
+  - id: delete
+    signal: mysql_flexible_dml_statements_delete
+- id: azure_monitor.mysql_flexible.ddl_statements
+  title: Azure MySQL Flexible Server DDL Statements
+  units: statements/s
+  family: Throughput
+  chart_type: line
+  priority: 90180
+  instances:
+    group: azure_mysql_flexible
+    chart_prefix: mysql_flexible_ddl_statements
+    family: Throughput
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: create_table
+    signal: mysql_flexible_ddl_statements_create_table
+  - id: alter_table
+    signal: mysql_flexible_ddl_statements_alter_table
+  - id: drop_table
+    signal: mysql_flexible_ddl_statements_drop_table
+  - id: create_db
+    signal: mysql_flexible_ddl_statements_create_db
+  - id: drop_db
+    signal: mysql_flexible_ddl_statements_drop_db
+- id: azure_monitor.mysql_flexible.lock_deadlocks
+  title: Azure MySQL Flexible Server Deadlocks
+  units: deadlocks/s
+  family: Contention
+  chart_type: line
+  priority: 90190
+  instances:
+    group: azure_mysql_flexible
+    chart_prefix: mysql_flexible_lock_deadlocks
+    family: Contention
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: total
+    signal: mysql_flexible_lock_deadlocks_total
+- id: azure_monitor.mysql_flexible.lock_timeouts
+  title: Azure MySQL Flexible Server Lock Timeouts
+  units: timeouts/s
+  family: Contention
+  chart_type: line
+  priority: 90200
+  instances:
+    group: azure_mysql_flexible
+    chart_prefix: mysql_flexible_lock_timeouts
+    family: Contention
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: total
+    signal: mysql_flexible_lock_timeouts_total
+- id: azure_monitor.mysql_flexible.innodb_buffer_pool_pages
+  title: Azure MySQL Flexible Server InnoDB Buffer Pool Pages
+  units: pages
+  family: InnoDB
+  chart_type: line
+  priority: 90210
+  instances:
+    group: azure_mysql_flexible
+    chart_prefix: mysql_flexible_innodb_buffer_pool_pages
+    family: InnoDB
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: data
+    signal: mysql_flexible_innodb_buffer_pool_pages_data
+  - id: dirty
+    signal: mysql_flexible_innodb_buffer_pool_pages_dirty
+  - id: free
+    signal: mysql_flexible_innodb_buffer_pool_pages_free
+  - id: flushed
+    signal: mysql_flexible_innodb_buffer_pool_pages_flushed
+- id: azure_monitor.mysql_flexible.innodb_buffer_pool_io
+  title: Azure MySQL Flexible Server InnoDB Buffer Pool I/O
+  units: requests/s
+  family: InnoDB
+  chart_type: line
+  priority: 90220
+  instances:
+    group: azure_mysql_flexible
+    chart_prefix: mysql_flexible_innodb_buffer_pool_io
+    family: InnoDB
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: read_requests
+    signal: mysql_flexible_innodb_buffer_pool_io_read_requests
+  - id: disk_reads
+    signal: mysql_flexible_innodb_buffer_pool_io_disk_reads
+- id: azure_monitor.mysql_flexible.innodb_data_writes
+  title: Azure MySQL Flexible Server InnoDB Data Writes
+  units: writes/s
+  family: InnoDB
+  chart_type: line
+  priority: 90230
+  instances:
+    group: azure_mysql_flexible
+    chart_prefix: mysql_flexible_innodb_data_writes
+    family: InnoDB
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: total
+    signal: mysql_flexible_innodb_data_writes_total
+- id: azure_monitor.mysql_flexible.sort_merge_passes
+  title: Azure MySQL Flexible Server Sort Merge Passes
+  units: passes/s
+  family: Performance
+  chart_type: line
+  priority: 90240
+  instances:
+    group: azure_mysql_flexible
+    chart_prefix: mysql_flexible_sort_merge_passes
+    family: Performance
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: total
+    signal: mysql_flexible_sort_merge_passes_total
+- id: azure_monitor.mysql_flexible.network
+  title: Azure MySQL Flexible Server Network Traffic
+  units: bytes/s
+  family: Network
+  chart_type: line
+  priority: 90250
+  instances:
+    group: azure_mysql_flexible
+    chart_prefix: mysql_flexible_network
+    family: Network
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: in
+    signal: mysql_flexible_network_in
+  - id: out
+    signal: mysql_flexible_network_out
+- id: azure_monitor.mysql_flexible.storage_io
+  title: Azure MySQL Flexible Server Storage I/O
+  units: operations/s
+  family: IO
+  chart_type: line
+  priority: 90260
+  instances:
+    group: azure_mysql_flexible
+    chart_prefix: mysql_flexible_storage_io
+    family: IO
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: total
+    signal: mysql_flexible_storage_io_total
+- id: azure_monitor.mysql_flexible.storage
+  title: Azure MySQL Flexible Server Storage
+  units: bytes
+  family: Capacity
+  chart_type: line
+  priority: 90270
+  instances:
+    group: azure_mysql_flexible
+    chart_prefix: mysql_flexible_storage
+    family: Capacity
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: used
+    signal: mysql_flexible_storage_used
+  - id: limit
+    signal: mysql_flexible_storage_limit
+- id: azure_monitor.mysql_flexible.storage_utilization
+  title: Azure MySQL Flexible Server Storage Utilization
+  units: percentage
+  family: Capacity
+  chart_type: line
+  priority: 90280
+  instances:
+    group: azure_mysql_flexible
+    chart_prefix: mysql_flexible_storage_utilization
+    family: Capacity
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: mysql_flexible_storage_utilization_average
+- id: azure_monitor.mysql_flexible.storage_breakdown
+  title: Azure MySQL Flexible Server Storage Breakdown
+  units: bytes
+  family: Capacity
+  chart_type: line
+  priority: 90290
+  instances:
+    group: azure_mysql_flexible
+    chart_prefix: mysql_flexible_storage_breakdown
+    family: Capacity
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: data
+    signal: mysql_flexible_storage_breakdown_data
+  - id: ibdata1
+    signal: mysql_flexible_storage_breakdown_ibdata1
+  - id: binlog
+    signal: mysql_flexible_storage_breakdown_binlog
+  - id: others
+    signal: mysql_flexible_storage_breakdown_others
+- id: azure_monitor.mysql_flexible.backup_storage
+  title: Azure MySQL Flexible Server Backup Storage
+  units: bytes
+  family: Capacity
+  chart_type: line
+  priority: 90300
+  instances:
+    group: azure_mysql_flexible
+    chart_prefix: mysql_flexible_backup_storage
+    family: Capacity
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: used
+    signal: mysql_flexible_backup_storage_used
+- id: azure_monitor.mysql_flexible.serverlog_storage
+  title: Azure MySQL Flexible Server Server Log Storage
+  units: bytes
+  family: Capacity
+  chart_type: line
+  priority: 90310
+  instances:
+    group: azure_mysql_flexible
+    chart_prefix: mysql_flexible_serverlog_storage
+    family: Capacity
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: used
+    signal: mysql_flexible_serverlog_storage_used
+  - id: limit
+    signal: mysql_flexible_serverlog_storage_limit
+- id: azure_monitor.mysql_flexible.serverlog_storage_utilization
+  title: Azure MySQL Flexible Server Server Log Storage Utilization
+  units: percentage
+  family: Capacity
+  chart_type: line
+  priority: 90320
+  instances:
+    group: azure_mysql_flexible
+    chart_prefix: mysql_flexible_serverlog_storage_utilization
+    family: Capacity
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: mysql_flexible_serverlog_storage_utilization_average
+- id: azure_monitor.mysql_flexible.history_list_length
+  title: Azure MySQL Flexible Server History List Length
+  units: entries
+  family: InnoDB
+  chart_type: line
+  priority: 90330
+  instances:
+    group: azure_mysql_flexible
+    chart_prefix: mysql_flexible_history_list_length
+    family: InnoDB
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: maximum
+    signal: mysql_flexible_history_list_length_maximum

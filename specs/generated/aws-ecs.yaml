@@ -1,0 +1,89 @@
+version: 1
+name: aws-ecs
+description: 'Amazon ECS as reported through Netdata''s cloudwatch collector, generated from its service
+  profile (AWS/ECS) so the contexts, units, families and dimension names match a real deployment. Charts
+  are per-resource instances, as the collector emits them: resources are labels on one node, never separate
+  nodes. Signals move independently rather than being causally coupled - see scripts/sync-profile-collectors.py.'
+signals:
+  ecs_utilization_cpu:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  ecs_utilization_memory:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  ecs_ebs_filesystem_utilization_ebs_filesystem:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  ecs_live_task_count_live:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+contexts:
+- id: cloudwatch.ecs.utilization
+  title: ECS Service Utilization
+  units: percentage
+  family: Utilization
+  chart_type: line
+  priority: 90010
+  instances:
+    group: aws_ecs
+    chart_prefix: ecs_utilization
+    family: Utilization
+    labels:
+      cluster_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: cpu
+    signal: ecs_utilization_cpu
+  - id: memory
+    signal: ecs_utilization_memory
+- id: cloudwatch.ecs.ebs_filesystem_utilization
+  title: ECS EBS Filesystem Utilization
+  units: percentage
+  family: Utilization
+  chart_type: line
+  priority: 90020
+  instances:
+    group: aws_ecs
+    chart_prefix: ecs_ebs_filesystem_utilization
+    family: Utilization
+    labels:
+      cluster_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: ebs_filesystem
+    signal: ecs_ebs_filesystem_utilization_ebs_filesystem
+- id: cloudwatch.ecs.live_task_count
+  title: ECS Live Task Count
+  units: tasks
+  family: Tasks
+  chart_type: line
+  priority: 90030
+  instances:
+    group: aws_ecs
+    chart_prefix: ecs_live_task_count
+    family: Tasks
+    labels:
+      cluster_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: live
+    signal: ecs_live_task_count_live

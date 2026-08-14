@@ -1,0 +1,165 @@
+version: 1
+name: aws-nlb
+description: 'AWS Network Load Balancer as reported through Netdata''s cloudwatch collector, generated
+  from its service profile (AWS/NetworkELB) so the contexts, units, families and dimension names match
+  a real deployment. Charts are per-resource instances, as the collector emits them: resources are labels
+  on one node, never separate nodes. Signals move independently rather than being causally coupled - see
+  scripts/sync-profile-collectors.py.'
+signals:
+  nlb_active_flows_active:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  nlb_new_flows_new:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  nlb_processed_bytes_processed:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  nlb_processed_packets_processed:
+    base: 9800.0
+    min: 0.0
+    max: 20000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  nlb_consumed_lcus_lcus:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  nlb_tcp_resets_client:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  nlb_tcp_resets_elb:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  nlb_tcp_resets_target:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+contexts:
+- id: cloudwatch.nlb.active_flows
+  title: NLB Active Flow Count
+  units: flows
+  family: Flows
+  chart_type: line
+  priority: 90010
+  instances:
+    group: aws_nlb
+    chart_prefix: nlb_active_flows
+    family: Flows
+    labels:
+      load_balancer: '{instance}'
+  shape: independent
+  dimensions:
+  - id: active
+    signal: nlb_active_flows_active
+- id: cloudwatch.nlb.new_flows
+  title: NLB New Flow Count
+  units: flows/s
+  family: Flows
+  chart_type: line
+  priority: 90020
+  instances:
+    group: aws_nlb
+    chart_prefix: nlb_new_flows
+    family: Flows
+    labels:
+      load_balancer: '{instance}'
+  shape: independent
+  dimensions:
+  - id: new
+    signal: nlb_new_flows_new
+- id: cloudwatch.nlb.processed_bytes
+  title: NLB Processed Bytes
+  units: bytes/s
+  family: Traffic
+  chart_type: line
+  priority: 90030
+  instances:
+    group: aws_nlb
+    chart_prefix: nlb_processed_bytes
+    family: Traffic
+    labels:
+      load_balancer: '{instance}'
+  shape: independent
+  dimensions:
+  - id: processed
+    signal: nlb_processed_bytes_processed
+- id: cloudwatch.nlb.processed_packets
+  title: NLB Processed Packets
+  units: packets/s
+  family: Traffic
+  chart_type: line
+  priority: 90040
+  instances:
+    group: aws_nlb
+    chart_prefix: nlb_processed_packets
+    family: Traffic
+    labels:
+      load_balancer: '{instance}'
+  shape: independent
+  dimensions:
+  - id: processed
+    signal: nlb_processed_packets_processed
+- id: cloudwatch.nlb.consumed_lcus
+  title: NLB Consumed LCUs
+  units: LCU
+  family: Capacity
+  chart_type: line
+  priority: 90050
+  instances:
+    group: aws_nlb
+    chart_prefix: nlb_consumed_lcus
+    family: Capacity
+    labels:
+      load_balancer: '{instance}'
+  shape: independent
+  dimensions:
+  - id: lcus
+    signal: nlb_consumed_lcus_lcus
+- id: cloudwatch.nlb.tcp_resets
+  title: NLB TCP Resets
+  units: resets/s
+  family: Resets
+  chart_type: line
+  priority: 90060
+  instances:
+    group: aws_nlb
+    chart_prefix: nlb_tcp_resets
+    family: Resets
+    labels:
+      load_balancer: '{instance}'
+  shape: independent
+  dimensions:
+  - id: client
+    signal: nlb_tcp_resets_client
+  - id: elb
+    signal: nlb_tcp_resets_elb
+  - id: target
+    signal: nlb_tcp_resets_target

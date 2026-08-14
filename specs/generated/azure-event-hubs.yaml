@@ -1,0 +1,382 @@
+version: 1
+name: azure-event-hubs
+description: 'Azure Event Hubs Namespace as reported through Netdata''s azure_monitor collector, generated
+  from its service profile (Microsoft.EventHub/Namespaces) so the contexts, units, families and dimension
+  names match a real deployment. Charts are per-resource instances, as the collector emits them: resources
+  are labels on one node, never separate nodes. Signals move independently rather than being causally
+  coupled - see scripts/sync-profile-collectors.py.'
+signals:
+  event_hubs_message_flow_in:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  event_hubs_message_flow_out:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  event_hubs_data_throughput_in:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  event_hubs_data_throughput_out:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  event_hubs_requests_incoming:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  event_hubs_requests_successful:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  event_hubs_errors_server:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  event_hubs_errors_user:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  event_hubs_errors_throttled:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  event_hubs_errors_quota_exceeded:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  event_hubs_connections_active:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  event_hubs_connection_events_opened:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  event_hubs_connection_events_closed:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  event_hubs_captured_messages_total:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  event_hubs_captured_data_total:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  event_hubs_namespace_size_average:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  event_hubs_capture_backlog_backlog:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  event_hubs_namespace_resources_cpu:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  event_hubs_namespace_resources_memory:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  event_hubs_replication_lag_messages:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  event_hubs_replication_lag_duration_duration:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+contexts:
+- id: azure_monitor.event_hubs.message_flow
+  title: Azure Event Hubs Message Flow
+  units: messages/s
+  family: Messages
+  chart_type: line
+  priority: 90010
+  instances:
+    group: azure_event_hubs
+    chart_prefix: event_hubs_message_flow
+    family: Messages
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: in
+    signal: event_hubs_message_flow_in
+  - id: out
+    signal: event_hubs_message_flow_out
+- id: azure_monitor.event_hubs.data_throughput
+  title: Azure Event Hubs Data Throughput
+  units: bytes/s
+  family: Messages
+  chart_type: line
+  priority: 90020
+  instances:
+    group: azure_event_hubs
+    chart_prefix: event_hubs_data_throughput
+    family: Messages
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: in
+    signal: event_hubs_data_throughput_in
+  - id: out
+    signal: event_hubs_data_throughput_out
+- id: azure_monitor.event_hubs.requests
+  title: Azure Event Hubs Requests
+  units: requests/s
+  family: Requests
+  chart_type: line
+  priority: 90030
+  instances:
+    group: azure_event_hubs
+    chart_prefix: event_hubs_requests
+    family: Requests
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: incoming
+    signal: event_hubs_requests_incoming
+  - id: successful
+    signal: event_hubs_requests_successful
+- id: azure_monitor.event_hubs.errors
+  title: Azure Event Hubs Errors
+  units: errors/s
+  family: Errors
+  chart_type: line
+  priority: 90040
+  instances:
+    group: azure_event_hubs
+    chart_prefix: event_hubs_errors
+    family: Errors
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: server
+    signal: event_hubs_errors_server
+  - id: user
+    signal: event_hubs_errors_user
+  - id: throttled
+    signal: event_hubs_errors_throttled
+  - id: quota_exceeded
+    signal: event_hubs_errors_quota_exceeded
+- id: azure_monitor.event_hubs.connections
+  title: Azure Event Hubs Active Connections
+  units: connections
+  family: Connections
+  chart_type: line
+  priority: 90050
+  instances:
+    group: azure_event_hubs
+    chart_prefix: event_hubs_connections
+    family: Connections
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: active
+    signal: event_hubs_connections_active
+- id: azure_monitor.event_hubs.connection_events
+  title: Azure Event Hubs Connection Events
+  units: connections
+  family: Connections
+  chart_type: line
+  priority: 90060
+  instances:
+    group: azure_event_hubs
+    chart_prefix: event_hubs_connection_events
+    family: Connections
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: opened
+    signal: event_hubs_connection_events_opened
+  - id: closed
+    signal: event_hubs_connection_events_closed
+- id: azure_monitor.event_hubs.captured_messages
+  title: Azure Event Hubs Captured Messages
+  units: messages/s
+  family: Capture
+  chart_type: line
+  priority: 90070
+  instances:
+    group: azure_event_hubs
+    chart_prefix: event_hubs_captured_messages
+    family: Capture
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: total
+    signal: event_hubs_captured_messages_total
+- id: azure_monitor.event_hubs.captured_data
+  title: Azure Event Hubs Captured Data
+  units: bytes/s
+  family: Capture
+  chart_type: line
+  priority: 90080
+  instances:
+    group: azure_event_hubs
+    chart_prefix: event_hubs_captured_data
+    family: Capture
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: total
+    signal: event_hubs_captured_data_total
+- id: azure_monitor.event_hubs.namespace_size
+  title: Azure Event Hubs Namespace Size
+  units: bytes
+  family: Capacity
+  chart_type: line
+  priority: 90090
+  instances:
+    group: azure_event_hubs
+    chart_prefix: event_hubs_namespace_size
+    family: Capacity
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: event_hubs_namespace_size_average
+- id: azure_monitor.event_hubs.capture_backlog
+  title: Azure Event Hubs Capture Backlog
+  units: messages
+  family: Capture
+  chart_type: line
+  priority: 90100
+  instances:
+    group: azure_event_hubs
+    chart_prefix: event_hubs_capture_backlog
+    family: Capture
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: backlog
+    signal: event_hubs_capture_backlog_backlog
+- id: azure_monitor.event_hubs.namespace_resources
+  title: Azure Event Hubs Namespace Resources
+  units: percentage
+  family: Capacity
+  chart_type: line
+  priority: 90110
+  instances:
+    group: azure_event_hubs
+    chart_prefix: event_hubs_namespace_resources
+    family: Capacity
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: cpu
+    signal: event_hubs_namespace_resources_cpu
+  - id: memory
+    signal: event_hubs_namespace_resources_memory
+- id: azure_monitor.event_hubs.replication_lag
+  title: Azure Event Hubs Replication Lag
+  units: messages
+  family: Replication
+  chart_type: line
+  priority: 90120
+  instances:
+    group: azure_event_hubs
+    chart_prefix: event_hubs_replication_lag
+    family: Replication
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: messages
+    signal: event_hubs_replication_lag_messages
+- id: azure_monitor.event_hubs.replication_lag_duration
+  title: Azure Event Hubs Replication Lag Duration
+  units: seconds
+  family: Replication
+  chart_type: line
+  priority: 90130
+  instances:
+    group: azure_event_hubs
+    chart_prefix: event_hubs_replication_lag_duration
+    family: Replication
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: duration
+    signal: event_hubs_replication_lag_duration_duration

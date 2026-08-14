@@ -1,0 +1,460 @@
+version: 1
+name: azure-service-bus
+description: 'Azure Service Bus Namespace as reported through Netdata''s azure_monitor collector, generated
+  from its service profile (Microsoft.ServiceBus/Namespaces) so the contexts, units, families and dimension
+  names match a real deployment. Charts are per-resource instances, as the collector emits them: resources
+  are labels on one node, never separate nodes. Signals move independently rather than being causally
+  coupled - see scripts/sync-profile-collectors.py.'
+signals:
+  service_bus_message_flow_in:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  service_bus_message_flow_out:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  service_bus_message_operations_completed:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  service_bus_message_operations_abandoned:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  service_bus_queue_depth_active:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  service_bus_problem_messages_dead_lettered:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  service_bus_problem_messages_scheduled:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  service_bus_total_messages_total:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  service_bus_requests_incoming:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  service_bus_requests_successful:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  service_bus_errors_server:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  service_bus_errors_user:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  service_bus_errors_throttled:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  service_bus_connections_active:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  service_bus_connection_events_opened:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  service_bus_connection_events_closed:
+    base: 180.0
+    min: 0.0
+    max: 200000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  service_bus_namespace_size_average:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  service_bus_data_throughput_in:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  service_bus_data_throughput_out:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  service_bus_namespace_resources_cpu:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  service_bus_namespace_resources_memory:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  service_bus_send_latency_average:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  service_bus_replication_lag_messages:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  service_bus_replication_lag_duration_duration:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  service_bus_checkpoint_operations_pending:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+contexts:
+- id: azure_monitor.service_bus.message_flow
+  title: Azure Service Bus Message Flow
+  units: messages/s
+  family: Messages
+  chart_type: line
+  priority: 90010
+  instances:
+    group: azure_service_bus
+    chart_prefix: service_bus_message_flow
+    family: Messages
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: in
+    signal: service_bus_message_flow_in
+  - id: out
+    signal: service_bus_message_flow_out
+- id: azure_monitor.service_bus.message_operations
+  title: Azure Service Bus Message Operations
+  units: messages/s
+  family: Messages
+  chart_type: line
+  priority: 90020
+  instances:
+    group: azure_service_bus
+    chart_prefix: service_bus_message_operations
+    family: Messages
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: completed
+    signal: service_bus_message_operations_completed
+  - id: abandoned
+    signal: service_bus_message_operations_abandoned
+- id: azure_monitor.service_bus.queue_depth
+  title: Azure Service Bus Queue Depth
+  units: messages
+  family: Queue
+  chart_type: line
+  priority: 90030
+  instances:
+    group: azure_service_bus
+    chart_prefix: service_bus_queue_depth
+    family: Queue
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: active
+    signal: service_bus_queue_depth_active
+- id: azure_monitor.service_bus.problem_messages
+  title: Azure Service Bus Problem Messages
+  units: messages
+  family: Queue
+  chart_type: line
+  priority: 90040
+  instances:
+    group: azure_service_bus
+    chart_prefix: service_bus_problem_messages
+    family: Queue
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: dead_lettered
+    signal: service_bus_problem_messages_dead_lettered
+  - id: scheduled
+    signal: service_bus_problem_messages_scheduled
+- id: azure_monitor.service_bus.total_messages
+  title: Azure Service Bus Total Messages
+  units: messages
+  family: Queue
+  chart_type: line
+  priority: 90050
+  instances:
+    group: azure_service_bus
+    chart_prefix: service_bus_total_messages
+    family: Queue
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: total
+    signal: service_bus_total_messages_total
+- id: azure_monitor.service_bus.requests
+  title: Azure Service Bus Requests
+  units: requests/s
+  family: Requests
+  chart_type: line
+  priority: 90060
+  instances:
+    group: azure_service_bus
+    chart_prefix: service_bus_requests
+    family: Requests
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: incoming
+    signal: service_bus_requests_incoming
+  - id: successful
+    signal: service_bus_requests_successful
+- id: azure_monitor.service_bus.errors
+  title: Azure Service Bus Errors
+  units: errors/s
+  family: Errors
+  chart_type: line
+  priority: 90070
+  instances:
+    group: azure_service_bus
+    chart_prefix: service_bus_errors
+    family: Errors
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: server
+    signal: service_bus_errors_server
+  - id: user
+    signal: service_bus_errors_user
+  - id: throttled
+    signal: service_bus_errors_throttled
+- id: azure_monitor.service_bus.connections
+  title: Azure Service Bus Active Connections
+  units: connections
+  family: Connections
+  chart_type: line
+  priority: 90080
+  instances:
+    group: azure_service_bus
+    chart_prefix: service_bus_connections
+    family: Connections
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: active
+    signal: service_bus_connections_active
+- id: azure_monitor.service_bus.connection_events
+  title: Azure Service Bus Connection Events
+  units: connections
+  family: Connections
+  chart_type: line
+  priority: 90090
+  instances:
+    group: azure_service_bus
+    chart_prefix: service_bus_connection_events
+    family: Connections
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: opened
+    signal: service_bus_connection_events_opened
+  - id: closed
+    signal: service_bus_connection_events_closed
+- id: azure_monitor.service_bus.namespace_size
+  title: Azure Service Bus Namespace Size
+  units: bytes
+  family: Capacity
+  chart_type: line
+  priority: 90100
+  instances:
+    group: azure_service_bus
+    chart_prefix: service_bus_namespace_size
+    family: Capacity
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: service_bus_namespace_size_average
+- id: azure_monitor.service_bus.data_throughput
+  title: Azure Service Bus Data Throughput
+  units: bytes/s
+  family: Messages
+  chart_type: line
+  priority: 90110
+  instances:
+    group: azure_service_bus
+    chart_prefix: service_bus_data_throughput
+    family: Messages
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: in
+    signal: service_bus_data_throughput_in
+  - id: out
+    signal: service_bus_data_throughput_out
+- id: azure_monitor.service_bus.namespace_resources
+  title: Azure Service Bus Namespace Resources
+  units: percentage
+  family: Capacity
+  chart_type: line
+  priority: 90120
+  instances:
+    group: azure_service_bus
+    chart_prefix: service_bus_namespace_resources
+    family: Capacity
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: cpu
+    signal: service_bus_namespace_resources_cpu
+  - id: memory
+    signal: service_bus_namespace_resources_memory
+- id: azure_monitor.service_bus.send_latency
+  title: Azure Service Bus Send Latency
+  units: milliseconds
+  family: Performance
+  chart_type: line
+  priority: 90130
+  instances:
+    group: azure_service_bus
+    chart_prefix: service_bus_send_latency
+    family: Performance
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: service_bus_send_latency_average
+- id: azure_monitor.service_bus.replication_lag
+  title: Azure Service Bus Replication Lag
+  units: messages
+  family: Replication
+  chart_type: line
+  priority: 90140
+  instances:
+    group: azure_service_bus
+    chart_prefix: service_bus_replication_lag
+    family: Replication
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: messages
+    signal: service_bus_replication_lag_messages
+- id: azure_monitor.service_bus.replication_lag_duration
+  title: Azure Service Bus Replication Lag Duration
+  units: seconds
+  family: Replication
+  chart_type: line
+  priority: 90150
+  instances:
+    group: azure_service_bus
+    chart_prefix: service_bus_replication_lag_duration
+    family: Replication
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: duration
+    signal: service_bus_replication_lag_duration_duration
+- id: azure_monitor.service_bus.checkpoint_operations
+  title: Azure Service Bus Pending Checkpoint Operations
+  units: operations
+  family: Replication
+  chart_type: line
+  priority: 90160
+  instances:
+    group: azure_service_bus
+    chart_prefix: service_bus_checkpoint_operations
+    family: Replication
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: pending
+    signal: service_bus_checkpoint_operations_pending

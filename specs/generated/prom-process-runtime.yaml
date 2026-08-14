@@ -1,0 +1,94 @@
+version: 1
+name: prom-process-runtime
+description: 'process_runtime as reported through Netdata''s prometheus collector, generated from its
+  service profile (no namespace declared) so the contexts, units, families and dimension names match a
+  real deployment. Charts are per-resource instances, as the collector emits them: resources are labels
+  on one node, never separate nodes. Signals move independently rather than being causally coupled - see
+  scripts/sync-profile-collectors.py.'
+signals:
+  process_runtime_process_cpu_used:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  process_runtime_process_resident_memory_resident:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  process_runtime_process_virtual_memory_virtual:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  process_runtime_open_file_descriptors_open:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  process_runtime_file_descriptor_limit_limit:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+contexts:
+- id: prometheus.process_runtime.process_cpu
+  title: Process CPU Usage
+  units: cores
+  family: process_runtime
+  chart_type: line
+  priority: 90010
+  shape: independent
+  dimensions:
+  - id: used
+    signal: process_runtime_process_cpu_used
+- id: prometheus.process_runtime.process_resident_memory
+  title: Process Resident Memory
+  units: bytes
+  family: process_runtime
+  chart_type: line
+  priority: 90020
+  shape: independent
+  dimensions:
+  - id: resident
+    signal: process_runtime_process_resident_memory_resident
+- id: prometheus.process_runtime.process_virtual_memory
+  title: Process Virtual Memory
+  units: bytes
+  family: process_runtime
+  chart_type: line
+  priority: 90030
+  shape: independent
+  dimensions:
+  - id: virtual
+    signal: process_runtime_process_virtual_memory_virtual
+- id: prometheus.process_runtime.open_file_descriptors
+  title: Open File Descriptors
+  units: fds
+  family: process_runtime
+  chart_type: line
+  priority: 90040
+  shape: independent
+  dimensions:
+  - id: open
+    signal: process_runtime_open_file_descriptors_open
+- id: prometheus.process_runtime.file_descriptor_limit
+  title: File Descriptor Limit
+  units: fds
+  family: process_runtime
+  chart_type: line
+  priority: 90050
+  shape: independent
+  dimensions:
+  - id: limit
+    signal: process_runtime_file_descriptor_limit_limit

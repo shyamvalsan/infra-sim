@@ -1,0 +1,1204 @@
+version: 1
+name: azure-log-analytics
+description: 'Azure Log Analytics Workspace as reported through Netdata''s azure_monitor collector, generated
+  from its service profile (Microsoft.OperationalInsights/workspaces) so the contexts, units, families
+  and dimension names match a real deployment. Charts are per-resource instances, as the collector emits
+  them: resources are labels on one node, never separate nodes. Signals move independently rather than
+  being causally coupled - see scripts/sync-profile-collectors.py.'
+signals:
+  log_analytics_query_availability_availability:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_ingestion_latency_average:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_ingestion_latency_maximum:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_ingestion_latency_minimum:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_ingestion_volume_records:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_queries_total:
+    base: 920.0
+    min: 0.0
+    max: 5000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_queries_failed:
+    base: 0.0
+    min: 0.0
+    max: 5000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_export_data_exported:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_export_records_exported:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_export_failures_failed:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_legacy_cpu_utilization_processor:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_legacy_cpu_utilization_privileged:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_legacy_cpu_utilization_user:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_legacy_cpu_utilization_idle:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_legacy_cpu_detailed_dpc:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_legacy_cpu_detailed_interrupt:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_legacy_cpu_detailed_io_wait:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_legacy_cpu_detailed_nice:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_legacy_cpu_pct_privileged:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_legacy_cpu_pct_user:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_legacy_memory_utilization_available:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_legacy_memory_utilization_used:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_legacy_memory_utilization_committed:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_legacy_memory_available_available_mbytes:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_legacy_memory_available_available_mbytes_memory:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_legacy_memory_used_kbytes_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_legacy_memory_used_mbytes_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_legacy_memory_free_physical:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_legacy_memory_free_virtual:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_legacy_memory_free_shared:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_legacy_swap_utilization_available:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_legacy_swap_utilization_used:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_legacy_swap_size_available:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_legacy_swap_size_used:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_legacy_disk_space_utilization_free:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_legacy_disk_space_utilization_used:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_legacy_disk_inodes_free:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_legacy_disk_inodes_used:
+    base: 34.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_legacy_disk_free_free:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_legacy_disk_io_throughput_read:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_legacy_disk_io_throughput_write:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_legacy_disk_io_throughput_logical:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_legacy_disk_io_throughput_physical:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_legacy_disk_io_operations_reads:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_legacy_disk_io_operations_writes:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_legacy_disk_io_operations_transfers:
+    base: 1450.0
+    min: 0.0
+    max: 5000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_legacy_disk_io_latency_read:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_legacy_disk_io_latency_write:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_legacy_disk_io_latency_transfer:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_legacy_disk_queue_queue_length:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_legacy_paging_reads:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_legacy_paging_writes:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_legacy_paging_total:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_legacy_paging_files_free:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_legacy_paging_files_stored:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_legacy_network_throughput_win_received:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_legacy_network_throughput_win_sent:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_legacy_network_throughput_win_total:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_legacy_network_traffic_total:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_legacy_network_traffic_received:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_legacy_network_traffic_transmitted:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_legacy_network_packets_received:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_legacy_network_packets_transmitted:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_legacy_network_errors_rx:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_legacy_network_errors_tx:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_legacy_network_errors_collisions:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_legacy_system_processes:
+    base: 210.0
+    min: 0.0
+    max: 100000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_legacy_processor_queue_queue_length:
+    base: 46.0
+    min: 0.0
+    max: 100000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_legacy_uptime_uptime:
+    base: 0.9
+    min: 0.0
+    max: 86400.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_legacy_users_users:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_legacy_events_events:
+    base: 260.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_legacy_heartbeat_heartbeats:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  log_analytics_legacy_updates_updates:
+    base: 120.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+contexts:
+- id: azure_monitor.log_analytics.query_availability
+  title: Azure Log Analytics Query Availability
+  units: percentage
+  family: Availability
+  chart_type: line
+  priority: 90010
+  instances:
+    group: azure_log_analytics
+    chart_prefix: log_analytics_query_availability
+    family: Availability
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: availability
+    signal: log_analytics_query_availability_availability
+- id: azure_monitor.log_analytics.ingestion_latency
+  title: Azure Log Analytics Ingestion Latency
+  units: seconds
+  family: Ingestion
+  chart_type: line
+  priority: 90020
+  instances:
+    group: azure_log_analytics
+    chart_prefix: log_analytics_ingestion_latency
+    family: Ingestion
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: average
+    signal: log_analytics_ingestion_latency_average
+  - id: maximum
+    signal: log_analytics_ingestion_latency_maximum
+  - id: minimum
+    signal: log_analytics_ingestion_latency_minimum
+- id: azure_monitor.log_analytics.ingestion_volume
+  title: Azure Log Analytics Ingestion Volume
+  units: records/s
+  family: Ingestion
+  chart_type: line
+  priority: 90030
+  instances:
+    group: azure_log_analytics
+    chart_prefix: log_analytics_ingestion_volume
+    family: Ingestion
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: records
+    signal: log_analytics_ingestion_volume_records
+- id: azure_monitor.log_analytics.queries
+  title: Azure Log Analytics Queries
+  units: queries/s
+  family: Queries
+  chart_type: line
+  priority: 90040
+  instances:
+    group: azure_log_analytics
+    chart_prefix: log_analytics_queries
+    family: Queries
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: total
+    signal: log_analytics_queries_total
+  - id: failed
+    signal: log_analytics_queries_failed
+- id: azure_monitor.log_analytics.export_data
+  title: Azure Log Analytics Exported Data
+  units: bytes/s
+  family: DataExport
+  chart_type: line
+  priority: 90050
+  instances:
+    group: azure_log_analytics
+    chart_prefix: log_analytics_export_data
+    family: DataExport
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: exported
+    signal: log_analytics_export_data_exported
+- id: azure_monitor.log_analytics.export_records
+  title: Azure Log Analytics Exported Records
+  units: records/s
+  family: DataExport
+  chart_type: line
+  priority: 90060
+  instances:
+    group: azure_log_analytics
+    chart_prefix: log_analytics_export_records
+    family: DataExport
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: exported
+    signal: log_analytics_export_records_exported
+- id: azure_monitor.log_analytics.export_failures
+  title: Azure Log Analytics Export Failures
+  units: exports/s
+  family: DataExport
+  chart_type: line
+  priority: 90070
+  instances:
+    group: azure_log_analytics
+    chart_prefix: log_analytics_export_failures
+    family: DataExport
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: failed
+    signal: log_analytics_export_failures_failed
+- id: azure_monitor.log_analytics.legacy_cpu_utilization
+  title: Azure Log Analytics Legacy CPU Utilization
+  units: percentage
+  family: 'Legacy: CPU'
+  chart_type: line
+  priority: 90080
+  instances:
+    group: azure_log_analytics
+    chart_prefix: log_analytics_legacy_cpu_utilization
+    family: 'Legacy: CPU'
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: processor
+    signal: log_analytics_legacy_cpu_utilization_processor
+  - id: privileged
+    signal: log_analytics_legacy_cpu_utilization_privileged
+  - id: user
+    signal: log_analytics_legacy_cpu_utilization_user
+  - id: idle
+    signal: log_analytics_legacy_cpu_utilization_idle
+- id: azure_monitor.log_analytics.legacy_cpu_detailed
+  title: Azure Log Analytics Legacy CPU Detailed
+  units: percentage
+  family: 'Legacy: CPU'
+  chart_type: line
+  priority: 90090
+  instances:
+    group: azure_log_analytics
+    chart_prefix: log_analytics_legacy_cpu_detailed
+    family: 'Legacy: CPU'
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: dpc
+    signal: log_analytics_legacy_cpu_detailed_dpc
+  - id: interrupt
+    signal: log_analytics_legacy_cpu_detailed_interrupt
+  - id: io_wait
+    signal: log_analytics_legacy_cpu_detailed_io_wait
+  - id: nice
+    signal: log_analytics_legacy_cpu_detailed_nice
+- id: azure_monitor.log_analytics.legacy_cpu_pct
+  title: Azure Log Analytics Legacy CPU Pct Time
+  units: percentage
+  family: 'Legacy: CPU'
+  chart_type: line
+  priority: 90100
+  instances:
+    group: azure_log_analytics
+    chart_prefix: log_analytics_legacy_cpu_pct
+    family: 'Legacy: CPU'
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: privileged
+    signal: log_analytics_legacy_cpu_pct_privileged
+  - id: user
+    signal: log_analytics_legacy_cpu_pct_user
+- id: azure_monitor.log_analytics.legacy_memory_utilization
+  title: Azure Log Analytics Legacy Memory Utilization
+  units: percentage
+  family: 'Legacy: Memory'
+  chart_type: line
+  priority: 90110
+  instances:
+    group: azure_log_analytics
+    chart_prefix: log_analytics_legacy_memory_utilization
+    family: 'Legacy: Memory'
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: available
+    signal: log_analytics_legacy_memory_utilization_available
+  - id: used
+    signal: log_analytics_legacy_memory_utilization_used
+  - id: committed
+    signal: log_analytics_legacy_memory_utilization_committed
+- id: azure_monitor.log_analytics.legacy_memory_available
+  title: Azure Log Analytics Legacy Available Memory
+  units: megabytes
+  family: 'Legacy: Memory'
+  chart_type: line
+  priority: 90120
+  instances:
+    group: azure_log_analytics
+    chart_prefix: log_analytics_legacy_memory_available
+    family: 'Legacy: Memory'
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: available_mbytes
+    signal: log_analytics_legacy_memory_available_available_mbytes
+  - id: available_mbytes_memory
+    signal: log_analytics_legacy_memory_available_available_mbytes_memory
+- id: azure_monitor.log_analytics.legacy_memory_used_kbytes
+  title: Azure Log Analytics Legacy Used Memory (kBytes)
+  units: kilobytes
+  family: 'Legacy: Memory'
+  chart_type: line
+  priority: 90130
+  instances:
+    group: azure_log_analytics
+    chart_prefix: log_analytics_legacy_memory_used_kbytes
+    family: 'Legacy: Memory'
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: used
+    signal: log_analytics_legacy_memory_used_kbytes_used
+- id: azure_monitor.log_analytics.legacy_memory_used_mbytes
+  title: Azure Log Analytics Legacy Used Memory (MBytes)
+  units: megabytes
+  family: 'Legacy: Memory'
+  chart_type: line
+  priority: 90140
+  instances:
+    group: azure_log_analytics
+    chart_prefix: log_analytics_legacy_memory_used_mbytes
+    family: 'Legacy: Memory'
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: used
+    signal: log_analytics_legacy_memory_used_mbytes_used
+- id: azure_monitor.log_analytics.legacy_memory_free
+  title: Azure Log Analytics Legacy Free Memory
+  units: megabytes
+  family: 'Legacy: Memory'
+  chart_type: line
+  priority: 90150
+  instances:
+    group: azure_log_analytics
+    chart_prefix: log_analytics_legacy_memory_free
+    family: 'Legacy: Memory'
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: physical
+    signal: log_analytics_legacy_memory_free_physical
+  - id: virtual
+    signal: log_analytics_legacy_memory_free_virtual
+  - id: shared
+    signal: log_analytics_legacy_memory_free_shared
+- id: azure_monitor.log_analytics.legacy_swap_utilization
+  title: Azure Log Analytics Legacy Swap Utilization
+  units: percentage
+  family: 'Legacy: Swap'
+  chart_type: line
+  priority: 90160
+  instances:
+    group: azure_log_analytics
+    chart_prefix: log_analytics_legacy_swap_utilization
+    family: 'Legacy: Swap'
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: available
+    signal: log_analytics_legacy_swap_utilization_available
+  - id: used
+    signal: log_analytics_legacy_swap_utilization_used
+- id: azure_monitor.log_analytics.legacy_swap_size
+  title: Azure Log Analytics Legacy Swap Size
+  units: megabytes
+  family: 'Legacy: Swap'
+  chart_type: line
+  priority: 90170
+  instances:
+    group: azure_log_analytics
+    chart_prefix: log_analytics_legacy_swap_size
+    family: 'Legacy: Swap'
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: available
+    signal: log_analytics_legacy_swap_size_available
+  - id: used
+    signal: log_analytics_legacy_swap_size_used
+- id: azure_monitor.log_analytics.legacy_disk_space_utilization
+  title: Azure Log Analytics Legacy Disk Space Utilization
+  units: percentage
+  family: 'Legacy: Disk'
+  chart_type: line
+  priority: 90180
+  instances:
+    group: azure_log_analytics
+    chart_prefix: log_analytics_legacy_disk_space_utilization
+    family: 'Legacy: Disk'
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: free
+    signal: log_analytics_legacy_disk_space_utilization_free
+  - id: used
+    signal: log_analytics_legacy_disk_space_utilization_used
+- id: azure_monitor.log_analytics.legacy_disk_inodes
+  title: Azure Log Analytics Legacy Disk Inodes
+  units: percentage
+  family: 'Legacy: Disk'
+  chart_type: line
+  priority: 90190
+  instances:
+    group: azure_log_analytics
+    chart_prefix: log_analytics_legacy_disk_inodes
+    family: 'Legacy: Disk'
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: free
+    signal: log_analytics_legacy_disk_inodes_free
+  - id: used
+    signal: log_analytics_legacy_disk_inodes_used
+- id: azure_monitor.log_analytics.legacy_disk_free
+  title: Azure Log Analytics Legacy Disk Free Space
+  units: megabytes
+  family: 'Legacy: Disk'
+  chart_type: line
+  priority: 90200
+  instances:
+    group: azure_log_analytics
+    chart_prefix: log_analytics_legacy_disk_free
+    family: 'Legacy: Disk'
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: free
+    signal: log_analytics_legacy_disk_free_free
+- id: azure_monitor.log_analytics.legacy_disk_io_throughput
+  title: Azure Log Analytics Legacy Disk I/O Throughput
+  units: bytes/s
+  family: 'Legacy: Disk'
+  chart_type: line
+  priority: 90210
+  instances:
+    group: azure_log_analytics
+    chart_prefix: log_analytics_legacy_disk_io_throughput
+    family: 'Legacy: Disk'
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: read
+    signal: log_analytics_legacy_disk_io_throughput_read
+  - id: write
+    signal: log_analytics_legacy_disk_io_throughput_write
+  - id: logical
+    signal: log_analytics_legacy_disk_io_throughput_logical
+  - id: physical
+    signal: log_analytics_legacy_disk_io_throughput_physical
+- id: azure_monitor.log_analytics.legacy_disk_io_operations
+  title: Azure Log Analytics Legacy Disk I/O Operations
+  units: operations/s
+  family: 'Legacy: Disk'
+  chart_type: line
+  priority: 90220
+  instances:
+    group: azure_log_analytics
+    chart_prefix: log_analytics_legacy_disk_io_operations
+    family: 'Legacy: Disk'
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: reads
+    signal: log_analytics_legacy_disk_io_operations_reads
+  - id: writes
+    signal: log_analytics_legacy_disk_io_operations_writes
+  - id: transfers
+    signal: log_analytics_legacy_disk_io_operations_transfers
+- id: azure_monitor.log_analytics.legacy_disk_io_latency
+  title: Azure Log Analytics Legacy Disk I/O Latency
+  units: seconds
+  family: 'Legacy: Disk'
+  chart_type: line
+  priority: 90230
+  instances:
+    group: azure_log_analytics
+    chart_prefix: log_analytics_legacy_disk_io_latency
+    family: 'Legacy: Disk'
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: read
+    signal: log_analytics_legacy_disk_io_latency_read
+  - id: write
+    signal: log_analytics_legacy_disk_io_latency_write
+  - id: transfer
+    signal: log_analytics_legacy_disk_io_latency_transfer
+- id: azure_monitor.log_analytics.legacy_disk_queue
+  title: Azure Log Analytics Legacy Disk Queue Length
+  units: operations
+  family: 'Legacy: Disk'
+  chart_type: line
+  priority: 90240
+  instances:
+    group: azure_log_analytics
+    chart_prefix: log_analytics_legacy_disk_queue
+    family: 'Legacy: Disk'
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: queue_length
+    signal: log_analytics_legacy_disk_queue_queue_length
+- id: azure_monitor.log_analytics.legacy_paging
+  title: Azure Log Analytics Legacy Paging Activity
+  units: pages/s
+  family: 'Legacy: Memory'
+  chart_type: line
+  priority: 90250
+  instances:
+    group: azure_log_analytics
+    chart_prefix: log_analytics_legacy_paging
+    family: 'Legacy: Memory'
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: reads
+    signal: log_analytics_legacy_paging_reads
+  - id: writes
+    signal: log_analytics_legacy_paging_writes
+  - id: total
+    signal: log_analytics_legacy_paging_total
+- id: azure_monitor.log_analytics.legacy_paging_files
+  title: Azure Log Analytics Legacy Paging Files
+  units: megabytes
+  family: 'Legacy: Memory'
+  chart_type: line
+  priority: 90260
+  instances:
+    group: azure_log_analytics
+    chart_prefix: log_analytics_legacy_paging_files
+    family: 'Legacy: Memory'
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: free
+    signal: log_analytics_legacy_paging_files_free
+  - id: stored
+    signal: log_analytics_legacy_paging_files_stored
+- id: azure_monitor.log_analytics.legacy_network_throughput_win
+  title: Azure Log Analytics Legacy Network Throughput (Windows)
+  units: bytes/s
+  family: 'Legacy: Network'
+  chart_type: line
+  priority: 90270
+  instances:
+    group: azure_log_analytics
+    chart_prefix: log_analytics_legacy_network_throughput_win
+    family: 'Legacy: Network'
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: received
+    signal: log_analytics_legacy_network_throughput_win_received
+  - id: sent
+    signal: log_analytics_legacy_network_throughput_win_sent
+  - id: total
+    signal: log_analytics_legacy_network_throughput_win_total
+- id: azure_monitor.log_analytics.legacy_network_traffic
+  title: Azure Log Analytics Legacy Network Traffic
+  units: bytes
+  family: 'Legacy: Network'
+  chart_type: line
+  priority: 90280
+  instances:
+    group: azure_log_analytics
+    chart_prefix: log_analytics_legacy_network_traffic
+    family: 'Legacy: Network'
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: total
+    signal: log_analytics_legacy_network_traffic_total
+  - id: received
+    signal: log_analytics_legacy_network_traffic_received
+  - id: transmitted
+    signal: log_analytics_legacy_network_traffic_transmitted
+- id: azure_monitor.log_analytics.legacy_network_packets
+  title: Azure Log Analytics Legacy Network Packets
+  units: packets
+  family: 'Legacy: Network'
+  chart_type: line
+  priority: 90290
+  instances:
+    group: azure_log_analytics
+    chart_prefix: log_analytics_legacy_network_packets
+    family: 'Legacy: Network'
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: received
+    signal: log_analytics_legacy_network_packets_received
+  - id: transmitted
+    signal: log_analytics_legacy_network_packets_transmitted
+- id: azure_monitor.log_analytics.legacy_network_errors
+  title: Azure Log Analytics Legacy Network Errors
+  units: errors
+  family: 'Legacy: Network'
+  chart_type: line
+  priority: 90300
+  instances:
+    group: azure_log_analytics
+    chart_prefix: log_analytics_legacy_network_errors
+    family: 'Legacy: Network'
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: rx
+    signal: log_analytics_legacy_network_errors_rx
+  - id: tx
+    signal: log_analytics_legacy_network_errors_tx
+  - id: collisions
+    signal: log_analytics_legacy_network_errors_collisions
+- id: azure_monitor.log_analytics.legacy_system
+  title: Azure Log Analytics Legacy System
+  units: processes
+  family: 'Legacy: System'
+  chart_type: line
+  priority: 90310
+  instances:
+    group: azure_log_analytics
+    chart_prefix: log_analytics_legacy_system
+    family: 'Legacy: System'
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: processes
+    signal: log_analytics_legacy_system_processes
+- id: azure_monitor.log_analytics.legacy_processor_queue
+  title: Azure Log Analytics Legacy Processor Queue
+  units: threads
+  family: 'Legacy: System'
+  chart_type: line
+  priority: 90320
+  instances:
+    group: azure_log_analytics
+    chart_prefix: log_analytics_legacy_processor_queue
+    family: 'Legacy: System'
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: queue_length
+    signal: log_analytics_legacy_processor_queue_queue_length
+- id: azure_monitor.log_analytics.legacy_uptime
+  title: Azure Log Analytics Legacy Uptime
+  units: seconds
+  family: 'Legacy: System'
+  chart_type: line
+  priority: 90330
+  instances:
+    group: azure_log_analytics
+    chart_prefix: log_analytics_legacy_uptime
+    family: 'Legacy: System'
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: uptime
+    signal: log_analytics_legacy_uptime_uptime
+- id: azure_monitor.log_analytics.legacy_users
+  title: Azure Log Analytics Legacy Users
+  units: users
+  family: 'Legacy: System'
+  chart_type: line
+  priority: 90340
+  instances:
+    group: azure_log_analytics
+    chart_prefix: log_analytics_legacy_users
+    family: 'Legacy: System'
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: users
+    signal: log_analytics_legacy_users_users
+- id: azure_monitor.log_analytics.legacy_events
+  title: Azure Log Analytics Legacy Events
+  units: events/s
+  family: 'Legacy: Events'
+  chart_type: line
+  priority: 90350
+  instances:
+    group: azure_log_analytics
+    chart_prefix: log_analytics_legacy_events
+    family: 'Legacy: Events'
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: events
+    signal: log_analytics_legacy_events_events
+- id: azure_monitor.log_analytics.legacy_heartbeat
+  title: Azure Log Analytics Legacy Heartbeat
+  units: heartbeats/s
+  family: 'Legacy: Events'
+  chart_type: line
+  priority: 90360
+  instances:
+    group: azure_log_analytics
+    chart_prefix: log_analytics_legacy_heartbeat
+    family: 'Legacy: Events'
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: heartbeats
+    signal: log_analytics_legacy_heartbeat_heartbeats
+- id: azure_monitor.log_analytics.legacy_updates
+  title: Azure Log Analytics Legacy Updates
+  units: updates
+  family: 'Legacy: Events'
+  chart_type: line
+  priority: 90370
+  instances:
+    group: azure_log_analytics
+    chart_prefix: log_analytics_legacy_updates
+    family: 'Legacy: Events'
+    labels:
+      resource_uid: '{instance}'
+  shape: independent
+  dimensions:
+  - id: updates
+    signal: log_analytics_legacy_updates_updates

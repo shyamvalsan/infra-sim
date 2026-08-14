@@ -1,0 +1,107 @@
+version: 1
+name: aws-cloudfront
+description: 'AWS CloudFront as reported through Netdata''s cloudwatch collector, generated from its service
+  profile (AWS/CloudFront) so the contexts, units, families and dimension names match a real deployment.
+  Charts are per-resource instances, as the collector emits them: resources are labels on one node, never
+  separate nodes. Signals move independently rather than being causally coupled - see scripts/sync-profile-collectors.py.'
+signals:
+  cloudfront_requests_requests:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  cloudfront_traffic_downloaded:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  cloudfront_traffic_uploaded:
+    base: 2400000.0
+    min: 0.0
+    max: 5000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  cloudfront_error_rate_total:
+    base: 0.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  cloudfront_error_rate_4xx:
+    base: 0.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+  cloudfront_error_rate_5xx:
+    base: 0.0
+    min: 0.0
+    max: 100.0
+    max_is_ceiling: true
+    noise:
+      kind: gauss
+      sigma: 0.18
+contexts:
+- id: cloudwatch.cloudfront.requests
+  title: CloudFront Requests
+  units: requests/s
+  family: Requests
+  chart_type: line
+  priority: 90010
+  instances:
+    group: aws_cloudfront
+    chart_prefix: cloudfront_requests
+    family: Requests
+    labels:
+      distribution_id: '{instance}'
+  shape: independent
+  dimensions:
+  - id: requests
+    signal: cloudfront_requests_requests
+- id: cloudwatch.cloudfront.traffic
+  title: CloudFront Traffic
+  units: bytes/s
+  family: Traffic
+  chart_type: line
+  priority: 90020
+  instances:
+    group: aws_cloudfront
+    chart_prefix: cloudfront_traffic
+    family: Traffic
+    labels:
+      distribution_id: '{instance}'
+  shape: independent
+  dimensions:
+  - id: downloaded
+    signal: cloudfront_traffic_downloaded
+  - id: uploaded
+    signal: cloudfront_traffic_uploaded
+- id: cloudwatch.cloudfront.error_rate
+  title: CloudFront Error Rate
+  units: percentage
+  family: Errors
+  chart_type: line
+  priority: 90030
+  instances:
+    group: aws_cloudfront
+    chart_prefix: cloudfront_error_rate
+    family: Errors
+    labels:
+      distribution_id: '{instance}'
+  shape: independent
+  dimensions:
+  - id: total
+    signal: cloudfront_error_rate_total
+  - id: 4xx
+    signal: cloudfront_error_rate_4xx
+  - id: 5xx
+    signal: cloudfront_error_rate_5xx

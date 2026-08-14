@@ -1,0 +1,159 @@
+version: 1
+name: aws-sns
+description: 'Amazon SNS as reported through Netdata''s cloudwatch collector, generated from its service
+  profile (AWS/SNS) so the contexts, units, families and dimension names match a real deployment. Charts
+  are per-resource instances, as the collector emits them: resources are labels on one node, never separate
+  nodes. Signals move independently rather than being causally coupled - see scripts/sync-profile-collectors.py.'
+signals:
+  sns_messages_published_published:
+    base: 340.0
+    min: 0.0
+    max: 2000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  sns_notifications_delivered:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  sns_notifications_failed:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  sns_notifications_filtered_out:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  sns_publish_size_size:
+    base: 620000000.0
+    min: 0.0
+    max: 900000000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  sns_invalid_notifications_invalid_attributes:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  sns_invalid_notifications_invalid_message_body:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  sns_dlq_redrive_redriven:
+    base: 130.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  sns_dlq_redrive_failed_redrive:
+    base: 0.0
+    min: 0.0
+    max: 1000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+contexts:
+- id: cloudwatch.sns.messages_published
+  title: SNS Messages Published
+  units: messages/s
+  family: Messages
+  chart_type: line
+  priority: 90010
+  instances:
+    group: aws_sns
+    chart_prefix: sns_messages_published
+    family: Messages
+    labels:
+      topic_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: published
+    signal: sns_messages_published_published
+- id: cloudwatch.sns.notifications
+  title: SNS Notifications
+  units: notifications/s
+  family: Notifications
+  chart_type: line
+  priority: 90020
+  instances:
+    group: aws_sns
+    chart_prefix: sns_notifications
+    family: Notifications
+    labels:
+      topic_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: delivered
+    signal: sns_notifications_delivered
+  - id: failed
+    signal: sns_notifications_failed
+  - id: filtered_out
+    signal: sns_notifications_filtered_out
+- id: cloudwatch.sns.publish_size
+  title: SNS Published Message Size
+  units: bytes
+  family: Messages
+  chart_type: line
+  priority: 90030
+  instances:
+    group: aws_sns
+    chart_prefix: sns_publish_size
+    family: Messages
+    labels:
+      topic_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: size
+    signal: sns_publish_size_size
+- id: cloudwatch.sns.invalid_notifications
+  title: SNS Invalid Notifications
+  units: notifications/s
+  family: Notifications
+  chart_type: line
+  priority: 90040
+  instances:
+    group: aws_sns
+    chart_prefix: sns_invalid_notifications
+    family: Notifications
+    labels:
+      topic_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: invalid_attributes
+    signal: sns_invalid_notifications_invalid_attributes
+  - id: invalid_message_body
+    signal: sns_invalid_notifications_invalid_message_body
+- id: cloudwatch.sns.dlq_redrive
+  title: SNS Dead-Letter Queue Redrive
+  units: notifications/s
+  family: Notifications
+  chart_type: line
+  priority: 90050
+  instances:
+    group: aws_sns
+    chart_prefix: sns_dlq_redrive
+    family: Notifications
+    labels:
+      topic_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: redriven
+    signal: sns_dlq_redrive_redriven
+  - id: failed_redrive
+    signal: sns_dlq_redrive_failed_redrive

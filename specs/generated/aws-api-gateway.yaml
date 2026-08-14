@@ -1,0 +1,95 @@
+version: 1
+name: aws-api-gateway
+description: 'AWS API Gateway as reported through Netdata''s cloudwatch collector, generated from its
+  service profile (AWS/ApiGateway) so the contexts, units, families and dimension names match a real deployment.
+  Charts are per-resource instances, as the collector emits them: resources are labels on one node, never
+  separate nodes. Signals move independently rather than being causally coupled - see scripts/sync-profile-collectors.py.'
+signals:
+  api_gateway_requests_requests:
+    base: 1100.0
+    min: 0.0
+    max: 5000000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  api_gateway_errors_4xx:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  api_gateway_errors_5xx:
+    base: 0.0
+    min: 0.0
+    max: 100000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  api_gateway_latency_total:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+  api_gateway_latency_integration:
+    base: 24.0
+    min: 0.0
+    max: 600000.0
+    noise:
+      kind: gauss
+      sigma: 0.18
+contexts:
+- id: cloudwatch.api_gateway.requests
+  title: API Gateway Requests
+  units: requests/s
+  family: Requests
+  chart_type: line
+  priority: 90010
+  instances:
+    group: aws_api_gateway
+    chart_prefix: api_gateway_requests
+    family: Requests
+    labels:
+      api_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: requests
+    signal: api_gateway_requests_requests
+- id: cloudwatch.api_gateway.errors
+  title: API Gateway Errors
+  units: errors/s
+  family: Errors
+  chart_type: line
+  priority: 90020
+  instances:
+    group: aws_api_gateway
+    chart_prefix: api_gateway_errors
+    family: Errors
+    labels:
+      api_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: 4xx
+    signal: api_gateway_errors_4xx
+  - id: 5xx
+    signal: api_gateway_errors_5xx
+- id: cloudwatch.api_gateway.latency
+  title: API Gateway Latency
+  units: milliseconds
+  family: Latency
+  chart_type: line
+  priority: 90030
+  instances:
+    group: aws_api_gateway
+    chart_prefix: api_gateway_latency
+    family: Latency
+    labels:
+      api_name: '{instance}'
+  shape: independent
+  dimensions:
+  - id: total
+    signal: api_gateway_latency_total
+  - id: integration
+    signal: api_gateway_latency_integration
