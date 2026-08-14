@@ -21,6 +21,13 @@ or, on a machine with nothing checked out:
 curl -fsSL https://raw.githubusercontent.com/shyamvalsan/infra-sim/main/startsim.sh | sudo bash
 ```
 
+On macOS, without `sudo` — and note it is experimental and not yet working (the node
+table stays empty); prefer a Linux VM for now:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/shyamvalsan/infra-sim/main/startsim.sh | bash
+```
+
 Open <http://127.0.0.1:19995>. The first run takes a couple of minutes to compile;
 after that it starts in seconds. Missing dependencies stop it with the fix, and it
 installs nothing.

@@ -50,8 +50,18 @@ die() { echo -e >&2 "${RED}[error]${NC} $*"; exit 1; }
 # repeat what the operator actually typed.
 ORIGINAL_ARGS="$*"
 
+KERNEL="$(uname -s 2>/dev/null || echo unknown)"
+
 REPO_URL="${INFRA_SIM_REPO_URL:-https://github.com/shyamvalsan/infra-sim}"
-CLONE_DIR="${INFRA_SIM_SRC:-/opt/infra-sim-src}"
+# /opt needs root to create, and on macOS root is exactly what we must not use: the
+# console runs unprivileged there so it can reach Docker Desktop's user-scoped
+# socket. Requiring sudo to clone and forbidding it to run would be a deadlock, so
+# the source goes under $HOME like the state directory does.
+if [ "$KERNEL" = Darwin ]; then
+  CLONE_DIR="${INFRA_SIM_SRC:-$HOME/.infra-sim-src}"
+else
+  CLONE_DIR="${INFRA_SIM_SRC:-/opt/infra-sim-src}"
+fi
 BUILDER_IMAGE="infra-sim-builder:local"
 # How to invoke docker. Replaced by preflight when only the invoking user's
 # rootless daemon answers.
@@ -125,7 +135,6 @@ preflight() {
   # real attempt several minutes of build before dying at the final exec - so the
   # console runs in a container instead and drives the host's Docker through the
   # mounted socket. Same binary, different delivery.
-  KERNEL="$(uname -s 2>/dev/null || echo unknown)"
   case "$KERNEL" in
     Linux) CONSOLE_MODE=host ;;
     Darwin)
@@ -309,7 +318,7 @@ build_binaries
 # `startsim --environment ...`, which is forwarded) to drive a specific one.
 # /var/lib is not shared with Docker Desktop by default, and is not where a Mac
 # keeps user state. $HOME is shared, so simulations live there instead.
-if [ "${KERNEL:-Linux}" = Darwin ]; then
+if [ "$KERNEL" = Darwin ]; then
   STATE_DIR="${INFRA_SIM_STATE_DIR:-$HOME/.infra-sim}"
 else
   STATE_DIR="${INFRA_SIM_STATE_DIR:-/var/lib/infra-sim}"

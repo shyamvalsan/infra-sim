@@ -109,10 +109,28 @@ On macOS or Windows, Docker Desktop will happily run the simulation containers b
 the console itself cannot run — use a VM (Multipass, UTM, or any Linux server).
 `startsim` checks this first and refuses immediately rather than after a build.
 
-On a machine with nothing but Docker:
+On a Linux machine with nothing but Docker:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/shyamvalsan/infra-sim/main/startsim.sh | sudo bash
+```
+
+On macOS — **no `sudo`**, because the console runs unprivileged so it can reach
+Docker Desktop's user-scoped socket, and because it runs in a container rather than
+on the host:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/shyamvalsan/infra-sim/main/startsim.sh | bash
+```
+
+macOS is **experimental and not yet working**: the UI comes up, but a running
+simulation's node table and scenario controls are still empty. Until that is fixed,
+use Linux — or a Linux VM on your Mac:
+
+```bash
+brew install --cask multipass
+multipass launch --name sim --cpus 4 --memory 8G --disk 40G
+multipass shell sim      # then install Docker, clone, and sudo ./startsim.sh
 ```
 
 Or from a clone:
