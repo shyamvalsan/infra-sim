@@ -53,6 +53,52 @@ Scenarios, logs and teardown:
 The container's own node is named `<name>-parent` and runs no host collectors,
 so it does not appear in the Space as a stray machine reporting container CPU.
 
+## Running on macOS
+
+Two routes, and they are not equal.
+
+**A Linux VM, which works.** This is the recommended route today: inside the VM
+everything is the ordinary Linux path, fully exercised.
+
+```bash
+brew install --cask multipass
+multipass launch --name infra-sim --cpus 4 --memory 8G --disk 40G
+multipass shell infra-sim
+```
+
+Then, inside the VM:
+
+```bash
+sudo apt-get update && sudo apt-get install -y docker.io git
+sudo usermod -aG docker "$USER" && newgrp docker
+git clone https://github.com/shyamvalsan/infra-sim && cd infra-sim
+sudo ./startsim.sh --bind 0.0.0.0:19995
+```
+
+`0.0.0.0` rather than the default loopback, because you reach it from macOS rather
+than from inside the VM. Get the address with `multipass info infra-sim` and open
+`http://<that address>:19995`. Simulation dashboards are on the same address, on
+their own ports.
+
+Note what this costs: the VM's CPU and RAM are committed while it runs, the
+simulations live inside it rather than on your Mac's Docker, and the console is
+reachable on the VM's network interface instead of loopback only. Size the VM for
+the fleet you intend - 160 nodes is not a 2 GB job.
+
+**Container mode, which does not work yet.** `./startsim.sh` on macOS - with no
+`sudo`, because the console must stay unprivileged to reach Docker Desktop's
+user-scoped socket - packages the console into a container and drives your Docker
+through its socket. The UI comes up. A running simulation's node table and scenario
+controls stay **empty**, so it is not usable for a demo. Tracked in `SOW-0018`, which
+records what has been ruled out with measurements: the network path between the
+console container and a simulation is proven, as is the environment plumbing, so the
+remaining fault is in how the console issues that query when containerised.
+
+Why container mode exists at all: the binaries are built in an Alpine container and
+are therefore Linux ELF, so macOS cannot exec them - the first attempt spent several
+minutes on a Docker build before dying at `exec format error`. Running the console in
+a container avoids porting it, and needed no Rust change.
+
 ## Console
 
 ```bash
