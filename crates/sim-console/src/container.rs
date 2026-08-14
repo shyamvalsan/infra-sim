@@ -23,6 +23,15 @@ pub struct Active {
     pub port: u16,
     /// Where its environment, specs, scenarios and control file live.
     pub payload: String,
+    /// The container's own address on its docker network.
+    ///
+    /// Needed only when the console is itself containerised, as it is on macOS: a
+    /// simulation publishes its agent on the *host's* loopback
+    /// (`-p 127.0.0.1:<port>:19999`), which no container can reach, while its own
+    /// address on the shared bridge is reachable from a sibling. Empty when docker
+    /// does not report one.
+    #[serde(default)]
+    pub ip: String,
 }
 
 impl Active {
@@ -138,10 +147,27 @@ pub fn active(repo: &Path, name: &str) -> Option<Active> {
                 .ok()?;
             String::from_utf8_lossy(&out.stdout).trim().parse().ok()
         })?;
+    // Its address on the bridge, for a console that cannot use the published port.
+    // The default bridge has no DNS, so the container name would not resolve - the
+    // address is what works without changing how simulations are networked.
+    let ip = Command::new("docker")
+        .args([
+            "inspect",
+            "-f",
+            "{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}",
+            &container,
+        ])
+        .output()
+        .ok()
+        .filter(|o| o.status.success())
+        .map(|o| String::from_utf8_lossy(&o.stdout).trim().to_string())
+        .unwrap_or_default();
+
     Some(Active {
         name: name.to_string(),
         port,
         payload: payload_dir(repo, name),
+        ip,
     })
 }
 
@@ -248,6 +274,7 @@ mod tests {
     #[test]
     fn an_active_simulation_knows_where_its_files_are() {
         let a = super::Active {
+            ip: String::new(),
             name: "customer-a".into(),
             port: 19990,
             payload: "/tmp/x/customer-a".into(),

@@ -771,6 +771,20 @@ fn agent_host() -> String {
 /// is chosen per request rather than fixed at start-up.
 fn target(app: &AppState) -> (Agent, PathBuf, PathBuf) {
     if let Some(a) = app.active.lock().ok().and_then(|g| g.clone()) {
+        // A containerised console cannot use the published port: the simulation
+        // binds it to the host's loopback, and `host.docker.internal` is the host's
+        // gateway, so nothing is listening there. Its address on the shared bridge
+        // is reachable, on the agent's own port rather than the published one.
+        // Measured: the published-port route returned an empty node table.
+        if std::env::var("INFRA_SIM_AGENT_VIA").as_deref() == Ok("container")
+            && !a.ip.trim().is_empty()
+        {
+            return (
+                Agent::new(a.ip.clone(), 19999),
+                a.env_path(),
+                a.control_path(),
+            );
+        }
         return (
             Agent::new(agent_host(), a.port),
             a.env_path(),

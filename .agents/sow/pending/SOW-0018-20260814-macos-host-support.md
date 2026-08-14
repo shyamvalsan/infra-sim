@@ -4,10 +4,10 @@
 
 Status: open
 
-Sub-state: Container mode delivered. Decision 1 (option A) implemented and merged,
-then proved insufficient by testing - simulation dashboards are loopback-bound, so no
-agent-host string can reach them from a container. Decision 1 re-opened with the
-constraint recorded.
+Sub-state: Container mode delivered. Decision A' (reach the simulation on its bridge
+address) implemented. The network path is **proven** from inside the console
+container; the node table is still empty, so one fault remains and it is in the
+console's query path rather than in networking. Narrowed, not fixed.
 
 ## Requirements
 
@@ -228,7 +228,41 @@ Unknown until tested; raised so it is not discovered by an operator mid-demo.
 
 ## Validation
 
-Pending decision 1.
+Delivered and verified:
+
+- Container mode builds and serves the UI, forced on Linux with a shimmed `uname`.
+- `INFRA_SIM_AGENT_HOST` override (decision A) - implemented, defaults to
+  `127.0.0.1`, Linux unaffected. Necessary but not sufficient, see below.
+- Decision A' - `Active` now carries the container's bridge address, captured with
+  `docker inspect`; `target()` uses it on port 19999 when
+  `INFRA_SIM_AGENT_VIA=container`. The default bridge has no DNS, so the address is
+  used rather than the container name, which needs no change to how simulations are
+  networked.
+- 217 tests, clippy and fmt clean.
+
+**Why the published port cannot work, measured rather than reasoned:**
+`scripts/sim-docker.sh:168` publishes `-p 127.0.0.1:<port>:19999`, and
+`host.docker.internal` resolves to the host gateway (`172.17.0.1` here). A service on
+loopback is not reachable on the gateway. With option A alone the console reported
+`agent_url http://host.docker.internal:19989` and **0 nodes**.
+
+**The network path is proven.** From inside the console container
+(`172.17.0.4`, default bridge) against the simulation (`172.17.0.2`):
+
+- `http://172.17.0.2:19999/api/v1/info` returns the agent version.
+- `http://172.17.0.2:19999/api/v3/nodes` returns the node list - the very endpoint
+  the console uses.
+
+**And yet the console still reports 0 nodes**, with the environment variable
+confirmed present in the container (`INFRA_SIM_AGENT_VIA=container`) and the new
+binary confirmed in the image (the variable's name is present in it). So the
+remaining fault is **not** networking, adoption, or the environment: it is in how the
+console issues or parses that request when containerised. That is where the next
+session should start - instrument the `Agent` query rather than re-examining the
+network, which is now ruled out with evidence.
+
+Not verified at all: anything Docker-Desktop-specific. No Mac was involved in any of
+this.
 
 ## Outcome
 

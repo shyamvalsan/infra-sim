@@ -403,6 +403,7 @@ exec $DOCKER run --rm $TTY_FLAGS \
   -e INFRA_SIM_STATE_DIR="$STATE_DIR" \
   --add-host=host.docker.internal:host-gateway \
   -e INFRA_SIM_AGENT_HOST=host.docker.internal \
+  -e INFRA_SIM_AGENT_VIA=container \
   -p "${host}:${port}:${port}" \
   -w "$REPO" \
   "$CONSOLE_IMAGE" --repo "$REPO" --bind "0.0.0.0:${port}" "${ENV_ARGS[@]+"${ENV_ARGS[@]}"}"
