@@ -65,11 +65,29 @@ Inferences:
   `sim-docker.sh` hands `-v <path>:...` to the daemon, which resolves it against the
   host.
 
-Unknowns:
+Two further defects found by re-reading the operator's own macOS report rather than
+by testing, both fixed:
 
-- Everything Docker-Desktop-specific is unverified: the socket path, default file
-  sharing, and whether `host.docker.internal` resolves as expected. There is no Mac
-  in this environment.
+- The socket was hardcoded to `/var/run/docker.sock`. Docker Desktop's current
+  default is `~/.docker/run/docker.sock` with the `/var/run` symlink optional - the
+  report said exactly that (context `desktop-linux`) and it was not applied when
+  container mode was written. Container mode now resolves the endpoint from
+  `docker context inspect`, falls back to `DOCKER_HOST`, refuses a non-unix
+  endpoint with a reason, and checks the socket exists before mounting it.
+- `python3` was required on the host. In container mode `sim-docker.sh` runs inside
+  the console image, which installs it; macOS ships a `/usr/bin/python3` stub that
+  only prompts to install the Xcode tools, so the check would have blocked a Mac
+  over a dependency it never uses. Now required in host mode only.
+
+Unknowns - none of this has run on a Mac:
+
+- Docker Desktop's default file sharing, and whether the identical-path mounts of the
+  repository and `$HOME/.infra-sim` are permitted without configuration.
+- Whether `host.docker.internal` resolves, which decision 1's recommended fix relies
+  on.
+- Whether teardown behaves (decision 2).
+- The socket resolution itself is only exercised against plain Linux Docker here; on
+  a Mac it takes a different branch than the one tested.
 
 ### Acceptance Criteria
 

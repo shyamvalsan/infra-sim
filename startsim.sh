@@ -175,15 +175,20 @@ preflight() {
   fi
 
   # python3: scripts/sim-docker.sh uses it to rewrite the scenario control file
-  # and to read the agent's node list. Undeclared until now.
-  if ! command -v python3 >/dev/null 2>&1; then
+  # and to read the agent's node list. Only needed where that script runs - in
+  # container mode it runs inside the console image, which installs it.
+  if [ "$CONSOLE_MODE" = host ] && ! command -v python3 >/dev/null 2>&1; then
     echo -e >&2 "${RED}[error]${NC} python3 is not installed. scripts/sim-docker.sh needs it to drive scenarios."
     echo -e >&2 "        install it: ${YELLOW}$(install_hint python3)${NC}"
     failed=yes
   fi
 
   [ "$failed" = no ] || die "preflight failed - nothing was installed or changed."
-  info "preflight passed: docker, python3, root"
+  if [ "$CONSOLE_MODE" = host ]; then
+    info "preflight passed: docker, python3, root"
+  else
+    info "preflight passed: docker (console will run in a container)"
+  fi
 }
 
 # --- locate or fetch the checkout --------------------------------------------
@@ -355,6 +360,22 @@ if [ "${MACOS_EXPERIMENTAL:-no}" = yes ]; then
   warn "For a fully working setup today, run this on Linux or in a Linux VM."
 fi
 
+# Resolve the daemon socket, rather than assuming /var/run/docker.sock: Docker
+# Desktop's current default is ~/.docker/run/docker.sock with the /var/run symlink
+# optional, which would have made this mount a non-existent path.
+SOCK=""
+ENDPOINT="$($DOCKER context inspect --format '{{.Endpoints.docker.Host}}' 2>/dev/null || true)"
+[ -z "$ENDPOINT" ] && ENDPOINT="${DOCKER_HOST:-}"
+case "$ENDPOINT" in
+  unix://*) SOCK="${ENDPOINT#unix://}" ;;
+  "")       SOCK="/var/run/docker.sock" ;;
+  *)
+    die "docker endpoint '$ENDPOINT' is not a unix socket; container mode needs one to mount. Set DOCKER_HOST to a unix:// socket, or run on Linux."
+    ;;
+esac
+[ -S "$SOCK" ] || die "docker socket '$SOCK' does not exist. Is Docker Desktop running?"
+info "using docker socket $SOCK"
+
 info "packaging the console for a non-Linux host"
 run mkdir -p "$STATE_DIR"
 CONSOLE_IMAGE="infra-sim-console:local"
@@ -377,7 +398,7 @@ TTY_FLAGS="-i"
 [ -t 0 ] && TTY_FLAGS="-it"
 # shellcheck disable=SC2086
 exec $DOCKER run --rm $TTY_FLAGS \
-  -v /var/run/docker.sock:/var/run/docker.sock \
+  -v "$SOCK":/var/run/docker.sock \
   -v "$REPO":"$REPO" \
   -v "$STATE_DIR":"$STATE_DIR" \
   -e INFRA_SIM_STATE_DIR="$STATE_DIR" \
