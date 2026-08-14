@@ -2,12 +2,11 @@
 
 ## Status
 
-Status: in-progress
+Status: completed
 
-Sub-state: Generator delivered and validated live; `systematica` tailored and
-serving 95 AWS charts. **Two chunks remain**: synthetic AWS inventories in
-`describe.rs` (so new fleets get resources without hand-editing), and label
-diversity. Decisions all resolved.
+Sub-state: Generator, synthetic inventories and label diversity all delivered and
+validated. A newly described fleet now gets profile resources and a mixed OS
+estate without hand-editing anything.
 
 ## Requirements
 
@@ -316,15 +315,145 @@ nodes would be guesswork.
 
 ## Validation
 
-Pending.
+Acceptance criteria evidence:
+
+- **86 specs generated** from three families: 47 cloudwatch, 38 azure_monitor, 1
+  prometheus. Profiles without `template.charts` are skipped rather than emitted
+  empty.
+- **Opt-in metrics excluded**: `ec2.yaml` carries both enabled and `disabled: true`
+  metrics; the generated spec contains no context for the opt-in ones, because a
+  chart whose every dimension resolves to a disabled metric is dropped.
+- **Lint clean** on the new surface: a 5-node extract of the tailored `systematica`
+  nodes, `--lint 2`, no semantic violations and no pinned signals. A 19-node fleet
+  exercising the new inventories and label diversity also lints clean.
+- **Live agent**, read through the agent's API rather than from the generator, on
+  `systematica-amazon-cloudwatch-01`: **95 AWS charts** across 10 services -
+  `cloudwatch.rds` 26, `ec2` 15, `sqs` 10, `lambda` 9, `alb` 8, `elasticache` 8,
+  `ecs` 6, `dynamodb` 6, `s3` 4, `api_gateway` 3. Values moving:
+  `ec2_cpu_utilization.i-0sim0a1b2c3d4e5f6` 32-38%,
+  `lambda_invocations.sim-order-intake` 106-145/s,
+  `ecs_utilization.sim-fargate-checkout` cpu 41 / memory 24,
+  `rds_cpu_utilization.sim-orders-primary` 32-37%. Each on a chart labelled with
+  its own resource identifier.
+- **Applied without recreating**: `systematica` was updated through its read-write
+  bind mount, so node identity and accumulated history survived.
+- **Label diversity**, on a fresh 19-node fleet: 7 distinct (os_name, os_version)
+  combinations with Ubuntu LTS dominant (9 of 17 Linux nodes) and Rocky, Debian and
+  Amazon Linux trailing; 8 distinct kernel revisions; 5 regions. Network devices
+  correctly emit no OS labels at all.
+- **Inventories generated automatically**: each `aws-ec2` node received three
+  distinct synthetic instance ids, hashed from its hostname so they are stable
+  across regenerations and different between nodes.
+
+Tests or equivalent validation:
+
+- `cargo test`: 217 passed, 0 failed. `cargo clippy --all-targets -- -D warnings`:
+  clean. `cargo fmt --check`: clean.
+
+Real-use evidence:
+
+- The live `systematica` simulation, claimed into a Cloud Space, serving the charts
+  above.
+
+Reviewer findings:
+
+- No external reviewer; not requested. The lint acted as the adversarial check and
+  caught a real defect (see below) that reading the generator would not have found.
+
+Same-failure scan:
+
+- The defect the lint caught was a *class*, not an instance: any profile whose
+  semantics live in the context name rather than the dimension name was affected.
+  Fixed at the call site by passing `context_dimension` to the shared rule, so every
+  profile in all three families benefits.
+- Not yet audited: how many of the other 258 generated specs come from collectors
+  that build charts at runtime and therefore have the same emptiness. Recorded under
+  Followup.
+
+Sensitive data gate:
+
+- All synthetic identifiers: `i-0sim*`, `sim-*`. No real account id, ARN, bucket or
+  resource name in any spec or environment. No AWS or Azure endpoint is contacted -
+  profiles are static config read from a local checkout.
+
+Artifact maintenance gate:
+
+- AGENTS.md: no update needed - no workflow or guardrail changed.
+- Runtime project skills: no update needed; `project-live-validation` already
+  prescribes verifying through the agent, which is how this was validated.
+- Specs: **needs updating** - `generator-and-engine.md`'s generated-corpus section
+  still describes one source of truth. Recorded under Followup rather than claimed.
+- End-user/operator docs: `docs/operating.md` integrations section likewise.
+  Recorded under Followup.
+- End-user/operator skills: none affected.
+- SOW lifecycle: `completed`, moved to `done/`, committed with the work.
+
+Specs update:
+
+- Not done. Tracked under Followup - honest gap rather than a silent one.
+
+Project skills update:
+
+- None needed, reason above.
+
+End-user/operator docs update:
+
+- Not done. Tracked under Followup.
+
+Lessons:
+
+- **A collector's metadata is not always its metric contract.** Three of the five
+  profile families build charts at runtime, so the metadata that the corpus is
+  derived from is silent about what they actually report. Deriving from one source
+  of truth produced specs that were structurally valid and semantically empty.
+- **Generalise from two examples, not one.** The instruction to support "any
+  profile-based collector" was only safe to act on because cloudwatch and
+  azure_monitor independently share the `template:` schema. One example would have
+  been a guess dressed as a design.
+- **Reusing a helper inherits its assumptions.** The unit-magnitude rule was
+  written for metadata-derived specs where the dimension name carried the
+  semantics. In profile charts the context carries them, so a failure metric took
+  the "status up" baseline of 1.0 - which was also its ceiling.
+- **`pkill` inside a container is still `pkill`.** It matched the `--logs` and
+  `--otlp` writers, which netdata does not manage and therefore did not respawn.
+- **An installed environment is not the repo's environment.** Copying
+  `environments/<name>.yaml` over a container's `environment.yaml` broke its spec
+  paths, because `specs: ../specs` is relative to `environments/`.
+
+Follow-up mapping:
+
+1. **Audit the generated corpus for other runtime-charting collectors.**
+   **Tracked** - not done here. CloudWatch was inspected because it was reported;
+   the same emptiness may affect others, and any of them could be demoed by name.
+   Needs its own SOW.
+2. **Spec and operator docs** (`generator-and-engine.md`, `docs/operating.md`) still
+   describe a single derivation source. **Tracked**, not silently dropped.
+3. **`systematica`'s AWS profiles sit on 3 of 90 CloudWatch nodes** by deliberate
+   choice, not by limitation. **Resolved** as the intended design: a real estate
+   polls CloudWatch from a handful of collectors per account.
+4. **The description prose is not stored in a generated environment**, so a fleet's
+   brief cannot be recovered - which is why the tailoring entities had to be asked
+   for. **Tracked** as a worthwhile small change.
+5. **The rootless-Docker preflight failure** reported by the user is **fixed** in
+   this SOW's scope creep: the docker check now retries as `SUDO_USER` and routes
+   every docker invocation through the result. Fixed but **not verified on an
+   affected machine** - there is no rootless install here to test against.
 
 ## Outcome
 
-Pending.
+Delivered. Simulated AWS and Azure nodes now report their services rather than the
+collector's own API accounting: 86 profile-derived specs across three families, one
+labelled chart instance per synthetic resource, generated automatically for any
+newly described fleet. Fleets also stop advertising a byte-identical operating
+system on every node.
+
+Two honest gaps, both tracked rather than hidden: the spec and operator docs still
+describe a single derivation source, and the rest of the generated corpus has not
+been audited for the same runtime-charting emptiness.
 
 ## Lessons Extracted
 
-Pending.
+See Validation -> Lessons.
 
 ## Followup
 

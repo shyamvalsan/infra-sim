@@ -53,6 +53,9 @@ ORIGINAL_ARGS="$*"
 REPO_URL="${INFRA_SIM_REPO_URL:-https://github.com/shyamvalsan/infra-sim}"
 CLONE_DIR="${INFRA_SIM_SRC:-/opt/infra-sim-src}"
 BUILDER_IMAGE="infra-sim-builder:local"
+# How to invoke docker. Replaced by preflight when only the invoking user's
+# rootless daemon answers.
+DOCKER="docker"
 BIND="127.0.0.1:8080"
 REPO=""
 REBUILD=no
@@ -126,9 +129,22 @@ preflight() {
     echo -e >&2 "        install it: ${YELLOW}https://docs.docker.com/engine/install/${NC}"
     failed=yes
   elif ! docker info >/dev/null 2>&1; then
-    echo -e >&2 "${RED}[error]${NC} docker is installed but its daemon is not answering."
-    echo -e >&2 "        try: ${YELLOW}sudo systemctl start docker${NC}   (or add yourself to the 'docker' group)"
-    failed=yes
+    # Rootless Docker runs a per-user daemon on a socket under $XDG_RUNTIME_DIR,
+    # which root cannot see. Since this script requires root for the console, a
+    # healthy rootless install failed here with "daemon is not answering" - the
+    # message was accurate and the diagnosis was wrong. Retry as the user who
+    # invoked sudo before concluding anything.
+    if [ -n "${SUDO_USER:-}" ] && sudo -u "$SUDO_USER" docker info >/dev/null 2>&1; then
+      DOCKER="sudo -u $SUDO_USER docker"
+      info "docker answers as '$SUDO_USER' but not as root - rootless install, using theirs"
+    else
+      echo -e >&2 "${RED}[error]${NC} docker is installed but its daemon is not answering."
+      echo -e >&2 "        if it is not running:  ${YELLOW}sudo systemctl start docker${NC}"
+      echo -e >&2 "        if it is rootless:     ${YELLOW}run without sudo, or start the user daemon:${NC}"
+      echo -e >&2 "                               ${YELLOW}systemctl --user start docker${NC}"
+      echo -e >&2 "        checked as: root${SUDO_USER:+ and as $SUDO_USER}"
+      failed=yes
+    fi
   fi
 
   # python3: scripts/sim-docker.sh uses it to rewrite the scenario control file
@@ -208,19 +224,19 @@ build_binaries() {
 
   info "building infra-sim and infra-sim-console in Docker (no Rust toolchain needed)"
   info "the first build compiles the dependency tree and takes a couple of minutes"
-  run docker build -f "$REPO/docker/builder.Dockerfile" -t "$BUILDER_IMAGE" "$REPO"
+  run $DOCKER build -f "$REPO/docker/builder.Dockerfile" -t "$BUILDER_IMAGE" "$REPO"
 
   # Copy out of a throwaway container rather than bind-mounting the checkout,
   # which would leave root-owned build artifacts in an operator's repo.
   local cid
-  cid="$(docker create "$BUILDER_IMAGE")" || die "could not create a container from $BUILDER_IMAGE"
+  cid="$($DOCKER create "$BUILDER_IMAGE")" || die "could not create a container from $BUILDER_IMAGE"
   # shellcheck disable=SC2064
-  trap "docker rm -f '$cid' >/dev/null 2>&1 || true" EXIT
+  trap "$DOCKER rm -f '$cid' >/dev/null 2>&1 || true" EXIT
 
   run mkdir -p "$REPO/target/release"
-  run docker cp "$cid:/out/infra-sim" "$plugin"
-  run docker cp "$cid:/out/infra-sim-console" "$console"
-  run docker rm -f "$cid" >/dev/null
+  run $DOCKER cp "$cid:/out/infra-sim" "$plugin"
+  run $DOCKER cp "$cid:/out/infra-sim-console" "$console"
+  run $DOCKER rm -f "$cid" >/dev/null
   trap - EXIT
 
   run chmod 0755 "$plugin" "$console"
