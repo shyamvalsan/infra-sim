@@ -539,6 +539,35 @@ async fn reskin(
     }
 }
 
+/// Every node's current labels, for the editor's starting point.
+async fn labels(State(app): State<Arc<AppState>>) -> impl IntoResponse {
+    let (_, env_path, _) = target(&app);
+    let env_path = env_path.clone();
+    match tokio::task::spawn_blocking(move || provision::read_labels(&env_path)).await {
+        Ok(Ok(nodes)) => Json(serde_json::json!({ "nodes": nodes })),
+        Ok(Err(e)) => Json(json_err(e)),
+        Err(e) => Json(json_err(format!("label read task failed: {e}"))),
+    }
+}
+
+/// Edit the user labels of the running simulation's environment. The plugin
+/// picks the change up itself and restarts cleanly; the labels migrate in
+/// place on the live vnodes with history intact.
+async fn apply_labels(
+    State(app): State<Arc<AppState>>,
+    Json(req): Json<provision::LabelsRequest>,
+) -> impl IntoResponse {
+    let repo = app.repo.clone();
+    let (_, env_path, _) = target(&app);
+    let env_path = env_path.clone();
+    match tokio::task::spawn_blocking(move || provision::apply_labels(&repo, &env_path, &req)).await
+    {
+        Ok(Ok(r)) => Json(serde_json::json!(r)),
+        Ok(Err(e)) => Json(json_err(e)),
+        Err(e) => Json(json_err(format!("label edit task failed: {e}"))),
+    }
+}
+
 /// Start or stop correlated logs inside the running simulation.
 async fn logs(
     State(app): State<Arc<AppState>>,
@@ -858,6 +887,7 @@ async fn main() -> std::process::ExitCode {
         .route("/api/logs/{action}", post(logs))
         .route("/api/scenario/{name}/advance", post(advance))
         .route("/api/reskin", post(reskin))
+        .route("/api/labels", get(labels).post(apply_labels))
         .with_state(state);
 
     let addr: SocketAddr = match args.bind.parse() {

@@ -265,8 +265,15 @@ Nodes at one site are scattered by a few hundred metres, fixed by hostname, so a
                  style="width:120px" oninput="renderRoles()"></label>
         <span class="note" id="siteNote" style="align-self:end"></span>
       </div>
+      <div class="row" style="margin-bottom:6px; align-items:end">
+        <span class="note grow" style="max-width:560px">Fleet labels — written to every node as host labels, which is what Netdata Cloud filters, groups and maps by. A group can override any of them below.
+          <span class="tip" tabindex="0" data-tip="Real deployments label their nodes - environment, site, team - and filter on them in Cloud. These are written to every node; the fleet's `environment` label also sets the tier the simulation reports about itself.
+
+Keys: letters, digits, dot, dash, underscore, slash - no colons or spaces. Presets fill the key; edit the value.">?</span></span>
+      </div>
+      <div id="fleetLabels" style="margin-bottom:12px"></div>
       <table class="fleet"><thead><tr>
-        <th style="width:70px">Nodes</th><th style="width:190px">Role</th><th>Integrations</th><th style="width:170px">Location</th><th style="width:30px"></th>
+        <th style="width:60px">Nodes</th><th style="width:170px">Role</th><th>Integrations</th><th style="width:150px">Labels</th><th style="width:150px">Location</th><th style="width:30px"></th>
       </tr></thead><tbody id="roles"></tbody></table>
       <button class="link" onclick="addRow()" style="margin-top:8px">+ add a group</button>
 
@@ -310,6 +317,22 @@ Every GUID is preserved, so the nodes keep their history, trained ML models and 
         <button id="reskinBtn" onclick="doReskin()" disabled>Re-skin</button>
       </div>
       <div class="out" id="reskinOut"></div>
+    </div>
+  </section>
+
+  <section data-step="installed" class="locked" id="labelsSection">
+    <h2>Labels <i class="tip" tabindex="0" data-tip="Edit the host labels of the running fleet.
+
+The change reaches the nodes in seconds: the plugin restarts itself, the agent migrates the labels in place, and every node keeps its history, trained ML models and alert log.
+
+Fleet labels apply to every node; a role's labels override them on that role's nodes. Setting or removing 'environment' retiers the fleet's own tier label with it.">i</i></h2>
+    <div class="body">
+      <div id="liveLabels"><div class="note">Load the fleet's current labels to edit them.</div></div>
+      <div class="row" style="margin-top:10px">
+        <button id="labelsLoadBtn" onclick="loadLiveLabels()">Load labels</button>
+        <button id="labelsApplyBtn" onclick="applyLiveLabels()" style="display:none" class="primary">Apply to the running fleet</button>
+      </div>
+      <div class="out" id="labelsOut"></div>
     </div>
   </section>
 
@@ -410,6 +433,10 @@ let CAT = null;                 // /api/catalogue
 // would collapse "6 nginx web servers and 3 elasticsearch nodes" into nine
 // nodes running both, which is not what anyone described.
 let ROWS = [];
+// Fleet-wide labels for the create form, and the live editor's working copy.
+// Plain objects, sent as-is; the backend validates with the agent's rules.
+let FLEET_LABELS = {};
+let LIVE_LABELS = null;   // {fleet:{}, groups:{role:{}}} while editing a running fleet
 let pickerRow = -1;
 let PROVIDER = "";
 let INSTALLED = null;   // the environment the agent is currently running, if any
@@ -599,7 +626,7 @@ function setRole(i, role) {
 
 function renderRoles() {
   if (!ROWS.length) {
-    $("roles").innerHTML = `<tr><td colspan="4" class="note">
+    $("roles").innerHTML = `<tr><td colspan="6" class="note">
       no groups yet — describe the estate above, pick a template, or add one</td></tr>`;
     setSiteNote();
     return;
@@ -628,14 +655,104 @@ function renderRoles() {
               : (row.services.size ? "add / remove" : "+ add integrations")
           }</button>
           </div></td>
+      <td>${groupLabelsCell(i)}</td>
       <td>${locationCell(i)}</td>
       <td><button class="link" title="remove this group" onclick="ROWS.splice(${i},1); renderRoles()">×</button></td>
-    </tr>`;
+    </tr>${row.labelEdit ? groupLabelEditorRow(i) : ""}`;
   }).join("");
   refreshSteps();
 }
 
 function dropSel(i, id) { ROWS[i].services.delete(id); ROWS[i].touched = true; renderRoles(); }
+
+// --- labels ----------------------------------------------------------------
+// Host labels are how real deployments tag nodes for Cloud's filters, grouping
+// and map. One chip renderer serves the fleet editor and each group's cell.
+
+function labelChips(obj, dropFn) {
+  return Object.entries(obj).map(([k, v]) =>
+    `<span class="chip"><b>${esc(k)}</b>=${esc(v)}<span class="x" onclick="${dropFn}('${esc(k)}')">×</span></span>`).join("");
+}
+
+function labelAddRow(prefix, addFn, keyVal) {
+  return `<span class="chip" style="padding:0">
+    <input id="${prefix}Key" placeholder="key (team)" style="width:90px;border:none;background:transparent" value="${esc(keyVal || "")}">
+    <input id="${prefix}Val" placeholder="value (payments)" style="width:110px;border:none;background:transparent">
+    <span class="x" style="cursor:pointer" onclick="${addFn}()">＋</span></span>`;
+}
+
+const LABEL_PRESETS = ["environment", "site", "team", "service"];
+
+function renderFleetLabels() {
+  const el = $("fleetLabels");
+  if (!el) return;
+  const presets = LABEL_PRESETS
+    .filter(k => !(k in FLEET_LABELS))
+    .map(k => `<button class="link" onclick="fleetPreset('${k}')">+ ${k}</button>`).join(" ");
+  el.innerHTML = `<div class="chips">${labelChips(FLEET_LABELS, "dropFleetLabel")}${
+    labelAddRow("fleet", "addFleetLabel")} ${presets}</div>`;
+}
+
+function fleetPreset(k) { $("fleetKey").value = k; $("fleetVal").focus(); }
+function addFleetLabel() {
+  const k = $("fleetKey").value.trim(), v = $("fleetVal").value.trim();
+  const err = checkLabel(k, v);
+  if (err) return flashLabelError("fleetLabels", err);
+  FLEET_LABELS[k] = v; renderFleetLabels();
+}
+function dropFleetLabel(k) { delete FLEET_LABELS[k]; renderFleetLabels(); }
+
+// Client-side echo of the backend's rules; the backend is the authority, this
+// just avoids a round trip for the obvious mistakes.
+function checkLabel(k, v) {
+  if (!k || v === "") return "a label needs both a key and a value";
+  if (!/^[A-Za-z0-9_.\/-]+$/.test(k)) return `key '${k}': letters, digits, dot, dash, underscore, slash only - a colon or space would be rewritten by the agent`;
+  if (k.startsWith("_")) return `keys starting with _ are the agent's own`;
+  // Same stable set the backend enforces: letters, digits, UTF-8, . - / : @ ( ) +
+  // and single spaces. Everything else the agent rewrites on arrival.
+  if (!/^[A-Za-z0-9_.@()/+:\u0080-\uffff]+(?: [A-Za-z0-9_.@()/+:\u0080-\uffff]+)*$/.test(v))
+    return "value contains a character the agent rewrites (punctuation like & # ' * ~) - use letters, digits, UTF-8, or . - / : @ ( ) +";
+  return null;
+}
+function flashLabelError(id, msg) {
+  const el = $(id);
+  if (!el) return;
+  el.insertAdjacentHTML("afterend", `<div class="out bad" style="margin-top:4px">${esc(msg)}</div>`);
+  setTimeout(() => { el.nextElementSibling?.remove(); }, 4000);
+}
+
+function groupLabelsCell(i) {
+  const L = ROWS[i].labels || {};
+  const chips = Object.entries(L).map(([k, v]) =>
+    `<span class="chip"><b>${esc(k)}</b>=${esc(v)}<span class="x" onclick="dropGroupLabel(${i},'${esc(k)}')">×</span></span>`).join("");
+  return `<div class="chips">${chips}
+    <button class="link" onclick="ROWS[${i}].labelEdit = true; renderRoles()">${Object.keys(L).length ? "edit" : "+ labels"}</button></div>`;
+}
+
+function groupLabelEditorRow(i) {
+  const L = ROWS[i].labels || {};
+  return `<tr><td colspan="6" style="background:var(--bg)">
+    <div class="chips">${Object.entries(L).map(([k, v]) =>
+      `<span class="chip"><b>${esc(k)}</b>=${esc(v)}<span class="x" onclick="delete ROWS[${i}].labels['${esc(k)}']; renderRoles()">×</span></span>`).join("")}
+      <span class="chip" style="padding:0">
+        <input id="gKey" placeholder="key" style="width:90px;border:none;background:transparent">
+        <input id="gVal" placeholder="value" style="width:110px;border:none;background:transparent">
+        <span class="x" style="cursor:pointer" onclick="addGroupLabel(${i})">＋</span></span>
+      <button class="link" onclick="ROWS[${i}].labelEdit = false; renderRoles()">done</button>
+    </div>
+    <div class="note" style="margin-top:4px">These override the fleet's labels on this group's nodes only.</div>
+  </td></tr>`;
+}
+
+function addGroupLabel(i) {
+  const k = $("gKey").value.trim(), v = $("gVal").value.trim();
+  const err = checkLabel(k, v);
+  if (err) { alert(err); return; }
+  ROWS[i].labels = ROWS[i].labels || {};
+  ROWS[i].labels[k] = v;
+  renderRoles();
+}
+function dropGroupLabel(i, k) { delete ROWS[i].labels[k]; renderRoles(); }
 
 // --- location -------------------------------------------------------------
 // A number field that is blank, or holds something that is not a number, is
@@ -735,6 +852,7 @@ function setRows(groups) {
   ROWS = groups.map(g => ({
     role: g.role, count: g.count, services: new Set(g.services), touched: true,
     lat: g.latitude ?? null, lon: g.longitude ?? null,
+    labels: g.labels || {},
   }));
   renderRoles();
 }
@@ -748,6 +866,7 @@ function collectGroups() {
     if (r.lat !== undefined && r.lat !== null && r.lon !== undefined && r.lon !== null) {
       g.latitude = r.lat; g.longitude = r.lon;
     }
+    if (r.labels && Object.keys(r.labels).length) g.labels = r.labels;
     return g;
   });
 }
@@ -771,6 +890,10 @@ async function doDescribe() {
     if (r.error) { out.className = "out bad"; out.textContent = r.error; return; }
 
     setRows(r.groups);
+    // Fleet-wide suggestions from the reading prefill the fleet editor; the
+    // group rows carried their own above. Editable like anything hand-entered.
+    FLEET_LABELS = r.labels || {};
+    renderFleetLabels();
     if (!$("newName").value && r.suggested_name) $("newName").value = r.suggested_name;
     refreshSteps();
     scrollTo("#fleetSection");
@@ -806,6 +929,7 @@ async function doCreate() {
       body: JSON.stringify({
         name, groups,
         latitude: lat, longitude: lon,
+        labels: FLEET_LABELS,
         exporters: $("exporters").checked,
         claim_token: $("token").value,
         claim_rooms: $("rooms").value.trim(),
@@ -822,6 +946,112 @@ async function doCreate() {
     scrollTo('section[data-step="installed"]:not(.locked)');
   } catch (e) { out.className = "out bad"; out.textContent = String(e); }
   finally { btn.disabled = false; stopProgress("create"); }
+}
+
+// --- live label editing ----------------------------------------------------
+// GET gives per-node labels; the editor wants fleet + per-role sets, derived
+// here: a fleet label is one every node carries with the same value, a role
+// label one every node of that role carries that is not already fleet-wide.
+
+const GENERATED_LABEL_KEYS = new Set(["simulated","infra_sim_name","infra_sim_role",
+  "infra_sim_env","latitude","longitude","device_vendor","device_model","device_type"]);
+
+function userLabels(n) {
+  return Object.fromEntries(Object.entries(n.labels || {})
+    .filter(([k]) => !k.startsWith("_") && !GENERATED_LABEL_KEYS.has(k)));
+}
+
+async function loadLiveLabels() {
+  const out = $("labelsOut");
+  out.className = "out"; out.textContent = "";
+  let r;
+  try { r = await (await fetch("/api/labels")).json(); }
+  catch (e) { out.className = "out bad"; out.textContent = String(e); return; }
+  if (r.error) { out.className = "out bad"; out.textContent = r.error; return; }
+
+  const nodes = r.nodes || [];
+  if (!nodes.length) { out.className = "out bad"; out.textContent = "no nodes found"; return; }
+
+  // Fleet: pairs present and equal on every node.
+  const fleet = {};
+  const [first, ...rest] = nodes.map(userLabels);
+  for (const [k, v] of Object.entries(first)) {
+    if (rest.every(o => o[k] === v)) fleet[k] = v;
+  }
+  // Roles: pairs equal across the role's nodes, minus what is already fleet.
+  const groups = {};
+  for (const role of [...new Set(nodes.map(n => n.role).filter(Boolean))]) {
+    const ofRole = nodes.filter(n => n.role === role).map(userLabels);
+    const g = {};
+    for (const [k, v] of Object.entries(ofRole[0])) {
+      if (fleet[k] !== undefined) continue;
+      if (ofRole.every(o => o[k] === v)) g[k] = v;
+    }
+    if (Object.keys(g).length) groups[role] = g;
+  }
+  LIVE_LABELS = { fleet, groups };
+  renderLiveLabels();
+  $("labelsApplyBtn").style.display = "";
+}
+
+function renderLiveLabels() {
+  const el = $("liveLabels");
+  const roleEditor = (role) => {
+    const g = LIVE_LABELS.groups[role] || {};
+    return `<div style="margin-top:10px">
+      <span class="note">${esc(role)} — overrides the fleet on this role's nodes</span>
+      <div class="chips">${Object.entries(g).map(([k, v]) =>
+        `<span class="chip"><b>${esc(k)}</b>=${esc(v)}<span class="x" onclick="dropLiveLabel('${esc(role)}','${esc(k)}')">×</span></span>`).join("")}
+        <span class="chip" style="padding:0">
+          <input id="liveKey-${esc(role)}" placeholder="key" style="width:80px;border:none;background:transparent">
+          <input id="liveVal-${esc(role)}" placeholder="value" style="width:100px;border:none;background:transparent">
+          <span class="x" style="cursor:pointer" onclick="addLiveLabel('${esc(role)}')">＋</span></span>
+      </div></div>`;
+  };
+  const roles = Object.keys(LIVE_LABELS.groups);
+  el.innerHTML = `
+    <div><span class="note">Fleet — every node</span>
+      <div class="chips">${Object.entries(LIVE_LABELS.fleet).map(([k, v]) =>
+        `<span class="chip"><b>${esc(k)}</b>=${esc(v)}<span class="x" onclick="dropLiveLabel(null,'${esc(k)}')">×</span></span>`).join("")}
+        <span class="chip" style="padding:0">
+          <input id="liveKey-fleet" placeholder="key (team)" style="width:90px;border:none;background:transparent">
+          <input id="liveVal-fleet" placeholder="value" style="width:110px;border:none;background:transparent">
+          <span class="x" style="cursor:pointer" onclick="addLiveLabel(null)">＋</span></span>
+      </div></div>
+    ${roles.map(roleEditor).join("")}`;
+}
+
+function addLiveLabel(role) {
+  const p = role || "fleet";
+  const k = $("liveKey-" + p)?.value.trim(), v = $("liveVal-" + p)?.value.trim();
+  const err = checkLabel(k, v);
+  if (err) { alert(err); return; }
+  const target = role ? (LIVE_LABELS.groups[role] = LIVE_LABELS.groups[role] || {}) : LIVE_LABELS.fleet;
+  target[k] = v;
+  renderLiveLabels();
+}
+
+function dropLiveLabel(role, k) {
+  delete (role ? LIVE_LABELS.groups[role] : LIVE_LABELS.fleet)[k];
+  renderLiveLabels();
+}
+
+async function applyLiveLabels() {
+  const out = $("labelsOut"), btn = $("labelsApplyBtn");
+  btn.disabled = true;
+  try {
+    const r = await (await fetch("/api/labels", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ fleet: LIVE_LABELS.fleet, groups: LIVE_LABELS.groups }),
+    })).json();
+    if (r.error) { out.className = "out bad"; out.textContent = r.error; return; }
+    out.className = "out ok";
+    out.textContent = r.changed.length
+      ? `labels updated on ${r.changed.length} node(s) — the fleet picks them up within seconds`
+      : "already in that state — nothing to change";
+    setTimeout(loadLiveLabels, 3000);
+  } catch (e) { out.className = "out bad"; out.textContent = String(e); }
+  finally { btn.disabled = false; }
 }
 
 async function doReskin() {

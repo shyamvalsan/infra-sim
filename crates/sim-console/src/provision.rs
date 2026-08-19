@@ -47,12 +47,16 @@ pub struct GroupRequest {
     pub latitude: Option<f64>,
     #[serde(default)]
     pub longitude: Option<f64>,
+    /// Host labels for this group's nodes, layered over the fleet's. Validated
+    /// with the agent's own label rules — see [`sim_engine::labels`].
+    #[serde(default)]
+    pub labels: std::collections::BTreeMap<String, String>,
 }
 
 #[derive(Debug, Deserialize)]
 pub struct CreateRequest {
     /// Prospect or project name. Fixes the seed, the hostname prefix and
-    /// therefore every GUID, so it is the one field that cannot change later
+    /// therefore every node GUID, so it is the one field that cannot change later
     /// without orphaning the fleet's history.
     pub name: String,
     pub groups: Vec<GroupRequest>,
@@ -62,6 +66,10 @@ pub struct CreateRequest {
     pub latitude: Option<f64>,
     #[serde(default)]
     pub longitude: Option<f64>,
+    /// Fleet-wide host labels, inherited by every group and overridable per
+    /// group. Validated with the agent's own label rules.
+    #[serde(default)]
+    pub labels: std::collections::BTreeMap<String, String>,
     /// Simulated hours to check before installing.
     ///
     /// Not an operator choice any more. It was presented as "history", which it
@@ -342,6 +350,8 @@ pub fn build_environment(
                 });
             }
         }
+        sim_engine::labels::validate_map(&g.labels)
+            .map_err(|e| format!("{} group: {e}", g.role))?;
         groups.push(Group {
             count: g.count.min(500),
             role: g.role.clone(),
@@ -350,18 +360,21 @@ pub fn build_environment(
             source: format!("{} x {}", g.count, g.role),
             site: group_site(g, (req.latitude, req.longitude))?,
             device: device_identity(g, &devices),
+            labels: g.labels.clone(),
         });
     }
     if groups.is_empty() {
         return Err("pick at least one node".into());
     }
 
+    sim_engine::labels::validate_map(&req.labels).map_err(|e| format!("fleet: {e}"))?;
     let mut reading = Reading {
         groups,
         unrecognised: Vec::new(),
         // The fleet's own location, not a group override: this is what the
         // simulation's own agent is labelled with.
         site: fleet_site(req)?,
+        labels: req.labels.clone(),
     };
     reading.dedupe_slugs();
     let nodes: usize = reading.groups.iter().map(|g| g.count).sum();
@@ -448,6 +461,8 @@ pub fn create(
                 ));
             }
         }
+        sim_engine::labels::validate_map(&g.labels)
+            .map_err(|e| format!("{} group: {e}", g.role))?;
         groups.push(Group {
             count: g.count.min(500),
             role: g.role.clone(),
@@ -456,6 +471,7 @@ pub fn create(
             source: format!("{} x {}", g.count, g.role),
             site: group_site(g, (req.latitude, req.longitude))?,
             device: device_identity(g, &devices),
+            labels: g.labels.clone(),
         });
     }
 
@@ -463,12 +479,14 @@ pub fn create(
         return Err("pick at least one node".into());
     }
 
+    sim_engine::labels::validate_map(&req.labels).map_err(|e| format!("fleet: {e}"))?;
     let mut reading = Reading {
         groups,
         unrecognised: Vec::new(),
         // The fleet's own location, not a group override: this is what the
         // simulation's own agent is labelled with.
         site: fleet_site(req)?,
+        labels: req.labels.clone(),
     };
     // Two rows of the same role would emit colliding hostnames, and the GUID
     // derives from the hostname - so that is two nodes claiming one identity.
@@ -833,11 +851,29 @@ pub mod exporters {
     }
 
     /// Pull `hostname:` / `guid:` pairs out of a rendered environment.
+    ///
+    /// Labels-block aware: a user label keyed `guid` or `hostname` is legal
+    /// and must not be mistaken for node identity.
     fn hostnames_and_guids(text: &str) -> Vec<(String, String)> {
         let mut out = Vec::new();
         let mut host: Option<String> = None;
+        let mut in_labels = false;
+        let mut labels_indent = 0usize;
         for line in text.lines() {
-            let t = line.trim_start().trim_start_matches("- ");
+            let trimmed = line.trim_start();
+            let indent = line.len() - trimmed.len();
+            if trimmed == "labels:" {
+                in_labels = true;
+                labels_indent = indent;
+                continue;
+            }
+            if in_labels && !trimmed.is_empty() && indent <= labels_indent {
+                in_labels = false;
+            }
+            if in_labels {
+                continue;
+            }
+            let t = trimmed.trim_start_matches("- ");
             if let Some(v) = t.strip_prefix("hostname:") {
                 host = Some(v.trim().to_string());
             } else if let Some(v) = t.strip_prefix("guid:") {
@@ -919,6 +955,9 @@ pub struct DescribeRequest {
 #[derive(Debug, Clone, Serialize)]
 pub struct DescribeResponse {
     pub groups: Vec<GroupRequest>,
+    /// Fleet-wide labels the reading suggests, as the create form's prefill.
+    #[serde(default)]
+    pub labels: std::collections::BTreeMap<String, String>,
     /// What produced this: "keywords", or the model id.
     pub source: String,
     /// Phrases the reader could not place. Shown, never silently dropped - the
@@ -967,6 +1006,7 @@ pub fn describe(repo: &Path, req: &DescribeRequest) -> Result<DescribeResponse, 
         notes.push(note);
     }
 
+    let fleet_labels = reading.labels.clone();
     Ok(DescribeResponse {
         groups: reading
             .groups
@@ -979,8 +1019,12 @@ pub fn describe(repo: &Path, req: &DescribeRequest) -> Result<DescribeResponse, 
                 // runs, not where, and the location is entered separately.
                 latitude: g.site.map(|s| s.lat),
                 longitude: g.site.map(|s| s.lon),
+                // Suggested labels come back as the row's prefill - the SE
+                // edits them like any hand-entered label before creating.
+                labels: g.labels.clone(),
             })
             .collect(),
+        labels: fleet_labels,
         source,
         unrecognised: reading.unrecognised.clone(),
         unsupported,
@@ -1041,18 +1085,39 @@ fn plugin_pids(plugin: &Path) -> Vec<u32> {
 }
 
 /// Hostnames declared in an environment file.
+///
+/// Labels-block aware, so a user label keyed `hostname` is not returned as a
+/// node (its only consumer is journal cleanup at teardown).
 fn hostnames(env_path: &Path) -> Vec<String> {
     std::fs::read_to_string(env_path)
         .map(|t| {
-            t.lines()
-                .filter_map(|l| {
-                    l.trim_start()
-                        .trim_start_matches("- ")
-                        .strip_prefix("hostname:")
-                        .map(|v| v.trim().to_string())
-                })
-                .filter(|h| !h.is_empty())
-                .collect()
+            let mut out = Vec::new();
+            let mut in_labels = false;
+            let mut labels_indent = 0usize;
+            for line in t.lines() {
+                let trimmed = line.trim_start();
+                let indent = line.len() - trimmed.len();
+                if trimmed == "labels:" {
+                    in_labels = true;
+                    labels_indent = indent;
+                    continue;
+                }
+                if in_labels && !trimmed.is_empty() && indent <= labels_indent {
+                    in_labels = false;
+                }
+                if in_labels {
+                    continue;
+                }
+                if let Some(v) = trimmed
+                    .trim_start_matches("- ")
+                    .strip_prefix("hostname:")
+                    .map(|v| v.trim().to_string())
+                    .filter(|v| !v.is_empty())
+                {
+                    out.push(v);
+                }
+            }
+            out
         })
         .unwrap_or_default()
 }
@@ -1850,6 +1915,58 @@ mod tests {
     }
 
     #[test]
+    fn read_labels_treats_a_role_label_as_a_label_not_the_nodes_role() {
+        // `role` is a legal label key; matching its line as the node field
+        // corrupted the role and truncated the label set on the live path.
+        let dir = std::env::temp_dir().join(format!("infra-sim-readlbl-{}", std::process::id()));
+        let _ = std::fs::create_dir_all(&dir);
+        let env = dir.join("environment.yaml");
+        std::fs::write(
+            &env,
+            "nodes:\n  - hostname: sim-web-01\n    guid: aaaa\n    role: web\n    labels:\n      role: frontend\n      team: platform\n",
+        )
+        .unwrap();
+        let nodes = read_labels(&env).unwrap();
+        assert_eq!(nodes.len(), 1);
+        assert_eq!(nodes[0].role.as_deref(), Some("web"), "node role survives");
+        assert_eq!(
+            nodes[0].labels.get("role").map(String::as_str),
+            Some("frontend")
+        );
+        assert_eq!(
+            nodes[0].labels.get("team").map(String::as_str),
+            Some("platform")
+        );
+        let _ = std::fs::remove_dir_all(&dir);
+    }
+
+    #[test]
+    fn read_labels_skips_comments_and_blank_lines_and_unquotes_once() {
+        let dir = std::env::temp_dir().join(format!("infra-sim-readlbl2-{}", std::process::id()));
+        let _ = std::fs::create_dir_all(&dir);
+        let env = dir.join("environment.yaml");
+        std::fs::write(
+            &env,
+            "nodes:\n  - hostname: sim-web-01\n    guid: aaaa\n    labels:\n      # team: old\n\n      count: '42'\n      spaced: 'rack 12: primary'\n",
+        )
+        .unwrap();
+        let nodes = read_labels(&env).unwrap();
+        let l = &nodes[0].labels;
+        assert!(!l.contains_key("# team"), "comment not ingested: {l:?}");
+        assert_eq!(
+            l.get("count").map(String::as_str),
+            Some("42"),
+            "quotes stripped once"
+        );
+        assert_eq!(
+            l.get("spaced").map(String::as_str),
+            Some("rack 12: primary"),
+            "quoted colon+space value round-trips"
+        );
+        let _ = std::fs::remove_dir_all(&dir);
+    }
+
+    #[test]
     fn a_failure_report_stays_bounded() {
         let mut stdout = String::new();
         for i in 0..200 {
@@ -2099,6 +2216,200 @@ pub fn reskin(
 
     Ok(ReskinResponse {
         renamed: outcome.renamed,
+        environment: installed_env.display().to_string(),
+    })
+}
+
+/// One node's labels as the editor needs them.
+#[derive(Debug, Serialize)]
+pub struct NodeLabels {
+    pub hostname: String,
+    pub role: Option<String>,
+    pub labels: std::collections::BTreeMap<String, String>,
+}
+
+/// Read each node's hostname, role and labels from an environment file.
+///
+/// The same conservative text-walk re-skinning uses: the file is ours, and a
+/// parse that could not cope with comments or hand edits would make the label
+/// editor the one surface that breaks on them.
+pub fn read_labels(env_path: &Path) -> Result<Vec<NodeLabels>, String> {
+    let source = std::fs::read_to_string(env_path)
+        .map_err(|e| format!("cannot read '{}': {e}", env_path.display()))?;
+    let mut nodes = Vec::new();
+    let mut cur: Option<NodeLabels> = None;
+    let mut in_labels = false;
+    let mut labels_indent = 0usize;
+
+    for line in source.lines() {
+        let trimmed = line.trim_start();
+        let indent = line.len() - trimmed.len();
+        if let Some(rest) = trimmed.strip_prefix("- hostname:") {
+            if let Some(n) = cur.take() {
+                nodes.push(n);
+            }
+            cur = Some(NodeLabels {
+                hostname: rest.trim().to_string(),
+                role: None,
+                labels: Default::default(),
+            });
+            in_labels = false;
+            continue;
+        }
+        let Some(node) = cur.as_mut() else { continue };
+        // The node-level `role:` field, never a label of the same name: a
+        // `role` label key is legal (nothing reserves it) and matching it here
+        // corrupted the node's role and truncated its label set.
+        if let Some(role) = trimmed.strip_prefix("role:") {
+            if !in_labels {
+                node.role = Some(role.trim().to_string());
+                continue;
+            }
+        }
+        if trimmed == "labels:" {
+            in_labels = true;
+            labels_indent = indent;
+            continue;
+        }
+        if in_labels {
+            // Blank and comment lines are transparent, so a hand-edited block
+            // survives the round trip; a comment would otherwise be ingested
+            // as a pseudo-label and poison every later edit.
+            if trimmed.is_empty() || trimmed.starts_with('#') {
+                continue;
+            }
+            // Deeper-indented `key: value` lines are labels; anything at or
+            // above the header's indent (instances:, a comment column, ...)
+            // ends the block.
+            if indent > labels_indent {
+                if let Some((key, value)) = trimmed.split_once(':') {
+                    let value = unquote_yaml_scalar(value.trim());
+                    node.labels
+                        .insert(key.trim().to_string(), value.to_string());
+                    continue;
+                }
+            }
+            in_labels = false;
+        }
+    }
+    if let Some(n) = cur.take() {
+        nodes.push(n);
+    }
+    Ok(nodes)
+}
+
+/// Strip one balanced pair of single quotes, as [`yaml_scalar`] writes them.
+///
+/// `trim_matches` strips every edge quote, so a value that legitimately starts
+/// and ends with `'`-adjacent characters lost data on read-back.
+fn unquote_yaml_scalar(value: &str) -> &str {
+    if value.len() >= 2 && value.starts_with('\'') && value.ends_with('\'') {
+        &value[1..value.len() - 1]
+    } else {
+        value
+    }
+}
+
+/// The complete desired user-label state of a running simulation.
+///
+/// Fleet labels apply to every node; a role's labels override the fleet's on
+/// that role's nodes. Sending the whole desired state (not a diff) keeps the
+/// editor idempotent: the console computes per-node set/remove from what the
+/// environment currently says.
+#[derive(Debug, Deserialize, Default)]
+pub struct LabelsRequest {
+    #[serde(default)]
+    pub fleet: std::collections::BTreeMap<String, String>,
+    #[serde(default)]
+    pub groups: std::collections::BTreeMap<String, std::collections::BTreeMap<String, String>>,
+}
+
+#[derive(Debug, Serialize)]
+pub struct LabelsResponse {
+    pub changed: Vec<String>,
+    pub environment: String,
+}
+
+/// Edit the user labels of a running simulation's environment.
+///
+/// The desired state is fleet-plus-roles because that is what the editor
+/// shows; this is where it becomes per-node edits the engine can apply. The
+/// plugin notices the rewritten file on its own and restarts cleanly, the
+/// agent migrates the labels in place, and history survives — the same path
+/// re-skinning takes.
+pub fn apply_labels(
+    repo: &Path,
+    installed_env: &Path,
+    req: &LabelsRequest,
+) -> Result<LabelsResponse, String> {
+    sim_engine::labels::validate_map(&req.fleet).map_err(|e| format!("fleet: {e}"))?;
+    for (role, labels) in &req.groups {
+        sim_engine::labels::validate_map(labels).map_err(|e| format!("{role} group: {e}"))?;
+    }
+
+    let nodes = read_labels(installed_env)?;
+    if nodes.is_empty() {
+        return Err("the environment defines no nodes".into());
+    }
+
+    let mut per_host = std::collections::BTreeMap::new();
+    for n in &nodes {
+        // Desired: the fleet's labels with the role's layered on top.
+        let mut desired = req.fleet.clone();
+        if let Some(group) = n.role.as_ref().and_then(|r| req.groups.get(r)) {
+            for (k, v) in group {
+                desired.insert(k.clone(), v.clone());
+            }
+        }
+        let current: std::collections::BTreeMap<&String, &String> = n
+            .labels
+            .iter()
+            .filter(|(k, _)| !sim_engine::labels::is_generated_key(k))
+            .collect();
+        let mut changes = sim_engine::reskin::LabelChanges::default();
+        for (k, v) in &desired {
+            if current.get(k).copied() != Some(v) {
+                changes.set.insert(k.clone(), v.clone());
+            }
+        }
+        for k in current.keys() {
+            if !desired.contains_key(k.as_str()) {
+                changes.remove.insert((*k).clone());
+            }
+        }
+        if !changes.is_empty() {
+            per_host.insert(n.hostname.clone(), changes);
+        }
+    }
+
+    if per_host.is_empty() {
+        return Ok(LabelsResponse {
+            changed: Vec::new(),
+            environment: installed_env.display().to_string(),
+        });
+    }
+
+    let source = std::fs::read_to_string(installed_env)
+        .map_err(|e| format!("cannot read '{}': {e}", installed_env.display()))?;
+    let outcome =
+        sim_engine::reskin::apply_labels(&source, &per_host).map_err(|e| e.to_string())?;
+
+    std::fs::write(installed_env, &outcome.yaml)
+        .map_err(|e| format!("cannot write '{}': {e}", installed_env.display()))?;
+
+    // Keep the repo copy in step, as re-skin does, so the archive and any
+    // later edit start from the same place.
+    if let Some(name) = source
+        .lines()
+        .find_map(|l| l.strip_prefix("name:").map(|v| v.trim().to_string()))
+    {
+        let repo_copy = repo.join("environments").join(format!("{name}.yaml"));
+        let _ = std::fs::write(&repo_copy, repo_relative_paths(&outcome.yaml));
+        inherit_owner(&repo.join("environments"), &repo_copy);
+    }
+
+    Ok(LabelsResponse {
+        changed: outcome.changed,
         environment: installed_env.display().to_string(),
     })
 }

@@ -221,7 +221,11 @@ cores, RAM, disks, interfaces — not a category of software.
 
 **The details an SRE checks first.** Processes, users and groups that match what
 a host of that kind actually runs. Mounts that fill at plausible rates. Ports with
-the right rated speeds. Cloud provider and instance-type labels.
+the right rated speeds. Cloud provider and instance-type labels. Host labels the
+way real fleets carry them — `environment`, `site`, `team` — authored per fleet
+and per tier in the console (suggested from your description when one is given),
+editable live on a running fleet, and validated against the agent's own label
+rules so what you write is what the node reports.
 
 **Logs, two ways.** Each node becomes its own log source in Netdata, with lines
 that follow whatever fault is running — healthy nodes stay quiet, because a node

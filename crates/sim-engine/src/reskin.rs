@@ -122,11 +122,283 @@ pub fn reskin(source: &str, plan: &Plan) -> Result<Outcome, String> {
     Ok(Outcome { renamed, yaml })
 }
 
+/// The node GUIDs in an environment file.
+///
+/// Labels-block aware: a user label key `guid` (legal — nothing reserves it)
+/// must not be mistaken for the node's identity line, or the invariance guard
+/// would refuse a legitimate edit with a message about GUIDs.
 fn guids(text: &str) -> Vec<String> {
-    text.lines()
-        .filter_map(|l| l.trim_start().strip_prefix("guid:"))
-        .map(|g| g.trim().to_string())
-        .collect()
+    let mut out = Vec::new();
+    let mut in_labels = false;
+    let mut labels_indent = 0usize;
+    for line in text.lines() {
+        let trimmed = line.trim_start();
+        let indent = line.len() - trimmed.len();
+        if trimmed == "labels:" {
+            in_labels = true;
+            labels_indent = indent;
+            continue;
+        }
+        if in_labels && !trimmed.is_empty() && indent <= labels_indent {
+            in_labels = false;
+        }
+        if in_labels {
+            continue;
+        }
+        if let Some(g) = trimmed.strip_prefix("guid:") {
+            out.push(g.trim().to_string());
+        }
+    }
+    out
+}
+
+/// How one node's user-authored labels change.
+#[derive(Debug, Clone, Default, PartialEq)]
+pub struct LabelChanges {
+    /// Labels to set (inserted or updated in place).
+    pub set: BTreeMap<String, String>,
+    /// Labels to remove, by key.
+    pub remove: std::collections::BTreeSet<String>,
+}
+
+impl LabelChanges {
+    pub fn is_empty(&self) -> bool {
+        self.set.is_empty() && self.remove.is_empty()
+    }
+}
+
+/// What applying labels did.
+#[derive(Debug)]
+pub struct LabelOutcome {
+    pub yaml: String,
+    /// Hostnames whose label block actually changed.
+    pub changed: Vec<String>,
+}
+
+/// The labels block of one node being walked.
+struct LabelWalk {
+    host: String,
+    changes: LabelChanges,
+    /// Indent of the block's entries (the `labels:` line's indent + 2).
+    indent: usize,
+    /// Index in the output of the `labels:` header line.
+    header: usize,
+    /// Keys seen in the block so far.
+    seen: std::collections::BTreeSet<String>,
+    /// Whether anything in this block was inserted, rewritten or dropped.
+    dirty: bool,
+}
+
+/// Emit the keys the block is missing, and apply the tier the edits imply.
+fn flush(
+    walk: Option<LabelWalk>,
+    out: &mut Vec<String>,
+    tier_override: Option<String>,
+    changed: &mut Vec<String>,
+) {
+    let Some(mut w) = walk else { return };
+    for (key, value) in &w.changes.set {
+        if !w.seen.contains(key) {
+            out.push(format!(
+                "{:i$}{key}: {}",
+                "",
+                crate::labels::yaml_scalar(value),
+                i = w.indent
+            ));
+            w.dirty = true;
+        }
+    }
+    if let Some(tier) = tier_override {
+        // `environment` changed: the generated tier label follows it. Rewrite
+        // the line in place when the block has one, else insert it right
+        // under the header - a file without it is hand-written, and any
+        // position inside the block is valid YAML.
+        let rendered_tier = crate::labels::yaml_scalar(&tier);
+        if let Some(pos) = out[w.header + 1..]
+            .iter()
+            .position(|l| l.trim_start().starts_with("infra_sim_env:"))
+            .map(|p| w.header + 1 + p)
+        {
+            let indent = out[pos].len() - out[pos].trim_start().len();
+            out[pos] = format!("{:i$}infra_sim_env: {rendered_tier}", "", i = indent);
+        } else {
+            out.insert(
+                w.header + 1,
+                format!("{:i$}infra_sim_env: {rendered_tier}", "", i = w.indent),
+            );
+        }
+        w.dirty = true;
+    }
+    if w.dirty && !changed.contains(&w.host) {
+        changed.push(w.host.clone());
+    }
+}
+
+/// Edit the user-authored labels of named nodes in an environment file,
+/// leaving GUIDs and everything else untouched.
+///
+/// The same live-editing path re-skinning uses: rewrite the file, the plugin
+/// notices the environment changed under it and exits cleanly, the agent
+/// respawns it, and the agent migrates the vnode's labels in place — history,
+/// trained ML and alert log all survive. `environment` is mirrored into the
+/// generated `infra_sim_env` label so the two can never disagree after an
+/// edit.
+pub fn apply_labels(
+    source: &str,
+    per_host: &BTreeMap<String, LabelChanges>,
+) -> Result<LabelOutcome, String> {
+    // Validate before touching a line, so a refused edit cannot leave a
+    // half-rewritten file behind.
+    for (host, changes) in per_host {
+        if changes.is_empty() {
+            continue;
+        }
+        crate::labels::validate_map(&changes.set).map_err(|e| format!("{host}: {e}"))?;
+        for key in &changes.remove {
+            // The same rules as setting: this refuses generated keys too, so
+            // `remove: infra_sim_role` cannot strip identity the runtime uses.
+            crate::labels::validate_key(key)
+                .map_err(|e| format!("{host}: cannot remove '{key}': {e}"))?;
+        }
+    }
+
+    let before_guids = guids(source);
+    if before_guids.is_empty() {
+        return Err("no node GUIDs found; is this an environment file?".into());
+    }
+
+    let mut out: Vec<String> = Vec::new();
+    let mut changed: Vec<String> = Vec::new();
+    let mut touched: std::collections::BTreeSet<String> = Default::default();
+    let mut current_host: Option<String> = None;
+    let mut walk: Option<LabelWalk> = None;
+    let mut tier_override: Option<String> = None;
+
+    for line in source.lines() {
+        let trimmed = line.trim_start();
+        let indent = line.len() - trimmed.len();
+
+        if trimmed.starts_with("- hostname:") {
+            flush(walk.take(), &mut out, tier_override.take(), &mut changed);
+            current_host = Some(
+                trimmed
+                    .strip_prefix("- hostname:")
+                    .unwrap_or("")
+                    .trim()
+                    .to_string(),
+            );
+            out.push(line.to_string());
+            continue;
+        }
+
+        if let Some(host) = &current_host {
+            let changes = per_host.get(host).filter(|c| !c.is_empty());
+
+            if trimmed == "labels:" && walk.is_none() {
+                let Some(changes) = changes.cloned() else {
+                    out.push(line.to_string());
+                    continue;
+                };
+                // Setting or removing `environment` retiers the node; removing
+                // it falls back to the default tier rather than a stale one.
+                tier_override = changes
+                    .set
+                    .get(crate::labels::ENVIRONMENT_LABEL)
+                    .cloned()
+                    .or_else(|| {
+                        changes
+                            .remove
+                            .contains(crate::labels::ENVIRONMENT_LABEL)
+                            .then(|| "production".to_string())
+                    });
+                touched.insert(host.clone());
+                walk = Some(LabelWalk {
+                    host: host.clone(),
+                    changes,
+                    indent: indent + 2,
+                    header: out.len(),
+                    seen: Default::default(),
+                    dirty: false,
+                });
+                out.push(line.to_string());
+                continue;
+            }
+
+            if let Some(w) = walk.as_mut() {
+                // Blank and comment lines are transparent: a hand-edited file
+                // may carry either inside a labels block, and closing the walk
+                // on them would duplicate a later `set` key or strand a
+                // later `remove`.
+                if trimmed.is_empty() || trimmed.starts_with('#') {
+                    out.push(line.to_string());
+                    continue;
+                }
+                if indent >= w.indent {
+                    let key = trimmed.split(':').next().unwrap_or("").to_string();
+                    if w.changes.remove.contains(&key) {
+                        w.dirty = true;
+                        continue; // the label line disappears entirely
+                    }
+                    if let Some(value) = w.changes.set.get(&key) {
+                        out.push(format!(
+                            "{:i$}{key}: {}",
+                            "",
+                            crate::labels::yaml_scalar(value),
+                            i = w.indent
+                        ));
+                        w.dirty = true;
+                    } else {
+                        out.push(line.to_string());
+                    }
+                    w.seen.insert(key);
+                    continue;
+                }
+                // Anything shallower ends the block.
+                flush(walk.take(), &mut out, tier_override.take(), &mut changed);
+                out.push(line.to_string());
+                continue;
+            }
+        }
+
+        out.push(line.to_string());
+    }
+    flush(walk.take(), &mut out, tier_override.take(), &mut changed);
+
+    let missing: Vec<String> = per_host
+        .iter()
+        .filter(|(h, c)| !c.is_empty() && !touched.contains(*h))
+        .map(|(h, _)| h.clone())
+        .collect();
+    if !missing.is_empty() {
+        return Err(format!(
+            "no labels block found for {} - refusing to guess where labels belong",
+            missing.join(", ")
+        ));
+    }
+
+    let yaml = out.join("\n") + "\n";
+    let after_guids = guids(&yaml);
+    if before_guids != after_guids {
+        return Err(
+            "editing labels would change node GUIDs, which orphans history - refusing to write"
+                .into(),
+        );
+    }
+
+    // Defense in depth for the live-edit path: unlike create, there is no lint
+    // between this write and a running simulation whose plugin will refuse to
+    // respawn on a file it cannot parse. Validation should make this
+    // unreachable; a hand-edited source file plus an edit must still never
+    // take a fleet down while the console reports success.
+    if serde_yaml::from_str::<serde_yaml::Value>(&yaml).is_err() {
+        return Err(
+            "the label edit would leave the environment unparseable - refusing to write; the \
+             source file has a structure this editor does not understand"
+                .into(),
+        );
+    }
+
+    Ok(LabelOutcome { yaml, changed })
 }
 
 /// Refuse to write an environment whose GUIDs already appear in another
@@ -286,5 +558,159 @@ nodes:
         // Rewriting an environment in place is not a clone of itself.
         assert!(check_guid_uniqueness(&dir, ENV, &self_path).is_ok());
         let _ = std::fs::remove_dir_all(&dir);
+    }
+
+    fn changes(set: &[(&str, &str)], remove: &[&str]) -> BTreeMap<String, LabelChanges> {
+        let mut c = LabelChanges::default();
+        for (k, v) in set {
+            c.set.insert(k.to_string(), v.to_string());
+        }
+        for k in remove {
+            c.remove.insert(k.to_string());
+        }
+        BTreeMap::from([("sim-lb-01".to_string(), c)])
+    }
+
+    #[test]
+    fn apply_inserts_missing_and_updates_existing_labels() {
+        let src = ENV.replacen(
+            "      infra_sim_env: production",
+            "      infra_sim_env: production\n      team: old",
+            1,
+        );
+        let out = apply_labels(
+            &src,
+            &changes(&[("team", "platform"), ("site", "dc-1")], &[]),
+        )
+        .unwrap();
+        // Existing key updated in place, new key inserted in the block.
+        assert!(out.yaml.contains("team: platform"), "{}", out.yaml);
+        assert!(!out.yaml.contains("team: old"));
+        assert!(out.yaml.contains("site: dc-1"));
+        assert_eq!(out.changed, vec!["sim-lb-01".to_string()]);
+    }
+
+    #[test]
+    fn apply_removes_label_lines() {
+        let src = ENV.replacen(
+            "      infra_sim_env: production",
+            "      infra_sim_env: production\n      team: platform",
+            1,
+        );
+        let out = apply_labels(&src, &changes(&[], &["team"])).unwrap();
+        assert!(!out.yaml.contains("team: platform"), "{}", out.yaml);
+        // The block still holds its generated labels.
+        assert!(out.yaml.contains("infra_sim_env: production"));
+    }
+
+    #[test]
+    fn apply_cannot_remove_generated_labels() {
+        for key in [
+            "infra_sim_env",
+            "infra_sim_role",
+            "latitude",
+            "_os_name",
+            "simulated",
+        ] {
+            let err = apply_labels(ENV, &changes(&[], &[key])).unwrap_err();
+            assert!(err.contains("cannot remove"), "key {key}: {err}");
+        }
+    }
+
+    #[test]
+    fn setting_environment_retiers_the_node() {
+        let out = apply_labels(ENV, &changes(&[("environment", "staging")], &[])).unwrap();
+        assert!(out.yaml.contains("infra_sim_env: staging"), "{}", out.yaml);
+        assert!(out.yaml.contains("environment: staging"));
+        // The other node keeps its tier: edits are per host.
+        assert!(out.yaml.matches("infra_sim_env: production").count() == 1);
+    }
+
+    #[test]
+    fn removing_environment_resets_the_tier() {
+        let src = ENV.replacen(
+            "      infra_sim_env: production",
+            "      infra_sim_env: staging\n      environment: staging",
+            1,
+        );
+        let out = apply_labels(&src, &changes(&[], &["environment"])).unwrap();
+        assert!(
+            out.yaml.contains("infra_sim_env: production"),
+            "{}",
+            out.yaml
+        );
+        assert!(!out.yaml.contains("environment: staging"));
+    }
+
+    #[test]
+    fn apply_preserves_guids_comments_and_siblings() {
+        let src = format!("# a note that matters\n{ENV}");
+        let out = apply_labels(&src, &changes(&[("team", "x")], &[])).unwrap();
+        assert!(out.yaml.contains("# a note that matters"));
+        assert!(out
+            .yaml
+            .contains("guid: 4a1f9d20-5e83-4c17-b6a2-0d94e7fc3518"));
+        assert!(out.yaml.contains("_cloud_instance_region: us-east-1"));
+    }
+
+    #[test]
+    fn blank_and_comment_lines_inside_a_labels_block_are_survivable() {
+        // Hand-edited files carry these; closing the walk on them duplicated
+        // a later `set` key or stranded a later `remove`.
+        let src = ENV.replacen(
+            "      infra_sim_env: production",
+            "      infra_sim_env: production\n      team: old\n\n      # a note\n      site: dc-1",
+            1,
+        );
+        let out = apply_labels(&src, &changes(&[("team", "new")], &["site"])).unwrap();
+        assert!(out.yaml.contains("team: new"), "{}", out.yaml);
+        assert!(!out.yaml.contains("team: old"));
+        assert!(
+            !out.yaml.contains("site: dc-1"),
+            "remove must reach past the blank"
+        );
+        assert_eq!(
+            out.yaml.matches("site:").count(),
+            0,
+            "the only site label was the removed one"
+        );
+        assert!(out.yaml.contains("# a note"), "comments survive");
+        // And it is still valid YAML with exactly one value per key.
+        #[derive(serde::Deserialize)]
+        struct EnvLike {
+            nodes: Vec<NodeLike>,
+        }
+        #[derive(serde::Deserialize)]
+        struct NodeLike {
+            labels: BTreeMap<String, String>,
+        }
+        let parsed: EnvLike = serde_yaml::from_str(&out.yaml).unwrap();
+        assert_eq!(
+            parsed.nodes[0].labels.get("team").map(String::as_str),
+            Some("new")
+        );
+    }
+
+    #[test]
+    fn a_guid_label_key_does_not_trip_the_guid_guard() {
+        // `guid` is a legal label key; treating its line as node identity made
+        // adding it fail with a bogus message about orphaning history.
+        let mut c = LabelChanges::default();
+        c.set.insert("guid".into(), "my-service".into());
+        let out = apply_labels(ENV, &BTreeMap::from([("sim-lb-01".to_string(), c)])).unwrap();
+        assert!(out.yaml.contains("guid: my-service"), "{}", out.yaml);
+        // The node's real GUID line is untouched.
+        assert!(out
+            .yaml
+            .contains("guid: 4a1f9d20-5e83-4c17-b6a2-0d94e7fc3518"));
+    }
+
+    #[test]
+    fn apply_refuses_an_unknown_hostname_rather_than_no_op() {
+        let mut c = LabelChanges::default();
+        c.set.insert("team".into(), "x".into());
+        let err =
+            apply_labels(ENV, &BTreeMap::from([("sim-ghost-01".to_string(), c)])).unwrap_err();
+        assert!(err.contains("sim-ghost-01"), "{err}");
     }
 }

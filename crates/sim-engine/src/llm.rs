@@ -401,7 +401,15 @@ fn system_prompt(services: &[String]) -> String {
          - `services` defaults to the role's, and is worth changing only when the \
            description names something different that is on the list above.\n\
          - `source` is the phrase from the description this group came from, quoted back so \
-           the reading can be checked.\n\
+            the reading can be checked.\n\
+          - `labels` are host labels, the way real deployments tag nodes for filtering and \
+            grouping in Netdata Cloud. Suggest only labels the description supports (the \
+            deployment tier as `environment`, a site or datacenter as `site`, an owning team \
+            as `team`, the service as `service`) plus anything the description explicitly \
+            names. Fleet-wide facts go in the top-level `labels`; facts true of only one \
+            tier go in that group's `labels`, which override the fleet's. Keys are lowercase \
+            letters, digits, dots, hyphens, slashes, underscores - never colons or spaces. \
+            Omit rather than invent: an empty object is a correct answer.\n\
          - `notes` is where assumptions belong - anything you inferred, sized by guess, or \
            read one of two ways.\n\
          - `environment_name` is a short lowercase identifier for the fleet, usually the \
@@ -420,14 +428,14 @@ fn plan_schema(services: &[String]) -> Value {
     json!({
         "type": "object",
         "additionalProperties": false,
-        "required": ["groups", "notes", "unsupported", "environment_name"],
+        "required": ["groups", "notes", "unsupported", "environment_name", "labels"],
         "properties": {
             "groups": {
                 "type": "array",
                 "items": {
                     "type": "object",
                     "additionalProperties": false,
-                    "required": ["role", "count", "services", "slug", "source"],
+                    "required": ["role", "count", "services", "slug", "source", "labels"],
                     "properties": {
                         "role": { "type": "string", "enum": role_names },
                         "count": { "type": "integer" },
@@ -436,13 +444,21 @@ fn plan_schema(services: &[String]) -> Value {
                             "items": { "type": "string", "enum": services }
                         },
                         "slug": { "type": "string" },
-                        "source": { "type": "string" }
+                        "source": { "type": "string" },
+                        "labels": {
+                            "type": "object",
+                            "additionalProperties": { "type": "string" }
+                        }
                     }
                 }
             },
             "notes": { "type": "array", "items": { "type": "string" } },
             "unsupported": { "type": "array", "items": { "type": "string" } },
-            "environment_name": { "type": "string" }
+            "environment_name": { "type": "string" },
+            "labels": {
+                "type": "object",
+                "additionalProperties": { "type": "string" }
+            }
         }
     })
 }
@@ -720,6 +736,32 @@ fn openai_text(body: &Value) -> Result<(String, String), String> {
     Ok((text.to_string(), model))
 }
 
+/// Read a suggested-labels object from the plan.
+///
+/// Returns the pairs that pass label validation, and the keys that did not so
+/// the caller can say so in its corrections. A schema cannot constrain object
+/// keys, so this is where the label rules actually meet model output.
+fn label_map(v: Option<&Value>) -> (std::collections::BTreeMap<String, String>, Vec<String>) {
+    let mut out = std::collections::BTreeMap::new();
+    let mut dropped = Vec::new();
+    let Some(obj) = v.and_then(Value::as_object) else {
+        return (out, dropped);
+    };
+    for (k, v) in obj {
+        let Some(val) = v.as_str() else {
+            dropped.push(k.clone());
+            continue;
+        };
+        match crate::labels::validate_pair(k, val) {
+            Ok(()) => {
+                out.insert(k.clone(), val.to_string());
+            }
+            Err(_) => dropped.push(k.clone()),
+        }
+    }
+    (out, dropped)
+}
+
 /// Check a plan against the catalogue and turn it into a [`Reading`].
 ///
 /// The schema already constrains roles and services, so most of this never
@@ -785,11 +827,22 @@ fn validate(plan: &Value, services: &[String]) -> Result<Proposal, String> {
             .map(sanitise_slug)
             .filter(|s| !s.is_empty());
 
+        // Suggested labels are prefill, not input the plan may assert: every
+        // pair runs through the same validation a typed label does, and an
+        // invalid one is dropped with a note rather than failing the proposal.
+        let (group_labels, dropped) = label_map(g.get("labels"));
+        for key in &dropped {
+            corrections.push(format!(
+                "group {i} ({role}): dropped suggested label '{key}', it fails label validation"
+            ));
+        }
+
         groups.push(Group {
             count: clamped,
             role: role.to_string(),
             services: kept,
             slug,
+            labels: group_labels,
             source: g
                 .get("source")
                 .and_then(Value::as_str)
@@ -815,10 +868,17 @@ fn validate(plan: &Value, services: &[String]) -> Result<Proposal, String> {
     }
 
     let before = groups.len();
+    let (fleet_labels, dropped) = label_map(plan.get("labels"));
+    for key in &dropped {
+        corrections.push(format!(
+            "dropped suggested fleet label '{key}', it fails label validation"
+        ));
+    }
     let mut reading = Reading {
         groups,
         unrecognised: Vec::new(),
         site: None,
+        labels: fleet_labels,
     };
     reading.dedupe_slugs();
     if reading.groups.len() != before {

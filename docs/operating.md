@@ -262,6 +262,35 @@ The fleet's location is also recorded once at the top of `environment.yaml`, and
 the container's own agent is labelled from it - so no node in the Space is left
 unplaced.
 
+## Host labels
+
+Nodes carry host labels the way real ones do, and Netdata Cloud uses them for
+filtering, grouping, room rules and the map. Three layers:
+
+- generated: the agent's own (`_os_name`, cloud detection) and the simulation's
+  (`simulated`, `infra_sim_role`, ...);
+- fleet labels: authored in the create form (or suggested by the describe box),
+  written to every node;
+- group labels: per-role overrides that win over the fleet's on that role's
+  nodes.
+
+Keys are validated against the agent's own label rules - anything the agent
+would silently rewrite (`:` in a key, `;` in a value) is refused rather than
+accepted and mangled, and `environment`-style keys that belong to the system
+are not settable. Setting an `environment` label also retiers what the fleet
+reports about itself (`infra_sim_env`); remove it and the tier falls back to
+`production`.
+
+On a running simulation, the console's **Labels** panel edits them live: the
+environment is rewritten in place, the plugin restarts itself within seconds,
+and the nodes keep their history and trained models - the same identity rules
+as a re-skin. There is no `control.yaml` involvement and no downtime beyond a
+brief sample gap (measured: none within a 1s update interval).
+
+Command-line equivalent of the whole authoring surface: the labels are ordinary
+`labels:` entries in `environment.yaml`, so an archived environment replays
+with them intact.
+
 ## Node classes
 
 Most nodes are Linux servers: the fleet's `generator:` is the Linux baseline and

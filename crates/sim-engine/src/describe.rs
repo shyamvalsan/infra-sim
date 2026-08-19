@@ -27,8 +27,10 @@
 //! non-goal. Both paths take a sentence the SE typed, never a file the prospect
 //! sent.
 
+use std::collections::BTreeMap;
+
 /// One recognised group of nodes.
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, Default, PartialEq)]
 pub struct Group {
     pub count: usize,
     pub role: String,
@@ -48,6 +50,10 @@ pub struct Group {
     /// role's own slug. The LLM path sets this so hostnames carry the
     /// prospect's vocabulary instead of ours.
     pub slug: Option<String>,
+    /// Host labels authored for this group, layered over the fleet's: same key
+    /// here wins. Validated before it reaches the renderer - see
+    /// [`crate::labels`].
+    pub labels: BTreeMap<String, String>,
     /// The phrase this came from, echoed back so the SE can check the reading.
     pub source: String,
 }
@@ -67,6 +73,36 @@ fn fleet_site(reading: &Reading) -> Option<Site> {
             })
             .and_then(|g| g.site)
     })
+}
+
+/// A node's user-authored label lines: fleet labels with the group's layered
+/// on top (same key, group wins). Emitted between the generated identity
+/// labels and the site labels, so a node reads generated-then-authored-then-
+/// placed top to bottom.
+fn user_label_lines(
+    fleet: &BTreeMap<String, String>,
+    group: &BTreeMap<String, String>,
+) -> Vec<String> {
+    let mut merged = fleet.clone();
+    for (k, v) in group {
+        merged.insert(k.clone(), v.clone());
+    }
+    merged
+        .iter()
+        .map(|(k, v)| format!("      {k}: {}", crate::labels::yaml_scalar(v)))
+        .collect()
+}
+
+/// The tier the generated `infra_sim_env` label reports: the user's own
+/// `environment` label when one is set (group overrides fleet), else
+/// production. Keeps our marker in agreement with the user's vocabulary
+/// instead of asserting "production" about a staging fleet.
+fn env_tier(fleet: &BTreeMap<String, String>, group: &BTreeMap<String, String>) -> String {
+    group
+        .get(crate::labels::ENVIRONMENT_LABEL)
+        .or_else(|| fleet.get(crate::labels::ENVIRONMENT_LABEL))
+        .cloned()
+        .unwrap_or_else(|| "production".to_string())
 }
 
 /// The `latitude`/`longitude` label lines for one node, or nothing when the
@@ -217,6 +253,9 @@ pub struct Reading {
     /// simulation's agent with a *group override* instead of the fleet's own
     /// location - visible on a live agent as a parent node in the wrong city.
     pub site: Option<Site>,
+    /// Fleet-wide user-authored host labels, inherited by every group and
+    /// overridable per group. Validated upstream; see [`crate::labels`].
+    pub labels: BTreeMap<String, String>,
 }
 
 impl Reading {
@@ -246,6 +285,11 @@ impl Reading {
                 Some(existing) => {
                     existing.count += group.count;
                     existing.source = format!("{}; {}", existing.source, group.source);
+                    // Same-role rows are legitimate console input; their labels
+                    // merge rather than vanish (incoming wins same-key).
+                    for (k, v) in group.labels {
+                        existing.labels.insert(k, v);
+                    }
                 }
                 None => folded.push(group),
             }
@@ -869,7 +913,9 @@ pub fn parse_with_services(text: &str, available: &[String]) -> Reading {
 /// Two clauses merge only when they describe the same role running the same
 /// software. Merging on role alone silently discarded the second clause's
 /// collectors: "6 nginx web servers ... and an elasticsearch cluster of 3"
-/// became nine nginx nodes and no Elasticsearch anywhere.
+/// became nine nginx nodes and no Elasticsearch anywhere. Labels merge with
+/// the incoming clause winning same-key - silently dropping them would lose
+/// authored state the SE can see in the form.
 fn merge(groups: &mut Vec<Group>, incoming: Group) {
     if let Some(existing) = groups
         .iter_mut()
@@ -877,6 +923,9 @@ fn merge(groups: &mut Vec<Group>, incoming: Group) {
     {
         existing.count += incoming.count;
         existing.source = format!("{}; {}", existing.source, incoming.source);
+        for (k, v) in incoming.labels {
+            existing.labels.insert(k, v);
+        }
     } else {
         groups.push(incoming);
     }
@@ -944,6 +993,7 @@ fn match_clause(clause: &str, available: &[String]) -> Option<Group> {
         },
         // Keyword matching has no evidence for a better name than the role's.
         slug: None,
+        labels: BTreeMap::new(),
         source: clause.to_string(),
         site: None,
         device: None,
@@ -1161,7 +1211,11 @@ pub fn render(reading: &Reading, name: &str, seed: u64, prefix: &str) -> String 
                     }
                 }
                 lines.push(format!("      infra_sim_role: {}", group.role));
-                lines.push("      infra_sim_env: production".into());
+                lines.push(format!(
+                    "      infra_sim_env: {}",
+                    crate::labels::yaml_scalar(&env_tier(&reading.labels, &group.labels))
+                ));
+                lines.extend(user_label_lines(&reading.labels, &group.labels));
                 lines.extend(site_labels(group.site, &hostname));
                 continue;
             }
@@ -1241,7 +1295,11 @@ pub fn render(reading: &Reading, name: &str, seed: u64, prefix: &str) -> String 
             ));
             lines.push("      _install_type: infra-sim".into());
             lines.push(format!("      infra_sim_role: {}", group.role));
-            lines.push("      infra_sim_env: production".into());
+            lines.push(format!(
+                "      infra_sim_env: {}",
+                crate::labels::yaml_scalar(&env_tier(&reading.labels, &group.labels))
+            ));
+            lines.extend(user_label_lines(&reading.labels, &group.labels));
             lines.extend(site_labels(group.site, &hostname));
         }
     }
@@ -1415,10 +1473,12 @@ mod tests {
                     source: String::new(),
                     site: None,
                     device: None,
+                    labels: Default::default(),
                 })
                 .collect(),
             unrecognised: vec![],
             site: None,
+            labels: Default::default(),
         };
         for (from, target) in [
             (vec![2, 20, 3, 1], 50usize),
@@ -1453,6 +1513,7 @@ mod tests {
                     source: String::new(),
                     site: None,
                     device: None,
+                    labels: Default::default(),
                 },
                 super::Group {
                     count: 20,
@@ -1462,10 +1523,12 @@ mod tests {
                     source: String::new(),
                     site: None,
                     device: None,
+                    labels: Default::default(),
                 },
             ],
             unrecognised: vec![],
             site: None,
+            labels: Default::default(),
         };
         super::scale_to_target(&mut r, 55);
         // 2:20 is 1:10; at 55 nodes that is 5 and 50.
@@ -1484,9 +1547,11 @@ mod tests {
                 source: String::new(),
                 site: None,
                 device: None,
+                labels: Default::default(),
             }],
             unrecognised: vec![],
             site: None,
+            labels: Default::default(),
         };
         assert!(super::scale_to_target(&mut r, 4).is_none());
         assert!(super::scale_to_target(&mut r, 0).is_none());
@@ -1589,6 +1654,7 @@ mod tests {
             source: String::new(),
             site: None,
             device: None,
+            labels: Default::default(),
         };
         // Distinctive software names the node.
         assert_eq!(g("web", &["ceph"]).effective_slug(), "ceph");
@@ -1620,6 +1686,7 @@ mod tests {
                     source: String::new(),
                     site: None,
                     device: None,
+                    labels: Default::default(),
                 },
                 super::Group {
                     count: 2,
@@ -1629,6 +1696,7 @@ mod tests {
                     source: String::new(),
                     site: None,
                     device: None,
+                    labels: Default::default(),
                 },
                 super::Group {
                     count: 3,
@@ -1638,10 +1706,12 @@ mod tests {
                     source: String::new(),
                     site: None,
                     device: None,
+                    labels: Default::default(),
                 },
             ],
             unrecognised: vec![],
             site: None,
+            labels: Default::default(),
         };
         r.dedupe_slugs();
         // The two identical web groups merged; the lb group did not.
@@ -1673,6 +1743,113 @@ mod tests {
     }
 
     #[test]
+    fn user_labels_land_on_every_node_with_group_overrides() {
+        let mut r = parse("2 web servers and a database");
+        r.labels = BTreeMap::from([
+            ("environment".to_string(), "staging".to_string()),
+            ("team".to_string(), "platform".to_string()),
+        ]);
+        // Same key on the group wins over the fleet's - a db tier owned by
+        // someone else is exactly why per-group labels exist.
+        r.groups[1].labels = BTreeMap::from([("team".to_string(), "payments".to_string())]);
+        let yaml = render(&r, "acme", 7, "acme-");
+        // Fleet labels reach every node.
+        assert_eq!(
+            yaml.matches("      environment: staging").count(),
+            3,
+            "{yaml}"
+        );
+        // The web pair keeps the fleet team; the db node carries its override.
+        assert_eq!(yaml.matches("      team: platform").count(), 2, "{yaml}");
+        assert_eq!(yaml.matches("      team: payments").count(), 1, "{yaml}");
+    }
+
+    #[test]
+    fn the_environment_label_tiers_infra_sim_env() {
+        let mut r = parse("a database");
+        let yaml = render(&r, "acme", 7, "acme-");
+        assert!(
+            yaml.contains("infra_sim_env: production"),
+            "no user label means production: {yaml}"
+        );
+
+        r.labels = BTreeMap::from([("environment".to_string(), "staging".to_string())]);
+        let yaml = render(&r, "acme", 7, "acme-");
+        assert!(
+            yaml.contains("infra_sim_env: staging"),
+            "the user's own word tiers the fleet: {yaml}"
+        );
+        // The user's label itself is emitted too - it is theirs, not ours.
+        assert!(yaml.contains("environment: staging"), "{yaml}");
+
+        // A group's environment beats the fleet's.
+        r.groups[0].labels = BTreeMap::from([("environment".to_string(), "dr".to_string())]);
+        let yaml = render(&r, "acme", 7, "acme-");
+        assert!(yaml.contains("infra_sim_env: dr"), "{yaml}");
+    }
+
+    #[test]
+    fn user_labels_reach_network_devices_between_tier_and_site() {
+        let mut r = parse("a switch");
+        r.labels = BTreeMap::from([("site".to_string(), "dc-east-1".to_string())]);
+        let yaml = render(&r, "acme", 7, "acme-");
+        assert!(yaml.contains("device_type: switch"), "{yaml}");
+        assert!(yaml.contains("      site: dc-east-1"), "{yaml}");
+        // Authored labels sit after the generated ones and before placement.
+        let tier = yaml.find("infra_sim_env").expect("tier label");
+        let authored = yaml.find("site: dc-east-1").expect("authored label");
+        assert!(tier < authored, "generated before authored: {yaml}");
+    }
+
+    #[test]
+    fn numeric_label_values_stay_strings() {
+        // `environment: 42` would otherwise deserialize as an integer and
+        // break every consumer expecting a string.
+        #[derive(serde::Deserialize)]
+        struct EnvLike {
+            nodes: Vec<NodeLike>,
+        }
+        #[derive(serde::Deserialize)]
+        struct NodeLike {
+            labels: BTreeMap<String, String>,
+        }
+        let mut r = parse("a database");
+        r.labels = BTreeMap::from([("site".to_string(), "42".to_string())]);
+        let yaml = render(&r, "acme", 7, "acme-");
+        assert!(yaml.contains("site: '42'"), "{yaml}");
+        let back: EnvLike = serde_yaml::from_str(&yaml).unwrap();
+        assert_eq!(
+            back.nodes[0].labels.get("site").map(String::as_str),
+            Some("42")
+        );
+    }
+
+    #[test]
+    fn merging_same_shape_groups_keeps_both_label_sets() {
+        // Two rows of the same role and services merge (hostnames would
+        // collide); their labels must union rather than the second's vanish.
+        let mut r = parse("a database");
+        r.groups.push(Group {
+            count: 1,
+            role: "db".into(),
+            services: vec!["postgres".into()],
+            slug: None,
+            source: String::new(),
+            site: None,
+            device: None,
+            labels: BTreeMap::from([
+                ("team".to_string(), "payments".to_string()),
+                ("tier".to_string(), "hot".to_string()),
+            ]),
+        });
+        r.dedupe_slugs();
+        assert_eq!(r.groups.len(), 1, "same role+services merge");
+        let merged = &r.groups[0].labels;
+        assert_eq!(merged.get("team").map(String::as_str), Some("payments"));
+        assert_eq!(merged.get("tier").map(String::as_str), Some("hot"));
+    }
+
+    #[test]
     fn an_empty_description_produces_no_groups() {
         assert!(parse("").groups.is_empty());
         assert!(parse("   ").groups.is_empty());
@@ -1691,6 +1868,7 @@ mod tests {
                     source: String::new(),
                     site: Some(site),
                     device: None,
+                    labels: Default::default(),
                 },
                 Group {
                     count: 2,
@@ -1700,10 +1878,12 @@ mod tests {
                     source: String::new(),
                     site: Some(Site::new(52.3676, 4.9041).unwrap()),
                     device: None,
+                    labels: Default::default(),
                 },
             ],
             unrecognised: Vec::new(),
             site: None,
+            labels: Default::default(),
         };
         let yaml = render(&reading, "acme", 7, "acme-");
         // Every node, including the switches: a device is at a site too.
@@ -1755,6 +1935,7 @@ mod tests {
                     source: String::new(),
                     site: Some(Site::new(50.1109, 8.6821).unwrap()),
                     device: None,
+                    labels: Default::default(),
                 },
                 Group {
                     count: 2,
@@ -1764,10 +1945,12 @@ mod tests {
                     source: String::new(),
                     site: Some(Site::new(52.3676, 4.9041).unwrap()),
                     device: None,
+                    labels: Default::default(),
                 },
             ],
             unrecognised: Vec::new(),
             site: Some(Site::new(50.1109, 8.6821).unwrap()),
+            labels: Default::default(),
         };
         let yaml = render(&reading, "acme", 7, "acme-");
         assert!(yaml.contains("site:\n  latitude: 50.110900"), "{yaml}");
@@ -1790,9 +1973,11 @@ mod tests {
                     model: "cisco_catalyst".into(),
                     kind: "switch".into(),
                 }),
+                labels: Default::default(),
             }],
             unrecognised: Vec::new(),
             site: None,
+            labels: Default::default(),
         };
         let yaml = render(&reading, "acme", 7, "acme-");
         assert!(yaml.contains("device_vendor: Cisco"), "{yaml}");
@@ -1811,9 +1996,11 @@ mod tests {
                 source: String::new(),
                 site: None,
                 device: None,
+                labels: Default::default(),
             }],
             unrecognised: Vec::new(),
             site: None,
+            labels: Default::default(),
         };
         let yaml = render(&r, "acme", 7, "acme-");
         assert!(yaml.contains("device_vendor: sim-networks"), "{yaml}");
@@ -1886,9 +2073,11 @@ mod tests {
                 source: "2 x network-device".into(),
                 site: None,
                 device: None,
+                labels: Default::default(),
             }],
             unrecognised: Vec::new(),
             site: None,
+            labels: Default::default(),
         };
         let yaml = render(&reading, "acme", 7, "acme-");
         assert!(
@@ -1915,9 +2104,11 @@ mod tests {
                 source: "1 x network-device".into(),
                 site: None,
                 device: None,
+                labels: Default::default(),
             }],
             unrecognised: Vec::new(),
             site: None,
+            labels: Default::default(),
         };
         let yaml = render(&reading, "acme", 7, "acme-");
         assert!(

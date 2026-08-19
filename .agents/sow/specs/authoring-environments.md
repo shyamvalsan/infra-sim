@@ -15,6 +15,45 @@ the fleet's home, not per-node truth: each node carries its own coordinates as
 host labels. `scripts/sim-docker.sh` reads it to label the simulation's own agent
 with the same place, so no node in the Space is left unplaced.
 
+## Host labels
+
+Three kinds, one surface. Every node's `labels:` block carries the agent's own
+automatic labels (`_os_name`, `_cloud_instance_type`, ...), the simulation's
+structural labels (`simulated`, `infra_sim_name`, `infra_sim_role`,
+`infra_sim_env`, site coordinates), and - since `SOW-0019` - user-authored
+labels, which are the point: real deployments tag nodes (`environment`, `site`,
+`team`) and Netdata Cloud filters, groups and maps by them.
+
+**User labels are authored, never hand-edited into the file.** Two surfaces:
+
+- **Create:** fleet-wide labels plus per-group overrides (a group's key wins on
+  its nodes). The describe box suggests labels from the description as prefill;
+  the picker path works with no model key. The renderer emits them between the
+  generated identity labels and the site labels of every node, including
+  network devices.
+- **Live edit** (`POST /api/labels` on the running simulation): the console
+  computes per-node set/remove from the desired fleet+groups state and rewrites
+  the environment in place - the same self-restart path re-skinning uses. The
+  agent migrates vnode labels without touching identity: GUIDs, history,
+  trained ML and the alert log all survive, verified against a live agent with
+  zero sample gaps across the restart.
+
+**Validation is the agent's own table** (`crates/sim-engine/src/labels.rs`,
+ported from netdata/netdata `src/libnetdata/sanitizers/sanitizers-labels.c`):
+a key or value the agent would rewrite (`:` in keys, `;=,\` in values, doubled
+or edged spaces) is refused at authoring time, because otherwise the file and
+the live node would disagree. Reserved keys (`simulated`, `infra_sim_name`,
+`infra_sim_role`, `infra_sim_env`, coordinates, device identity) and the `_`
+namespace are not user-settable, and credential-looking key names are refused
+outright - a label is published metadata.
+
+**The `environment` label tiers the fleet.** Setting it (fleet or group)
+mirrors into the generated `infra_sim_env`; removing it resets to
+`production`. The two can therefore never disagree after an edit.
+
+Numeric-looking values are single-quoted on emit so `site: '42'` survives the
+YAML round trip as the string it was authored as.
+
 ## Node classes
 
 Most nodes are Linux. A `network-device` node carries its own base spec via a

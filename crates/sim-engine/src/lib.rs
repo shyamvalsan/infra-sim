@@ -25,6 +25,7 @@ pub const RECOVERY_SECONDS: i64 = 180;
 pub mod control_file;
 pub mod describe;
 pub mod fidelity;
+pub mod labels;
 pub mod llm;
 pub mod logs;
 pub mod otel;
