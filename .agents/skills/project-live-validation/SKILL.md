@@ -138,6 +138,13 @@ sudo kill <that-pid>
 `comm` truncates at 15 characters, so match on `args` when checking for
 `systemd-journal-remote` children.
 
+And anchor the pattern. An unanchored `pkill -f '$plugin --mode'` inside
+`sh -c` also matches the wrapper running the pkill itself; the wrapper dies
+mid-kill, `docker exec` returns 143, and `set -e` aborts the script with the
+remaining processes still running. `telemetry stop` shipped broken this way
+for weeks — it stopped the logs writer and silently nothing else. Anchor on
+the path: `pkill -f '^$plugin --mode'`.
+
 ## Identity rules that bite
 
 - The **GUID is the identity**. Changing it orphans history; changing the

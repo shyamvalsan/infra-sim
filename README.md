@@ -243,8 +243,9 @@ They are sent so the pipeline is right the day that changes.
 **Location.** Fleets can be placed on the map, per site, so a fleet spanning
 regions looks like one.
 
-**Other paths in.** Prometheus endpoints that Netdata's own collector scrapes,
-and OpenTelemetry.
+**Other paths in.** Prometheus endpoints that Netdata's own collector scrapes —
+application-tier metrics with one shared context, so fleet-level views combine
+them — and OpenTelemetry.
 
 ## Incidents
 

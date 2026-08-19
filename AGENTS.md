@@ -325,13 +325,16 @@ Verify logs through the agent, not only the file: the `systemd-journal` function
 requires a `__logs_sources` selection, and `all-remote-systems` is the simulated
 fleet.
 
-A containerised simulation starts its logs writer and its OTLP emitter itself, as
-part of `create`. Do not reintroduce an opt-in step: logs were opt-in for the
-project's whole history and so every simulation ever built shipped with empty
-logs.
+A containerised simulation starts its logs writer, its OTLP emitter and its
+Prometheus exporters itself, as part of `create`. Do not reintroduce an opt-in
+step: logs were opt-in for the project's whole history and so every simulation
+ever built shipped with empty logs. Exporters serve the application tier only
+(web, lb, k8s-worker), share one `app` so scraped charts aggregate across the
+fleet, and their go.d job names carry a role and index — never a hostname,
+because chart IDs embed job names and a re-skin must not orphan them.
 
 ```bash
-./scripts/sim-docker.sh telemetry <name> status   # both signals, honestly
+./scripts/sim-docker.sh telemetry <name> status   # all side-processes, honestly
 ```
 
 **Simulations run netdata's nightly image** (`netdata/netdata:latest`), not stable.

@@ -282,9 +282,9 @@ Keys: letters, digits, dot, dash, underscore, slash - no colons or spaces. Prese
 
 The GUID is the node's identity in Netdata. Changing this later orphans the fleet's history, trained ML models and alert log — re-skin instead.">i</i></span>
           <input id="newName" placeholder="customer-a"></label>
-        <label class="check"><input type="checkbox" id="exporters"> Prometheus exporters</label><i class="tip" tabindex="0" data-tip="Each node publishes a real /metrics endpoint that Netdata's own prometheus collector scrapes and charts onto that virtual node.
+        <label class="check"><input type="checkbox" id="exporters" checked> Prometheus exporters</label><i class="tip" tabindex="0" data-tip="Application-tier nodes publish a real /metrics endpoint that Netdata's own prometheus collector scrapes and charts onto their virtual nodes.
 
-Application-level metrics only — orders, carts, queues, worker pools — so nothing duplicates a chart the agent already collects.">i</i>
+Orders, carts, queues, worker pools, a latency summary — nothing duplicates a chart the agent already collects. All nodes share one chart context, so fleet-level views aggregate the application tier properly.">i</i>
         <button id="createBtn" class="primary" onclick="doCreate()" style="margin-left:auto">Create simulation</button>
       </div>
       <div class="row" style="margin-top:14px; padding-top:14px; border-top:1px solid var(--line)">

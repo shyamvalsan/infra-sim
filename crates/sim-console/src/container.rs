@@ -92,6 +92,7 @@ pub fn create(
     env_file: &Path,
     token: Option<&str>,
     rooms: &str,
+    exporters: bool,
 ) -> Result<Active, String> {
     let mut cmd = Command::new("bash");
     cmd.arg(script(repo))
@@ -104,6 +105,9 @@ pub fn create(
         if !rooms.trim().is_empty() {
             cmd.arg("--rooms").arg(rooms.trim());
         }
+    }
+    if !exporters {
+        cmd.arg("--no-exporters");
     }
     let out = cmd
         .output()

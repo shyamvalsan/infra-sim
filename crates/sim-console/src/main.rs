@@ -458,6 +458,7 @@ async fn create(
             &env_path,
             Some(req.claim_token.as_str()),
             &req.claim_rooms,
+            req.exporters,
         )?;
         Ok(serde_json::json!({
             "environment": env_path.display().to_string(),

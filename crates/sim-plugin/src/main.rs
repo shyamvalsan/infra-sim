@@ -77,6 +77,12 @@ struct Args {
     /// Serve simulated Prometheus exporters instead of collecting.
     exporters: bool,
     exporter_port: u16,
+    /// Write the go.d scrape config (vnode registry + jobs) for the exporters
+    /// instead of running anything, then exit. The containerised path calls
+    /// this at create time so bash never re-implements the naming that chart
+    /// identities depend on. Optional argument: netdata's config root,
+    /// defaulting to /etc/netdata.
+    exporter_config: Option<PathBuf>,
     /// Ship the application tier's logs and traces over OTLP instead of
     /// collecting.
     otlp: bool,
@@ -135,6 +141,7 @@ fn parse_args() -> Result<Args, String> {
     let mut logs = false;
     let mut exporters = false;
     let mut exporter_port = DEFAULT_EXPORTER_PORT;
+    let mut exporter_config: Option<PathBuf> = None;
     let mut otlp = false;
     let mut otlp_endpoint = otlp_runtime::DEFAULT_ENDPOINT.to_string();
     let mut journal_dir: Option<PathBuf> = None;
@@ -190,6 +197,15 @@ fn parse_args() -> Result<Args, String> {
             }
             "--logs" => logs = true,
             "--exporters" => exporters = true,
+            "--exporter-config" => {
+                // Arity one on purpose: an optional argument here would
+                // swallow a following `--environment` and strand its value.
+                let dir = args.next().ok_or_else(|| {
+                    "--exporter-config requires netdata's config root (e.g. /etc/netdata)"
+                        .to_string()
+                })?;
+                exporter_config = Some(PathBuf::from(dir));
+            }
             "--otlp" => otlp = true,
             "--otlp-endpoint" => {
                 otlp_endpoint = args
@@ -279,6 +295,8 @@ fn parse_args() -> Result<Args, String> {
                      \n\
                      simulated Prometheus exporters (a separate process;                      Netdata's own go.d prometheus collector scrapes them):\n\
                      infra-sim --exporters --environment PATH\n\
+                     write the go.d scrape config for them and exit:\n\
+                     infra-sim --exporter-config /etc/netdata --environment PATH\n\
                      --exporter-port N     listen port (default:                      {DEFAULT_EXPORTER_PORT})\n\
                      Serves GET /metrics/<hostname> per node, in Prometheus \n\
                      text format, moved by whatever scenario is running.\n\
@@ -361,6 +379,7 @@ fn parse_args() -> Result<Args, String> {
         journal_remote,
         exporters,
         exporter_port,
+        exporter_config,
         otlp,
         otlp_endpoint,
     })
@@ -393,6 +412,10 @@ fn run() -> Result<(), String> {
 
     if args.exporters {
         return do_exporters(&env, &args);
+    }
+
+    if let Some(dir) = &args.exporter_config {
+        return do_exporter_config(&env, dir);
     }
 
     if args.otlp {
@@ -857,6 +880,10 @@ fn do_exporters(env: &Environment, args: &Args) -> Result<(), String> {
     let built: Vec<exporters::Exporter> = env
         .profiles()
         .into_iter()
+        // Only the application tier runs the instrumented service - the same
+        // rule the OTLP emitter follows. A database or a switch publishing
+        // storefront orders is an artifact an SRE reads first.
+        .filter(|p| is_app_tier(p.role.as_deref()))
         .map(|profile| {
             let hostname = profile.hostname.clone();
             let role = profile.role.clone().unwrap_or_else(|| "node".into());
@@ -908,6 +935,60 @@ fn do_exporters(env: &Environment, args: &Args) -> Result<(), String> {
     });
 
     exporters::serve(listener, built, shared).map_err(|e| e.to_string())
+}
+
+/// Write the go.d scrape config for a fleet's application tier.
+///
+/// Two files under netdata's own configuration tree: the vnode registry go.d
+/// reads once at startup, and the prometheus jobs with their shared app and
+/// re-skin-stable job names (see `sim_engine::exporter_config` for why the
+/// names look the way they do). The caller must restart go.d once afterwards
+/// - nothing else makes it re-read the registry.
+fn do_exporter_config(env: &Environment, netdata_dir: &Path) -> Result<(), String> {
+    let nodes: Vec<sim_engine::exporter_config::NodeRef> = env
+        .profiles()
+        .into_iter()
+        .filter(|p| is_app_tier(p.role.as_deref()))
+        .map(|p| sim_engine::exporter_config::NodeRef {
+            hostname: p.hostname.clone(),
+            guid: p.guid.clone(),
+            role: p.role.clone().unwrap_or_else(|| "node".into()),
+        })
+        .collect();
+    if nodes.is_empty() {
+        println!(
+            "infra-sim exporter config: no application-tier nodes (web, lb, k8s-worker) - \
+             nothing to export"
+        );
+        return Ok(());
+    }
+
+    let vnodes_path = netdata_dir.join("vnodes/infra-sim.conf");
+    let god_path = netdata_dir.join("go.d/prometheus.conf");
+    for path in [&vnodes_path, &god_path] {
+        if let Some(parent) = path.parent() {
+            std::fs::create_dir_all(parent)
+                .map_err(|e| format!("cannot create {}: {e}", parent.display()))?;
+        }
+    }
+    std::fs::write(
+        &vnodes_path,
+        sim_engine::exporter_config::vnodes_conf(&nodes),
+    )
+    .map_err(|e| format!("cannot write {}: {e}", vnodes_path.display()))?;
+    std::fs::write(
+        &god_path,
+        sim_engine::exporter_config::go_d_conf(&nodes, DEFAULT_EXPORTER_PORT),
+    )
+    .map_err(|e| format!("cannot write {}: {e}", god_path.display()))?;
+
+    println!(
+        "infra-sim exporter config: {} job(s), app '{}' -> {} (restart go.d to load it)",
+        nodes.len(),
+        sim_engine::exporter_config::APP,
+        god_path.display()
+    );
+    Ok(())
 }
 
 /// Build an environment from a text description and write it out.

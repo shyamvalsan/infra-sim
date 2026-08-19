@@ -42,6 +42,34 @@ GUIDs as its replacement and corrupting values with interleaved writes.
 **Teardown must kill the process**, not just delete the file. The install
 script kills previous PIDs matched on exact path.
 
+## Prometheus exporters and aggregation
+
+The application tier (web, lb, k8s-worker — the same rule the OTLP emitter
+applies) publishes one `/metrics` endpoint per node, scraped by Netdata's own
+go.d prometheus collector with `vnode:` attribution onto the same virtual
+nodes the plugins.d path owns. A database or a switch publishing storefront
+orders is an artifact; it does not happen.
+
+**Scraped charts aggregate because every job shares one `app`**
+(`infra_sim_app`): contexts, which grouped views key off, become
+`prometheus.infra_sim_app.<metric>` on every node. Before SOW-0020 each job
+took its name from the hostname with no `app`, so every node's app metrics
+lived in a per-node context — structurally impossible to aggregate.
+
+**Job names are `infra_sim_app_{role}_{nn}` and never contain a hostname.**
+go.d prefixes chart IDs with the job name, so hostname-derived names would
+churn every chart ID on each re-skin and orphan scraped history. Role-index
+names are re-skin-stable by construction (verified live: after a rename, with
+job names held and only `vnode:` repointed, the renamed nodes kept their
+scraped charts with data continuity).
+
+Config generation lives in `sim_engine::exporter_config` and is consumed by
+both the console's local install and the containerised path
+(`infra-sim.plugin --exporter-config`), so the two can never drift into
+different chart identities. go.d reads its vnode registry once at startup, so
+whoever writes the config restarts go.d once (the agent respawns it within
+seconds).
+
 ## Scenarios
 
 A scenario (`scenarios/*.yaml`) is a timeline of effects over generator
