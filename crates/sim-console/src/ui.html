@@ -208,6 +208,7 @@
   <nav>
     <button id="tabBuildBtn" class="on" onclick="showTab('build')">Build</button>
     <button id="tabRunBtn" onclick="showTab('run')">Run</button>
+    <button id="tabHelpBtn" onclick="showTab('help')">Help</button>
   </nav>
 </header>
 
@@ -215,6 +216,13 @@
 
 <!-- ====================== BUILD ========================================== -->
 <div id="tabBuild" class="tab on">
+
+  <div id="introBanner" class="strip" style="display:none;align-items:baseline;gap:10px">
+    <span><b>New here?</b> 1) describe the estate below or pick a template —
+    2) name the fleet and set yourself as owner — 3) create. Everything else is on the
+    <a href="#" onclick="showTab('help');return false">Help</a> tab.</span>
+    <button class="link" style="margin-left:auto" onclick="dismissIntro()">dismiss</button>
+  </div>
 
   <section>
     <h2>Describe the estate <i class="tip" tabindex="0" data-tip="Type what the prospect runs, in their words. This fills the fleet below — you edit it before anything is built.
@@ -404,6 +412,106 @@ Removing the nodes and the Space from Netdata Cloud stays manual — you will be
 </div>
 </main>
 
+<!-- ====================== HELP =========================================== -->
+<div id="tabHelp" class="tab">
+
+  <section>
+    <h2>What this is</h2>
+    <div class="body">
+      <p>Infra-Sim builds infrastructure that does not exist — nodes with hostnames, disks,
+      services, logs, metrics — and feeds it to a <b>real</b> Netdata agent. You describe a
+      fleet, break it on cue, and watch the actual product find the problem.</p>
+      <p><b>The one rule:</b> only the raw data is simulated. ML really trains on it, the health
+      engine really raises alerts, Netdata AI really investigates — nothing downstream is ever
+      scripted or canned. Every simulation is labeled as one.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>The workflow</h2>
+    <div class="body">
+      <ol style="margin:0 0 0 18px;line-height:1.9">
+        <li><b>Describe</b> the estate in plain English (optional), or build the fleet by hand
+          from roles and integrations.</li>
+        <li><b>Name it and own it.</b> The name fixes the seed and every node identity — it
+          cannot change later without orphaning the fleet's history. The owner is you; it shows
+          in the list so people know whose fleet it is.</li>
+        <li><b>Create.</b> A fidelity check simulates hours of data first and refuses a fleet
+          that would give itself away. On a shared host, creates queue — your position shows in
+          the progress bar.</li>
+        <li><b>Run.</b> Trigger scenarios, watch charts and alerts on the fleet's dashboard,
+          edit labels live, re-skin for a different audience. Warm-up matters: first ML models
+          in ~15 minutes, a fully trained ensemble after ~72 hours.</li>
+        <li><b>Tear down.</b> Everything is archived first — an environment replays identically
+          from its file plus seed.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section>
+    <h2>Concepts worth two minutes</h2>
+    <div class="body">
+      <p><b>Identity is the GUID.</b> Each node's GUID derives from the fleet name. Change the
+      name and you get a different fleet with a different history. Rename nodes or re-skin
+      hostnames/labels and history is preserved — that is what re-skin is for. Never clone a
+      fleet: two live fleets sharing GUIDs take over each other's identity.</p>
+      <p><b>Scenarios carry ground truth.</b> Every fault ships with a manifest — root cause,
+      causal chain, blast radius — written at authoring time. Trigger, escalate with the clock
+      controls, resolve (faults unwind over ~3 minutes, they don't snap back).</p>
+      <p><b>Labels</b> are host labels like real fleets carry — <code>environment</code>,
+      <code>site</code>, <code>team</code> — filtered and grouped on in Cloud. Validated against
+      the agent's own rules: what you write is what the node reports. Fleet-wide plus per-tier,
+      editable live on a running fleet.</p>
+      <p><b>Exporters</b> give the application tier (web, lb, k8s-worker) real
+      <code>/metrics</code> endpoints that Netdata's own collector scrapes — all sharing one
+      chart context so fleet-level views aggregate them.</p>
+      <p><b>Logs two ways:</b> each node is its own log source (journald), and the application
+      tier ships OpenTelemetry logs and traces. Traces are stored but no Netdata build can
+      display them yet — don't plan a demo beat on them.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>On a shared host</h2>
+    <div class="body">
+      <p><b>Token:</b> a hosted console asks for a shared token once per tab. <b>Owner:</b> every
+      fleet has one — visible, honor-system. <b>Budgets:</b> fleet size, live-simulation count
+      and disk have host caps; a refusal names the limit and the file your SRE edits.
+      <b>TTL:</b> unpinned fleets older than the host's TTL are archived automatically —
+      <b>pin</b> a fleet you want to keep (a warm base you intend to re-skin is exactly the
+      case). <b>Dashboards:</b> by default each fleet's dashboard binds to the host's loopback —
+      use an SSH tunnel from your laptop; some hosts opt into public binding.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Common ways to go wrong</h2>
+    <div class="body">
+      <ul style="margin:0 0 0 18px;line-height:1.9">
+        <li>Renaming a fleet instead of re-skinning it — that's a new fleet, cold ML, no history.</li>
+        <li>Demoing an hour after create — the anomaly detection has barely trained. Create days
+          ahead when you can.</li>
+        <li>Expecting traces — stored, not viewable, on any build today.</li>
+        <li>Leaving a fleet unpinned on a shared host past the TTL — it gets archived (nothing is
+          deleted, but it stops running).</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>Going deeper</h2>
+    <div class="body">
+      <p><a href="https://github.com/shyamvalsan/infra-sim/blob/main/docs/QUICKSTART.md" target="_blank" rel="noopener">QUICKSTART</a> —
+      the full path from nothing to a running fleet with a live incident ·
+      <a href="https://github.com/shyamvalsan/infra-sim/blob/main/docs/operating.md" target="_blank" rel="noopener">Operating guide</a> —
+      every surface, in detail ·
+      <a href="https://github.com/shyamvalsan/infra-sim/blob/main/docs/hosting.md" target="_blank" rel="noopener">Hosting runbook</a> —
+      for whoever owns the box.</p>
+    </div>
+  </section>
+
+</div>
+
 <!-- ====================== integration picker ============================= -->
 <div class="modal" id="picker" onclick="if(event.target===this)closePicker()">
   <div class="sheet">
@@ -562,7 +670,7 @@ function stopProgress(prefix) {
 }
 
 function showTab(which) {
-  for (const t of ["build", "run"]) {
+  for (const t of ["build", "run", "help"]) {
     $("tab" + t[0].toUpperCase() + t.slice(1)).classList.toggle("on", t === which);
     $("tab" + t[0].toUpperCase() + t.slice(1) + "Btn").classList.toggle("on", t === which);
   }
@@ -1244,11 +1352,28 @@ function renderScenarios(ss) {
       ? `<div style="margin-top:14px"><button class="danger" onclick="post('/api/sim/${encodeURIComponent(SELECTED)}/scenarios/resolve-all')">Resolve all</button></div>` : "");
 }
 
+/// First-run pointer: shows until dismissed, once per browser. localStorage
+/// (not sessionStorage) so a dismissed intro stays dismissed next visit.
+function introDismissed() {
+  try { return localStorage.getItem("infraSimIntro") === "dismissed"; } catch (e) { return true; }
+}
+function dismissIntro() {
+  try { localStorage.setItem("infraSimIntro", "dismissed"); } catch (e) {}
+  $("introBanner").style.display = "none";
+}
+function maybeShowIntro() {
+  const el = $("introBanner");
+  if (!el) return;
+  el.style.display = introDismissed() ? "none" : "";
+}
+
 async function refresh() {
   let d;
   try { d = await (await fetch("/api/status")).json(); }
   catch (e) { $("errors").textContent = "console cannot reach itself: " + e; return; }
   SIMS = d.simulations || [];
+  // A returning user with fleets does not need the three steps again.
+  if (SIMS.length) dismissIntro(); else maybeShowIntro();
   renderSimSelector();
 
   // Budget line: the host's shared ceiling, visible where the button that

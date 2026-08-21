@@ -201,7 +201,9 @@ Showing this to someone on a particular day?
 thing most easily got wrong: a fleet needs about 72 hours of running before its ML
 has anything to say.
 
-The console is built to be **hosted** on a shared machine: every action names
+The console teaches itself: a **Help tab** covers the workflow, the concepts
+and the shared-host rules in-page, and a first-run pointer shows the three
+steps until dismissed. The console is built to be **hosted** on a shared machine: every action names
 its simulation, creates are serialized with visible queue positions, and the
 host's owner sets hard budgets (fleet size, live simulations, disk, a TTL that
 archives forgotten fleets) in one file. Hosting it for a team takes a token
