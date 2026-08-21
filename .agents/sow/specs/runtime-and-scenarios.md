@@ -42,6 +42,26 @@ GUIDs as its replacement and corrupting values with interleaved writes.
 **Teardown must kill the process**, not just delete the file. The install
 script kills previous PIDs matched on exact path.
 
+## Shared hosting
+
+The console serves a shared host (SOW-0021): every per-simulation action is
+namespaced (`/api/sim/{name}/...`) and resolves its target by name per
+request - no cached active pointer, after one such pointer silently edited the
+wrong fleet (SOW-0019 incident). Simulations carry an `owner` (docker label,
+honor-system until identity auth), a creation timestamp (docker `Created`),
+and a `pinned` marker file in their payload dir (docker labels are immutable;
+pinning must toggle).
+
+Host budgets (`/etc/infra-sim/console.yaml`, re-read per use): nodes per
+fleet, live simulations, total state-dir disk, TTL days. Refusals name the
+limit and the real file path. An hourly sweeper archives unpinned
+simulations past the TTL via the ordinary teardown path (everything is
+archived, nothing deleted) and logs a heartbeat line. Creates serialize
+behind one slot with live queue positions, because the fidelity lint inside a
+create is CPU-parallel across all cores.
+
+One console per host; two consoles race each other's sweeps and slots.
+
 ## Prometheus exporters and aggregation
 
 The application tier (web, lb, k8s-worker — the same rule the OTLP emitter

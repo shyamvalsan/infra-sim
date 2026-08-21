@@ -282,6 +282,8 @@ Keys: letters, digits, dot, dash, underscore, slash - no colons or spaces. Prese
 
 The GUID is the node's identity in Netdata. Changing this later orphans the fleet's history, trained ML models and alert log — re-skin instead.">i</i></span>
           <input id="newName" placeholder="customer-a"></label>
+        <label class="field grow" style="max-width:200px"><span>Owner <i class="tip" tabindex="0" data-tip="Who this simulation belongs to - shown in the list so anyone can see whose fleet it is and ask before tearing it down. Letters, digits, spaces, - _ . @">i</i></span>
+          <input id="newOwner" placeholder="your-name"></label>
         <label class="check"><input type="checkbox" id="exporters" checked> Prometheus exporters</label><i class="tip" tabindex="0" data-tip="Application-tier nodes publish a real /metrics endpoint that Netdata's own prometheus collector scrapes and charts onto their virtual nodes.
 
 Orders, carts, queues, worker pools, a latency summary — nothing duplicates a chart the agent already collects. All nodes share one chart context, so fleet-level views aggregate the application tier properly.">i</i>
@@ -358,6 +360,18 @@ Removing the nodes and the Space from Netdata Cloud stays manual — you will be
 
 <!-- ====================== RUN ============================================ -->
 <div id="tabRun" class="tab">
+
+  <section id="simsSection" style="padding-bottom:2px">
+    <div class="strip">
+      <span class="meta">Simulation</span>
+      <select id="simSelect" onchange="selectSim(this.value)" style="min-width:220px">
+        <option value="">loading…</option>
+      </select>
+      <span class="meta" id="simMeta"></span>
+      <button class="link" id="pinBtn" onclick="togglePin()" title="Keep this simulation past the host's TTL - swept fleets are archived, not deleted">pin</button>
+      <span class="meta" id="budgetLine" style="margin-left:auto"></span>
+    </div>
+  </section>
 
   <section>
     <div class="strip">
@@ -439,7 +453,9 @@ let FLEET_LABELS = {};
 let LIVE_LABELS = null;   // {fleet:{}, groups:{role:{}}} while editing a running fleet
 let pickerRow = -1;
 let PROVIDER = "";
-let INSTALLED = null;   // the environment the agent is currently running, if any
+let INSTALLED = null;   // the selected simulation's environment, if any
+let SIMS = [];          // every simulation on this host, from /api/status
+let SELECTED = "";      // the simulation every per-sim action addresses
 
 // --- what is shown when ----------------------------------------------------
 // Describing an estate and editing the fleet are how you build one, and both
@@ -469,19 +485,20 @@ function scrollTo(sel) {
 // indistinguishable from a hang.
 let progressTimer = null;
 
-function startProgress(prefix, indeterminate) {
+function startProgress(prefix, indeterminate, op) {
   const box = $(prefix + "Progress");
   box.style.display = "";
   box.querySelector(".track").classList.toggle("indeterminate", !!indeterminate);
   const bar = box.querySelector("i");
   if (!indeterminate) bar.style.width = "0%";
   const t0 = Date.now();
+  const opId = op || prefix;
 
   clearInterval(progressTimer);
   progressTimer = setInterval(async () => {
     $(prefix + "Elapsed").textContent = Math.round((Date.now() - t0) / 1000) + "s";
     try {
-      const p = await (await fetch("/api/progress")).json();
+      const p = await (await fetch("/api/progress/" + encodeURIComponent(opId))).json();
       if (!p) return;
       $(prefix + "Stage").textContent = p.stage;
       if (!indeterminate && p.steps > 0) {
@@ -878,16 +895,18 @@ async function doDescribe() {
   if (!text) { out.className = "out bad"; out.textContent = "describe what they run, in your own words"; return; }
   btn.disabled = true;
   out.className = "out"; out.textContent = "";
-  startProgress("desc", true);
+  const descOp = "desc-" + Date.now();
+  startProgress("desc", true, descOp);
   try {
-    const r = await (await fetch("/api/describe", {
+    const resp = await (await fetch("/api/describe", {
       method: "POST", headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        text, provider: PROVIDER,
+        text, provider: PROVIDER, op: descOp,
         target_nodes: parseInt($("targetNodes").value || "0", 10) || 0,
       }),
     })).json();
-    if (r.error) { out.className = "out bad"; out.textContent = r.error; return; }
+    if (resp.error) { out.className = "out bad"; out.textContent = resp.error; return; }
+    const r = resp.result || {};
 
     setRows(r.groups);
     // Fleet-wide suggestions from the reading prefill the fleet editor; the
@@ -913,8 +932,10 @@ async function doCreate() {
   const out = $("createOut"), btn = $("createBtn");
   const groups = collectGroups();
   const name = $("newName").value.trim();
+  const owner = $("newOwner").value.trim();
   const [lat, lon] = fleetSite();
   if (!name) { out.className = "out bad"; out.textContent = "a name is required"; return; }
+  if (!owner) { out.className = "out bad"; out.textContent = "an owner is required - whose simulation is this?"; return; }
   if (!groups.length) { out.className = "out bad"; out.textContent = "set a node count on at least one role"; return; }
   if ((lat === null) !== (lon === null)) {
     out.className = "out bad";
@@ -922,12 +943,13 @@ async function doCreate() {
     return;
   }
   btn.disabled = true; out.className = "out"; out.textContent = "";
-  startProgress("create", false);
+  const createOp = "create-" + Date.now();
+  startProgress("create", false, createOp);
   try {
     const r = await (await fetch("/api/create", {
       method: "POST", headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        name, groups,
+        name, owner, op: createOp, groups,
         latitude: lat, longitude: lon,
         labels: FLEET_LABELS,
         exporters: $("exporters").checked,
@@ -965,7 +987,7 @@ async function loadLiveLabels() {
   const out = $("labelsOut");
   out.className = "out"; out.textContent = "";
   let r;
-  try { r = await (await fetch("/api/labels")).json(); }
+  try { r = await (await fetch("/api/sim/" + encodeURIComponent(SELECTED) + "/labels")).json(); }
   catch (e) { out.className = "out bad"; out.textContent = String(e); return; }
   if (r.error) { out.className = "out bad"; out.textContent = r.error; return; }
 
@@ -1040,7 +1062,7 @@ async function applyLiveLabels() {
   const out = $("labelsOut"), btn = $("labelsApplyBtn");
   btn.disabled = true;
   try {
-    const r = await (await fetch("/api/labels", {
+    const r = await (await fetch("/api/sim/" + encodeURIComponent(SELECTED) + "/labels", {
       method: "POST", headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ fleet: LIVE_LABELS.fleet, groups: LIVE_LABELS.groups }),
     })).json();
@@ -1060,7 +1082,7 @@ async function doReskin() {
   if (!name) { out.className = "out bad"; out.textContent = "a name is required"; return; }
   out.className = "out"; out.textContent = "re-skinning…";
   try {
-    const r = await (await fetch("/api/reskin", {
+    const r = await (await fetch("/api/sim/" + encodeURIComponent(SELECTED) + "/reskin", {
       method: "POST", headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name }),
     })).json();
@@ -1073,8 +1095,8 @@ async function doReskin() {
 }
 
 function confirmTeardown() {
-  if (!INSTALLED) { alert("Nothing is installed."); return; }
-  if (confirm(`Tear down "${INSTALLED.name}" (${INSTALLED.node_count} nodes)?\n\n`
+  if (!SELECTED) { alert("Nothing is selected."); return; }
+  if (confirm(`Tear down "${SELECTED}"?\n\n`
             + `The fleet stops for good and everything it installed is removed. The environment, `
             + `seed and scenario manifests are archived first, so it can be replayed.`)) {
     doTeardown();
@@ -1089,12 +1111,13 @@ async function doTeardown() {
     // one.
     const r = await (await fetch("/api/teardown", {
       method: "POST", headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name: (INSTALLED && INSTALLED.name) || "" }),
+      body: JSON.stringify({ name: SELECTED }),
     })).json();
     if (r.error) { out.className = "out bad"; out.textContent = r.error; return; }
     out.className = "out";
     out.textContent = r.steps.map(s =>
       `${s.done ? "done  " : (s.manual ? "MANUAL" : "FAILED")}  ${s.name}\n        ${s.detail}`).join("\n");
+    SELECTED = "";
     refresh();
   } catch (e) { out.className = "out bad"; out.textContent = String(e); }
 }
@@ -1153,12 +1176,12 @@ function renderScenarios(ss) {
       <div class="scenario-head">
         <span class="scenario-name">${esc(s.name)}</span>
         ${s.active
-          ? `<button class="danger" onclick="post('/api/scenario/${encodeURIComponent(s.name)}/resolve')">Resolve</button>
+          ? `<button class="danger" onclick="post('/api/sim/${encodeURIComponent(SELECTED)}/scenario/${encodeURIComponent(s.name)}/resolve')">Resolve</button>
              <button onclick="doAdvance('${encodeURIComponent(s.name)}',300)" title="Advance 5 minutes through this scenario's own timeline">+5m</button>
              <button onclick="doAdvance('${encodeURIComponent(s.name)}',900)">+15m</button>
              <button onclick="doAdvance('${encodeURIComponent(s.name)}',-300)">−5m</button>
              <span class="running">${Math.round(s.progress*100)}% of ${fmtDur(s.duration_secs)}</span>`
-          : `<button onclick="post('/api/scenario/${encodeURIComponent(s.name)}/trigger')">Trigger</button>
+          : `<button onclick="post('/api/sim/${encodeURIComponent(SELECTED)}/scenario/${encodeURIComponent(s.name)}/trigger')">Trigger</button>
              <span class="meta">${fmtDur(s.duration_secs)}</span>`}
       </div>
       <div class="scenario-desc">${esc(s.description)}</div>
@@ -1171,25 +1194,89 @@ function renderScenarios(ss) {
           ${s.expected_finding ? `<dt>Expected finding</dt><dd>${esc(s.expected_finding)}</dd>` : ""}
         </dl></details>
     </div>`).join("") + (anyActive
-      ? `<div style="margin-top:14px"><button class="danger" onclick="post('/api/scenario/resolve-all')">Resolve all</button></div>` : "");
+      ? `<div style="margin-top:14px"><button class="danger" onclick="post('/api/sim/${encodeURIComponent(SELECTED)}/scenarios/resolve-all')">Resolve all</button></div>` : "");
 }
 
 async function refresh() {
   let d;
   try { d = await (await fetch("/api/status")).json(); }
   catch (e) { $("errors").textContent = "console cannot reach itself: " + e; return; }
+  SIMS = d.simulations || [];
+  renderSimSelector();
+
+  // Budget line: the host's shared ceiling, visible where the button that
+  // spends it lives.
+  const gb = (n) => (n / 1024 / 1024 / 1024).toFixed(1);
+  $("budgetLine").textContent =
+    SIMS.length + "/" + d.budgets.max_live_simulations + " simulations · " +
+    gb(d.disk_used_bytes) + "/" + gb(d.budgets.max_total_disk_bytes) + " GB · " +
+    "TTL " + d.budgets.ttl_days + "d";
+
+  if (SELECTED && !SIMS.some(x => x.name === SELECTED)) SELECTED = "";
+  if (!SELECTED && SIMS.length) SELECTED = SIMS[0].name;
+  $("simSelect").value = SELECTED;
+  await loadSim(SELECTED);
+}
+
+function renderSimSelector() {
+  const sel = $("simSelect");
+  if (!SIMS.length) {
+    sel.innerHTML = '<option value="">no simulations - build one</option>';
+    $("simMeta").textContent = "";
+    $("pinBtn").style.display = "none";
+    return;
+  }
+  const age = (secs) => secs == null ? "" :
+    secs < 3600 ? Math.round(secs / 60) + "m" :
+    secs < 86400 ? Math.round(secs / 3600) + "h" :
+    Math.round(secs / 86400) + "d";
+  sel.innerHTML = SIMS.map(x => {
+    const nodes = x.environment ? ` · ${x.environment.node_count} nodes` : "";
+    const pin = x.pinned ? " 📌" : "";
+    return `<option value="${esc(x.name)}">${esc(x.name)}${nodes} · ${esc(x.owner)} · ${age(x.age_secs)}${pin}</option>`;
+  }).join("");
+  const cur = SIMS.find(x => x.name === SELECTED);
+  if (cur) {
+    const ttl = cur.expires_in_secs == null ? "" :
+      ` · swept in ${age(cur.expires_in_secs)} unless pinned`;
+    $("simMeta").textContent = `owner ${cur.owner}${cur.pinned ? " · pinned" : ""}${ttl}`;
+    $("pinBtn").textContent = cur.pinned ? "unpin" : "pin";
+    $("pinBtn").style.display = "";
+  }
+}
+
+async function selectSim(name) {
+  SELECTED = name;
+  await loadSim(name);
+}
+
+/// Fetch and render one simulation's detail. Every per-sim action on this
+/// page addresses SELECTED; this is what keeps two users on two fleets from
+/// ever touching each other's.
+async function loadSim(name) {
+  renderSimSelector();
+  if (!name) {
+    INSTALLED = null;
+    $("envline").textContent = "no simulation selected";
+    renderBoard(null);
+    $("nodes").innerHTML = "";
+    renderScenarios([]);
+    refreshSteps();
+    return;
+  }
+  let d;
+  try { d = await (await fetch("/api/sim/" + encodeURIComponent(name) + "/status")).json(); }
+  catch (e) { $("errors").textContent = "cannot reach simulation: " + e; return; }
+  if (d.error) { $("errors").className = "out bad"; $("errors").textContent = d.error; return; }
   INSTALLED = d.environment || null;
   $("envline").textContent = INSTALLED
-    ? `${INSTALLED.name} · ${INSTALLED.node_count} nodes · ${INSTALLED.context_count} contexts · seed ${INSTALLED.seed}`
-    : "no simulation installed";
-  // Nothing to re-skin or tear down until something is running. Leaving these
-  // live produced a confirm dialog offering to tear down "nothing installed
-  // yet", which is the header text, not a fleet.
+    ? `${INSTALLED.name} · ${INSTALLED.node_count} nodes · seed ${INSTALLED.seed}`
+    : `${name} · environment unreadable`;
   for (const id of ["teardownBtn", "reskinBtn"]) {
     const b = $(id);
     if (b) {
       b.disabled = !INSTALLED;
-      b.title = INSTALLED ? "" : "nothing is installed";
+      b.title = INSTALLED ? "" : "no simulation selected";
     }
   }
   renderBoard(d.board);
@@ -1197,6 +1284,19 @@ async function refresh() {
   renderScenarios(d.scenarios);
   $("errors").className = d.errors.length ? "out bad" : "out";
   $("errors").textContent = d.errors.join("\n");
+  refreshSteps();
+}
+
+async function togglePin() {
+  if (!SELECTED) return;
+  const cur = SIMS.find(x => x.name === SELECTED);
+  const pin = !(cur && cur.pinned);
+  const r = await (await fetch(`/api/sim/${encodeURIComponent(SELECTED)}/pin`, {
+    method: "POST", headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ pinned: pin }),
+  })).json();
+  if (r.error) { alert(r.error); return; }
+  await refresh();
 }
 
 $("boardWrap").addEventListener("toggle", () => { $("boardWrap").dataset.touched = "1"; });

@@ -8,7 +8,7 @@
 #
 # Usage:
 #   sim-docker.sh build [--netdata-tag stable]
-#   sim-docker.sh create <name> <environment.yaml> [--port N] [--claim] [--rooms IDS] [--no-exporters]
+#   sim-docker.sh create <name> <environment.yaml> [--port N] [--claim] [--rooms IDS] [--owner NAME] [--no-exporters]
 #   sim-docker.sh list
 #   sim-docker.sh status <name>
 #   sim-docker.sh scenario <name> trigger|resolve <scenario>
@@ -100,17 +100,22 @@ cmd_create() {
   [ -n "$name" ] && [ -n "$env_file" ] || die "usage: $0 create <name> <environment.yaml> [--port N] [--claim] [--rooms IDS]"
   [ -f "$env_file" ] || die "no such environment file: $env_file"
 
-  local port="" claim=no rooms="" url="https://app.netdata.cloud" exporters=yes
+  local port="" claim=no rooms="" url="https://app.netdata.cloud" exporters=yes owner=""
   while [ $# -gt 0 ]; do
     case "$1" in
       --port) port="$2"; shift 2 ;;
       --claim) claim=yes; shift ;;
       --rooms) rooms="$2"; shift 2 ;;
       --url) url="$2"; shift 2 ;;
+      --owner) owner="$2"; shift 2 ;;
       --no-exporters) exporters=no; shift ;;
       *) die "unknown option '$1'" ;;
     esac
   done
+  if [ -n "$owner" ]; then
+    printf '%s' "$owner" | grep -Eq '^[A-Za-z0-9 .@_-]{1,64}$' \
+      || die "an owner may contain letters, digits, spaces, - _ . @ (max 64 chars)"
+  fi
 
   require_docker; require_image
   local container; container="$(container_of "$name")"
@@ -164,9 +169,12 @@ cmd_create() {
     info "claiming into $url${rooms:+ (room $rooms)}"
   fi
 
+  local -a owner_label=()
+  [ -n "$owner" ] && owner_label=(--label "infra-sim.owner=$owner")
   run docker run -d \
     --name "$container" \
     --label "$LABEL=$name" \
+    "${owner_label[@]}" \
     --restart unless-stopped \
     -p "127.0.0.1:$port:19999" \
     -v "$dir/netdata.conf:/etc/netdata/netdata.conf:ro" \

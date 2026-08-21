@@ -201,8 +201,12 @@ Showing this to someone on a particular day?
 thing most easily got wrong: a fleet needs about 72 hours of running before its ML
 has anything to say.
 
-Every step also has a command-line path — see
-**[docs/operating.md](docs/operating.md)**.
+The console is built to be **hosted** on a shared machine: every action names
+its simulation, creates are serialized with visible queue positions, and the
+host's owner sets hard budgets (fleet size, live simulations, disk, a TTL that
+archives forgotten fleets) in one file. See
+**[docs/operating.md](docs/operating.md)** for the shared-hosting section and
+the command-line path for every step.
 
 ## What can be simulated
 

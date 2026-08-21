@@ -113,6 +113,42 @@ are therefore Linux ELF, so macOS cannot exec them - the first attempt spent sev
 minutes on a Docker build before dying at `exec format error`. Running the console in
 a container avoids porting it, and needed no Rust change.
 
+## Shared hosting, budgets and the TTL
+
+The console is built for a shared host: several people, several simulations,
+one machine an SRE owns.
+
+**Every action names its simulation.** The API is `/api/sim/{name}/...` and
+the UI has a simulation selector; there is no "current" simulation a request
+can silently fall into. The list shows each fleet's owner, age and pin state.
+
+**Budgets** live in `/etc/infra-sim/console.yaml` (override with
+`--budgets PATH`), are re-read on every use, and refusals name the limit they
+hit and the file that holds it:
+
+```yaml
+max_nodes_per_fleet: 500     # summed node count of one create
+max_live_simulations: 10     # on the host, stopped ones included
+max_total_disk_gb: 50        # under /var/lib/infra-sim
+ttl_days: 7                  # unpinned simulations older than this are archived
+```
+
+**The TTL sweeper** runs hourly (and at start-up): unpinned simulations past
+`ttl_days` are archived through the same path as a manual teardown - nothing is
+deleted. **Pin** a fleet (UI button or `POST /api/sim/{name}/pin`) to keep it
+past the TTL; a warm base you intend to re-skin is exactly what pinning is for.
+
+**Creates are serialized** - one at a time, because the fidelity check inside a
+create is CPU-parallel by design. A queued create reports its position in the
+progress bar.
+
+Every simulation requires an **owner** at create. Owners are shown, not
+enforced - tearing down someone else's fleet is possible but visible - until
+the console authenticates identity.
+
+One console per host: two consoles would race each other's sweeps and queue
+slots for the same docker daemon.
+
 ## Console
 
 ```bash

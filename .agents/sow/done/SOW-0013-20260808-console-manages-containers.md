@@ -2,10 +2,16 @@
 
 ## Status
 
-Status: open
+Status: closed
 
-Sub-state: Not started. **Option A chosen by the user** (2026-08-08): the console
-should create containers, not install into the operator's agent.
+Sub-state: Closed as superseded (2026-08-19, user decision "3A" under SOW-0021).
+
+The substance shipped through SOW-0012's follow-through and later work: the
+console creates, claims, drives and tears down containerised simulations
+(`container::create`/`teardown`, `sim-docker.sh create`), and every simulation
+runs its own agent in its own container. What this SOW asked for is the
+default path today; what remained unasked - multi-simulation targeting on a
+shared host - is SOW-0021's scope, which records the supersession.
 
 ## Requirements
 

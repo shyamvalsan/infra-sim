@@ -15,6 +15,8 @@
 //! tokens as credentials, and a demo tool that leaves one in a file an SE later
 //! commits is exactly the failure that rule exists to prevent.
 
+use std::sync::Arc;
+
 use std::path::{Path, PathBuf};
 use std::process::Command;
 
@@ -59,6 +61,17 @@ pub struct CreateRequest {
     /// therefore every node GUID, so it is the one field that cannot change later
     /// without orphaning the fleet's history.
     pub name: String,
+    /// Who is creating this simulation. Recorded as a docker label and shown in
+    /// the fleet list; honor-system until the console authenticates identity.
+    /// Required: on a shared host, an unowned fleet is unteardownable junk
+    /// nobody dares remove. Defaulted so the *requirement* is enforced by
+    /// validation with a real message, not by an empty 422.
+    #[serde(default)]
+    pub owner: String,
+    /// Caller-chosen progress id, so the UI can poll the create it started
+    /// under the id it already knows. Empty: the console mints one.
+    #[serde(default)]
+    pub op: String,
     pub groups: Vec<GroupRequest>,
     /// The fleet's location, used by every group that does not override it, and
     /// recorded once so the simulation's own agent is placed too.
@@ -105,6 +118,35 @@ pub struct CreateRequest {
 /// from the command line for a spec under development.
 fn default_lint_hours() -> u32 {
     2
+}
+
+/// Public wrapper: the API handler enforces the owner requirement before any
+/// work starts, using the same rules the paths apply.
+pub fn sanitise_owner_pub(raw: &str) -> Result<String, String> {
+    sanitise_owner(raw)
+}
+
+/// Reduce a typed owner name to something safe for a docker label.
+///
+/// Free text typed by a colleague, so: conservative charset, one interior
+/// space allowed, bounded length. Not a credential, never treated as one.
+fn sanitise_owner(raw: &str) -> Result<String, String> {
+    let trimmed = raw.trim();
+    if trimmed.is_empty() {
+        return Err("an owner is required - say who this simulation belongs to".into());
+    }
+    if trimmed.chars().count() > 64 {
+        return Err("an owner name is capped at 64 characters".into());
+    }
+    if !trimmed
+        .chars()
+        .all(|c| c.is_ascii_alphanumeric() || matches!(c, ' ' | '-' | '_' | '.' | '@'))
+    {
+        return Err(
+            "an owner name may contain letters, digits, spaces, - _ . @ and nothing else".into(),
+        );
+    }
+    Ok(trimmed.to_string())
 }
 
 /// Exporters default on: application-level metrics that aggregate across the
@@ -422,6 +464,9 @@ pub fn create(
     if name.is_empty() {
         return Err("a name is required; it fixes the seed and every node GUID".into());
     }
+    // Validated on every path so the requirement is uniform; only the
+    // container path can record it (a host install has no label to carry it).
+    let _owner = sanitise_owner(&req.owner)?;
 
     // Hand-authored specs sit in specs/, the ones generated from Netdata's
     // collector metadata in specs/generated. Both are installable.
@@ -601,6 +646,10 @@ pub struct Progress {
     pub started_at: u64,
     pub done: bool,
     pub error: String,
+    /// Set while a create waits for the single create slot; the poller
+    /// refreshes the count so it counts down as earlier creates finish.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub queue_ahead_checked: Option<usize>,
 }
 
 impl Progress {
@@ -615,16 +664,64 @@ impl Progress {
                 .unwrap_or(0),
             done: false,
             error: String::new(),
+            queue_ahead_checked: None,
         }
     }
 }
 
-/// Shared handle the console updates as work proceeds and the UI polls.
-pub type ProgressHandle = std::sync::Arc<std::sync::Mutex<Option<Progress>>>;
+/// Progress entries for all running operations, keyed by operation id. One
+/// entry per operation (not one global) because a shared console queues
+/// creates: a global handle would show another user's create as yours.
+/// Std mutex on purpose: `report` is called from inside blocking closures,
+/// and entries are only ever held briefly.
+pub type ProgressMap =
+    std::sync::Arc<std::sync::Mutex<std::collections::BTreeMap<String, Progress>>>;
 
+/// Names the entry a running operation reports into.
+#[derive(Clone)]
+pub struct ProgressHandle {
+    map: ProgressMap,
+    op: String,
+}
+
+impl ProgressHandle {
+    pub fn new(map: &ProgressMap, op: &str) -> Self {
+        Self {
+            map: Arc::clone(map),
+            op: op.to_string(),
+        }
+    }
+
+    /// Insert or replace this operation's entry.
+    pub fn set(&self, p: Progress) {
+        if let Ok(mut g) = self.map.lock() {
+            g.insert(self.op.clone(), p);
+        }
+    }
+
+    /// The op id this handle reports into.
+    pub fn op(&self) -> String {
+        self.op.clone()
+    }
+
+    /// Mark this operation finished (successfully or not).
+    pub fn finish(&self, error: Option<String>) {
+        if let Ok(mut g) = self.map.lock() {
+            if let Some(p) = g.get_mut(&self.op) {
+                p.done = true;
+                if let Some(e) = error {
+                    p.error = e;
+                }
+                p.queue_ahead_checked = None;
+            }
+        }
+    }
+}
+
+/// Advance a running operation's stage. No-op if the entry is gone.
 pub fn report(handle: &ProgressHandle, stage: &str, step: usize) {
-    if let Ok(mut g) = handle.lock() {
-        if let Some(p) = g.as_mut() {
+    if let Ok(mut g) = handle.map.lock() {
+        if let Some(p) = g.get_mut(&handle.op) {
             p.stage = stage.to_string();
             p.step = step;
         }
@@ -1002,6 +1099,9 @@ pub mod exporters {
 #[derive(Debug, Clone, serde::Deserialize)]
 pub struct DescribeRequest {
     pub text: String,
+    /// Caller-chosen progress id; the UI polls under the id it already knows.
+    #[serde(default)]
+    pub op: String,
     /// Empty for the built-in keyword reader. "anthropic" or "openai" asks a
     /// real model, using the key already in the console's environment - the SE
     /// never types a key into a web form.

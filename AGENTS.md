@@ -325,6 +325,13 @@ Verify logs through the agent, not only the file: the `systemd-journal` function
 requires a `__logs_sources` selection, and `all-remote-systems` is the simulated
 fleet.
 
+The console is multi-simulation by construction: every per-sim route is
+`/api/sim/{name}/...` and resolves its target by name on every request. Do not
+reintroduce a cached "active" pointer - that design once silently edited the
+wrong running fleet. Creates are serialized behind one slot (the lint inside
+is CPU-parallel); budgets live in `/etc/infra-sim/console.yaml` and refusals
+must name the limit and the file. One console per host.
+
 A containerised simulation starts its logs writer, its OTLP emitter and its
 Prometheus exporters itself, as part of `create`. Do not reintroduce an opt-in
 step: logs were opt-in for the project's whole history and so every simulation
