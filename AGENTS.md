@@ -325,6 +325,10 @@ Verify logs through the agent, not only the file: the `systemd-journal` function
 requires a `__logs_sources` selection, and `all-remote-systems` is the simulated
 fleet.
 
+`GET /api/health` is unauthenticated even when a token is set: counts and
+timestamps only, so any uptime monitor can poll it. Keep it minimal - no
+names, owners, URLs.
+
 Console auth: off unless `INFRA_SIM_TOKEN` is set, and a non-loopback bind
 without it is refused at startup. The token comes from the environment only -
 never argv, never a committed file. The UI shell at `/` is unauthenticated on

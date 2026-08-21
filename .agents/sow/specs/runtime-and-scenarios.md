@@ -62,6 +62,14 @@ create is CPU-parallel across all cores.
 
 One console per host; two consoles race each other's sweeps and slots.
 
+Self-monitoring (SOW-0024): `GET /api/health` (unauthenticated, counts and
+timestamps only) reports simulations-vs-cap, disk-vs-cap, docker reachability
+and TTL-sweep freshness; the sweeper records its completion for it. Host-side,
+`scripts/host-monitoring.sh install` drops the docker-unhealthy alarm and
+enables docker charts on the host agent - stock alarms cover disk and memory,
+so the pack adds only what is specific to a simulation host. The runbook is
+`docs/hosting.md` "What to watch".
+
 Auth (SOW-0022): a shared bearer token from `INFRA_SIM_TOKEN`, off unless
 set, mandatory for off-loopback binds (refused at startup). Everything under
 `/api` is gated; the UI shell at `/` is not, because it carries the token

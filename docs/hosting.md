@@ -103,10 +103,40 @@ their own image changes.
 
 ## What to watch
 
-The host's own Netdata agent monitors the box (docker containers included).
-The console logs (journalctl -u infra-sim-console) carry a TTL-sweep
-heartbeat line every hour — `N checked, M archived` — which is the cheapest
-liveness signal; monitoring wiring is SOW-0024's scope.
+Three layers, each watching what the others cannot:
+
+**1. The host's own Netdata agent** monitors the box — disk, memory, CPU —
+with its stock alarms. Install the simulation-specific extras with one
+command:
+
+```bash
+sudo ./scripts/host-monitoring.sh install    # alert pack + docker charts
+sudo ./scripts/host-monitoring.sh verify     # what is installed, what the agent took
+```
+
+What it installs:
+
+| Signal | Where | Meaning / fix |
+|---|---|---|
+| `infra_sim_unhealthy_containers` | agent alarm | A container keeps failing its health check despite restarts — `docker ps`, then the container's logs (`/tmp/infra-sim-*.log` inside it). |
+| Disk space / memory pressure | stock agent alarms | Journals and agent DBs grow until sweeps archive fleets; a warning means tear fleets down or raise the disk budget. |
+
+**2. The console's health endpoint.** `GET /api/health` — unauthenticated by
+design, counts and timestamps only — for any uptime monitor:
+
+```json
+{"ok": true, "simulations": 4, "max_simulations": 10, "docker": true,
+ "disk_used_bytes": 21045239808, "max_disk_bytes": 53687091200,
+ "last_sweep_secs_ago": 1420, "sweep_ok": true, "uptime_secs": 86400}
+```
+
+Point your monitor at it: `ok:false` means the sweep is stale (>2h) or the
+simulation cap is reached. `docker:false` means the daemon is unreachable
+from the console.
+
+**3. The console logs.** `journalctl -u infra-sim-console` carries the hourly
+sweep heartbeat (`N checked, M archived`) — the fastest place to look when
+the endpoint says `sweep_ok: false`.
 
 ## Leaving it behind
 

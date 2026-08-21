@@ -74,6 +74,9 @@ struct AppState {
     /// cores by design, so two at once is both a wrong answer and a host
     /// stampede. Queued creates report their position.
     create_queue: CreateQueue,
+    /// When the TTL sweeper last completed (epoch secs) and whether that run
+    /// failed - the health endpoint's liveness signal for the unattended part.
+    last_sweep: std::sync::Mutex<Option<(i64, bool)>>,
 }
 
 /// One slot, with honest queue positions.
@@ -842,6 +845,44 @@ async fn logs(
     }
 }
 
+/// Machine-readable console health for any uptime monitor: unauthenticated
+/// even when a token is set, and deliberately minimal - counts, timestamps
+/// and reachability. No fleet names, owners, URLs or secrets.
+async fn health(State(app): State<Arc<AppState>>) -> impl IntoResponse {
+    let now = now_secs();
+    let budgets = budget::Budgets::load(&app.budgets_path).unwrap_or_default();
+    let sims = container::list(&app.repo);
+    let state_dir = std::path::PathBuf::from(
+        std::env::var("INFRA_SIM_STATE_DIR")
+            .unwrap_or_else(|_| container::DEFAULT_STATE_DIR.to_string()),
+    );
+    let disk = budget::state_dir_bytes(&state_dir);
+    let sweep = app.last_sweep.lock().ok().and_then(|g| *g);
+    let (sweep_age, sweep_failed) = match sweep {
+        Some((t, failed)) => (now - t, failed),
+        None => (i64::MAX, false),
+    };
+    // First run has no sweep yet; sweeps are hourly, so "over 2h stale" is
+    // two missed heartbeats.
+    let sweep_ok = sweep_age < 2 * 3600 && !sweep_failed;
+    let started = std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .map(|d| d.as_secs())
+        .unwrap_or(0);
+    Json(serde_json::json!({
+        "ok": sweep_ok && sims.len() <= budgets.max_live_simulations,
+        "uptime_secs": started,
+        "auth": app.token.is_some(),
+        "simulations": sims.len(),
+        "max_simulations": budgets.max_live_simulations,
+        "disk_used_bytes": disk,
+        "max_disk_bytes": budgets.max_total_disk_bytes,
+        "docker": container_list_ok(),
+        "last_sweep_secs_ago": if sweep_age == i64::MAX { serde_json::Value::Null } else { serde_json::json!(sweep_age) },
+        "sweep_ok": sweep_ok,
+    }))
+}
+
 /// Pin or unpin a simulation against the TTL sweeper. A marker file rather
 /// than a docker label: labels are immutable after create, and pin-to-keep
 /// must be toggleable.
@@ -1173,10 +1214,14 @@ async fn auth_layer(
     req: Request,
     next: Next,
 ) -> impl IntoResponse {
-    // `/api` only: the UI shell at `/` is static HTML with no data and is
-    // where the token prompt lives - gating it would hide the prompt that
-    // unlocks everything else.
-    if !req.uri().path().starts_with("/api") {
+    let path = req.uri().path();
+    // Three unauthenticated surfaces: the UI shell at `/` (static HTML, hosts
+    // the token prompt), `/api/health` (counts and timestamps only - any
+    // uptime monitor must be able to poll it without the token).
+    if path == "/" || path == "/api/health" {
+        return next.run(req).await;
+    }
+    if !path.starts_with("/api") {
         return next.run(req).await;
     }
     if let Some(expected) = &app.token {
@@ -1235,6 +1280,28 @@ async fn sweep_expired(app: &AppState) {
     // Heartbeat: an unattended host must be able to tell "sweep ran, nothing
     // to do" from "sweep never ran" in the logs.
     eprintln!("infra-sim: TTL sweep - {checked} simulation(s) checked, {archived} archived");
+    // A sweep that saw zero simulations with docker unreachable is a failure,
+    // not an empty host; the health endpoint reports it as degraded.
+    let failed = checked == 0 && !container_list_ok();
+    if let Ok(mut g) = app.last_sweep.lock() {
+        *g = Some((now_secs(), failed));
+    }
+}
+
+/// Whether `docker ps` answers at all. Takes no state: it is a probe of the
+/// daemon, usable from anywhere.
+fn container_list_ok() -> bool {
+    std::process::Command::new("docker")
+        .args([
+            "ps",
+            "-a",
+            "--filter",
+            "label=infra-sim.simulation",
+            "--format",
+            "{{.Names}}",
+        ])
+        .output()
+        .is_ok_and(|o| o.status.success())
 }
 
 #[tokio::main]
@@ -1280,6 +1347,7 @@ async fn main() -> std::process::ExitCode {
         token: console_token(),
         progress: Default::default(),
         create_queue: CreateQueue::new(),
+        last_sweep: std::sync::Mutex::new(None),
     });
 
     let auth_state = Arc::clone(&state);
@@ -1317,6 +1385,7 @@ async fn main() -> std::process::ExitCode {
         .route("/api/sim/{name}/reskin", post(reskin))
         .route("/api/sim/{name}/labels", get(labels).post(apply_labels))
         .route("/api/sim/{name}/pin", post(pin))
+        .route("/api/health", get(health))
         .layer(middleware::from_fn_with_state(auth_state, auth_layer))
         .with_state(state);
 
