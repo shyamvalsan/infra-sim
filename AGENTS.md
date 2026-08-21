@@ -269,6 +269,7 @@ Do not create generic `project-*` skills only to make the framework look complet
 
 ### Project Skills Index
 
+- `project-integration-sync` — how to add or repair a generated integration spec: which source owns a collector, the sync loop, the value-defect rules. Load before running any `scripts/sync-*.py`.
 - `project-live-validation` — how to validate against a live agent. Load before changing a generator spec, the engine, a scenario, the plugins.d runtime or the logs writer, and before claiming any fidelity result.
 
 Skill creation was deliberately deferred until the first vertical slice produced concrete, reusable workflow knowledge rather than generic filler. `SOW-0001` produced it: the probe-first rule (proven twice), what each layer of checking is structurally blind to, and the teardown trap.
