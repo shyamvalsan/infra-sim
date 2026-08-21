@@ -410,6 +410,7 @@ exec $DOCKER run --rm $TTY_FLAGS \
   -v "$REPO":"$REPO" \
   -v "$STATE_DIR":"$STATE_DIR" \
   -e INFRA_SIM_STATE_DIR="$STATE_DIR" \
+  -e INFRA_SIM_BIND_EXPOSURE=$([ "$host" = "127.0.0.1" ] || [ "$host" = "localhost" ] && echo loopback || echo published) \
   --add-host=host.docker.internal:host-gateway \
   -e INFRA_SIM_AGENT_HOST=host.docker.internal \
   -e INFRA_SIM_AGENT_VIA=container \

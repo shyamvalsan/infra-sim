@@ -4,10 +4,11 @@
 
 Status: open
 
-Sub-state: Container mode delivered. Decision A' (reach the simulation on its bridge
-address) implemented. The network path is **proven** from inside the console
-container; the node table is still empty, so one fault remains and it is in the
-console's query path rather than in networking. Narrowed, not fixed.
+Sub-state: Linux-side COMPLETE (2026-08-21): node table populated (14/14) from a
+containerised console, scenario list populated, two further faults found and
+fixed (auth-guard/container interaction; per-sim scenario dir). **Blocked on
+operator verification on an actual Mac** - the acceptance criterion this SOW
+itself says cannot be self-certified.
 
 ## Requirements
 
@@ -226,6 +227,30 @@ Unknown until tested; raised so it is not discovered by an operator mid-demo.
   visibility is the remaining blocker, with the cause identified at
   `main.rs:757`.
 
+### 2026-08-21
+
+- Reproduced container mode on Linux against the running `default` simulation with
+  current code: **the node table is full (14/14 reachable)**, `agent_url` correctly
+  the simulation's bridge address. The SOW-0021 query-path rewrite fixed the
+  "0 nodes from a containerised console" fault wholesale - the fault this SOW had
+  narrowed but not found.
+- The repro surfaced two further faults, both fixed and re-validated:
+  1. **SOW-0022's startup guard regressed container mode**: the console must bind
+     0.0.0.0 inside (the port publish keeps it on the host's loopback), and the
+     guard keyed on bind alone - so macOS mode refused to start without a token.
+     The guard now keys on *effective* exposure: `INFRA_SIM_BIND_EXPOSURE=loopback`
+     (declared by startsim's container mode when and only when the publish is
+     loopback) exempts; a public publish still refuses without a token.
+  2. **The scenario library loaded from the console's legacy global dir**
+     (`/etc/netdata/infra-sim/scenarios`), which does not exist in a container -
+     a Mac would have shown a Run tab with nothing to trigger. Per-sim status now
+     loads the simulation's own payload `scenarios/` dir, falling back to the
+     global dir for the legacy host install.
+- Final forced-container-mode run, no token, exposure declared as startsim does:
+  auth OFF, 14/14 nodes, 6 scenarios, zero errors. Gates: 258 tests, clippy, fmt.
+- Remaining: an operator run on an actual Mac (create, claim, watch, teardown) -
+  the acceptance criterion recorded as not self-certifiable.
+
 ## Validation
 
 Delivered and verified:
@@ -266,7 +291,10 @@ this.
 
 ## Outcome
 
-Pending.
+Pending the Mac operator run. Everything Linux can prove is proven: container
+mode starts, sees the fleet's nodes and scenarios, and the two faults the
+repro surfaced are fixed. The next session step is a person with Docker
+Desktop running `./startsim.sh` end to end.
 
 ## Lessons Extracted
 

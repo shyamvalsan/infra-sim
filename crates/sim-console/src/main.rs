@@ -367,7 +367,17 @@ async fn sim_status(
         ControlFile::default()
     });
 
-    let scenarios: Vec<ScenarioInfo> = load_scenarios(&app.scenario_dir)
+    // The scenario library belongs to the simulation: its payload dir carries
+    // the scenarios sim-docker.sh copied at create. The console-global dir is
+    // the legacy host-install layout - a containerised console has no
+    // /etc/netdata/infra-sim/scenarios, and falling back to it there showed a
+    // Run tab with nothing to trigger (found by the SOW-0018 repro).
+    let sim_scenario_dir = env_path
+        .parent()
+        .map(|p| p.join("scenarios"))
+        .filter(|p| p.is_dir())
+        .unwrap_or_else(|| app.scenario_dir.clone());
+    let scenarios: Vec<ScenarioInfo> = load_scenarios(&sim_scenario_dir)
         .into_iter()
         .map(|s| {
             let active = control.is_active(&s.name);
@@ -1397,16 +1407,24 @@ async fn main() -> std::process::ExitCode {
         }
     };
 
-    // A trust boundary is enforced, not advised. A console bound off-loopback
-    // without a token is exactly the accident this SOW exists to prevent, and
-    // startup is the only moment the message is guaranteed to be read.
+    // A trust boundary is enforced, not advised: a console reachable from the
+    // network without a token is exactly the accident this guard exists for,
+    // and startup is the only moment the message is guaranteed to be read.
+    //
+    // What matters is *effective* exposure, and only the launcher knows that.
+    // A containerised console must bind 0.0.0.0 inside (loopback there is the
+    // container itself) while the port publish keeps it on the host's
+    // loopback - so the launcher declares the exposure it created:
+    // INFRA_SIM_BIND_EXPOSURE=loopback (accepted in that exact spelling, from
+    // startsim's container mode when and only when the publish is loopback).
     let loopback = addr.ip().is_loopback();
-    if !loopback && !token_set {
+    let declared_loopback = std::env::var("INFRA_SIM_BIND_EXPOSURE").as_deref() == Ok("loopback");
+    if !loopback && !token_set && !declared_loopback {
         eprintln!(
             "refusing to bind {} without a token: everyone who can reach this port could \
              create, edit and tear down simulations.\n\
              Set one and restart:  INFRA_SIM_TOKEN=<secret> infra-sim-console --bind {}\n\
-             (or bind a loopback address and put an authenticating proxy in front)",
+             (or bind a loopback address, or run containerised with a loopback publish)",
             args.bind, args.bind,
         );
         return std::process::ExitCode::FAILURE;
