@@ -434,6 +434,53 @@ A labelled scope (per database, per index) is modelled as one representative ins
 
 <script>
 const $ = (id) => document.getElementById(id);
+
+// --- authentication ---------------------------------------------------------
+// A hosted console carries a shared token. One wrapper attaches it to every
+// call; one inline prompt collects it on the first 401 and never nags again.
+// sessionStorage, not localStorage: it dies with the tab, which is the right
+// lifetime for a credential typed into a possibly-shared browser.
+let AUTH_PROMPT_SHOWN = false;
+
+function authToken() { return sessionStorage.getItem("infraSimToken") || ""; }
+
+function showAuthPrompt() {
+  if (AUTH_PROMPT_SHOWN) return;
+  AUTH_PROMPT_SHOWN = true;
+  let el = document.getElementById("authPrompt");
+  if (!el) {
+    el = document.createElement("div");
+    el.id = "authPrompt";
+    el.className = "out bad";
+    el.style.cssText = "position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:99;display:flex;gap:8px;align-items:center;padding:10px 14px;box-shadow:0 2px 12px rgba(0,0,0,.25)";
+    el.innerHTML = `<span>This console needs a token:</span>
+      <input type="password" id="authTokenInput" placeholder="shared token" style="width:160px">
+      <button class="primary" onclick="submitAuthToken()">OK</button>`;
+    document.body.appendChild(el);
+    document.getElementById("authTokenInput").focus();
+  } else {
+    el.style.display = "flex";
+  }
+}
+
+function submitAuthToken() {
+  const t = document.getElementById("authTokenInput").value.trim();
+  if (!t) return;
+  sessionStorage.setItem("infraSimToken", t);
+  AUTH_PROMPT_SHOWN = false;
+  document.getElementById("authPrompt").style.display = "none";
+  refresh();   // re-authenticate the polls immediately
+}
+
+const rawFetch = window.fetch.bind(window);
+window.fetch = async (input, init) => {
+  const token = authToken();
+  const headers = new Headers(init && init.headers);
+  if (token && !headers.has("Authorization")) headers.set("Authorization", "Bearer " + token);
+  const resp = await rawFetch(input, Object.assign({}, init, { headers }));
+  if (resp.status === 401) showAuthPrompt();
+  return resp;
+};
 const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g,
   c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const fmtDur = (s) => {

@@ -100,15 +100,30 @@ pub fn build_image(repo: &Path) -> Result<String, String> {
 
 /// Start a simulation. `token` is passed through the environment, never argv:
 /// argv is world-readable via `ps` for the life of the process.
+/// The create-time choices the console passes through to the script.
+#[derive(Debug, Clone)]
+pub struct CreateOptions<'a> {
+    pub token: Option<&'a str>,
+    pub rooms: &'a str,
+    pub exporters: bool,
+    pub owner: &'a str,
+    /// Host policy (console.yaml), not a per-create choice.
+    pub public_dashboards: bool,
+}
+
 pub fn create(
     repo: &Path,
     name: &str,
     env_file: &Path,
-    token: Option<&str>,
-    rooms: &str,
-    exporters: bool,
-    owner: &str,
+    opts: CreateOptions<'_>,
 ) -> Result<Active, String> {
+    let CreateOptions {
+        token,
+        rooms,
+        exporters,
+        owner,
+        public_dashboards,
+    } = opts;
     let mut cmd = Command::new("bash");
     cmd.arg(script(repo))
         .arg("create")
@@ -126,6 +141,9 @@ pub fn create(
     }
     if !owner.trim().is_empty() {
         cmd.arg("--owner").arg(owner.trim());
+    }
+    if public_dashboards {
+        cmd.arg("--public-dashboards");
     }
     let out = cmd
         .output()

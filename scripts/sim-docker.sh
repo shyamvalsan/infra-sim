@@ -8,7 +8,7 @@
 #
 # Usage:
 #   sim-docker.sh build [--netdata-tag stable]
-#   sim-docker.sh create <name> <environment.yaml> [--port N] [--claim] [--rooms IDS] [--owner NAME] [--no-exporters]
+#   sim-docker.sh create <name> <environment.yaml> [--port N] [--claim] [--rooms IDS] [--owner NAME] [--public-dashboards] [--no-exporters]
 #   sim-docker.sh list
 #   sim-docker.sh status <name>
 #   sim-docker.sh scenario <name> trigger|resolve <scenario>
@@ -100,7 +100,7 @@ cmd_create() {
   [ -n "$name" ] && [ -n "$env_file" ] || die "usage: $0 create <name> <environment.yaml> [--port N] [--claim] [--rooms IDS]"
   [ -f "$env_file" ] || die "no such environment file: $env_file"
 
-  local port="" claim=no rooms="" url="https://app.netdata.cloud" exporters=yes owner=""
+  local port="" claim=no rooms="" url="https://app.netdata.cloud" exporters=yes owner="" public_dashboards=no
   while [ $# -gt 0 ]; do
     case "$1" in
       --port) port="$2"; shift 2 ;;
@@ -108,6 +108,7 @@ cmd_create() {
       --rooms) rooms="$2"; shift 2 ;;
       --url) url="$2"; shift 2 ;;
       --owner) owner="$2"; shift 2 ;;
+      --public-dashboards) public_dashboards=yes; shift ;;
       --no-exporters) exporters=no; shift ;;
       *) die "unknown option '$1'" ;;
     esac
@@ -171,12 +172,19 @@ cmd_create() {
 
   local -a owner_label=()
   [ -n "$owner" ] && owner_label=(--label "infra-sim.owner=$owner")
+  # Loopback by default: a Netdata agent has no authentication, and a port on
+  # the public interface is a deliberate, firewalled-host choice.
+  local bind_ip="127.0.0.1"
+  if [ "$public_dashboards" = yes ]; then
+    bind_ip="0.0.0.0"
+    warn "dashboards bind 0.0.0.0:$port - the agent has NO authentication; firewall it"
+  fi
   run docker run -d \
     --name "$container" \
     --label "$LABEL=$name" \
     "${owner_label[@]}" \
     --restart unless-stopped \
-    -p "127.0.0.1:$port:19999" \
+    -p "$bind_ip:$port:19999" \
     -v "$dir/netdata.conf:/etc/netdata/netdata.conf:ro" \
     -v "$dir:/etc/netdata/infra-sim" \
     -v "$dir/journal:/var/log/journal/remote" \

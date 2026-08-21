@@ -14,8 +14,9 @@ use std::path::PathBuf;
 use std::sync::Arc;
 use std::time::{SystemTime, UNIX_EPOCH};
 
-use axum::extract::{Path as AxumPath, State};
+use axum::extract::{Path as AxumPath, Request, State};
 use axum::http::{header, StatusCode};
+use axum::middleware::{self, Next};
 use axum::response::{Html, IntoResponse};
 use axum::routing::{get, post};
 use axum::{Json, Router};
@@ -63,6 +64,10 @@ struct AppState {
     /// Where the SRE's budget file lives; re-read per use so a host tune needs
     /// no console restart.
     budgets_path: PathBuf,
+    /// The shared bearer token; `None` = auth off (loopback single-operator
+    /// mode). Fixed at startup: changing a trust boundary should restart the
+    /// thing it guards.
+    token: Option<String>,
     /// What each long-running operation is doing, keyed by operation id.
     progress: provision::ProgressMap,
     /// Serializes creates: the lint inside a create is CPU-parallel across all
@@ -614,6 +619,7 @@ async fn create(
     handle.set(start);
 
     let repo = app.repo.clone();
+    let budgets_path = app.budgets_path.clone();
     let worker = handle.clone();
     let finish = handle.clone();
     // A simulation runs in its own container with its own agent. Installing
@@ -652,15 +658,37 @@ async fn create(
             .and_then(|s| s.to_str())
             .unwrap_or("simulation")
             .to_string();
+        // Host policy, not a per-create choice: whether dashboards bind
+        // publicly is the SRE's call for the whole box.
+        let public_dashboards = budget::Budgets::load(&budgets_path)
+            .map(|b| b.public_dashboards)
+            .unwrap_or(false);
         let active = container::create(
             &repo,
             &name,
             &env_path,
-            Some(req.claim_token.as_str()),
-            &req.claim_rooms,
-            req.exporters,
-            &req.owner,
+            container::CreateOptions {
+                token: Some(req.claim_token.as_str()),
+                rooms: &req.claim_rooms,
+                exporters: req.exporters,
+                owner: &req.owner,
+                public_dashboards,
+            },
         )?;
+        let mut notes = vec![format!(
+            "running in its own container on {}",
+            active.agent_url()
+        )];
+        if public_dashboards {
+            // The host policy opened the dashboards to the network; the person
+            // who just created this fleet should hear it said plainly, not
+            // only in the SRE's config file.
+            notes.push(
+                "this host binds dashboards publicly (public_dashboards: true) - the \
+                 agent has no authentication; rely on the firewall"
+                    .to_string(),
+            );
+        }
         Ok(serde_json::json!({
             "environment": env_path.display().to_string(),
             "nodes": nodes,
@@ -668,8 +696,8 @@ async fn create(
             "installed": true,
             "simulation": active,
             "op": op_for(&worker),
-            "notes": [
-                format!("running in its own container on {}", active.agent_url()),
+            "notes": notes.into_iter().chain([
+                // Claim state and telemetry notes, in the create's own voice.
                 if req.claim_token.trim().is_empty() {
                     "not connected to Cloud - this agent is fresh and unclaimed".to_string()
                 } else {
@@ -687,7 +715,8 @@ async fn create(
                 "traces are ingested and stored; the agent has no trace viewer \
                  yet, so do not plan a demo beat on them"
                     .to_string(),
-            ],
+            ])
+            .collect::<Vec<_>>(),
         }))
     })
     .await;
@@ -1110,6 +1139,68 @@ fn sim_payload(app: &AppState, name: &str) -> Result<PathBuf, String> {
     Ok(PathBuf::from(a.payload))
 }
 
+/// The shared console token, from the environment. `None` means auth is off -
+/// the single-operator loopback flow must keep working with no setup.
+///
+/// Env-or-input only, like every credential in this project: never argv
+/// (world-readable via `ps`), never a committed file.
+fn console_token() -> Option<String> {
+    std::env::var("INFRA_SIM_TOKEN")
+        .ok()
+        .map(|t| t.trim().to_string())
+        .filter(|t| !t.is_empty())
+}
+
+/// Constant-time equality, so a shared token is not side-channeled one
+/// character at a time. Cheap and habitual even for an internal tool.
+fn token_matches(a: &str, b: &str) -> bool {
+    let a = a.as_bytes();
+    let b = b.as_bytes();
+    let mut diff: u8 = a.len().wrapping_sub(b.len()) as u8;
+    for i in 0..a.len().max(b.len()) {
+        let x = a.get(i).copied().unwrap_or(0);
+        let y = b.get(i).copied().unwrap_or(0);
+        diff |= x ^ y;
+    }
+    diff == 0
+}
+
+/// Require a valid bearer token on every `/api` request when a token is
+/// configured. The UI shell (`GET /`) stays open: it is static HTML with no
+/// data, and it is where the token prompt lives.
+async fn auth_layer(
+    State(app): State<Arc<AppState>>,
+    req: Request,
+    next: Next,
+) -> impl IntoResponse {
+    // `/api` only: the UI shell at `/` is static HTML with no data and is
+    // where the token prompt lives - gating it would hide the prompt that
+    // unlocks everything else.
+    if !req.uri().path().starts_with("/api") {
+        return next.run(req).await;
+    }
+    if let Some(expected) = &app.token {
+        let presented = req
+            .headers()
+            .get(header::AUTHORIZATION)
+            .and_then(|v| v.to_str().ok())
+            .and_then(|v| v.strip_prefix("Bearer "))
+            .unwrap_or("");
+        if !token_matches(presented, expected) {
+            return (
+                StatusCode::UNAUTHORIZED,
+                Json(json_err(
+                    "this console requires a token - set the Authorization: Bearer header \
+                     (the web UI asks for it once)"
+                        .into(),
+                )),
+            )
+                .into_response();
+        }
+    }
+    next.run(req).await
+}
+
 /// Archive simulations past the TTL unless pinned. The same teardown path a
 /// manual removal takes, so everything is archived and nothing is lost.
 async fn sweep_expired(app: &AppState) {
@@ -1186,9 +1277,13 @@ async fn main() -> std::process::ExitCode {
         cached_guid: Mutex::new(Default::default()),
         repo: args.repo.clone(),
         budgets_path: args.budgets.clone(),
+        token: console_token(),
         progress: Default::default(),
         create_queue: CreateQueue::new(),
     });
+
+    let auth_state = Arc::clone(&state);
+    let token_set = state.token.is_some();
 
     // The TTL sweeper: simulations nobody pinned and nobody tore down are
     // disk and port budget leaking by default. Hourly is plenty - the TTL is
@@ -1222,6 +1317,7 @@ async fn main() -> std::process::ExitCode {
         .route("/api/sim/{name}/reskin", post(reskin))
         .route("/api/sim/{name}/labels", get(labels).post(apply_labels))
         .route("/api/sim/{name}/pin", post(pin))
+        .layer(middleware::from_fn_with_state(auth_state, auth_layer))
         .with_state(state);
 
     let addr: SocketAddr = match args.bind.parse() {
@@ -1231,6 +1327,29 @@ async fn main() -> std::process::ExitCode {
             return std::process::ExitCode::FAILURE;
         }
     };
+
+    // A trust boundary is enforced, not advised. A console bound off-loopback
+    // without a token is exactly the accident this SOW exists to prevent, and
+    // startup is the only moment the message is guaranteed to be read.
+    let loopback = addr.ip().is_loopback();
+    if !loopback && !token_set {
+        eprintln!(
+            "refusing to bind {} without a token: everyone who can reach this port could \
+             create, edit and tear down simulations.\n\
+             Set one and restart:  INFRA_SIM_TOKEN=<secret> infra-sim-console --bind {}\n\
+             (or bind a loopback address and put an authenticating proxy in front)",
+            args.bind, args.bind,
+        );
+        return std::process::ExitCode::FAILURE;
+    }
+    eprintln!(
+        "infra-sim console: auth {}",
+        if token_set {
+            "ON (shared token)"
+        } else {
+            "OFF (loopback, single operator)"
+        }
+    );
 
     let listener = match tokio::net::TcpListener::bind(addr).await {
         Ok(l) => l,

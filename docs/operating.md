@@ -115,6 +115,9 @@ a container avoids porting it, and needed no Rust change.
 
 ## Shared hosting, budgets and the TTL
 
+(Hosting a console for a whole team — token, systemd unit, reverse proxy,
+dashboard access — has its own runbook: **[hosting.md](hosting.md)**.)
+
 The console is built for a shared host: several people, several simulations,
 one machine an SRE owns.
 

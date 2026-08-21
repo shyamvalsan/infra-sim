@@ -204,9 +204,10 @@ has anything to say.
 The console is built to be **hosted** on a shared machine: every action names
 its simulation, creates are serialized with visible queue positions, and the
 host's owner sets hard budgets (fleet size, live simulations, disk, a TTL that
-archives forgotten fleets) in one file. See
-**[docs/operating.md](docs/operating.md)** for the shared-hosting section and
-the command-line path for every step.
+archives forgotten fleets) in one file. Hosting it for a team takes a token
+and a systemd unit — **[docs/hosting.md](docs/hosting.md)** is that runbook;
+**[docs/operating.md](docs/operating.md)** covers the shared-hosting section
+and the command-line path for every step.
 
 ## What can be simulated
 

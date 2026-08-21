@@ -62,6 +62,14 @@ create is CPU-parallel across all cores.
 
 One console per host; two consoles race each other's sweeps and slots.
 
+Auth (SOW-0022): a shared bearer token from `INFRA_SIM_TOKEN`, off unless
+set, mandatory for off-loopback binds (refused at startup). Everything under
+`/api` is gated; the UI shell at `/` is not, because it carries the token
+prompt. Dashboard ports bind loopback by default; `public_dashboards: true`
+in the host policy opens them (warned, firewalled-host-only) - Netdata agents
+carry no authentication. The runbook is `docs/hosting.md`. The shared token
+is interim: Cloud SSO is the end state.
+
 ## Prometheus exporters and aggregation
 
 The application tier (web, lb, k8s-worker — the same rule the OTLP emitter

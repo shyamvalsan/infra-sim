@@ -325,6 +325,13 @@ Verify logs through the agent, not only the file: the `systemd-journal` function
 requires a `__logs_sources` selection, and `all-remote-systems` is the simulated
 fleet.
 
+Console auth: off unless `INFRA_SIM_TOKEN` is set, and a non-loopback bind
+without it is refused at startup. The token comes from the environment only -
+never argv, never a committed file. The UI shell at `/` is unauthenticated on
+purpose (it hosts the prompt); everything under `/api` is gated. Public
+dashboard binding is a host policy (`console.yaml`), off by default, because
+a Netdata agent has no authentication of its own.
+
 The console is multi-simulation by construction: every per-sim route is
 `/api/sim/{name}/...` and resolves its target by name on every request. Do not
 reintroduce a cached "active" pointer - that design once silently edited the

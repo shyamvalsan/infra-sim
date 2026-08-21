@@ -30,6 +30,11 @@ pub struct Budgets {
     pub max_total_disk_bytes: u64,
     /// Simulations older than this are archived by the sweeper unless pinned.
     pub ttl_days: u64,
+    /// Bind new simulations' agent ports to 0.0.0.0 instead of loopback, so
+    /// remote users can open the dashboards directly. Off by default: a
+    /// Netdata agent has no authentication of its own, and a public binding is
+    /// a deliberate, warned choice for a firewalled host - see docs/hosting.md.
+    pub public_dashboards: bool,
 }
 
 impl Default for Budgets {
@@ -40,6 +45,7 @@ impl Default for Budgets {
             max_live_simulations: 10,
             max_total_disk_bytes: 50 * 1024 * 1024 * 1024,
             ttl_days: 7,
+            public_dashboards: false,
         }
     }
 }
@@ -61,6 +67,8 @@ struct BudgetsFile {
     max_total_disk_gb: Option<u64>,
     #[serde(default)]
     ttl_days: Option<u64>,
+    #[serde(default)]
+    public_dashboards: Option<bool>,
 }
 
 impl Budgets {
@@ -97,6 +105,7 @@ impl Budgets {
                 .ttl_days
                 .filter(|v| *v > 0)
                 .unwrap_or(defaults.ttl_days),
+            public_dashboards: file.public_dashboards.unwrap_or(defaults.public_dashboards),
         })
     }
 
@@ -176,6 +185,7 @@ mod tests {
         assert_eq!(b.max_live_simulations, 10);
         assert_eq!(b.max_total_disk_bytes, 50 * 1024 * 1024 * 1024);
         assert_eq!(b.ttl_days, 7);
+        assert!(!b.public_dashboards);
     }
 
     #[test]
