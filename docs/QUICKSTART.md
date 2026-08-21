@@ -5,7 +5,7 @@ Infra-Sim is and why; `docs/operating.md` is the full reference; this is the
 shortest path that works.
 
 Needs a **Linux host**, Docker and root. A Netdata agent on this machine is
-optional — each simulation runs its own. No Rust toolchain: `startsim` builds in a
+optional; each simulation runs its own. No Rust toolchain: `startsim` builds in a
 container. macOS and Windows cannot run the console, only the simulation
 containers; use a Linux VM.
 
@@ -21,7 +21,7 @@ or, on a machine with nothing checked out:
 curl -fsSL https://raw.githubusercontent.com/shyamvalsan/infra-sim/main/startsim.sh | sudo bash
 ```
 
-On macOS, without `sudo` — and note it is experimental and not yet working (the node
+On macOS, without `sudo`. Note it is experimental and not yet working (the node
 table stays empty); prefer a Linux VM for now:
 
 ```bash
@@ -41,7 +41,7 @@ sudo ./startsim.sh --environment /var/lib/infra-sim/<name>/environment.yaml
 ```
 
 To have a model read a free-form description, put a key in a gitignored `.env`
-beside the repo — `sudo` strips the environment, so this is the reliable place:
+beside the repo; `sudo` strips the environment, so this is the reliable place:
 
 ```bash
 echo 'LLM_API_KEY=...' >> .env      # Netdata's own gateway, llm.netdata.cloud
@@ -55,13 +55,13 @@ picker instead.
 
 On the **Build** tab:
 
-1. Type what the fleet runs — "6 nginx web servers behind two haproxy load
-   balancers, a 3-node postgres cluster, 4 Cisco Catalyst access switches" — and
+1. Type what the fleet runs ("6 nginx web servers behind two haproxy load
+   balancers, a 3-node postgres cluster, 4 Cisco Catalyst access switches") and
    press **Build the fleet**. It fills the table below.
 2. Adjust. Change counts, swap roles, search 260 integrations and tick what they
    actually run. The six badged `DEEP` are the ones hero scenarios target by
    name.
-3. A `network-device` row picks a **vendor and model** — 105 of them, generated
+3. A `network-device` row picks a **vendor and model**: 105 of them, generated
    from Netdata's own SNMP device profiles, so a Catalyst reports what a Catalyst
    reports.
 4. Optionally set a **fleet latitude and longitude**, and override it per group
@@ -73,7 +73,7 @@ without orphaning the fleet's history. A fidelity check runs first and refuses t
 install a fleet that would give itself away. The first create also builds the
 container image, which takes a minute or two.
 
-Each simulation runs in its own container with its own fresh, unclaimed agent —
+Each simulation runs in its own container with its own fresh, unclaimed agent;
 your own agent is never touched, and correlated logs and OpenTelemetry start with
 it.
 
@@ -84,9 +84,9 @@ is happening.
 
 Netdata's ML trains on what it sees: anomaly detection starts contributing after
 roughly 15 minutes and is fully credible at about 72 hours. A fleet started an
-hour before a call has no anomaly history, no alert log and no texture — which is
-exactly what makes a demo feel real. This is the single most common way a first
-demo disappoints.
+hour before a call has no anomaly history and no alert log, and that accumulated
+texture is exactly what makes a demo feel real. This is the single most common
+way a first demo disappoints.
 
 There is no way around it. The plugin protocol cannot backfill history, so a
 fleet always starts at zero and accumulates.
@@ -102,7 +102,7 @@ Space per simulation and delete it afterwards; a reused Space accumulates dead
 nodes from fleets that no longer exist.
 
 Cloud will not put virtual nodes in a specific room from the agent side, so use a
-**room membership rule** on `infra_sim_name = <your simulation>` — the whole
+**room membership rule** on `infra_sim_name = <your simulation>`; the whole
 fleet joins, including nodes added later.
 
 ## 5. Run the demo
@@ -127,7 +127,7 @@ Each scenario declares the roles it needs (`requires_roles` in
 
 A fleet missing a required role does not offer that scenario at all. Individual
 steps that target a tier the fleet does not have are skipped, so the rest of the
-timeline still runs — `switch-uplink-degrading` degrades the uplink on a
+timeline still runs: `switch-uplink-degrading` degrades the uplink on a
 switch-only fleet and simply does not slow a web tier that is not there.
 
 ## 6. Tear it down
@@ -139,7 +139,7 @@ sudo ./scripts/sim-docker.sh teardown <name>
 ```
 
 The container carries the agent, its database and every simulated node, so
-removing it removes all of them — nothing is left stale. The environment and
+removing it removes all of them; nothing is left stale. The environment and
 scenario manifests are archived first, so the fleet can be replayed.
 
 The Cloud Space or room is yours to delete; the teardown says so rather than
@@ -150,7 +150,7 @@ pretending it did it.
 ## Retargeting a warm fleet
 
 Reshaping a fleet for a different audience? Do **not** regenerate the
-environment — that orphans days of ML training. Re-skin it instead, from the Build
+environment: that orphans days of ML training. Re-skin it instead, from the Build
 tab or:
 
 ```bash

@@ -367,6 +367,12 @@ they can never be a per-node log source - that is what journald is for.
 
 ### Project-specific overrides
 
+**Copy style (user rule, 2026-08-21).** All user-facing copy - console UI text,
+tooltips, placeholders, error messages, README, docs - avoids LLM-slop patterns:
+no em-dashes (use commas, semicolons, colons, parentheses, or a sentence split),
+no rhetorical rule-of-three constructions (factual enumerations where every item
+is load-bearing are fine), and the word "infra" instead of "estate".
+
 **Verify against the agent before designing around an assumption.** This project sits on undocumented-by-default agent behavior. Two of `spec.md`'s load-bearing assumptions were only resolvable by running code against a live agent, and one of them (vnode dashboard completeness) changed the P0 estimate by roughly an order of magnitude. Source-reading is necessary but not sufficient; run the probe.
 
 **Scale testing does not run on the user's working laptop.** Vnode-fleet scale tests (>5 vnodes) run on a separate machine. Local verification is capped at 5 vnodes.

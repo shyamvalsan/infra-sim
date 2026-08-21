@@ -218,14 +218,14 @@
 <div id="tabBuild" class="tab on">
 
   <div id="introBanner" class="strip" style="display:none;align-items:baseline;gap:10px">
-    <span><b>New here?</b> 1) describe the estate below or pick a template —
-    2) name the fleet and set yourself as owner — 3) create. Everything else is on the
+    <span><b>New here?</b> Describe the infra below or pick a template to fill the fleet.
+    Name it and set yourself as owner. Create builds it; everything else is on the
     <a href="#" onclick="showTab('help');return false">Help</a> tab.</span>
     <button class="link" style="margin-left:auto" onclick="dismissIntro()">dismiss</button>
   </div>
 
   <section>
-    <h2>Describe the estate <i class="tip" tabindex="0" data-tip="Type what the prospect runs, in their words. This fills the fleet below — you edit it before anything is built.
+    <h2>Describe the infra <i class="tip" tabindex="0" data-tip="Type what the prospect runs, in their words. This fills the fleet below; you edit it before anything is built.
 
 Keyword matching is offline and instant. A model reads vocabulary the keywords cannot, and says plainly what it could not model.">i</i></h2>
     <div class="body">
@@ -251,9 +251,9 @@ Set a number and the fleet is scaled to it, keeping the ratio between tiers - th
   <section id="fleetSection">
     <h2>Fleet <i class="tip" tabindex="0" data-tip="One row per group: N nodes of a role, running these integrations.
 
-Two rows may share a role and differ in software — &quot;6 nginx web servers and 3 Elasticsearch nodes&quot; is two groups, not nine nodes running both.
+Two rows may share a role and differ in software: &quot;6 nginx web servers and 3 Elasticsearch nodes&quot; is two groups, not nine nodes running both.
 
-A role is a node shape — cores, RAM, disks, and which scenarios can target it — not a category of software.">i</i>
+A role is a node shape (cores, RAM, disks, and which scenarios can target it), not a category of software.">i</i>
       <span style="margin-left:auto"><select id="template" onchange="applyTemplate()">
         <option value="">start from a template…</option></select></span>
     </h2>
@@ -261,9 +261,9 @@ A role is a node shape — cores, RAM, disks, and which scenarios can target it 
       <div class="row" style="margin-bottom:14px">
         <label class="field"><span>Fleet latitude <i class="tip" tabindex="0" data-tip="Where this fleet is. Written to every node as the `latitude` and `longitude` host labels, which is what Netdata Cloud reads to place a node on a map.
 
-Decimal degrees. Latitude -90 to 90, longitude -180 to 180. Leave both blank and no coordinates are written at all — better than a default that would put the prospect's estate in the Gulf of Guinea.
+Decimal degrees. Latitude -90 to 90, longitude -180 to 180. Leave both blank and no coordinates are written at all, which beats a default that would put the prospect's infra in the Gulf of Guinea.
 
-Any single group can override this, for an estate with more than one site.
+Any single group can override this, for infra with more than one site.
 
 Nodes at one site are scattered by a few hundred metres, fixed by hostname, so a map shows a countable cluster instead of one pin hiding the rest.">i</i></span>
           <input id="fleetLat" type="number" step="any" placeholder="50.1109"
@@ -274,8 +274,8 @@ Nodes at one site are scattered by a few hundred metres, fixed by hostname, so a
         <span class="note" id="siteNote" style="align-self:end"></span>
       </div>
       <div class="row" style="margin-bottom:6px; align-items:end">
-        <span class="note grow" style="max-width:560px">Fleet labels — written to every node as host labels, which is what Netdata Cloud filters, groups and maps by. A group can override any of them below.
-          <span class="tip" tabindex="0" data-tip="Real deployments label their nodes - environment, site, team - and filter on them in Cloud. These are written to every node; the fleet's `environment` label also sets the tier the simulation reports about itself.
+        <span class="note grow" style="max-width:560px">Fleet labels are written to every node as host labels, which is what Netdata Cloud filters and groups by. A group can override any of them below.
+          <span class="tip" tabindex="0" data-tip="Real deployments label their nodes (environment, team) and filter on them in Cloud. These are written to every node; the fleet's `environment` label also sets the tier the simulation reports about itself.
 
 Keys: letters, digits, dot, dash, underscore, slash - no colons or spaces. Presets fill the key; edit the value.">?</span></span>
       </div>
@@ -288,13 +288,13 @@ Keys: letters, digits, dot, dash, underscore, slash - no colons or spaces. Prese
       <div class="row" style="margin-top:16px; padding-top:14px; border-top:1px solid var(--line)">
         <label class="field grow" style="max-width:260px"><span>Name <i class="tip" tabindex="0" data-tip="Fixes the seed, the hostname prefix and therefore every node GUID.
 
-The GUID is the node's identity in Netdata. Changing this later orphans the fleet's history, trained ML models and alert log — re-skin instead.">i</i></span>
+The GUID is the node's identity in Netdata. Changing this later orphans the fleet's history, trained ML models and alert log. Re-skin instead.">i</i></span>
           <input id="newName" placeholder="customer-a"></label>
         <label class="field grow" style="max-width:200px"><span>Owner <i class="tip" tabindex="0" data-tip="Who this simulation belongs to - shown in the list so anyone can see whose fleet it is and ask before tearing it down. Letters, digits, spaces, - _ . @">i</i></span>
           <input id="newOwner" placeholder="your-name"></label>
         <label class="check"><input type="checkbox" id="exporters" checked> Prometheus exporters</label><i class="tip" tabindex="0" data-tip="Application-tier nodes publish a real /metrics endpoint that Netdata's own prometheus collector scrapes and charts onto their virtual nodes.
 
-Orders, carts, queues, worker pools, a latency summary — nothing duplicates a chart the agent already collects. All nodes share one chart context, so fleet-level views aggregate the application tier properly.">i</i>
+Orders, carts, queues, worker pools, a latency summary: nothing duplicates a chart the agent already collects. All nodes share one chart context, so fleet-level views aggregate the application tier properly.">i</i>
         <button id="createBtn" class="primary" onclick="doCreate()" style="margin-left:auto">Create simulation</button>
       </div>
       <div class="row" style="margin-top:14px; padding-top:14px; border-top:1px solid var(--line)">
@@ -319,7 +319,7 @@ The token is never written to disk, logged, or passed on a command line."></i>
   <section data-step="installed" class="locked">
     <h2>Reuse this fleet <i class="tip" tabindex="0" data-tip="Renames a warm fleet for another prospect.
 
-Every GUID is preserved, so the nodes keep their history, trained ML models and alert log — a fleet that has been running for days stays that way.">i</i></h2>
+Every GUID is preserved, so the nodes keep their history, trained ML models and alert log. A fleet that has been running for days stays that way.">i</i></h2>
     <div class="body">
       <div class="row">
         <label class="field grow" style="max-width:280px"><span>New name</span>
@@ -354,7 +354,7 @@ Fleet labels apply to every node; a role's labels override them on that role's n
 • stops the exporters and removes the config they added to Netdata
 • archives the environment, seed and manifests, then removes the install directory
 
-Removing the nodes and the Space from Netdata Cloud stays manual — you will be told exactly what is left.">i</i></h2>
+Removing the nodes and the Space from Netdata Cloud stays manual; you will be told exactly what is left.">i</i></h2>
     <div class="body">
       <div class="row">
         <span class="note">The fleet stops for good. Everything is archived first, so it can be replayed.</span>
@@ -393,7 +393,7 @@ Removing the nodes and the Space from Netdata Cloud stays manual — you will be
   </section>
 
   <section>
-    <h2>Scenarios <i class="tip" tabindex="0" data-tip="The fault is injected into the raw data only. Every alert, anomaly and insight after that is the real Netdata product — nothing downstream is scripted.
+    <h2>Scenarios <i class="tip" tabindex="0" data-tip="The fault is injected into the raw data only. Every alert and anomaly after that comes from the real Netdata product; nothing downstream is scripted.
 
 +5m / +15m walk a running scenario forward through its own authored timeline, so severity and the ground-truth manifest can never disagree. −5m rewinds.">i</i></h2>
     <div class="body" id="scenarios"></div>
@@ -418,12 +418,13 @@ Removing the nodes and the Space from Netdata Cloud stays manual — you will be
   <section>
     <h2>What this is</h2>
     <div class="body">
-      <p>Infra-Sim builds infrastructure that does not exist — nodes with hostnames, disks,
-      services, logs, metrics — and feeds it to a <b>real</b> Netdata agent. You describe a
-      fleet, break it on cue, and watch the actual product find the problem.</p>
-      <p><b>The one rule:</b> only the raw data is simulated. ML really trains on it, the health
-      engine really raises alerts, Netdata AI really investigates — nothing downstream is ever
-      scripted or canned. Every simulation is labeled as one.</p>
+      <p>Infra-Sim builds infrastructure that does not exist (nodes with hostnames, disks,
+      services, logs, metrics) and feeds it to a <b>real</b> Netdata agent. You describe a
+      fleet and break it on cue; the actual product finds the problem.</p>
+      <p><b>The one rule:</b> only the raw data is simulated. ML really trains on it and the
+      health engine really raises its own alerts. When Netdata AI investigates, that is real
+      too. Nothing downstream is ever scripted or canned, and every simulation is labeled
+      as one.</p>
     </div>
   </section>
 
@@ -431,18 +432,18 @@ Removing the nodes and the Space from Netdata Cloud stays manual — you will be
     <h2>The workflow</h2>
     <div class="body">
       <ol style="margin:0 0 0 18px;line-height:1.9">
-        <li><b>Describe</b> the estate in plain English (optional), or build the fleet by hand
+        <li><b>Describe</b> the infra in plain English (optional), or build the fleet by hand
           from roles and integrations.</li>
-        <li><b>Name it and own it.</b> The name fixes the seed and every node identity — it
+        <li><b>Name it and own it.</b> The name fixes the seed and every node identity; it
           cannot change later without orphaning the fleet's history. The owner is you; it shows
           in the list so people know whose fleet it is.</li>
         <li><b>Create.</b> A fidelity check simulates hours of data first and refuses a fleet
-          that would give itself away. On a shared host, creates queue — your position shows in
+          that would give itself away. On a shared host, creates queue; your position shows in
           the progress bar.</li>
         <li><b>Run.</b> Trigger scenarios, watch charts and alerts on the fleet's dashboard,
           edit labels live, re-skin for a different audience. Warm-up matters: first ML models
           in ~15 minutes, a fully trained ensemble after ~72 hours.</li>
-        <li><b>Tear down.</b> Everything is archived first — an environment replays identically
+        <li><b>Tear down.</b> Everything is archived first; an environment replays identically
           from its file plus seed.</li>
       </ol>
     </div>
@@ -453,21 +454,21 @@ Removing the nodes and the Space from Netdata Cloud stays manual — you will be
     <div class="body">
       <p><b>Identity is the GUID.</b> Each node's GUID derives from the fleet name. Change the
       name and you get a different fleet with a different history. Rename nodes or re-skin
-      hostnames/labels and history is preserved — that is what re-skin is for. Never clone a
+      hostnames/labels and history is preserved; that is what re-skin is for. Never clone a
       fleet: two live fleets sharing GUIDs take over each other's identity.</p>
-      <p><b>Scenarios carry ground truth.</b> Every fault ships with a manifest — root cause,
-      causal chain, blast radius — written at authoring time. Trigger, escalate with the clock
-      controls, resolve (faults unwind over ~3 minutes, they don't snap back).</p>
-      <p><b>Labels</b> are host labels like real fleets carry — <code>environment</code>,
-      <code>site</code>, <code>team</code> — filtered and grouped on in Cloud. Validated against
+      <p><b>Scenarios carry ground truth.</b> Every fault ships with a manifest (root cause,
+      causal chain, blast radius) written at authoring time. Trigger and escalate with the
+      clock controls; resolving unwinds the fault over ~3 minutes rather than snapping it back.</p>
+      <p><b>Labels</b> are host labels like real fleets carry, such as
+      <code>environment</code> and <code>team</code>, filtered and grouped on in Cloud. Validated against
       the agent's own rules: what you write is what the node reports. Fleet-wide plus per-tier,
       editable live on a running fleet.</p>
       <p><b>Exporters</b> give the application tier (web, lb, k8s-worker) real
-      <code>/metrics</code> endpoints that Netdata's own collector scrapes — all sharing one
+      <code>/metrics</code> endpoints that Netdata's own collector scrapes, all sharing one
       chart context so fleet-level views aggregate them.</p>
       <p><b>Logs two ways:</b> each node is its own log source (journald), and the application
       tier ships OpenTelemetry logs and traces. Traces are stored but no Netdata build can
-      display them yet — don't plan a demo beat on them.</p>
+      display them yet, so don't plan a demo beat on them.</p>
     </div>
   </section>
 
@@ -475,12 +476,12 @@ Removing the nodes and the Space from Netdata Cloud stays manual — you will be
     <h2>On a shared host</h2>
     <div class="body">
       <p><b>Token:</b> a hosted console asks for a shared token once per tab. <b>Owner:</b> every
-      fleet has one — visible, honor-system. <b>Budgets:</b> fleet size, live-simulation count
+      fleet has one, visible and honor-system. <b>Budgets:</b> fleet size, live-simulation count
       and disk have host caps; a refusal names the limit and the file your SRE edits.
-      <b>TTL:</b> unpinned fleets older than the host's TTL are archived automatically —
-      <b>pin</b> a fleet you want to keep (a warm base you intend to re-skin is exactly the
-      case). <b>Dashboards:</b> by default each fleet's dashboard binds to the host's loopback —
-      use an SSH tunnel from your laptop; some hosts opt into public binding.</p>
+      <b>TTL:</b> unpinned fleets older than the host's TTL are archived automatically;
+      <b>pin</b> a fleet you want to keep. A warm base you intend to re-skin is exactly the
+      case. <b>Dashboards:</b> by default each fleet's dashboard binds to the host's loopback,
+      so use an SSH tunnel from your laptop; some hosts opt into public binding.</p>
     </div>
   </section>
 
@@ -488,12 +489,13 @@ Removing the nodes and the Space from Netdata Cloud stays manual — you will be
     <h2>Common ways to go wrong</h2>
     <div class="body">
       <ul style="margin:0 0 0 18px;line-height:1.9">
-        <li>Renaming a fleet instead of re-skinning it — that's a new fleet, cold ML, no history.</li>
-        <li>Demoing an hour after create — the anomaly detection has barely trained. Create days
-          ahead when you can.</li>
-        <li>Expecting traces — stored, not viewable, on any build today.</li>
-        <li>Leaving a fleet unpinned on a shared host past the TTL — it gets archived (nothing is
-          deleted, but it stops running).</li>
+        <li>Renaming a fleet instead of re-skinning it: that's a new fleet with cold ML and
+          no history.</li>
+        <li>Demoing an hour after create, when the anomaly detection has barely trained. Create
+          days ahead when you can.</li>
+        <li>Expecting traces: they're stored but not viewable on any build today.</li>
+        <li>Leaving a fleet unpinned on a shared host past the TTL: it gets archived. Nothing is
+          deleted, but it stops running.</li>
       </ul>
     </div>
   </section>
@@ -501,11 +503,11 @@ Removing the nodes and the Space from Netdata Cloud stays manual — you will be
   <section>
     <h2>Going deeper</h2>
     <div class="body">
-      <p><a href="https://github.com/shyamvalsan/infra-sim/blob/main/docs/QUICKSTART.md" target="_blank" rel="noopener">QUICKSTART</a> —
+      <p><a href="https://github.com/shyamvalsan/infra-sim/blob/main/docs/QUICKSTART.md" target="_blank" rel="noopener">QUICKSTART</a>:
       the full path from nothing to a running fleet with a live incident ·
-      <a href="https://github.com/shyamvalsan/infra-sim/blob/main/docs/operating.md" target="_blank" rel="noopener">Operating guide</a> —
+      <a href="https://github.com/shyamvalsan/infra-sim/blob/main/docs/operating.md" target="_blank" rel="noopener">Operating guide</a>:
       every surface, in detail ·
-      <a href="https://github.com/shyamvalsan/infra-sim/blob/main/docs/hosting.md" target="_blank" rel="noopener">Hosting runbook</a> —
+      <a href="https://github.com/shyamvalsan/infra-sim/blob/main/docs/hosting.md" target="_blank" rel="noopener">Hosting runbook</a>:
       for whoever owns the box.</p>
     </div>
   </section>
@@ -518,19 +520,19 @@ Removing the nodes and the Space from Netdata Cloud stays manual — you will be
     <header><b id="pickerTitle">Integrations</b>
       <span class="meta" id="pickerCount"></span></header>
     <div class="filters">
-      <input id="pickerSearch" placeholder="search 150+ integrations — postgres, kafka, snmp, nvidia…"
+      <input id="pickerSearch" placeholder="search 150+ integrations: postgres, kafka, snmp, nvidia…"
              oninput="renderPicker()" autocomplete="off">
       <select id="pickerCat" onchange="renderPicker()"></select>
       <label class="check"><input type="checkbox" id="pickerSel" onchange="renderPicker()"> selected only</label>
     </div>
     <div class="grid" id="pickerGrid"></div>
     <footer>
-      <span class="meta" id="pickerDeviceNote" style="display:none"><i class="tip" tabindex="0" data-tip="Every model is generated from Netdata's own SNMP device profile for it, so the contexts, units, families and metric names are the ones that device really reports — per-supervisor CPU on a Catalyst, chassis sensors on a Nexus.
+      <span class="meta" id="pickerDeviceNote" style="display:none"><i class="tip" tabindex="0" data-tip="Every model is generated from Netdata's own SNMP device profile for it, so the contexts, units, families and metric names are the ones that device really reports: per-supervisor CPU on a Catalyst, chassis sensors on a Nexus.
 
 Pick nothing and the group uses a generic managed switch: standard IF-MIB ports, CPU, memory and uptime.
 
 The standard interface counters keep the same names across every model, so the uplink-degradation scenario works on any of them.">i</i> where these come from</span>
-      <span class="meta" id="pickerDeepNote"><i class="tip" tabindex="0" data-tip="DEEP — hand-authored: signals are causally coupled and hero scenarios target them by name.
+      <span class="meta" id="pickerDeepNote"><i class="tip" tabindex="0" data-tip="DEEP means hand-authored: signals are causally coupled and hero scenarios target them by name.
 
 The rest are generated from Netdata's own collector metadata: right contexts, units, chart types and dimension names, but signals move independently and no scenario targets them.
 
@@ -613,7 +615,7 @@ let SIMS = [];          // every simulation on this host, from /api/status
 let SELECTED = "";      // the simulation every per-sim action addresses
 
 // --- what is shown when ----------------------------------------------------
-// Describing an estate and editing the fleet are how you build one, and both
+// Describing the infra and editing the fleet are how you build one, and both
 // are always available - numbering them as steps 1 and 2 of a sequence that
 // continued into Connect and Tear down was wrong, because those act on a fleet
 // that already exists rather than following on from building one. It also left
@@ -707,8 +709,8 @@ function openPicker(index) {
     ? "Device model for these " + ROWS[index].count + " network devices"
     : "Integrations on these " + ROWS[index].role + " nodes";
   $("pickerSearch").placeholder = dev
-    ? "search 105 device models \u2014 catalyst, nexus, big-ip, mx\u2026"
-    : "search 150+ integrations \u2014 postgres, kafka, snmp, nvidia\u2026";
+    ? "search 105 device models: catalyst, nexus, big-ip, mx\u2026"
+    : "search 150+ integrations: postgres, kafka, snmp, nvidia\u2026";
   $("pickerSearch").value = ""; $("pickerSel").checked = false;
   $("pickerDeviceNote").style.display = dev ? "" : "none";
   $("pickerDeepNote").style.display = dev ? "none" : "";
@@ -799,7 +801,7 @@ function setRole(i, role) {
 function renderRoles() {
   if (!ROWS.length) {
     $("roles").innerHTML = `<tr><td colspan="6" class="note">
-      no groups yet — describe the estate above, pick a template, or add one</td></tr>`;
+      no groups yet. Fill the fleet from a template or a description above, or add a group by hand</td></tr>`;
     setSiteNote();
     return;
   }
@@ -928,7 +930,7 @@ function dropGroupLabel(i, k) { delete ROWS[i].labels[k]; renderRoles(); }
 
 // --- location -------------------------------------------------------------
 // A number field that is blank, or holds something that is not a number, is
-// "unset" — not zero. Reading it as zero would silently place a fleet at the
+// "unset", not zero. Reading it as zero would silently place a fleet at the
 // intersection of the equator and the prime meridian.
 function numOrNull(el) {
   const v = (el.value || "").trim();
@@ -942,7 +944,7 @@ function setSiteNote() {
   const [lat, lon] = fleetSite();
   const n = $("siteNote");
   if (!n) return;
-  if (lat === null && lon === null) { n.textContent = "unplaced — no coordinates written"; return; }
+  if (lat === null && lon === null) { n.textContent = "unplaced, no coordinates written"; return; }
   if (lat === null || lon === null) { n.textContent = "give both, or neither"; return; }
   const bad = lat < -90 || lat > 90 || lon < -180 || lon > 180;
   n.textContent = bad
@@ -1004,7 +1006,7 @@ async function loadCatalogue() {
   if (!PROVIDER) {
     $("desc").disabled = true;
     $("descBtn").disabled = true;
-    $("desc").placeholder = "Add a model key to describe an estate in plain English - "
+    $("desc").placeholder = "Add a model key to describe infra in plain English, "
       + "or build the fleet by hand below.";
   }
   $("descHint").innerHTML = PROVIDER ? "" :
@@ -1116,7 +1118,7 @@ async function doCreate() {
     out.className = "out ok";
     // Clear the credential from the page as soon as it has been used.
     $("token").value = "";
-    out.textContent = `created ${r.nodes} node(s) — ${r.environment}\n\n${r.lint_summary}\n` +
+    out.textContent = `created ${r.nodes} node(s): ${r.environment}\n\n${r.lint_summary}\n` +
                       (r.notes || []).map(n => "· " + n).join("\n");
     await refresh();
     refreshSteps();
@@ -1176,7 +1178,7 @@ function renderLiveLabels() {
   const roleEditor = (role) => {
     const g = LIVE_LABELS.groups[role] || {};
     return `<div style="margin-top:10px">
-      <span class="note">${esc(role)} — overrides the fleet on this role's nodes</span>
+      <span class="note">${esc(role)}: overrides the fleet on this role's nodes</span>
       <div class="chips">${Object.entries(g).map(([k, v]) =>
         `<span class="chip"><b>${esc(k)}</b>=${esc(v)}<span class="x" onclick="dropLiveLabel('${esc(role)}','${esc(k)}')">×</span></span>`).join("")}
         <span class="chip" style="padding:0">
@@ -1187,7 +1189,7 @@ function renderLiveLabels() {
   };
   const roles = Object.keys(LIVE_LABELS.groups);
   el.innerHTML = `
-    <div><span class="note">Fleet — every node</span>
+    <div><span class="note">Fleet: every node</span>
       <div class="chips">${Object.entries(LIVE_LABELS.fleet).map(([k, v]) =>
         `<span class="chip"><b>${esc(k)}</b>=${esc(v)}<span class="x" onclick="dropLiveLabel(null,'${esc(k)}')">×</span></span>`).join("")}
         <span class="chip" style="padding:0">
@@ -1224,8 +1226,8 @@ async function applyLiveLabels() {
     if (r.error) { out.className = "out bad"; out.textContent = r.error; return; }
     out.className = "out ok";
     out.textContent = r.changed.length
-      ? `labels updated on ${r.changed.length} node(s) — the fleet picks them up within seconds`
-      : "already in that state — nothing to change";
+      ? `labels updated on ${r.changed.length} node(s); the fleet picks them up within seconds`
+      : "already in that state, nothing to change";
     setTimeout(loadLiveLabels, 3000);
   } catch (e) { out.className = "out bad"; out.textContent = String(e); }
   finally { btn.disabled = false; }
@@ -1294,6 +1296,14 @@ async function doAdvance(name, seconds) {
 }
 
 function renderBoard(b) {
+  // No simulation selected: clear the strip instead of throwing on b.checks.
+  if (!b) {
+    $("verdict").textContent = "no simulation";
+    $("verdict").className = "verdict";
+    $("stripCounts").textContent = "";
+    $("board").innerHTML = "";
+    return;
+  }
   const bad = b.checks.filter(c => c.status !== "pass").length;
   $("verdict").textContent = b.demo_ready ? "Demo ready" : "Not demo ready";
   $("verdict").className = "verdict " + (b.demo_ready ? "go" : "nogo");
@@ -1320,7 +1330,7 @@ function renderNodes(nodes, agentUrl) {
       <td>${n.charts}</td><td>${n.contexts}</td>
       <td>${tot > 0 ? Math.round(100*n.ml_trained/tot) : 0}%</td>
       <td>${n.anomaly_rate.toFixed(2)}%</td><td>${alerts}</td></tr>`;
-  }).join("") : `<tr><td colspan="7" class="note">no nodes yet — build one on the Build tab</td></tr>`;
+  }).join("") : `<tr><td colspan="7" class="note">no nodes yet; build a fleet on the Build tab</td></tr>`;
 }
 
 function renderScenarios(ss) {
@@ -1372,7 +1382,7 @@ async function refresh() {
   try { d = await (await fetch("/api/status")).json(); }
   catch (e) { $("errors").textContent = "console cannot reach itself: " + e; return; }
   SIMS = d.simulations || [];
-  // A returning user with fleets does not need the three steps again.
+  // A returning user with fleets does not need the intro again.
   if (SIMS.length) dismissIntro(); else maybeShowIntro();
   renderSimSelector();
 
