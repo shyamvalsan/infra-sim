@@ -47,7 +47,7 @@ timeline:
     target:
       signal: if_in_errors_rate
       role: network-device
-      hostname_suffix: -sw-01
+      node_index: 1
       instance: TenGigabitEthernet1/1/1
     effect: add_ramp
     amount: 45.0
@@ -58,7 +58,7 @@ timeline:
     target:
       signal: if_in_discards_rate
       role: network-device
-      hostname_suffix: -sw-01
+      node_index: 1
       instance: TenGigabitEthernet1/1/1
     effect: add_ramp
     amount: 38.0
@@ -69,7 +69,7 @@ timeline:
     target:
       signal: if_in_ucast_rate
       role: network-device
-      hostname_suffix: -sw-01
+      node_index: 1
       instance: TenGigabitEthernet1/1/1
     effect: ramp
     multiplier: 1.9
@@ -80,7 +80,7 @@ timeline:
     target:
       signal: if_in_octets_rate
       role: network-device
-      hostname_suffix: -sw-01
+      node_index: 1
       instance: TenGigabitEthernet1/1/1
     effect: ramp
     multiplier: 0.42
@@ -91,7 +91,7 @@ timeline:
     target:
       signal: if_in_octets_rate
       role: network-device
-      hostname_suffix: -sw-01
+      node_index: 1
       instance: TenGigabitEthernet1/1/2
     effect: ramp
     multiplier: 1.55
@@ -102,7 +102,7 @@ timeline:
     target:
       signal: if_out_errors_rate
       role: network-device
-      hostname_suffix: -sw-01
+      node_index: 1
       instance: TenGigabitEthernet1/1/1
     effect: add_ramp
     amount: 12.0
@@ -113,7 +113,7 @@ timeline:
     target:
       signal: device_cpu_usage
       role: network-device
-      hostname_suffix: -sw-01
+      node_index: 1
     effect: ramp
     multiplier: 2.4
     over: 8m

@@ -131,6 +131,15 @@ signals, plus a **ground-truth manifest**.
   dimension roles cannot express, and the pairing that makes label-filtered
   Cloud views land - the filter shows exactly the incident's subset. Composes
   with role/suffix/instance selectors (all present constraints must hold).
+- A target may pin **`node_index: N`** - the Nth node (environment order)
+  among those matching the other selectors. "One switch has a dirty optic"
+  without hostname vocabulary; deterministic and re-skin-stable. Resolved on
+  the metrics path, which knows each node's rank among its role.
+- Reading groups are distinct when their **labels** differ: same role and
+  services with different labels are different groups (slug disambiguation
+  keeps hostnames unique). Same shape with no labels still folds - that is
+  the keyword-path clause case the merge was built for. Per-group size has no
+  code ceiling: the host budget file is the only size contract.
 - `warmup` (default true) keeps a scenario in the scheduled minor-incident
   rotation; dramatic shapes opt out with `warmup: false`. Rotation trims any
   scenario to its opening steps, so a rotated scenario never looks like its

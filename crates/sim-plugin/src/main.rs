@@ -116,7 +116,7 @@ struct Args {
 /// matter who restarted what, which a one-time ordering at create can never
 /// guarantee. The re-emission is exactly what a plugin restart sends, whose
 /// safety is proven by every respawn.
-const HANDSHAKE_REASSERT_SECS: i64 = 240;
+const HANDSHAKE_REASSERT_BASE_SECS: i64 = 240;
 
 /// Fraction of samples a signal may spend on a bound before the lint fails it.
 ///
@@ -510,16 +510,32 @@ fn run() -> Result<(), String> {
         update_every,
     );
 
+    // Rank each node among its same-role peers, in environment order:
+    // `node_index` scenario targets ("the first switch") resolve against it,
+    // and only this loop can know the order.
+    let mut role_seen: std::collections::BTreeMap<String, usize> = Default::default();
+    let ranks: Vec<Option<usize>> = env
+        .nodes
+        .iter()
+        .map(|n| {
+            n.role.as_ref().map(|r| {
+                let c = role_seen.entry(r.clone()).or_insert(0);
+                *c += 1;
+                *c - 1
+            })
+        })
+        .collect();
     let mut engines: Vec<NodeEngine> = profiles
         .iter()
         .zip(&env.nodes)
-        .map(|(p, n)| {
+        .zip(ranks)
+        .map(|((p, n), rank)| {
             let key = format!(
                 "{}\0{}",
                 env.node_generator_path(n, &args.environment).display(),
                 n.services.join("+")
             );
-            NodeEngine::new(Arc::clone(&composed[&key]), p.clone(), env.seed)
+            NodeEngine::with_rank(Arc::clone(&composed[&key]), p.clone(), env.seed, rank)
         })
         .collect();
 
@@ -580,7 +596,14 @@ fn run() -> Result<(), String> {
     let mut replay_clock = args.replay_from;
     // Next handshake re-assertion; see HANDSHAKE_REASSERT_SECS. Starts after
     // the initial handshake above, which every process start performs anyway.
-    let mut next_reassert = next + HANDSHAKE_REASSERT_SECS;
+    // The interval scales with the fleet: the re-emission cost is linear in
+    // node count (a 3,000-node fleet re-asserts on the order of a million
+    // protocol lines), so large fleets assert less often. 240s at demo scale,
+    // ~= the node count in seconds beyond that - 50 minutes at 3,000 nodes,
+    // where the fleet was created days early anyway and load, not settle
+    // time, is the constraint.
+    let reassert_interval = HANDSHAKE_REASSERT_BASE_SECS.max(profiles.len() as i64);
+    let mut next_reassert = next + reassert_interval;
 
     // Two things we exit cleanly for: our own plugin file being removed
     // (teardown) and the environment being rewritten under us (re-skin).
@@ -632,7 +655,7 @@ fn run() -> Result<(), String> {
                 emitter::declare_charts(&mut out, engine, update_every).map_err(write_err)?;
             }
             out.flush().map_err(write_err)?;
-            next_reassert = next + HANDSHAKE_REASSERT_SECS;
+            next_reassert = next + reassert_interval;
         }
 
         let tick_at = match replay_clock {
@@ -1278,6 +1301,24 @@ fn check_scenarios(
                 }
             }
 
+            // An index target beyond the role's node count is skipped (the
+            // same class as an absent role); the role missing entirely is
+            // handled by the requires_roles/absent-role branch above.
+            if let Some(idx) = t.node_index {
+                let nodes_of_role = env
+                    .nodes
+                    .iter()
+                    .filter(|n| t.role.as_ref().is_none_or(|r| n.role.as_deref() == Some(r)))
+                    .count();
+                if nodes_of_role < idx {
+                    inapplicable.push(format!(
+                        "  {name} step {i}: only {nodes_of_role} node(s) match the selectors, \
+                         index {idx} does not exist, step is skipped"
+                    ));
+                    continue;
+                }
+            }
+
             // A label target no node satisfies is skipped, not fatal - the
             // same class as an absent role. But a selector with no `=` is an
             // authoring error: it matches nothing anywhere, on any fleet.
@@ -1299,6 +1340,31 @@ fn check_scenarios(
                 if !any_labelled {
                     inapplicable.push(format!(
                         "  {name} step {i}: no node carries label '{sel}', step is skipped"
+                    ));
+                    continue;
+                }
+            }
+
+            // An instance pin that no matching node declares would do
+            // nothing - the same silent-nothing class the signal check below
+            // exists to catch. Reported as a skip (a fleet without that
+            // device model simply lacks the port), never a refusal.
+            if let Some(want_inst) = &t.instance {
+                let role_matches = |n: &crate::environment::NodeDef| {
+                    t.role
+                        .as_ref()
+                        .is_none_or(|r| n.role.as_deref() == Some(r))
+                };
+                let any_instance = env.nodes.iter().filter(|n| role_matches(n)).any(|n| {
+                    n.instances
+                        .values()
+                        .flatten()
+                        .any(|i| i.name() == want_inst)
+                });
+                if !any_instance {
+                    inapplicable.push(format!(
+                        "  {name} step {i}: no node declares instance '{want_inst}', \
+                         step is skipped"
                     ));
                     continue;
                 }

@@ -278,15 +278,26 @@ impl Reading {
     pub fn dedupe_slugs(&mut self) {
         let mut folded: Vec<Group> = Vec::new();
         for group in std::mem::take(&mut self.groups) {
-            match folded
-                .iter_mut()
-                .find(|g| g.role == group.role && g.services == group.services)
-            {
+            match folded.iter_mut().find(|g| {
+                g.role == group.role
+                    && g.services == group.services
+                    // Labels are part of a group's identity now: two groups of
+                    // the same shape differentiated by region or function are
+                    // two groups, and merging them would union their labels
+                    // into a lie (last-writer on every key). Merge only when
+                    // there is nothing to lose - the maps agree, or one side
+                    // carries none. Distinct-label groups fall through to the
+                    // slug-disambiguation pass below, which keeps hostnames
+                    // unique without touching labels.
+                    && (group.labels.is_empty()
+                        || g.labels.is_empty()
+                        || g.labels == group.labels)
+            }) {
                 Some(existing) => {
                     existing.count += group.count;
                     existing.source = format!("{}; {}", existing.source, group.source);
-                    // Same-role rows are legitimate console input; their labels
-                    // merge rather than vanish (incoming wins same-key).
+                    // Only reachable when the maps agree or one is empty, so
+                    // the union cannot contradict either group.
                     for (k, v) in group.labels {
                         existing.labels.insert(k, v);
                     }
@@ -917,10 +928,11 @@ pub fn parse_with_services(text: &str, available: &[String]) -> Reading {
 /// the incoming clause winning same-key - silently dropping them would lose
 /// authored state the SE can see in the form.
 fn merge(groups: &mut Vec<Group>, incoming: Group) {
-    if let Some(existing) = groups
-        .iter_mut()
-        .find(|g| g.role == incoming.role && g.services == incoming.services)
-    {
+    if let Some(existing) = groups.iter_mut().find(|g| {
+        g.role == incoming.role
+            && g.services == incoming.services
+            && (incoming.labels.is_empty() || g.labels.is_empty() || g.labels == incoming.labels)
+    }) {
         existing.count += incoming.count;
         existing.source = format!("{}; {}", existing.source, incoming.source);
         for (k, v) in incoming.labels {
@@ -1005,7 +1017,7 @@ fn extract_count(clause: &str) -> usize {
         let cleaned: String = token.chars().filter(|c| c.is_ascii_digit()).collect();
         if !cleaned.is_empty() {
             if let Ok(n) = cleaned.parse::<usize>() {
-                if n > 0 && n <= 500 {
+                if n > 0 && n <= 10_000 {
                     return n;
                 }
             }
@@ -1822,6 +1834,71 @@ mod tests {
             back.nodes[0].labels.get("site").map(String::as_str),
             Some("42")
         );
+    }
+
+    #[test]
+    fn label_distinct_groups_of_the_same_shape_stay_separate() {
+        // The robotics-webinar shape: nine robot tiers, one role, one service
+        // set, differentiated only by labels. The old predicate merged them
+        // and unioned their labels - last group's region winning - which is
+        // exactly the structure the prompt exists to build.
+        let mut r = Reading::default();
+        let mk = |region: &str, count: usize| Group {
+            count,
+            role: "edge-gateway".into(),
+            services: vec!["processes".into()],
+            slug: None,
+            labels: BTreeMap::from([
+                ("region".to_string(), region.to_string()),
+                ("function".to_string(), "picker".to_string()),
+            ]),
+            site: None,
+            device: None,
+            source: region.into(),
+        };
+        r.groups = vec![mk("eu-west-1", 800), mk("us-east-1", 400)];
+        r.dedupe_slugs();
+        assert_eq!(r.groups.len(), 2, "label-distinct groups must not merge");
+        assert_eq!(r.groups[0].count, 800);
+        assert_eq!(r.groups[1].count, 400);
+        let by_region = |reg: &str| {
+            r.groups
+                .iter()
+                .find(|g| g.labels.get("region").map(String::as_str) == Some(reg))
+                .unwrap_or_else(|| panic!("no {reg} group survived"))
+        };
+        by_region("eu-west-1");
+        by_region("us-east-1");
+        // Distinct slugs came out of disambiguation, so hostnames cannot
+        // collide (the reason the merge existed).
+        let names: Vec<String> = r
+            .groups
+            .iter()
+            .map(|g| g.effective_slug().to_string())
+            .collect();
+        assert_eq!(names.len(), 2);
+        assert_ne!(names[0], names[1]);
+    }
+
+    #[test]
+    fn unlabelled_groups_of_the_same_shape_still_merge() {
+        // The case the merge was built for: two keyword clauses describing
+        // the same thing, no labels to lose.
+        let mut r = Reading::default();
+        let mk = |count: usize| Group {
+            count,
+            role: "web".into(),
+            services: vec!["nginx".into()],
+            slug: None,
+            labels: BTreeMap::new(),
+            site: None,
+            device: None,
+            source: String::new(),
+        };
+        r.groups = vec![mk(3), mk(2)];
+        r.dedupe_slugs();
+        assert_eq!(r.groups.len(), 1);
+        assert_eq!(r.groups[0].count, 5);
     }
 
     #[test]

@@ -184,6 +184,10 @@ pub struct NodeEngine {
     /// set.
     spec: Arc<GeneratorSpec>,
     profile: NodeProfile,
+    /// This node's 0-based position among same-role nodes, in environment
+    /// order. `node_index` scenario targets resolve against it; the caller
+    /// that owns fleet order supplies it, callers that cannot pass None.
+    rank_in_role: Option<usize>,
     /// Signals with the node's role overrides already applied.
     signals: BTreeMap<String, Signal>,
     plan: Vec<PlannedChart>,
@@ -201,12 +205,24 @@ impl NodeEngine {
     /// Build an engine for `profile`, seeding every signal stream from
     /// `master_seed` and the node's GUID.
     pub fn new(spec: Arc<GeneratorSpec>, profile: NodeProfile, master_seed: u64) -> Self {
+        Self::with_rank(spec, profile, master_seed, None)
+    }
+
+    /// Construct with this node's rank among same-role nodes, for scenarios
+    /// that pin "the Nth node of a role" (a physical fault in one machine).
+    pub fn with_rank(
+        spec: Arc<GeneratorSpec>,
+        profile: NodeProfile,
+        master_seed: u64,
+        rank_in_role: Option<usize>,
+    ) -> Self {
         let signals = spec.signals_for_role(profile.role.as_deref());
         let plan = plan_charts(&spec, &profile);
 
         Self {
             spec,
             profile,
+            rank_in_role,
             signals,
             plan,
             state: BTreeMap::new(),
@@ -331,6 +347,7 @@ impl NodeEngine {
             scope,
             name,
             &self.profile.labels,
+            self.rank_in_role,
             now,
         );
         // Weight scales the whole signal, so a lightly-loaded disk is quieter

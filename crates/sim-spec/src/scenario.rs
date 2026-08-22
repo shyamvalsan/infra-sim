@@ -198,6 +198,21 @@ pub struct Target {
     /// Composes with the other constraints: every present selector must hold.
     #[serde(default)]
     pub label: Option<String>,
+    /// The Nth node (1-based, in environment order) among those matching the
+    /// other selectors.
+    ///
+    /// "One switch has a dirty optic" is a physical fact about one machine,
+    /// and the pre-labels way to say it was a hostname suffix - which breaks
+    /// the moment a reading names its switches anything else
+    /// (`switch-eu-west-1-01` never ends in `-sw-01`). An index is
+    /// vocabulary-free, deterministic (environment order is fixed) and
+    /// re-skin-stable (renames do not reorder).
+    ///
+    /// Resolved only where the caller can know fleet order - the metrics
+    /// engine, which receives each node's rank among its role. Callers
+    /// without ranks pass `None` and index targets do not match there.
+    #[serde(default)]
+    pub node_index: Option<usize>,
 }
 
 impl Target {
@@ -208,6 +223,7 @@ impl Target {
         instance: &str,
         signal: &str,
         labels: &std::collections::BTreeMap<String, String>,
+        rank_in_role: Option<usize>,
     ) -> bool {
         if self.signal != signal {
             return false;
@@ -230,6 +246,15 @@ impl Target {
         if let Some(want) = &self.instance {
             if want != instance {
                 return false;
+            }
+        }
+        if let Some(want) = &self.node_index {
+            // 1-based against the caller's rank among same-role nodes; no
+            // rank (a caller that cannot know fleet order) matches nothing,
+            // rather than everything.
+            match rank_in_role {
+                Some(r) if r + 1 == *want => {}
+                _ => return false,
             }
         }
         if let Some(want) = &self.label {
@@ -535,6 +560,7 @@ timeline:
             role: Some("network-device".into()),
             instance: Some("Uplink1".into()),
             label: None,
+            node_index: None,
         };
         let m = |h: &str| {
             t.matches(
@@ -543,6 +569,7 @@ timeline:
                 "Uplink1",
                 "if_in_errors_rate",
                 &Default::default(),
+                None,
             )
         };
         assert!(m("acme-sw-01"));
@@ -553,7 +580,8 @@ timeline:
             Some("network-device"),
             "Uplink2",
             "if_in_errors_rate",
-            &Default::default()
+            &Default::default(),
+            None,
         ));
     }
 
@@ -578,12 +606,34 @@ timeline:
             role: Some("web".into()),
             instance: None,
             label: Some("region=eu-west-1".into()),
+            node_index: None,
         };
-        assert!(t.matches("acme-web-01", Some("web"), "", "if_in_errors_rate", &eu));
-        assert!(!t.matches("acme-web-01", Some("web"), "", "if_in_errors_rate", &us));
-        assert!(!t.matches("acme-web-01", Some("web"), "", "if_in_errors_rate", &none));
+        assert!(t.matches(
+            "acme-web-01",
+            Some("web"),
+            "",
+            "if_in_errors_rate",
+            &eu,
+            None,
+        ));
+        assert!(!t.matches(
+            "acme-web-01",
+            Some("web"),
+            "",
+            "if_in_errors_rate",
+            &us,
+            None,
+        ));
+        assert!(!t.matches(
+            "acme-web-01",
+            Some("web"),
+            "",
+            "if_in_errors_rate",
+            &none,
+            None,
+        ));
         // Composes with role: a db node in eu-west-1 is untouched.
-        assert!(!t.matches("acme-db-01", Some("db"), "", "if_in_errors_rate", &eu));
+        assert!(!t.matches("acme-db-01", Some("db"), "", "if_in_errors_rate", &eu, None));
         // A selector without '=' matches nothing - the lint reports it.
         let broken = Target {
             signal: "if_in_errors_rate".into(),
@@ -592,8 +642,53 @@ timeline:
             role: None,
             instance: None,
             label: Some("regiononly".into()),
+            node_index: None,
         };
-        assert!(!broken.matches("x", None, "", "if_in_errors_rate", &eu));
+        assert!(!broken.matches("x", None, "", "if_in_errors_rate", &eu, None));
+    }
+
+    #[test]
+    fn an_index_pins_the_nth_node_of_a_role() {
+        // "One switch has a dirty optic" without hostname vocabulary: index 1
+        // is the first network-device node in environment order, whatever the
+        // reading named it. No rank (a caller that cannot know fleet order)
+        // matches nothing rather than everything.
+        let t = Target {
+            signal: "if_in_errors_rate".into(),
+            hostname_suffix: None,
+            hostname: None,
+            role: Some("network-device".into()),
+            instance: None,
+            label: None,
+            node_index: Some(1),
+        };
+        assert!(t.matches(
+            "anything-switch-eu-west-1-01",
+            Some("network-device"),
+            "",
+            "if_in_errors_rate",
+            &Default::default(),
+            Some(0),
+        ));
+        assert!(!t.matches(
+            "anything-switch-eu-west-1-02",
+            Some("network-device"),
+            "",
+            "if_in_errors_rate",
+            &Default::default(),
+            Some(1),
+        ));
+        assert!(
+            !t.matches(
+                "anything",
+                Some("network-device"),
+                "",
+                "if_in_errors_rate",
+                &Default::default(),
+                None,
+            ),
+            "no rank must not match"
+        );
     }
 
     #[test]
@@ -605,34 +700,39 @@ timeline:
             role: None,
             instance: Some("/var/lib/pgsql".into()),
             label: None,
+            node_index: None,
         };
         assert!(t.matches(
             "sim-db-01",
             Some("db"),
             "/var/lib/pgsql",
             "disk_space_used_kb",
-            &Default::default()
+            &Default::default(),
+            None,
         ));
         assert!(!t.matches(
             "sim-db-01",
             Some("db"),
             "/var/log",
             "disk_space_used_kb",
-            &Default::default()
+            &Default::default(),
+            None,
         ));
         assert!(!t.matches(
             "sim-web-01",
             Some("web"),
             "/var/lib/pgsql",
             "disk_space_used_kb",
-            &Default::default()
+            &Default::default(),
+            None,
         ));
         assert!(!t.matches(
             "sim-db-01",
             Some("db"),
             "/var/lib/pgsql",
             "cpu_busy",
-            &Default::default()
+            &Default::default(),
+            None,
         ));
     }
 
@@ -645,9 +745,17 @@ timeline:
             role: None,
             instance: None,
             label: None,
+            node_index: None,
         };
-        assert!(t.matches("anything", None, "", "cpu_busy", &Default::default()));
-        assert!(t.matches("other", Some("db"), "eth0", "cpu_busy", &Default::default()));
+        assert!(t.matches("anything", None, "", "cpu_busy", &Default::default(), None));
+        assert!(t.matches(
+            "other",
+            Some("db"),
+            "eth0",
+            "cpu_busy",
+            &Default::default(),
+            None,
+        ));
     }
 
     #[test]

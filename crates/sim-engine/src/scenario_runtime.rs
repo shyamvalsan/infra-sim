@@ -88,6 +88,11 @@ impl ScenarioSet {
     /// A `Recover` step is the exception: it scales whatever the earlier steps
     /// built back toward 1.0, so recovery unwinds the fault instead of becoming
     /// another multiplier on top of it.
+    /// The eight parameters are a node's complete lookup identity plus time;
+    /// grouping them into a struct would churn every caller (engines, the
+    /// logs generator, warm-up and tests) to flatter a lint, and the
+    /// parameter list is exactly what `Target::matches` consumes.
+    #[allow(clippy::too_many_arguments)]
     pub fn perturbation(
         &self,
         hostname: &str,
@@ -95,6 +100,7 @@ impl ScenarioSet {
         instance: &str,
         signal: &str,
         labels: &std::collections::BTreeMap<String, String>,
+        rank_in_role: Option<usize>,
         now: i64,
     ) -> Perturbation {
         let mut out = Perturbation::NONE;
@@ -105,7 +111,7 @@ impl ScenarioSet {
             for step in &a.scenario.timeline {
                 if !step
                     .target
-                    .matches(hostname, role, instance, signal, labels)
+                    .matches(hostname, role, instance, signal, labels, rank_in_role)
                 {
                     continue;
                 }
@@ -143,8 +149,16 @@ impl ScenarioSet {
         signal: &str,
         now: i64,
     ) -> f64 {
-        self.perturbation(hostname, role, instance, signal, &Default::default(), now)
-            .multiplier
+        self.perturbation(
+            hostname,
+            role,
+            instance,
+            signal,
+            &Default::default(),
+            None,
+            now,
+        )
+        .multiplier
     }
 
     /// Ground-truth summary for the console and the eval gym.
@@ -256,7 +270,7 @@ timeline:
                 started_at: 0,
                 recovering_since: recovering,
             }])
-            .perturbation("h", None, "", "cpu_busy", &Default::default(), now)
+            .perturbation("h", None, "", "cpu_busy", &Default::default(), None, now)
             .multiplier
         };
         assert_eq!(at(None, 600), 5.0, "untouched while running");
@@ -333,6 +347,7 @@ timeline:
             "",
             "oom_kill_rate",
             &Default::default(),
+            None,
             10,
         );
         assert_eq!(p.multiplier, 1.0);
@@ -345,6 +360,7 @@ timeline:
                 "",
                 "oom_kill_rate",
                 &Default::default(),
+                None,
                 10
             )
             .is_none());
@@ -379,6 +395,7 @@ timeline:
                 "",
                 "net_err_rate",
                 &Default::default(),
+                None,
                 t,
             )
             .additive

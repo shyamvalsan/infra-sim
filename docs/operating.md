@@ -433,6 +433,25 @@ in place; a fleet created after that date is unaffected.
 
 ## Scenarios
 
+### The 3,000-robot webinar fleet
+
+The prompt for the big robotics fleet lives in
+`docs/webinar-robot-prompt.txt` - paste it into the describe box, set Fleet
+size to 3000, name and own it. Before creating it on the host that will run
+it:
+
+1. Budgets: `/etc/infra-sim/console.yaml` needs `max_nodes_per_fleet: 3200`
+   (and headroom on `max_total_disk_gb`). A refusal names the file.
+2. An LLM key in `.env` beside the repo - the prompt's group/label structure
+   needs the model reader; the offline keyword reader cannot carry labels.
+3. Ladder up: the same prompt at 300, then 1000, then 3000. 3,000 nodes is
+   far past the designed 50-200 envelope; the ladder tells you what the host
+   does before the webinar depends on it.
+4. Expect the create's fidelity check to run roughly an hour at 3,000 nodes
+   (measured 53 minutes on a 16-thread laptop; the M5 mini is comparable),
+   and create days ahead regardless - ML warm-up wants 72h.
+5. Pin the fleet (TTL sweep would otherwise archive it after 7 days).
+
 ### The fleet-management demo path
 
 For a label-and-views walkthrough, `environments/webinar-fleet.yaml` is the

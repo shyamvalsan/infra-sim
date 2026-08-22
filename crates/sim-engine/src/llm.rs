@@ -788,7 +788,11 @@ fn validate(plan: &Value, services: &[String]) -> Result<Proposal, String> {
         }
 
         let count = g.get("count").and_then(Value::as_i64).unwrap_or(1);
-        let clamped = count.clamp(1, 500) as usize;
+        // A sanity ceiling against model absurdity, not a size policy: the
+        // host's budget file is the size contract, and its refusal names the
+        // file. 10,000 is far past any real tier and far short of anything
+        // that would strain the reading itself.
+        let clamped = count.clamp(1, 10_000) as usize;
         if clamped as i64 != count {
             corrections.push(format!(
                 "group {i} ({role}): count {count} out of range, using {clamped}"
@@ -1313,8 +1317,21 @@ mod tests {
             }]
         });
         let p = validate(&plan, &services()).unwrap();
-        assert_eq!(p.reading.groups[0].count, 500);
+        // The ceiling is a sanity guard, not a size policy (budgets refuse
+        // real oversize with a message naming the file).
+        assert_eq!(p.reading.groups[0].count, 10_000);
         assert!(p.corrections.iter().any(|c| c.contains("out of range")));
+        // And a real tier size passes untouched - the case a silent 500
+        // truncation used to mangle.
+        let plan = json!({
+            "groups": [{
+                "role": "web", "count": 800, "services": ["nginx"],
+                "slug": "picker-gen3-eu", "source": "x"
+            }]
+        });
+        let p = validate(&plan, &services()).unwrap();
+        assert_eq!(p.reading.groups[0].count, 800);
+        assert!(p.corrections.is_empty());
     }
 
     #[test]

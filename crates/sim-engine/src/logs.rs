@@ -623,6 +623,9 @@ impl LogGenerator {
                     &instance,
                     rule.signal,
                     &self.labels,
+                    // Fleet order is a metrics-path fact; fault rules are
+                    // signal-based and never index-pinned.
+                    None,
                     now,
                 );
                 let Some(severity) = rule.trigger.severity(p.multiplier) else {

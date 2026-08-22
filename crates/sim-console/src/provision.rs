@@ -398,7 +398,11 @@ pub fn build_environment(
         sim_engine::labels::validate_map(&g.labels)
             .map_err(|e| format!("{} group: {e}", g.role))?;
         groups.push(Group {
-            count: g.count.min(500),
+            // No per-group ceiling: the host's budget is the size contract
+            // and its refusal names the file. A silent 500 truncation here
+            // turned an 800-node tier into a 500-node one and broke the
+            // fleet's ratios without telling anyone.
+            count: g.count,
             role: g.role.clone(),
             services: g.services.clone(),
             slug: None,
@@ -512,7 +516,7 @@ pub fn create(
         sim_engine::labels::validate_map(&g.labels)
             .map_err(|e| format!("{} group: {e}", g.role))?;
         groups.push(Group {
-            count: g.count.min(500),
+            count: g.count,
             role: g.role.clone(),
             services,
             slug: None,

@@ -1,0 +1,67 @@
+A robotics fulfilment company runs about 3,000 Linux-brained machines and their
+supporting infrastructure across three regions. The robots are edge-gateway
+class nodes: small Linux boxes with cellular uplinks, monitored for their
+processes, CPU, memory, disks and radios.
+
+MOBILE ROBOTS (owned by the robotics team; every robot carries region,
+function, fleet and criticality labels):
+
+- 800 gen-3 picker AMRs at the eu-west-1 fulfilment centre:
+  region=eu-west-1, function=picker, fleet=gen3, criticality=critical
+- 400 gen-3 picker AMRs at the us-east-1 centre:
+  region=us-east-1, function=picker, fleet=gen3, criticality=critical
+- 300 gen-2 forklift AMRs in eu-west-1:
+  region=eu-west-1, function=forklift, fleet=gen2, criticality=standard
+- 200 gen-2 forklift AMRs in eu-central-1:
+  region=eu-central-1, function=forklift, fleet=gen2, criticality=standard
+- 200 inspection robots in eu-west-1:
+  region=eu-west-1, function=inspection, fleet=gen3, criticality=batch
+- 120 inspection robots in eu-central-1:
+  region=eu-central-1, function=inspection, fleet=gen3, criticality=batch
+- 80 inspection robots in us-east-1:
+  region=us-east-1, function=inspection, fleet=gen3, criticality=batch
+- 300 stationary robot arms in the eu-central-1 assembly cells:
+  region=eu-central-1, function=arm, fleet=gen2, criticality=critical
+- 200 stationary robot arms in us-east-1:
+  region=us-east-1, function=arm, fleet=gen2, criticality=critical
+
+SITES (owned by the networks team):
+
+- 20 edge gateways in eu-west-1 that aggregate robot traffic:
+  region=eu-west-1, function=gateway, team=networks
+- 12 edge gateways in eu-central-1:
+  region=eu-central-1, function=gateway, team=networks
+- 8 edge gateways in us-east-1:
+  region=us-east-1, function=gateway, team=networks
+- 12 managed Cisco Catalyst access switches in eu-west-1:
+  region=eu-west-1, function=network, team=networks
+- 6 managed Cisco Catalyst access switches in eu-central-1:
+  region=eu-central-1, function=network, team=networks
+- 6 managed Cisco Catalyst access switches in us-east-1:
+  region=us-east-1, function=network, team=networks
+- 2 core routers per region (6 total):
+  region=<the region they are in>, function=core, team=networks
+
+FLEET-MANAGEMENT PLATFORM (owned by the platform team, split evenly across the
+three regions; each node carries region and team=platform and its tier):
+
+- 2 HAProxy load balancers per region (6 total) fronting the application:
+  tier=frontend
+- 12 nginx web nodes per region (36 total) running the fleet-management
+  application: tier=frontend
+- 4 Redis caches per region (12 total) for robot state and sessions:
+  tier=cache
+
+DATA TIER (owned by the data team; each node carries region and team=data):
+
+- 4 PostgreSQL nodes per region (12 total: a primary, a replica and two
+  analytics nodes per region): tier=database
+
+ORCHESTRATION (owned by the platform team; region and team=platform labels):
+
+- 3 Kubernetes control-plane nodes per region (9 total): tier=orchestration
+- 15 Kubernetes workers per region (45 total) running the robot orchestration
+  and telemetry stack: tier=orchestration
+
+Every node carries its region and its team; robots additionally carry
+function, fleet and criticality as listed above.
