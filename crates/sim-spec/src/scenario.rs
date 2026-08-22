@@ -37,8 +37,23 @@ pub struct Scenario {
     /// button that cannot work.
     #[serde(default)]
     pub requires_roles: Vec<String>,
+    /// Whether this scenario may run as a scheduled warm-up incident.
+    ///
+    /// Default true - the rotation is the shipped behavior and gentle
+    /// scenarios belong in it. Dramatic shapes (payment declines, lock
+    /// contention) opt out: a warm-up incident that looks like the hero demo
+    /// spoils the demo, and one that looks like a crisis nobody handled is
+    /// worse.
+    #[serde(default = "default_warmup")]
+    pub warmup: bool,
 
     pub timeline: Vec<Step>,
+}
+
+/// Serde default for [`Scenario::warmup`]: rotation participation unless a
+/// dramatic scenario opts out.
+fn default_warmup() -> bool {
+    true
 }
 
 impl Scenario {
@@ -172,6 +187,17 @@ pub struct Target {
     /// node-level signals and every instance.
     #[serde(default)]
     pub instance: Option<String>,
+    /// Restrict to nodes carrying this host label, as `key=value`.
+    ///
+    /// The operational dimension roles cannot express: a region, a team, an
+    /// availability zone. "Connectivity trouble in eu-west-1" is a label
+    /// selector, not a role - and pairing it with label-filtered views in
+    /// Cloud is what makes a partial-fleet incident land: the filter shows
+    /// the affected subset and nothing else.
+    ///
+    /// Composes with the other constraints: every present selector must hold.
+    #[serde(default)]
+    pub label: Option<String>,
 }
 
 impl Target {
@@ -181,6 +207,7 @@ impl Target {
         role: Option<&str>,
         instance: &str,
         signal: &str,
+        labels: &std::collections::BTreeMap<String, String>,
     ) -> bool {
         if self.signal != signal {
             return false;
@@ -203,6 +230,19 @@ impl Target {
         if let Some(want) = &self.instance {
             if want != instance {
                 return false;
+            }
+        }
+        if let Some(want) = &self.label {
+            // `key=value`, parsed here so authors write one string and the
+            // serde shape stays flat. A selector without `=` matches nothing
+            // on purpose - and the lint reports it as authored-broken.
+            match want.split_once('=') {
+                Some((k, v)) => {
+                    if labels.get(k).map(String::as_str) != Some(v) {
+                        return false;
+                    }
+                }
+                None => return false,
             }
         }
         true
@@ -494,8 +534,17 @@ timeline:
             hostname_suffix: Some("-sw-01".into()),
             role: Some("network-device".into()),
             instance: Some("Uplink1".into()),
+            label: None,
         };
-        let m = |h: &str| t.matches(h, Some("network-device"), "Uplink1", "if_in_errors_rate");
+        let m = |h: &str| {
+            t.matches(
+                h,
+                Some("network-device"),
+                "Uplink1",
+                "if_in_errors_rate",
+                &Default::default(),
+            )
+        };
         assert!(m("acme-sw-01"));
         assert!(m("initech-sw-01"), "must survive a re-skin");
         assert!(!m("acme-sw-02"), "the other switch stays clean");
@@ -503,8 +552,48 @@ timeline:
             "acme-sw-01",
             Some("network-device"),
             "Uplink2",
-            "if_in_errors_rate"
+            "if_in_errors_rate",
+            &Default::default()
         ));
+    }
+
+    #[test]
+    fn a_label_selector_hits_only_the_nodes_that_carry_it() {
+        // The webinar's dimension: roles cannot say "the eu-west-1 nodes".
+        // A label target must hit the labelled subset and nothing else,
+        // composing with role like every other selector.
+        let eu = std::collections::BTreeMap::<String, String>::from([(
+            "region".to_string(),
+            "eu-west-1".to_string(),
+        )]);
+        let us = std::collections::BTreeMap::<String, String>::from([(
+            "region".to_string(),
+            "us-east-1".to_string(),
+        )]);
+        let none = std::collections::BTreeMap::<String, String>::new();
+        let t = Target {
+            signal: "if_in_errors_rate".into(),
+            hostname_suffix: None,
+            hostname: None,
+            role: Some("web".into()),
+            instance: None,
+            label: Some("region=eu-west-1".into()),
+        };
+        assert!(t.matches("acme-web-01", Some("web"), "", "if_in_errors_rate", &eu));
+        assert!(!t.matches("acme-web-01", Some("web"), "", "if_in_errors_rate", &us));
+        assert!(!t.matches("acme-web-01", Some("web"), "", "if_in_errors_rate", &none));
+        // Composes with role: a db node in eu-west-1 is untouched.
+        assert!(!t.matches("acme-db-01", Some("db"), "", "if_in_errors_rate", &eu));
+        // A selector without '=' matches nothing - the lint reports it.
+        let broken = Target {
+            signal: "if_in_errors_rate".into(),
+            hostname_suffix: None,
+            hostname: None,
+            role: None,
+            instance: None,
+            label: Some("regiononly".into()),
+        };
+        assert!(!broken.matches("x", None, "", "if_in_errors_rate", &eu));
     }
 
     #[test]
@@ -515,21 +604,36 @@ timeline:
             hostname: Some("sim-db-01".into()),
             role: None,
             instance: Some("/var/lib/pgsql".into()),
+            label: None,
         };
         assert!(t.matches(
             "sim-db-01",
             Some("db"),
             "/var/lib/pgsql",
-            "disk_space_used_kb"
+            "disk_space_used_kb",
+            &Default::default()
         ));
-        assert!(!t.matches("sim-db-01", Some("db"), "/var/log", "disk_space_used_kb"));
+        assert!(!t.matches(
+            "sim-db-01",
+            Some("db"),
+            "/var/log",
+            "disk_space_used_kb",
+            &Default::default()
+        ));
         assert!(!t.matches(
             "sim-web-01",
             Some("web"),
             "/var/lib/pgsql",
-            "disk_space_used_kb"
+            "disk_space_used_kb",
+            &Default::default()
         ));
-        assert!(!t.matches("sim-db-01", Some("db"), "/var/lib/pgsql", "cpu_busy"));
+        assert!(!t.matches(
+            "sim-db-01",
+            Some("db"),
+            "/var/lib/pgsql",
+            "cpu_busy",
+            &Default::default()
+        ));
     }
 
     #[test]
@@ -540,9 +644,10 @@ timeline:
             hostname: None,
             role: None,
             instance: None,
+            label: None,
         };
-        assert!(t.matches("anything", None, "", "cpu_busy"));
-        assert!(t.matches("other", Some("db"), "eth0", "cpu_busy"));
+        assert!(t.matches("anything", None, "", "cpu_busy", &Default::default()));
+        assert!(t.matches("other", Some("db"), "eth0", "cpu_busy", &Default::default()));
     }
 
     #[test]

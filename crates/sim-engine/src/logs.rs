@@ -28,6 +28,7 @@
 
 use crate::rng::Rng;
 use crate::{NodeProfile, ScenarioSet};
+use std::collections::BTreeMap;
 
 /// One journal entry, before it is framed as Journal Export Format.
 #[derive(Debug, Clone, PartialEq)]
@@ -493,6 +494,10 @@ const ROUTINE_RULES: &[RoutineRule] = &[
 pub struct LogGenerator {
     hostname: String,
     role: Option<String>,
+    /// Host labels snapshotted at construction, so fault rules - which ask the
+    /// same perturbation query the metrics path asks - can be label-targeted
+    /// exactly like the charts are.
+    labels: BTreeMap<String, String>,
     services: Vec<String>,
     /// Instance names by group, snapshotted so rules can iterate them.
     instances: Vec<(String, Vec<String>)>,
@@ -504,6 +509,7 @@ pub struct LogGenerator {
 impl LogGenerator {
     pub fn new(profile: &NodeProfile, services: &[String], master_seed: u64) -> Self {
         let mut rng = Rng::from_stream(master_seed, &format!("logs:{}", profile.hostname));
+        let labels = profile.labels.clone();
         let instances = profile
             .instances
             .iter()
@@ -533,6 +539,7 @@ impl LogGenerator {
         Self {
             hostname: profile.hostname.clone(),
             role: profile.role.clone(),
+            labels,
             services: services.to_vec(),
             instances,
             boot_id,
@@ -615,6 +622,7 @@ impl LogGenerator {
                     self.role.as_deref(),
                     &instance,
                     rule.signal,
+                    &self.labels,
                     now,
                 );
                 let Some(severity) = rule.trigger.severity(p.multiplier) else {

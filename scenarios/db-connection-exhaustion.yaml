@@ -1,0 +1,52 @@
+version: 1
+name: db-connection-exhaustion
+description: >-
+  The database runs out of connections: usage climbs toward max_connections,
+  lock waits appear as requests pile up behind held connections, and the
+  application tier starts reporting pool waits. The database-side twin of the
+  application pool story.
+
+warmup: false
+manifest:
+  root_cause: connection pool exhaustion on the primary database
+  causal_chain:
+    - connections are opened faster than they are returned
+    - usage approaches max_connections and new requests wait
+    - lock waits appear as queued holders accumulate
+    - the application tier sees pool waits because the database side is full
+  blast_radius:
+    - role:db
+    - role:web
+  expected_finding: >-
+    Database connections at max with lock waits rising: the database is the
+    constraint. Application-side pool waits are the symptom visible from the
+    web tier, and both resolve when connection usage falls.
+
+requires_roles: [db]
+timeline:
+  - at: 0s
+    description: Connections accumulate against the max
+    target:
+      signal: pg_connections_used
+      role: db
+    effect: ramp
+    multiplier: 1.6
+    over: 12m
+
+  - at: 6m
+    description: Requests begin waiting behind held connections
+    target:
+      signal: pg_locks_awaited
+      role: db
+    effect: add_ramp
+    amount: 25.0
+    over: 10m
+
+  - at: 10m
+    description: The application feels the database being full
+    target:
+      signal: app_db_pool_wait_rate
+      role: web
+    effect: add_ramp
+    amount: 4.0
+    over: 8m

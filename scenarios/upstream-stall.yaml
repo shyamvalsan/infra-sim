@@ -1,0 +1,50 @@
+version: 1
+name: upstream-stall
+description: >-
+  The load balancer's upstreams go slow: upstream response time climbs,
+  waiting connections accumulate as requests hold open, and the LB starts
+  dropping what it cannot queue. Seen from the front door, and distinct from
+  the application-tier stories: this is the proxy's own view of its backends.
+
+warmup: false
+manifest:
+  root_cause: slow upstream responses behind the load balancer
+  causal_chain:
+    - upstream response time climbs as backends slow
+    - connections accumulate in the proxy waiting for responses
+    - the LB drops connections that outlive its queue
+  blast_radius:
+    - role:lb
+  expected_finding: >-
+    Upstream time rising with waiting connections accumulating at the proxy:
+    the backends are slow, the balancer is a bystander with a queue. The
+    dropped-connection counter is the symptom customers feel first.
+
+requires_roles: [lb]
+timeline:
+  - at: 0s
+    description: Upstream responses begin slowing
+    target:
+      signal: nginx_upstream_time_ms
+      role: lb
+    effect: ramp
+    multiplier: 5.0
+    over: 10m
+
+  - at: 4m
+    description: Connections accumulate waiting for slow upstreams
+    target:
+      signal: nginx_conn_waiting
+      role: lb
+    effect: add_ramp
+    amount: 120.0
+    over: 12m
+
+  - at: 10m
+    description: The proxy begins dropping what it cannot queue
+    target:
+      signal: nginx_conn_dropped_rate
+      role: lb
+    effect: add_ramp
+    amount: 3.0
+    over: 8m

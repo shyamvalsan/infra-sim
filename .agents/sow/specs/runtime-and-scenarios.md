@@ -127,6 +127,14 @@ signals, plus a **ground-truth manifest**.
   original `started_at`.
 - `requires_roles` means an environment lacking those roles is not offered the
   scenario, rather than offered a button that cannot work.
+- A target may select by **label** (`label: region=eu-west-1`): the operational
+  dimension roles cannot express, and the pairing that makes label-filtered
+  Cloud views land - the filter shows exactly the incident's subset. Composes
+  with role/suffix/instance selectors (all present constraints must hold).
+- `warmup` (default true) keeps a scenario in the scheduled minor-incident
+  rotation; dramatic shapes opt out with `warmup: false`. Rotation trims any
+  scenario to its opening steps, so a rotated scenario never looks like its
+  own hero demo.
 - `hostname_suffix` pins a fault to one node of a role. Role alone is right for
   a fault that really is fleet-wide, and wrong for a physical one: a dirty optic
   is in one switch, not all of them. A suffix rather than a hostname because the

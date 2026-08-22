@@ -105,6 +105,19 @@ struct Args {
     replay_from: Option<i64>,
 }
 
+/// How often the running plugin re-emits its HOST_DEFINE/label/chart
+/// handshake, in seconds.
+///
+/// A plugins.d define migrates the host's whole label set, and go.d's
+/// prometheus jobs define the same vnodes with no labels at all (a registry
+/// vnode is hostname+guid only). Whoever defines last wins - so a go.d
+/// restart after this plugin's start wipes every fleet label, `simulated=true`
+/// included. Re-asserting on a timer makes the labelled define win again no
+/// matter who restarted what, which a one-time ordering at create can never
+/// guarantee. The re-emission is exactly what a plugin restart sends, whose
+/// safety is proven by every respawn.
+const HANDSHAKE_REASSERT_SECS: i64 = 240;
+
 /// Fraction of samples a signal may spend on a bound before the lint fails it.
 ///
 /// Bounds are a safety rail. A signal that reaches one regularly has stopped
@@ -565,6 +578,9 @@ fn run() -> Result<(), String> {
         );
     }
     let mut replay_clock = args.replay_from;
+    // Next handshake re-assertion; see HANDSHAKE_REASSERT_SECS. Starts after
+    // the initial handshake above, which every process start performs anyway.
+    let mut next_reassert = next + HANDSHAKE_REASSERT_SECS;
 
     // Two things we exit cleanly for: our own plugin file being removed
     // (teardown) and the environment being rewritten under us (re-skin).
@@ -605,6 +621,18 @@ fn run() -> Result<(), String> {
             );
             out.flush().map_err(write_err)?;
             return Ok(());
+        }
+
+        // Re-assert the labelled handshake when due: whichever collector
+        // defined these vnodes last owns their label set, and go.d defines
+        // them bare. This is the tick-loop side of that contention.
+        if tick_due(next_reassert, next) {
+            emitter::define_hosts(&mut out, &profiles).map_err(write_err)?;
+            for engine in &engines {
+                emitter::declare_charts(&mut out, engine, update_every).map_err(write_err)?;
+            }
+            out.flush().map_err(write_err)?;
+            next_reassert = next + HANDSHAKE_REASSERT_SECS;
         }
 
         let tick_at = match replay_clock {
@@ -1185,6 +1213,18 @@ fn signal_exists_somewhere(specs_dir: &Path, signal: &str) -> bool {
     false
 }
 
+/// The exporter spec's signal names, loaded once per lint. The application
+/// tier publishes these through the exporter server and the OTLP emitter, so
+/// a scenario targeting them is live even though no plugins.d spec defines
+/// them.
+fn exporter_signals(specs_dir: &Path) -> std::collections::BTreeSet<String> {
+    std::fs::read_to_string(specs_dir.join(EXPORTER_SPEC))
+        .ok()
+        .and_then(|raw| GeneratorSpec::from_yaml(&raw).ok())
+        .map(|s| s.signals.keys().cloned().collect())
+        .unwrap_or_default()
+}
+
 fn check_scenarios(
     composed: &std::collections::BTreeMap<String, Arc<GeneratorSpec>>,
     env: &Environment,
@@ -1238,9 +1278,41 @@ fn check_scenarios(
                 }
             }
 
+            // A label target no node satisfies is skipped, not fatal - the
+            // same class as an absent role. But a selector with no `=` is an
+            // authoring error: it matches nothing anywhere, on any fleet.
+            if let Some(sel) = &t.label {
+                if sel.split_once('=').is_none() {
+                    problems.push(format!(
+                        "  {name} step {i}: label selector '{sel}' has no '=' - it would \
+                         match nothing on any fleet"
+                    ));
+                    continue;
+                }
+                let Some((key, value)) = sel.split_once('=') else {
+                    unreachable!("the malformed case is refused above");
+                };
+                let any_labelled = env
+                    .nodes
+                    .iter()
+                    .any(|n| n.labels.get(key).map(String::as_str) == Some(value));
+                if !any_labelled {
+                    inapplicable.push(format!(
+                        "  {name} step {i}: no node carries label '{sel}', step is skipped"
+                    ));
+                    continue;
+                }
+            }
+
             // A signal only has to exist on some node; a Postgres scenario
-            // legitimately names signals no web node defines.
-            let known = composed.values().any(|s| s.signals.contains_key(&t.signal));
+            // legitimately names signals no web node defines. The exporter
+            // spec's signals count too: it is deliberately not a node
+            // `service` (that would double-chart every series), but its
+            // signals fire on the application tier through the exporter and
+            // OTLP engines - reporting them as "skipped" was noise that
+            // buried the real skips.
+            let known = composed.values().any(|s| s.signals.contains_key(&t.signal))
+                || exporter_signals(specs_dir).contains(&t.signal);
             if !known {
                 // Absent from this fleet is not the same as absent everywhere.
                 // A blast-radius step reaching into a tier this fleet does not
@@ -1407,6 +1479,11 @@ fn write_err(e: io::Error) -> String {
     // A closed pipe means Netdata shut the plugin down; that is orderly, not a
     // fault, but there is nothing left to write to either way.
     format!("write failed: {e}")
+}
+
+/// Whether `due` arrives at or before the tick being prepared for.
+fn tick_due(due: i64, now: i64) -> bool {
+    due <= now
 }
 
 fn now_secs() -> i64 {

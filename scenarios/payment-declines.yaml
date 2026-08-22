@@ -1,0 +1,51 @@
+version: 1
+name: payment-declines
+description: >-
+  The payment processor starts rejecting transactions: declines climb from
+  near-zero, error responses follow, and completed orders fall even though
+  traffic holds. A business-visible incident - the chart a manager asks about.
+
+warmup: false
+manifest:
+  root_cause: the external payment processor rejecting transactions
+  causal_chain:
+    - the processor begins declining a large fraction of attempts
+    - error responses rise on the payment path
+    - completed orders fall while request volume stays normal - users retry,
+      they do not leave
+  blast_radius:
+    - role:web
+  expected_finding: >-
+    Declines and payment-path errors rise together while overall traffic and
+    application latency stay normal: the application is healthy and the
+    processor is the fault. Look for a rate that tracks an external dependency,
+    not a resource.
+
+requires_roles: [web]
+timeline:
+  - at: 0s
+    description: The processor begins declining transactions
+    target:
+      signal: app_payment_declined_rate
+      role: web
+    effect: add_ramp
+    amount: 9.0
+    over: 5m
+
+  - at: 3m
+    description: Failed payment attempts surface as error responses
+    target:
+      signal: app_requests_error_rate
+      role: web
+    effect: add_ramp
+    amount: 6.0
+    over: 6m
+
+  - at: 8m
+    description: Completed orders fall as payments fail
+    target:
+      signal: app_orders_rate
+      role: web
+    effect: ramp
+    multiplier: 0.7
+    over: 10m

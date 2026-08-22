@@ -269,6 +269,16 @@ happened to say; otherwise it grades nothing.
 | `noisy-neighbour` | One tenant starving the others on shared hardware |
 | `flapping-edge-links` | Intermittent physical-layer trouble on a remote uplink |
 | `switch-uplink-degrading` | A dirty optic. The link never drops, so link-state monitoring reports the switch healthy while errors climb and the servers behind it slow down |
+| `network-degradation` | Partial-fleet connectivity loss, selected by **label** (`region=eu-west-1`): errors and discards climb on exactly the labelled nodes while the rest of the fleet stays quiet |
+| `checkout-degradation` | Latency in a checkout dependency: request latency up, orders down, pool running hot — visible in the exporter charts and traces, not just system metrics |
+| `payment-declines` | The payment processor starts rejecting: declines climb, orders fall, traffic stays normal. A business-visible incident |
+| `cache-stampede` | A hot key leaves the cache: misses spike, the database absorbs them, latency follows |
+| `queue-backlog` | Work arrives faster than it drains: depth and oldest-item age climb while workers saturate |
+| `worker-saturation` | Every worker busy and the work still coming: idle hits zero, requests queue, latency grows |
+| `flash-sale` | A positive incident: traffic multiplies and the question is whether the fleet takes it |
+| `db-connection-exhaustion` | Connections approach max on the primary; lock waits and application pool waits follow |
+| `db-lock-contention` | Locks pile up: awaited locks climb, deadlocks appear, commit throughput falls |
+| `upstream-stall` | The load balancer's upstreams go slow: upstream time up, waiting connections accumulating, drops following |
 
 Faults escalate and resolve on demand, and they unwind gradually rather than
 snapping back between two samples. Minor, self-resolving incidents can run on a

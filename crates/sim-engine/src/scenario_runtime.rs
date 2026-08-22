@@ -94,6 +94,7 @@ impl ScenarioSet {
         role: Option<&str>,
         instance: &str,
         signal: &str,
+        labels: &std::collections::BTreeMap<String, String>,
         now: i64,
     ) -> Perturbation {
         let mut out = Perturbation::NONE;
@@ -102,7 +103,10 @@ impl ScenarioSet {
             let mut added: f64 = 0.0;
             let mut recovery: f64 = 1.0;
             for step in &a.scenario.timeline {
-                if !step.target.matches(hostname, role, instance, signal) {
+                if !step
+                    .target
+                    .matches(hostname, role, instance, signal, labels)
+                {
                     continue;
                 }
                 let elapsed = (now - a.started_at - step.at.seconds()) as f64;
@@ -139,7 +143,7 @@ impl ScenarioSet {
         signal: &str,
         now: i64,
     ) -> f64 {
-        self.perturbation(hostname, role, instance, signal, now)
+        self.perturbation(hostname, role, instance, signal, &Default::default(), now)
             .multiplier
     }
 
@@ -252,7 +256,7 @@ timeline:
                 started_at: 0,
                 recovering_since: recovering,
             }])
-            .perturbation("h", None, "", "cpu_busy", now)
+            .perturbation("h", None, "", "cpu_busy", &Default::default(), now)
             .multiplier
         };
         assert_eq!(at(None, 600), 5.0, "untouched while running");
@@ -323,12 +327,26 @@ timeline:
             scenario: scenario(yaml),
             started_at: 0,
         }]);
-        let p = set.perturbation("sim-web-01", Some("web"), "", "oom_kill_rate", 10);
+        let p = set.perturbation(
+            "sim-web-01",
+            Some("web"),
+            "",
+            "oom_kill_rate",
+            &Default::default(),
+            10,
+        );
         assert_eq!(p.multiplier, 1.0);
         assert_eq!(p.additive, 2.0);
         // Untargeted hosts are unaffected.
         assert!(set
-            .perturbation("sim-web-02", Some("web"), "", "oom_kill_rate", 10)
+            .perturbation(
+                "sim-web-02",
+                Some("web"),
+                "",
+                "oom_kill_rate",
+                &Default::default(),
+                10
+            )
             .is_none());
     }
 
@@ -355,8 +373,15 @@ timeline:
             started_at: 0,
         }]);
         let at = |t| {
-            set.perturbation("sim-lb-01", Some("lb"), "", "net_err_rate", t)
-                .additive
+            set.perturbation(
+                "sim-lb-01",
+                Some("lb"),
+                "",
+                "net_err_rate",
+                &Default::default(),
+                t,
+            )
+            .additive
         };
         assert!((at(50) - 40.0).abs() < 1e-9);
         assert!((at(150) - 20.0).abs() < 1e-9, "mid-recovery: {}", at(150));

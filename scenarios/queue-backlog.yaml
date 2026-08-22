@@ -1,0 +1,48 @@
+version: 1
+name: queue-backlog
+description: >-
+  Work arrives faster than it drains: queue depth climbs, the oldest item ages,
+  and busy workers stay saturated. A capacity story that builds slowly enough
+  to discuss and resolves without heroics.
+
+manifest:
+  root_cause: consumer throughput falling behind arrival rate
+  causal_chain:
+    - work arrives faster than the consumers drain it
+    - queue depth climbs and the oldest item ages
+    - latency for anything queued grows with the backlog
+  blast_radius:
+    - role:web
+  expected_finding: >-
+    Queue depth and oldest-item age rise together while arrival rate is normal:
+    the consumers are the constraint, not the producers. Worker saturation
+    confirms capacity, not a traffic spike.
+
+requires_roles: [web]
+timeline:
+  - at: 0s
+    description: The queue starts growing as consumers fall behind
+    target:
+      signal: app_queue_depth
+      role: web
+    effect: ramp
+    multiplier: 8.0
+    over: 15m
+
+  - at: 3m
+    description: The oldest queued item ages with the backlog
+    target:
+      signal: app_queue_oldest_seconds
+      role: web
+    effect: ramp
+    multiplier: 6.0
+    over: 15m
+
+  - at: 5m
+    description: Workers stay busy draining what they can
+    target:
+      signal: app_workers_busy
+      role: web
+    effect: ramp
+    multiplier: 1.5
+    over: 10m

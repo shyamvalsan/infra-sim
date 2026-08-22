@@ -1,0 +1,71 @@
+version: 1
+name: network-degradation
+description: >-
+  Packet loss and interface errors climb on the nodes carrying one label
+  (region=eu-west-1) while the rest of the fleet stays clean: a partial-fleet
+  connectivity incident, the shape a single bad link or a degraded ToR switch
+  produces. Throughput falls on the affected nodes only.
+
+  The label selector is the point: pair it with a label-filtered view and the
+  incident is exactly the filtered subset - the fleet-management demo beat.
+
+# Ground truth. Written when the scenario was authored, never reconstructed.
+manifest:
+  root_cause: degraded connectivity affecting only the region=eu-west-1 nodes
+  causal_chain:
+    - interface errors and discards begin climbing on eu-west-1 nodes
+    - effective throughput on those nodes drops as packets are lost
+    - the rest of the fleet is unaffected; the fault boundary is the label
+  blast_radius:
+    - "label:region=eu-west-1"
+  expected_finding: >-
+    A connectivity fault bounded exactly by the eu-west-1 label: errors and
+    discards rising on those nodes with throughput falling, while every other
+    region is quiet. The problem is the network path those nodes share, not
+    the nodes themselves.
+
+requires_roles: [web]
+timeline:
+  - at: 0s
+    description: Interface errors begin climbing on the affected region
+    target:
+      signal: net_err_rate
+      label: region=eu-west-1
+    effect: add_ramp
+    amount: 40.0
+    over: 6m
+
+  - at: 2m
+    description: Discards follow, as buffers drop what they cannot forward
+    target:
+      signal: net_drop_rate
+      label: region=eu-west-1
+    effect: add_ramp
+    amount: 120.0
+    over: 8m
+
+  - at: 6m
+    description: Effective throughput falls on the affected nodes
+    target:
+      signal: net_rx_kb_rate
+      label: region=eu-west-1
+    effect: ramp
+    multiplier: 0.45
+    over: 10m
+
+  - at: 6m
+    description: Transmit side degrades the same way
+    target:
+      signal: net_tx_kb_rate
+      label: region=eu-west-1
+    effect: ramp
+    multiplier: 0.45
+    over: 10m
+
+  - at: 22m
+    description: The fault eases as the failing path recovers
+    target:
+      signal: net_err_rate
+      label: region=eu-west-1
+    effect: recover
+    over: 6m

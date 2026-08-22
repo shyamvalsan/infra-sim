@@ -1,0 +1,58 @@
+version: 1
+name: cache-stampede
+description: >-
+  A hot key falls out of the cache: miss rate spikes, hits collapse, and the
+  requests that would have been served from memory land on the database
+  instead. A classic gentle-then-loud escalation that resolves cleanly.
+
+manifest:
+  root_cause: loss of a hot cache key, sending its traffic to the backing store
+  causal_chain:
+    - a heavily-requested key expires or is evicted
+    - cache miss rate spikes and hit rate collapses
+    - database pool usage climbs as misses turn into queries
+    - latency rises modestly as the backing store absorbs the load
+  blast_radius:
+    - role:web
+  expected_finding: >-
+    The cache hit/miss ratio inverts before anything else moves, and database
+    pool usage follows it: the cache is the root cause, the database load is
+    downstream. Resolving the cache resolves everything else.
+
+requires_roles: [web]
+timeline:
+  - at: 0s
+    description: A hot key leaves the cache
+    target:
+      signal: app_cache_misses_rate
+      role: web
+    effect: ramp
+    multiplier: 6.0
+    over: 3m
+
+  - at: 1m
+    description: Hit rate collapses as the same traffic misses
+    target:
+      signal: app_cache_hits_rate
+      role: web
+    effect: ramp
+    multiplier: 0.4
+    over: 3m
+
+  - at: 3m
+    description: Misses become queries; the pool feels it
+    target:
+      signal: app_db_pool_in_use
+      role: web
+    effect: ramp
+    multiplier: 1.6
+    over: 8m
+
+  - at: 5m
+    description: Latency rises as the backing store absorbs the load
+    target:
+      signal: app_latency_p50
+      role: web
+    effect: ramp
+    multiplier: 1.8
+    over: 8m

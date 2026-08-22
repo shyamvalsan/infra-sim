@@ -1,0 +1,60 @@
+version: 1
+name: db-lock-contention
+description: >-
+  Locks pile up on the primary: awaited locks climb, deadlocks start
+  appearing, transaction throughput falls as work serializes behind row
+  locks. A query-plan or application-pattern story, dramatic enough to keep
+  out of warm-up rotation.
+
+warmup: false
+manifest:
+  root_cause: lock contention serializing transactions on the primary
+  causal_chain:
+    - a hot row or slow transaction holds locks longer
+    - awaited locks climb as other transactions queue behind them
+    - deadlocks begin as queued transactions deadlock against each other
+    - committed transaction rate falls as work serializes
+  blast_radius:
+    - role:db
+  expected_finding: >-
+    Locks awaited rising with deadlocks appearing and commit rate falling:
+    contention, not capacity. Connections are available; the work cannot
+    proceed. The fix narrative is the locking pattern, not more hardware.
+
+requires_roles: [db]
+timeline:
+  - at: 0s
+    description: A slow transaction begins holding its locks longer
+    target:
+      signal: pg_locks_held
+      role: db
+    effect: ramp
+    multiplier: 2.0
+    over: 8m
+
+  - at: 3m
+    description: Other transactions queue behind the held locks
+    target:
+      signal: pg_locks_awaited
+      role: db
+    effect: add_ramp
+    amount: 40.0
+    over: 12m
+
+  - at: 8m
+    description: Queued transactions begin deadlocking against each other
+    target:
+      signal: pg_deadlocks_rate
+      role: db
+    effect: add_ramp
+    amount: 0.8
+    over: 8m
+
+  - at: 10m
+    description: Throughput falls as transactions serialize
+    target:
+      signal: pg_txn_committed_rate
+      role: db
+    effect: ramp
+    multiplier: 0.55
+    over: 12m

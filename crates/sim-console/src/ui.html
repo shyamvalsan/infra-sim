@@ -458,7 +458,10 @@ Removing the nodes and the Space from Netdata Cloud stays manual; you will be to
       fleet: two live fleets sharing GUIDs take over each other's identity.</p>
       <p><b>Scenarios carry ground truth.</b> Every fault ships with a manifest (root cause,
       causal chain, blast radius) written at authoring time. Trigger and escalate with the
-      clock controls; resolving unwinds the fault over ~3 minutes rather than snapping it back.</p>
+      clock controls; resolving unwinds the fault over ~3 minutes rather than snapping it back.
+      Sixteen ship here, and they can target a <b>label</b> (region=eu-west-1), not just a
+      role, so an incident can hit exactly one region or one team's nodes: what label-filtered
+      views then show.</p>
       <p><b>Labels</b> are host labels like real fleets carry, such as
       <code>environment</code> and <code>team</code>, filtered and grouped on in Cloud. Validated against
       the agent's own rules: what you write is what the node reports. Fleet-wide plus per-tier,

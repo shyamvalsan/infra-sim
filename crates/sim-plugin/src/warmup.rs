@@ -51,6 +51,9 @@ pub fn active(
     let usable: Vec<&Scenario> = library
         .values()
         .filter(|s| s.applies_to(roles))
+        // Dramatic scenarios opt out of the rotation with `warmup: false`;
+        // everything else participates, which is the shipped behavior.
+        .filter(|s| s.warmup)
         .filter(|s| !s.timeline.is_empty())
         .collect();
     if usable.is_empty() {
@@ -225,6 +228,31 @@ mod tests {
             let now = 1_700_000_000 + m * 60;
             assert!(active(&lib, &["cache"], 42, now).is_empty());
         }
+    }
+
+    #[test]
+    fn a_scenario_opted_out_of_rotation_never_runs() {
+        // `warmup: false` removes a scenario from the schedule entirely - a
+        // payment-decline incident nobody triggered would spoil the demo the
+        // rotation exists to dress.
+        let mut lib = library();
+        // Rebuild alpha's YAML with the opt-out flag: the library fixture is
+        // YAML-built, so the flag rides the same construction.
+        let yaml =
+            "version: 1\nname: alpha\ndescription: t\nwarmup: false\nmanifest:\n  root_cause: t\n\
+                    requires_roles: [db]\ntimeline:\n\
+                    \x20 - at: 0s\n    description: early\n    target:\n      signal: cpu_busy\n\
+                    \x20     role: db\n    effect: ramp\n    multiplier: 3.0\n    over: 10m\n";
+        lib.insert("alpha".to_string(), Scenario::from_yaml(yaml).unwrap());
+        for m in 0..(24 * 60) {
+            let now = 1_700_000_000 + m * 60;
+            let set = active(&lib, &["db", "web"], 42, now);
+            if let Some(a) = set.active().first() {
+                assert!(a.scenario.name != "warmup-alpha", "opted-out scenario ran");
+            }
+        }
+        // And rotation continues without it.
+        assert!(!active(&lib, &["db", "web"], 42, 1_700_000_000 + 60).is_empty());
     }
 
     #[test]

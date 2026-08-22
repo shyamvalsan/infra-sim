@@ -433,6 +433,17 @@ in place; a fleet created after that date is unaffected.
 
 ## Scenarios
 
+### The fleet-management demo path
+
+For a label-and-views walkthrough, `environments/webinar-fleet.yaml` is the
+template: three regions, several teams, every node labeled with both. The
+opening incident is `network-degradation`, which selects its victims by
+`region=eu-west-1` label - so a label-filtered view in Netdata Cloud shows
+exactly the affected subset. Scenarios can target any `label: key=value` a
+fleet carries; combined with role, hostname-suffix and instance selectors,
+the partial-fleet shapes (one region, one team's tier) are first-class.
+
+
 A scenario is a timeline of effects over generator signals plus a ground-truth
 manifest naming the root cause, causal chain, blast radius and expected finding.
 The manifest is authored with the scenario, never reconstructed from what the

@@ -330,6 +330,7 @@ impl NodeEngine {
             self.profile.role.as_deref(),
             scope,
             name,
+            &self.profile.labels,
             now,
         );
         // Weight scales the whole signal, so a lightly-loaded disk is quieter

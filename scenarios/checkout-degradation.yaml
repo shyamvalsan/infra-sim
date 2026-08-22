@@ -1,0 +1,60 @@
+version: 1
+name: checkout-degradation
+description: >-
+  The checkout path slows down: request latency climbs across the application
+  tier, orders fall as carts are abandoned, and the database pool shows
+  connections held longer. The application's own metrics (exporters and
+  traces) move with the incident, because both read the same signals.
+
+manifest:
+  root_cause: latency in a checkout-path dependency, not the application tier itself
+  causal_chain:
+    - a downstream dependency of the checkout path slows
+    - request latency rises across the application tier
+    - connections are held open longer, so the pool runs hotter
+    - order completion falls as checkout times out for some users
+  blast_radius:
+    - role:web
+  expected_finding: >-
+    Latency is up application-wide while infrastructure (CPU, disk, network)
+    stays normal: the application is waiting on something, not resource-starved.
+    Pool wait time rising with latency points at a slow dependency rather than
+    slow nodes.
+
+requires_roles: [web]
+timeline:
+  - at: 0s
+    description: A checkout dependency starts responding slowly
+    target:
+      signal: app_latency_p95
+      role: web
+    effect: ramp
+    multiplier: 4.0
+    over: 12m
+
+  - at: 4m
+    description: Median latency follows as queues build behind the slow path
+    target:
+      signal: app_latency_p50
+      role: web
+    effect: ramp
+    multiplier: 2.5
+    over: 12m
+
+  - at: 6m
+    description: Connections are held longer, so the pool runs hotter
+    target:
+      signal: app_db_pool_in_use
+      role: web
+    effect: ramp
+    multiplier: 1.8
+    over: 14m
+
+  - at: 8m
+    description: Some carts are abandoned as checkout drags
+    target:
+      signal: app_orders_rate
+      role: web
+    effect: ramp
+    multiplier: 0.6
+    over: 15m

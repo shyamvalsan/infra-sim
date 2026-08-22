@@ -257,6 +257,15 @@ cmd_telemetry() {
           docker exec "$container" sh -c \
             "ps -eo pid,args | grep 'go.d.plugin' | grep -v grep | awk '{print \$1}' | xargs -r kill" \
             || warn "could not restart go.d; exporter charts appear after its next restart"
+          # go.d's prometheus jobs re-define the exported vnodes with no labels
+          # (a registry vnode is hostname+guid only), and a define migrates the
+          # host's whole label set - so go.d coming up after the metrics plugin
+          # wipes the fleet's labels, `simulated=true` included. The metrics
+          # plugin restarts last and its labelled define wins. Measured: labels
+          # present after this ordering, wiped without it.
+          docker exec "$container" sh -c \
+            "ps -eo pid,args | grep '$plugin 1' | grep -v grep | awk '{print \\$1}' | xargs -r kill" \
+            || warn "could not restart the metrics plugin; labels settle on its next restart"
         else
           info "no application-tier nodes: no exporters to serve"
         fi

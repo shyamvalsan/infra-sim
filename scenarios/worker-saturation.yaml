@@ -1,0 +1,48 @@
+version: 1
+name: worker-saturation
+description: >-
+  Every worker is busy and the work still comes: queued requests wait their
+  turn, latency climbs with queue depth, and the pool of idle workers hits
+  zero. The chart pair that answers "why is it slow" - saturation, not failure.
+
+warmup: false
+manifest:
+  root_cause: worker pool sized below sustained load
+  causal_chain:
+    - sustained load keeps every worker busy
+    - idle workers reach zero and requests queue
+    - latency grows with the queue as requests wait for a worker
+  blast_radius:
+    - role:web
+  expected_finding: >-
+    Idle workers at zero while queue depth and latency climb: a capacity limit,
+    not a fault. The fix narrative is pool size or more nodes, not debugging.
+
+requires_roles: [web]
+timeline:
+  - at: 0s
+    description: Load rises past what the worker pool drains
+    target:
+      signal: app_workers_busy
+      role: web
+    effect: ramp
+    multiplier: 1.35
+    over: 10m
+
+  - at: 4m
+    description: Requests begin queueing for a worker
+    target:
+      signal: app_queue_depth
+      role: web
+    effect: ramp
+    multiplier: 10.0
+    over: 14m
+
+  - at: 8m
+    description: Latency grows with the wait for a worker
+    target:
+      signal: app_latency_p95
+      role: web
+    effect: ramp
+    multiplier: 3.0
+    over: 14m

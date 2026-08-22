@@ -1,0 +1,78 @@
+version: 1
+name: flash-sale
+description: >-
+  A positive incident: a promotion lands and traffic multiplies in minutes.
+  Requests, sessions, orders and cache hits all climb; the question the demo
+  asks is whether the fleet takes it. Ends still healthy - the story is
+  capacity headroom, not failure.
+
+warmup: false
+manifest:
+  root_cause: a flash sale multiplying legitimate traffic
+  causal_chain:
+    - a promotion drives request volume up several-fold
+    - sessions and orders scale with it; cache efficiency improves under
+      locality
+    - latency rises modestly as the fleet works harder - headroom, not trouble
+  blast_radius:
+    - role:web
+  expected_finding: >-
+    Every business metric rises together with only modest latency movement:
+    growth, not degradation. The interesting question is which tier runs out
+    of headroom first, and the charts answer it.
+
+requires_roles: [web]
+timeline:
+  - at: 0s
+    description: The sale opens and traffic ramps
+    target:
+      signal: app_requests_rate
+      role: web
+    effect: ramp
+    multiplier: 4.5
+    over: 8m
+
+  - at: 1m
+    description: Sessions climb with the crowd
+    target:
+      signal: app_sessions_active
+      role: web
+    effect: ramp
+    multiplier: 3.0
+    over: 8m
+
+  - at: 2m
+    description: Orders follow the traffic
+    target:
+      signal: app_orders_rate
+      role: web
+    effect: ramp
+    multiplier: 3.5
+    over: 10m
+
+  - at: 3m
+    description: Cache efficiency improves under hot-key locality
+    target:
+      signal: app_cache_hits_rate
+      role: web
+    effect: ramp
+    multiplier: 2.0
+    over: 8m
+
+  - at: 6m
+    description: Workers carry the load, with latency rising only modestly
+    target:
+      signal: app_workers_busy
+      role: web
+    effect: ramp
+    multiplier: 1.4
+    over: 10m
+
+  - at: 6m
+    description: Some added latency under load - still inside headroom
+    target:
+      signal: app_latency_p95
+      role: web
+    effect: ramp
+    multiplier: 1.6
+    over: 10m
