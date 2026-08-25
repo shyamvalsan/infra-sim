@@ -132,8 +132,12 @@ pub fn create(
         .current_dir(repo);
     if let Some(t) = token.filter(|t| !t.trim().is_empty()) {
         cmd.env("NETDATA_CLAIM_TOKEN", t).arg("--claim");
+        // Env, never argv: room IDs are credentials, and argv is world-
+        // readable via ps for the whole create (the token already follows
+        // this rule; the rooms flag was the one left on argv - review
+        // finding). The script accepts either.
         if !rooms.trim().is_empty() {
-            cmd.arg("--rooms").arg(rooms.trim());
+            cmd.env("INFRA_SIM_CLAIM_ROOMS", rooms.trim());
         }
     }
     if !exporters {
@@ -249,7 +253,16 @@ fn rfc3339_to_epoch(ts: &str) -> Option<i64> {
     let hour = num(11, 13)?;
     let minute = num(14, 16)?;
     let second = num(17, 19)?;
-    if !(1..=12).contains(&month) || !(1..=31).contains(&day) {
+    if !(1..=12).contains(&month)
+        || !(1..=31).contains(&day)
+        // The TTL sweeper compares ages from this parser; a malformed
+        // timestamp that parsed into a bogus epoch would mis-age a live
+        // fleet, so out-of-range time components are refused, not wrapped
+        // (review finding).
+        || !(0..=23).contains(&hour)
+        || !(0..=59).contains(&minute)
+        || !(0..=60).contains(&second)
+    {
         return None;
     }
 
@@ -437,6 +450,13 @@ mod tests {
         // Nonsense is refused, not guessed.
         assert!(rfc3339_to_epoch("not-a-time").is_none());
         assert!(rfc3339_to_epoch("2026-13-40T99:99:99Z").is_none());
+        assert!(rfc3339_to_epoch("2026-08-19T25:00:00Z").is_none());
+        assert!(rfc3339_to_epoch("2026-08-19T12:61:00Z").is_none());
+        assert!(rfc3339_to_epoch("2026-08-19T12:00:61Z").is_none());
+        assert!(
+            rfc3339_to_epoch("2026-08-19T23:59:60Z").is_some(),
+            "leap second"
+        );
     }
 
     #[test]

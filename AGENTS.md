@@ -344,8 +344,16 @@ wrong running fleet. Creates are serialized behind one slot (the lint inside
 is CPU-parallel); budgets live in `/etc/infra-sim/console.yaml` and refusals
 must name the limit and the file. One console per host.
 
+The repo's `environments/` holds committed templates only. Console-created
+environments live under `/var/lib/infra-sim/environments/` - never write a
+prospect-named instance into the tracked directory.
+
 A containerised simulation starts its logs writer, its OTLP emitter and its
-Prometheus exporters itself, as part of `create`. Do not reintroduce an opt-in
+Prometheus exporters itself, as part of `create`, and a supervised entrypoint
+keeps them alive across container restarts (deliberate `telemetry stop` drops
+a marker the supervisor honours). At fleet scale the logs writer shards its
+journal-remote processes; node status detail is a bounded sample with the
+board's online check still fleet-wide. Do not reintroduce an opt-in
 step: logs were opt-in for the project's whole history and so every simulation
 ever built shipped with empty logs. Exporters serve the application tier only
 (web, lb, k8s-worker), share one `app` so scraped charts aggregate across the

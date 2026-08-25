@@ -292,6 +292,12 @@ impl Reading {
                     && (group.labels.is_empty()
                         || g.labels.is_empty()
                         || g.labels == group.labels)
+                    // Site is identity too, for the same reason labels are:
+                    // two same-shape rows placed on different continents are
+                    // two groups, and a merge that kept only the first's
+                    // coordinates silently relocated the second's nodes
+                    // (review finding - the label case's overlooked twin).
+                    && (group.site.is_none() || g.site.is_none() || g.site == group.site)
             }) {
                 Some(existing) => {
                     existing.count += group.count;
@@ -932,6 +938,7 @@ fn merge(groups: &mut Vec<Group>, incoming: Group) {
         g.role == incoming.role
             && g.services == incoming.services
             && (incoming.labels.is_empty() || g.labels.is_empty() || g.labels == incoming.labels)
+            && (incoming.site.is_none() || g.site.is_none() || g.site == incoming.site)
     }) {
         existing.count += incoming.count;
         existing.source = format!("{}; {}", existing.source, incoming.source);
@@ -1878,6 +1885,36 @@ mod tests {
             .collect();
         assert_eq!(names.len(), 2);
         assert_ne!(names[0], names[1]);
+    }
+
+    #[test]
+    fn site_distinct_groups_of_the_same_shape_stay_separate() {
+        // The multi-site twin of the label case: per-row coordinates are a
+        // create-form feature, and merging relocated the second region's
+        // nodes to the first's site with no error.
+        let site = |lat: f64| Site::new(lat, 0.0).unwrap();
+        let mk = |count: usize, lat: f64| Group {
+            count,
+            role: "web".into(),
+            services: vec!["nginx".into()],
+            slug: None,
+            labels: BTreeMap::new(),
+            site: Some(site(lat)),
+            device: None,
+            source: String::new(),
+        };
+        let mut r = Reading {
+            groups: vec![mk(3, 50.11), mk(2, 52.37)],
+            ..Reading::default()
+        };
+        r.dedupe_slugs();
+        assert_eq!(r.groups.len(), 2, "site-distinct groups must not merge");
+        let fr = r
+            .groups
+            .iter()
+            .find(|g| g.site.is_some_and(|s| (s.lat - 50.11).abs() < 0.01))
+            .expect("Frankfurt group survived");
+        assert_eq!(fr.count, 3);
     }
 
     #[test]

@@ -118,6 +118,15 @@ struct Args {
 /// safety is proven by every respawn.
 const HANDSHAKE_REASSERT_BASE_SECS: i64 = 240;
 
+/// When the FIRST re-assert fires after process start.
+///
+/// The label wipe this mechanism heals happens on the agent's ~60s plugin
+/// scan after a create, when go.d's prometheus jobs define the exported
+/// vnodes bare. Waiting a fleet-scaled interval would leave a 3,000-node
+/// fleet unlabelled for most of an hour; one early handshake is a bounded,
+/// one-time cost even at that size.
+const HANDSHAKE_FIRST_REASSERT_SECS: i64 = 90;
+
 /// Fraction of samples a signal may spend on a bound before the lint fails it.
 ///
 /// Bounds are a safety rail. A signal that reaches one regularly has stopped
@@ -306,11 +315,12 @@ fn parse_args() -> Result<Args, String> {
                      Each node becomes its own log source in Netdata; fault \
                      lines follow whatever scenario is running.\n\
                      \n\
-                     simulated Prometheus exporters (a separate process;                      Netdata's own go.d prometheus collector scrapes them):\n\
+                     simulated Prometheus exporters (a separate process;
+                     Netdata's own go.d prometheus collector scrapes them):\n\
                      infra-sim --exporters --environment PATH\n\
                      write the go.d scrape config for them and exit:\n\
                      infra-sim --exporter-config /etc/netdata --environment PATH\n\
-                     --exporter-port N     listen port (default:                      {DEFAULT_EXPORTER_PORT})\n\
+                     --exporter-port N     listen port (default: {DEFAULT_EXPORTER_PORT})\n\
                      Serves GET /metrics/<hostname> per node, in Prometheus \n\
                      text format, moved by whatever scenario is running.\n\
                      \n\
@@ -603,7 +613,9 @@ fn run() -> Result<(), String> {
     // where the fleet was created days early anyway and load, not settle
     // time, is the constraint.
     let reassert_interval = HANDSHAKE_REASSERT_BASE_SECS.max(profiles.len() as i64);
-    let mut next_reassert = next + reassert_interval;
+    // First one early (covers the create-time label-wipe window), then the
+    // scaled interval - see HANDSHAKE_FIRST_REASSERT_SECS.
+    let mut next_reassert = next + reassert_interval.min(HANDSHAKE_FIRST_REASSERT_SECS);
 
     // Two things we exit cleanly for: our own plugin file being removed
     // (teardown) and the environment being rewritten under us (re-skin).
@@ -1351,9 +1363,7 @@ fn check_scenarios(
             // device model simply lacks the port), never a refusal.
             if let Some(want_inst) = &t.instance {
                 let role_matches = |n: &crate::environment::NodeDef| {
-                    t.role
-                        .as_ref()
-                        .is_none_or(|r| n.role.as_deref() == Some(r))
+                    t.role.as_ref().is_none_or(|r| n.role.as_deref() == Some(r))
                 };
                 let any_instance = env.nodes.iter().filter(|n| role_matches(n)).any(|n| {
                     n.instances

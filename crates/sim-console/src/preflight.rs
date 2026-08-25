@@ -73,6 +73,12 @@ pub struct Inputs<'a> {
     pub expected_nodes: &'a [String],
     /// Live state as the agent reports it.
     pub states: &'a [NodeState],
+    /// Nodes with full detail (charts/ML/anomaly). At fleet scale the status
+    /// path enriches a bounded sample; the thin-nodes and ML checks evaluate
+    /// this slice and say so, rather than silently reading zeroes as "thin"
+    /// and "untrained" for the un-enriched majority. None = states is
+    /// complete (small fleets, unchanged behaviour).
+    pub detail_sample: Option<&'a [NodeState]>,
     pub scenario_count: usize,
     pub active_scenarios: usize,
     pub seed: u64,
@@ -90,6 +96,7 @@ pub fn evaluate(input: &Inputs<'_>) -> Board {
     let Inputs {
         expected_nodes,
         states,
+        detail_sample,
         scenario_count,
         active_scenarios,
         seed,
@@ -97,6 +104,20 @@ pub fn evaluate(input: &Inputs<'_>) -> Board {
         uptime_hours,
         orphans,
     } = *input;
+    // Detail-checked nodes and how to describe them: the full set when the
+    // status path enriched everything, the bounded sample (said so) at fleet
+    // scale. Reachability stays fleet-wide either way.
+    let (detail, sample_note) = match detail_sample {
+        Some(sample) => (
+            sample,
+            format!(
+                " (sampled: first {} of {} nodes)",
+                sample.len(),
+                expected_nodes.len()
+            ),
+        ),
+        None => (states, String::new()),
+    };
     let mut checks = Vec::new();
 
     // --- All vnodes online -------------------------------------------------
@@ -133,7 +154,10 @@ pub fn evaluate(input: &Inputs<'_>) -> Board {
     // --- Charts present ----------------------------------------------------
     // A vnode carries only what the plugin emits, so "online" is not the same
     // as "has a dashboard worth showing".
-    let thin: Vec<&NodeState> = online.iter().copied().filter(|s| s.contexts < 40).collect();
+    let thin: Vec<&NodeState> = detail
+        .iter()
+        .filter(|s| s.reachable && s.contexts < 40)
+        .collect();
     checks.push(if online.is_empty() {
         Check::new(
             "Nodes carry a full chart set",
@@ -155,7 +179,7 @@ pub fn evaluate(input: &Inputs<'_>) -> Board {
             "Nodes carry a full chart set",
             Status::Fail,
             format!(
-                "thin nodes: {}",
+                "thin nodes:{sample_note} {}",
                 thin.iter()
                     .map(|s| format!("{} ({} contexts)", s.hostname, s.contexts))
                     .collect::<Vec<_>>()
@@ -166,7 +190,8 @@ pub fn evaluate(input: &Inputs<'_>) -> Board {
     });
 
     // --- ML trained --------------------------------------------------------
-    let worst = online
+    let ml_online: Vec<&NodeState> = detail.iter().filter(|s| s.reachable).collect();
+    let worst = ml_online
         .iter()
         .map(|s| s.ml_fraction())
         .fold(f64::INFINITY, f64::min);
@@ -181,14 +206,20 @@ pub fn evaluate(input: &Inputs<'_>) -> Board {
         Check::new(
             "ML models trained",
             Status::Pass,
-            format!("worst node {:.0}% of dimensions trained", worst * 100.0),
+            format!(
+                "worst node {:.0}% of dimensions trained{sample_note}",
+                worst * 100.0
+            ),
             "",
         )
     } else {
         Check::new(
             "ML models trained",
             Status::Warn,
-            format!("worst node {:.0}% of dimensions trained", worst * 100.0),
+            format!(
+                "worst node {:.0}% of dimensions trained{sample_note}",
+                worst * 100.0
+            ),
             "ML needs ~15 min for first models; leave the environment running",
         )
     });
@@ -345,6 +376,7 @@ mod tests {
             node("b", true, 78, 95.0, 5.0),
         ];
         let b = evaluate(&Inputs {
+            detail_sample: None,
             expected_nodes: &expected,
             states: &states,
             scenario_count: 5,
@@ -363,6 +395,7 @@ mod tests {
         let expected = vec!["a".to_string(), "b".to_string()];
         let states = vec![node("a", true, 78, 95.0, 5.0)];
         let b = evaluate(&Inputs {
+            detail_sample: None,
             expected_nodes: &expected,
             states: &states,
             scenario_count: 5,
@@ -382,6 +415,7 @@ mod tests {
         let expected = vec!["a".to_string()];
         let states = vec![node("a", true, 6, 95.0, 5.0)];
         let b = evaluate(&Inputs {
+            detail_sample: None,
             expected_nodes: &expected,
             states: &states,
             scenario_count: 5,
@@ -403,6 +437,7 @@ mod tests {
         let expected = vec!["a".to_string()];
         let states = vec![node("a", true, 78, 95.0, 5.0)];
         let b = evaluate(&Inputs {
+            detail_sample: None,
             expected_nodes: &expected,
             states: &states,
             scenario_count: 5,
@@ -421,6 +456,7 @@ mod tests {
         let expected = vec!["a".to_string()];
         let states = vec![node("a", true, 78, 95.0, 5.0)];
         let b = evaluate(&Inputs {
+            detail_sample: None,
             expected_nodes: &expected,
             states: &states,
             scenario_count: 5,
@@ -438,6 +474,7 @@ mod tests {
         let expected = vec!["a".to_string()];
         let states = vec![node("a", true, 78, 95.0, 5.0)];
         let b = evaluate(&Inputs {
+            detail_sample: None,
             expected_nodes: &expected,
             states: &states,
             scenario_count: 5,
@@ -470,6 +507,7 @@ mod tests {
         let states = vec![node("a", true, 78, 95.0, 5.0)];
         let orphans = vec!["sim-old-01".to_string()];
         let b = evaluate(&Inputs {
+            detail_sample: None,
             expected_nodes: &expected,
             states: &states,
             scenario_count: 5,
@@ -491,6 +529,7 @@ mod tests {
         let expected = vec!["a".to_string()];
         let states = vec![node("a", true, 78, 10.0, 90.0)];
         let b = evaluate(&Inputs {
+            detail_sample: None,
             expected_nodes: &expected,
             states: &states,
             scenario_count: 5,

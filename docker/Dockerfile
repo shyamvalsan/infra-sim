@@ -27,5 +27,13 @@ RUN apt-get update \
 COPY infra-sim /etc/netdata/custom-plugins.d/infra-sim.plugin
 RUN chmod 0755 /etc/netdata/custom-plugins.d/infra-sim.plugin
 
+# Supervised boot: netdata under its stock launcher plus the telemetry
+# watchdog, so a container restart no longer silently drops the logs writer,
+# the OTLP emitter and the exporters (which used to be exec'd one-shots).
+COPY entrypoint.sh /usr/local/bin/infra-sim-entrypoint.sh
+RUN chmod 0755 /usr/local/bin/infra-sim-entrypoint.sh
+
+ENTRYPOINT ["/usr/local/bin/infra-sim-entrypoint.sh"]
+
 # Where a simulation's environment, specs and scenarios are mounted.
 RUN mkdir -p /etc/netdata/infra-sim /var/log/journal/remote

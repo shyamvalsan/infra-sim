@@ -120,6 +120,38 @@ fn default_lint_hours() -> u32 {
     2
 }
 
+/// Where console-created environments live: the state dir, never the repo.
+///
+/// The repo's `environments/` is committed templates, full stop - a
+/// console-created file there carries a prospect's name into a tracked
+/// directory one `git add` away from being committed (the repo's own policy
+/// forbids it), root-owns a file in the operator's checkout, and pollutes
+/// the create form's template catalogue. Instances are per-demo state, and
+/// the GUID-clash check wants to scan live instances anyway, not templates.
+/// Rewrite the renderer's repo-relative paths (`../specs/`, `../scenarios/`)
+/// to absolute paths against this checkout, so an instance environment works
+/// from the state dir where `..` no longer lands in the repo.
+fn instance_paths(yaml: &str, repo: &Path) -> String {
+    yaml.replace(
+        "generator: ../specs/",
+        &format!("generator: {}/specs/", repo.display()),
+    )
+    .replace(
+        "specs: ../specs",
+        &format!("specs: {}/specs", repo.display()),
+    )
+    .replace(
+        "scenarios: ../scenarios",
+        &format!("scenarios: {}/scenarios", repo.display()),
+    )
+}
+
+fn instances_dir() -> std::path::PathBuf {
+    let base = std::env::var("INFRA_SIM_STATE_DIR")
+        .unwrap_or_else(|_| super::container::DEFAULT_STATE_DIR.to_string());
+    std::path::PathBuf::from(base).join("environments")
+}
+
 /// Public wrapper: the API handler enforces the owner requirement before any
 /// work starts, using the same rules the paths apply.
 pub fn sanitise_owner_pub(raw: &str) -> Result<String, String> {
@@ -433,13 +465,14 @@ pub fn build_environment(
     });
     let yaml = sim_engine::describe::render(&reading, &name, seed, &format!("{name}-"));
 
-    let env_dir = repo.join("environments");
-    std::fs::create_dir_all(&env_dir).map_err(|e| format!("cannot create environments/: {e}"))?;
+    let env_dir = instances_dir();
+    std::fs::create_dir_all(&env_dir)
+        .map_err(|e| format!("cannot create {}: {e}", env_dir.display()))?;
     let env_path = env_dir.join(format!("{name}.yaml"));
+    let yaml = instance_paths(&yaml, repo);
     guid_uniqueness(&env_dir, &yaml, &env_path)?;
     std::fs::write(&env_path, &yaml)
         .map_err(|e| format!("cannot write '{}': {e}", env_path.display()))?;
-    inherit_owner(&env_dir, &env_path);
 
     report(
         progress,
@@ -550,9 +583,14 @@ pub fn create(
     let prefix = format!("{name}-");
     let yaml = sim_engine::describe::render(&reading, &name, seed, &prefix);
 
-    let env_dir = repo.join("environments");
-    std::fs::create_dir_all(&env_dir).map_err(|e| format!("cannot create environments/: {e}"))?;
+    let env_dir = instances_dir();
+    std::fs::create_dir_all(&env_dir)
+        .map_err(|e| format!("cannot create {}: {e}", env_dir.display()))?;
     let env_path = env_dir.join(format!("{name}.yaml"));
+    // Instances live outside the repo, so the renderer's repo-relative
+    // spec/scenario paths must be made absolute against the checkout the
+    // console is running from.
+    let yaml = instance_paths(&yaml, repo);
 
     // Refuse to hand out GUIDs another environment beside this one already
     // uses; two fleets sharing a GUID cannot both be claimed.
@@ -1207,13 +1245,6 @@ pub fn llm_providers(repo: &Path) -> Vec<String> {
         .into_iter()
         .map(|p| p.label().to_string())
         .collect()
-}
-
-/// Turn install-directory paths back into repo-relative ones.
-fn repo_relative_paths(yaml: &str) -> String {
-    yaml.replace("generator: specs/", "generator: ../specs/")
-        .replace("specs: specs", "specs: ../specs")
-        .replace("scenarios: scenarios", "scenarios: ../scenarios")
 }
 
 /// Wait for the running plugin to notice its file is gone and exit.
@@ -2334,7 +2365,7 @@ pub struct ReskinResponse {
 /// installed environment rather than sitting beside it, because two files
 /// carrying the same GUIDs cannot both be claimed.
 pub fn reskin(
-    repo: &Path,
+    _repo: &Path,
     installed_env: &Path,
     req: &ReskinRequest,
 ) -> Result<ReskinResponse, String> {
@@ -2366,14 +2397,12 @@ pub fn reskin(
     std::fs::write(installed_env, &outcome.yaml)
         .map_err(|e| format!("cannot write '{}': {e}", installed_env.display()))?;
 
-    // Keep the repo copy in step so the archive and any later re-skin start
-    // from the same place - with the paths a repo copy needs. The installed
-    // file points at its own siblings; writing that verbatim into
-    // `environments/` produced a committed template that could not be linted
-    // or used from the checkout.
-    let repo_copy = repo.join("environments").join(format!("{name}.yaml"));
-    let _ = std::fs::write(&repo_copy, repo_relative_paths(&outcome.yaml));
-    inherit_owner(&repo.join("environments"), &repo_copy);
+    // Keep the instance copy in step with the installed file so a later
+    // re-skin or label edit starts from where the live fleet is. Verbatim:
+    // this copy sits beside the create-time instance (installed paths), not
+    // in the repo, so repo-relative rewriting no longer applies.
+    let instance_copy = instances_dir().join(format!("{name}.yaml"));
+    let _ = std::fs::write(&instance_copy, &outcome.yaml);
 
     // The renamed fleet reaches the agent when the plugin restarts, and the
     // plugin restarts itself: it notices the environment changed under it and
@@ -2505,7 +2534,7 @@ pub struct LabelsResponse {
 /// agent migrates the labels in place, and history survives — the same path
 /// re-skinning takes.
 pub fn apply_labels(
-    repo: &Path,
+    _repo: &Path,
     installed_env: &Path,
     req: &LabelsRequest,
 ) -> Result<LabelsResponse, String> {
@@ -2570,9 +2599,9 @@ pub fn apply_labels(
         .lines()
         .find_map(|l| l.strip_prefix("name:").map(|v| v.trim().to_string()))
     {
-        let repo_copy = repo.join("environments").join(format!("{name}.yaml"));
-        let _ = std::fs::write(&repo_copy, repo_relative_paths(&outcome.yaml));
-        inherit_owner(&repo.join("environments"), &repo_copy);
+        // Verbatim installed-state clone, matching the re-skin copy.
+        let instance_copy = instances_dir().join(format!("{name}.yaml"));
+        let _ = std::fs::write(&instance_copy, &outcome.yaml);
     }
 
     Ok(LabelsResponse {

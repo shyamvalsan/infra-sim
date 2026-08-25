@@ -146,6 +146,26 @@ pub struct NodeState {
 }
 
 impl NodeState {
+    /// A detail-empty state for a node the status path did not enrich
+    /// (fleet above the detail cap): reachability is set by the caller from
+    /// the authoritative v3 registration list, and the zeroed detail fields
+    /// must never be read as "thin" or "untrained" - preflight labels those
+    /// checks as sampled when truncation is in effect.
+    pub fn offline(hostname: &str) -> Self {
+        Self {
+            hostname: hostname.to_string(),
+            reachable: false,
+            charts: 0,
+            contexts: 0,
+            alarms_total: 0,
+            alarms_warning: 0,
+            alarms_critical: 0,
+            ml_trained: 0.0,
+            ml_untrained: 0.0,
+            anomaly_rate: 0.0,
+        }
+    }
+
     /// Fraction of dimensions with a trained model.
     pub fn ml_fraction(&self) -> f64 {
         let total = self.ml_trained + self.ml_untrained;

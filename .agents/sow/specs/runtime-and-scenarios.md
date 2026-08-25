@@ -78,6 +78,23 @@ in the host policy opens them (warned, firewalled-host-only) - Netdata agents
 carry no authentication. The runbook is `docs/hosting.md`. The shared token
 is interim: Cloud SSO is the end state.
 
+## Supervision, sharding and scale
+
+Containerised simulations boot under a supervised entrypoint
+(`docker/entrypoint.sh`): netdata under its stock launcher plus a watchdog
+that keeps the logs writer, OTLP emitter and exporters alive across
+restarts. `telemetry stop` wins over the supervisor via a payload marker
+(docker labels are immutable; intent must be removable).
+
+The logs writer bounds its `systemd-journal-remote` process count: one per
+node at small sizes, shards of `ceil(n/64)` nodes above (every entry carries
+`_HOSTNAME`, so per-node attribution survives a shared journal). The
+console's per-simulation status fetches full detail for a bounded sample
+(200 nodes, concurrent) with reachability for every node from the single
+v3 call; the board's thin/ML checks say when they are sampled. The plugin's
+handshake re-assert fires first at 90s (the create-time label-wipe window)
+then scales with fleet size.
+
 ## Prometheus exporters and aggregation
 
 The application tier (web, lb, k8s-worker — the same rule the OTLP emitter

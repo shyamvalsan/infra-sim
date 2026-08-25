@@ -72,20 +72,42 @@ pub fn find_journal_remote(override_path: Option<&Path>) -> Result<PathBuf, Stri
         })
 }
 
-/// One node's writer: its generator and the journal-remote process behind it.
-struct Sink {
-    generator: LogGenerator,
+/// One journal-remote process and everything written into it: a single
+/// generator at small fleet sizes (per-node files, the shipped behaviour) or
+/// a shard of generators at scale.
+struct Shard {
+    generators: Vec<LogGenerator>,
     child: Child,
     writer: BufWriter<std::process::ChildStdin>,
     path: PathBuf,
 }
 
+/// Ceiling on concurrent `systemd-journal-remote` processes. One per node was
+/// the original design and stays exactly that for small fleets; at the
+/// project's newer fleet sizes (3,000 nodes) it meant 3,000 child processes,
+/// 3,000 pipes and 3,000 journal files - fd and process-table exhaustion on
+/// the host (review finding). Above this ceiling, nodes share shard files;
+/// attribution survives because every entry carries `_HOSTNAME`, which is
+/// what the logs UI filters on.
+pub const MAX_JOURNAL_PROCESSES: usize = 64;
+
+/// How many generators share one journal-remote process at this fleet size:
+/// 1 (per-node files) below the ceiling, ceil(n / ceiling) above it.
+pub fn shard_size(node_count: usize) -> usize {
+    if node_count <= MAX_JOURNAL_PROCESSES {
+        1
+    } else {
+        node_count.div_ceil(MAX_JOURNAL_PROCESSES)
+    }
+}
+
 pub struct LogsRuntime {
-    sinks: Vec<Sink>,
+    shards: Vec<Shard>,
 }
 
 impl LogsRuntime {
-    /// Spawn one `systemd-journal-remote` per node.
+    /// Spawn `systemd-journal-remote` processes: one per node for small
+    /// fleets, one per shard of `shard_size()` nodes at scale.
     pub fn start(
         generators: Vec<LogGenerator>,
         journal_dir: &Path,
@@ -99,37 +121,46 @@ impl LogsRuntime {
             )
         })?;
 
-        let mut sinks = Vec::new();
-        for generator in generators {
-            let path = journal_dir.join(format!("remote-{}.journal", generator.hostname()));
+        let shard = shard_size(generators.len());
+        let total = generators.len();
+        let mut shards = Vec::new();
+        let mut iter = generators.into_iter();
+        for i in 0..total.div_ceil(shard) {
+            let chunk: Vec<LogGenerator> = (&mut iter).take(shard).collect();
+            let path = if shard == 1 {
+                // Per-node: Netdata derives the logs source from the filename
+                // (remote-<host>.journal -> source <host>), which is the
+                // product behaviour for fleets of this size.
+                journal_dir.join(format!("remote-{}.journal", chunk[0].hostname()))
+            } else {
+                journal_dir.join(format!("remote-shard-{i:02}.journal"))
+            };
             let mut child = Command::new(remote_bin)
                 .arg(format!("--output={}", path.display()))
                 .arg("-")
                 .stdin(Stdio::piped())
                 .stdout(Stdio::null())
                 // journal-remote writes progress to stderr; letting it through
-                // would interleave with our own reporting for every node.
+                // would interleave with our own reporting for every shard.
                 .stderr(Stdio::null())
                 .spawn()
                 .map_err(|e| format!("cannot run '{}': {e}", remote_bin.display()))?;
-
             let stdin = child
                 .stdin
                 .take()
                 .ok_or_else(|| "journal-remote stdin unavailable".to_string())?;
-
-            sinks.push(Sink {
-                generator,
+            shards.push(Shard {
+                generators: chunk,
                 child,
                 writer: BufWriter::new(stdin),
                 path,
             });
         }
-        Ok(Self { sinks })
+        Ok(Self { shards })
     }
 
     pub fn files(&self) -> Vec<&Path> {
-        self.sinks.iter().map(|s| s.path.as_path()).collect()
+        self.shards.iter().map(|s| s.path.as_path()).collect()
     }
 
     /// Generate and write one tick's logs for every node.
@@ -143,30 +174,39 @@ impl LogsRuntime {
         interval: f64,
     ) -> Result<usize, String> {
         let mut written = 0usize;
-        for sink in &mut self.sinks {
-            // A dead child means this node silently stopped logging. Better to
-            // fail loudly than to present a demo with one node's logs missing.
-            if let Ok(Some(status)) = sink.child.try_wait() {
+        for shard in &mut self.shards {
+            // A dead child means these nodes silently stopped logging. Better
+            // to fail loudly than to present a demo with logs missing.
+            if let Ok(Some(status)) = shard.child.try_wait() {
+                let hosts: Vec<&str> = shard.generators.iter().map(|g| g.hostname()).collect();
                 return Err(format!(
-                    "journal-remote for '{}' exited ({status}); '{}' is no longer being written",
-                    sink.generator.hostname(),
-                    sink.path.display()
+                    "journal-remote for {} exited ({status}); '{}' is no longer being written",
+                    match hosts.len() {
+                        1 => hosts[0].to_string(),
+                        n => format!("{} nodes ({} .. {})", n, hosts[0], hosts[n - 1]),
+                    },
+                    shard.path.display()
                 ));
             }
 
-            let entries = sink.generator.tick(scenarios, now, interval);
-            let hostname = sink.generator.hostname().to_string();
-            let boot_id = sink.generator.boot_id().to_string();
-            for entry in &entries {
-                sink.writer
-                    .write_all(&export_format(entry, &hostname, &boot_id))
-                    .map_err(|e| format!("writing logs for '{hostname}': {e}"))?;
+            for generator in &mut shard.generators {
+                let entries = generator.tick(scenarios, now, interval);
+                let hostname = generator.hostname().to_string();
+                let boot_id = generator.boot_id().to_string();
+                for entry in &entries {
+                    shard
+                        .writer
+                        .write_all(&export_format(entry, &hostname, &boot_id))
+                        .map_err(|e| format!("writing logs for '{hostname}': {e}"))?;
+                }
+                written += entries.len();
             }
-            // Unflushed entries look exactly like a fleet that stopped logging.
-            sink.writer
+            // Unflushed entries look exactly like a fleet that stopped
+            // logging; one flush per shard covers all its nodes.
+            shard
+                .writer
                 .flush()
-                .map_err(|e| format!("flushing logs for '{hostname}': {e}"))?;
-            written += entries.len();
+                .map_err(|e| format!("flushing '{}': {e}", shard.path.display()))?;
         }
         Ok(written)
     }
@@ -180,15 +220,11 @@ impl Drop for LogsRuntime {
     /// children cannot outlive us the way the Python probe once did, and no
     /// signal handling is needed to guarantee it.
     fn drop(&mut self) {
-        for sink in &mut self.sinks {
-            let _ = sink.writer.flush();
-        }
-        // Take the writers out so the pipes close before we wait on the child.
-        let sinks = std::mem::take(&mut self.sinks);
-        for sink in sinks {
-            let Sink {
+        let shards = std::mem::take(&mut self.shards);
+        for shard in shards {
+            let Shard {
                 mut child, writer, ..
-            } = sink;
+            } = shard;
             drop(writer);
             let _ = child.wait();
         }
@@ -213,6 +249,74 @@ mod tests {
             .iter()
             .any(|p| p.contains("/usr/lib/systemd/")));
         assert!(REMOTE_BINARIES.iter().any(|p| p.contains("/libexec/")));
+    }
+
+    #[test]
+    fn small_fleets_keep_one_process_per_node() {
+        assert_eq!(shard_size(1), 1);
+        assert_eq!(shard_size(64), 1);
+    }
+
+    #[test]
+    fn sharding_spawns_a_bounded_number_of_processes() {
+        // Structural, not behavioural: 300 generators against a fake
+        // journal-remote must spawn exactly ceil(300/64) processes and one
+        // journal file per shard - the resource ceiling this exists for.
+        // A real journal-remote is not a test dependency.
+        use sim_engine::NodeProfile;
+        let dir = std::env::temp_dir().join(format!("infra-sim-shard-{}", std::process::id()));
+        let journals = dir.join("journals");
+        std::fs::create_dir_all(&journals).unwrap();
+        let fake = dir.join("fake-remote");
+        // cat, not sleep: the real journal-remote exits on stdin EOF, and Drop's
+        // wait() depends on that; the fake must honour the same contract.
+        std::fs::write(&fake, "#!/bin/sh\ncat >/dev/null\n").unwrap();
+        #[cfg(unix)]
+        {
+            use std::os::unix::fs::PermissionsExt;
+            std::fs::set_permissions(&fake, std::fs::Permissions::from_mode(0o755)).unwrap();
+        }
+
+        let generators: Vec<LogGenerator> = (0..300)
+            .map(|i| {
+                let profile = NodeProfile {
+                    hostname: format!("sim-robot-{i:03}"),
+                    guid: format!("{i:03}000000-0000-4000-8000-000000000000"),
+                    role: Some("web".into()),
+                    attrs: Default::default(),
+                    labels: Default::default(),
+                    instances: Default::default(),
+                    utc_offset_secs: 0,
+                };
+                LogGenerator::new(&profile, &[], 7)
+            })
+            .collect();
+
+        let mut runtime = LogsRuntime::start(generators, &journals, &fake).unwrap();
+        // The invariant is the ceiling, not an exact count: shard_size
+        // guarantees ceil(n / shard_size) processes at or below MAX.
+        let processes = 300usize.div_ceil(shard_size(300));
+        assert!(
+            processes <= MAX_JOURNAL_PROCESSES,
+            "{processes} processes for 300 nodes"
+        );
+        assert_eq!(runtime.files().len(), processes);
+        let written = runtime
+            .tick(&ScenarioSet::default(), 1_700_000_000, 1.0)
+            .unwrap();
+        assert!(written > 0, "entries flowed through shared pipes");
+        drop(runtime);
+
+        let _ = std::fs::remove_dir_all(&dir);
+    }
+
+    #[test]
+    fn large_fleets_bound_the_process_count() {
+        // 3,000 robots must not mean 3,000 journal-remote children: shards
+        // grow so the process count stays at the ceiling.
+        assert_eq!(shard_size(65), 2);
+        assert_eq!(shard_size(3000), 47);
+        assert_eq!(3000usize.div_ceil(shard_size(3000)), MAX_JOURNAL_PROCESSES);
     }
 
     #[test]

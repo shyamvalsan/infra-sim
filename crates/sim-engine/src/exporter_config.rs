@@ -77,6 +77,11 @@ pub fn go_d_conf(nodes: &[NodeRef], port: u16) -> String {
         let name = job_name(&n.role, *index);
         let _ = writeln!(out, "  - name: {name}");
         let _ = writeln!(out, "    app: {APP}");
+        // A job whose first scrape fails (the exporter process starts a few
+        // seconds after the agent on a container restart) is retried, not
+        // parked: without this the exporter charts stayed absent until the
+        // next go.d restart.
+        let _ = writeln!(out, "    autodetection_retry: 60");
         let _ = writeln!(out, "    vnode: {}", n.hostname);
         let _ = writeln!(
             out,
@@ -135,6 +140,7 @@ mod tests {
     fn every_job_shares_the_app_and_points_at_its_vnode() {
         let conf = go_d_conf(&nodes(), DEFAULT_PORT);
         assert_eq!(conf.matches("app: infra_sim_app").count(), 4);
+        assert_eq!(conf.matches("autodetection_retry: 60").count(), 4);
         assert!(conf.contains("vnode: acme-web-02\n"));
         assert!(conf.contains("url: http://127.0.0.1:19998/metrics/acme-web-02"));
     }

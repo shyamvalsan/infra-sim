@@ -1322,8 +1322,11 @@ function renderBoard(b) {
     </div>`).join("");
 }
 
-function renderNodes(nodes, agentUrl) {
-  $("nodes").innerHTML = nodes.length ? nodes.map(n => {
+function renderNodes(nodes, agentUrl, truncated) {
+  const sampleNote = truncated
+    ? `<tr><td colspan="7" class="note">showing the first ${nodes.length} nodes (bounded sample at fleet scale) - every node's online state is still checked</td></tr>`
+    : "";
+  $("nodes").innerHTML = sampleNote + (nodes.length ? nodes.map(n => {
     const tot = n.ml_trained + n.ml_untrained;
     const alerts = n.alarms_critical ? `<span style="color:var(--fail)">${n.alarms_critical} crit</span>`
       : n.alarms_warning ? `<span style="color:var(--warn)">${n.alarms_warning} warn</span>` : "clear";
@@ -1333,7 +1336,7 @@ function renderNodes(nodes, agentUrl) {
       <td>${n.charts}</td><td>${n.contexts}</td>
       <td>${tot > 0 ? Math.round(100*n.ml_trained/tot) : 0}%</td>
       <td>${n.anomaly_rate.toFixed(2)}%</td><td>${alerts}</td></tr>`;
-  }).join("") : `<tr><td colspan="7" class="note">no nodes yet; build a fleet on the Build tab</td></tr>`;
+  }).join("") : `<tr><td colspan="7" class="note">no nodes yet; build a fleet on the Build tab</td></tr>`);
 }
 
 function renderScenarios(ss) {
@@ -1439,6 +1442,13 @@ async function selectSim(name) {
 /// page addresses SELECTED; this is what keeps two users on two fleets from
 /// ever touching each other's.
 async function loadSim(name) {
+  if (LOADING_SIM) return;   // a slow detail fetch must not stack on a newer one
+  LOADING_SIM = true;
+  try { await doLoadSim(name); } finally { LOADING_SIM = false; }
+}
+let LOADING_SIM = false;
+
+async function doLoadSim(name) {
   renderSimSelector();
   if (!name) {
     INSTALLED = null;
@@ -1465,7 +1475,7 @@ async function loadSim(name) {
     }
   }
   renderBoard(d.board);
-  renderNodes(d.nodes, d.agent_url);
+  renderNodes(d.nodes, d.agent_url, d.nodes_truncated);
   renderScenarios(d.scenarios);
   $("errors").className = d.errors.length ? "out bad" : "out";
   $("errors").textContent = d.errors.join("\n");
@@ -1488,7 +1498,19 @@ $("boardWrap").addEventListener("toggle", () => { $("boardWrap").dataset.touched
 document.addEventListener("keydown", e => { if (e.key === "Escape") closePicker(); });
 
 loadCatalogue().then(refresh).then(refreshSteps);
-setInterval(refresh, 5000);
+// Poll cadence with two courtesies a shared host cares about (review
+// findings): never stack a refresh on one still in flight (at fleet scale a
+// slow /status must not pile up per open tab), and stop entirely while the
+// tab is hidden.
+let REFRESH_IN_FLIGHT = false;
+setInterval(async () => {
+  if (REFRESH_IN_FLIGHT || document.hidden) return;
+  REFRESH_IN_FLIGHT = true;
+  try { await refresh(); } finally { REFRESH_IN_FLIGHT = false; }
+}, 5000);
+document.addEventListener("visibilitychange", () => {
+  if (!document.hidden) refresh();   // catch up immediately on return
+});
 </script>
 </body>
 </html>

@@ -77,6 +77,9 @@ struct AppState {
     /// When the TTL sweeper last completed (epoch secs) and whether that run
     /// failed - the health endpoint's liveness signal for the unattended part.
     last_sweep: std::sync::Mutex<Option<(i64, bool)>>,
+    /// Brief cache behind the unauthenticated health endpoint's expensive
+    /// probes (docker fan-out, disk walk).
+    health_cache: tokio::sync::Mutex<Option<(i64, Vec<container::Active>, u64)>>,
 }
 
 /// One slot, with honest queue positions.
@@ -134,6 +137,10 @@ struct StatusResponse {
     environment: Option<EnvInfo>,
     agent_url: String,
     nodes: Vec<agent::NodeState>,
+    /// True when the node table above is a bounded sample, not the whole
+    /// fleet; `environment.node_count` carries the real total.
+    #[serde(default)]
+    nodes_truncated: bool,
     scenarios: Vec<ScenarioInfo>,
     board: preflight::Board,
     now: i64,
@@ -341,10 +348,55 @@ async fn sim_status(
         cached.get(&sim).cloned()
     };
 
-    let mut nodes = Vec::new();
+    // Scale-safe node table (review finding): the old loop issued four
+    // sequential HTTP calls per node - ~12,000 serial requests per poll on a
+    // 3,000-node fleet, wedging the console and hammering the agent while a
+    // prospect watched. Now: reachability for EVERY node comes from the one
+    // v3 call above (registration is the honest online signal at scale),
+    // and detail (charts/alarms/ML/anomaly) is enriched for a bounded,
+    // concurrently-fetched sample, reported as such.
+    const NODE_DETAIL_CAP: usize = 200;
+    const NODE_DETAIL_CONCURRENCY: usize = 8;
+    let (detail_hosts, truncated) = if expected.len() > NODE_DETAIL_CAP {
+        (&expected[..NODE_DETAIL_CAP], true)
+    } else {
+        (&expected[..], false)
+    };
+    let registered: std::collections::BTreeSet<String> = agent
+        .nodes()
+        .await
+        .unwrap_or_default()
+        .into_iter()
+        .collect();
+    let mut nodes: Vec<agent::NodeState> = Vec::with_capacity(expected.len());
     if let Some(guid) = &guid {
+        let mut detail: std::collections::BTreeMap<String, agent::NodeState> = Default::default();
+        let sem = Arc::new(tokio::sync::Semaphore::new(NODE_DETAIL_CONCURRENCY));
+        let mut set = tokio::task::JoinSet::new();
+        for host in detail_hosts {
+            let agent = agent.clone();
+            let guid = guid.clone();
+            let host = host.clone();
+            let permit = Arc::clone(&sem);
+            set.spawn(async move {
+                let _p = permit.acquire_owned().await;
+                (host.clone(), agent.node_state(&host, &guid).await)
+            });
+        }
+        while let Some(joined) = set.join_next().await {
+            if let Ok((host, state)) = joined {
+                detail.insert(host, state);
+            }
+        }
         for host in &expected {
-            nodes.push(agent.node_state(host, guid).await);
+            nodes.push(match detail.remove(host) {
+                Some(state) => state,
+                None => {
+                    let mut base = agent::NodeState::offline(host);
+                    base.reachable = registered.contains(host);
+                    base
+                }
+            });
         }
     }
 
@@ -415,6 +467,7 @@ async fn sim_status(
     let board = preflight::evaluate(&preflight::Inputs {
         expected_nodes: &expected,
         states: &nodes,
+        detail_sample: truncated.then(|| &nodes[..NODE_DETAIL_CAP]),
         scenario_count: scenarios.len(),
         active_scenarios: scenarios.iter().filter(|s| s.active).count(),
         seed: env.as_ref().map(|e| e.seed).unwrap_or(0),
@@ -424,6 +477,7 @@ async fn sim_status(
     });
 
     let body = serde_json::to_value(StatusResponse {
+        nodes_truncated: truncated,
         environment: env.as_ref().map(|e| EnvInfo {
             name: e.name.clone(),
             description: e.description.clone(),
@@ -858,15 +912,16 @@ async fn logs(
 /// Machine-readable console health for any uptime monitor: unauthenticated
 /// even when a token is set, and deliberately minimal - counts, timestamps
 /// and reachability. No fleet names, owners, URLs or secrets.
+///
+/// The expensive probes (docker subprocess fan-out, state-dir walk) are
+/// cached briefly: the endpoint is unauthenticated, so per-hit subprocess
+/// spawns and disk walks were a free load dial for anyone who could reach
+/// the port (review finding). Five seconds is far inside any monitor's
+/// cadence and far outside abuse economics.
 async fn health(State(app): State<Arc<AppState>>) -> impl IntoResponse {
     let now = now_secs();
     let budgets = budget::Budgets::load(&app.budgets_path).unwrap_or_default();
-    let sims = container::list(&app.repo);
-    let state_dir = std::path::PathBuf::from(
-        std::env::var("INFRA_SIM_STATE_DIR")
-            .unwrap_or_else(|_| container::DEFAULT_STATE_DIR.to_string()),
-    );
-    let disk = budget::state_dir_bytes(&state_dir);
+    let (sims, disk) = health_probes(&app, now).await;
     let sweep = app.last_sweep.lock().ok().and_then(|g| *g);
     let (sweep_age, sweep_failed) = match sweep {
         Some((t, failed)) => (now - t, failed),
@@ -891,6 +946,30 @@ async fn health(State(app): State<Arc<AppState>>) -> impl IntoResponse {
         "last_sweep_secs_ago": if sweep_age == i64::MAX { serde_json::Value::Null } else { serde_json::json!(sweep_age) },
         "sweep_ok": sweep_ok,
     }))
+}
+
+/// Cached (simulation list, state-dir bytes) for `/api/health`, refreshed at
+/// most every 5s across all callers.
+async fn health_probes(app: &AppState, now: i64) -> (Vec<container::Active>, u64) {
+    const CACHE_SECS: i64 = 5;
+    {
+        let cache = app.health_cache.lock().await;
+        if let Some((at, sims, disk)) = cache.as_ref() {
+            if now - at < CACHE_SECS {
+                return (sims.clone(), *disk);
+            }
+        }
+    }
+    // The probes run outside the lock: two concurrent misses pay one walk
+    // each and both cache it; the lock only guards the swap.
+    let sims = container::list(&app.repo);
+    let state_dir = std::path::PathBuf::from(
+        std::env::var("INFRA_SIM_STATE_DIR")
+            .unwrap_or_else(|_| container::DEFAULT_STATE_DIR.to_string()),
+    );
+    let disk = budget::state_dir_bytes(&state_dir);
+    *app.health_cache.lock().await = Some((now, sims.clone(), disk));
+    (sims, disk)
 }
 
 /// Pin or unpin a simulation against the TTL sweeper. A marker file rather
@@ -1358,6 +1437,7 @@ async fn main() -> std::process::ExitCode {
         progress: Default::default(),
         create_queue: CreateQueue::new(),
         last_sweep: std::sync::Mutex::new(None),
+        health_cache: Default::default(),
     });
 
     let auth_state = Arc::clone(&state);

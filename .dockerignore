@@ -1,0 +1,13 @@
+# The daemon receives the whole context even for builds that COPY almost none
+# of it - and .env (LLM keys) is gitignored precisely so it does not travel.
+# Found by the multi-agent review: every startsim build was shipping the key
+# to the daemon in the context tarball.
+.git
+.env
+.env.*
+archive/
+target/
+otlp/.venv
+**/__pycache__
+*.png
+playwright-report/

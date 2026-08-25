@@ -339,7 +339,7 @@ pub fn propose(cfg: &Config, description: &str, specs_dir: &Path) -> Result<Prop
 
     let mut proposal = validate(&plan, &services)?;
     proposal.model = model;
-    reinstate_droppped_software(&mut proposal, description, &services);
+    reinstate_dropped_software(&mut proposal, description, &services);
     Ok(proposal)
 }
 
@@ -919,7 +919,7 @@ fn validate(plan: &Value, services: &[String]) -> Result<Proposal, String> {
 /// This does not second-guess the model's *judgement*, only its bookkeeping: a
 /// group is reinstated solely for software the deterministic reader found in the
 /// same sentence and the model failed to place anywhere.
-fn reinstate_droppped_software(proposal: &mut Proposal, description: &str, services: &[String]) {
+fn reinstate_dropped_software(proposal: &mut Proposal, description: &str, services: &[String]) {
     if proposal.unsupported.is_empty() {
         return;
     }
@@ -1184,7 +1184,7 @@ mod tests {
             "unsupported": ["Elasticsearch for logs (search cluster - no reasonable role)"]
         });
         let mut p = super::validate(&plan, &services).unwrap();
-        super::reinstate_droppped_software(
+        super::reinstate_dropped_software(
             &mut p,
             "four app servers and an elasticsearch cluster of 3",
             &services,
@@ -1226,11 +1226,7 @@ mod tests {
             "unsupported": ["a Kafka cluster"]
         });
         let mut p = super::validate(&plan, &services).unwrap();
-        super::reinstate_droppped_software(
-            &mut p,
-            "two app servers and a kafka cluster",
-            &services,
-        );
+        super::reinstate_dropped_software(&mut p, "two app servers and a kafka cluster", &services);
         assert_eq!(p.unsupported, vec!["a Kafka cluster"]);
         assert!(p.corrections.is_empty());
     }

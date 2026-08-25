@@ -561,6 +561,15 @@ docker exec infra-sim-<name> sh -c \
   'journalctl --file=/var/log/netdata/otel/v1/*/*.journal -o json --no-pager -n 5'
 ```
 
+### Restarts
+
+A simulation container that restarts (crash, reboot, daemon upgrade) comes
+back whole: a supervised entrypoint revives netdata's own launcher plus the
+telemetry side-processes (logs, OTLP, exporters). Exporter charts return
+within about a minute of the container being up. Stopping telemetry on
+purpose (`telemetry <name> stop`) stays stopped across restarts until
+`start` is run again.
+
 ## Prometheus exporters
 
 On by default. Each application-tier node (web, lb, k8s-worker) publishes a real
