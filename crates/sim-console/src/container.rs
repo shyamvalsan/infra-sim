@@ -310,7 +310,12 @@ impl Active {
 /// console showing no Tear down button for a simulation it was refusing to
 /// replace.
 pub fn list(repo: &Path) -> Vec<Active> {
-    let Ok(out) = Command::new("docker")
+    list_checked(repo).unwrap_or_default()
+}
+
+/// Mutating callers must distinguish an empty host from an unavailable inventory.
+pub fn list_checked(repo: &Path) -> Result<Vec<Active>, String> {
+    let out = Command::new("docker")
         .args([
             "ps",
             "-a",
@@ -320,9 +325,10 @@ pub fn list(repo: &Path) -> Vec<Active> {
             "{{.Label \"infra-sim.simulation\"}}",
         ])
         .output()
-    else {
-        return Vec::new();
-    };
+        .map_err(|e| format!("cannot list simulations: {e}"))?;
+    if !out.status.success() {
+        return Err("cannot list simulations: Docker refused the query".into());
+    }
     let names: Vec<String> = String::from_utf8_lossy(&out.stdout)
         .lines()
         .map(str::trim)
@@ -330,7 +336,7 @@ pub fn list(repo: &Path) -> Vec<Active> {
         .map(str::to_string)
         .collect();
     if names.is_empty() {
-        return Vec::new();
+        return Ok(Vec::new());
     }
     // One inspect for the whole fleet rather than one per simulation: the
     // shared console refreshes this list on every status poll, and a subprocess
@@ -338,25 +344,31 @@ pub fn list(repo: &Path) -> Vec<Active> {
     let containers: Vec<String> = names.iter().map(|n| format!("infra-sim-{n}")).collect();
     let mut cmd = Command::new("docker");
     cmd.arg("inspect").args(&containers);
-    let Ok(out) = cmd.output() else {
-        return Vec::new();
-    };
+    let out = cmd
+        .output()
+        .map_err(|e| format!("cannot inspect simulations: {e}"))?;
     if !out.status.success() {
-        return Vec::new();
+        return Err("cannot inspect simulations reliably; retry the operation".into());
     }
     let Ok(v) = serde_json::from_slice::<serde_json::Value>(&out.stdout) else {
-        return Vec::new();
+        return Err("cannot inspect simulations reliably; retry the operation".into());
     };
     let Some(arr) = v.as_array() else {
-        return Vec::new();
+        return Err("cannot inspect simulations reliably; retry the operation".into());
     };
     // Inspect returns objects in argument order; pair them back to names, and
     // skip (rather than fail) any that raced a teardown mid-refresh.
-    names
+    let active: Vec<Active> = names
         .iter()
         .zip(arr)
         .filter_map(|(name, obj)| active_from_json(repo, name, obj))
-        .collect()
+        .collect();
+    if active.len() != names.len() {
+        return Err(
+            "simulation inventory changed or could not be parsed; retry the operation".into(),
+        );
+    }
+    Ok(active)
 }
 
 pub fn teardown(repo: &Path, name: &str) -> Result<String, String> {

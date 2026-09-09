@@ -152,3 +152,7 @@ the path: `pkill -f '^$plugin --mode'`.
 - Two environments sharing a GUID cannot both be claimed.
 - Claim tokens, room IDs and LLM API keys are credentials: env vars or console
   input only, never a file, never argv.
+
+## Exercise operational failure paths
+
+Run `python3 -m unittest discover -s tests -p 'test_*.py'` after building the console and `node --test tests/console_ui.test.cjs` for lifecycle/UI changes. These use isolated payloads and fake Docker rather than shared services. A shell helper must capture command status in an `else` branch: `$?` inside `if ! command` is the inverted status and once made failed archive copies look successful. Validate the actual standalone telemetry command as well as create, because shell dynamic scope previously hid an unset payload variable.

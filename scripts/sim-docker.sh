@@ -28,7 +28,9 @@ run() {
   printf >&2 "${YELLOW}"
   printf >&2 "%q " "$@"
   printf >&2 "${NC}\n"
-  if ! "$@"; then
+  if "$@"; then
+    return 0
+  else
     local exit_code=$?
     echo -e >&2 "${RED}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
     echo -e >&2 "${RED}[ERROR]${NC} Command failed with exit code ${exit_code}: ${YELLOW}$1${NC}"
@@ -169,9 +171,10 @@ cmd_create() {
     # Visible in `docker inspect` for the life of the container. This is the
     # mechanism netdata documents for containers; the alternatives (baking it
     # into an image, or a file on a shared volume) are worse.
-    claim_env+=(-e "NETDATA_CLAIM_TOKEN=$token" -e "NETDATA_CLAIM_URL=$url")
-    [ -n "$rooms" ] && claim_env+=(-e "NETDATA_CLAIM_ROOMS=$rooms")
-    info "claiming into $url${rooms:+ (room $rooms)}"
+    local -x NETDATA_CLAIM_TOKEN="$token" NETDATA_CLAIM_URL="$url" NETDATA_CLAIM_ROOMS="$rooms"
+    claim_env+=(-e NETDATA_CLAIM_TOKEN -e NETDATA_CLAIM_URL)
+    [ -n "$rooms" ] && claim_env+=(-e NETDATA_CLAIM_ROOMS)
+    info "claim requested"
   fi
 
   local -a owner_label=()
@@ -217,6 +220,7 @@ cmd_create() {
 cmd_telemetry() {
   local name="${1:?usage: $0 telemetry <name> start|stop|status}"
   local action="${2:-start}"
+  local dir="$STATE_DIR/$name"
   require_docker
   local container; container="$(container_of "$name")"
   local plugin=/etc/netdata/custom-plugins.d/infra-sim.plugin
@@ -416,20 +420,17 @@ cmd_teardown() {
   local container; container="$(container_of "$name")"
   docker ps -a --format '{{.Names}}' | grep -qx "$container" || die "no such simulation: $name"
 
-  # The container carries the agent, its database and every vnode's history, so
-  # removing it removes the simulation completely. Nothing to disarm, no stale
-  # nodes, no config left in anyone's /etc/netdata.
-  run docker rm -f "$container"
-
+  # Preserve the replay inputs before any destructive operation. Explicit
+  # returns also protect callers that invoke this function in a conditional.
   local dir="$STATE_DIR/$name"
-  if [ -d "$dir" ]; then
-    local archive="$REPO/archive/$name-$(date +%s)"
-    run mkdir -p "$archive"
-    run cp "$dir/environment.yaml" "$archive/environment.yaml"
-    run cp -r "$dir/scenarios" "$archive/scenarios"
-    run rm -rf "$dir"
-    info "archived to $archive"
-  fi
+  [ -d "$dir" ] || die "payload missing for '$name'; refusing removal without an archive"
+  local archive="$REPO/archive/$name-$(date +%s)-$$"
+  run mkdir -p "$archive" || return $?
+  run cp "$dir/environment.yaml" "$archive/environment.yaml" || return $?
+  run cp -r "$dir/scenarios" "$archive/scenarios" || return $?
+  run docker rm -f "$container" || return $?
+  run rm -rf "$dir" || return $?
+  info "archived to $archive"
   info "simulation '$name' is gone. The Cloud Space, if it was claimed, is yours to delete."
 }
 

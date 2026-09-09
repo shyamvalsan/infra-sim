@@ -78,10 +78,14 @@ impl Budgets {
     /// a limit and got it ignored would be a bad failure mode.
     pub fn load(path: &Path) -> Result<Self, String> {
         let defaults = Self::default();
-        let Ok(text) = std::fs::read_to_string(path) else {
-            let mut d = defaults;
-            d.source = path.to_path_buf();
-            return Ok(d);
+        let text = match std::fs::read_to_string(path) {
+            Ok(text) => text,
+            Err(e) if e.kind() == std::io::ErrorKind::NotFound => {
+                let mut d = defaults;
+                d.source = path.to_path_buf();
+                return Ok(d);
+            }
+            Err(e) => return Err(format!("{}: {e}", path.display())),
         };
         let file: BudgetsFile =
             serde_yaml::from_str(&text).map_err(|e| format!("{}: {e}", path.display()))?;
@@ -177,6 +181,12 @@ pub fn state_dir_bytes(state_dir: &Path) -> u64 {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn unreadable_policy_is_not_missing_policy() {
+        let directory = std::env::temp_dir();
+        assert!(Budgets::load(&directory).is_err());
+    }
 
     #[test]
     fn defaults_match_the_agreed_budget() {

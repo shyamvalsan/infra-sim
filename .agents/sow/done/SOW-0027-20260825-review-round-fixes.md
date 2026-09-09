@@ -6,7 +6,7 @@ Status: completed
 
 `completed` is the successful terminal status. `done` is a directory name, not a status value.
 
-Sub-state: delivered - all Tier 1+2 fixes implemented, live-validated on this machine, committed LOCALLY (push held per user).
+Sub-state: regression repairs completed 2026-09-09 with live one-node and isolated failure validation; remaining programme tracked in SOW-0028, SOW-0029 and SOW-0018. Local commits only; no push.
 
 ## Requirements
 
@@ -92,7 +92,7 @@ Open decisions: none blocking - tiering follows the user-approved recommendation
 ## Implications And Decisions
 
 1. Fix scope: adjudicated Tiers 1+2 plus self-authored cosmetics (user authorization, 2026-08-25).
-2. Push held until user clears (Satya mid-run) - local commit only.
+2. Push held until user clears (another run was active) - local commit only.
 3. Deferred findings recorded as Tier 3 follow-ups, not silently dropped.
 
 ## Plan
@@ -131,7 +131,7 @@ Follow-up mapping: Pending.
 
 ## Outcome
 
-Delivered; commit is local, push held for the user (Satya's run mid-flight).
+Delivered; commit is local, push held for the user (another run was active).
 The review round's Tier 1+2 verdicts are closed: process control at create
 and restart is correct and verified (labels settle by ~T+100s, telemetry
 survives container restarts, exporter charts return), the console's status
@@ -152,3 +152,44 @@ Tier 3 list (see Assistant Understanding) - each item verified real, none built 
 ## Regression Log
 
 None yet.
+
+## Regression - 2026-09-09
+
+User authorization: implement all recommendations from the repository review. Classification: long-term-best, each delivery minimal-complete.
+
+Problem / root-cause model: shell helpers invert exit status, teardown deletes before protecting archives, Docker arguments expose claim credentials, and manual telemetry depends on a caller-local variable. Console mutations do not consistently bind UI state to an explicit simulation; budgets are checked before serialization and malformed policy falls back to defaults.
+
+Evidence reviewed: scripts/sim-docker.sh:26,164,253,413; crates/sim-console/src/main.rs:629,1035,1338; ui.html:1146,1221,1293,1436; budget.rs:79. Isolated original-function probe returned zero for run(false). Reviewed current runtime-and-scenarios spec and project-live-validation skill. No external OSS behavior is needed to establish these control-flow failures.
+
+Affected contracts: all seven shell run helpers, archive retention, claim argument/output handling, telemetry start, named teardown, create queue, policy reload, UI selection and scenario advance. Existing helpers, per-simulation routes, serde parsing and temporary test fixtures will be reused.
+
+Risk and blast radius: fixing exit codes exposes previously ignored failures across launch/install scripts; archive ordering must preserve both simulation and payload on failure; UI response guards must preserve refresh and editing. Test normal and injected failure paths.
+
+Sensitive data handling plan: use synthetic credentials and simulation names only; inspect service metadata selectively, never dump environments or Docker inspect secrets. Preserve existing user services. Local validation maximum five vnodes.
+
+Implementation plan:
+1. Correct every affected run helper; archive successfully before removing container/payload; redact Docker claim arguments; make telemetry directory explicit.
+2. Require teardown name, enforce policy inside create slot, fail closed on malformed policy, bind UI editor and responses to simulation, correct advance route/error handling.
+3. Add isolated shell and UI regression tests, run Rust gates and live container smoke checks.
+4. Update runtime spec, operations docs and regression evidence; complete final review and commit together.
+
+Validation plan: shell failure injection with fake Docker and temporary files, synthetic-secret output capture, UI functions exercised with fake fetch, Rust unit tests and clippy/fmt, real small-container telemetry lifecycle where Docker is available. Same-failure search across scripts and per-sim mutations.
+
+Artifact impact: AGENTS.md workflow unchanged; live-validation skill gains command-failure lesson if confirmed; runtime spec and operating docs describe fail-closed lifecycle; no exported operator skill exists. Preserve historical evidence but distinguish it from current validation. Remaining review programme tracked by pending SOW-0028 and SOW-0029, and existing platform SOW-0018.
+
+Open decisions: none for the repairs above; user approved the review's recommended corrections. New product forks will be presented before their implementation.
+
+Previous validation missed this because tests exercised component helpers but not shell failure status, standalone telemetry, UI route compatibility or concurrent policy checks. Current validation remains outstanding; no completion claim is made.
+
+### Regression validation and scope mapping
+
+- Acceptance: seven helpers preserve nonzero status; injected archive failure leaves container and payload; failed Docker removal preserves payload; successful teardown archives first. Synthetic claim tokens/rooms are absent from captured arguments/output.
+- Console: HTTP tests refuse missing/empty teardown names (422), inactive clock advance returns 400, malformed policy refuses create and marks health without paths. UI tests exercise named clock route, HTTP error reporting and cross-simulation label rejection. Owned-slot test proves background work retains serialization after caller handle is dropped.
+- Live use: disposable one-vnode container created without a Cloud claim; actual Netdata API returned the test vnode and 108 charts including system.cpu. Standalone telemetry stop/start returned success with journal and exporter status. Teardown archived successfully before removing only that test container and payload. Existing services were untouched. Runtime binary/image was unchanged by this repair; the current lifecycle scripts were exercised against the installed image.
+- Gates: 270 Rust tests, Clippy and formatting; eight isolated Python shell/API tests and four Node UI tests. Final source review checked every changed control flow and similar run helpers; found and corrected lost mutation errors, unreadable-policy fallback, inventory failure masking and disconnected-create slot lifetime.
+- Sensitive-data gate: only synthetic credentials and node identities used. No real tokens or Docker environment dumps retained. Historic incidental personal references in this SOW were sanitized.
+- Artifact maintenance: runtime spec and operating docs updated; live-validation skill records failure-injection tests. AGENTS.md unchanged because ownership/workflow did not change. No exported operator skill is affected.
+- Historical validation fields above are incomplete original records, not newly verified claims. This regression section records current evidence without inventing the missing historic evidence. Broader historical closure reconciliation and every Tier 3 item from line 40 are assigned to pending SOW-0029; fidelity/indexing, lint staleness and replay are assigned to pending SOW-0028. Platform acceptance remains SOW-0018.
+- Remaining review recommendations are implemented here (lifecycle, credentials, telemetry, UI routes/state, budgets), or tracked in SOW-0028, SOW-0029 and SOW-0018. No claim of complete programme or expert-grade fidelity is made.
+
+Regression outcome: completed. Status and done-directory agree; this record and repair are committed together. Remaining programme is not claimed complete.

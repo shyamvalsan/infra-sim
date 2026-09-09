@@ -435,3 +435,11 @@ With `disk-fill` running on a live agent:
 
 Nothing was faked at any step: the scenario moved generator inputs and the real
 product did the rest.
+
+## Lifecycle failure handling (2026-09-09)
+
+Shell command wrappers preserve the original exit status. Container teardown copies the environment and scenario definitions before removing the container or payload; a copy failure preserves both. These artifacts do not yet include the historical control-event stream, so exact live-demo replay remains tracked in SOW-0028.
+
+Teardown requests require an explicit nonempty simulation name; the legacy local install uses the explicit `local` target. Create checks resource policy again after acquiring the serialized slot, which remains owned by background work if its HTTP caller disconnects. Invalid or unreadable existing policy refuses create and skips TTL sweeping; health exposes `policy_ok: false` without revealing paths. Inventory failures cannot count as an empty host for create or teardown.
+
+Claim values reach Docker through inherited environment variables named by `-e`, not argument values or command output. They remain visible to Docker administrators in container configuration. The UI binds loaded labels and asynchronous status responses to their simulation, and scenario clock operations use the named simulation route and report errors.

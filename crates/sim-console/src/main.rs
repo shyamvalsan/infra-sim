@@ -84,17 +84,17 @@ struct AppState {
 
 /// One slot, with honest queue positions.
 struct CreateQueue {
-    sem: tokio::sync::Semaphore,
+    sem: Arc<tokio::sync::Semaphore>,
     /// Creations waiting for the slot right now (includes the holder's
     /// pending-decrement race; reported as "ahead of you", never exactness).
-    waiting: std::sync::atomic::AtomicUsize,
+    waiting: Arc<std::sync::atomic::AtomicUsize>,
 }
 
 impl CreateQueue {
     fn new() -> Self {
         Self {
-            sem: tokio::sync::Semaphore::new(1),
-            waiting: std::sync::atomic::AtomicUsize::new(0),
+            sem: Arc::new(tokio::sync::Semaphore::new(1)),
+            waiting: Arc::new(std::sync::atomic::AtomicUsize::new(0)),
         }
     }
 
@@ -103,6 +103,13 @@ impl CreateQueue {
         self.waiting
             .load(std::sync::atomic::Ordering::Relaxed)
             .saturating_sub(1)
+    }
+}
+
+struct QueueTicket(Arc<std::sync::atomic::AtomicUsize>);
+impl Drop for QueueTicket {
+    fn drop(&mut self) {
+        self.0.fetch_sub(1, std::sync::atomic::Ordering::Relaxed);
     }
 }
 
@@ -209,7 +216,10 @@ fn load_scenarios(dir: &std::path::Path) -> Vec<Scenario> {
 /// when someone is looking at it.
 async fn status(State(app): State<Arc<AppState>>) -> impl IntoResponse {
     let now = now_secs();
-    let budgets = budget::Budgets::load(&app.budgets_path).unwrap_or_default();
+    let budgets = match budget::Budgets::load(&app.budgets_path) {
+        Ok(b) => b,
+        Err(e) => return Json(json_err(e)),
+    };
     let sims = container::list(&app.repo);
 
     let mut simulations = Vec::new();
@@ -503,7 +513,10 @@ async fn trigger(
     State(app): State<Arc<AppState>>,
     AxumPath((sim, name)): AxumPath<(String, String)>,
 ) -> impl IntoResponse {
-    mutate(&app, &sim, move |c| c.trigger(&name, now_secs()))
+    mutate(&app, &sim, move |c| {
+        c.trigger(&name, now_secs());
+        Ok(())
+    })
 }
 
 async fn resolve(
@@ -511,7 +524,10 @@ async fn resolve(
     AxumPath((sim, name)): AxumPath<(String, String)>,
 ) -> impl IntoResponse {
     let now = now_secs();
-    mutate(&app, &sim, move |c| c.resolve(&name, now))
+    mutate(&app, &sim, move |c| {
+        c.resolve(&name, now);
+        Ok(())
+    })
 }
 
 async fn resolve_all(
@@ -519,7 +535,10 @@ async fn resolve_all(
     AxumPath(sim): AxumPath<String>,
 ) -> impl IntoResponse {
     let now = now_secs();
-    mutate(&app, &sim, move |c| c.resolve_all(now))
+    mutate(&app, &sim, move |c| {
+        c.resolve_all(now);
+        Ok(())
+    })
 }
 
 /// Read-modify-write one simulation's control file.
@@ -527,7 +546,11 @@ async fn resolve_all(
 /// Against the file rather than console-held state: the CLI writes the same
 /// file, and whoever wrote last is the truth. Holding a cached copy here would
 /// let the console silently revert a CLI trigger.
-fn mutate<F: FnOnce(&mut ControlFile)>(app: &AppState, sim: &str, f: F) -> impl IntoResponse {
+fn mutate<F: FnOnce(&mut ControlFile) -> Result<(), String>>(
+    app: &AppState,
+    sim: &str,
+    f: F,
+) -> impl IntoResponse {
     let (_, _, control_path) = match target_for(app, sim) {
         Ok(t) => t,
         Err(e) => return (StatusCode::NOT_FOUND, Json(json_err(e))),
@@ -541,7 +564,9 @@ fn mutate<F: FnOnce(&mut ControlFile)>(app: &AppState, sim: &str, f: F) -> impl 
         }
         Err(e) => return (StatusCode::INTERNAL_SERVER_ERROR, Json(json_err(e))),
     };
-    f(&mut control);
+    if let Err(e) = f(&mut control) {
+        return (StatusCode::BAD_REQUEST, Json(json_err(e)));
+    }
     match control.save(&control_path) {
         Ok(()) => (StatusCode::OK, Json(serde_json::json!({"ok": true}))),
         Err(e) => (StatusCode::INTERNAL_SERVER_ERROR, Json(json_err(e))),
@@ -638,9 +663,15 @@ async fn create(
     }
 
     // Budgets next: an over-large request never starts building.
-    let budgets = budget::Budgets::load(&app.budgets_path).unwrap_or_default();
+    let budgets = match budget::Budgets::load(&app.budgets_path) {
+        Ok(b) => b,
+        Err(e) => return Json(json_err(e)),
+    };
     let requested_nodes: usize = req.groups.iter().map(|g| g.count).sum();
-    let live = container::list(&app.repo).len();
+    let live = match container::list_checked(&app.repo) {
+        Ok(sims) => sims.len(),
+        Err(e) => return Json(json_err(e)),
+    };
     let state_dir = std::path::PathBuf::from(
         std::env::var("INFRA_SIM_STATE_DIR")
             .unwrap_or_else(|_| container::DEFAULT_STATE_DIR.to_string()),
@@ -661,6 +692,7 @@ async fn create(
     app.create_queue
         .waiting
         .fetch_add(1, std::sync::atomic::Ordering::Relaxed);
+    let ticket = QueueTicket(Arc::clone(&app.create_queue.waiting));
     let ahead = app.create_queue.queued_ahead();
     if ahead > 0 {
         let mut p = provision::Progress::new("waiting for the create slot", 0);
@@ -668,16 +700,26 @@ async fn create(
         p.queue_ahead_checked = Some(ahead);
         handle.set(p);
     }
-    let permit = app.create_queue.sem.acquire().await;
+    let permit = Arc::clone(&app.create_queue.sem).acquire_owned().await;
     // `waiting` counts the slot holder too (decremented at the end of this
     // handler, not at acquire), so a first waiter's position is 1 - behind
     // the running create - rather than a silent 0.
     let Ok(_permit) = permit else {
-        app.create_queue
-            .waiting
-            .fetch_sub(1, std::sync::atomic::Ordering::Relaxed);
         return Json(json_err("the console is shutting down".into()));
     };
+
+    // Requests may have queued behind a completed create or a policy edit.
+    let recheck = budget::Budgets::load(&app.budgets_path).and_then(|b| {
+        b.check_create(
+            requested_nodes,
+            container::list_checked(&app.repo)?.len(),
+            budget::state_dir_bytes(&state_dir),
+        )
+    });
+    if let Err(e) = recheck {
+        handle.finish(Some(e.clone()));
+        return Json(json_err(e));
+    }
 
     // The slot is ours: this create's progress starts for real now, and the
     // queue position field stops applying.
@@ -693,6 +735,7 @@ async fn create(
     // into the operator's agent is what made claiming impossible and left every
     // torn-down vnode stale, so the console does not do that any more.
     let out = tokio::task::spawn_blocking(move || -> Result<serde_json::Value, String> {
+        let (_slot, _ticket) = (_permit, ticket);
         // Without Docker there is no container to put a simulation in, so fall
         // back to installing into this host's agent. That path cannot claim and
         // leaves nodes stale on teardown, so it says so rather than pretending.
@@ -727,9 +770,7 @@ async fn create(
             .to_string();
         // Host policy, not a per-create choice: whether dashboards bind
         // publicly is the SRE's call for the whole box.
-        let public_dashboards = budget::Budgets::load(&budgets_path)
-            .map(|b| b.public_dashboards)
-            .unwrap_or(false);
+        let public_dashboards = budget::Budgets::load(&budgets_path)?.public_dashboards;
         let active = container::create(
             &repo,
             &name,
@@ -792,9 +833,6 @@ async fn create(
         Ok(Err(e)) => Some(e.clone()),
         Err(e) => Some(e.to_string()),
     });
-    app.create_queue
-        .waiting
-        .fetch_sub(1, std::sync::atomic::Ordering::Relaxed);
     match out {
         Ok(Ok(r)) => Json(r),
         Ok(Err(e)) => Json(json_err(e)),
@@ -832,9 +870,7 @@ async fn advance(
     Json(req): Json<provision::AdvanceRequest>,
 ) -> impl IntoResponse {
     let seconds = req.seconds;
-    mutate(&app, &sim, move |c| {
-        let _ = provision::advance(c, &name, seconds);
-    })
+    mutate(&app, &sim, move |c| provision::advance(c, &name, seconds))
 }
 
 async fn reskin(
@@ -920,7 +956,9 @@ async fn logs(
 /// cadence and far outside abuse economics.
 async fn health(State(app): State<Arc<AppState>>) -> impl IntoResponse {
     let now = now_secs();
-    let budgets = budget::Budgets::load(&app.budgets_path).unwrap_or_default();
+    let policy = budget::Budgets::load(&app.budgets_path);
+    let policy_ok = policy.is_ok();
+    let budgets = policy.unwrap_or_default();
     let (sims, disk) = health_probes(&app, now).await;
     let sweep = app.last_sweep.lock().ok().and_then(|g| *g);
     let (sweep_age, sweep_failed) = match sweep {
@@ -935,7 +973,8 @@ async fn health(State(app): State<Arc<AppState>>) -> impl IntoResponse {
         .map(|d| d.as_secs())
         .unwrap_or(0);
     Json(serde_json::json!({
-        "ok": sweep_ok && sims.len() <= budgets.max_live_simulations,
+        "ok": policy_ok && sweep_ok && sims.len() <= budgets.max_live_simulations,
+        "policy_ok": policy_ok,
         "uptime_secs": started,
         "auth": app.token.is_some(),
         "simulations": sims.len(),
@@ -1040,8 +1079,18 @@ fn container_teardown_steps(name: &str, detail: String) -> Vec<provision::Teardo
 /// action must name its target and refuse when it does not match.
 #[derive(Debug, serde::Deserialize)]
 struct TeardownRequest {
-    #[serde(default)]
+    #[serde(deserialize_with = "required_simulation_name")]
     name: String,
+}
+
+fn required_simulation_name<'de, D: serde::Deserializer<'de>>(
+    deserializer: D,
+) -> Result<String, D::Error> {
+    let name = <String as serde::Deserialize>::deserialize(deserializer)?;
+    if name.trim().is_empty() {
+        return Err(serde::de::Error::custom("a simulation name is required"));
+    }
+    Ok(name.trim().to_owned())
 }
 
 async fn teardown(
@@ -1051,7 +1100,10 @@ async fn teardown(
     let repo = app.repo.clone();
     // Every containerised simulation on this machine, so a mismatch can say
     // what the caller probably meant.
-    let running = container::list(&repo);
+    let running = match container::list_checked(&repo) {
+        Ok(sims) => sims,
+        Err(e) => return Json(json_err(e)),
+    };
     let asked = req.name.trim().to_string();
 
     if !asked.is_empty() {
@@ -1066,6 +1118,18 @@ async fn teardown(
                 Err(e) => Json(json_err(format!("teardown task failed: {e}"))),
             };
         }
+        // Preserve the local-install path, but only with its explicit identity.
+        if running.is_empty() && asked == "local" && load_env(&app.env_path).is_ok() {
+            let env = app.env_path.clone();
+            let control = app.control_path.clone();
+            let out =
+                tokio::task::spawn_blocking(move || provision::teardown(&repo, &control, &env))
+                    .await;
+            return match out {
+                Ok(steps) => Json(serde_json::json!({ "steps": steps })),
+                Err(e) => Json(json_err(format!("teardown task failed: {e}"))),
+            };
+        }
         return Json(json_err(format!(
             "no simulation named '{asked}'. Running: {}",
             running
@@ -1075,38 +1139,9 @@ async fn teardown(
                 .join(", ")
         )));
     }
-    if let Some(single) = running.first() {
-        let name = single.name.clone();
-        let display = name.clone();
-        let out = tokio::task::spawn_blocking(move || container::teardown(&repo, &name)).await;
-        return match out {
-            Ok(Ok(detail)) => Json(serde_json::json!({
-                "steps": container_teardown_steps(&display, detail)
-            })),
-            Ok(Err(e)) => Json(json_err(e)),
-            Err(e) => Json(json_err(format!("teardown task failed: {e}"))),
-        };
-    }
-    if !running.is_empty() {
-        return Json(json_err(format!(
-            "{} simulations are running - name the one to tear down: {}",
-            running.len(),
-            running
-                .iter()
-                .map(|a| a.name.as_str())
-                .collect::<Vec<_>>()
-                .join(", ")
-        )));
-    }
-
-    // No containers: the legacy local install under this console's own paths.
-    let env = app.env_path.clone();
-    let control = app.control_path.clone();
-    let out = tokio::task::spawn_blocking(move || provision::teardown(&repo, &control, &env)).await;
-    match out {
-        Ok(steps) => Json(serde_json::json!({ "steps": steps })),
-        Err(e) => Json(json_err(format!("teardown task failed: {e}"))),
-    }
+    Json(json_err(
+        "name the simulation to tear down; an empty target is refused".into(),
+    ))
 }
 
 fn json_err(e: String) -> serde_json::Value {
@@ -1338,7 +1373,16 @@ async fn auth_layer(
 /// Archive simulations past the TTL unless pinned. The same teardown path a
 /// manual removal takes, so everything is archived and nothing is lost.
 async fn sweep_expired(app: &AppState) {
-    let budgets = budget::Budgets::load(&app.budgets_path).unwrap_or_default();
+    let budgets = match budget::Budgets::load(&app.budgets_path) {
+        Ok(b) => b,
+        Err(e) => {
+            eprintln!("infra-sim: TTL sweep skipped: {e}");
+            if let Ok(mut state) = app.last_sweep.lock() {
+                *state = Some((now_secs(), true));
+            }
+            return;
+        }
+    };
     let now = now_secs();
     let mut checked = 0usize;
     let mut archived = 0usize;
@@ -1545,6 +1589,39 @@ async fn main() -> std::process::ExitCode {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn destructive_requests_require_an_explicit_target() {
+        for json in ["{}", r#"{"name":""}"#, r#"{"name":"  "}"#] {
+            assert!(serde_json::from_str::<TeardownRequest>(json).is_err());
+        }
+        let request: TeardownRequest = serde_json::from_str(r#"{"name":" sim-a "}"#).unwrap();
+        assert_eq!(request.name, "sim-a");
+    }
+
+    #[tokio::test]
+    async fn background_create_keeps_slot_after_caller_drops_handle() {
+        let queue = CreateQueue::new();
+        queue
+            .waiting
+            .fetch_add(1, std::sync::atomic::Ordering::Relaxed);
+        let ticket = QueueTicket(Arc::clone(&queue.waiting));
+        let permit = Arc::clone(&queue.sem).acquire_owned().await.unwrap();
+        let (release, wait) = std::sync::mpsc::channel();
+        let (done, finished) = tokio::sync::oneshot::channel();
+        let task = tokio::task::spawn_blocking(move || {
+            let (_permit, _ticket) = (permit, ticket);
+            wait.recv().unwrap();
+            drop((_permit, _ticket));
+            done.send(()).unwrap();
+        });
+        drop(task);
+        assert!(queue.sem.try_acquire().is_err());
+        release.send(()).unwrap();
+        finished.await.unwrap();
+        assert!(queue.sem.try_acquire().is_ok());
+        assert_eq!(queue.waiting.load(std::sync::atomic::Ordering::Relaxed), 0);
+    }
 
     #[test]
     fn environment_yaml_parses_the_fields_the_console_shows() {

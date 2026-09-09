@@ -1146,11 +1146,13 @@ function userLabels(n) {
 async function loadLiveLabels() {
   const out = $("labelsOut");
   out.className = "out"; out.textContent = "";
+  const simulation = SELECTED;
   let r;
-  try { r = await (await fetch("/api/sim/" + encodeURIComponent(SELECTED) + "/labels")).json(); }
+  try { r = await (await fetch("/api/sim/" + encodeURIComponent(simulation) + "/labels")).json(); }
   catch (e) { out.className = "out bad"; out.textContent = String(e); return; }
   if (r.error) { out.className = "out bad"; out.textContent = r.error; return; }
 
+  if (simulation !== SELECTED) return;
   const nodes = r.nodes || [];
   if (!nodes.length) { out.className = "out bad"; out.textContent = "no nodes found"; return; }
 
@@ -1171,7 +1173,7 @@ async function loadLiveLabels() {
     }
     if (Object.keys(g).length) groups[role] = g;
   }
-  LIVE_LABELS = { fleet, groups };
+  LIVE_LABELS = { simulation, fleet, groups };
   renderLiveLabels();
   $("labelsApplyBtn").style.display = "";
 }
@@ -1219,10 +1221,12 @@ function dropLiveLabel(role, k) {
 }
 
 async function applyLiveLabels() {
+  if (!LIVE_LABELS || LIVE_LABELS.simulation !== SELECTED) return;
+  const simulation = LIVE_LABELS.simulation;
   const out = $("labelsOut"), btn = $("labelsApplyBtn");
   btn.disabled = true;
   try {
-    const r = await (await fetch("/api/sim/" + encodeURIComponent(SELECTED) + "/labels", {
+    const r = await (await fetch("/api/sim/" + encodeURIComponent(simulation) + "/labels", {
       method: "POST", headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ fleet: LIVE_LABELS.fleet, groups: LIVE_LABELS.groups }),
     })).json();
@@ -1231,7 +1235,7 @@ async function applyLiveLabels() {
     out.textContent = r.changed.length
       ? `labels updated on ${r.changed.length} node(s); the fleet picks them up within seconds`
       : "already in that state, nothing to change";
-    setTimeout(loadLiveLabels, 3000);
+    setTimeout(() => { if (simulation === SELECTED) loadLiveLabels(); }, 3000);
   } catch (e) { out.className = "out bad"; out.textContent = String(e); }
   finally { btn.disabled = false; }
 }
@@ -1291,10 +1295,16 @@ async function post(path) {
   refresh();
 }
 async function doAdvance(name, seconds) {
-  await fetch(`/api/scenario/${encodeURIComponent(name)}/advance`, {
-    method: "POST", headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ seconds }),
-  });
+  const simulation = SELECTED;
+  if (!simulation) return;
+  try {
+    const r = await fetch(`/api/sim/${encodeURIComponent(simulation)}/scenario/${encodeURIComponent(name)}/advance`, {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ seconds }),
+    });
+    const data = await r.json().catch(() => ({}));
+    if (!r.ok || data.error) alert("Failed: " + (data.error || r.status));
+  } catch (e) { alert("Failed: " + e); }
   refresh();
 }
 
@@ -1387,6 +1397,7 @@ async function refresh() {
   let d;
   try { d = await (await fetch("/api/status")).json(); }
   catch (e) { $("errors").textContent = "console cannot reach itself: " + e; return; }
+  if (d.error) { $("errors").textContent = d.error; return; }
   SIMS = d.simulations || [];
   // A returning user with fleets does not need the intro again.
   if (SIMS.length) dismissIntro(); else maybeShowIntro();
@@ -1435,6 +1446,10 @@ function renderSimSelector() {
 
 async function selectSim(name) {
   SELECTED = name;
+  LIVE_LABELS = null;
+  $("liveLabels").innerHTML = "";
+  $("labelsApplyBtn").style.display = "none";
+  $("labelsOut").textContent = "";
   await loadSim(name);
 }
 
@@ -1444,7 +1459,10 @@ async function selectSim(name) {
 async function loadSim(name) {
   if (LOADING_SIM) return;   // a slow detail fetch must not stack on a newer one
   LOADING_SIM = true;
-  try { await doLoadSim(name); } finally { LOADING_SIM = false; }
+  try { await doLoadSim(name); } finally {
+    LOADING_SIM = false;
+    if (name !== SELECTED) await loadSim(SELECTED);
+  }
 }
 let LOADING_SIM = false;
 
@@ -1462,6 +1480,7 @@ async function doLoadSim(name) {
   let d;
   try { d = await (await fetch("/api/sim/" + encodeURIComponent(name) + "/status")).json(); }
   catch (e) { $("errors").textContent = "cannot reach simulation: " + e; return; }
+  if (name !== SELECTED) return;
   if (d.error) { $("errors").className = "out bad"; $("errors").textContent = d.error; return; }
   INSTALLED = d.environment || null;
   $("envline").textContent = INSTALLED

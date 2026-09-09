@@ -655,3 +655,11 @@ cargo fmt --check
 
 Changes to a generator, scenario or the runtime are validated against a live
 agent, not only unit tests.
+
+## Lifecycle failures
+
+A teardown must name its simulation. Empty API targets are refused; use `local` only for an explicitly installed host simulation. Container teardown archives the environment and scenario definitions before removing the container or payload. If copying fails, fix the reported storage error and retry; the simulation is retained. Archives currently preserve definitions, not a complete recording of interactive scenario controls.
+
+Creates recheck the host budgets after waiting for the create slot. Malformed or unreadable existing `console.yaml` stops creates and skips automatic TTL removal until repaired. `/api/health` reports `policy_ok: false` in this state.
+
+Command failures now return their actual exit status. Automation must check it rather than relying only on printed progress. Claim tokens and room IDs are excluded from logged Docker arguments; Docker administrators can still read container environment configuration.
