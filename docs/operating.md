@@ -57,8 +57,7 @@ so it does not appear in the Space as a stray machine reporting container CPU.
 
 Two routes, and they are not equal.
 
-**A Linux VM, which works.** The recommended route: inside the VM everything is the
-ordinary Linux path, fully exercised. `startsim-vm.sh` does the whole thing.
+**A Linux VM.** The underlying Linux console is exercised, but `startsim-vm.sh` currently binds publicly without supplying the required token. The launcher is awaiting repair under SOW-0018; do not treat it as an accepted one-command setup.
 
 ```bash
 brew install --cask multipass          # once; the script installs nothing itself
@@ -99,14 +98,7 @@ simulations live inside it rather than on your Mac's Docker, and the console is
 reachable on the VM's network interface instead of loopback only. Size the VM for
 the fleet you intend - 160 nodes is not a 2 GB job.
 
-**Container mode, which does not work yet.** `./startsim.sh` on macOS - with no
-`sudo`, because the console must stay unprivileged to reach Docker Desktop's
-user-scoped socket - packages the console into a container and drives your Docker
-through its socket. The UI comes up. A running simulation's node table and scenario
-controls stay **empty**, so it is not usable for a demo. Tracked in `SOW-0018`, which
-records what has been ruled out with measurements: the network path between the
-console container and a simulation is proven, as is the environment plumbing, so the
-remaining fault is in how the console issues that query when containerised.
+**Container mode, experimental.** `./startsim.sh` on macOS runs without `sudo` to reach Docker Desktop's user socket. The earlier node-table and scenario-path defects were fixed and verified using container mode on Linux. An actual Mac create/claim/watch/teardown acceptance run remains outstanding in SOW-0018.
 
 Why container mode exists at all: the binaries are built in an Alpine container and
 are therefore Linux ELF, so macOS cannot exec them - the first attempt spent several
@@ -663,3 +655,9 @@ A teardown must name its simulation. Empty API targets are refused; use `local` 
 Creates recheck the host budgets after waiting for the create slot. Malformed or unreadable existing `console.yaml` stops creates and skips automatic TTL removal until repaired. `/api/health` reports `policy_ok: false` in this state.
 
 Command failures now return their actual exit status. Automation must check it rather than relying only on printed progress. Claim tokens and room IDs are excluded from logged Docker arguments; Docker administrators can still read container environment configuration.
+
+## Automated acceptance
+
+The Checks workflow runs Rust tests, Clippy, formatting, shell/API/UI regression tests, the SOW audit, and a separate Rust 1.88 compiler-floor check. Dependencies are resolved from Cargo.lock. Run the same commands locally before a release.
+
+The manually dispatched Live agent acceptance workflow uses a fresh hosted runner. It builds a portable plugin and checks one vnode through actual Netdata, including CPU samples, standalone telemetry start, container restart, and archive-before-removal. Run `sudo python3 tests/live_agent_smoke.py` locally after building the simulation image. The test owns a unique container, preserves diagnostic inputs and never claims to Cloud. It is a lifecycle smoke test, not statistical fidelity, Cloud, macOS or scale certification.

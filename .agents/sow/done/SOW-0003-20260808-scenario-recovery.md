@@ -83,10 +83,6 @@ Pending.
 
 None yet.
 
-## Regression Log
-
-None yet.
-
 
 ## Implications And Decisions
 
@@ -144,3 +140,7 @@ Clearing a fault now looks like a system recovering. `spec.md` calls showing rec
 ## Followup
 
 None.
+
+## Regression Log
+
+No regression event recorded in this historical SOW.

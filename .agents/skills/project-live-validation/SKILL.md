@@ -156,3 +156,5 @@ the path: `pkill -f '^$plugin --mode'`.
 ## Exercise operational failure paths
 
 Run `python3 -m unittest discover -s tests -p 'test_*.py'` after building the console and `node --test tests/console_ui.test.cjs` for lifecycle/UI changes. These use isolated payloads and fake Docker rather than shared services. A shell helper must capture command status in an `else` branch: `$?` inside `if ! command` is the inverted status and once made failed archive copies look successful. Validate the actual standalone telemetry command as well as create, because shell dynamic scope previously hid an unset payload variable.
+
+The opt-in `sudo python3 tests/live_agent_smoke.py` exercises one uniquely named vnode against the built `infra-sim:latest` image, including actual CPU data and telemetry survival across container restart. Build the image from the revision being validated first. The manual hosted-runner Live agent acceptance workflow builds from its checked-out revision; a local run against an older image proves only the unchanged runtime plus current lifecycle scripts.

@@ -6,8 +6,7 @@ shortest path that works.
 
 Needs a **Linux host**, Docker and root. A Netdata agent on this machine is
 optional; each simulation runs its own. No Rust toolchain: `startsim` builds in a
-container. macOS and Windows cannot run the console, only the simulation
-containers; use a Linux VM.
+container. macOS container mode is experimental pending an actual Docker Desktop acceptance run. Windows requires a Linux VM.
 
 ## 1. Start
 
@@ -21,8 +20,7 @@ or, on a machine with nothing checked out:
 curl -fsSL https://raw.githubusercontent.com/shyamvalsan/infra-sim/main/startsim.sh | sudo bash
 ```
 
-On macOS, without `sudo`. Note it is experimental and not yet working (the node
-table stays empty); prefer a Linux VM for now:
+On macOS, without `sudo`. Container mode remains experimental until the actual Mac acceptance run is complete:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/shyamvalsan/infra-sim/main/startsim.sh | bash

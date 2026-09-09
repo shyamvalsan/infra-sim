@@ -11,8 +11,7 @@
 # machines each artifact works on; a static one cannot.
 #
 # The tag is pinned so the compiler cannot change under an operator between runs.
-# 1.88 is the real floor - `tonic 0.14.6` in Cargo.lock requires it - despite
-# `Cargo.toml` still declaring `rust-version = "1.85"`, which fails to build.
+# The compiler floor is 1.88, matching the locked tonic dependency.
 ARG RUST_TAG=1.97-alpine
 FROM rust:${RUST_TAG} AS build
 

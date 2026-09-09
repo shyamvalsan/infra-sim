@@ -1,0 +1,44 @@
+name: Checks
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: checks-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  contracts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Rust toolchain
+        run: rustup toolchain install stable --profile minimal --component clippy --component rustfmt
+      - run: cargo +stable fmt --check
+      - run: cargo +stable clippy --locked --all-targets -- -D warnings
+      - run: cargo +stable test --locked --workspace
+      - run: cargo +stable build --locked -p sim-console
+      - name: Shell syntax and failure contracts
+        run: |
+          for script in scripts/*.sh startsim*.sh; do bash -n "$script"; done
+          python3 -m unittest discover -s tests -p 'test_*.py'
+      - run: node --test tests/console_ui.test.cjs
+      - run: bash .agents/sow/audit.sh
+  minimum-rust:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - run: rustup toolchain install 1.88.0 --profile minimal
+      - run: cargo +1.88.0 check --locked --workspace --all-targets

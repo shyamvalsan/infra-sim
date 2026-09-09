@@ -103,11 +103,7 @@ You need a **Linux host**, **Docker**, and root: the console writes under
 simulation runs its own inside its container. No Rust toolchain is needed;
 `startsim` builds the binaries in a container, because Docker is required anyway.
 
-Linux is a hard requirement, not a preference: the binaries are built as Linux ELF
-and run on the host, and the runtime writes `/etc/netdata` and `/var/lib/infra-sim`.
-On macOS or Windows, Docker Desktop will happily run the simulation containers but
-the console itself cannot run; use a VM (Multipass, UTM, or any Linux server).
-`startsim` checks this first and refuses immediately rather than after a build.
+Linux runs the console directly. On macOS, `startsim.sh` packages the console in a Linux container. That path has Linux-side verification but still needs an actual Docker Desktop acceptance run. Windows requires a Linux VM.
 
 On a Linux machine with nothing but Docker:
 
@@ -123,11 +119,9 @@ on the host:
 curl -fsSL https://raw.githubusercontent.com/shyamvalsan/infra-sim/main/startsim.sh | bash
 ```
 
-macOS is **experimental and not yet working**: the UI comes up, but a running
-simulation's node table and scenario controls are still empty.
+macOS container mode is **experimental and unverified on an actual Mac**. The earlier empty-table problem was repaired and verified in Linux container mode; Docker Desktop acceptance remains outstanding.
 
-So on a Mac, use the VM route, which is the ordinary Linux path and is fully
-exercised. One command, once Multipass is installed:
+The VM launcher is also awaiting repair and acceptance: its public console bind currently needs a token that the launcher does not supply. Do not rely on this command for an unattended first demo:
 
 ```bash
 brew install --cask multipass          # once
@@ -155,8 +149,7 @@ the binaries unless you pass `--rebuild`. `--bind HOST:PORT` moves the console o
 `127.0.0.1:19995`.
 
 Developing on it instead? `cargo build --release` still works and `startsim` will
-use what it finds. Note that `Cargo.toml` declares `rust-version = "1.85"` but the
-lockfile needs **1.88** or newer.
+use what it finds. The workspace and lockfile require **Rust 1.88** or newer.
 
 Open <http://127.0.0.1:19995>. Then:
 

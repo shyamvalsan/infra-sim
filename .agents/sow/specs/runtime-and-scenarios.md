@@ -443,3 +443,7 @@ Shell command wrappers preserve the original exit status. Container teardown cop
 Teardown requests require an explicit nonempty simulation name; the legacy local install uses the explicit `local` target. Create checks resource policy again after acquiring the serialized slot, which remains owned by background work if its HTTP caller disconnects. Invalid or unreadable existing policy refuses create and skips TTL sweeping; health exposes `policy_ok: false` without revealing paths. Inventory failures cannot count as an empty host for create or teardown.
 
 Claim values reach Docker through inherited environment variables named by `-e`, not argument values or command output. They remain visible to Docker administrators in container configuration. The UI binds loaded labels and asynchronous status responses to their simulation, and scenario clock operations use the named simulation route and report errors.
+
+## Release checks
+
+GitHub Actions definitions run locked Rust tests/lints, shell/API/UI regression tests and the local SOW audit, with a separate Rust 1.88 minimum-compiler check. A manually dispatched hosted-runner job builds a portable plugin and performs one-vnode live-agent lifecycle acceptance. Definitions are not proof of a remote run; actual workflow results must be checked after publication. The smoke test is not a fidelity or platform certification.

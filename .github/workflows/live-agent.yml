@@ -1,0 +1,25 @@
+name: Live agent acceptance
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  one-node:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - name: Build portable plugin
+        run: |
+          rustup target add x86_64-unknown-linux-musl
+          sudo apt-get update
+          sudo apt-get install -y musl-tools
+          cargo build --locked --release --target x86_64-unknown-linux-musl -p sim-plugin
+          mkdir -p target/release
+          cp target/x86_64-unknown-linux-musl/release/infra-sim target/release/infra-sim
+      - name: Build simulation image
+        run: bash scripts/sim-docker.sh build
+      - name: Verify actual Netdata collection and lifecycle
+        run: sudo python3 tests/live_agent_smoke.py

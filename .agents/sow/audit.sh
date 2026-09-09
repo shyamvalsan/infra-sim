@@ -667,7 +667,7 @@ elif $initialized; then
   [ "$todo_untracked_count" -gt 0 ] && echo "    ${YELLOW}- ${todo_untracked_count} untracked orphan TODO file(s) at project root${NC}"
   [ "$skill_classification_warnings" -gt 0 ] && echo "    ${YELLOW}- ${skill_classification_warnings} non-project skill director(y/ies) need classification${NC}"
   echo "  ${YELLOW}    Repair non-destructively using the project-local AGENTS.md and .agents/sow/SOW.template.md.${NC}"
-  exit 0
+  exit 1
 else
   echo "  ${YELLOW}=== SOW NOT initialized. Install a project-local SOW framework before using SOWs here. ===${NC}"
   if [ ! -f ./AGENTS.md ]; then

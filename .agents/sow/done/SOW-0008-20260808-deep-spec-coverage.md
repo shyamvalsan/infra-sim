@@ -91,10 +91,6 @@ None yet.
 
 None yet.
 
-## Regression Log
-
-None yet.
-
 
 ## Implications And Decisions
 
@@ -201,3 +197,7 @@ was written to resolve is gone: breadth and depth compose instead of competing.
 
 - `otel-collector` has no generated equivalent to extend. If Netdata ships a
   collector for it, wiring is one line.
+
+## Regression Log
+
+No regression event recorded in this historical SOW.

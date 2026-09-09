@@ -2,7 +2,7 @@
 
 ## Status
 
-Status: open
+Status: paused
 
 Sub-state: Linux-side COMPLETE (2026-08-21): node table populated (14/14) from a
 containerised console, scenario list populated, two further faults found and
@@ -307,3 +307,15 @@ None yet.
 ## Regression Log
 
 None yet.
+
+## Record reconciliation - 2026-09-09
+
+The earlier empty-node-table diagnosis above is historical and superseded by the 2026-08-21 execution evidence. Actual Mac acceptance remains outstanding; paused reflects that dependency. The repository review also found startsim-vm.sh binds 0.0.0.0 without supplying INFRA_SIM_TOKEN, contrary to the console startup guard. Repair the launcher under this platform SOW before claiming the VM command works.
+
+Sensitive data handling plan:
+
+use unclaimed synthetic fleets for Linux-side probes; actual claim credentials must be supplied at runtime and omitted from logs and durable evidence. No raw credentials are needed to repair the launcher.
+
+Sensitive data gate:
+
+Current changes contain only synthetic test identities and public source references. No credential values or private endpoints were written; external operator evidence remains uncollected.
