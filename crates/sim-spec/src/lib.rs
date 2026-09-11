@@ -143,12 +143,30 @@ impl GeneratorSpec {
         }
 
         for (name, role) in &other.roles {
-            self.roles
-                .entry(name.clone())
-                .or_insert_with(|| role.clone());
+            let combined = self.roles.entry(name.clone()).or_insert_with(|| Role {
+                description: role.description.clone(),
+                signals: BTreeMap::new(),
+            });
+            for (signal, patch) in &role.signals {
+                if let Some(existing) = combined.signals.get(signal) {
+                    let merged =
+                        existing
+                            .merge(patch)
+                            .map_err(|field| SpecError::RoleSignalCollision {
+                                role: name.clone(),
+                                signal: signal.clone(),
+                                field,
+                                a: self.name.clone(),
+                                b: other.name.clone(),
+                            })?;
+                    combined.signals.insert(signal.clone(), merged);
+                } else {
+                    combined.signals.insert(signal.clone(), patch.clone());
+                }
+            }
         }
 
-        Ok(())
+        self.validate()
     }
 
     /// Signal parameters for a role, with role overrides applied over the
@@ -281,6 +299,28 @@ pub struct SignalPatch {
     pub noise_sigma: Option<f64>,
     pub daily_amplitude: Option<f64>,
     pub peak_hour: Option<f64>,
+}
+
+impl SignalPatch {
+    /// Independent service patches compose; contradictory values are errors.
+    fn merge(&self, other: &Self) -> Result<Self, &'static str> {
+        let field = |a: Option<f64>, b: Option<f64>, name| match (a, b) {
+            (Some(a), Some(b)) if a != b => Err(name),
+            _ => Ok(b.or(a)),
+        };
+        Ok(Self {
+            base: field(self.base, other.base, "base")?,
+            min: field(self.min, other.min, "min")?,
+            max: field(self.max, other.max, "max")?,
+            noise_sigma: field(self.noise_sigma, other.noise_sigma, "noise_sigma")?,
+            daily_amplitude: field(
+                self.daily_amplitude,
+                other.daily_amplitude,
+                "daily_amplitude",
+            )?,
+            peak_hour: field(self.peak_hour, other.peak_hour, "peak_hour")?,
+        })
+    }
 }
 
 /// Daily and weekly shape, as multiplicative factors on a signal's base.
@@ -605,6 +645,129 @@ impl Shape {
                 dimensions.iter().map(|d| d.id.as_str()).collect()
             }
             Shape::Counters { dimensions } => dimensions.iter().map(|d| d.id.as_str()).collect(),
+        }
+    }
+}
+
+#[cfg(test)]
+mod composition_tests {
+    use super::*;
+
+    fn spec(name: &str, signal: &str, patch: &str) -> GeneratorSpec {
+        GeneratorSpec::from_yaml(&format!(
+            "version: 1\nname: {name}\nsignals:\n  {signal}: {{base: 10, min: 0, max: 100}}\ncontexts:\n  - id: {name}.load\n    title: Load\n    units: items\n    family: load\n    chart_type: line\n    priority: 1\n    shape: independent\n    dimensions: [{{id: value, signal: {signal}}}]\nroles:\n  db:\n    signals:\n      {signal}: {{{patch}}}\n"
+        ))
+        .unwrap()
+    }
+
+    #[test]
+    fn authored_specs_have_valid_effective_role_values() {
+        let directory = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../specs");
+        let mut checked = 0;
+        for entry in std::fs::read_dir(directory).unwrap() {
+            let path = entry.unwrap().path();
+            if path.extension().is_some_and(|e| e == "yaml") {
+                let raw = std::fs::read_to_string(&path).unwrap();
+                GeneratorSpec::from_yaml(&raw)
+                    .unwrap_or_else(|error| panic!("{}: {error}", path.display()));
+                checked += 1;
+            }
+        }
+        assert!(checked > 0, "authored specs must be checked");
+    }
+
+    #[test]
+    fn shipped_postgres_role_and_utilization_match_capacity() {
+        let mut base =
+            GeneratorSpec::from_yaml(include_str!("../../../specs/linux-system.yaml")).unwrap();
+        let postgres =
+            GeneratorSpec::from_yaml(include_str!("../../../specs/postgres.yaml")).unwrap();
+        base.merge(&postgres).unwrap();
+        let signals = base.signals_for_role(Some("db"));
+        assert_eq!(signals["pg_connections_used"].base, 132.0);
+        let usage = base
+            .contexts
+            .iter()
+            .find(|c| c.id == "postgres.connections_usage")
+            .unwrap();
+        let utilization = base
+            .contexts
+            .iter()
+            .find(|c| c.id == "postgres.connections_utilization")
+            .unwrap();
+        let Shape::Partition {
+            total: Total::Constant { value: capacity },
+            driver,
+            ..
+        } = &usage.shape
+        else {
+            panic!("connection capacity must be explicit");
+        };
+        let Shape::Independent { dimensions } = &utilization.shape else {
+            panic!("utilization must be a gauge");
+        };
+        assert_eq!(dimensions[0].signal, *driver);
+        let shown_at_capacity =
+            capacity * dimensions[0].multiplier as f64 / dimensions[0].divisor as f64;
+        assert_eq!(
+            shown_at_capacity, 100.0,
+            "full connection capacity must display as 100 percent"
+        );
+    }
+
+    #[test]
+    fn same_role_preserves_base_and_service_signal_patches() {
+        let mut base = spec("system", "cpu", "base: 20");
+        base.merge(&spec("postgres", "pg", "base: 30")).unwrap();
+        let effective = base.signals_for_role(Some("db"));
+        assert_eq!(effective["cpu"].base, 20.0);
+        assert_eq!(effective["pg"].base, 30.0);
+    }
+
+    #[test]
+    fn same_role_combines_compatible_sparse_fields() {
+        let mut base = spec("system", "shared", "base: 20, noise_sigma: 0.1");
+        base.merge(&spec(
+            "service",
+            "shared",
+            "base: 20, max: 200, daily_amplitude: 0.3, peak_hour: 12, min: 1",
+        ))
+        .unwrap();
+        let effective = base.signals_for_role(Some("db"));
+        let signal = &effective["shared"];
+        assert_eq!(signal.base, 20.0);
+        assert_eq!(signal.min, 1.0);
+        assert_eq!(signal.max, 200.0);
+        assert_eq!(signal.noise.sigma, 0.1);
+        assert_eq!(signal.seasonality.daily_amplitude, 0.3);
+        assert_eq!(signal.seasonality.peak_hour, 12.0);
+    }
+
+    #[test]
+    fn same_role_rejects_invalid_combined_bounds() {
+        let mut base = spec("system", "shared", "base: 90");
+        let service = spec("service", "shared", "max: 80");
+        let error = base.merge(&service).expect_err("combined base exceeds max");
+        assert!(matches!(error, SpecError::SignalBaseOutOfRange { .. }));
+    }
+
+    #[test]
+    fn same_role_rejects_conflicting_explicit_fields() {
+        for (field, left, right) in [
+            ("base", 20.0, 30.0),
+            ("min", 0.0, 1.0),
+            ("max", 100.0, 200.0),
+            ("noise_sigma", 0.1, 0.2),
+            ("daily_amplitude", 0.1, 0.2),
+            ("peak_hour", 12.0, 14.0),
+        ] {
+            let mut base = spec("system", "shared", &format!("{field}: {left}"));
+            let service = spec("service", "shared", &format!("{field}: {right}"));
+            let error = base.merge(&service).expect_err(field).to_string();
+            assert!(
+                error.contains("db") && error.contains("shared") && error.contains(field),
+                "{error}"
+            );
         }
     }
 }

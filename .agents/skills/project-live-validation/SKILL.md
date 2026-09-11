@@ -158,3 +158,18 @@ the path: `pkill -f '^$plugin --mode'`.
 Run `python3 -m unittest discover -s tests -p 'test_*.py'` after building the console and `node --test tests/console_ui.test.cjs` for lifecycle/UI changes. These use isolated payloads and fake Docker rather than shared services. A shell helper must capture command status in an `else` branch: `$?` inside `if ! command` is the inverted status and once made failed archive copies look successful. Validate the actual standalone telemetry command as well as create, because shell dynamic scope previously hid an unset payload variable.
 
 The opt-in `sudo python3 tests/live_agent_smoke.py` exercises one uniquely named vnode against the built `infra-sim:latest` image, including actual CPU data and telemetry survival across container restart. Build the image from the revision being validated first. The manual hosted-runner Live agent acceptance workflow builds from its checked-out revision; a local run against an older image proves only the unchanged runtime plus current lifecycle scripts.
+
+## Check effective service roles
+
+Composition must preserve both base and service patches for the same role.
+Counting contexts misses this: the Linux `db` role once discarded PostgreSQL's
+`db` tuning while every service chart still existed. Assert effective values,
+then compare dependent charts against their real capacity and display scaling.
+
+After building the simulation image from the current portable plugin,
+`sudo python3 tests/live_composition_probe.py` checks this through one disposable
+Netdata vnode. It freezes noise and seasonality only in private fixture copies,
+retains the shipped role values, and checks 320 TCP connections, 132 PostgreSQL
+connections and 33% utilization of 400 slots. It stops/restarts and tears down
+only its uniquely named container. This proves composition and display scaling,
+not realistic distributions, scenario acceptance or large-fleet performance.

@@ -18,7 +18,7 @@ Each item is implemented with evidence, explicitly rejected with evidence, or tr
 
 ## Analysis
 
-Inventory from SOW-0027: claim-token visibility to Docker administrators; create-validation duplication; per-simulation full specs copy; agent HTTP failures versus unreachable status; disk-walk symlink cycles; poisoned-mutex reporting; signal_exists_somewhere robustness; reskin structural-field protection; port-allocation race; XSS via inline handlers; dirty-checkout startup diagnostics; local-install fleet visibility. Fidelity lookup, lint-readiness and replay belong to SOW-0028. VM/rootless launcher compatibility belongs to SOW-0018. User approved all recommended improvements, but new behavior forks still require prior design discussion.
+Inventory from SOW-0027: claim-token visibility to Docker administrators; create-validation duplication; per-simulation full specs copy; agent HTTP failures versus unreachable status; disk-walk symlink cycles; poisoned-mutex reporting; signal_exists_somewhere robustness; reskin structural-field protection; port-allocation race; XSS via inline handlers; dirty-checkout startup diagnostics; local-install fleet visibility. Additional confirmed inspection item: GeneratorSpec::merge compares duplicate default signals only by base/min/max, allowing different noise, seasonality, attribute sources or physical-bound flags to overwrite silently; adjudicate full signal equality under its documented strict collision contract. Fidelity lookup, lint-readiness and replay belong to SOW-0028. VM/rootless launcher compatibility belongs to SOW-0018. User approved all recommended improvements, but new behavior forks still require prior design discussion.
 
 ## Pre-Implementation Gate
 

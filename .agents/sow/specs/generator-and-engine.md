@@ -77,6 +77,16 @@ A node's spec is the Linux baseline merged with one spec per declared service
 (`GeneratorSpec::merge`). Nodes sharing a service set share one composed spec,
 so a 50-node fleet holds one copy per distinct set, not 50.
 
+Role settings compose by signal and sparse field. A Linux `db` role and a
+PostgreSQL `db` role both contribute their independent settings. Compatible
+fields combine; conflicting explicit values fail with the role, signal and
+field named. Effective role values are validated after patching and composition.
+The explicit `overlay` API still replaces colliding definitions by design.
+
+PostgreSQL connection utilization divides the connection count by its modeled
+400-slot capacity: 132 connections display as 33%, using the same driver as the
+used/available chart. The cross-chart capacity contract is covered by a test.
+
 ## Per-instance cardinality
 
 Per-instance cardinality — not context count — was the real fidelity gap. A

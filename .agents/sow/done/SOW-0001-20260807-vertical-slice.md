@@ -4,7 +4,7 @@
 
 Status: completed
 
-Sub-state: Implementation plan items 1-9 delivered and validated against a live agent. Scope grew during execution by user direction: service spec composition, two further environment templates, clock pinning, the re-skin workflow, semantic fidelity checks, `--describe` (offline and LLM-backed), and correlated logs. OTEL sim tracked in `SOW-0002`; graceful scenario recovery in `SOW-0003`; packaging and SE quickstart in `SOW-0004`.
+Sub-state: role-composition regression repaired and validated 2026-09-11. Historical status follows: Implementation plan items 1-9 delivered and validated against a live agent. Scope grew during execution by user direction: service spec composition, two further environment templates, clock pinning, the re-skin workflow, semantic fidelity checks, `--describe` (offline and LLM-backed), and correlated logs. OTEL sim tracked in `SOW-0002`; graceful scenario recovery in `SOW-0003`; packaging and SE quickstart in `SOW-0004`.
 
 ## Requirements
 
@@ -420,3 +420,95 @@ New follow-ups raised by this work, needing a decision before they become SOWs:
 ## Regression Log
 
 None yet.
+
+
+## Regression - 2026-09-10
+
+Service composition silently discards service tuning when a node's base and service specs declare the same role. `GeneratorSpec::merge` uses `or_insert_with` on whole roles (`crates/sim-spec/src/lib.rs:145`), so Linux's db role prevents PostgreSQL's db connection/transaction/cache patches from participating. This contradicts this SOW's delivered per-node service composition. Previous validation counted charts and checked baseline invariants; it did not assert the effective merged role parameters. SOW-0028 is paused while this original outcome is repaired.
+
+## Pre-Implementation Gate
+
+Status: ready
+
+Problem / root-cause model:
+
+Roles are grouped by role name but their independent signal patches must compose across service specs. Keeping the first whole role discards later service parameters. Strict merge must preserve independent or compatible patches and reject contradictory fields, matching the existing documented collision contract. Explicit overlay semantics are a separate existing API and are not changed in this regression.
+
+Evidence reviewed:
+
+This SOW's service composition outcome; generator-and-engine current spec; GeneratorSpec::merge, Role and SignalPatch; linux-system and postgres role definitions; plugin load_service_spec composition; fidelity unit checks; disposable live-agent smoke tooling. PostgreSQL's utilization chart currently labels raw connection count as percentage; applying its previously suppressed role can reveal this defect. Check rendered output and repair the count-to-percentage scaling if confirmed.
+
+Affected contracts and surfaces:
+
+sim-spec composition, sparse role parameters, conflict errors, resulting service metric values, focused tests, generator spec documentation and live validation skill. Input schema and chart identities remain stable. SOW-0028 changes are preserved and excluded from this regression commit.
+
+Existing patterns to reuse:
+
+BTreeMap signal maps, optional SignalPatch fields, strict SignalCollision/ContextCollision errors, GeneratorSpec validation, real Netdata query tests with synthetic identities.
+
+Risk and blast radius:
+
+Applying ignored overrides changes service values to their authored levels and can expose previously hidden fidelity defects. Same-signal sparse patches must combine without replacing unrelated fields; conflicting explicit values must fail clearly. Validate all shipped templates within the local five-node cap, using reduced synthetic fixtures when needed. No destructive user workloads or host-agent replacement.
+
+Sensitive data handling plan:
+
+Only synthetic fixtures, random test identifiers and loopback agent ports. Do not log claim tokens, environment secrets or customer inputs. Keep host details out of durable evidence.
+
+Implementation plan:
+
+1. Add regression tests for independent same-role service patches, compatible sparse fields and rejected conflicting values.
+2. Compose role patches field by field with explicit collision errors, preserving existing base role description precedence.
+3. Run actual shipped web-stack lint to identify consequences; correct PostgreSQL percentage scaling if confirmed, retaining chart identities.
+4. Build a fresh plugin, probe composed role values through an isolated live Netdata agent on at most five vnodes, and clean up only the exact test container.
+5. Update current-reality docs and reusable validation knowledge, complete adversarial review and gates, then commit this regression with this SOW move. Resume SOW-0028 afterwards.
+
+Validation plan:
+
+Demonstrate original failure with tests before repair; compare merged effective role parameters and conflict behavior; Rust tests/Clippy/format; shipped-template lint; live-agent chart/value evidence; same-failure searches for whole-role replacement and direct counts mislabeled as percentage. Record limits honestly.
+
+Artifact impact plan:
+
+Update generator-and-engine spec and live-validation skill for role-composition checks. Operator documentation only if observable authoring/error behavior needs explanation. No product definition edit. No AGENTS.md workflow change or exported operator skill impact. Preserve historical SOW narrative and append all new outcome evidence here.
+
+Open decisions:
+
+Resolved under authorized complete hardening and existing strict collision semantics: retain independent role patches, merge compatible sparse fields, reject contradictory explicit values. Reuse existing PostgreSQL capacity for percentage display. Do not expand this regression into the separate approved log-capacity design.
+
+
+Implementation review addition: compatible sparse patches can individually be valid but combine into invalid bounds (for example base=90 plus max=80). Validation currently checks only unpatched signals. The regression repair must apply existing range/noise validation to effective role signals and validate the merged result, preventing the new composition path from emitting invalid parameters. This is a consequence of preserving formerly ignored patches, not a new schema or policy.
+
+
+### Regression validation and outcome - 2026-09-11
+
+Acceptance evidence:
+
+- Three original regression tests failed before the role repair; all pass after it. The percentage test failed with 400% at full capacity before the divisor correction. A further test reproduced valid sparse patches combining into invalid bounds and now verifies rejection.
+- Final sim-spec suite: 31 tests pass. Full workspace before the final authored-spec coverage test: 276 tests pass; the added test passes in the final sim-spec run. Workspace Clippy with warnings denied and format checks pass; final sim-spec Clippy, Python syntax and diff whitespace checks pass.
+- All 12 shipped environment templates passed baseline lint using one representative per distinct base/role/service combination, split into 14 batches of at most five nodes. This is representative configuration coverage, not large-fleet acceptance. Scenarios were disabled for this baseline matrix. The complete five-node web-stack separately passed baseline plus all 15 applicable scenario/recovery windows using the in-progress SOW-0028 lint.
+- Fresh portable plugin and simulation image built after effective-role validation was added. Final opt-in `tests/live_composition_probe.py` passed through actual Netdata: base db role TCP connections 320, service db role PostgreSQL used connections 132, connection utilization 33%. Only noise and seasonality were disabled in disposable copies. Both probe containers were torn down by exact name; fixture inputs were retained outside the repository. No real workload/Cloud or full fidelity acceptance is inferred from this probe.
+- Independent read-only Luna review found no proven P1/P2 blocker. It ran all 31 sim-spec tests and syntax/whitespace checks; live evidence was supplied by the implementation run, not independently rerun by the reviewer. Review limitations and the pre-existing non-transactional merge-on-error behavior were explicitly acknowledged. Documentation/status-only final changes were inspected after that review.
+
+Same-failure search:
+
+Strict merge's whole-role first-wins loss is repaired. Explicit overlay intentionally replaces colliding definitions under its separate documented contract; no generated spec currently declares roles. Duplicate default signals are compared incompletely by the older strict merge code; this separate defect is tracked in pending SOW-0030 with concrete fields, not silently dropped.
+
+Sensitive data gate:
+
+Passed for this regression: synthetic identities only, no credentials/claim settings/customer inputs in committed fixtures or evidence. Test command logs stay outside committed artifacts; evidence above contains only public schema fields and synthetic readings.
+
+Artifact maintenance gate:
+
+- AGENTS.md: no change; responsibilities and workflow remain valid.
+- Runtime project skill: live-validation now documents effective-role and cross-chart capacity checks plus the one-node probe.
+- Specs: generator-and-engine documents composed sparse roles, conflicting fields, effective validation and PostgreSQL percentage scaling. Root product spec remains untouched.
+- End-user/operator docs: quickstart explains role composition and actionable conflict/bounds errors.
+- End-user/operator skills: none consume these internals; no exported skill changed.
+- SOW lifecycle: this original SOW is completed and returned to done with the repair. SOW-0028 resumes after this commit; SOW-0030 carries the separate duplicate-signal comparison finding.
+
+Lessons extracted:
+
+Context counts cannot establish that composed role values survived. Validate effective patched values, assert both base and service contributions, and check percentage gauges against the count/capacity chart they describe.
+
+Follow-up mapping:
+
+The original narrative's historic pending items are not new unfinished regression work: console/lifecycle, recovery, OTLP and packaging are covered by subsequent SOWs 0002-0005 and later operational repairs. Full replay, log-model fidelity and readiness evidence are actively tracked by SOW-0028; historical hardening and duplicate default-signal equality by SOW-0030. This regression's role composition and percentage scaling are implemented and validated. No standalone new deferred item remains.

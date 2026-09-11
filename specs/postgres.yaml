@@ -150,7 +150,8 @@ contexts:
     priority: 5000
     shape: independent
     dimensions:
-      - { id: used, signal: pg_connections_used }
+      # Connection count / 400-slot capacity, expressed as percent.
+      - { id: used, signal: pg_connections_used, divisor: 4 }
 
   - id: postgres.connections_usage
     title: Connections usage

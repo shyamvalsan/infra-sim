@@ -99,6 +99,15 @@ pub enum SpecError {
         b: String,
     },
 
+    #[error("specs '{a}' and '{b}' conflict on role '{role}', signal '{signal}', field '{field}'")]
+    RoleSignalCollision {
+        role: String,
+        signal: String,
+        field: &'static str,
+        a: String,
+        b: String,
+    },
+
     #[error("specs '{a}' and '{b}' both define context '{context}'")]
     ContextCollision {
         context: String,
@@ -147,13 +156,16 @@ impl GeneratorSpec {
         }
 
         for (role_name, role) in &self.roles {
-            for signal_name in role.signals.keys() {
-                if !self.signals.contains_key(signal_name) {
+            for (signal_name, patch) in &role.signals {
+                let Some(signal) = self.signals.get(signal_name) else {
                     return Err(SpecError::UnknownRoleSignal {
                         role: role_name.clone(),
                         signal: signal_name.clone(),
                     });
-                }
+                };
+                let mut effective = signal.clone();
+                effective.apply(patch);
+                validate_signal(&format!("{role_name}:{signal_name}"), &effective)?;
             }
         }
 

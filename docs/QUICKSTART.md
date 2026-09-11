@@ -191,3 +191,11 @@ response format. Override with `--llm-model`.
 - **Traces are write-only for now.** The application tier emits OpenTelemetry
   spans and the nightly agent stores them, but no Netdata build can display them
   yet. Do not plan a demo beat on traces.
+
+## Editing service role settings
+
+A node keeps its base-generator role settings and the role settings of every
+service it runs. Service patches combine when they affect different fields or
+agree on a shared value. Conflicting values stop the build and name the role,
+signal and field; fix the conflicting definitions before retrying. Effective
+role values must also stay within their declared bounds.
