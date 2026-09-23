@@ -54,6 +54,122 @@ pub struct Exporter {
     last_scrape: i64,
 }
 
+/// Validate the published series, including values absent from generator charts.
+pub fn check_window(
+    engine: NodeEngine,
+    scenarios: &ScenarioSet,
+    start: i64,
+    duration: i64,
+    interval: i64,
+) -> Result<(), String> {
+    let hostname = engine.profile().hostname.clone();
+    let role = engine.profile().role.clone().unwrap_or_default();
+    let mut exporter = Exporter::new(hostname.clone(), role, engine);
+    let mut previous = BTreeMap::new();
+    for offset in (0..=duration).step_by(interval.max(1) as usize) {
+        let body = render(&mut exporter, scenarios, start + offset, start);
+        let current = check_rendered(&body, &previous)
+            .map_err(|error| format!("{hostname} at +{offset}s: {error}"))?;
+        previous = current;
+    }
+    Ok(())
+}
+
+/// A scenario's narrative on the published application values, against an
+/// identical run with no scenario: each targeted signal moves in its intended
+/// direction during the incident, an untargeted node never changes, and every
+/// value is back at baseline once recovery completes. `targets` maps signal to
+/// its intended sign (`None` when only a change is required). The 1% margin is
+/// a visibility floor, not a realism threshold.
+pub fn check_narrative(
+    engine: NodeEngine,
+    scenarios: &ScenarioSet,
+    start: i64,
+    incident: i64,
+    interval: i64,
+    targets: &BTreeMap<String, Option<f64>>,
+) -> Result<(), String> {
+    let hostname = engine.profile().hostname.clone();
+    let quiet = ScenarioSet::default();
+    let mut healthy = engine.clone();
+    let mut affected = engine;
+    let recovered_at = start + incident + sim_engine::RECOVERY_SECONDS;
+    let mut visible = std::collections::BTreeSet::new();
+    let horizon = incident + sim_engine::RECOVERY_SECONDS + 60;
+    for offset in (0..=horizon).step_by(interval.max(1) as usize) {
+        let now = start + offset;
+        let mut baseline = healthy.signal_values(&quiet, now);
+        sim_engine::application::normalize(&mut baseline);
+        let mut live = affected.signal_values(scenarios, now);
+        sim_engine::application::normalize(&mut live);
+        for (name, &value) in &live {
+            let reference = baseline.get(name).copied().unwrap_or(f64::NAN);
+            if targets.is_empty() && value != reference {
+                return Err(format!(
+                    "{hostname} is not targeted but {name} changed at +{offset}s"
+                ));
+            }
+            if now >= recovered_at && value != reference {
+                return Err(format!(
+                    "{hostname}: {name} has not recovered to baseline at +{offset}s"
+                ));
+            }
+            if now < start + incident {
+                if let Some(direction) = targets.get(name) {
+                    let delta = value - reference;
+                    let moved = match direction {
+                        Some(sign) => delta * sign > 0.01 * reference.abs(),
+                        None => delta != 0.0,
+                    };
+                    if moved {
+                        visible.insert(name.clone());
+                    }
+                }
+            }
+        }
+    }
+    if let Some(name) = targets.keys().find(|name| !visible.contains(*name)) {
+        return Err(format!(
+            "{hostname}: targeted {name} never moved in its intended direction"
+        ));
+    }
+    Ok(())
+}
+
+fn check_rendered(
+    body: &str,
+    previous: &BTreeMap<String, f64>,
+) -> Result<BTreeMap<String, f64>, String> {
+    let mut current = BTreeMap::new();
+    let mut quantiles = Vec::new();
+    for line in body.lines().filter(|line| !line.starts_with('#')) {
+        let (series, value) = line.rsplit_once(' ').ok_or("invalid metric line")?;
+        let value: f64 = value.parse().map_err(|_| "invalid metric value")?;
+        if !value.is_finite() || value < 0.0 {
+            return Err(format!("{series} must be finite and nonnegative"));
+        }
+        let name = series.split('{').next().unwrap_or(series);
+        if (name.ends_with("_total") || name.ends_with("_sum") || name.ends_with("_count"))
+            && previous.get(series).is_some_and(|old| value < *old)
+        {
+            return Err(format!("{series} counter decreased without a restart"));
+        }
+        if name == "app_request_duration_seconds" {
+            quantiles.push(value);
+        }
+        if current.insert(series.to_string(), value).is_some() {
+            return Err(format!("duplicate series {series}"));
+        }
+    }
+    if quantiles.len() != 3 || quantiles.windows(2).any(|pair| pair[0] > pair[1]) {
+        return Err("latency quantiles must be present and ordered".into());
+    }
+    if !previous.is_empty() && !previous.keys().eq(current.keys()) {
+        return Err("series cardinality changed during the scenario".into());
+    }
+    Ok(current)
+}
+
 /// A metric family: one `# HELP` / `# TYPE` pair, then its label variants.
 ///
 /// Prometheus requires HELP and TYPE to appear once per family. Emitting them
@@ -99,6 +215,7 @@ pub fn serve(
     listener: TcpListener,
     exporters: Vec<Exporter>,
     control: Arc<Mutex<ScenarioSet>>,
+    recorder: Option<Arc<sim_engine::recording::Recorder>>,
 ) -> std::io::Result<()> {
     let mut exporters = exporters;
     // Counters count from process start, which is what a real client library
@@ -107,11 +224,26 @@ pub fn serve(
     // to anyone who looks. A restart resets them, exactly as a service restart
     // resets a real exporter; go.d handles counter resets natively.
     let started_at = now_secs();
-    for stream in listener.incoming() {
-        let Ok(stream) = stream else { continue };
+    listener.set_nonblocking(true)?;
+    while !crate::shutdown::requested() {
+        let stream = match listener.accept() {
+            Ok((stream, _)) => stream,
+            Err(error) if error.kind() == std::io::ErrorKind::WouldBlock => {
+                std::thread::sleep(Duration::from_millis(50));
+                continue;
+            }
+            Err(error) => return Err(error),
+        };
+        stream.set_nonblocking(false)?;
         let _ = stream.set_read_timeout(Some(Duration::from_secs(5)));
         let _ = stream.set_write_timeout(Some(Duration::from_secs(5)));
-        if let Err(e) = handle(stream, &mut exporters, &control, started_at) {
+        if let Err(e) = handle(
+            stream,
+            &mut exporters,
+            &control,
+            started_at,
+            recorder.as_deref(),
+        ) {
             // A scraper that hangs up mid-response is normal, not fatal.
             if e.kind() != std::io::ErrorKind::BrokenPipe {
                 eprintln!("infra-sim exporters: {e}");
@@ -126,6 +258,7 @@ fn handle(
     exporters: &mut [Exporter],
     control: &Arc<Mutex<ScenarioSet>>,
     started_at: i64,
+    recorder: Option<&sim_engine::recording::Recorder>,
 ) -> std::io::Result<()> {
     let mut reader = BufReader::new(stream.try_clone()?);
     let mut request = String::new();
@@ -158,14 +291,26 @@ fn handle(
             );
         }
     };
-    respond(
+    let result = respond(
         &mut stream,
         "200 OK",
         // The version parameter is what Prometheus clients advertise; go.d does
         // not require it, but an exporter that omits it looks hand-rolled.
         "text/plain; version=0.0.4; charset=utf-8",
         &body,
-    )
+    );
+    if let Some(recorder) = recorder {
+        if result.is_ok() {
+            recorder.capture(
+                sim_engine::recording::Kind::Exporter,
+                path.split('?').next().unwrap_or(path),
+                body.as_bytes(),
+            );
+        } else {
+            recorder.mark_incomplete("exporter response write failed");
+        }
+    }
+    result
 }
 
 fn route(
@@ -209,8 +354,14 @@ fn respond(
 /// and what `go.d prometheus` expects to differentiate. Publishing a rate as a
 /// counter would make Netdata differentiate it a second time and chart a flat
 /// zero.
-fn render(exp: &mut Exporter, scenarios: &ScenarioSet, now: i64, started_at: i64) -> String {
-    let v = exp.engine.signal_values(scenarios, now);
+pub(crate) fn render(
+    exp: &mut Exporter,
+    scenarios: &ScenarioSet,
+    now: i64,
+    started_at: i64,
+) -> String {
+    let mut v = exp.engine.signal_values(scenarios, now);
+    sim_engine::application::normalize(&mut v);
     let get = |k: &str| v.get(k).copied().unwrap_or(0.0);
     // No `instance` label: in a real deployment Prometheus adds that at scrape
     // time from the target address, an exporter does not publish it. Emitting
@@ -428,6 +579,31 @@ mod tests {
             "web".into(),
             NodeEngine::new(Arc::new(spec), profile, 7),
         )
+    }
+
+    #[test]
+    fn published_series_validation_rejects_invalid_values_and_counter_resets() {
+        let mut e = exporter();
+        let first = render(&mut e, &ScenarioSet::default(), 1000, 1000);
+        let previous = check_rendered(&first, &BTreeMap::new()).unwrap();
+        let next = render(&mut e, &ScenarioSet::default(), 1001, 1000);
+        let current = check_rendered(&next, &previous).unwrap();
+        assert!(check_rendered(&first, &current).is_err());
+        let mut invalid = next.clone();
+        invalid.push_str("app_invalid{} NaN\n");
+        assert!(check_rendered(&invalid, &previous).is_err());
+        let invalid = next
+            .lines()
+            .map(|line| {
+                if line.contains("quantile=\"0.5\"") {
+                    format!("{} 9999", line.rsplit_once(' ').unwrap().0)
+                } else {
+                    line.to_string()
+                }
+            })
+            .collect::<Vec<_>>()
+            .join("\n");
+        assert!(check_rendered(&invalid, &previous).is_err());
     }
 
     #[test]

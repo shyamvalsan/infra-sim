@@ -4,11 +4,9 @@
 //! plugin. Two reasons. Netdata owns the plugin's lifecycle and its stdout *is*
 //! the plugins.d stream, so spawning per-node children there tangles teardown —
 //! and this project already lost an hour to a plugin that outlived the removal
-//! of its own file. And because the engine is a pure function of (spec,
-//! profile, seed, tick, scenarios), a separate process reading the same
-//! environment and the same `control.yaml` reproduces the same values the
-//! plugin emitted. Logs and metrics correlate by construction; the two
-//! processes never talk to each other.
+//! of its own file. Both processes use the composed NodeEngine and control
+//! inputs; exact noisy values require identical evaluation histories.
+//! The processes never manage one another's lifecycle.
 //!
 //! ## The pipeline
 //!
@@ -78,7 +76,7 @@ pub fn find_journal_remote(override_path: Option<&Path>) -> Result<PathBuf, Stri
 struct Shard {
     generators: Vec<LogGenerator>,
     child: Child,
-    writer: BufWriter<std::process::ChildStdin>,
+    writer: BufWriter<sim_engine::recording::RecordedWriter<std::process::ChildStdin>>,
     path: PathBuf,
 }
 
@@ -112,6 +110,7 @@ impl LogsRuntime {
         generators: Vec<LogGenerator>,
         journal_dir: &Path,
         remote_bin: &Path,
+        recorder: Option<std::sync::Arc<sim_engine::recording::Recorder>>,
     ) -> Result<Self, String> {
         std::fs::create_dir_all(journal_dir).map_err(|e| {
             format!(
@@ -152,7 +151,12 @@ impl LogsRuntime {
             shards.push(Shard {
                 generators: chunk,
                 child,
-                writer: BufWriter::new(stdin),
+                writer: BufWriter::new(sim_engine::recording::RecordedWriter::new(
+                    stdin,
+                    recorder.clone(),
+                    sim_engine::recording::Kind::Journal,
+                    path.file_name().unwrap().to_string_lossy().into_owned(),
+                )),
                 path,
             });
         }
@@ -288,11 +292,16 @@ mod tests {
                     instances: Default::default(),
                     utc_offset_secs: 0,
                 };
-                LogGenerator::new(&profile, &[], 7)
+                let spec = sim_spec::GeneratorSpec::from_yaml(include_str!(
+                    "../../sim-engine/src/fixtures/log-model.yaml"
+                ))
+                .unwrap();
+                let engine = sim_engine::NodeEngine::new(std::sync::Arc::new(spec), profile, 7);
+                LogGenerator::new(engine, &[], 7)
             })
             .collect();
 
-        let mut runtime = LogsRuntime::start(generators, &journals, &fake).unwrap();
+        let mut runtime = LogsRuntime::start(generators, &journals, &fake, None).unwrap();
         // The invariant is the ceiling, not an exact count: shard_size
         // guarantees ceil(n / shard_size) processes at or below MAX.
         let processes = 300usize.div_ceil(shard_size(300));

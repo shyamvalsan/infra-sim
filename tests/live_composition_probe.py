@@ -49,7 +49,7 @@ nodes:
     guid: {uuid.uuid4()}
     role: db
     services: [postgres]
-    attrs: {{cores: 4, ram_total_kb: 67108864, disk_total_kb: 1572864000}}
+    attrs: {{cores: 4, ram_total_kb: 67108864, swap_total_kb: 4194304, inodes_total: 8000000, disk_total_kb: 1572864000}}
     instances:
       net: [{{name: eth0, weight: 1.0}}]
       disk: [{{name: sda, weight: 1.0}}]

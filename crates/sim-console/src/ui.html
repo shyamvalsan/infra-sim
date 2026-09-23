@@ -384,6 +384,7 @@ Removing the nodes and the Space from Netdata Cloud stays manual; you will be to
   <section>
     <div class="strip">
       <span class="verdict" id="verdict">checking…</span>
+      <span id="recordingStatus" aria-live="polite"></span>
       <span class="meta" id="stripCounts"></span>
       <span style="margin-left:auto"><button class="link" onclick="$('boardWrap').open=!$('boardWrap').open">detail</button></span>
     </div>
@@ -1308,6 +1309,17 @@ async function doAdvance(name, seconds) {
   refresh();
 }
 
+function renderRecording(recording, error) {
+  const el = $("recordingStatus");
+  if (error) { el.textContent = "Recording unavailable: " + error; return; }
+  if (!recording) { el.textContent = "Not recording"; return; }
+  const used = (recording.bytes / 1048576).toFixed(1);
+  const cap = (recording.cap_bytes / 1048576).toFixed(1);
+  const state = recording.incomplete ? "Recording incomplete: " + recording.incomplete
+    : recording.finalized ? "Recording finalized" : "Recording";
+  el.textContent = `${state} (${used} / ${cap} MiB)`;
+}
+
 function renderBoard(b) {
   // No simulation selected: clear the strip instead of throwing on b.checks.
   if (!b) {
@@ -1318,7 +1330,8 @@ function renderBoard(b) {
     return;
   }
   const bad = b.checks.filter(c => c.status !== "pass").length;
-  $("verdict").textContent = b.demo_ready ? "Demo ready" : "Not demo ready";
+  $("verdict").textContent = b.demo_ready ? "Demo ready"
+    : b.operational_ready ? "Operational; demo checks pending" : "Not operational";
   $("verdict").className = "verdict " + (b.demo_ready ? "go" : "nogo");
   $("stripCounts").textContent = bad
     ? `${bad} of ${b.checks.length} checks need attention`
@@ -1472,6 +1485,7 @@ async function doLoadSim(name) {
     INSTALLED = null;
     $("envline").textContent = "no simulation selected";
     renderBoard(null);
+    $("recordingStatus").textContent = "";
     $("nodes").innerHTML = "";
     renderScenarios([]);
     refreshSteps();
@@ -1494,6 +1508,7 @@ async function doLoadSim(name) {
     }
   }
   renderBoard(d.board);
+  renderRecording(d.recording, d.recording_error);
   renderNodes(d.nodes, d.agent_url, d.nodes_truncated);
   renderScenarios(d.scenarios);
   $("errors").className = d.errors.length ? "out bad" : "out";

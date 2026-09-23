@@ -62,8 +62,9 @@ impl Check {
 #[derive(Debug, Clone, Serialize)]
 pub struct Board {
     pub checks: Vec<Check>,
-    /// True only when nothing failed. Warnings do not block, manual items do
-    /// not auto-pass.
+    /// Operational checks have no hard failures; manual evidence may remain.
+    pub operational_ready: bool,
+    /// Every required check passed, including evidence that requires a human.
     pub demo_ready: bool,
 }
 
@@ -82,7 +83,7 @@ pub struct Inputs<'a> {
     pub scenario_count: usize,
     pub active_scenarios: usize,
     pub seed: u64,
-    /// `None` means the lint was not run this session, reported as manual
+    /// `None` means matching lint evidence is unavailable, reported as manual
     /// rather than passing.
     pub lint_clean: Option<bool>,
     pub uptime_hours: Option<f64>,
@@ -254,20 +255,20 @@ pub fn evaluate(input: &Inputs<'_>) -> Board {
         Some(true) => Check::new(
             "Fidelity lint clean",
             Status::Pass,
-            "no signals pinned to their bounds".into(),
+            "matching inputs and runtime passed baseline and scenario lint".into(),
             "",
         ),
         Some(false) => Check::new(
             "Fidelity lint clean",
             Status::Fail,
-            "signals are clamped against their bounds".into(),
-            "Run: infra-sim --environment <env> --lint 2",
+            "the lint recorded a failure for these inputs and runtime".into(),
+            "Re-run lint on the installed payload with --lint-evidence, using its actual runtime; see the operating guide",
         ),
         None => Check::new(
             "Fidelity lint clean",
             Status::Manual,
-            "not run in this session".into(),
-            "Run: infra-sim --environment <env> --lint 2",
+            "lint evidence is missing, stale or invalid".into(),
+            "Re-run lint on the installed payload with --lint-evidence, using its actual runtime; see the operating guide",
         ),
     });
 
@@ -338,8 +339,13 @@ pub fn evaluate(input: &Inputs<'_>) -> Board {
         "Open the alert log and confirm 2-3 resolved incidents are present",
     ));
 
-    let demo_ready = !checks.iter().any(|c| c.status == Status::Fail);
-    Board { checks, demo_ready }
+    let operational_ready = !checks.iter().any(|c| c.status == Status::Fail);
+    let demo_ready = checks.iter().all(|c| c.status == Status::Pass);
+    Board {
+        checks,
+        operational_ready,
+        demo_ready,
+    }
 }
 
 #[cfg(test)]
@@ -369,7 +375,7 @@ mod tests {
     }
 
     #[test]
-    fn a_healthy_fleet_is_demo_ready() {
+    fn a_healthy_fleet_is_operational_but_needs_manual_evidence() {
         let expected = vec!["a".to_string(), "b".to_string()];
         let states = vec![
             node("a", true, 78, 95.0, 5.0),
@@ -386,7 +392,8 @@ mod tests {
             uptime_hours: Some(80.0),
             orphans: &[],
         });
-        assert!(b.demo_ready);
+        assert!(b.operational_ready);
+        assert!(!b.demo_ready, "manual evidence must not auto-pass");
         assert_eq!(find(&b, "All simulated nodes online").status, Status::Pass);
     }
 
@@ -448,7 +455,11 @@ mod tests {
             orphans: &[],
         });
         assert_eq!(find(&b, "Warm-up >= 72h").status, Status::Warn);
-        assert!(b.demo_ready, "a warning should not block the demo");
+        assert!(
+            b.operational_ready,
+            "a warning is not an operational failure"
+        );
+        assert!(!b.demo_ready, "warnings prevent verified readiness");
     }
 
     #[test]
@@ -491,7 +502,8 @@ mod tests {
         assert_eq!(find(&b, "Fidelity lint clean").status, Status::Manual);
         assert_eq!(find(&b, "Warm-up >= 72h").status, Status::Manual);
         // Manual items do not fail the board, but they are visibly not passes.
-        assert!(b.demo_ready);
+        assert!(b.operational_ready);
+        assert!(!b.demo_ready, "manual evidence must not auto-pass");
         assert!(
             b.checks
                 .iter()
@@ -521,7 +533,8 @@ mod tests {
         assert_eq!(c.status, Status::Warn);
         assert!(c.detail.contains("sim-old-01"), "{}", c.detail);
         // A leftover is untidy, not disqualifying.
-        assert!(b.demo_ready);
+        assert!(b.operational_ready);
+        assert!(!b.demo_ready, "manual evidence must not auto-pass");
     }
 
     #[test]

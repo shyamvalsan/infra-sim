@@ -8,7 +8,7 @@
 #
 # Usage:
 #   sim-docker.sh build [--netdata-tag stable]
-#   sim-docker.sh create <name> <environment.yaml> [--port N] [--claim] [--rooms IDS] [--owner NAME] [--public-dashboards] [--no-exporters]
+#   sim-docker.sh create <name> <environment.yaml> [--port N] [--claim] [--rooms IDS] [--owner NAME] [--public-dashboards] [--no-exporters] [--lint-hours N]
 #   sim-docker.sh list
 #   sim-docker.sh status <name>
 #   sim-docker.sh scenario <name> trigger|resolve <scenario>
@@ -103,7 +103,7 @@ cmd_create() {
   [ -n "$name" ] && [ -n "$env_file" ] || die "usage: $0 create <name> <environment.yaml> [--port N] [--claim] [--rooms IDS]"
   [ -f "$env_file" ] || die "no such environment file: $env_file"
 
-  local port="" claim=no rooms="${INFRA_SIM_CLAIM_ROOMS:-}" url="https://app.netdata.cloud" exporters=yes owner="" public_dashboards=no
+  local port="" claim=no rooms="${INFRA_SIM_CLAIM_ROOMS:-}" url="https://app.netdata.cloud" exporters=yes owner="" public_dashboards=no lint_hours=2
   while [ $# -gt 0 ]; do
     case "$1" in
       --port) port="$2"; shift 2 ;;
@@ -116,9 +116,12 @@ cmd_create() {
       --owner) owner="$2"; shift 2 ;;
       --public-dashboards) public_dashboards=yes; shift ;;
       --no-exporters) exporters=no; shift ;;
+      --lint-hours) lint_hours="$2"; shift 2 ;;
       *) die "unknown option '$1'" ;;
     esac
   done
+  printf '%s' "$lint_hours" | grep -Eq '^[0-9]{1,3}$' \
+    || die "--lint-hours takes a whole number of hours (0 skips the lint)"
   if [ -n "$owner" ]; then
     printf '%s' "$owner" | grep -Eq '^[A-Za-z0-9 .@_-]{1,64}$' \
       || die "an owner may contain letters, digits, spaces, - _ . @ (max 64 chars)"
@@ -130,6 +133,10 @@ cmd_create() {
     && die "simulation '$name' already exists. Tear it down first:  $0 teardown $name"
 
   [ -n "$port" ] || port="$(free_port)"
+
+  python3 -c 'import sys; value=int(sys.argv[1]); sys.exit(0 if 8 <= value <= 2**64-1 else 1)' \
+    "${INFRA_SIM_RECORD_MAX_BYTES:-1073741824}" \
+    || die "INFRA_SIM_RECORD_MAX_BYTES must be an integer between 8 and 18446744073709551615"
 
   # Assemble the payload the container mounts: the environment with its paths
   # rewritten to the container's layout, beside the specs and scenarios it
@@ -161,6 +168,33 @@ cmd_create() {
   # An empty control file so a scenario can be triggered without creating it.
   [ -f "$dir/control.yaml" ] || echo "active: []" > "$dir/control.yaml"
 
+  # Pin both validation and startup to one immutable image identity.
+  local runtime_image
+  runtime_image="$(docker image inspect --format '{{.Id}}' "$IMAGE")" || return $?
+  [ -n "$runtime_image" ] || die "cannot identify the simulation image"
+  # The one fidelity lint of a container create: the final payload in the image
+  # that will run it. Its report is kept beside the payload for the console.
+  if [ "$lint_hours" -gt 0 ]; then
+    local lint_status=0
+    run docker run --rm --network none \
+      --entrypoint /etc/netdata/custom-plugins.d/infra-sim.plugin \
+      -v "$dir:/etc/netdata/infra-sim" \
+      -e "INFRA_SIM_LINT_RUNTIME_IMAGE=$runtime_image" \
+      "$runtime_image" --environment /etc/netdata/infra-sim/environment.yaml \
+      --lint "$lint_hours" --lint-evidence /etc/netdata/infra-sim/lint-evidence.json \
+      >"$dir/lint.out" 2>&1 || lint_status=$?
+    if [ "$lint_status" -ne 0 ]; then
+      # Violations come first and one PASS line per node after them; drop the
+      # PASS lines so the reason survives a tail.
+      grep -v '^ *PASS ' "$dir/lint.out" | tail -n 40 >&2
+      echo >&2 "fidelity lint failed, so nothing was started"
+      return "$lint_status"
+    fi
+  else
+    rm -f "$dir/lint-evidence.json" "$dir/lint.out"
+    info "fidelity lint skipped (--lint-hours 0): this simulation stays unverified"
+  fi
+
   local -a claim_env=()
   if [ "$claim" = yes ]; then
     local token="${NETDATA_CLAIM_TOKEN:-}"
@@ -186,6 +220,8 @@ cmd_create() {
     bind_ip="0.0.0.0"
     warn "dashboards bind 0.0.0.0:$port - the agent has NO authentication; firewall it"
   fi
+  local expected_producers="metrics,journal,otlp"
+  if [ "$exporters" = yes ]; then expected_producers+=",exporters"; fi
   run docker run -d \
     --name "$container" \
     --label "$LABEL=$name" \
@@ -195,8 +231,12 @@ cmd_create() {
     -v "$dir/netdata.conf:/etc/netdata/netdata.conf:ro" \
     -v "$dir:/etc/netdata/infra-sim" \
     -v "$dir/journal:/var/log/journal/remote" \
+    -e INFRA_SIM_RECORD_DIR=/etc/netdata/infra-sim/recording \
+    -e "INFRA_SIM_RECORD_EXPECTED=$expected_producers" \
+    -e INFRA_SIM_LIFECYCLE_FILE=/etc/netdata/infra-sim/runtime-state \
+    -e "INFRA_SIM_RECORD_MAX_BYTES=${INFRA_SIM_RECORD_MAX_BYTES:-1073741824}" \
     "${claim_env[@]}" \
-    "$IMAGE" >/dev/null
+    "$runtime_image" >/dev/null
 
   info "simulation '$name' is starting"
 
@@ -420,14 +460,33 @@ cmd_teardown() {
   local container; container="$(container_of "$name")"
   docker ps -a --format '{{.Names}}' | grep -qx "$container" || die "no such simulation: $name"
 
-  # Preserve the replay inputs before any destructive operation. Explicit
-  # returns also protect callers that invoke this function in a conditional.
+  # Quiesce the source before copying. On failure it remains stopped with its
+  # payload intact, so an operator can retry without losing the recording.
   local dir="$STATE_DIR/$name"
   [ -d "$dir" ] || die "payload missing for '$name'; refusing removal without an archive"
   local archive="$REPO/archive/$name-$(date +%s)-$$"
+  local image_id
+  image_id="$(docker inspect --format '{{.Image}}' "$container")" || return $?
+  [ -n "$image_id" ] || die "cannot identify '$name' image; refusing removal"
+  run docker stop --time 30 "$container" || return $?
   run mkdir -p "$archive" || return $?
   run cp "$dir/environment.yaml" "$archive/environment.yaml" || return $?
   run cp -r "$dir/scenarios" "$archive/scenarios" || return $?
+  run cp -r "$dir/specs" "$archive/specs" || return $?
+  run cp "$dir/control.yaml" "$archive/control.yaml" || return $?
+  if [ -f "$dir/lint-evidence.json" ]; then
+    run cp "$dir/lint-evidence.json" "$archive/lint-evidence.json" || return $?
+  fi
+  run docker cp "$container:/etc/netdata/custom-plugins.d/infra-sim.plugin" "$archive/infra-sim.plugin" || return $?
+  if [ -d "$dir/recording" ]; then
+    run cp -r "$dir/recording" "$archive/recording" || return $?
+    # The archived executable owns the format. The helper image only supplies
+    # Linux runtime libraries; Docker may no longer resolve a replaced image ID.
+    run docker run --rm --network none \
+      --entrypoint /record/infra-sim.plugin -v "$archive:/record" \
+      "$IMAGE" --finalize-recording /record/recording || return $?
+  fi
+  run python3 "$REPO/scripts/archive_manifest.py" "$archive" "$image_id" || return $?
   run docker rm -f "$container" || return $?
   run rm -rf "$dir" || return $?
   info "archived to $archive"

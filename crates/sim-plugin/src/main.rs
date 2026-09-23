@@ -21,6 +21,8 @@ mod environment;
 mod exporters;
 mod logs_runtime;
 mod otlp_runtime;
+mod replay;
+mod shutdown;
 mod warmup;
 
 use environment::Environment;
@@ -64,6 +66,7 @@ struct Args {
     /// Run the fidelity lint over this many simulated hours instead of
     /// emitting, then exit.
     lint_hours: Option<i64>,
+    lint_evidence: Option<PathBuf>,
     /// Build an environment from a plain-text description instead of running.
     describe: Option<String>,
     /// Environment name and hostname prefix for --describe.
@@ -103,6 +106,11 @@ struct Args {
     /// reproduces the same *shape* only when run at the same time of day.
     /// Pinning closes that gap and makes replay bit-exact.
     replay_from: Option<i64>,
+    replay_recording: Option<PathBuf>,
+    replay_start_at: Option<u64>,
+    allow_incomplete_recording: bool,
+    finalize_recording: Option<PathBuf>,
+    recording_status: Option<PathBuf>,
 }
 
 /// How often the running plugin re-emits its HOST_DEFINE/label/chart
@@ -152,7 +160,13 @@ fn parse_args() -> Result<Args, String> {
     let mut update_every = 1_i64;
     let mut environment: Option<PathBuf> = None;
     let mut lint_hours: Option<i64> = None;
+    let mut lint_evidence = None;
     let mut replay_from: Option<i64> = None;
+    let mut replay_recording = None;
+    let mut replay_start_at = None;
+    let mut allow_incomplete_recording = false;
+    let mut finalize_recording = None;
+    let mut recording_status = None;
     let mut reskin_args: Option<ReskinArgs> = None;
     let mut describe: Option<String> = None;
     let mut describe_name: Option<String> = None;
@@ -172,6 +186,38 @@ fn parse_args() -> Result<Args, String> {
     let mut args = std::env::args().skip(1);
     while let Some(arg) = args.next() {
         match arg.as_str() {
+            "--lint-evidence" => {
+                lint_evidence = Some(PathBuf::from(
+                    args.next()
+                        .ok_or("--lint-evidence requires an output path")?,
+                ));
+            }
+            "--replay-start-at" => {
+                let value = args
+                    .next()
+                    .ok_or("--replay-start-at requires a Unix timestamp")?;
+                replay_start_at = Some(
+                    value
+                        .parse::<u64>()
+                        .ok()
+                        .and_then(|seconds| seconds.checked_mul(1_000_000_000))
+                        .ok_or(
+                            "--replay-start-at requires a representable nonnegative Unix timestamp",
+                        )?,
+                );
+            }
+            "--allow-incomplete-recording" => allow_incomplete_recording = true,
+            "--replay-recording" | "--finalize-recording" | "--recording-status" => {
+                let path = PathBuf::from(
+                    args.next()
+                        .ok_or_else(|| format!("{arg} requires a recording directory"))?,
+                );
+                match arg.as_str() {
+                    "--replay-recording" => replay_recording = Some(path),
+                    "--finalize-recording" => finalize_recording = Some(path),
+                    _ => recording_status = Some(path),
+                }
+            }
             "--environment" | "-e" => {
                 let value = args
                     .next()
@@ -301,6 +347,12 @@ fn parse_args() -> Result<Args, String> {
                      (default: ${ENV_VAR} or {DEFAULT_ENVIRONMENT})\n\
                      --lint HOURS  simulate HOURS of data, report fidelity \
                      violations, and exit non-zero if any are found\n\
+                     --lint-evidence PATH save fingerprinted evidence for --lint\n\
+                     --replay-recording DIR replay stored raw output (metrics by default)\n\
+                     --replay-start-at TS synchronize producers to one Unix start timestamp\n\
+                     --allow-incomplete-recording explicitly replay a preserved prefix\n\
+                     --recording-status DIR report capture state as JSON\n\
+                     --finalize-recording DIR seal a stopped recording\n\
                      --replay-from TS  pin the simulated clock to unix timestamp TS \
                      for bit-exact replay of an archived environment\n\
                      \n\
@@ -386,11 +438,42 @@ fn parse_args() -> Result<Args, String> {
         None => {}
     }
 
+    if lint_evidence.is_some() && lint_hours.is_none() {
+        return Err("--lint-evidence requires --lint".into());
+    }
+    let recording_commands = usize::from(replay_recording.is_some())
+        + usize::from(finalize_recording.is_some())
+        + usize::from(recording_status.is_some());
+    if recording_commands > 1 {
+        return Err("choose one recording command: replay, finalize, or status".into());
+    }
+    if replay_start_at.is_some() && replay_recording.is_none() {
+        return Err("--replay-start-at requires --replay-recording".into());
+    }
+    if allow_incomplete_recording && replay_recording.is_none() {
+        return Err("--allow-incomplete-recording requires --replay-recording".into());
+    }
+    if recording_commands != 0
+        && (lint_hours.is_some()
+            || replay_from.is_some()
+            || describe.is_some()
+            || reskin_args.is_some()
+            || exporter_config.is_some())
+    {
+        return Err("recording commands cannot be combined with lint, regeneration, describe, reskin, or exporter configuration".into());
+    }
+
     Ok(Args {
         update_every,
         environment,
         lint_hours,
+        lint_evidence,
         replay_from,
+        replay_recording,
+        replay_start_at,
+        allow_incomplete_recording,
+        finalize_recording,
+        recording_status,
         reskin: reskin_args,
         describe,
         describe_name,
@@ -411,6 +494,26 @@ fn parse_args() -> Result<Args, String> {
 fn run() -> Result<(), String> {
     let args = parse_args()?;
 
+    if let Some(dir) = &args.recording_status {
+        let status = sim_engine::recording::status(dir).map_err(|e| e.to_string())?;
+        println!(
+            "{}",
+            serde_json::to_string(&status).map_err(|e| e.to_string())?
+        );
+        return Ok(());
+    }
+    if let Some(dir) = &args.finalize_recording {
+        let status = sim_engine::recording::finalize(dir).map_err(|e| e.to_string())?;
+        println!(
+            "{}",
+            serde_json::to_string(&status).map_err(|e| e.to_string())?
+        );
+        return Ok(());
+    }
+    if let Some(dir) = &args.replay_recording {
+        return replay::run(dir, &args);
+    }
+
     if let Some(text) = &args.describe {
         return do_describe(
             text,
@@ -425,13 +528,21 @@ fn run() -> Result<(), String> {
         return do_reskin(&args.environment, r);
     }
 
-    let env = Environment::load(&args.environment).map_err(|e| e.to_string())?;
-
-    // Logs need the fleet's identities and services, not its generator specs,
-    // so this branches before the (much heavier) spec composition.
-    if args.logs {
-        return do_logs(&env, &args);
+    if args.lint_hours.is_none() && args.exporter_config.is_none() {
+        shutdown::install()?;
+        if std::env::var_os("INFRA_SIM_LIFECYCLE_FILE")
+            .and_then(|path| std::fs::read_to_string(path).ok())
+            .is_some_and(|state| state.trim() == "stopping")
+        {
+            return Ok(());
+        }
     }
+    let evidence_before = args
+        .lint_evidence
+        .as_ref()
+        .map(|_| sim_engine::lint_evidence::inputs(&args.environment))
+        .transpose()?;
+    let env = Environment::load(&args.environment).map_err(|e| e.to_string())?;
 
     if args.exporters {
         return do_exporters(&env, &args);
@@ -549,10 +660,42 @@ fn run() -> Result<(), String> {
         })
         .collect();
 
+    if args.logs {
+        return do_logs(&env, &args, engines);
+    }
+
     if let Some(hours) = args.lint_hours {
-        let library = control::load_library(&env.scenario_path(&args.environment))?;
-        check_scenarios(&composed, &env, &library, &specs_dir)?;
-        return lint(&mut engines, hours, update_every);
+        let result = (|| {
+            let library = control::load_library(&env.scenario_path(&args.environment))?;
+            check_scenarios(&composed, &env, &library, &specs_dir)?;
+            let scenario_baseline = engines.clone();
+            lint(&mut engines, hours, update_every)?;
+            let roles: Vec<&str> = env.nodes.iter().filter_map(|n| n.role.as_deref()).collect();
+            lint_scenarios(&scenario_baseline, &library, &roles, update_every)?;
+            lint_applications(&env, &args, &library, &roles, update_every)
+        })();
+        if let (Some(path), Some(before)) = (&args.lint_evidence, evidence_before) {
+            let after = sim_engine::lint_evidence::inputs(&args.environment)?;
+            if before != after {
+                return Err(
+                    "lint inputs changed during validation; no evidence was written".into(),
+                );
+            }
+            let executable = if cfg!(target_os = "linux") {
+                PathBuf::from("/proc/self/exe")
+            } else {
+                std::env::current_exe().map_err(|e| e.to_string())?
+            };
+            sim_engine::lint_evidence::write(
+                path,
+                before,
+                &executable,
+                std::env::var("INFRA_SIM_LINT_RUNTIME_IMAGE").ok(),
+                hours,
+                result.is_ok(),
+            )?;
+        }
+        return result;
     }
 
     let base_dir = args
@@ -573,7 +716,16 @@ fn run() -> Result<(), String> {
     let mut control = control::ControlChannel::new(base_dir.join(CONTROL_FILE), library);
 
     let stdout = io::stdout();
-    let mut out = BufWriter::new(stdout.lock());
+    let recorder =
+        sim_engine::recording::Recorder::from_environment(sim_engine::recording::Producer::Metrics)
+            .map_err(|e| format!("cannot initialize recording: {e}"))?;
+    control.record_to(recorder.clone());
+    let mut out = BufWriter::new(sim_engine::recording::RecordedWriter::new(
+        stdout.lock(),
+        recorder,
+        sim_engine::recording::Kind::Metrics,
+        String::new(),
+    ));
 
     emitter::define_hosts(&mut out, &profiles).map_err(write_err)?;
     for engine in &engines {
@@ -627,6 +779,9 @@ fn run() -> Result<(), String> {
 
     loop {
         sleep_until(next);
+        if shutdown::requested() {
+            return Ok(());
+        }
 
         // Exit 0 when our own plugin file is removed.
         //
@@ -715,21 +870,15 @@ fn run() -> Result<(), String> {
 
 /// Run the correlated-logs writer.
 ///
-/// Deliberately shares nothing with the metrics process but the environment
-/// file, the seed and `control.yaml`. Determinism does the rest: both compute
-/// the same values for the same tick, so the logs line up with the charts
-/// without either side coordinating.
-fn do_logs(env: &Environment, args: &Args) -> Result<(), String> {
+/// Separate process, shared composed model and control inputs. Matching noisy
+/// values requires matching tick history; restarts begin a new history.
+fn do_logs(env: &Environment, args: &Args, engines: Vec<NodeEngine>) -> Result<(), String> {
     let remote_bin = logs_runtime::find_journal_remote(args.journal_remote.as_deref())?;
     let update_every = args.update_every.max(env.update_every);
-
-    let generators: Vec<sim_engine::logs::LogGenerator> = env
-        .profiles()
-        .iter()
+    let generators = engines
+        .into_iter()
         .zip(&env.nodes)
-        .map(|(profile, node)| {
-            sim_engine::logs::LogGenerator::new(profile, &node.services, env.seed)
-        })
+        .map(|(engine, node)| sim_engine::logs::LogGenerator::new(engine, &node.services, env.seed))
         .collect();
 
     let base_dir = args
@@ -740,7 +889,12 @@ fn do_logs(env: &Environment, args: &Args) -> Result<(), String> {
     let library = control::load_library(&env.scenario_path(&args.environment))?;
     let mut control = control::ControlChannel::new(base_dir.join(CONTROL_FILE), library);
 
-    let mut runtime = logs_runtime::LogsRuntime::start(generators, &args.journal_dir, &remote_bin)?;
+    let recorder =
+        sim_engine::recording::Recorder::from_environment(sim_engine::recording::Producer::Journal)
+            .map_err(|e| format!("cannot initialize recording: {e}"))?;
+    control.record_to(recorder.clone());
+    let mut runtime =
+        logs_runtime::LogsRuntime::start(generators, &args.journal_dir, &remote_bin, recorder)?;
 
     eprintln!(
         "infra-sim logs: {} node(s) -> {} (via {})",
@@ -757,6 +911,8 @@ fn do_logs(env: &Environment, args: &Args) -> Result<(), String> {
          produces matching log lines."
     );
 
+    let env_stamp = file_stamp(&args.environment);
+    let roles: Vec<&str> = env.nodes.iter().filter_map(|n| n.role.as_deref()).collect();
     let interval = update_every as f64;
     let mut next = align_to_interval(now_secs(), update_every);
     let mut total = 0usize;
@@ -764,6 +920,9 @@ fn do_logs(env: &Environment, args: &Args) -> Result<(), String> {
 
     loop {
         sleep_until(next);
+        if shutdown::requested() {
+            return Ok(());
+        }
         let tick_at = next;
         next += update_every;
 
@@ -771,7 +930,19 @@ fn do_logs(env: &Environment, args: &Args) -> Result<(), String> {
             eprintln!("infra-sim logs: {change}");
         }
 
-        total += runtime.tick(control.scenarios(), tick_at, interval)?;
+        if env_stamp.is_some() && file_stamp(&args.environment) != env_stamp {
+            eprintln!("infra-sim logs: environment changed; exiting for supervisor restart");
+            return Ok(());
+        }
+        let warm;
+        let live = control.scenarios();
+        let scenarios = if live.is_empty() && env.warmup_incidents {
+            warm = warmup::active(control.library(), &roles, env.seed, tick_at);
+            &warm
+        } else {
+            live
+        };
+        total += runtime.tick(scenarios, tick_at, interval)?;
 
         // Periodic, not per-tick: an operator wants to know it is alive without
         // the output becoming its own log flood.
@@ -868,16 +1039,12 @@ fn do_otlp(env: &Environment, args: &Args) -> Result<(), String> {
     let service = format!("{}-storefront", env.name);
     let namespace = env.name.clone();
 
-    let built: Vec<otlp_runtime::Node> = env
-        .profiles()
+    let built: Vec<otlp_runtime::Node> = application_engines(env, spec)
         .into_iter()
-        .filter(|p| is_app_tier(p.role.as_deref()))
-        .map(|profile| {
-            let hostname = profile.hostname.clone();
-            let role = profile.role.clone().unwrap_or_else(|| "node".into());
-            let engine = NodeEngine::new(Arc::clone(&spec), profile, env.seed);
+        .map(|(profile, engine)| {
+            let role = profile.role.as_deref().unwrap_or("node");
             let telemetry =
-                sim_engine::otel::AppTelemetry::new(&hostname, &role, &service, env.seed);
+                sim_engine::otel::AppTelemetry::new(&profile.hostname, role, &service, env.seed);
             otlp_runtime::Node::new(engine, telemetry, &env.name, &namespace)
         })
         .collect();
@@ -889,11 +1056,16 @@ fn do_otlp(env: &Environment, args: &Args) -> Result<(), String> {
         .unwrap_or_else(|| PathBuf::from("."));
     let library = control::load_library(&env.scenario_path(&args.environment))?;
     let shared = Arc::new(std::sync::Mutex::new(sim_engine::ScenarioSet::default()));
+    let recorder =
+        sim_engine::recording::Recorder::from_environment(sim_engine::recording::Producer::Otlp)
+            .map_err(|e| format!("cannot initialize recording: {e}"))?;
+    let control_recorder = recorder.clone();
     let poller = Arc::clone(&shared);
     let control_path = base_dir.join(CONTROL_FILE);
-    std::thread::spawn(move || {
+    let control_thread = std::thread::spawn(move || {
         let mut control = control::ControlChannel::new(control_path, library);
-        loop {
+        control.record_to(control_recorder);
+        while !shutdown::requested() {
             let at = now_secs();
             if let Some(change) = control.poll(at) {
                 eprintln!("infra-sim otlp: {change}");
@@ -909,12 +1081,16 @@ fn do_otlp(env: &Environment, args: &Args) -> Result<(), String> {
         .enable_all()
         .build()
         .map_err(|e| format!("cannot start the OTLP runtime: {e}"))?;
-    runtime.block_on(otlp_runtime::run(
+    let result = runtime.block_on(otlp_runtime::run(
         &args.otlp_endpoint,
         built,
         shared,
         std::time::Duration::from_secs(1),
-    ))
+        recorder,
+    ));
+    shutdown::request();
+    let _ = control_thread.join();
+    result
 }
 
 /// Whether a role runs the instrumented application.
@@ -925,6 +1101,28 @@ fn do_otlp(env: &Environment, args: &Args) -> Result<(), String> {
 /// server.
 fn is_app_tier(role: Option<&str>) -> bool {
     matches!(role, Some("web") | Some("lb") | Some("k8s-worker"))
+}
+
+/// Keep application scenario targeting aligned with the plugins.d fleet order.
+fn application_engines(
+    env: &Environment,
+    spec: Arc<GeneratorSpec>,
+) -> Vec<(sim_engine::NodeProfile, NodeEngine)> {
+    let mut role_seen = std::collections::BTreeMap::<String, usize>::new();
+    env.profiles()
+        .into_iter()
+        .filter(|profile| is_app_tier(profile.role.as_deref()))
+        .map(|profile| {
+            let rank = profile.role.as_ref().map(|role| {
+                let next = role_seen.entry(role.clone()).or_default();
+                let rank = *next;
+                *next += 1;
+                rank
+            });
+            let engine = NodeEngine::with_rank(Arc::clone(&spec), profile.clone(), env.seed, rank);
+            (profile, engine)
+        })
+        .collect()
 }
 
 fn do_exporters(env: &Environment, args: &Args) -> Result<(), String> {
@@ -940,21 +1138,11 @@ fn do_exporters(env: &Environment, args: &Args) -> Result<(), String> {
     })?;
     let spec = Arc::new(GeneratorSpec::from_yaml(&raw).map_err(|e| e.to_string())?);
 
-    let built: Vec<exporters::Exporter> = env
-        .profiles()
+    let built: Vec<exporters::Exporter> = application_engines(env, spec)
         .into_iter()
-        // Only the application tier runs the instrumented service - the same
-        // rule the OTLP emitter follows. A database or a switch publishing
-        // storefront orders is an artifact an SRE reads first.
-        .filter(|p| is_app_tier(p.role.as_deref()))
-        .map(|profile| {
-            let hostname = profile.hostname.clone();
+        .map(|(profile, engine)| {
             let role = profile.role.clone().unwrap_or_else(|| "node".into());
-            exporters::Exporter::new(
-                hostname,
-                role,
-                NodeEngine::new(Arc::clone(&spec), profile, env.seed),
-            )
+            exporters::Exporter::new(profile.hostname, role, engine)
         })
         .collect();
 
@@ -981,11 +1169,17 @@ fn do_exporters(env: &Environment, args: &Args) -> Result<(), String> {
         .unwrap_or_else(|| PathBuf::from("."));
     let library = control::load_library(&env.scenario_path(&args.environment))?;
     let shared = Arc::new(std::sync::Mutex::new(sim_engine::ScenarioSet::default()));
+    let recorder = sim_engine::recording::Recorder::from_environment(
+        sim_engine::recording::Producer::Exporters,
+    )
+    .map_err(|e| format!("cannot initialize recording: {e}"))?;
+    let control_recorder = recorder.clone();
     let poller = Arc::clone(&shared);
     let control_path = base_dir.join(CONTROL_FILE);
-    std::thread::spawn(move || {
+    let control_thread = std::thread::spawn(move || {
         let mut control = control::ControlChannel::new(control_path, library);
-        loop {
+        control.record_to(control_recorder);
+        while !shutdown::requested() {
             let at = now_secs();
             if let Some(change) = control.poll(at) {
                 eprintln!("infra-sim exporters: {change}");
@@ -997,7 +1191,10 @@ fn do_exporters(env: &Environment, args: &Args) -> Result<(), String> {
         }
     });
 
-    exporters::serve(listener, built, shared).map_err(|e| e.to_string())
+    let result = exporters::serve(listener, built, shared, recorder).map_err(|e| e.to_string());
+    shutdown::request();
+    let _ = control_thread.join();
+    result
 }
 
 /// Write the go.d scrape config for a fleet's application tier.
@@ -1260,6 +1457,110 @@ fn exporter_signals(specs_dir: &Path) -> std::collections::BTreeSet<String> {
         .unwrap_or_default()
 }
 
+/// Whether a scenario step's structural selectors can fire in this fleet.
+/// Shared by the scenario and application lints so one can never reject a step
+/// the other reports as skipped.
+enum StepFit {
+    Applies,
+    /// Not a fault: this fleet simply lacks what the step aims at.
+    Skip(String),
+    /// An authoring error, or a required role this fleet does not have.
+    Problem(String),
+}
+
+fn step_fit(
+    env: &Environment,
+    roles: &[&str],
+    name: &str,
+    sc: &sim_spec::Scenario,
+    i: usize,
+    t: &sim_spec::Target,
+) -> StepFit {
+    // A step aimed at a role this fleet does not have is only a fault
+    // when the scenario declared that role as required. Hero scenarios
+    // propagate opportunistically - disk-fill reaches the load balancer
+    // last - and a fleet with no `lb` should still be able to run it,
+    // minus that step. Treating every absent role as fatal made the
+    // console's create flow unable to build anything but a fleet
+    // containing every role any scenario happens to mention.
+    if let Some(r) = &t.role {
+        if !roles.contains(&r.as_str()) {
+            // The rest of this step cannot fire either way.
+            return if sc.requires_roles.iter().any(|req| req == r) {
+                StepFit::Problem(format!(
+                    "  {name} step {i}: requires role '{r}', which no node has"
+                ))
+            } else {
+                StepFit::Skip(format!("  {name} step {i}: no '{r}' node, step is skipped"))
+            };
+        }
+    }
+
+    // An index target beyond the role's node count is skipped (the
+    // same class as an absent role); the role missing entirely is
+    // handled by the requires_roles/absent-role branch above.
+    if let Some(idx) = t.node_index {
+        let nodes_of_role = env
+            .nodes
+            .iter()
+            .filter(|n| t.role.as_ref().is_none_or(|r| n.role.as_deref() == Some(r)))
+            .count();
+        if nodes_of_role < idx {
+            return StepFit::Skip(format!(
+                "  {name} step {i}: only {nodes_of_role} node(s) match the selectors, \
+                 index {idx} does not exist, step is skipped"
+            ));
+        }
+    }
+
+    // A label target no node satisfies is skipped, not fatal - the
+    // same class as an absent role. But a selector with no `=` is an
+    // authoring error: it matches nothing anywhere, on any fleet.
+    if let Some(sel) = &t.label {
+        if sel.split_once('=').is_none() {
+            return StepFit::Problem(format!(
+                "  {name} step {i}: label selector '{sel}' has no '=' - it would \
+                 match nothing on any fleet"
+            ));
+        }
+        let Some((key, value)) = sel.split_once('=') else {
+            unreachable!("the malformed case is refused above");
+        };
+        let any_labelled = env
+            .nodes
+            .iter()
+            .any(|n| n.labels.get(key).map(String::as_str) == Some(value));
+        if !any_labelled {
+            return StepFit::Skip(format!(
+                "  {name} step {i}: no node carries label '{sel}', step is skipped"
+            ));
+        }
+    }
+
+    // An instance pin that no matching node declares would do
+    // nothing - the same silent-nothing class the signal check below
+    // exists to catch. Reported as a skip (a fleet without that
+    // device model simply lacks the port), never a refusal.
+    if let Some(want_inst) = &t.instance {
+        let role_matches = |n: &crate::environment::NodeDef| {
+            t.role.as_ref().is_none_or(|r| n.role.as_deref() == Some(r))
+        };
+        let any_instance = env.nodes.iter().filter(|n| role_matches(n)).any(|n| {
+            n.instances
+                .values()
+                .flatten()
+                .any(|i| i.name() == want_inst)
+        });
+        if !any_instance {
+            return StepFit::Skip(format!(
+                "  {name} step {i}: no node declares instance '{want_inst}', \
+                 step is skipped"
+            ));
+        }
+    }
+    StepFit::Applies
+}
+
 fn check_scenarios(
     composed: &std::collections::BTreeMap<String, Arc<GeneratorSpec>>,
     env: &Environment,
@@ -1291,91 +1592,14 @@ fn check_scenarios(
         for (i, step) in sc.timeline.iter().enumerate() {
             let t = &step.target;
 
-            // A step aimed at a role this fleet does not have is only a fault
-            // when the scenario declared that role as required. Hero scenarios
-            // propagate opportunistically - disk-fill reaches the load balancer
-            // last - and a fleet with no `lb` should still be able to run it,
-            // minus that step. Treating every absent role as fatal made the
-            // console's create flow unable to build anything but a fleet
-            // containing every role any scenario happens to mention.
-            if let Some(r) = &t.role {
-                if !roles.contains(&r.as_str()) {
-                    if sc.requires_roles.iter().any(|req| req == r) {
-                        problems.push(format!(
-                            "  {name} step {i}: requires role '{r}', which no node has"
-                        ));
-                    } else {
-                        inapplicable
-                            .push(format!("  {name} step {i}: no '{r}' node, step is skipped"));
-                    }
-                    // The rest of this step cannot fire either way.
+            match step_fit(env, &roles, name, sc, i, t) {
+                StepFit::Applies => {}
+                StepFit::Skip(line) => {
+                    inapplicable.push(line);
                     continue;
                 }
-            }
-
-            // An index target beyond the role's node count is skipped (the
-            // same class as an absent role); the role missing entirely is
-            // handled by the requires_roles/absent-role branch above.
-            if let Some(idx) = t.node_index {
-                let nodes_of_role = env
-                    .nodes
-                    .iter()
-                    .filter(|n| t.role.as_ref().is_none_or(|r| n.role.as_deref() == Some(r)))
-                    .count();
-                if nodes_of_role < idx {
-                    inapplicable.push(format!(
-                        "  {name} step {i}: only {nodes_of_role} node(s) match the selectors, \
-                         index {idx} does not exist, step is skipped"
-                    ));
-                    continue;
-                }
-            }
-
-            // A label target no node satisfies is skipped, not fatal - the
-            // same class as an absent role. But a selector with no `=` is an
-            // authoring error: it matches nothing anywhere, on any fleet.
-            if let Some(sel) = &t.label {
-                if sel.split_once('=').is_none() {
-                    problems.push(format!(
-                        "  {name} step {i}: label selector '{sel}' has no '=' - it would \
-                         match nothing on any fleet"
-                    ));
-                    continue;
-                }
-                let Some((key, value)) = sel.split_once('=') else {
-                    unreachable!("the malformed case is refused above");
-                };
-                let any_labelled = env
-                    .nodes
-                    .iter()
-                    .any(|n| n.labels.get(key).map(String::as_str) == Some(value));
-                if !any_labelled {
-                    inapplicable.push(format!(
-                        "  {name} step {i}: no node carries label '{sel}', step is skipped"
-                    ));
-                    continue;
-                }
-            }
-
-            // An instance pin that no matching node declares would do
-            // nothing - the same silent-nothing class the signal check below
-            // exists to catch. Reported as a skip (a fleet without that
-            // device model simply lacks the port), never a refusal.
-            if let Some(want_inst) = &t.instance {
-                let role_matches = |n: &crate::environment::NodeDef| {
-                    t.role.as_ref().is_none_or(|r| n.role.as_deref() == Some(r))
-                };
-                let any_instance = env.nodes.iter().filter(|n| role_matches(n)).any(|n| {
-                    n.instances
-                        .values()
-                        .flatten()
-                        .any(|i| i.name() == want_inst)
-                });
-                if !any_instance {
-                    inapplicable.push(format!(
-                        "  {name} step {i}: no node declares instance '{want_inst}', \
-                         step is skipped"
-                    ));
+                StepFit::Problem(line) => {
+                    problems.push(line);
                     continue;
                 }
             }
@@ -1455,6 +1679,253 @@ fn check_scenarios(
             "{} scenario target(s) do not resolve; those steps would silently do nothing",
             problems.len()
         ))
+    }
+}
+
+/// Exercise each applicable incident separately, including its recovery.
+fn lint_applications(
+    env: &Environment,
+    args: &Args,
+    library: &std::collections::BTreeMap<String, sim_spec::Scenario>,
+    roles: &[&str],
+    interval: i64,
+) -> Result<(), String> {
+    if !env
+        .nodes
+        .iter()
+        .any(|node| is_app_tier(node.role.as_deref()))
+    {
+        return Ok(());
+    }
+    let path = env.specs_path(&args.environment).join(EXPORTER_SPEC);
+    let raw = std::fs::read_to_string(&path)
+        .map_err(|error| format!("cannot read application spec {}: {error}", path.display()))?;
+    let spec = Arc::new(GeneratorSpec::from_yaml(&raw).map_err(|error| error.to_string())?);
+    let engines = application_engines(env, Arc::clone(&spec));
+    let start = 1_700_100_000;
+    for (_, engine) in &engines {
+        exporters::check_window(
+            engine.clone(),
+            &ScenarioSet::default(),
+            start,
+            7200,
+            interval,
+        )?;
+    }
+    println!("  PASS application baseline (published series)");
+    for scenario in library
+        .values()
+        .filter(|scenario| scenario.applies_to(roles))
+    {
+        application_selectors_resolve(&engines, &spec, env, roles, scenario)?;
+        let targets = application_targets(&engines, &spec, env, roles, scenario);
+        let duration = scenario.duration().max(3600);
+        if duration > 86_400 {
+            return Err(format!(
+                "scenario '{}' exceeds the one-day validation horizon",
+                scenario.name
+            ));
+        }
+        let active = ScenarioSet::new(vec![sim_engine::ActiveScenario {
+            scenario: scenario.clone(),
+            started_at: start,
+            recovering_since: Some(start + duration),
+        }]);
+        for (_, engine) in &engines {
+            exporters::check_window(
+                engine.clone(),
+                &active,
+                start,
+                duration + sim_engine::RECOVERY_SECONDS + 60,
+                interval,
+            )
+            .map_err(|error| format!("application scenario {}: {error}", scenario.name))?;
+        }
+        for ((_, engine), targets) in engines.iter().zip(&targets) {
+            exporters::check_narrative(engine.clone(), &active, start, duration, interval, targets)
+                .map_err(|error| format!("application scenario {}: {error}", scenario.name))?;
+        }
+        println!(
+            "  PASS application scenario {} (published series, direction, isolation and recovery)",
+            scenario.name
+        );
+    }
+    Ok(())
+}
+
+/// Every applicable step on an application signal must reach an application
+/// node; otherwise it would silently do nothing on the exporter and OTLP paths.
+fn application_selectors_resolve(
+    engines: &[(sim_engine::NodeProfile, NodeEngine)],
+    spec: &GeneratorSpec,
+    env: &Environment,
+    roles: &[&str],
+    scenario: &sim_spec::Scenario,
+) -> Result<(), String> {
+    for (i, step) in scenario.timeline.iter().enumerate() {
+        if !spec.signals.contains_key(&step.target.signal)
+            || !matches!(
+                step_fit(env, roles, &scenario.name, scenario, i, &step.target),
+                StepFit::Applies
+            )
+        {
+            continue;
+        }
+        let mut ranks = std::collections::BTreeMap::<String, usize>::new();
+        let matched = engines.iter().any(|(profile, _)| {
+            let rank = profile.role.as_ref().map(|role| {
+                let next = ranks.entry(role.clone()).or_default();
+                let rank = *next;
+                *next += 1;
+                rank
+            });
+            step.target.matches(
+                &profile.hostname,
+                profile.role.as_deref(),
+                "",
+                &step.target.signal,
+                &profile.labels,
+                rank,
+            )
+        });
+        if !matched {
+            return Err(format!(
+                "application scenario {}: target '{}' matches no application node",
+                scenario.name, step.target.signal
+            ));
+        }
+    }
+    Ok(())
+}
+
+/// Intended sign of a step's effect on its signal; `None` when it only has to
+/// change (oscillation) or restores normal (recovery).
+fn intended_direction(effect: &sim_spec::Effect) -> Option<f64> {
+    let sign = |value: f64| (value != 0.0).then(|| value.signum());
+    match effect {
+        sim_spec::Effect::Step { multiplier } | sim_spec::Effect::Ramp { multiplier, .. } => {
+            sign(multiplier - 1.0)
+        }
+        sim_spec::Effect::Add { amount } | sim_spec::Effect::AddRamp { amount, .. } => {
+            sign(*amount)
+        }
+        sim_spec::Effect::Drift { rate_per_hour } => sign(*rate_per_hour),
+        sim_spec::Effect::Oscillate { .. } | sim_spec::Effect::Recover { .. } => None,
+    }
+}
+
+/// Per application engine, the published signals a scenario targets there and
+/// their intended direction. Opposing steps on one signal only require change.
+fn application_targets(
+    engines: &[(sim_engine::NodeProfile, NodeEngine)],
+    spec: &GeneratorSpec,
+    env: &Environment,
+    roles: &[&str],
+    scenario: &sim_spec::Scenario,
+) -> Vec<std::collections::BTreeMap<String, Option<f64>>> {
+    let mut ranks = std::collections::BTreeMap::<String, usize>::new();
+    engines
+        .iter()
+        .map(|(profile, _)| {
+            let rank = profile.role.as_ref().map(|role| {
+                let next = ranks.entry(role.clone()).or_default();
+                let rank = *next;
+                *next += 1;
+                rank
+            });
+            let mut targets = std::collections::BTreeMap::<String, Option<f64>>::new();
+            for (i, step) in scenario.timeline.iter().enumerate() {
+                let t = &step.target;
+                if !spec.signals.contains_key(&t.signal)
+                    || !matches!(
+                        step_fit(env, roles, &scenario.name, scenario, i, t),
+                        StepFit::Applies
+                    )
+                    || !t.matches(
+                        &profile.hostname,
+                        profile.role.as_deref(),
+                        "",
+                        &t.signal,
+                        &profile.labels,
+                        rank,
+                    )
+                {
+                    continue;
+                }
+                if matches!(step.effect, sim_spec::Effect::Recover { .. }) {
+                    continue;
+                }
+                let direction = intended_direction(&step.effect);
+                targets
+                    .entry(t.signal.clone())
+                    .and_modify(|existing| {
+                        if *existing != direction {
+                            *existing = None;
+                        }
+                    })
+                    .or_insert(direction);
+            }
+            targets
+        })
+        .collect()
+}
+
+fn lint_scenarios(
+    baseline: &[NodeEngine],
+    library: &std::collections::BTreeMap<String, sim_spec::Scenario>,
+    roles: &[&str],
+    interval: i64,
+) -> Result<(), String> {
+    let start = 1_700_100_000;
+    let mut failures = 0;
+    for scenario in library.values().filter(|s| s.applies_to(roles)) {
+        // Drifts do not settle. Use at least an hour, plus the authored horizon.
+        let duration = scenario.duration().max(3600);
+        if duration > 86_400 {
+            return Err(format!(
+                "scenario '{}' exceeds the one-day validation horizon",
+                scenario.name
+            ));
+        }
+        let active = ScenarioSet::new(vec![sim_engine::ActiveScenario {
+            scenario: scenario.clone(),
+            started_at: start,
+            recovering_since: Some(start + duration),
+        }]);
+        let mut engines = baseline.to_vec();
+        let ticks = (duration + sim_engine::RECOVERY_SECONDS + 60) / interval.max(1);
+        let problems = sim_engine::fidelity::check_with_scenarios(
+            &mut engines,
+            ticks,
+            start,
+            interval,
+            &active,
+        );
+        let unique: std::collections::BTreeSet<String> = problems
+            .iter()
+            .map(|v| format!("{} {}: {}", v.node, v.chart, v.detail))
+            .collect();
+        if unique.is_empty() {
+            println!(
+                "  PASS scenario {} ({}s plus recovery)",
+                scenario.name, duration
+            );
+        } else {
+            failures += unique.len();
+            println!(
+                "  FAIL scenario {} ({} distinct violations)",
+                scenario.name,
+                unique.len()
+            );
+            for problem in unique.iter().take(12) {
+                println!("    {problem}");
+            }
+        }
+    }
+    if failures == 0 {
+        Ok(())
+    } else {
+        Err(format!("{failures} scenario fidelity violations"))
     }
 }
 
@@ -1580,13 +2051,240 @@ fn sleep_until(target: i64) {
         .unwrap_or_default();
     let target = Duration::from_secs(target.max(0) as u64);
     if let Some(remaining) = target.checked_sub(now) {
-        std::thread::sleep(remaining);
+        let deadline = std::time::Instant::now() + remaining;
+        while !shutdown::requested() && std::time::Instant::now() < deadline {
+            std::thread::sleep(
+                deadline
+                    .saturating_duration_since(std::time::Instant::now())
+                    .min(Duration::from_millis(100)),
+            );
+        }
     }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    /// CI lints no template, so this is what stops a shipped scenario step from
+    /// being rejected on a shipped fleet: every step applies or is skipped, and
+    /// every applicable application step reaches an application node.
+    #[test]
+    fn shipped_templates_never_reject_a_shipped_scenario_step() {
+        let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+        let library = control::load_library(&root.join("scenarios")).unwrap();
+        let raw = std::fs::read_to_string(root.join("specs").join(EXPORTER_SPEC)).unwrap();
+        let spec = Arc::new(GeneratorSpec::from_yaml(&raw).unwrap());
+        let mut templates = 0;
+        for entry in std::fs::read_dir(root.join("environments")).unwrap() {
+            let path = entry.unwrap().path();
+            if path.extension().and_then(|e| e.to_str()) != Some("yaml") {
+                continue;
+            }
+            templates += 1;
+            let env = Environment::load(&path).unwrap();
+            let roles: Vec<&str> = env.nodes.iter().filter_map(|n| n.role.as_deref()).collect();
+            let engines = application_engines(&env, Arc::clone(&spec));
+            for scenario in library.values().filter(|s| s.applies_to(&roles)) {
+                for (i, step) in scenario.timeline.iter().enumerate() {
+                    if let StepFit::Problem(line) =
+                        step_fit(&env, &roles, &scenario.name, scenario, i, &step.target)
+                    {
+                        panic!("{}: {line}", path.display());
+                    }
+                }
+                if !engines.is_empty() {
+                    if let Err(error) =
+                        application_selectors_resolve(&engines, &spec, &env, &roles, scenario)
+                    {
+                        panic!("{}: {error}", path.display());
+                    }
+                }
+            }
+        }
+        assert!(templates >= 10, "found only {templates} templates");
+    }
+
+    #[test]
+    fn an_absent_optional_role_is_skipped_by_both_lints() {
+        // Shaped like k8s-microservices: an application tier with no web node.
+        let env: Environment = serde_yaml::from_str(
+            r#"
+version: 1
+name: sim-fit-test
+seed: 7
+generator: unused.yaml
+nodes:
+  - {hostname: sim-lb-01, guid: lb, role: lb}
+  - {hostname: sim-db-01, guid: db, role: db}
+"#,
+        )
+        .unwrap();
+        let roles = ["lb", "db"];
+        let scenario = |requires: &str| {
+            sim_spec::Scenario::from_yaml(&format!(
+                r#"
+version: 1
+name: fit
+requires_roles: [{requires}]
+manifest: {{root_cause: synthetic}}
+timeline:
+  - at: 0s
+    target: {{signal: app_db_pool_wait_rate, role: web}}
+    effect: add
+    amount: 1
+"#
+            ))
+            .unwrap()
+        };
+        let fit =
+            |sc: &sim_spec::Scenario| step_fit(&env, &roles, "fit", sc, 0, &sc.timeline[0].target);
+        assert!(matches!(fit(&scenario("db")), StepFit::Skip(_)));
+        assert!(matches!(fit(&scenario("db, web")), StepFit::Problem(_)));
+    }
+
+    #[test]
+    fn application_scenarios_target_the_ranked_node_and_recover() {
+        let env: Environment = serde_yaml::from_str(
+            r#"
+version: 1
+name: sim-rank-test
+seed: 7
+generator: unused.yaml
+nodes:
+  - {hostname: sim-web-01, guid: first, role: web}
+  - {hostname: sim-db-01, guid: database, role: db}
+  - {hostname: sim-web-02, guid: second, role: web}
+"#,
+        )
+        .unwrap();
+        let spec = Arc::new(
+            GeneratorSpec::from_yaml(
+                r#"
+version: 1
+name: app-test
+signals:
+  app_queue_depth: {base: 0, min: 0, max: 100}
+contexts:
+  - id: app.queue
+    title: Queue
+    priority: 1
+    units: items
+    family: app
+    shape: independent
+    dimensions:
+      - {id: depth, signal: app_queue_depth}
+"#,
+            )
+            .unwrap(),
+        );
+        let scenario = sim_spec::Scenario::from_yaml(
+            r#"
+version: 1
+name: targeted-app
+manifest: {root_cause: synthetic queue pressure}
+timeline:
+  - at: 0s
+    target: {signal: app_queue_depth, role: web, node_index: 2}
+    effect: add
+    amount: 10
+"#,
+        )
+        .unwrap();
+        let active = ScenarioSet::new(vec![sim_engine::ActiveScenario {
+            scenario,
+            started_at: 1000,
+            recovering_since: Some(1010),
+        }]);
+        let mut engines = application_engines(&env, spec);
+        assert_eq!(engines.len(), 2);
+        assert_eq!(engines[0].0.hostname, "sim-web-01");
+        assert_eq!(engines[1].0.hostname, "sim-web-02");
+        for (index, (profile, engine)) in engines.iter_mut().enumerate() {
+            let mut healthy =
+                exporters::Exporter::new(profile.hostname.clone(), "web".into(), engine.clone());
+            let mut affected =
+                exporters::Exporter::new(profile.hostname.clone(), "web".into(), engine.clone());
+            let normal = exporters::render(&mut healthy, &ScenarioSet::default(), 1001, 1001);
+            let fault = exporters::render(&mut affected, &active, 1001, 1001);
+            assert_eq!(
+                normal != fault,
+                index == 1,
+                "published output must change only on the targeted node"
+            );
+            let recovered = exporters::render(
+                &mut affected,
+                &active,
+                1011 + sim_engine::RECOVERY_SECONDS,
+                1001,
+            );
+            let queue = |body: &str| {
+                body.lines()
+                    .find(|line| line.starts_with("app_queue_depth{"))
+                    .unwrap()
+                    .to_string()
+            };
+            assert_eq!(queue(&normal), queue(&recovered));
+            assert_eq!(
+                engine.signal_values(&active, 1001)["app_queue_depth"],
+                if index == 1 { 10.0 } else { 0.0 }
+            );
+            assert_eq!(
+                engine.signal_values(&active, 1011 + sim_engine::RECOVERY_SECONDS)
+                    ["app_queue_depth"],
+                0.0
+            );
+        }
+        // The narrative check has teeth: a wrong direction, or a change on a
+        // node claimed to be untargeted, is refused.
+        let up = std::collections::BTreeMap::from([("app_queue_depth".to_string(), Some(1.0))]);
+        let down = std::collections::BTreeMap::from([("app_queue_depth".to_string(), Some(-1.0))]);
+        let none = std::collections::BTreeMap::new();
+        let narrative = |index: usize, targets| {
+            exporters::check_narrative(engines[index].1.clone(), &active, 1000, 10, 1, targets)
+        };
+        assert!(narrative(1, &up).is_ok());
+        assert!(narrative(0, &none).is_ok());
+        assert!(narrative(1, &down).unwrap_err().contains("never moved"));
+        assert!(narrative(1, &none).unwrap_err().contains("not targeted"));
+    }
+
+    #[test]
+    fn shipped_latency_incidents_keep_the_tail_above_p95() {
+        let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+        let raw = std::fs::read_to_string(root.join("specs").join(EXPORTER_SPEC)).unwrap();
+        let spec = Arc::new(GeneratorSpec::from_yaml(&raw).unwrap());
+        let env: Environment = serde_yaml::from_str(
+            "version: 1\nname: sim-tail\nseed: 11\ngenerator: unused.yaml\n\
+             nodes:\n  - {hostname: sim-web-01, guid: tail, role: web}\n",
+        )
+        .unwrap();
+        for name in ["checkout-degradation", "worker-saturation"] {
+            let path = root.join("scenarios").join(format!("{name}.yaml"));
+            let scenario =
+                sim_spec::Scenario::from_yaml(&std::fs::read_to_string(path).unwrap()).unwrap();
+            let start = 1_700_100_000;
+            let end = start + scenario.duration();
+            let active = ScenarioSet::new(vec![sim_engine::ActiveScenario {
+                scenario,
+                started_at: start,
+                recovering_since: Some(end),
+            }]);
+            let mut engine = application_engines(&env, Arc::clone(&spec)).remove(0).1;
+            let (mut samples, mut flattened) = (0, 0);
+            for now in start..end {
+                let mut values = engine.signal_values(&active, now);
+                sim_engine::application::normalize(&mut values);
+                samples += 1;
+                flattened += usize::from(values["app_latency_p99"] <= values["app_latency_p95"]);
+            }
+            // Baseline noise alone crosses a few samples; the incident must not.
+            assert!(
+                flattened * 100 <= samples,
+                "{name}: p99 sat on p95 for {flattened} of {samples} samples"
+            );
+        }
+    }
 
     #[test]
     fn alignment_lands_on_the_next_boundary() {

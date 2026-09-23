@@ -151,6 +151,8 @@ impl AppTelemetry {
         now_ns: i64,
         interval: f64,
     ) -> (Vec<AppLog>, Vec<Vec<AppSpan>>) {
+        let mut values = values.clone();
+        crate::application::normalize(&mut values);
         let get = |k: &str| values.get(k).copied().unwrap_or(0.0);
         let requests = get("app_requests_rate").max(0.0);
         let errors = get("app_requests_error_rate").clamp(0.0, requests);
@@ -175,7 +177,7 @@ impl AppTelemetry {
             (requests * TRACE_SAMPLE_RATIO * interval).min(MAX_TRACES_PER_SEC * interval);
         while self.trace_credit >= 1.0 {
             self.trace_credit -= 1.0;
-            let (spans, root_error) = self.one_trace(now_ns, p50, p95, p99, error_ratio, values);
+            let (spans, root_error) = self.one_trace(now_ns, p50, p95, p99, error_ratio, &values);
             // A failed request is exactly the line an engineer greps for, so it
             // is always logged; a successful one is sampled, because a service
             // logging every 200 is a service nobody reads the logs of.

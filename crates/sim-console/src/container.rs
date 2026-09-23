@@ -19,6 +19,9 @@ use serde::{Deserialize, Serialize};
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct Active {
     pub name: String,
+    /// Immutable image reference used for validation and startup.
+    #[serde(default)]
+    pub runtime_image: String,
     /// Host port the container's agent is published on.
     pub port: u16,
     /// Where its environment, specs, scenarios and control file live.
@@ -109,20 +112,26 @@ pub struct CreateOptions<'a> {
     pub owner: &'a str,
     /// Host policy (console.yaml), not a per-create choice.
     pub public_dashboards: bool,
+    /// Hours of in-image fidelity lint; 0 skips it and leaves the simulation
+    /// unverified.
+    pub lint_hours: u32,
 }
 
+/// Returns the running simulation and the tail of its in-image lint report
+/// (empty when the lint was skipped).
 pub fn create(
     repo: &Path,
     name: &str,
     env_file: &Path,
     opts: CreateOptions<'_>,
-) -> Result<Active, String> {
+) -> Result<(Active, String), String> {
     let CreateOptions {
         token,
         rooms,
         exporters,
         owner,
         public_dashboards,
+        lint_hours,
     } = opts;
     let mut cmd = Command::new("bash");
     cmd.arg(script(repo))
@@ -149,13 +158,26 @@ pub fn create(
     if public_dashboards {
         cmd.arg("--public-dashboards");
     }
+    cmd.arg("--lint-hours").arg(lint_hours.to_string());
     let out = cmd
         .output()
         .map_err(|e| format!("cannot run sim-docker.sh: {e}"))?;
     if !out.status.success() {
-        return Err(tail(&out.stderr, 12));
+        let stderr = String::from_utf8_lossy(&out.stderr);
+        // A lint failure lists its violations; keep them all, not the last few.
+        let lines = if stderr.contains("fidelity lint failed") {
+            41
+        } else {
+            12
+        };
+        return Err(tail(&out.stderr, lines));
     }
-    active(repo, name).ok_or_else(|| "the container started but reported no port".to_string())
+    let active = active(repo, name)
+        .ok_or_else(|| "the container started but reported no port".to_string())?;
+    let summary = std::fs::read(format!("{}/lint.out", payload_dir(repo, name)))
+        .map(|report| tail(&report, 12))
+        .unwrap_or_default();
+    Ok((active, summary))
 }
 
 /// Look up one simulation's full state.
@@ -218,6 +240,11 @@ fn active_from_json(repo: &Path, name: &str, v: &serde_json::Value) -> Option<Ac
     let payload = payload_dir(repo, name);
     Some(Active {
         name: name.to_string(),
+        runtime_image: v
+            .pointer("/Config/Image")
+            .and_then(|image| image.as_str())
+            .unwrap_or_default()
+            .into(),
         port,
         payload: payload.clone(),
         ip,
@@ -517,6 +544,7 @@ mod tests {
     #[test]
     fn an_active_simulation_knows_where_its_files_are() {
         let a = super::Active {
+            runtime_image: "sha256:synthetic".into(),
             ip: String::new(),
             name: "customer-a".into(),
             port: 19990,

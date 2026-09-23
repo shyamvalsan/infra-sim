@@ -25,6 +25,15 @@ OFF_MARKER="$PAYLOAD/.telemetry-off"
 EXPORTERS_MARKER="$PAYLOAD/.exporters-on"
 INTERVAL=15
 
+# All producer UIDs share only this simulation's recording directory.
+if [ -n "${INFRA_SIM_RECORD_DIR:-}" ]; then
+  install -d -o netdata -g netdata -m 2770 "$INFRA_SIM_RECORD_DIR"
+fi
+
+if [ -n "${INFRA_SIM_LIFECYCLE_FILE:-}" ]; then
+  printf 'running\n' > "$INFRA_SIM_LIFECYCLE_FILE"
+fi
+
 # netdata first, as the stock image would run it.
 /usr/sbin/run.sh &
 NETDATA_PID=$!
@@ -54,7 +63,42 @@ watchdog() {
 watchdog &
 WATCHDOG_PID=$!
 
-# If netdata dies, so does the container (docker --restart then revives the
-# whole supervised set - the point of this wrapper).
-wait "$NETDATA_PID"
-kill "$WATCHDOG_PID" 2>/dev/null || true
+# Docker signals PID 1. Forward shutdown to this container's exact plugin
+# executables and wait for their recording buffers before the namespace exits.
+shutdown() {
+  trap '' TERM INT
+  # Netdata can respawn a collector during the flush window. New invocations
+  # must exit before opening another producer session or writing a handshake.
+  if [ -n "${INFRA_SIM_LIFECYCLE_FILE:-}" ]; then
+    printf 'stopping\n' > "$INFRA_SIM_LIFECYCLE_FILE"
+  fi
+  kill "$WATCHDOG_PID" 2>/dev/null || true
+  plugin_pids=""
+  for command_line in /proc/[0-9]*/cmdline; do
+    # Different producer UIDs can make /proc/PID/exe unreadable in Docker.
+    # Match the complete argv[0], never a generic process name or substring.
+    [ "$(tr '\000' '\n' < "$command_line" 2>/dev/null | sed -n '1p')" = "$PLUGIN" ] || continue
+    pid="${command_line#/proc/}"
+    pid="${pid%/cmdline}"
+    plugin_pids="$plugin_pids $pid"
+    kill -TERM "$pid" 2>/dev/null || true
+  done
+  attempts=0
+  while [ "$attempts" -lt 20 ]; do
+    alive=no
+    for pid in $plugin_pids; do
+      if [ -r "/proc/$pid/cmdline" ] && [ "$(tr '\000' '\n' < "/proc/$pid/cmdline" 2>/dev/null | sed -n '1p')" = "$PLUGIN" ]; then alive=yes; fi
+    done
+    [ "$alive" = yes ] || break
+    sleep 1
+    attempts=$((attempts + 1))
+  done
+  kill -TERM "$NETDATA_PID" 2>/dev/null || true
+  wait "$NETDATA_PID" 2>/dev/null || true
+  exit 0
+}
+trap shutdown TERM INT
+
+# A dead agent ends the container; Docker's restart policy revives the fleet.
+wait "$NETDATA_PID" || true
+shutdown

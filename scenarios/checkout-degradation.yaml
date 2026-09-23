@@ -32,6 +32,15 @@ timeline:
     multiplier: 4.0
     over: 12m
 
+  - at: 0s
+    description: The tail moves with p95, so p99 stays above it
+    target:
+      signal: app_latency_p99
+      role: web
+    effect: ramp
+    multiplier: 4.0
+    over: 12m
+
   - at: 4m
     description: Median latency follows as queues build behind the slow path
     target:

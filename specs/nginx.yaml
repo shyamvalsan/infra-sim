@@ -20,10 +20,17 @@ signals:
     max: 900000.0
     seasonality: { daily_amplitude: 0.65, peak_hour: 14.0, weekend_factor: 0.45 }
     noise: { kind: gauss, sigma: 0.22 }
+  nginx_connections_capacity:
+    base: 8192.0
+    min: 8192.0
+    max: 8192.0
+    min_is_floor: true
+    max_is_ceiling: true
   nginx_conn_active:
     base: 128.0
     min: 0.0
-    max: 200000.0
+    max: 8192.0
+    max_is_ceiling: true
     seasonality: { daily_amplitude: 0.6, peak_hour: 14.0, weekend_factor: 0.45 }
     noise: { kind: walk, sigma: 0.05, reversion: 0.08 }
   nginx_conn_reading:

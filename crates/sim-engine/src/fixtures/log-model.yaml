@@ -1,0 +1,59 @@
+version: 1
+name: log-test-model
+signals:
+  disk_space_used_kb: {base: 100, min: 0, max: 10000}
+  mem_available_kb: {base: 500, min: 0, max: 1000}
+  oom_kill_rate: {base: 0, min: 0, max: 10}
+  cpu_busy: {base: 10, min: 0, max: 100}
+  net_err_rate: {base: 0, min: 0, max: 1000}
+  net_drop_rate: {base: 0, min: 0, max: 1000}
+  pg_connections_used: {base: 40, min: 0, max: 100, max_is_ceiling: true}
+  pg_connections_max: {base: 100, min: 100, max: 100, max_is_ceiling: true}
+  nginx_conn_active: {base: 10, min: 0, max: 100, max_is_ceiling: true}
+  nginx_connections_capacity: {base: 100, min: 100, max: 100, max_is_ceiling: true}
+contexts:
+  - id: disk.space
+    title: Disk space
+    units: KiB
+    family: disk
+    chart_type: stacked
+    priority: 1
+    instances: {group: mount, chart_prefix: disk_space, family: "{instance}"}
+    shape: partition
+    total: {from: node_attr, name: disk_total_kb}
+    driver: disk_space_used_kb
+    dimensions:
+      - {id: used, share: 1}
+      - {id: free, remainder: true}
+  - id: system.state
+    title: Node state
+    units: value
+    family: system
+    chart_type: line
+    priority: 2
+    shape: independent
+    dimensions:
+      - {id: available, signal: mem_available_kb}
+      - {id: cpu, signal: cpu_busy}
+      - {id: pg_connections, signal: pg_connections_used}
+      - {id: nginx_connections, signal: nginx_conn_active}
+  - id: mem.oom
+    title: OOM kills
+    units: events/s
+    family: memory
+    chart_type: line
+    priority: 3
+    shape: counters
+    dimensions:
+      - {id: kills, rate_signal: oom_kill_rate}
+  - id: net.errors
+    title: Network errors
+    units: events/s
+    family: network
+    chart_type: line
+    priority: 4
+    instances: {group: net, chart_prefix: net_errors, family: "{instance}"}
+    shape: counters
+    dimensions:
+      - {id: errors, rate_signal: net_err_rate}
+      - {id: drops, rate_signal: net_drop_rate}

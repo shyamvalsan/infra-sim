@@ -49,3 +49,22 @@ test('selection invalidates loaded label editor', async () => {
   assert.equal(c.LIVE_LABELS, null);
   assert.equal(c.$('labelsApplyBtn').style.display, 'none');
 });
+
+test('readiness distinguishes operational status from verified demo evidence', () => {
+  const start = html.indexOf('function renderBoard(');
+  const { c } = context(html.slice(start, html.indexOf('function renderNodes(', start)));
+  c.esc = value => value;
+  c.$('boardWrap').dataset = {};
+  for (const status of ['manual', 'warn']) {
+    c.renderBoard({ operational_ready: true, demo_ready: false,
+      checks: [{ name: 'Evidence', status, detail: 'Pending', remedy: 'Verify' }] });
+    assert.equal(c.$('verdict').textContent, 'Operational; demo checks pending');
+    assert.equal(c.$('verdict').className, 'verdict nogo');
+  }
+  c.renderBoard({ operational_ready: false, demo_ready: false, checks: [] });
+  assert.equal(c.$('verdict').textContent, 'Not operational');
+  c.renderBoard({ operational_ready: true, demo_ready: true, checks: [] });
+  assert.equal(c.$('verdict').textContent, 'Demo ready');
+  c.renderBoard(null);
+  assert.equal(c.$('verdict').textContent, 'no simulation');
+});

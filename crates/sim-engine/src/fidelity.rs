@@ -14,7 +14,7 @@ use std::collections::BTreeMap;
 
 use sim_spec::{GeneratorSpec, Shape, Total};
 
-use crate::{NodeEngine, Sample, ScenarioSet};
+use crate::{NodeEngine, PlannedChart, Sample, ScenarioSet};
 
 /// A violation found in generated data.
 #[derive(Debug, Clone, PartialEq)]
@@ -74,24 +74,44 @@ fn unit_ceiling(units: &str) -> Option<f64> {
 /// Nodes are checked concurrently and their violations concatenated in node
 /// order, so the report is identical to a sequential run.
 pub fn check(engines: &mut [NodeEngine], ticks: i64, start: i64, interval: i64) -> Vec<Violation> {
-    crate::parallel::map_engines(engines, |engine| check_node(engine, ticks, start, interval))
-        .into_iter()
-        .flatten()
-        .collect()
+    check_with_scenarios(engines, ticks, start, interval, &ScenarioSet::default())
+}
+
+/// Check physical invariants during faults and their recovery. Flatness is a
+/// baseline property: a sustained fault can legitimately hold a value steady.
+pub fn check_with_scenarios(
+    engines: &mut [NodeEngine],
+    ticks: i64,
+    start: i64,
+    interval: i64,
+    scenarios: &ScenarioSet,
+) -> Vec<Violation> {
+    crate::parallel::map_engines(engines, |engine| {
+        check_node(engine, ticks, start, interval, scenarios)
+    })
+    .into_iter()
+    .flatten()
+    .collect()
 }
 
 /// The semantic checks for one node. Owns its own violation list so nodes share
 /// nothing while they run.
-fn check_node(engine: &mut NodeEngine, ticks: i64, start: i64, interval: i64) -> Vec<Violation> {
+fn check_node(
+    engine: &mut NodeEngine,
+    ticks: i64,
+    start: i64,
+    interval: i64,
+    scenarios: &ScenarioSet,
+) -> Vec<Violation> {
     let mut out = Vec::new();
 
     {
         let node = engine.profile().hostname.clone();
         let spec: GeneratorSpec = engine.spec().clone();
-        let plan: Vec<(String, usize)> = engine
-            .charts()
+        let charts = engine.charts().to_vec();
+        let plan: BTreeMap<&str, usize> = charts
             .iter()
-            .map(|c| (c.chart_id.clone(), c.context_index))
+            .map(|c| (c.chart_id.as_str(), c.context_index))
             .collect();
 
         // chart -> dimension -> last value, for monotonicity and flatness.
@@ -99,18 +119,14 @@ fn check_node(engine: &mut NodeEngine, ticks: i64, start: i64, interval: i64) ->
         let mut changed: BTreeMap<String, BTreeMap<String, bool>> = BTreeMap::new();
 
         for i in 0..ticks {
-            let samples = engine.tick(
-                &ScenarioSet::default(),
-                start + i * interval,
-                interval as f64,
-            );
-            for sample in &samples {
-                check_sample(&node, &spec, engine, sample, &mut out);
+            let samples = engine.tick(scenarios, start + i * interval, interval as f64);
+            for (sample, chart) in samples.iter().zip(&charts) {
+                check_sample(&node, &spec, engine, chart, sample, &mut out);
                 let counters = matches!(
-                    spec.contexts[chart_index(engine, &sample.chart_id)].shape,
+                    spec.contexts[chart.context_index].shape,
                     Shape::Counters { .. }
                 ) || matches!(
-                    spec.contexts[chart_index(engine, &sample.chart_id)].shape,
+                    spec.contexts[chart.context_index].shape,
                     Shape::Partition {
                         accumulate: sim_spec::Accumulate::Jiffies,
                         ..
@@ -139,7 +155,10 @@ fn check_node(engine: &mut NodeEngine, ticks: i64, start: i64, interval: i64) ->
         // declared to hold, which is how every "/" mount came to report 100%
         // full: the driver's base exceeded the mount's size, so it clamped.
         for (chart, dims) in &changed {
-            let idx = chart_index_by_id(&plan, chart);
+            if !scenarios.is_empty() {
+                break;
+            }
+            let idx = plan.get(chart.as_str()).copied();
             for (dim, moved) in dims {
                 if *moved {
                     continue;
@@ -169,10 +188,6 @@ fn check_node(engine: &mut NodeEngine, ticks: i64, start: i64, interval: i64) ->
     }
 
     out
-}
-
-fn chart_index_by_id(plan: &[(String, usize)], chart_id: &str) -> Option<usize> {
-    plan.iter().find(|(id, _)| id == chart_id).map(|(_, i)| *i)
 }
 
 /// Whether a dimension's driving signal was authored as a fixed value, or is
@@ -218,16 +233,6 @@ fn dimension_is_constant(
         })
 }
 
-/// Index of the context behind a chart id.
-fn chart_index(engine: &NodeEngine, chart_id: &str) -> usize {
-    engine
-        .charts()
-        .iter()
-        .find(|c| c.chart_id == chart_id)
-        .map(|c| c.context_index)
-        .unwrap_or(0)
-}
-
 fn track(
     sample: &Sample,
     is_counter: bool,
@@ -265,16 +270,10 @@ fn check_sample(
     node: &str,
     spec: &GeneratorSpec,
     engine: &NodeEngine,
+    chart: &PlannedChart,
     sample: &Sample,
     out: &mut Vec<Violation>,
 ) {
-    let Some(chart) = engine
-        .charts()
-        .iter()
-        .find(|c| c.chart_id == sample.chart_id)
-    else {
-        return;
-    };
     let ctx = &spec.contexts[chart.context_index];
 
     for (dim, value) in &sample.values {
@@ -419,6 +418,53 @@ contexts:
         let spec = Arc::new(GeneratorSpec::from_yaml(yaml).expect("parses"));
         let mut engines = vec![NodeEngine::new(spec, profile(), 7)];
         check(&mut engines, ticks, 1_700_000_000, 1)
+    }
+
+    #[test]
+    fn active_faults_are_checked_and_recover_without_touching_other_nodes() {
+        let spec = Arc::new(GeneratorSpec::from_yaml(GOOD).unwrap());
+        let mut first = profile();
+        first.hostname = "sim-affected".into();
+        let mut other = profile();
+        other.hostname = "sim-unaffected".into();
+        let scenario = sim_spec::Scenario::from_yaml(
+            r#"
+version: 1
+name: invalid-percentage
+manifest: { root_cause: test }
+timeline:
+  - at: 0s
+    target: { signal: busy, hostname: sim-affected }
+    effect: add
+    amount: 200
+"#,
+        )
+        .unwrap();
+        let scenarios = ScenarioSet::new(vec![crate::ActiveScenario {
+            scenario,
+            started_at: 1000,
+            recovering_since: Some(1010),
+        }]);
+        // Raise the model rail so the semantic check, not the clamp, catches it.
+        let mut raised = (*spec).clone();
+        raised.signals.get_mut("busy").unwrap().max = 500.0;
+        let mut engines = vec![
+            NodeEngine::new(Arc::new(raised.clone()), first, 7),
+            NodeEngine::new(Arc::new(raised), other, 7),
+        ];
+        let issues = check_with_scenarios(&mut engines, 10, 1000, 1, &scenarios);
+        assert!(issues
+            .iter()
+            .any(|v| v.kind == Kind::UnitOutOfRange && v.node == "sim-affected"));
+        assert!(!issues.iter().any(|v| v.node == "sim-unaffected"));
+        let recovered = check_with_scenarios(
+            &mut engines,
+            20,
+            1010 + crate::RECOVERY_SECONDS,
+            1,
+            &scenarios,
+        );
+        assert!(recovered.is_empty(), "{recovered:?}");
     }
 
     #[test]

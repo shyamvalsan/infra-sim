@@ -50,10 +50,6 @@ struct AppState {
     control_path: PathBuf,
     scenario_dir: PathBuf,
     agent: Agent,
-    /// Result of the most recent lint run, if the console was told about one.
-    /// `None` means "not verified", which the board reports as manual rather
-    /// than passing. Legacy local-install path only.
-    lint_clean: Option<bool>,
     /// When this console first saw a simulation, used as a warm-up floor.
     /// Deliberately conservative: it can only under-report elapsed warm-up, so
     /// the board never claims more readiness than it can prove.
@@ -150,6 +146,8 @@ struct StatusResponse {
     nodes_truncated: bool,
     scenarios: Vec<ScenarioInfo>,
     board: preflight::Board,
+    recording: Option<sim_engine::recording::Status>,
+    recording_error: Option<String>,
     now: i64,
     errors: Vec<String>,
     /// The agent's Cloud connection, so the UI shows the truth instead of a
@@ -474,6 +472,15 @@ async fn sim_status(
         .entry(sim.clone())
         .or_insert(now);
     let uptime_hours = Some(((now - first_seen) as f64 / 3600.0).max(0.0));
+    let lint_clean = {
+        let app = app.clone();
+        let sim = sim.clone();
+        let env_path = env_path.clone();
+        tokio::task::spawn_blocking(move || simulation_lint(&app, &sim, &env_path))
+            .await
+            .ok()
+            .flatten()
+    };
     let board = preflight::evaluate(&preflight::Inputs {
         expected_nodes: &expected,
         states: &nodes,
@@ -481,12 +488,26 @@ async fn sim_status(
         scenario_count: scenarios.len(),
         active_scenarios: scenarios.iter().filter(|s| s.active).count(),
         seed: env.as_ref().map(|e| e.seed).unwrap_or(0),
-        lint_clean: app.lint_clean,
+        lint_clean,
         uptime_hours,
         orphans: &orphans,
     });
 
+    // A live recording's status waits on its file lock; keep that off the
+    // async workers, as the lint check above does.
+    let (recording, recording_error) = match env_path.parent().map(|path| path.join("recording")) {
+        Some(path) if path.exists() => {
+            match tokio::task::spawn_blocking(move || sim_engine::recording::status(&path)).await {
+                Ok(Ok(status)) => (Some(status), None),
+                Ok(Err(error)) => (None, Some(error.to_string())),
+                Err(error) => (None, Some(error.to_string())),
+            }
+        }
+        _ => (None, None),
+    };
     let body = serde_json::to_value(StatusResponse {
+        recording,
+        recording_error,
         nodes_truncated: truncated,
         environment: env.as_ref().map(|e| EnvInfo {
             name: e.name.clone(),
@@ -749,11 +770,21 @@ async fn create(
             );
             return Ok(serde_json::json!(r));
         }
-        let (env_path, lint_summary, nodes) = provision::build_environment(&repo, &req, &worker)?;
+        let (env_path, nodes) = provision::build_environment(&repo, &req)?;
 
-        provision::report(&worker, "building the image", 3);
+        provision::report(&worker, "building the image", 2);
         container::build_image(&repo)?;
 
+        if req.lint_hours > 0 {
+            provision::report(
+                &worker,
+                &format!(
+                    "checking fidelity in the simulation image: {}h across {nodes} nodes",
+                    req.lint_hours
+                ),
+                3,
+            );
+        }
         provision::report(
             &worker,
             if req.claim_token.trim().is_empty() {
@@ -771,7 +802,7 @@ async fn create(
         // Host policy, not a per-create choice: whether dashboards bind
         // publicly is the SRE's call for the whole box.
         let public_dashboards = budget::Budgets::load(&budgets_path)?.public_dashboards;
-        let active = container::create(
+        let (active, lint_summary) = container::create(
             &repo,
             &name,
             &env_path,
@@ -781,12 +812,16 @@ async fn create(
                 exporters: req.exporters,
                 owner: &req.owner,
                 public_dashboards,
+                lint_hours: req.lint_hours,
             },
         )?;
         let mut notes = vec![format!(
             "running in its own container on {}",
             active.agent_url()
         )];
+        if req.lint_hours == 0 {
+            notes.push("lint skipped: this simulation is not verified for demos".into());
+        }
         if public_dashboards {
             // The host policy opened the dashboards to the network; the person
             // who just created this fleet should hear it said plainly, not
@@ -1304,6 +1339,19 @@ fn sim_payload(app: &AppState, name: &str) -> Result<PathBuf, String> {
     Ok(PathBuf::from(a.payload))
 }
 
+fn simulation_lint(app: &AppState, name: &str, environment: &std::path::Path) -> Option<bool> {
+    if name == "local" {
+        let installed = std::path::Path::new("/etc/netdata/custom-plugins.d/infra-sim.plugin");
+        return sim_engine::lint_evidence::verified(environment, Some(installed), None)
+            .ok()
+            .map(|evidence| evidence.passed);
+    }
+    let simulation = container::active(&app.repo, name)?;
+    sim_engine::lint_evidence::verified(environment, None, Some(&simulation.runtime_image))
+        .ok()
+        .map(|evidence| evidence.passed)
+}
+
 /// The shared console token, from the environment. `None` means auth is off -
 /// the single-operator loopback flow must keep working with no setup.
 ///
@@ -1467,12 +1515,15 @@ async fn main() -> std::process::ExitCode {
         .map(|p| p.to_path_buf())
         .unwrap_or_else(|| PathBuf::from("."));
 
+    if args.lint_clean.is_some() {
+        eprintln!("startup lint flags are deprecated; readiness uses per-simulation lint evidence");
+    }
     let state = Arc::new(AppState {
         env_path: args.environment.clone(),
         control_path: base.join("control.yaml"),
         scenario_dir: base.join("scenarios"),
         agent: Agent::new(host, port),
-        lint_clean: args.lint_clean,
+
         first_seen: Mutex::new(Default::default()),
         cached_guid: Mutex::new(Default::default()),
         repo: args.repo.clone(),

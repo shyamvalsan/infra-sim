@@ -645,12 +645,17 @@ cargo fmt --check
 ./target/release/infra-sim --environment environments/web-stack.yaml --lint 2
 ```
 
+A container create runs its lint once, inside the simulation image, against the
+payload it will start. `sim-docker.sh create --lint-hours N` sets the hours
+(default 2); the console passes its lint setting through. `--lint-hours 0`
+skips the lint, and the simulation then shows as not verified for demos.
+
 Changes to a generator, scenario or the runtime are validated against a live
 agent, not only unit tests.
 
 ## Lifecycle failures
 
-A teardown must name its simulation. Empty API targets are refused; use `local` only for an explicitly installed host simulation. Container teardown archives the environment and scenario definitions before removing the container or payload. If copying fails, fix the reported storage error and retry; the simulation is retained. Archives currently preserve definitions, not a complete recording of interactive scenario controls.
+A teardown must name its simulation. Empty API targets are refused; use `local` only for an explicitly installed host simulation. Container teardown stops producers and archives installed definitions, executable, control history and raw recordings before removing the container or payload. If copying fails, fix the reported storage error and retry; the stopped simulation is retained. Local teardown stages and checksums installed definitions and the executable before making changes; local archives do not include raw recordings.
 
 Creates recheck the host budgets after waiting for the create slot. Malformed or unreadable existing `console.yaml` stops creates and skips automatic TTL removal until repaired. `/api/health` reports `policy_ok: false` in this state.
 
@@ -661,3 +666,72 @@ Command failures now return their actual exit status. Automation must check it r
 The Checks workflow runs Rust tests, Clippy, formatting, shell/API/UI regression tests, the SOW audit, and a separate Rust 1.88 compiler-floor check. Dependencies are resolved from Cargo.lock. Run the same commands locally before a release.
 
 The manually dispatched Live agent acceptance workflow uses a fresh hosted runner. It builds a portable plugin and checks one vnode through actual Netdata, including CPU samples, standalone telemetry start, container restart, and archive-before-removal. Run `sudo python3 tests/live_agent_smoke.py` locally after building the simulation image. The test owns a unique container, preserves diagnostic inputs and never claims to Cloud. It is a lifecycle smoke test, not statistical fidelity, Cloud, macOS or scale certification.
+
+### Reading the readiness verdict
+
+“Operational; demo checks pending” means no hard preflight failure was found,
+but the demo still needs evidence. Expand the checks and complete their remedies.
+Warnings and manual checks do not qualify for “Demo ready”. Cloud membership and
+alert-history review currently remain manual; the console does not store those
+human confirmations or automatically treat them as passed.
+
+
+### Raw recordings and replay
+
+Managed Docker simulations record the raw producer boundaries in their private
+payload's `recording/` directory. The shared default cap is 1 GiB across metrics,
+journal entries, OTLP requests and exporter responses. Set
+`INFRA_SIM_RECORD_MAX_BYTES` when creating a simulation to change that cap.
+Reaching the cap preserves the prefix and marks the recording incomplete;
+telemetry continues. Capture never waits on storage: each producer queues frames
+to its own writer thread, which commits them in batches. A writer that falls more
+than 64 MiB behind stops recording and marks it incomplete rather than slow
+telemetry down. Standalone producer commands record only when
+`INFRA_SIM_RECORD_DIR` is explicitly set.
+
+Teardown first stops the container, then archives the environment, generator
+specs, scenarios, current control state, executable and recording. `archive.json`
+lists SHA-256 checksums and the original image ID. No Cloud claim configuration
+or request authentication headers are included. If copying or finalization fails,
+the stopped container and its original payload remain available for retry.
+Older simulations without recordings produce definition archives. Local installs also produce definition archives, staged before teardown changes. Docker finalization runs the archived executable inside the current helper image; the original image ID is provenance, not a requirement that an old image remain runnable.
+
+Inspect a recording with `infra-sim --recording-status DIR`. An active recording
+is not a finalized archive. Interrupted sessions and exhausted capacity remain
+explicitly incomplete after finalization. Managed recordings also require every configured producer to have started and stopped cleanly; silent healthy logs do not make a recording incomplete. Finalize only after all producer
+processes stop, using `infra-sim --finalize-recording DIR`.
+
+Replay each producer with the archived executable and `--replay-recording
+ARCHIVE/recording`. Metrics use stdout; add `--logs --journal-dir PATH` for a real
+journal receiver, `--otlp --otlp-endpoint HOST:PORT` for a real OTLP receiver, or
+`--exporters --exporter-port PORT` for the scrape endpoint. An incomplete archive
+is refused unless `--allow-incomplete-recording` explicitly selects prefix
+replay. Replay re-checks completeness from the recorded stream itself rather than
+trusting the marker files, and when the recording sits in an archive it verifies
+every file against `archive.json` and refuses a changed, added or missing one.
+The checksums detect corruption and partial copies; they are unsigned, so they
+are not proof against deliberate tampering. A finalized archive replays from
+read-only, root-owned media. OTLP replay waits up to 60 seconds for a receiver
+that is still starting, then treats any failure as fatal. Each exporter route retains its own recorded response order, even when
+scraped in a different order. Exhausted routes return HTTP 410 while other routes
+remain; the exporter exits once all recorded responses have been served.
+
+Replay preserves captured payload bytes. Journal and OTLP timestamps remain the
+original timestamps; plugins.d data is timestamped by Netdata on arrival. Pass the same future Unix timestamp with `--replay-start-at TS` to each producer
+process to synchronize their delivery schedule. Without that option, each process
+paces against its own launch time. Different scrape
+schedules change delivery timing. Receiver acknowledgements, ML results, alerts
+and AI investigations are not reproduced from the archive: those remain live
+product behavior. A complete recording describes boundary capture, not proof
+that every original request was accepted downstream.
+
+Metrics replay exits once every frame has been written, and Netdata may start
+the plugin again. A second run would find its start time in the past and deliver
+the whole recording at once, so install metrics replay behind a wrapper that runs
+it only once (the replay probe's `replay.plugin` wrapper does this).
+
+`sudo python3 tests/live_replay_probe.py ARCHIVE` replays one archive into a
+disposable Netdata receiver and checks vnode registration and CPU samples, exact
+journal entries, every recorded OTLP log record stored once, trace acknowledgement
+and byte-identical exporter responses. Use an archive from
+`tests/live_agent_smoke.py`; `--plugin PATH` replays it with a newer build.

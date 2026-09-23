@@ -319,3 +319,10 @@ use unclaimed synthetic fleets for Linux-side probes; actual claim credentials m
 Sensitive data gate:
 
 Current changes contain only synthetic test identities and public source references. No credential values or private endpoints were written; external operator evidence remains uncollected.
+
+### 2026-09-23 (mapped from the SOW-0028 handoff)
+
+- Known remaining launcher issue, not yet fixed: `startsim-vm.sh:171` runs
+  `./startsim.sh --bind 0.0.0.0:${PORT}` inside the VM without supplying
+  `INFRA_SIM_TOKEN`, which the console startup guard refuses for a non-loopback
+  bind. Do not claim the VM path works until this is repaired and validated here.

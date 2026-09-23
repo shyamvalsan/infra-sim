@@ -7,11 +7,9 @@
 //!
 //! ## Faults are matched on signals, not scenario names
 //!
-//! A rule fires when a *signal* is perturbed past a threshold — the generator
-//! asks [`ScenarioSet::perturbation`] exactly the question the metrics engine
-//! asks. Nothing here knows that `disk-fill` exists. Any scenario that pushes
-//! `disk_space_used_kb` up gets disk-full logs, including ones written later,
-//! and a scenario renamed or retuned cannot drift away from its own logs.
+//! Rules inspect actual scoped values from the same composed NodeEngine used
+//! by metrics. Additive faults, role tuning and node-index targets therefore
+//! follow the same model. Scenario names are not part of the matching contract.
 //!
 //! ## Why there are no access logs
 //!
@@ -22,13 +20,11 @@
 //! reach journald. So this emits what journald would actually hold — errors,
 //! state changes, and the periodic housekeeping every daemon logs.
 //!
-//! Everything is a pure function of (profile, seed, tick, scenarios), so the
-//! separate logs process reproduces the same values the metrics plugin emitted
-//! without the two having to coordinate.
+//! Reproduction requires the same evaluation history, not only a seed and time.
+//! Independently started processes can have different noise histories.
 
 use crate::rng::Rng;
-use crate::{NodeProfile, ScenarioSet};
-use std::collections::BTreeMap;
+use crate::{NodeEngine, ScenarioSet};
 
 /// One journal entry, before it is framed as Journal Export Format.
 #[derive(Debug, Clone, PartialEq)]
@@ -48,11 +44,11 @@ pub struct LogEntry {
 /// How a rule decides a signal is faulted.
 #[derive(Debug, Clone, Copy)]
 enum Trigger {
-    /// Multiplier at or above this — the signal is being driven up.
+    /// Actual value (or fraction of a declared capacity) at or above this.
     Above(f64),
-    /// Multiplier at or below this — the signal is being driven down, which is
-    /// how headroom signals like `mem_available_kb` express pressure.
+    /// Actual value or capacity fraction at or below this.
     Below(f64),
+    Positive,
 }
 
 impl Trigger {
@@ -63,6 +59,9 @@ impl Trigger {
     /// intensity the moment a threshold is crossed.
     fn severity(self, multiplier: f64) -> Option<f64> {
         match self {
+            Trigger::Positive => {
+                (multiplier > 0.0).then(|| (multiplier / (1.0 + multiplier) + 0.15).min(1.0))
+            }
             Trigger::Above(t) => (multiplier >= t).then(|| {
                 // Full severity at three times the trigger.
                 (((multiplier - t) / (t * 2.0)).clamp(0.0, 1.0) + 0.15).min(1.0)
@@ -79,11 +78,16 @@ struct Ctx<'a> {
     hostname: &'a str,
     /// Device or mount the rule matched, empty for node-level signals.
     instance: &'a str,
-    severity: f64,
+    value: f64,
+    capacity: Option<f64>,
     rng: &'a mut Rng,
 }
 
 impl Ctx<'_> {
+    fn percent(&self) -> f64 {
+        100.0 * self.value / self.capacity.expect("capacity-based rule was validated")
+    }
+
     fn pick(&mut self, options: &[&str]) -> String {
         let i = (self.rng.next_f64() * options.len() as f64) as usize;
         options[i.min(options.len() - 1)].to_string()
@@ -97,12 +101,19 @@ impl Ctx<'_> {
 /// A line a fault produces: priority, syslog identifier, message.
 type Line = (u8, &'static str, String);
 
+#[derive(Clone, Copy)]
+enum Capacity {
+    Attribute(&'static str),
+    Signal(&'static str),
+}
+
 struct FaultRule {
     signal: &'static str,
     /// Instance group to iterate (`mount`, `disk`, `net`), or `None` for a
     /// node-level signal.
     group: Option<&'static str>,
     trigger: Trigger,
+    capacity: Option<Capacity>,
     /// Service that must be present for this rule to apply, if any. A node
     /// without Postgres should not log Postgres errors.
     requires_service: Option<&'static str>,
@@ -113,31 +124,22 @@ struct FaultRule {
 
 /// Fault rules, keyed on the signals the hero scenarios actually move.
 const FAULT_RULES: &[FaultRule] = &[
-    // --- Filesystem filling up -------------------------------------------
     FaultRule {
         signal: "disk_space_used_kb",
         group: Some("mount"),
-        trigger: Trigger::Above(2.5),
+        trigger: Trigger::Above(0.9),
+        capacity: Some(Capacity::Attribute("disk_total_kb")),
         requires_service: Some("postgres"),
         rate_per_min: 6.0,
         write: |c| {
-            let relation = c.pick(&["orders", "order_items", "checkout_events", "audit_log"]);
-            let block = (c.range(1.0, 9.0) * 100_000.0) as u64;
-            (
-                3,
-                "postgres",
-                format!(
-                    "ERROR:  could not extend file \"base/16384/{block}\": No space left on device\n\
-                     HINT:  Check free disk space; relation \"{relation}\" on {}",
-                    c.instance
-                ),
-            )
+            (4, "postgres", format!("WARNING: storage on {} is {:.1}% used\nHINT: Check free disk space before extending database files", c.instance, c.percent()))
         },
     },
     FaultRule {
         signal: "disk_space_used_kb",
         group: Some("mount"),
-        trigger: Trigger::Above(2.5),
+        trigger: Trigger::Above(0.9),
+        capacity: Some(Capacity::Attribute("disk_total_kb")),
         requires_service: None,
         rate_per_min: 2.0,
         write: |c| {
@@ -145,77 +147,45 @@ const FAULT_RULES: &[FaultRule] = &[
                 4,
                 "kernel",
                 format!(
-                    "EXT4-fs warning (device {}): ext4_has_free_clusters:379: Filesystem \
-                     on {} is running low on free blocks",
-                    c.instance.trim_start_matches('/').replace('/', "-"),
-                    c.instance
+                    "Filesystem on {} is running low on free blocks: {:.1}% used",
+                    c.instance,
+                    c.percent()
                 ),
             )
         },
     },
-    // --- Storage getting slow --------------------------------------------
     FaultRule {
         signal: "disk_await_write_ms",
         group: Some("disk"),
-        trigger: Trigger::Above(3.0),
+        trigger: Trigger::Above(20.0),
+        capacity: None,
         requires_service: None,
         rate_per_min: 1.5,
         write: |c| {
-            let secs = (c.range(120.0, 360.0) / 60.0).round() as u64 * 60;
-            let task = c.pick(&["jbd2/nvme0n1-8", "kworker/u16:2+flush", "postgres"]);
             (
                 4,
                 "kernel",
                 format!(
-                    "INFO: task {task}:{} blocked for more than {secs} seconds on {}",
-                    (c.range(400.0, 9000.0)) as u64,
-                    c.instance
+                    "{}: elevated disk write latency, average {:.2} ms",
+                    c.instance, c.value
                 ),
             )
         },
     },
-    FaultRule {
-        signal: "disk_await_write_ms",
-        group: Some("disk"),
-        trigger: Trigger::Above(3.0),
-        requires_service: Some("postgres"),
-        rate_per_min: 2.0,
-        write: |c| {
-            let write = c.range(20.0, 240.0);
-            let sync = c.range(5.0, 190.0);
-            (
-                5,
-                "postgres",
-                format!(
-                    "LOG:  checkpoint complete: wrote {} buffers ({:.1}%); \
-                     write={:.3} s, sync={:.3} s, total={:.3} s",
-                    (c.range(9000.0, 90000.0)) as u64,
-                    c.range(3.0, 40.0),
-                    write,
-                    sync,
-                    write + sync + 0.4
-                ),
-            )
-        },
-    },
-    // --- Memory exhaustion ------------------------------------------------
     FaultRule {
         signal: "oom_kill_rate",
         group: None,
-        trigger: Trigger::Above(1.5),
+        trigger: Trigger::Positive,
+        capacity: None,
         requires_service: None,
         rate_per_min: 3.0,
         write: |c| {
-            let victim = c.pick(&["python3", "node", "java", "gunicorn", "ruby"]);
-            let pid = c.range(2000.0, 60000.0) as u64;
-            let rss = c.range(400_000.0, 3_000_000.0) as u64;
             (
                 2,
                 "kernel",
                 format!(
-                    "Out of memory: Killed process {pid} ({victim}) \
-                     total-vm:{}kB, anon-rss:{rss}kB, file-rss:0kB, shmem-rss:0kB, UID:1000",
-                    rss + c.range(100_000.0, 900_000.0) as u64
+                    "Out of memory: OOM kills observed at {:.2} events/s",
+                    c.value
                 ),
             )
         },
@@ -223,7 +193,8 @@ const FAULT_RULES: &[FaultRule] = &[
     FaultRule {
         signal: "mem_available_kb",
         group: None,
-        trigger: Trigger::Below(0.6),
+        trigger: Trigger::Below(0.1),
+        capacity: Some(Capacity::Attribute("ram_total_kb")),
         requires_service: None,
         rate_per_min: 1.5,
         write: |c| {
@@ -231,9 +202,9 @@ const FAULT_RULES: &[FaultRule] = &[
                 4,
                 "kernel",
                 format!(
-                    "{}: page allocation stalls for {}ms, order:0",
-                    c.pick(&["kswapd0", "kcompactd0"]),
-                    c.range(2000.0, 60000.0) as u64
+                    "Memory pressure: {:.0} KiB available ({:.1}% of RAM)",
+                    c.value,
+                    c.percent()
                 ),
             )
         },
@@ -241,7 +212,8 @@ const FAULT_RULES: &[FaultRule] = &[
     FaultRule {
         signal: "swapio_out_rate",
         group: None,
-        trigger: Trigger::Above(3.0),
+        trigger: Trigger::Above(100.0),
+        capacity: None,
         requires_service: None,
         rate_per_min: 1.0,
         write: |c| {
@@ -249,111 +221,109 @@ const FAULT_RULES: &[FaultRule] = &[
                 4,
                 "systemd",
                 format!(
-                    "system.slice: Consumed {} of memory, swap pressure sustained on {}",
-                    c.pick(&["7.4G", "11.2G", "15.9G"]),
-                    c.hostname
+                    "Memory pressure on {}: swap out {:.2} KiB/s",
+                    c.hostname, c.value
                 ),
             )
         },
     },
-    // --- Connection saturation -------------------------------------------
     FaultRule {
-        signal: "tcp_sockets_inuse",
+        signal: "nginx_conn_active",
         group: None,
-        trigger: Trigger::Above(2.0),
+        trigger: Trigger::Above(0.9),
+        capacity: Some(Capacity::Signal("nginx_connections_capacity")),
         requires_service: Some("nginx"),
         rate_per_min: 5.0,
         write: |c| {
-            let upstream = c.pick(&["10.0.2.14:8080", "10.0.2.15:8080", "10.0.3.21:5432"]);
             (
-                3,
+                4,
                 "nginx",
                 format!(
-                    "upstream timed out (110: Connection timed out) while reading \
-                     response header from upstream, upstream: \"http://{upstream}/\""
+                    "[warn] connection usage high: {:.0} active of {:.0} configured slots ({:.1}%)",
+                    c.value,
+                    c.capacity.unwrap(),
+                    c.percent()
                 ),
             )
         },
     },
     FaultRule {
-        signal: "tcp_sockets_inuse",
+        signal: "pg_connections_used",
         group: None,
-        trigger: Trigger::Above(3.0),
+        trigger: Trigger::Above(0.9),
+        capacity: Some(Capacity::Signal("pg_connections_max")),
         requires_service: Some("postgres"),
         rate_per_min: 3.0,
         write: |c| {
             (
-                3,
+                4,
                 "postgres",
                 format!(
-                    "FATAL:  remaining connection slots are reserved for \
-                     non-replication superuser connections (host {})",
-                    c.pick(&["10.0.2.14", "10.0.2.15", "10.0.2.16"])
+                    "WARNING: connection usage high: {:.0} used of {:.0} configured slots ({:.1}%)",
+                    c.value,
+                    c.capacity.unwrap(),
+                    c.percent()
                 ),
             )
         },
     },
-    // --- Link instability -------------------------------------------------
     FaultRule {
         signal: "net_err_rate",
         group: Some("net"),
-        trigger: Trigger::Above(2.0),
+        trigger: Trigger::Above(10.0),
+        capacity: None,
         requires_service: None,
         rate_per_min: 4.0,
-        write: |c| (4, "kernel", format!("{}: NIC Link is Down", c.instance)),
+        write: |c| {
+            (
+                4,
+                "kernel",
+                format!("{}: interface errors {:.2}/s", c.instance, c.value),
+            )
+        },
     },
     FaultRule {
         signal: "net_drop_rate",
         group: Some("net"),
-        trigger: Trigger::Above(2.0),
+        trigger: Trigger::Above(30.0),
+        capacity: None,
         requires_service: None,
         rate_per_min: 3.0,
         write: |c| {
-            let speed = c.pick(&["100", "1000", "10000"]);
             (
                 4,
                 "kernel",
-                format!(
-                    "{}: NIC Link is Up {speed} Mbps Full Duplex, Flow Control: RX/TX",
-                    c.instance
-                ),
+                format!("{}: dropped packets {:.2}/s", c.instance, c.value),
             )
         },
     },
     FaultRule {
         signal: "tcp_retrans_rate",
         group: None,
-        trigger: Trigger::Above(2.5),
-        requires_service: Some("postgres"),
+        trigger: Trigger::Above(20.0),
+        capacity: None,
+        requires_service: None,
         rate_per_min: 2.0,
         write: |c| {
             (
                 4,
-                "postgres",
-                format!(
-                    "LOG:  streaming replication lag is {:.1}s; standby \"{}\" is behind primary",
-                    c.range(5.0, 900.0) * c.severity.max(0.2),
-                    c.pick(&["standby-01", "standby-02"])
-                ),
+                "kernel",
+                format!("TCP retransmissions {:.2}/s on {}", c.value, c.hostname),
             )
         },
     },
-    // --- Saturated CPU ----------------------------------------------------
     FaultRule {
         signal: "cpu_busy",
         group: None,
-        trigger: Trigger::Above(1.6),
+        trigger: Trigger::Above(80.0),
+        capacity: None,
         requires_service: None,
         rate_per_min: 1.0,
         write: |c| {
-            let depth = c.range(8.0, 90.0) as u64;
             (
                 4,
                 "systemd",
-                format!(
-                    "Scheduling latency on {} exceeded threshold; run queue depth {depth}",
-                    c.hostname
-                ),
+                format!("CPU pressure on {}: {:.1}% busy", c.hostname, c.value),
             )
         },
     },
@@ -493,11 +463,7 @@ const ROUTINE_RULES: &[RoutineRule] = &[
 /// Per-node log generator.
 pub struct LogGenerator {
     hostname: String,
-    role: Option<String>,
-    /// Host labels snapshotted at construction, so fault rules - which ask the
-    /// same perturbation query the metrics path asks - can be label-targeted
-    /// exactly like the charts are.
-    labels: BTreeMap<String, String>,
+    model: NodeEngine,
     services: Vec<String>,
     /// Instance names by group, snapshotted so rules can iterate them.
     instances: Vec<(String, Vec<String>)>,
@@ -507,9 +473,9 @@ pub struct LogGenerator {
 }
 
 impl LogGenerator {
-    pub fn new(profile: &NodeProfile, services: &[String], master_seed: u64) -> Self {
+    pub fn new(model: NodeEngine, services: &[String], master_seed: u64) -> Self {
+        let profile = model.profile();
         let mut rng = Rng::from_stream(master_seed, &format!("logs:{}", profile.hostname));
-        let labels = profile.labels.clone();
         let instances = profile
             .instances
             .iter()
@@ -538,8 +504,7 @@ impl LogGenerator {
 
         Self {
             hostname: profile.hostname.clone(),
-            role: profile.role.clone(),
-            labels,
+            model,
             services: services.to_vec(),
             instances,
             boot_id,
@@ -557,6 +522,9 @@ impl LogGenerator {
     }
 
     fn pid_for(&self, identifier: &str) -> u32 {
+        if identifier == "kernel" {
+            return 0;
+        }
         self.pids
             .iter()
             .find(|(n, _)| n == identifier)
@@ -590,6 +558,7 @@ impl LogGenerator {
 
     /// Log entries for one tick.
     pub fn tick(&mut self, scenarios: &ScenarioSet, now: i64, interval: f64) -> Vec<LogEntry> {
+        self.model.tick(scenarios, now, interval);
         let mut out = Vec::new();
         let minutes = interval / 60.0;
 
@@ -604,7 +573,8 @@ impl LogGenerator {
             let mut ctx = Ctx {
                 hostname: &self.hostname,
                 instance: "",
-                severity: 0.0,
+                value: 0.0,
+                capacity: None,
                 rng: &mut rng,
             };
             let line = (rule.write)(&mut ctx);
@@ -617,18 +587,31 @@ impl LogGenerator {
                 continue;
             }
             for instance in self.instances_for(rule.group) {
-                let p = scenarios.perturbation(
-                    &self.hostname,
-                    self.role.as_deref(),
-                    &instance,
-                    rule.signal,
-                    &self.labels,
-                    // Fleet order is a metrics-path fact; fault rules are
-                    // signal-based and never index-pinned.
-                    None,
-                    now,
-                );
-                let Some(severity) = rule.trigger.severity(p.multiplier) else {
+                let Some(mut value) = self.model.observed_signal(&instance, rule.signal) else {
+                    continue;
+                };
+                if !value.is_finite() {
+                    continue;
+                }
+                let capacity = match rule.capacity {
+                    None => None,
+                    Some(Capacity::Signal(name)) => self.model.observed_signal(&instance, name),
+                    Some(Capacity::Attribute(name)) => rule
+                        .group
+                        .and_then(|group| self.model.profile().instances.get(group))
+                        .and_then(|instances| instances.iter().find(|i| i.name == instance))
+                        .and_then(|i| i.attrs.get(name).copied())
+                        .or_else(|| self.model.profile().attr(name)),
+                };
+                if rule.capacity.is_some() && !capacity.is_some_and(|v| v.is_finite() && v > 0.0) {
+                    continue;
+                }
+                // Filesystem partitions clamp their driver to the real mount capacity.
+                if rule.signal == "disk_space_used_kb" {
+                    value = value.clamp(0.0, capacity.unwrap());
+                }
+                let measured = capacity.map_or(value, |limit| value / limit);
+                let Some(severity) = rule.trigger.severity(measured) else {
                     continue;
                 };
                 if self.rng.next_f64() >= rule.rate_per_min * minutes * severity {
@@ -638,7 +621,8 @@ impl LogGenerator {
                 let mut ctx = Ctx {
                     hostname: &self.hostname,
                     instance: &instance,
-                    severity,
+                    value,
+                    capacity,
                     rng: &mut rng,
                 };
                 let line = (rule.write)(&mut ctx);
@@ -742,7 +726,7 @@ pub fn export_format(entry: &LogEntry, hostname: &str, boot_id: &str) -> Vec<u8>
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::Instance;
+    use crate::{Instance, NodeProfile};
     use sim_spec::Scenario;
     use std::collections::BTreeMap;
 
@@ -783,15 +767,24 @@ mod tests {
             guid: "6a5c93f8-2e71-4d09-a3b6-84f7c1e05d92".into(),
             hostname: "sim-db-01".into(),
             role: Some("db".into()),
-            attrs: BTreeMap::new(),
+            attrs: BTreeMap::from([
+                ("disk_total_kb".into(), 800.0),
+                ("ram_total_kb".into(), 1000.0),
+            ]),
             labels: BTreeMap::new(),
             instances,
             utc_offset_secs: 0,
         }
     }
 
+    fn model(profile: NodeProfile, seed: u64) -> NodeEngine {
+        let spec =
+            sim_spec::GeneratorSpec::from_yaml(include_str!("fixtures/log-model.yaml")).unwrap();
+        NodeEngine::with_rank(std::sync::Arc::new(spec), profile, seed, Some(0))
+    }
+
     fn generator() -> LogGenerator {
-        LogGenerator::new(&profile(), &["postgres".to_string()], 12345)
+        LogGenerator::new(model(profile(), 12345), &["postgres".to_string()], 12345)
     }
 
     /// A scenario that drives one signal on one instance hard.
@@ -844,6 +837,87 @@ mod tests {
         all
     }
 
+    fn additive_on(signal: &str, amount: f64) -> ScenarioSet {
+        let mut active = scenario_on(signal, None, 1.0).active().to_vec();
+        active[0].scenario.timeline[0].effect = sim_spec::Effect::Add { amount };
+        ScenarioSet::new(active)
+    }
+
+    #[test]
+    fn additive_network_errors_report_values_without_inventing_link_state() {
+        let entries = collect(&mut generator(), &additive_on("net_err_rate", 40.0), 600);
+        assert!(entries
+            .iter()
+            .any(|e| e.message.contains("eth0: interface errors 40.00/s")));
+        assert!(entries.iter().all(|e| !e.message.contains("NIC Link")));
+    }
+
+    #[test]
+    fn node_index_targets_use_the_same_rank_as_metrics() {
+        let mut active = additive_on("oom_kill_rate", 1.0).active().to_vec();
+        active[0].scenario.timeline[0].target.node_index = Some(1);
+        let set = ScenarioSet::new(active);
+        let mut selected = generator();
+        let spec = std::sync::Arc::new(
+            sim_spec::GeneratorSpec::from_yaml(include_str!("fixtures/log-model.yaml")).unwrap(),
+        );
+        let other = NodeEngine::with_rank(spec, profile(), 12345, Some(1));
+        let mut unselected = LogGenerator::new(other, &[], 12345);
+        assert!(collect(&mut selected, &set, 600)
+            .iter()
+            .any(|e| e.message.contains("OOM kills")));
+        assert!(collect(&mut unselected, &set, 600)
+            .iter()
+            .all(|e| !e.message.contains("OOM kills")));
+    }
+
+    #[test]
+    fn disk_rules_use_instance_weight_and_capacity() {
+        let mut p = profile();
+        let mounts = p.instances.get_mut("mount").unwrap();
+        mounts[0].weight = 0.1;
+        mounts[1].attrs.insert("disk_total_kb".into(), 2000.0);
+        let mut g = LogGenerator::new(model(p, 12345), &["postgres".into()], 12345);
+        let entries = collect(&mut g, &scenario_on("disk_space_used_kb", None, 8.0), 600);
+        assert!(
+            entries
+                .iter()
+                .all(|e| !e.message.contains("WARNING: storage")
+                    && !e.message.contains("free blocks"))
+        );
+    }
+
+    #[test]
+    fn missing_capacity_does_not_invent_storage_pressure() {
+        let mut p = profile();
+        p.attrs.remove("disk_total_kb");
+        let mut g = LogGenerator::new(model(p, 12345), &["postgres".into()], 12345);
+        let entries = collect(&mut g, &scenario_on("disk_space_used_kb", None, 8.0), 600);
+        assert!(
+            entries
+                .iter()
+                .all(|e| !e.message.contains("WARNING: storage")
+                    && !e.message.contains("free blocks"))
+        );
+    }
+
+    #[test]
+    fn service_connection_warnings_require_actual_service_occupancy() {
+        let mut g = generator();
+        let entries = collect(&mut g, &additive_on("pg_connections_used", 100.0), 900);
+        assert!(entries.iter().any(|e| e
+            .message
+            .contains("100 used of 100 configured slots (100.0%)")));
+        let mut g = LogGenerator::new(model(profile(), 12345), &["nginx".into()], 12345);
+        let entries = collect(&mut g, &additive_on("nginx_conn_active", 100.0), 900);
+        assert!(entries.iter().any(|e| e
+            .message
+            .contains("100 active of 100 configured slots (100.0%)")));
+        assert!(entries
+            .iter()
+            .all(|e| !e.message.contains("upstream timed out")));
+    }
+
     #[test]
     fn a_quiet_node_still_logs_something() {
         // An empty log pane reads as broken, not as healthy.
@@ -877,13 +951,13 @@ mod tests {
         let entries = collect(&mut g, &set, 600);
         let space = entries
             .iter()
-            .filter(|e| e.message.contains("No space left on device"))
+            .filter(|e| e.message.contains("WARNING: storage"))
             .collect::<Vec<_>>();
         assert!(!space.is_empty(), "no disk-full logs: {:?}", entries.len());
         assert!(
             space
                 .iter()
-                .all(|e| e.identifier == "postgres" && e.priority <= 3),
+                .all(|e| e.identifier == "postgres" && e.priority <= 4),
             "disk-full lines should be postgres errors"
         );
         assert!(
@@ -909,13 +983,13 @@ mod tests {
 
     #[test]
     fn memory_exhaustion_reaches_the_oom_killer() {
-        let mut g = LogGenerator::new(&profile(), &[], 99);
-        let set = scenario_on("oom_kill_rate", None, 40.0);
+        let mut g = LogGenerator::new(model(profile(), 12345), &[], 99);
+        let set = additive_on("oom_kill_rate", 1.0);
         let entries = collect(&mut g, &set, 600);
         assert!(
             entries
                 .iter()
-                .any(|e| e.message.contains("Out of memory: Killed process")),
+                .any(|e| e.message.contains("Out of memory: OOM kills observed")),
             "no OOM killer logs"
         );
     }
@@ -924,13 +998,13 @@ mod tests {
     fn a_headroom_signal_triggers_when_driven_down() {
         // mem_available_kb falls under pressure, so the rule must fire on a
         // multiplier below 1, not above it.
-        let mut g = LogGenerator::new(&profile(), &[], 7);
+        let mut g = LogGenerator::new(model(profile(), 12345), &[], 7);
         let set = scenario_on("mem_available_kb", None, 0.2);
         let entries = collect(&mut g, &set, 900);
         assert!(
             entries
                 .iter()
-                .any(|e| e.message.contains("page allocation stalls")),
+                .any(|e| e.message.contains("Memory pressure:")),
             "falling headroom produced no memory-pressure logs"
         );
     }
@@ -939,7 +1013,7 @@ mod tests {
     fn a_node_without_the_service_never_logs_its_errors() {
         // A cache node logging Postgres errors is the kind of detail that ends
         // a demo's credibility.
-        let mut g = LogGenerator::new(&profile(), &["redis".to_string()], 5);
+        let mut g = LogGenerator::new(model(profile(), 12345), &["redis".to_string()], 5);
         let set = scenario_on("disk_space_used_kb", Some("/var/lib/pgsql"), 8.0);
         let entries = collect(&mut g, &set, 600);
         assert!(
@@ -962,13 +1036,12 @@ mod tests {
         let entries = collect(&mut g, &renamed, 600);
         assert!(entries
             .iter()
-            .any(|e| e.message.contains("No space left on device")));
+            .any(|e| e.message.contains("WARNING: storage")));
     }
 
     #[test]
     fn output_is_reproducible_for_a_seed() {
-        // The logs process runs separately from the metrics plugin; they only
-        // stay correlated because both are pure functions of the same inputs.
+        // Identical models, seeds and complete tick histories reproduce output.
         let set = scenario_on("disk_space_used_kb", Some("/var/lib/pgsql"), 8.0);
         let a = collect(&mut generator(), &set, 300);
         let b = collect(&mut generator(), &set, 300);

@@ -22,6 +22,7 @@ use sim_spec::Scenario;
 /// Watches the control file and builds the active [`ScenarioSet`].
 pub struct ControlChannel {
     path: PathBuf,
+    recorder: Option<std::sync::Arc<sim_engine::recording::Recorder>>,
     /// Scenarios available to trigger, by name.
     library: BTreeMap<String, Scenario>,
     last_mtime: Option<SystemTime>,
@@ -38,11 +39,39 @@ impl ControlChannel {
     pub fn new(path: PathBuf, library: BTreeMap<String, Scenario>) -> Self {
         Self {
             path,
+            recorder: None,
             library,
             last_mtime: None,
             started: BTreeMap::new(),
             current: ScenarioSet::default(),
             last_error: None,
+        }
+    }
+
+    pub fn record_to(&mut self, recorder: Option<std::sync::Arc<sim_engine::recording::Recorder>>) {
+        self.recorder = recorder;
+    }
+
+    fn record_state(&self, now: i64) {
+        if let Some(recorder) = &self.recorder {
+            let active: Vec<_> = self
+                .current
+                .active()
+                .iter()
+                .map(|entry| {
+                    serde_json::json!({
+                        "scenario": entry.scenario.name,
+                        "started_at": entry.started_at,
+                        "recovering_since": entry.recovering_since,
+                    })
+                })
+                .collect();
+            let payload = serde_json::json!({"observed_at": now, "active": active});
+            recorder.capture(
+                sim_engine::recording::Kind::Control,
+                "",
+                payload.to_string().as_bytes(),
+            );
         }
     }
 
@@ -72,6 +101,7 @@ impl ControlChannel {
                 self.last_mtime = None;
                 self.started.clear();
                 self.current = ScenarioSet::default();
+                self.record_state(now);
                 return Some("control file removed; all scenarios resolved".into());
             }
             return None;
@@ -116,6 +146,7 @@ impl ControlChannel {
         let previous: Vec<String> = self.started.keys().cloned().collect();
         self.started = still_running;
         self.current = ScenarioSet::new(active);
+        self.record_state(now);
 
         let mut msg = if names.is_empty() {
             "no scenarios active".to_string()

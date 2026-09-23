@@ -388,8 +388,7 @@ fn sanitise(name: &str) -> String {
 pub fn build_environment(
     repo: &Path,
     req: &CreateRequest,
-    progress: &ProgressHandle,
-) -> Result<(std::path::PathBuf, String, usize), String> {
+) -> Result<(std::path::PathBuf, usize), String> {
     let name = sanitise(&req.name);
     if name.is_empty() {
         return Err("a name is required; it fixes the seed and every node GUID".into());
@@ -473,22 +472,9 @@ pub fn build_environment(
     guid_uniqueness(&env_dir, &yaml, &env_path)?;
     std::fs::write(&env_path, &yaml)
         .map_err(|e| format!("cannot write '{}': {e}", env_path.display()))?;
-
-    report(
-        progress,
-        &format!(
-            "checking fidelity: simulating {}h across {nodes} nodes",
-            req.lint_hours
-        ),
-        2,
-    );
-    let binary = binary_path(repo)?;
-    let summary = if req.lint_hours > 0 {
-        lint(&binary, &env_path, req.lint_hours)?
-    } else {
-        String::new()
-    };
-    Ok((env_path, summary, nodes))
+    // No host lint here: the container create lints the final payload in the
+    // image that runs it, which is the only result that can verify it.
+    Ok((env_path, nodes))
 }
 
 /// Build, check and install a fleet, reporting each stage as it goes.
@@ -614,7 +600,7 @@ pub fn create(
         2,
     );
     let lint_summary = if req.lint_hours > 0 {
-        lint(&binary, &env_path, req.lint_hours)?
+        lint(&binary, &env_path, req.lint_hours, None)?
     } else {
         notes.push("lint skipped".into());
         String::new()
@@ -644,7 +630,12 @@ pub fn create(
     // (netdata/netdata @ c23face0bd94 src/plugins.d/plugins_d.c:94-98). So a
     // broken install does not merely fail, it poisons the next one.
     let installed = Path::new(INSTALL_DIR).join("environment.yaml");
-    if let Err(e) = lint(&binary, &installed, 1) {
+    if let Err(e) = lint(
+        Path::new("/etc/netdata/custom-plugins.d/infra-sim.plugin"),
+        &installed,
+        1,
+        Some(&Path::new(INSTALL_DIR).join(sim_engine::lint_evidence::FILENAME)),
+    ) {
         return Err(format!(
             "the installed copy does not load, so it was not left runnable: {e}"
         ));
@@ -1425,8 +1416,17 @@ fn binary_path(repo: &Path) -> Result<PathBuf, String> {
     ))
 }
 
-fn lint(binary: &Path, env_path: &Path, hours: u32) -> Result<String, String> {
-    let out = Command::new(binary)
+fn lint(
+    binary: &Path,
+    env_path: &Path,
+    hours: u32,
+    evidence: Option<&Path>,
+) -> Result<String, String> {
+    let mut command = Command::new(binary);
+    if let Some(path) = evidence {
+        command.arg("--lint-evidence").arg(path);
+    }
+    let out = command
         .arg("--environment")
         .arg(env_path)
         .arg("--lint")
@@ -1878,14 +1878,114 @@ pub struct TeardownStep {
     pub manual: bool,
 }
 
-/// Disarm scenarios, stop the processes, and archive the artifacts that replay
-/// the world.
+fn archive_local(
+    repo: &Path,
+    control: &Path,
+    environment: &Path,
+    plugin: &Path,
+) -> Result<PathBuf, String> {
+    let installed = environment
+        .parent()
+        .ok_or("environment has no parent directory")?;
+    let root = repo.join("archive");
+    std::fs::create_dir_all(&root).map_err(|error| error.to_string())?;
+    let stamp = std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .map_err(|error| error.to_string())?
+        .as_nanos();
+    let id = format!("{stamp}-{}", std::process::id());
+    let staging = root.join(format!(".local-{id}.staging"));
+    std::fs::create_dir(&staging).map_err(|error| error.to_string())?;
+    // A console install writes no control file until a scenario is triggered;
+    // absent means nothing is active, which is what the archive records.
+    if control.exists() {
+        copy_archive_tree(control, &staging.join("control.yaml"))?;
+    } else {
+        std::fs::write(staging.join("control.yaml"), "active: []\n")
+            .map_err(|error| error.to_string())?;
+    }
+    for (source, name) in [
+        (environment.to_path_buf(), "environment.yaml"),
+        (plugin.to_path_buf(), "infra-sim.plugin"),
+        (installed.join("specs"), "specs"),
+        (installed.join("scenarios"), "scenarios"),
+    ] {
+        copy_archive_tree(&source, &staging.join(name))?;
+    }
+    let evidence = installed.join(sim_engine::lint_evidence::FILENAME);
+    if evidence.exists() {
+        copy_archive_tree(
+            &evidence,
+            &staging.join(sim_engine::lint_evidence::FILENAME),
+        )?;
+    }
+    let output = Command::new("python3")
+        .arg(repo.join("scripts/archive_manifest.py"))
+        .arg(&staging)
+        .arg("local")
+        .output()
+        .map_err(|error| format!("cannot run archive validation: {error}"))?;
+    if !output.status.success() {
+        return Err(format!(
+            "archive validation failed: {}",
+            tail(&String::from_utf8_lossy(&output.stderr), 8)
+        ));
+    }
+    let destination = root.join(format!("local-{id}"));
+    std::fs::rename(&staging, &destination).map_err(|error| error.to_string())?;
+    inherit_owner(repo, &root);
+    inherit_owner(repo, &destination);
+    Ok(destination)
+}
+
+fn copy_archive_tree(source: &Path, destination: &Path) -> Result<(), String> {
+    let metadata = std::fs::symlink_metadata(source)
+        .map_err(|error| format!("cannot inspect {}: {error}", source.display()))?;
+    if metadata.is_file() {
+        std::fs::copy(source, destination).map_err(|error| error.to_string())?;
+    } else if metadata.is_dir() {
+        std::fs::create_dir(destination).map_err(|error| error.to_string())?;
+        for entry in std::fs::read_dir(source).map_err(|error| error.to_string())? {
+            let entry = entry.map_err(|error| error.to_string())?;
+            copy_archive_tree(&entry.path(), &destination.join(entry.file_name()))?;
+        }
+    } else {
+        return Err(format!(
+            "archive refuses nonregular artifact {}",
+            source.display()
+        ));
+    }
+    Ok(())
+}
+
+/// Archive installed definitions before disarming and stopping the simulation.
 ///
 /// Cloud-side steps stay manual and say so. `spec.md` leaves node removal and
 /// Space deletion as an open question, and a button that silently does nothing
 /// is worse than a checklist that tells the truth.
 pub fn teardown(repo: &Path, control_path: &Path, env_path: &Path) -> Vec<TeardownStep> {
     let mut steps = Vec::new();
+    let plugin = Path::new(PLUGIN_DIR).join("infra-sim.plugin");
+    let archive = match archive_local(repo, control_path, env_path, &plugin) {
+        Ok(path) => path,
+        Err(error) => {
+            return vec![TeardownStep {
+                name: "Archive installed simulation definitions".into(),
+                done: false,
+                detail: format!("teardown stopped before changes: {error}"),
+                manual: false,
+            }]
+        }
+    };
+    steps.push(TeardownStep {
+        name: "Archive installed simulation definitions".into(),
+        done: true,
+        detail: format!(
+            "{}: checksummed definitions and executable; no raw recording",
+            archive.display()
+        ),
+        manual: false,
+    });
 
     // 1. Disarm scenarios so nothing is mid-fault when the fleet stops.
     let disarmed = std::fs::write(control_path, "active: []\n").is_ok();
@@ -1899,6 +1999,10 @@ pub fn teardown(repo: &Path, control_path: &Path, env_path: &Path) -> Vec<Teardo
         },
         manual: false,
     });
+
+    if !disarmed {
+        return steps;
+    }
 
     // 2. Remove the plugin, then stop the process.
     //
@@ -1918,26 +2022,32 @@ pub fn teardown(repo: &Path, control_path: &Path, env_path: &Path) -> Vec<Teardo
     // The kill stays as a fallback for a plugin that is wedged, because a
     // collector outliving its own removal has already cost this project an hour
     // of debugging once.
-    let exited = wait_for_plugin_exit(&plugin, std::time::Duration::from_secs(4));
+    let clean_exit = wait_for_plugin_exit(&plugin, std::time::Duration::from_secs(4));
+    let mut exited = clean_exit;
     if !exited {
         stop_plugin(&plugin);
+        exited = wait_for_plugin_exit(&plugin, std::time::Duration::from_secs(4));
     }
     steps.push(TeardownStep {
         name: "Remove the plugin and stop its process".into(),
-        done: removed,
-        detail: if removed && exited {
+        done: removed && exited,
+        detail: if removed && clean_exit {
             "removed; the plugin saw that and exited cleanly, so the agent keeps it enabled \
              and will start the next fleet on its own"
                 .into()
+        } else if removed && exited {
+            "plugin removed and stopped by exact path; the agent may need a restart before the next fleet starts".into()
         } else if removed {
-            "removed, then stopped by exact path - it did not exit on its own, so the agent \
-             may need a restart before the next fleet starts"
-                .into()
+            "plugin removed, but process exit was not confirmed; installed payload retained".into()
         } else {
             format!("could not remove {}", plugin.display())
         },
         manual: false,
     });
+
+    if !removed || !exited {
+        return steps;
+    }
 
     // 3. Stop the correlated-logs writer and take its journal files with it.
     //
@@ -2006,60 +2116,16 @@ pub fn teardown(repo: &Path, control_path: &Path, env_path: &Path) -> Vec<Teardo
         manual: false,
     });
 
-    // 6. Archive what replays the world.
-    let archive = repo.join("archive");
-    let stamp = std::time::SystemTime::now()
-        .duration_since(std::time::UNIX_EPOCH)
-        .map(|d| d.as_secs())
-        .unwrap_or(0);
-    // Named from the environment's own `name:`, not the filename - the
-    // installed copy is always called environment.yaml, so the file stem would
-    // make every archive indistinguishable from every other.
-    let name = std::fs::read_to_string(env_path)
-        .ok()
-        .and_then(|t| {
-            t.lines()
-                .find_map(|l| l.strip_prefix("name:").map(|v| v.trim().to_string()))
-        })
-        .filter(|n| !n.is_empty())
-        .unwrap_or_else(|| "environment".to_string());
-    let dest = archive.join(format!("{name}-{stamp}"));
-    let archived = std::fs::create_dir_all(dest.join("scenarios"))
-        .and_then(|_| std::fs::copy(env_path, dest.join("environment.yaml")).map(|_| ()))
-        .is_ok()
-        && copy_dir(&repo.join("scenarios"), &dest.join("scenarios")).is_ok();
-    if archived {
-        inherit_owner(repo, &archive);
-        inherit_owner(repo, &dest);
-        inherit_owner(repo, &dest.join("environment.yaml"));
-    }
-    steps.push(TeardownStep {
-        name: "Archive environment, seed and scenario manifests".into(),
-        done: archived,
-        detail: if archived {
-            format!("{} - these replay the identical world", dest.display())
-        } else {
-            "archive failed".into()
-        },
-        manual: false,
-    });
-
     // 7. Only once the archive exists, because this is the copy being removed.
     let install = Path::new(INSTALL_DIR);
-    let removed_install = if !archived {
-        false
-    } else {
-        !install.exists() || std::fs::remove_dir_all(install).is_ok()
-    };
+    let removed_install = !install.exists() || std::fs::remove_dir_all(install).is_ok();
     steps.push(TeardownStep {
         name: "Remove the install directory".into(),
         done: removed_install,
         detail: if removed_install {
             format!("{INSTALL_DIR} removed - nothing left for the agent to find")
-        } else if archived {
-            format!("could not remove {INSTALL_DIR}")
         } else {
-            format!("skipped: {INSTALL_DIR} is kept because the archive failed")
+            format!("could not remove {INSTALL_DIR}")
         },
         manual: false,
     });
@@ -2083,6 +2149,70 @@ pub fn teardown(repo: &Path, control_path: &Path, env_path: &Path) -> Vec<Teardo
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn local_archive_preserves_installed_nested_dependencies_and_control() {
+        let root =
+            std::env::temp_dir().join(format!("infra-sim-local-archive-{}", std::process::id()));
+        let installed = root.join("installed");
+        std::fs::create_dir_all(installed.join("specs/generated/nested")).unwrap();
+        std::fs::create_dir_all(installed.join("scenarios")).unwrap();
+        std::fs::create_dir_all(root.join("scripts")).unwrap();
+        std::fs::write(
+            root.join("scripts/archive_manifest.py"),
+            include_str!("../../../scripts/archive_manifest.py"),
+        )
+        .unwrap();
+        std::fs::write(installed.join("environment.yaml"), "name: sim-archive\n").unwrap();
+        std::fs::write(installed.join("control.yaml"), "active: []\n").unwrap();
+        std::fs::write(
+            installed.join("specs/generated/nested/service.yaml"),
+            "installed spec\n",
+        )
+        .unwrap();
+        let plugin = root.join("plugin");
+        std::fs::write(&plugin, "test executable").unwrap();
+        let archive = archive_local(
+            &root,
+            &installed.join("control.yaml"),
+            &installed.join("environment.yaml"),
+            &plugin,
+        )
+        .unwrap();
+        assert_eq!(
+            std::fs::read_to_string(archive.join("specs/generated/nested/service.yaml")).unwrap(),
+            "installed spec\n"
+        );
+        let manifest: serde_json::Value =
+            serde_json::from_str(&std::fs::read_to_string(archive.join("archive.json")).unwrap())
+                .unwrap();
+        assert_eq!(manifest["raw_recording"], false);
+        assert!(manifest["sha256"]["infra-sim.plugin"].is_string());
+        assert!(manifest["sha256"]["control.yaml"].is_string());
+        assert!(archive_local(
+            &root,
+            &installed.join("control.yaml"),
+            &installed.join("environment.yaml"),
+            &root.join("missing-plugin")
+        )
+        .is_err());
+        assert!(installed.join("environment.yaml").is_file());
+        assert!(plugin.is_file());
+        // A console install that never triggered a scenario has no control file.
+        std::fs::remove_file(installed.join("control.yaml")).unwrap();
+        let untouched = archive_local(
+            &root,
+            &installed.join("control.yaml"),
+            &installed.join("environment.yaml"),
+            &plugin,
+        )
+        .unwrap();
+        assert_eq!(
+            std::fs::read_to_string(untouched.join("control.yaml")).unwrap(),
+            "active: []\n"
+        );
+        std::fs::remove_dir_all(root).unwrap();
+    }
 
     #[test]
     fn names_are_reduced_to_something_safe_in_a_hostname() {

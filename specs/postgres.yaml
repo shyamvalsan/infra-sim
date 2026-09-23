@@ -16,7 +16,8 @@ signals:
   pg_connections_used:
     base: 68.0
     min: 1.0
-    max: 380.0
+    max: 400.0
+    max_is_ceiling: true
     seasonality: { daily_amplitude: 0.55, peak_hour: 14.0, weekend_factor: 0.5 }
     noise: { kind: walk, sigma: 0.05, reversion: 0.08 }
   pg_connections_max:

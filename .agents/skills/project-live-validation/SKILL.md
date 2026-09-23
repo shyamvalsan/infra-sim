@@ -46,11 +46,11 @@ Cap local runs at **5 vnodes**. Larger fleets run on a separate machine.
 
 ## What the lint cannot see
 
-- **It does not run scenarios.** An environment can pass the lint cleanly and
-  still saturate under a hero scenario. `--describe` shipped mounts sized so
-  `disk-fill` clamped them at 100%; the lint was green throughout. After
-  changing anything that sizes a mount or bounds a signal, trigger the scenario
-  that targets it and watch the value.
+- **Scenario lint is bounded and model-only.** The lint now evaluates applicable
+  scenarios independently, including recovery, and checks physical invariants.
+  It cannot prove live collector semantics, exporter/OTLP delivery, or what an
+  operator sees. After changing a mount size or signal bound, also trigger the
+  relevant scenario against a live agent and query the affected chart.
 - **It only asks whether a signal is pinned, not whether its bound is
   physically meaningful.** A disk utilisation of 101.5% passed it. The semantic
   checks in `sim-engine/src/fidelity.rs` exist for that class; extend them
@@ -173,3 +173,36 @@ retains the shipped role values, and checks 320 TCP connections, 132 PostgreSQL
 connections and 33% utilization of 400 slots. It stops/restarts and tears down
 only its uniquely named container. This proves composition and display scaling,
 not realistic distributions, scenario acceptance or large-fleet performance.
+
+
+### Raw recording validation
+
+Use `tests/test_recording_runtime.py` for real process shutdown, byte comparison,
+exporter route ordering, and explicit incomplete-prefix replay. Build the selected
+binary first; set `INFRA_SIM_TEST_BINARY` to validate a specific build.
+`tests/live_agent_smoke.py` also verifies actual producer-boundary capture and a
+self-contained archive after telemetry and container restarts.
+
+A status read of an unfinalized recording must hold the append lock. Otherwise
+reading file length and committed length between another producer's writes can
+falsely mark a healthy recording incomplete. A finalized recording is immutable
+and is read without the lock, so archives replay from read-only media.
+
+Test recording on real disk, not only tmpfs. An fsync costs about 0.03 ms on
+tmpfs and about 6 ms on ext4 here; two concurrency tests passed for weeks on tmpfs
+and failed on disk. Run the tests with `TMPDIR` pointing at a disk directory, and
+give `live_agent_smoke.py` a disk `TMPDIR` too: its simulation state, including
+the recording, lives under the temporary directory, and a full tmpfs once
+produced an honest but useless incomplete archive.
+
+`tests/live_replay_probe.py ARCHIVE` is the end-to-end replay acceptance: it
+replays a smoke archive into a disposable receiver. Raise the OTLP inspector's
+`--limit` (default 50) before comparing record counts; the default silently
+truncates. Keep the committed-byte checkpoint durable;
+an interrupted suffix stays untouched and replay reads only the committed prefix.
+Normal stops must allow producers to flush before the agent/container exits.
+
+On the nightly build checked during SOW-0028, the `systemd-journal` HTTP function
+also returned HTTP 412 without Cloud SSO. Treat that as an authentication blocker,
+not a transient readiness failure. Metrics queries and `journalctl` checks remain
+useful evidence but do not satisfy authenticated function-query acceptance.

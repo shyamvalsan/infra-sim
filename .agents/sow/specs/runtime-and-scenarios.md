@@ -438,7 +438,7 @@ product did the rest.
 
 ## Lifecycle failure handling (2026-09-09)
 
-Shell command wrappers preserve the original exit status. Container teardown copies the environment and scenario definitions before removing the container or payload; a copy failure preserves both. These artifacts do not yet include the historical control-event stream, so exact live-demo replay remains tracked in SOW-0028.
+Shell command wrappers preserve the original exit status. Container teardown stops producers before copying installed definitions, executable, typed control history and raw boundary recordings; copy/finalization failure preserves the stopped source. Local teardown stages checksummed installed definitions and executable before changing the running simulation. Local archives do not include raw recordings.
 
 Teardown requests require an explicit nonempty simulation name; the legacy local install uses the explicit `local` target. Create checks resource policy again after acquiring the serialized slot, which remains owned by background work if its HTTP caller disconnects. Invalid or unreadable existing policy refuses create and skips TTL sweeping; health exposes `policy_ok: false` without revealing paths. Inventory failures cannot count as an empty host for create or teardown.
 
@@ -447,3 +447,58 @@ Claim values reach Docker through inherited environment variables named by `-e`,
 ## Release checks
 
 GitHub Actions definitions run locked Rust tests/lints, shell/API/UI regression tests and the local SOW audit, with a separate Rust 1.88 minimum-compiler check. A manually dispatched hosted-runner job builds a portable plugin and performs one-vnode live-agent lifecycle acceptance. Definitions are not proof of a remote run; actual workflow results must be checked after publication. The smoke test is not a fidelity or platform certification.
+
+## Readiness evidence
+
+The preflight board exposes `operational_ready` when no check has a hard failure.
+`demo_ready` requires every required check to pass. Warnings and manual checks
+therefore allow operational status but prevent verified demo readiness. This
+corrects the earlier API meaning of `demo_ready`, which only excluded failures.
+Cloud membership and plausible alert history currently require manual checks;
+the console has no stored attestation mechanism and does not auto-pass them.
+
+
+## Recording and application fidelity (2026-09-22)
+
+Managed Docker runs capture plugins.d bytes, journal export bytes, serialized OTLP
+requests and exporter response bodies in one versioned recording. The aggregate
+cap defaults to 1 GiB; exhaustion preserves the prefix and marks it incomplete.
+Committed offsets bound readable data after interrupted writes. Finalization checks
+clean producer sessions, including the configured expected producer set for new
+managed simulations. This proves boundary capture, not receiver acceptance.
+Capture is non-blocking: each producer queues frames (stamped at capture) to a
+writer thread that appends batches under the shared lock with one durable commit;
+more than 64 MiB queued marks the recording incomplete. A crash loses at most the
+unwritten batch and leaves the session without a clean stop. Once finalized, a
+recording is immutable and its status is read without the writer lock. An empty
+incomplete marker still reports a reason.
+
+Replay uses captured bytes and observed timing. It re-derives session
+completeness from the stream (`recording::verify`, shared with finalization) and
+verifies an enclosing archive's SHA-256 inventory. Incomplete-prefix replay requires
+an explicit flag; a shared future start timestamp aligns separately launched
+producers. Exporter routes retain their own scrape order. Netdata ML, health and
+AI remain live; their outcomes are neither archived nor scripted.
+
+Application OTLP and exporters share role-ranked engine construction, preserving
+one-based node-index targeting. Published occupancy respects modeled worker and
+connection capacities; latency quantiles follow the existing ordered OTLP policy.
+Application lint evaluates rendered Prometheus series during baseline, each
+applicable scenario and recovery, checking finite nonnegative values, monotonic
+counters, stable series and ordered quantiles. Against an identical run with no
+scenario it also requires each targeted signal to move in its intended direction
+by more than 1% of baseline during the incident, untargeted nodes to stay exactly
+unchanged, and every value to equal baseline once recovery completes. Step
+applicability (absent optional role, missing index, label or instance) is decided
+once and shared with the scenario lint, so a step reported as skipped is never
+rejected. These checks do not assert magnitude or statistical realism
+(SOW-0031, SOW-0032). Scenario engines start pristine, independent of baseline lint warm-up.
+
+Lint evidence is opt-in and binds the resolved inputs, executed binary and, for
+Docker, the immutable runtime image. A Docker create runs exactly one lint: the
+final installed payload in that image, for the request's `lint_hours`
+(`sim-docker.sh create --lint-hours N`, default 2). Zero skips it, removes any
+stale evidence and leaves the simulation unverified; a failure prints its
+violations and starts nothing. The console no longer also lints Docker creates
+on the host. Local installs keep the host lint. Missing, invalid or changed evidence remains unverified. There is no
+elapsed-time expiry policy; freshness means matching inputs and runtime identity.

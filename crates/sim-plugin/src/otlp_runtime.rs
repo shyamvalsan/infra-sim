@@ -100,6 +100,7 @@ pub async fn run(
     mut nodes: Vec<Node>,
     control: std::sync::Arc<std::sync::Mutex<ScenarioSet>>,
     interval: Duration,
+    recorder: Option<std::sync::Arc<sim_engine::recording::Recorder>>,
 ) -> Result<(), String> {
     if nodes.is_empty() {
         return Err(
@@ -112,6 +113,7 @@ pub async fn run(
         // Reconnects on its own; a receiver that is not up yet must not be
         // fatal, because the agent and this process start together.
         .connect_timeout(Duration::from_secs(5))
+        .timeout(Duration::from_secs(5))
         .connect_lazy();
 
     let mut logs_client = LogsServiceClient::new(channel.clone());
@@ -141,6 +143,9 @@ pub async fn run(
 
     loop {
         ticker.tick().await;
+        if crate::shutdown::requested() {
+            return Ok(());
+        }
         let scenarios = control
             .lock()
             .map(|g| g.clone())
@@ -191,16 +196,28 @@ pub async fn run(
         }
 
         if !resource_logs.is_empty() && !logs_state.given_up {
-            let result = logs_client
-                .export(ExportLogsServiceRequest { resource_logs })
-                .await;
-            logs_state.record(result.err().map(|e| e.to_string()));
+            let request = ExportLogsServiceRequest { resource_logs };
+            if let Some(recorder) = &recorder {
+                recorder.capture(
+                    sim_engine::recording::Kind::OtlpLogs,
+                    "",
+                    &prost::Message::encode_to_vec(&request),
+                );
+            }
+            let result = logs_client.export(request).await;
+            logs_state.record(result.err());
         }
         if !resource_spans.is_empty() && !traces_state.given_up {
-            let result = traces_client
-                .export(ExportTraceServiceRequest { resource_spans })
-                .await;
-            traces_state.record(result.err().map(|e| e.to_string()));
+            let request = ExportTraceServiceRequest { resource_spans };
+            if let Some(recorder) = &recorder {
+                recorder.capture(
+                    sim_engine::recording::Kind::OtlpTraces,
+                    "",
+                    &prost::Message::encode_to_vec(&request),
+                );
+            }
+            let result = traces_client.export(request).await;
+            traces_state.record(result.err());
         }
     }
 }
@@ -231,8 +248,16 @@ impl Signal {
         }
     }
 
-    fn record(&mut self, error: Option<String>) {
-        match error {
+    fn record(&mut self, error: Option<tonic::Status>) {
+        match error.map(|status| {
+            // A request timeout says the receiver is slow, not that this build
+            // refuses the signal, so it never counts toward giving up.
+            let transient = matches!(
+                status.code(),
+                tonic::Code::Cancelled | tonic::Code::DeadlineExceeded
+            );
+            (status.to_string(), transient)
+        }) {
             None => {
                 if self.complained {
                     eprintln!("infra-sim otlp: {} accepted again", self.name);
@@ -240,8 +265,10 @@ impl Signal {
                 self.consecutive_failures = 0;
                 self.complained = false;
             }
-            Some(e) => {
-                self.consecutive_failures += 1;
+            Some((e, transient)) => {
+                if !transient {
+                    self.consecutive_failures += 1;
+                }
                 if !self.complained {
                     // Not fatal: the agent and this process start together, so
                     // the first few seconds are expected to fail.
@@ -344,6 +371,19 @@ fn span(s: &AppSpan) -> Span {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn a_slow_receiver_never_disables_a_signal() {
+        let mut signal = Signal::new("logs");
+        for _ in 0..GIVE_UP_AFTER * 2 {
+            signal.record(Some(tonic::Status::cancelled("Timeout expired")));
+        }
+        assert!(!signal.given_up);
+        for _ in 0..GIVE_UP_AFTER {
+            signal.record(Some(tonic::Status::unimplemented("no traces section")));
+        }
+        assert!(signal.given_up);
+    }
     use sim_engine::otel::Severity;
 
     #[test]

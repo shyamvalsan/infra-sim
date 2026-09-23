@@ -22,15 +22,18 @@ use sim_spec::{Accumulate, GeneratorSpec, NoiseKind, Shape, Signal, Total};
 /// than a value being reset; short enough to fit inside a demo.
 pub const RECOVERY_SECONDS: i64 = 180;
 
+pub mod application;
 pub mod control_file;
 pub mod describe;
 pub mod exporter_config;
 pub mod fidelity;
 pub mod labels;
+pub mod lint_evidence;
 pub mod llm;
 pub mod logs;
 pub mod otel;
 pub mod parallel;
+pub mod recording;
 pub mod reskin;
 pub mod rng;
 pub mod scenario_runtime;
@@ -178,6 +181,7 @@ impl LintStats {
 }
 
 /// Executes one spec for one node.
+#[derive(Clone)]
 pub struct NodeEngine {
     /// This node's composed spec: the base plus whatever services it runs.
     /// Shared rather than copied, since nodes of the same role compose the same
@@ -298,6 +302,22 @@ impl NodeEngine {
                 (name, v)
             })
             .collect()
+    }
+
+    /// Raw modeled value resolved during the last full tick, without advancing RNG.
+    /// Unreferenced, physically fixed node constants provide capacity metadata.
+    pub fn observed_signal(&self, scope: &str, name: &str) -> Option<f64> {
+        self.resolved
+            .get(&format!("{scope}{KEY_SEP}{name}"))
+            .copied()
+            .or_else(|| {
+                let signal = self.signals.get(name)?;
+                (scope.is_empty()
+                    && signal.from_attr.is_none()
+                    && signal.max_is_ceiling
+                    && signal.min == signal.max)
+                    .then_some(signal.min)
+            })
     }
 
     /// Resolve a signal within a scope, memoised for this tick.

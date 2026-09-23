@@ -46,3 +46,12 @@ timeline:
     effect: ramp
     multiplier: 3.0
     over: 14m
+
+  - at: 8m
+    description: The tail moves with p95, so p99 stays above it
+    target:
+      signal: app_latency_p99
+      role: web
+    effect: ramp
+    multiplier: 3.0
+    over: 14m
