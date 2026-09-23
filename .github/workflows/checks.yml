@@ -26,7 +26,8 @@ jobs:
       - run: cargo +stable fmt --check
       - run: cargo +stable clippy --locked --all-targets -- -D warnings
       - run: cargo +stable test --locked --workspace
-      - run: cargo +stable build --locked -p sim-console
+      # The process-level recording tests drive the real plugin binary.
+      - run: cargo +stable build --locked -p sim-console -p sim-plugin
       - name: Shell syntax and failure contracts
         run: |
           for script in scripts/*.sh startsim*.sh; do bash -n "$script"; done
